@@ -1,0 +1,9 @@
+options:
+  allowLocalFiles: true
+pdf:
+  chromePath: /home/amd/.cache/puppeteer/chrome/linux-146.0.7680.31/chrome-linux64/chrome
+puppeteerLaunchArgs:
+  - '--no-sandbox'
+  - '--disable-setuid-sandbox'
+  - '--disable-dev-shm-usage'
+  - '--disable-gpu'

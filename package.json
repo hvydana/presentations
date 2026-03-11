@@ -1,0 +1,17 @@
+{
+  "name": "presentations",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "pdf": "marp --pdf --allow-local-files PAVS_Model_Lifecycle_Strategy_2026.md -o PAVS_Model_Lifecycle_Strategy_2026.pdf",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@marp-team/marp-cli": "^4.2.3",
+    "puppeteer": "^24.38.0"
+  }
+}

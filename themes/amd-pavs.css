@@ -1,0 +1,353 @@
+/* @theme amd-pavs */
+
+/* AMD PAVS Theme - Black Background with Red/Blue Accents */
+
+section {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Arial', 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    padding: 50px 45px 75px 45px;
+}
+
+/* Compact slide style for content-heavy slides */
+section.compact {
+    padding: 40px 45px 70px 45px;
+}
+
+section.compact h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+section.compact h3 {
+    font-size: 22px;
+    margin-top: 8px;
+    margin-bottom: 6px;
+}
+
+section.compact p,
+section.compact ul,
+section.compact ol {
+    font-size: 16px;
+    line-height: 1.3;
+}
+
+section.compact li {
+    margin-bottom: 4px;
+}
+
+section.compact table {
+    font-size: 12px;
+}
+
+section.compact th,
+section.compact td {
+    padding: 6px 8px;
+}
+
+section.compact code {
+    font-size: 13px;
+}
+
+section.compact pre code {
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+/* Headings */
+h1 {
+    color: #FFFFFF;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+h2 {
+    color: #FFFFFF;
+    font-size: 32px;
+    font-weight: bold;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    line-height: 1.25;
+}
+
+h3 {
+    color: #00CED1;  /* Cyan/Turquoise accent */
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    line-height: 1.25;
+}
+
+/* Paragraph text */
+p {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+}
+
+/* Lists */
+ul, ol {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-left: 30px;
+    margin-bottom: 12px;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+/* Nested lists */
+ul ul, ol ul {
+    font-size: 16px;
+    margin-top: 6px;
+    line-height: 1.4;
+}
+
+/* Tables - Cyan header style */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 14px;
+}
+
+thead {
+    background-color: #00CED1;  /* Turquoise/Cyan */
+    color: #000000;
+    font-weight: bold;
+}
+
+th {
+    padding: 8px 10px;
+    text-align: left;
+    border: 2px solid #444444;
+    font-size: 13px;
+}
+
+td {
+    padding: 6px 10px;
+    border: 2px solid #444444;
+    background-color: #1a1a1a;
+    font-size: 13px;
+}
+
+/* Code blocks and inline code */
+code {
+    background-color: #2a2a2a;
+    color: #00CED1;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+}
+
+pre {
+    background-color: #1a1a1a;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #E31A1C;
+    overflow-x: auto;
+    margin: 12px 0;
+}
+
+pre code {
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 5px solid #0071C5;
+    padding-left: 20px;
+    margin: 20px 0;
+    font-style: italic;
+    color: #CCCCCC;
+}
+
+/* Links */
+a {
+    color: #0098DB;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00CED1;
+    text-decoration: underline;
+}
+
+/* Custom box styles for diagrams */
+.red-box {
+    background-color: #E31A1C;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid #FF4444;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.blue-box {
+    background-color: #0071C5;
+    color: #FFFFFF;
+    padding: 20px;
+    border-radius: 15px;
+    border: 3px solid #4DB8FF;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.gray-box {
+    background-color: #666666;
+    color: #FFFFFF;
+    padding: 15px;
+    border-radius: 10px;
+    border: 2px solid #888888;
+    margin: 10px;
+    text-align: center;
+}
+
+.gold-box {
+    background-color: #B8945F;
+    color: #000000;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.cyan-box {
+    background-color: #00CED1;
+    color: #000000;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Container with border */
+.container-box {
+    border: 4px solid #4DB8FF;
+    border-radius: 20px;
+    padding: 30px;
+    margin: 20px 0;
+}
+
+/* Highlighted text */
+mark {
+    background-color: #E31A1C;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border-radius: 3px;
+}
+
+strong {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+em {
+    color: #00CED1;
+    font-style: italic;
+}
+
+/* Two-column layout */
+.columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.columns-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+}
+
+/* Backup slide style */
+section.backup {
+    justify-content: center;
+    align-items: center;
+}
+
+section.backup h1 {
+    font-size: 80px;
+}
+
+/* Footer */
+footer {
+    position: absolute;
+    bottom: 20px;
+    left: 40px;
+    font-size: 18px;
+    color: #666666;
+}
+
+/* AMD Logo in bottom right corner */
+section::after {
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    width: 120px;
+    height: 60px;
+    background-image: url('./amd-logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+/* Status indicators */
+.status-complete {
+    color: #00FF00;
+    font-weight: bold;
+}
+
+.status-in-progress {
+    color: #FFA500;
+    font-weight: bold;
+}
+
+.status-not-started {
+    color: #999999;
+}
+
+/* Priority badges */
+.p0, .priority-p0 {
+    background-color: #CC0000;
+    color: #FFFFFF;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.p1, .priority-p1 {
+    background-color: #B8945F;
+    color: #000000;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.p2, .priority-p2 {
+    background-color: #0098DB;
+    color: #FFFFFF;
+    padding: 4px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
