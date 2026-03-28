@@ -161,6 +161,11 @@ style: |
     background-color: #1a1a1a;
   }
 
+  .center-table table {
+    width: auto;
+    margin: 0 auto;
+  }
+
   th, td {
     padding: 6px 10px;
   }
@@ -284,11 +289,17 @@ style: |
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 
   section.lead h1 {
     border-bottom: none;
     font-size: 2.2em;
+  }
+
+  section.lead table {
+    width: auto;
+    margin: 0 auto;
   }
 
   /* Highlight box */
@@ -390,6 +401,43 @@ March 2026
 
 <!-- _class: small -->
 
+## The Bottleneck: Where Was Time Being Spent?
+
+<div class="columns">
+<div>
+
+### Baseline Time Breakdown
+
+| Component | Time | % of Total |
+|-----------|------|------------|
+| Feature Extraction | 15 ms | 2.4% |
+| Embedding Concat | 12 ms | 1.9% |
+| **Mahalanobis Loop** | **590 ms** | **95%** |
+| Post-processing | 4 ms | 0.6% |
+| **Total** | **621 ms** | 100% |
+
+</div>
+<div>
+
+### Root Cause Analysis
+
+**The Problem:**
+- 3,136 spatial positions to compute
+- Each requires 100×100 matrix inverse
+- Python loop with SciPy calls
+
+**Complexity:**
+- Matrix inverse: O(n³) = O(100³)
+- Total: 3,136 × O(100³) operations
+- Sequential, non-parallelized
+
+</div>
+</div>
+
+---
+
+<!-- _class: small -->
+
 ## Key Optimization Insight
 
 ### Inverse Covariance Can Be Pre-computed
@@ -476,8 +524,9 @@ dist = np.sqrt(np.einsum('di,di->i', diff, left))
 
 | Configuration | Time (ms) | FPS | vs Baseline |
 |---------------|-----------|-----|-------------|
-| Baseline PyTorch (scipy loop) | 621.51 | 1.6 | 1.0x |
-| Pre-computed Σ⁻¹ | ~80 | ~12 | ~8x |
+| Baseline PyTorch CPU (scipy loop) | 621.51 | 1.6 | 1.0x |
+| Baseline PyTorch GPU (scipy loop) | 599.86 | 1.7 | 1.1x |
+| + Pre-computed Σ⁻¹ | ~80 | ~12 | ~8x |
 | + Vectorized einsum (CPU) | 36.22 | 27.6 | 17.2x |
 | + ONNX Runtime (CPU) | 15.86 | 63.1 | 39.2x |
 | **+ GPU (MIGraphX)** | **8.01** | **124.8** | **77.6x** |
@@ -500,29 +549,21 @@ dist = np.sqrt(np.einsum('di,di->i', diff, left))
 <div>
 
 **NPU Acceleration:**
-- Running CNN backbone on **NPU** could improve performance
-- AMD XDNA / Intel NPU support via ONNX Runtime
+
 - Offload ResNet18 feature extraction
-- Free up GPU for other tasks
+- Running CNN backbone on **NPU** to free up GPU
 
 **Mahalanobis Distance Optimization:**
-- Explore more optimal versions of `Mahalanobis Distance` compatible for **NPU/GPU**
+
+- Explore optimal versions compatible for **NPU/GPU**
 - Custom kernels for einsum operations
 - Fused operations to reduce memory bandwidth
 
 </div>
 <div>
 
-**Other Opportunities:**
-
-| Technique | Potential | Complexity |
-|-----------|-----------|------------|
-| NPU backbone | 1.5-2x | Medium |
-| INT8 quantization | 1.5-2x | Medium |
-| Batch inference | Nx for N images | Low |
-| Custom HIP kernel | 1.2x | High |
-
 **Current Status:**
+
 - 125 FPS already exceeds real-time requirements
 - Further optimization for edge deployment scenarios
 
@@ -537,7 +578,7 @@ dist = np.sqrt(np.einsum('di,di->i', diff, left))
 
 ### 77x Faster | 8ms Inference | 125 FPS
 
-<div style="margin-top: 40px;">
+<div class="center-table" style="margin-top: 40px;">
 
 | Metric | Baseline | Optimized |
 |--------|----------|-----------|
@@ -545,5 +586,6 @@ dist = np.sqrt(np.einsum('di,di->i', diff, left))
 | FPS | 1.6 | **125** |
 | Speedup | - | **77x** |
 | Accuracy | 90.5% | **90.5%** |
+
 </div>
 
