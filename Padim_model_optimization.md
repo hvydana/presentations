@@ -500,11 +500,11 @@ dist = mahalanobis(diff, inv_cov)
 
 **Implementation (Einstein Summation):**
 ```python
-left = np.einsum('ci,cdij->di', diff, inv_cov)
-dist = np.sqrt(np.einsum('di,di->i', diff, left))
+tmp = np.einsum('cdi,bdi->bci', inv_cov, diff)
+dist = np.sqrt(np.einsum('bci,bci->bi', diff, tmp))
 ```
-- **Mahalanobis:** $d(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}$
-- **Vectorized:** $\text{dist}[i] = \sqrt{\sum_{c,d} \text{diff}[c,i] \cdot \Sigma^{-1}[c,d,i] \cdot \text{diff}[d,i]}$
+- **Mahalanobis:**  $$d(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}$$
+- **Vectorized:**  $$\text{dist}[i] = \sqrt{\sum_{c} \sum_{d} \text{diff}[c,i] \cdot \Sigma^{-1}[c,d,i] \cdot \text{diff}[d,i]}$$
 - **Key Insight:** 
   - No Python loops
   - BLAS/LAPACK optimized, CPU SIMD (AVX2)
