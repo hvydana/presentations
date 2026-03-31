@@ -1,0 +1,1 @@
+marp Padim_model_optimization.md --allow-local-files --pdf -o Padim_model_optimization.pdf

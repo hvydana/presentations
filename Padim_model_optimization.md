@@ -457,7 +457,7 @@ For each of 3,136 positions:
 
 **Solution:**
 - Σ⁻¹ is **constant** after training
-- Compute once, save to disk (~11 MB)
+- Compute once, save to disk
 - Load and reuse during inference
 
 **Impact:** Eliminates 3,136 matrix inversions at runtime
@@ -552,27 +552,24 @@ dist = np.sqrt(np.einsum('bci,bci->bi', diff, tmp))
 **Full Covariance:**
 - Mahalanobis: $d(x) = \sqrt{(x - \mu)^T \Sigma^{-1} (x - \mu)}$
 - Matrix: [100 × 100] per position
-- Memory: **125 MB** for covariance params
 - Time: 6.27 ms (Mahalanobis only)
 
 **Diagonal Covariance:**
 - Mahalanobis: $d(x) = \sqrt{\sum_i (x_i - \mu_i)^2 / \sigma_i^2}$
 - Vector: [100] per position
-- Memory: **1.25 MB** (100x smaller)
 - Time: 0.62 ms (10x faster)
 
 </div>
 <div>
 
-| Mode | Total Time | FPS | Memory | AUROC |
-|------|------------|-----|--------|-------|
-| **Diagonal** | **1.14 ms** | **878** | **1.25 MB** | 68.81% |
-| Full | 6.79 ms | 147 | 125 MB | 67.54% |
+| Mode | Total Time | FPS |  AUROC |
+|------|------------|-----|-------|
+| **Diagonal** | **1.14 ms** | **878**  | 98.14 |
+| Full | 6.79 ms | 147 | 98.14 |
 
 **Key Finding:**
-- **No accuracy loss** (+1.27% AUROC)
+- **No accuracy loss**
 - **6x faster** total pipeline
-- **100x less memory**
 
 </div>
 </div>
@@ -604,7 +601,6 @@ dist = np.sqrt(np.einsum('bci,bci->bi', diff, tmp))
 **Current Status:**
 
 - **878 FPS** far exceeds real-time requirements
-- Memory footprint reduced to **1.25 MB**
 - Ready for edge deployment
 
 </div>
@@ -625,8 +621,7 @@ dist = np.sqrt(np.einsum('bci,bci->bi', diff, tmp))
 | Time | 621 ms | **1.14 ms** |
 | FPS | 1.6 | **878** |
 | Speedup | - | **549x** |
-| Memory | 125 MB | **1.25 MB** |
-| Accuracy | 90.5% | **90.5%** |
+| Accuracy | 98.14% | **98.14%** |
 
 </div>
 
