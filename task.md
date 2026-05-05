@@ -21,7 +21,30 @@ I want all the above details in slide-1
 
     4. In every example will have its own guiding doccumentaton with helps as a tutrorial to get to a result 
 
-# Painpoints(slide-3)
+
+# Contributions (slide-3)
+    - I want to mention that pavs starts from a code from researcher's Desk to finished product. 
+    - I want to show an example yolo setup in the code and i want to use thse snapshost to show this is aresearch code `/home/AMD/hvydana/AIG_Model_delovery_cropped.png`,
+    `/home/AMD/hvydana/yolo_aig.png` these are what i get as input and what i give to the user is in ../Workspace/physical_ai_sdk/examples/yolov12/. I want to convicing 3 images in single slide that shows How well thr tooklit is designed. 
+    - I want to highlight the point that I am taking a resercher code and making vertical softfare. Team name is Physcial AI and vertical software so I want to higlight
+    - Vertical Software(reserch Deck --> Vertical software) I want to drive this point 
+
+
+
+
+# Contributions (slide-4)
+    2. Devloper friendly inference tools cloud and edge 
+        like Profilers(lamonade, npu-aianalyzer, rocprofiles), 
+        - tutorials to use them -- ease of usage
+    
+    3. VLLm, Lama CPP, Inference infra/platforms for runing LLMS we make it easy to use them in AMD ecosystes.(Bridging bap between opensource ecosustem AMD HW Ecosystem)
+    
+    4. Build a platform that is willing to solve and fix and evlove with client In developing vartical application in taegtted domains(Healthcare, Automtive, Indistrial) facing applications, prhycal AI vertcials. Building Real ROI WRT AI.
+    
+
+
+
+# Painpoints(slide-5)
     1. Installtion of rocm still not stable on edge devices
     2. Rocm installtion has a reboot in the installtion phase that makes users uncomfortable
     4. There is a sudo required for system both rocm and raizen ai installtion

@@ -457,7 +457,7 @@ make eval                           # evaluation pipeline
 
 **What we receive: Research Repo**
 
-![w:250](./images/AIG_Model_delovery_cropped.png)
+![w:300](./images/AIG_Model_delovery_cropped.png)
 
 *Flat list of scripts — no structure, no device flows, no Make targets*
 
@@ -465,32 +465,37 @@ make eval                           # evaluation pipeline
 <div>
 
 **What we receive: Research Code**
-
-```python
-# rocm-scripts/test/pytorch/yolo12n.py
-#........
-# .......
-# .......
-#........
-# .......
-# .......
-recalled = gt_labels & detected_classes
-recall = len(recalled) / len(gt_labels)
-sanity_pass = recall >= RECALL_THRESHOLD
-assert sanity_pass, (
-  f"recall {recall:.0%} < {RECALL_THRESHOLD:.0%}")
-
-return lats, {
-  "architecture": "CNN",
-  "task": "object_detection",
-  "num_detections": num_detections,
-  "recall": round(recall, 4),
-}
-if __name__ == "__main__":
-  sys.exit(run(run_benchmark))
 ```
+FaaSApps/rocm-scripts/blob/main/test/pytorch/yolo12n.py
+    recalled = gt_labels & detected_classes
+    recall = len(recalled) / len(gt_labels) if gt_labels else 0.0
 
-*Single script, no structure, no device flows*
+    print(f"  detections: {num_detections} total", file=sys.stderr)
+    print(f"  detected classes: {sorted(detected_classes)}", file=sys.stderr)
+    print(f"  recall: {len(recalled)}/{len(gt_labels)} GT classes "
+          f"({recall:.0%})", file=sys.stderr)
+    sanity_pass = recall >= RECALL_THRESHOLD and num_detections >= 1
+    status = "PASS" if sanity_pass else "FAIL"
+    print(f"  sanity check: recall={recall:.0%} "
+          f"(threshold={RECALL_THRESHOLD:.0%}) -> {status}", file=sys.stderr)
+    assert sanity_pass, (
+        f"recall {recall:.0%} < {RECALL_THRESHOLD:.0%} or no detections"
+    )
+
+    return lats, {
+        "architecture": "CNN",
+        "task": "object_detection",
+        "inputs": describe_inputs(dummy_tensor),
+        "image_size": list(img.size),
+        "num_detections": num_detections,
+        "detected_classes": sorted(detected_classes),
+        "gt_classes": sorted(gt_labels),
+        "gt_object_count": gt_count,
+        "recall": round(recall, 4),
+    }
+if __name__ == "__main__":
+    sys.exit(run(run_benchmark))
+```
 
 </div>
 <div>
@@ -541,7 +546,7 @@ examples/yolov12/
 
 ## Contributions(contd.) — Building the AMD AI Ecosystem
 
-
+### Four Pillars of PAVS Contribution
 
 <div class="columns">
 <div>
@@ -558,7 +563,8 @@ Profilers for cloud & edge — with tutorials for ease of adoption:
 
 **Bridging AMD Tools to Opensource Ecosystems**
 
-
+</div>
+<div>
 
 **3. LLM Infrastructure on AMD**
 
@@ -567,8 +573,6 @@ Making LLMs easy on AMD hardware:
 - **Llama.cpp** — efficient edge inference
 
 - Bridging **open-source ecosystem** ↔ **AMD HW ecosystem**
-</div>
-<div>
 
 **4. Vertical Application Platform**
 
@@ -618,7 +622,14 @@ A platform that **evolves with the client** — solving, fixing, and growing tog
 **Sudo / Root Access Required**
 
 - Both ROCm and RyzenAI installers need **sudo privileges**
-- Containers mitigate this
+- Blocks usage in locked-down enterprise environments
+- Containers mitigate this but add their own complexity
+
+| Pain Point | Impact | Mitigation |
+|------------|--------|------------|
+| Unstable ROCm install | Blocked users | Pinned versions |
+| Mid-install reboot | CI breakage | Docker path |
+| Sudo required | Enterprise friction | Container deploy |
 
 </div>
 </div>
