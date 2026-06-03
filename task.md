@@ -33,12 +33,10 @@ I want all the above details in slide-1
 
 
 # Contributions (slide-4)
-    2. Devloper friendly inference tools cloud and edge 
+    2. What AIG does is operation validation(Which means in most cases they pass dummy inputs and calculate throughput), We PAVS will do Functional correctness(We implement end to end workign pipleine and ensure the accuray numbers are benchmarked and model infers expected outputs from input dataset).
+    3. Devloper friendly inference tools cloud and edge 
         like Profilers(lamonade, npu-aianalyzer, rocprofiles), 
-        - tutorials to use them -- ease of usage
-    
-    3. VLLm, Lama CPP, Inference infra/platforms for runing LLMS we make it easy to use them in AMD ecosystes.(Bridging bap between opensource ecosustem AMD HW Ecosystem)
-    
+        - tutorials to use them -- ease of usage, VLLm, Lama CPP, fastflowLM~(running llms on npu),Inference infra/platforms for runing LLMS we make it easy to use them in AMD ecosystes.(Bridging bap between opensource ecosustem AMD HW Ecosystem)
     4. Build a platform that is willing to solve and fix and evlove with client In developing vartical application in taegtted domains(Healthcare, Automtive, Indistrial) facing applications, prhycal AI vertcials. Building Real ROI WRT AI.
     
 

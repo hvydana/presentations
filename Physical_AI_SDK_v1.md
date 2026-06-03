@@ -314,7 +314,7 @@ style: |
 
 <!-- _class: smallest -->
 
-## How Many Steps to Get Numbers?
+## Physical AI SDK - Structure & Workflow
 
 ### Three Paths — Pick the One That Fits Your Workflow
 
@@ -352,7 +352,7 @@ Pre-installed ROCm + RyzenAI environment
 docker run physical-ai-sdk
 
 # Inside the container:
-make benchmark-all-devices metric
+make benchmark-all-devices metrics
 ```
 
 - No local installs needed
@@ -373,17 +373,14 @@ make benchmark-all-devices metric
 Full local installation — 4 steps:
 
 ```bash
-# 1. Install ROCm
-./install_rocm_stack.sh
+# 1. Install ROCm and raizen-ai
+./install.sh
 
-# 2. Install RyzenAI
-./install_ryzen_ai_source_stack.sh
-
-# 3. Navigate to example
+# 2. Navigate to example
 cd examples/yolov12
 
-# 4. Run benchmarks
-make benchmark-all-devices metric
+# 3. Run benchmarks
+make benchmark-all-devices metrics
 ```
 
 Output: `METRICS_TABLE.md`
@@ -541,34 +538,37 @@ examples/yolov12/
 
 ## Contributions(contd.) — Building the AMD AI Ecosystem
 
-
-
 <div class="columns">
 <div>
 
-**2. Developer-Friendly Inference Tools**
+**2. AIG vs PAVS — Functional Correctness over Operator Validation**
 
-Profilers for cloud & edge — with tutorials for ease of adoption:
+| | **AIG** | **PAVS** |
+|---|---------|----------|
+| **Approach** | Operator validation | Functional correctness |
+| **Inputs** | Dummy / synthetic tensors | Real input datasets |
+| **Measures** | Throughput on isolated ops | End-to-end accuracy + throughput + latency |
+| **Pipeline** | Op-level checks | Full inference pipeline (pre → infer → post) |
 
-| Tool | Purpose |
-|------|---------|
-| **Lemonade** | End-to-end model profiling |
-| **NPU AI Analyzer** | NPU workload analysis |
-| **ROCProfiler** | GPU kernel-level profiling |
+<div class="highlight-box">
 
-**Bridging AMD Tools to Opensource Ecosystems**
+PAVS implements the **end-to-end working pipeline** and ensures the model produces **expected outputs from real input datasets** — not just numbers from dummy inputs.
 
+</div>
 
-
-**3. LLM Infrastructure on AMD**
-
-Making LLMs easy on AMD hardware:
-- **vLLM** — high-throughput serving
-- **Llama.cpp** — efficient edge inference
-
-- Bridging **open-source ecosystem** ↔ **AMD HW ecosystem**
 </div>
 <div>
+
+**3. Developer-Friendly Inference Tools & LLM Infra**
+
+Profilers + LLM serving stacks — with tutorials for ease of adoption:
+
+| Category | Tools |
+|----------|-------|
+| **Profilers** | Lemonade, NPU AI Analyzer, ROCProfiler |
+| **LLM Infra** | vLLM (high-throughput serving), Llama.cpp (edge inference), FastFlowLM (LLMs on NPU) |
+
+Bridging the **open-source ecosystem** ↔ **AMD HW ecosystem** — making these tools easy to use across the AMD stack.
 
 **4. Vertical Application Platform**
 
@@ -580,11 +580,7 @@ A platform that **evolves with the client** — solving, fixing, and growing tog
 | **Automotive** | Perception, safety systems |
 | **Industrial** | Inspection, anomaly detection |
 
-<div class="highlight-box">
 
-**Building Real ROI around AI** — not demos, but Physical AI verticals that deliver measurable business value.
-
-</div>
 
 </div>
 </div>
