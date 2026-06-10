@@ -2,7 +2,7 @@ This presenation is an answer to the question how many steps should i run to get
 
 (slide-1)
 1. 0 steps --> in eavy examples we have `/home/AMD/hvydana/Workspace/physical_ai_sdk/examples/mobilesam/METRICS_TABLE.md` users can see the numbers here directly we have plan to make this a webpage
-2. Docker solution WE will haave a docker which will com with pre-instaled rocm and raizenAI and when i run `make benchmark-all-devices metric` it wll create -> `/home/AMD/hvydana/Workspace/physical_ai_sdk/examples/mobilesam/METRICS_TABLE.md` and user can see it 
+2. Docker solution WE will haave a docker which will com with pre-instaled rocm and raizenAI and when i run `make benchmark-all-devices metrics` it wll create -> `/home/AMD/hvydana/Workspace/physical_ai_sdk/examples/mobilesam/METRICS_TABLE.md` and user can see it 
 
 3. Manually 1. install-rocm -> `./install_rocm_stack.sh` +
             2. install raizen-ai `./install_ryzen_ai_source_stack.sh`
