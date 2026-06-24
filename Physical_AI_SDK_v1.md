@@ -587,41 +587,223 @@ A platform that **evolves with the client** — solving, fixing, and growing tog
 
 ---
 
-<!-- _class: small -->
+<!-- _class: smallest -->
 
-## Pain Points
+## Contributions(contd.) — AIG Model → Task-Specific
 
-### Current Challenges on Edge Devices
+### 5. Operationalizing AIG Models for Real Applications
 
 <div class="columns">
 <div>
 
-**ROCm Installation Stability**
+**From Generic to Task-Specific**
 
-- ROCm install on edge devices is **not yet stable**
-- Driver/firmware mismatches on some hardware revisions
-- Workaround: pinned ROCm versions in install scripts
+Took generic AIG Hub models and extended them with operation enablement, hyperparameter tuning, and backend exploration to reach application-level performance:
 
-**Reboot During Installation**
+| Backend | Role |
+|---------|------|
+| **PyTorch** | Fallback path — handles missing/broken operators |
+| **torch.compile** | Additional optimization on top of PyTorch |
+| **ONNX** | Stable cross-device flow (CPU ↔ GPU ↔ NPU) |
+| **MIGraphX** | **2× improvement** over torch+ROCm |
 
-- ROCm installation requires a **system reboot** mid-process
-- Breaks unattended / CI-driven installs
-- Users unfamiliar with the flow find this unexpected
+<div class="highlight-box">
+
+**MobileSAM · CenterPoint · YOLOv12 · YOLO26** — integrated into AARTS robotics pipelines, consumed by the robotics team today.
+
+</div>
 
 </div>
 <div>
 
-**Sudo / Root Access Required**
+**SmolVLA: Tuned for the Task**
 
-- Both ROCm and RyzenAI installers need **sudo privileges**
-- Containers mitigate this
+| | **AIG Generic** | **PAVS Task-Specific** |
+|---|---|---|
+| **Latency** | 48 ms | **30 ms** |
+| **ROCm version** | — | **7.2.4** |
+| **Customized to task** | ✗ | ✓ |
+
+**37% latency reduction through algorithmic tuning alone** — on ROCm 7.2.4, without the edge-optimized kernels in ROCm 7.13 that give **2× speedup** on other models.
+
+The gains here are purely from **task-specific model and algorithm optimization** — not from a newer ROCm stack.
+
+<div class="highlight-box">
+
+**Headroom remains:** upgrading to ROCm 7.13 on top of these algorithmic gains is expected to push latency even lower.
+
+</div>
+
+</div>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## Contributions(contd.) — Ecosystem & Co-Engineering
+
+### 6. Closing the Loop: Generic Model → Application Pipeline
+
+<div class="columns">
+<div>
+
+**The Full Journey**
+
+Continuing from the previous point — we don't stop at model operationalization:
+
+1. Pick generic model from AIG Hub
+2. Make it **task-specific** (tune, operationalize)
+3. **Compute accuracy** on real inputs — surface gaps
+4. **Communicate gaps back to AIG** for model improvement
+5. Wire model into **inference pipelines** — connecting to real applications
+
+<div class="highlight-box">
+
+Taking the generic model all the way to working applications — not just benchmarks.
+
+</div>
+
+</div>
+<div>
+
+**Co-Engineering Opportunities**
+
+**PAVS × Audio SDK**
+- Started discussions to explore co-engineering across SDK verticals
+- Shared infrastructure, tooling, and pipeline patterns
+
+**Foundation Robotics — First Lighthouse Customer**
+- Working toward Foundation Robotics as the first co-engineering lighthouse engagement
+- End-to-end story: AIG model → PAVS task-tuning → accuracy validation → AARTS inference pipeline → real robot application
+
+</div>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## Contributions(contd.) — Feedback Loop Back to AIG
+
+### Gaps Found, Communicated, and Tracked
+
+<div class="columns">
+<div>
+
+**Performance & Deprecation Risks**
+
+- **MIGraphX + ONNX is 2× faster than torch.compile** — communicated to AIG and cautioned against deprecating MIGraphX until hipDNN reaches equivalent performance
+
+- **Concat layer broken in YOLOv26** — layer not decomposing correctly, producing garbage outputs; Jiras opened to track and get AIG attention
+
+- **MIGraphX breaks MobileSAM** — missing operator causing failures; AIG informed to investigate the unsupported op
+
+</div>
+<div>
+
+**Operator Gaps & Tooling**
+
+- **ScatterND not available** in MIGraphX EP or ONNX EP — communicated to AIG for prioritization~(centerpoint)
+
+- **NPU debug tools received** — now able to analyze layer-level outputs that are not producing correct results and provide richer, more precise feedback to AIG
+
+- **Unified NPU + GPU dependency request** — GPU stack requires NumPy <2, NPU stack requires NumPy 2+; the version conflict forces separate virtual environments today. Communicated to AIG to resolve this so NPU and GPU can share a single application-level environment
 
 </div>
 </div>
 
 <div class="highlight-box">
 
-**Docker path sidesteps all three issues** — pre-built image with ROCm + RyzenAI already configured, no reboot, no sudo on host.
+**PAVS acts as the functional correctness signal for AIG** — we find what breaks on real inputs and real pipelines, and feed that back so the stack improves.
+
+</div>
+
+---
+
+<!-- _class: small -->
+
+## Contributions(contd.) — PAI SDK Platform & Edge Enablement
+
+### Infrastructure: Installer, Edge HW, and LLM Stack
+
+<div class="columns">
+<div>
+
+**Installation & Edge Hardware**
+
+- **Single installer/uninstaller** for ROCm + RyzenAI in PAI SDK — one command to set up or tear down the full stack
+- Extended and maintained ROCm + RAI support for **edge HW** — required targeted patches for hardware-specific gaps
+- **Yocto & LTS support** — enabling model deployment on embedded edge devices
+
+</div>
+<div>
+
+**LLM Infrastructure on AMD Stack**
+
+- Integrated **stable vLLM** — high-throughput serving with quantized LLM variants on iGPU
+- Integrating **FLM framework** — running LLMs on NPU
+- Bridging the open-source LLM ecosystem onto the AMD edge stack
+
+<div class="highlight-box">
+
+Full-stack edge enablement: installer → hardware patches → quantized LLM serving → NPU inference → Yocto deployment.
+
+</div>
+
+</div>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## Pain Points & Solution
+
+### Current Challenges on Edge Devices — and How We've Addressed Them
+
+<div class="columns">
+<div>
+
+**Challenges**
+
+**ROCm Installation Stability**
+- ROCm install on edge devices is **not yet stable**
+- Driver/firmware mismatches on some hardware revisions
+
+**Reboot During Installation**
+- ROCm installation requires a **system reboot** mid-process
+- Breaks unattended / CI-driven installs
+
+**Sudo / Root Access Required**
+- Both ROCm and RyzenAI installers need **sudo privileges**
+
+</div>
+<div>
+
+**Solution: Dockerized PAI SDK**
+
+We have **dockerized the full setup** — ROCm + RyzenAI pre-installed, pre-configured, and ready to use out of the box:
+
+```bash
+# Pull and run — no installs, no reboot, no sudo
+docker run physical-ai-sdk
+
+# Start benchmarking immediately
+make benchmark-all-devices metrics
+```
+
+- No local ROCm install required
+- No reboot, no sudo on host
+- Reproducible environment across machines
+- **Ready to deliver to users today**
+
+</div>
+</div>
+
+<div class="highlight-box">
+
+**Docker sidesteps all three pain points** — users get the full PAI SDK on the fly, without touching the host system.
 
 </div>
 

@@ -39,10 +39,39 @@ I want all the above details in slide-1
         - tutorials to use them -- ease of usage, VLLm, Lama CPP, fastflowLM~(running llms on npu),Inference infra/platforms for runing LLMS we make it easy to use them in AMD ecosystes.(Bridging bap between opensource ecosustem AMD HW Ecosystem)
     4. Build a platform that is willing to solve and fix and evlove with client In developing vartical application in taegtted domains(Healthcare, Automtive, Indistrial) facing applications, prhycal AI vertcials. Building Real ROI WRT AI.
     
+# Contributions(slide-5):
+    1. Here i want to say extended a generic model with operation enablement to a task/application specifc models and tuned hyperparameters towoirds. 
+    2. Explored the best scenaors to use the model for a specific application ex: 
+            - pytorch, (Fallback path if there are any missing/broken operatiors in the model that would come up in accuracy)
+            - pytorch.torch_compile (added so)
+            - ONNX (Stable way to move across cpu + gpu +npu Flows )
+            - Migraphix( found 2x improvement compared to troch+rocm) 
+    3. Broadly we have moved the model from AIG HUB to closer to application space. 
+    4. Mobilesam, centerpoint, Yolov12, yolov26 are used by robotics team in thei pipelines of building AARTS.
+    5. Trained/optimized smolVLA models towords achieving(30ms latency by custoimizing model to task while generic model from AIG is in 48ms). 
+
+# contributions(slide-7):
+    1. Added single Installer/uninstaller for ROCm and RAI in PAI SDK. 
+    2. Extended and maintained supprrt for ROCm and RAI core and tools for edge HW(Needed some patches).
+    3. Integrated stable vLLM and enabled th use of qunatized variants LLMS's on iGPU's
+    4. Integrating the FLM framework to run LLM's on NPU's
+    5. Enabling Yocto and LTS supprot to enable models on edge devices. 
 
 
+# Contributions(slide-6):
+    1. Started discussions with PAVS-Audio-SDK to explore oppertunites to co-engineering
+    2. Working towords a `foundation Robotics` as a first lighthouse customer fro co-engineering 
 
-# Painpoints(slide-5)
+# Contribution back to AIG(slide-7):
+    1. We identified migraphix+onnx is 2x the torch compile so we commnucated back and have cautioned about deprrication of Migraphix till equivalent perfromance is achieved with hipDNN
+    2. identified a concat layer not breaking down and producing garbage inputs in yolo26 and opend Jiras to have a attention on that. 
+    3. Migraphix is breaking mobilesam so we have informed AIG to look in to the missing operation
+    4. SCatter ND operation not available in Migrpahic's EP , ONNX also so that this wasinformed to AIG for improvements. 
+    5. recieeved NPU debug tools to analyluyze the layes that are not producing proper outputs and communicate better feedback to AIG
+    6. Comminicated with AIG to unify NPU and GPU dependeciesin python +pytorch tools so that we can maintain single virtual env at aplicationlevel 
+
+
+# Painpoints(slide-6)
     1. Installtion of rocm still not stable on edge devices
     2. Rocm installtion has a reboot in the installtion phase that makes users uncomfortable
     4. There is a sudo required for system both rocm and raizen ai installtion
