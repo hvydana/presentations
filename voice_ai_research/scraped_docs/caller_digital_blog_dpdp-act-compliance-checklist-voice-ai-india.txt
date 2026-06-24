@@ -1,0 +1,365 @@
+SOURCE: https://caller.digital/blog/dpdp-act-compliance-checklist-voice-ai-india
+LABEL:  CallerDigital: DPDP compliance checklist
+================================================================================
+
+DPDP Act 2023 Compliance Checklist for Voice AI in India: 10 Things You Must Get Right 
+
+8 Mins Read Jun 2, 2026 
+
+India's Digital Personal Data Protection Act (DPDP Act, 2023) changes the rules for every company using voice AI. If your voice bot collects a customer's name, phone number, address, or payment details — you're a Data Fiduciary under the Act, and you have obligations. 
+
+Most voice AI vendors in India haven't updated their compliance posture for DPDP. They're still operating under the old IT Act framework, which had vague guidelines and weaker enforcement. That's about to change. 
+
+This is the compliance checklist every company deploying voice AI in India needs to follow — whether you're using it for collections, customer support, sales, or surveys. 
+
+Why DPDP Matters for Voice AI Specifically 
+
+Voice AI creates a unique data footprint that text-based tools don't: 
+
+Voice recordings contain biometric data (voiceprint, speech patterns) 
+
+Transcripts contain PII (names, addresses, Aadhaar numbers spoken aloud, account details) 
+
+Call metadata reveals behavioural patterns (when someone calls, how often, emotional state) 
+
+Consent recordings must prove the customer agreed to data collection 
+
+Under DPDP, all of this is "personal data" and some of it may qualify as "sensitive personal data." The penalties for non-compliance are significant — up to ₹250 crore per violation. 
+
+The DPDP Compliance Checklist for Voice AI 
+
+1. Consent Management 
+
+Requirement: Obtain free, specific, informed, and unambiguous consent before collecting personal data through voice interactions. 
+
+What this means for voice AI: 
+
+The AI must disclose at the start of every call: "This call may be recorded and your information will be processed as per our privacy policy" 
+
+For outbound calls (marketing, surveys, collections), you must have prior consent to contact the customer 
+
+Consent must be granular — consent to a sales call doesn't extend to sharing data with a third party 
+
+The customer must have an easy way to withdraw consent 
+
+Implementation: 
+
+Configure mandatory disclosure scripts at call opening 
+
+Maintain a consent registry linked to each phone number 
+
+Provide opt-out mechanisms: "If you'd like us to stop calling, press 1 or say 'stop'" 
+
+Log consent timestamps and method for audit trail 
+
+2. Purpose Limitation 
+
+Requirement: Personal data collected for one purpose cannot be used for another without fresh consent. 
+
+What this means for voice AI: 
+
+Data collected during a support call cannot be used for marketing 
+
+A call recording made for quality assurance cannot be used to train a third-party AI model 
+
+Customer details captured during collections cannot be shared with other business units 
+
+Implementation: 
+
+Tag every interaction with its declared purpose 
+
+Implement access controls — support team cannot access sales call recordings 
+
+Audit data flows between departments and systems 
+
+3. Data Minimisation 
+
+Requirement: Collect only the personal data necessary for the stated purpose. 
+
+What this means for voice AI: 
+
+If the call is for appointment booking, don't ask for Aadhaar number 
+
+If the call is for delivery confirmation, don't collect demographic information 
+
+Stop recording once the transaction is complete — don't record post-call small talk 
+
+Implementation: 
+
+Design call scripts that collect only necessary information 
+
+Configure automatic recording stop-points 
+
+Regular audits of data fields collected vs. data fields actually used 
+
+4. Storage Limitation and Data Retention 
+
+Requirement: Personal data must not be retained beyond the period necessary for the purpose. 
+
+What this means for voice AI: 
+
+Call recordings cannot be stored indefinitely "just in case" 
+
+Define retention periods for each data type: recordings (90 days?), transcripts (1 year?), metadata (2 years?) 
+
+Implement automatic deletion workflows 
+
+Implementation: 
+
+Set retention policies per data category 
+
+Automated deletion after retention period expires 
+
+Exception handling for regulatory requirements (RBI requires 8-year retention for financial transactions) 
+
+Maintain deletion logs for audit 
+
+5. Data Principal Rights 
+
+Requirement: Customers (Data Principals) have the right to access, correct, and erase their personal data. 
+
+What this means for voice AI: 
+
+If a customer asks "What data do you have about me from our calls?", you must be able to answer 
+
+If they say "Delete all my call recordings", you must comply (unless regulatory retention overrides) 
+
+If they say "Correct my address in your records", you must update it 
+
+Implementation: 
+
+Build a data access portal or process for responding to data subject requests 
+
+Ensure call recordings and transcripts are searchable by phone number 
+
+Implement erasure workflows that cascade across all systems (CRM, analytics, backups) 
+
+Response timeline: within a reasonable period (the Act doesn't specify exact days yet — draft rules expected) 
+
+6. Data Security Safeguards 
+
+Requirement: Implement "reasonable security safeguards" to protect personal data from breaches. 
+
+What this means for voice AI: 
+
+Call recordings must be encrypted at rest and in transit 
+
+Access to recordings must be role-based (not everyone in the company) 
+
+Voice data stored in cloud must use Indian data centres or compliant international locations 
+
+Breach detection and notification mechanisms must be in place 
+
+Implementation: 
+
+AES-256 encryption for stored recordings 
+
+TLS 1.3 for data in transit 
+
+Role-based access control (RBAC) for all voice data 
+
+Regular penetration testing of voice AI infrastructure 
+
+Breach notification process (to Data Protection Board within 72 hours) 
+
+7. Cross-Border Data Transfer 
+
+Requirement: Personal data can only be transferred outside India to countries not restricted by the Central Government. 
+
+What this means for voice AI: 
+
+If your voice AI vendor processes data on US/EU servers, verify the destination country is on the approved list 
+
+Indian voice data should ideally be processed and stored within India 
+
+If using international LLMs (GPT, Claude) for voice processing, understand where the data flows 
+
+Implementation: 
+
+Audit your vendor's data processing locations 
+
+Prefer vendors with Indian data centres 
+
+If cross-border transfer is necessary, implement Standard Contractual Clauses (SCCs) 
+
+Document all cross-border data flows 
+
+8. Children's Data 
+
+Requirement: Processing personal data of children (under 18) requires verifiable parental consent. 
+
+What this means for voice AI: 
+
+EdTech companies using voice AI for student outreach must verify age 
+
+If the voice AI interacts with a caller who identifies as a minor, different consent rules apply 
+
+Marketing calls to phone numbers registered to minors are restricted 
+
+Implementation: 
+
+Age verification step in voice flows targeting student demographics 
+
+Parental consent collection mechanism for minor data processing 
+
+Separate data handling protocols for minor data 
+
+9. Algorithmic Transparency 
+
+Requirement: While not yet fully codified in DPDP rules, the trajectory is toward requiring transparency about automated decision-making. 
+
+What this means for voice AI: 
+
+If your voice AI makes decisions that affect customers (loan eligibility, claim approval, lead scoring), be prepared to explain how 
+
+"The AI decided" is not an acceptable answer — you need to explain the logic 
+
+This is especially critical in BFSI where RBI also requires algorithmic fairness 
+
+Implementation: 
+
+Document decision logic in voice AI workflows 
+
+Maintain human oversight for consequential decisions 
+
+Implement "explain this decision" capabilities in your AI platform 
+
+10. Vendor and Data Processor Obligations 
+
+Requirement: If you use a third-party voice AI vendor (like Caller Digital), you're still responsible as the Data Fiduciary. The vendor is a Data Processor with defined obligations. 
+
+What this means: 
+
+Your contract with the voice AI vendor must include DPDP-compliant data processing terms 
+
+The vendor must process data only on your instructions 
+
+The vendor must implement equivalent security safeguards 
+
+The vendor must notify you immediately of any data breach 
+
+Implementation: 
+
+Review and update vendor contracts with DPDP-specific clauses 
+
+Conduct vendor security assessments annually 
+
+Include audit rights in vendor agreements 
+
+Maintain a register of all data processors handling voice data 
+
+How DPDP Intersects With Other Regulations 
+
+Voice AI in India operates at the intersection of multiple regulatory frameworks: 
+
+Regulation Relevance to Voice AI 
+
+DPDP Act 2023 Personal data protection, consent, storage, rights 
+
+TRAI DND Regulations Telemarketing restrictions, Do Not Disturb compliance 
+
+RBI Fair Practice Code Collections timing, disclosure requirements for BFSI 
+
+IRDAI Guidelines Insurance communication standards 
+
+IT Act Section 43A Legacy data protection (being superseded by DPDP) 
+
+Consumer Protection Act Fair business practices, misleading communication 
+
+A compliant voice AI deployment must address ALL of these simultaneously. This is why choosing a vendor that understands the Indian regulatory landscape is critical. 
+
+What Caller Digital Does Differently 
+
+Caller Digital's platform is built for Indian compliance from the ground up: 
+
+Consent management: Configurable disclosure scripts, opt-out mechanisms, and consent registry 
+
+Data residency: Indian data centres, no cross-border transfer by default 
+
+Encryption: AES-256 at rest, TLS 1.3 in transit 
+
+Retention policies: Configurable per use case, automated deletion 
+
+Audit trails: Every interaction logged, searchable, and exportable for regulatory audits 
+
+Human handoff: Always available — AI never makes consequential decisions without human oversight option 
+
+Role-based access: Granular permissions for recordings, transcripts, and analytics 
+
+Getting DPDP-Ready: A 30-Day Plan 
+
+Week 1: Audit current voice AI data flows — what data is collected, where it's stored, who accesses it, how long it's retained. 
+
+Week 2: Update consent mechanisms — add disclosure scripts, implement opt-out flows, set up consent registry. 
+
+Week 3: Implement technical safeguards — encryption, access controls, retention policies, deletion workflows. 
+
+Week 4: Update vendor contracts, document compliance processes, train team on data subject request handling. 
+
+Book a Demo → | Learn About Our Compliance Standards → 
+
+Frequently Asked Questions 
+
+Tags : 
+
+AI Regulatory Compliance Data Security 
+
+Caller Digital 
+
+Read More → 
+
+© 2025 Caller Digital | All Rights Reserved 
+
+Term and Conditions Privacy Policy 
+
+Other Blogs 
+
+Voice Automation Strategies 
+AI Voice Agent for Outbound Payment Reminder Calls in Consumer Lending: BNPL, Credit Cards and Personal Loans (India 2026) 
+
+Publish: Jun 22, 2026 
+
+Voice AI & Voice Technology 
+Best Voice AI Platform for Automating Phone Calls in the UK 2026: Buyer's Guide and Vendor Shortlist 
+
+Publish: Jun 22, 2026 
+
+Voice Automation Strategies 
+AI Caller for Insurance Renewal Calls with Add-On Upsell: The IRDAI-Compliant Playbook for India 2026 
+
+Publish: Jun 22, 2026 
+
+Voice Automation Strategies 
+AI Caller for Loan Lead Qualification and KYC Reminder Calls in India 2026: The NBFC Funnel Playbook 
+
+Publish: Jun 22, 2026 
+
+Voice Automation Strategies 
+Voice AI + WhatsApp Orchestration for Collections & Payment Reminders in India 2026: The Two-Channel Playbook 
+
+Publish: Jun 22, 2026 
+
+Voice AI & Voice Technology 
+AI Call Bot CRM Integration with Automatic Call Logging: Salesforce, HubSpot, Zoho, LeadSquared India 2026 
+
+Publish: Jun 22, 2026 
+
+Voice Automation Strategies 
+AI Cart Recovery Reporting and A/B Testing for D2C India 2026: Dashboards, Cohort Maths and the 12-Week Test Calendar 
+
+Publish: Jun 22, 2026 
+
+Industry Solutions 
+Voice AI for Quick-Commerce Delivery Partner Operations India 2026: Acceptance Rate, Onboarding, Retention (Blinkit, Zepto, Instamart) 
+
+Publish: Jun 22, 2026 
+
+Voice Automation Strategies 
+AI Contact Centre for India 2026: Voice + WhatsApp + Web Chat Unified for Indian Enterprises 
+
+Publish: Jun 22, 2026 
+
+Voice AI & Voice Technology 
+Sub-500ms Latency Voice AI in India 2026: The STT + LLM + TTS Architecture That Survives Real Telephony 
+
+Publish: Jun 22, 2026

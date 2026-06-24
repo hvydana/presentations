@@ -1,0 +1,241 @@
+SOURCE: https://northflank.com/blog/best-open-source-text-to-speech-models-and-how-to-run-them
+LABEL:  Northflank: Open source TTS models how to run
+================================================================================
+
+← Back to Blog 
+
+By Daniel Adeboye 
+Published 11th September 2025 
+Best open source text-to-speech models and how to run them 
+
+AI 
+
+If you have ever asked your phone to read a message, listened to an AI-narrated audiobook, or relied on a screen reader, you have already experienced text-to-speech in action. What was once robotic and flat has evolved into open source models that can generate voices that feel natural, multilingual, and expressive. 
+
+For developers, this shift means more freedom. Open source text-to-speech lets you experiment, fine-tune, and run models on your own terms without being locked into a vendor. 
+
+But moving from a local demo to a production system is where most projects hit a wall. Running XTTS-v2 or Bark on your laptop is easy. Serving thousands of real-time requests is not. In this guide, we’ll explore the best open source models available today, what to consider, and how to deploy them using Northflank at scale. 
+
+TL;DR: Best open source text-to-speech models 
+
+If you only have a moment, here’s the quick version. 
+
+The top text-to-speech models to know: 
+
+XTTS-v2 : High-quality, multilingual voices with cloning support. 
+
+Mozilla TTS : Flexible and well-documented, great for research and accessibility. 
+
+ChatTTS : Optimized for conversational applications like chatbots. 
+
+MeloTTS : Lightweight and efficient, ideal for low-resource devices. 
+
+Coqui TTS : Broad toolkit with pre-trained voices and multilingual support. 
+
+Mimic 3 : Fast, privacy-friendly, works well offline or on embedded systems. 
+
+Bark : Expressive and creative, capable of generating intonation and non-speech sounds. 
+
+The real challenge: 
+
+Testing these models locally is easy. Running them at scale in production is not. Most require GPUs, low latency, and careful orchestration to stay reliable. 
+
+The smarter way → Northflank 
+
+Northflank makes open source text-to-speech production-ready. Connect your repo and the platform builds, deploys, and scales your model automatically. GPU support , networking, and monitoring are included, so you can focus on building with voices rather than managing infrastructure. 
+
+What to consider before choosing a text-to-speech model 
+
+It is easy to be impressed by a smooth demo, but the best text-to-speech model is the one that fits your actual needs. Let’s break down what to consider: 
+
+Voice quality and naturalness: Some models produce very natural speech with correct intonation, while others sound robotic but run faster. Audiobooks demand realism; system alerts may not. 
+
+Language support: Many models are still English-first, but some projects have expanded to dozens of languages. If your project serves a global audience, this becomes a deciding factor. 
+
+Speed and efficiency: Models vary in how quickly they generate speech. Heavy ones may need a GPU, while lightweight models are better for edge deployments or low-latency applications. 
+
+Customization: Some models only offer pre-trained checkpoints, while others allow fine-tuning with your own data or accents. Choose based on how much control you need. 
+
+Ease of deployment: Running a text-to-speech model locally is simple, but scaling it to handle thousands of users in production is where complexity often appears. 
+
+Community and ecosystem: A vibrant community means faster answers, more tutorials, and active improvements. Older but well-supported projects often outperform newer ones with less adoption. 
+
+What is the best open source text-to-speech model? 
+
+Now that you know what to consider when choosing a text-to-speech model, from voice quality and language support to deployment and community, it is time to look at the best open source options available today. Each model brings its own strengths, and the right fit will depend on the priorities we just covered. 
+
+1. XTTS-v2 - Best overall performance 
+
+Strengths : High-quality multilingual synthesis, voice cloning from short samples 
+
+Efficiency : Moderate (benefits from GPU acceleration) 
+
+Use case : Production apps needing natural and adaptable voices 
+
+2. Mozilla TTS - Best for research and flexibility 
+
+Strengths : Highly customizable, extensive documentation, active community 
+
+Efficiency : Varies depending on training setup 
+
+Use case : Research, accessibility, or projects requiring custom voices 
+
+3. ChatTTS - Best for real-time conversation 
+
+Strengths : Optimized for dialogue, low-latency responses 
+
+Efficiency : Good for chat and interactive use cases 
+
+Use case : Chatbots, assistants, real-time agents 
+
+4. MeloTTS - Best lightweight model 
+
+Strengths : Fast, efficient, easy to deploy on limited hardware 
+
+Efficiency : High (runs well without large GPUs) 
+
+Use case : Edge devices, mobile, low-resource environments 
+
+5. Coqui TTS - Best toolkit and ecosystem 
+
+Strengths : Wide library of pre-trained voices, multilingual support, fine-tuning tools 
+
+Efficiency : Depends on the chosen model 
+
+Use case : Teams wanting flexibility without building from scratch 
+
+6. Mimic 3 - Best for privacy and offline use 
+
+Strengths : Small, efficient, runs locally without cloud dependencies 
+
+Efficiency : Very high for small devices 
+
+Use case : Accessibility, embedded systems, privacy-focused apps 
+
+7. Bark - Best for creativity and expression 
+
+Strengths : Generates speech with intonation and even non-speech sounds 
+
+Efficiency : Less predictable, heavier model 
+
+Use case : Creative projects, expressive or experimental applications 
+
+How to run an open source text-to-speech model 
+
+Running a text-to-speech model can start simple and scale as needed, but unlike large language models, text-to-speech models typically require integration into an application. You can experiment locally on your machine or deploy a service for real-time users, each with different requirements. 
+
+Option 1: Local experimentation 
+
+Most open source TTS models, like XTTS-v2, Bark, or Coqui TTS, can be run locally in minutes. Python packages or prebuilt scripts let you generate audio from text immediately: 
+from TTS.api import TTS
+
+# Example: Coqui TTS
+tts = TTS("tts_models/en/ljspeech/tacotron2-DDC")
+tts.tts_to_file(text="Hello world!", file_path="output.wav") 
+This is ideal for testing models, comparing voices, or fine-tuning parameters. Lightweight models can run on a CPU, but heavier models benefit from a GPU. 
+
+Option 2: Deploying as a service 
+
+Unlike LLMs, text-to-speech models don’t come with inference servers like vLLM. To make a text-to-speech model production-ready , you need to wrap it in an application layer , for example, using FastAPI , Flask , or another web framework. This allows your application to: 
+
+Receive text input via API calls 
+
+Generate audio using the TTS model 
+
+Return audio files or streams to users 
+
+Key considerations for production deployment: 
+
+GPU acceleration for heavier models like XTTS-v2 or Bark 
+
+Autoscaling to handle sudden spikes in requests 
+
+API endpoints for your application to request TTS output 
+
+Monitoring and reliability so the service remains responsive 
+
+Setting all this up manually can be complex, especially for scaling and maintaining high availability. 
+
+Best option: Deploying on Northflank 
+
+Once you’re ready to move beyond local experimentation, you can deploy your text-to-speech application to production with Northflank. This involves packaging your text-to-speech model inside a container, exposing it via an API, and optionally using GPU resources for faster audio generation. 
+
+Containerize your text-to-speech application (Example) : 
+
+Create a Python application that serves your text-to-speech model using FastAPI, Flask, or any web framework. For example, a FastAPI server ( server.py ) might look like this: 
+# server.py
+from fastapi import FastAPI
+from TTS.api import TTS
+
+app = FastAPI()
+
+# Load the XTTS-v2 model (this automatically uses GPU if available)
+tts = TTS("XTTS-v2")
+
+@app.post("/speak")
+def speak(text: str):
+ file_path = "output.wav"
+ tts.tts_to_file(text=text, file_path=file_path)
+ return {"file": file_path} 
+Next, create a Dockerfile to package your app: 
+FROM python:3.11
+
+# Run in unbuffered mode
+ENV PYTHONUNBUFFERED=1
+
+# Set working directory
+WORKDIR /app
+
+# Copy local files into container
+COPY . ./
+
+# Install PyTorch with CUDA for GPU acceleration
+RUN pip install torch --index-url https://download.pytorch.org/whl/cu121
+
+# Install TTS and FastAPI dependencies
+RUN pip install tts fastapi uvicorn
+
+# Start the FastAPI server
+CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"] 
+
+Note: The TTS library automatically uses a GPU if available, so you don’t need to modify your Python code to enable it. 
+
+Once you have dockerized your application, you’re now ready to deploy on Northflank in a few minutes. 
+
+For steps on deploying on Northflank, refer to this guide: Deploying GPUs on Northflank , and you can also check this guide . 
+
+Conclusion 
+
+Open source text-to-speech has reached a point where models can generate voices that are natural, expressive, and flexible enough for real-world use. Whether you are working on accessibility tools, conversational agents, or creative applications, there is now a model that can fit your needs. 
+
+The real challenge is less about finding the right model and more about making it work in production. Running text-to-speech locally is straightforward, but scaling it for thousands of users, handling latency, and managing GPUs is a different problem entirely. This is where Northflank helps. It gives you a platform to deploy and scale open source text-to-speech models with ease, letting you focus on building great experiences while the infrastructure takes care of itself. 
+
+Share this article with your network 
+
+Related posts 
+
+Deborah Emeni • 24th June 2026 
+Top cloud platforms for enterprise AI deployment in 2026 
+
+Compare the top cloud platforms for enterprise AI deployment in 2026. See how Northflank, AWS, Google Cloud, Azure, and OCI stack up for GPU support, BYOC, compliance, and production AI workloads. 
+
+AI 
+
+Cristina Bunea • 21st June 2026 
+What is a sandbox? 
+
+A sandbox is a workload with some form of isolation technology applied to it, so that the untrusted code inside can't compromise anything outside it. 
+
+AI 
+
+Also from the blog 
+
+Rent GPUs for AI: How to rent GPU power in 2026 
+
+vLLM vs Ollama: Key differences, performance, and how to run them 
+
+What is a GPU cluster? Use cases for AI developers 
+
+vLLM vs TensorRT-LLM: Key differences, performance, and how to run them 
+
+Claude Code vs OpenAI Codex: which is better in 2026?

@@ -1,0 +1,766 @@
+SOURCE: https://arxiv.org/html/2602.03868v1
+LABEL:  arXiv: ASR benchmarks for Indian languages agriculture
+================================================================================
+
+Benchmarking Automatic Speech Recognition for Indian Languages in Agricultural Contexts 
+
+Chandrashekar M S, Vineet Singh, and Lakshmi Pedapudi 
+
+Abstract 
+
+The digitization of agricultural advisory services in India requires robust Automatic Speech Recognition (ASR) systems capable of accurately transcribing domain-specific terminology in multiple Indian languages. This paper presents a benchmarking framework for evaluating ASR performance in agricultural contexts across Hindi, Telugu, and Odia languages. We introduce evaluation metrics including Agriculture Weighted Word Error Rate (AWWER) and domain-specific utility scoring to complement traditional metrics. Our evaluation of 10,934 audio recordings, each transcribed by up to 10 ASR models, reveals performance variations across languages and models, with Hindi achieving the best overall performance (WER: 16.2%) while Odia presents the greatest challenges (best WER: 35.1%, achieved only with speaker diarization). We characterize audio quality challenges inherent to real-world agricultural field recordings and demonstrate that speaker diarization with best-speaker selection can substantially reduce WER for multi-speaker recordings (upto 66% depending on the proportion of multi-speaker audio). We identify recurring error patterns in agricultural terminology and provide practical recommendations for improving ASR systems in low-resource agricultural domains. The study establishes baseline benchmarks for future agricultural ASR development. 
+
+1 Introduction 
+
+India’s agricultural sector, supporting over 260 million farmers and agricultural workers, faces challenges in accessing timely and accurate agricultural information [ 1 ] . The spread of mobile technology and digital agricultural services has created new opportunities for delivering expert agricultural advisory through voice-based interfaces [ 2 ] . 
+
+Recent advances in deep learning have improved ASR performance for high-resource languages like English [ 3 , 4 ] . However, challenges remain for Indian languages, particularly in specialized domains such as agriculture where technical terminology, regional dialects, and acoustic conditions create additional difficulties [ 5 ] . 
+
+While general-purpose ASR evaluation frameworks exist, they do not capture the domain-specific requirements of agricultural applications where mistranscribing critical terms like pesticide names or crop diseases can have serious real-world consequences [ 6 ] . Traditional metrics such as Word Error Rate (WER) treat all words equally, but in agricultural applications errors on domain-critical terminology (e.g. pesticide names, crop diseases) should be penalized more heavily than errors on general vocabulary. We therefore introduce AWWER as a task-driven metric design choice (Section 3.3.2 ) that complements standard error measures such as WER/CER and MER [ 6 ] . 
+
+This paper presents an evaluation framework designed for agricultural ASR systems in Indian languages. Our contributions include: 
+
+• 
+
+Domain-Specific Metrics : Agriculture Weighted Word Error Rate (AWWER) and LLM-based utility scoring that prioritize domain-critical terms 
+
+• 
+
+Multi-Model Benchmarking : Evaluation of 10 ASR systems across three Indian languages using multiple evaluation approaches 
+
+• 
+
+Audio Quality Characterization : Analysis of noise levels and audio issues in real-world agricultural field recordings, revealing the challenges of benchmarking with noisy data 
+
+• 
+
+Speaker Diarization Impact : Quantification of how speaker diarization and best-speaker selection improve transcription accuracy in multi-speaker agricultural recordings 
+
+• 
+
+Domain Analysis : Detailed categorization and analysis of agricultural terminology confusion patterns across all three languages 
+
+• 
+
+Practical Guidelines : Recommendations for model selection and deployment in agricultural contexts 
+
+2 Related Work 
+
+2.1 ASR for Indian Languages 
+
+Indian language speech technology has received increasing attention with initiatives like Bhashini [ 20 ] , Vaani [ 11 ] , and various academic efforts [ 7 , 8 ] . The Vakyansh project [ 12 ] has contributed significantly to low-resource Indic language ASR, while Javed et al. [ 13 ] built ASR systems targeting the next billion users with a focus on Indic languages. 
+
+Pratap et al. [ 8 ] introduced the Multilingual LibriSpeech dataset covering eight languages. More recently, Meta’s Massively Multilingual Speech project [ 14 ] scaled speech recognition to over 1,100 languages, including several Indian languages. 
+
+2.2 Domain-Specific ASR Evaluation 
+
+Domain-specific ASR evaluation has received the most attention in clinical and medical settings, where transcription errors on drug names or dosages carry patient-safety risks. Agricultural applications, by contrast, remain underexplored despite similar stakes: a misrecognized pesticide name or dosage can lead to crop loss or health hazards. To our knowledge, no prior work has proposed domain-weighted error metrics or systematic confusion-pattern analysis for agricultural ASR. 
+
+2.3 ASR Evaluation Metrics 
+
+Traditional ASR metrics include WER, Character Error Rate (CER), and Match Error Rate (MER) [ 6 ] . However, these metrics have known limitations in domain-specific contexts where all words are treated equally, failing to capture the varying semantic importance of different terms. No existing framework specifically addresses agricultural domain requirements. 
+
+2.4 Agricultural Technology in India 
+
+Digital agricultural platforms in India have grown rapidly, with services like Farmer.Chat (Digital Green’s agri-advisory platform), Kisan Call Centre, and various state initiatives [ 9 , 10 ] . However, language barriers remain a key challenge, and current multilingual ASR systems are not yet accurate enough for reliable use in these settings. 
+
+3 Methodology 
+
+3.1 Data Collection and Dataset 
+
+Our evaluation dataset comprises 10,934 audio recordings collected from the Farmer.Chat platform between June 2024 and February 2025. The dataset includes: 
+
+• 
+
+Hindi : 4,626 recordings from Bihar, representing dialectal variations 
+
+• 
+
+Telugu : 4,075 recordings from Telangana and Andhra Pradesh 
+
+• 
+
+Odia : 2,233 recordings from Odisha 
+
+Data was collected from extension workers and farmers using voice queries on mobile devices in real-world agricultural settings. Each recording includes human-annotated reference transcripts and ASR-generated hypothesis transcripts from multiple models. 
+
+3.2 Audio Quality Characteristics 
+
+Agricultural field recordings present audio quality challenges that affect ASR benchmarking. We characterized the noise level and audio issue distribution across all three languages. 
+
+3.2.1 Noise Level Distribution 
+
+Table I summarizes the noise level distribution. Hindi recordings show the highest proportion of low-noise samples (81.3%), while Odia has the highest proportion of high-noise recordings (12.3%), nearly 4.4 × \times that of Hindi (2.8%). Telugu falls between the two with 9.2% high-noise samples. 
+TABLE I : Noise Level Distribution by Language (%) 
+
+Language Low Medium High 
+
+Hindi 81.3 15.7 3.0 
+
+Odia 70.5 15.9 13.6 
+
+Telugu 68.6 19.9 11.5 
+
+3.2.2 Audio Issue Types 
+
+Fig. 1 shows the distribution of audio issues. Background talk is the dominant issue across all languages, reflecting the communal nature of agricultural consultations where multiple people are often present. Hindi exhibits the most granular issue taxonomy compared to Odia and Telugu, partly reflecting the larger Hindi sample size and more detailed annotation. Wind noise is prominent in Telugu and Odia field recordings, while echo and overlap are more common in Hindi, likely due to indoor recording environments. 
+Figure 1 : Distribution of audio issue types across languages. Background talk dominates all three languages, reflecting real-world agricultural consultation settings. 
+
+These quality characteristics reflect the difficulty of obtaining clean benchmarking data from real agricultural field recordings. Traditional training/evaluation speech datasets are often collected in controlled laboratory settings, failing to account for these real issues in production deployments. 
+
+3.3 Evaluation Metrics 
+
+3.3.1 Traditional Metrics 
+
+Word Error Rate (WER) : 
+
+W ​ E ​ R = S + D + I N WER=\frac{S+D+I}{N} (1) 
+
+where S S = substitutions, D D = deletions, I I = insertions, N N = total words in reference 
+
+Character Error Rate (CER) : 
+
+C ​ E ​ R = S c + D c + I c C CER=\frac{S_{c}+D_{c}+I_{c}}{C} (2) 
+
+where subscript c c denotes character-level operations 
+
+Match Error Rate (MER) [ 6 ] : 
+
+M ​ E ​ R = S + D + I S + D + I + H MER=\frac{S+D+I}{S+D+I+H} (3) 
+
+where H H = correct matches 
+
+3.3.2 Agriculture Weighted Word Error Rate (AWWER) 
+
+We propose AWWER to account for domain-specific term importance: 
+
+A ​ W ​ W ​ E ​ R = ∑ i ∈ e ​ r ​ r ​ o ​ r ​ s w i ∑ j ∈ r ​ e ​ f ​ e ​ r ​ e ​ n ​ c ​ e w j AWWER=\frac{\sum_{i\in errors}w_{i}}{\sum_{j\in reference}w_{j}} (4) 
+
+where w i w_{i} represents domain relevance weights assigned via dictionary lookup against a curated agricultural term lexicon: 
+
+• 
+
+Weight 4 : Core agriculture terms (crops, pests, practices) 
+
+• 
+
+Weight 3 : Strongly agriculture-related (soil, weather, timing) 
+
+• 
+
+Weight 2 : Indirectly related (quantities, locations) 
+
+• 
+
+Weight 1 : General vocabulary (default for unmatched tokens) 
+
+The lexicon is language-specific and derived from human-annotated reference transcripts in the evaluation dataset, supplemented with terms from Farmer.Chat query logs and agricultural extension materials. It is maintained and expanded continuously as new annotated data becomes available. Each reference and hypothesis token is matched against this lexicon to assign its weight. Tokens not found in the lexicon receive weight 1. 
+
+3.3.3 LLM-Based Utility Scoring 
+
+We employ OpenAI’s GPT-4o to evaluate transcript utility on a 1-4 scale: 
+
+• 
+
+Score 4 : Excellent - minimal difference from reference 
+
+• 
+
+Score 3 : Good - acceptable with same advisory outcome 
+
+• 
+
+Score 2 : Poor - different advisory needed due to key term errors 
+
+• 
+
+Score 1 : Unusable - completely different meaning 
+
+3.4 ASR Models Evaluated 
+
+We evaluated 10 ASR systems across different categories. Not all systems support all three languages; Table II summarizes language coverage. Where a system lacks support for a given language, it is omitted from that language’s results table. For systems that support speaker diarization (Gemini 2.5 Pro, Azure Diarize, Google Chirp 3), we report both full-transcript and best-speaker variants. 
+
+Open Source Models: 
+
+• 
+
+Whisper (OpenAI) - API version [ 3 ] 
+
+• 
+
+Meta MMS (Massively Multilingual Speech) [ 14 ] 
+
+• 
+
+AI4Bharat IndicASR [ 13 ] 
+
+Commercial APIs: 
+
+• 
+
+Google Speech-to-Text [ 15 ] 
+
+• 
+
+Google Gemini 2.5 Pro [ 18 ] (with speaker diarization) 
+
+• 
+
+Google Chirp 3 [ 19 ] (with speaker diarization) 
+
+• 
+
+Microsoft Azure Speech [ 16 ] (with diarization variant) 
+
+• 
+
+Sarvam AI [ 17 ] 
+
+Academic/Research Models: 
+
+• 
+
+Vaani [ 11 ] (ASR models from the Vaani speech data initiative, available on HuggingFace) 
+
+• 
+
+Spring Labs [ 21 ] (SSL and ASR models by SPRING Lab, IIT Madras) 
+
+TABLE II : Language Support Matrix for Evaluated ASR Models. Models above the mid-rule support all three languages; those below have partial coverage. 
+
+Model Hindi Telugu Odia 
+
+Google STT ✓ ✓ ✓ 
+
+Sarvam AI ✓ ✓ ✓ 
+
+Azure Speech ✓ ✓ ✓ 
+
+MMS (Meta) ✓ ✓ ✓ 
+
+Gemini 2.5 Pro ✓ ✓ ✓ 
+
+Whisper (API) a ✓ ✗ ✓ 
+
+Google Chirp 3 b ✓ ✗ ✗ 
+
+AI4Bharat c ✓ ✗ ✓ 
+
+Vaani d ✓ ✓ ✗ 
+
+Spring Labs d ✓ ✓ ✗ 
+
+a Telugu output incoherent. 
+
+b Telugu/Odia not supported at the time of evaluation. 
+
+c Telugu not evaluated. 
+
+d Odia not evaluated. 
+
+4 Results and Analysis 
+
+4.1 Overall Performance by Language 
+
+Table III presents the best performance achieved across all models for each language. For models that support speaker diarization, we report their best-speaker variant (see Section 4.3 ). 
+TABLE III : Overall Best Performance by Language 
+
+Language Best WER Model Best AWWER Model 
+
+Hindi 16.2% Google STT 13.3% Gemini 2.5 Pro (BS) 
+
+Telugu 33.2% Google STT 28.7% Google STT 
+
+Odia 35.1% Azure Diar. (BS) 29.8% Azure Diar. (BS) 
+
+Hindi achieves the lowest WER, consistent with its status as a higher-resource language relative to Telugu and Odia. Odia, while the weakest-performing language in our dataset, shows marked improvement when diarization-enabled models are used, with Azure Diarize (Best Speaker) achieving 35.1% WER compared to 70.7% from Google STT without diarization. Telugu maintains intermediate performance with Google Speech-to-Text leading on both WER and AWWER. 
+
+4.2 Model-Specific Performance 
+
+For models that support speaker diarization (Gemini 2.5 Pro, Azure Diarize, Google Chirp 3), we report only the best-speaker variant in the rankings below, as these mostly outperform full-transcript results (see Section 4.3 ). Tables IV – VI present rankings retaining only the best variant per underlying model. 
+
+4.2.1 Hindi Language Results 
+TABLE IV : Hindi ASR Model Performance (Ranked by WER) 
+
+Rank Model WER CER MER AWWER 
+
+1 Google STT 16.2% 12.5% 14.4% 24.5% 
+
+2 Vaani 16.6% 11.6% 14.1% 14.4% 
+
+3 Gemini 2.5 Pro (BS) 18.5% 15.8% 14.5% 13.3% 
+
+4 Azure Diarize (BS) 25.6% 19.1% 19.4% 19.4% 
+
+5 Sarvam AI 28.7% 21.1% 21.2% 32.5% 
+
+6 Chirp 3 (BS) 30.0% 23.3% 22.7% 22.7% 
+
+7 Whisper (OpenAI API) 46.8% 32.9% 34.0% 43.0% 
+
+8 Spring Labs 47.1% 33.2% 34.1% 38.8% 
+
+9 MMS (Meta) 51.4% 51.0% 39.4% 49.3% 
+
+10 AI4Bharat 59.8% 52.9% 37.9% 39.4% 
+
+Google Speech-to-Text achieves the lowest WER (16.2%) for Hindi, closely followed by Vaani (16.6%) and Gemini 2.5 Pro (Best Speaker) (18.5%). The top five models achieve WER below 30%. 
+
+4.2.2 Telugu Language Results 
+TABLE V : Telugu ASR Model Performance (Ranked by WER) 
+
+Rank Model WER CER MER AWWER 
+
+1 Google STT 33.2% 16.2% 28.8% 28.7% 
+
+2 Gemini 2.5 Pro (BS) 37.9% 19.1% 30.7% 30.2% 
+
+3 Vaani 38.7% 16.4% 31.1% 30.3% 
+
+4 Azure Diarize (BS) 41.8% 16.3% 37.1% 37.2% 
+
+5 Spring Labs 42.2% 17.6% 34.1% 52.0% 
+
+6 Sarvam AI 46.5% 24.2% 32.0% 32.5% 
+
+7 MMS (Meta) 67.5% 36.7% 56.3% 71.1% 
+
+Telugu performance is led by Google Speech-to-Text at 33.2% WER. Gemini 2.5 Pro (Best Speaker) is competitive at 37.9%, followed by Vaani (38.7%), Azure Diarize (Best Speaker) at 41.8%, Spring Labs (42.2%), and Sarvam AI at 46.5%. Despite its higher WER, Sarvam AI achieves a notably low AWWER of 32.5%, suggesting relatively good preservation of agricultural terminology (see Section 4.5 ). The gap between the top model and MMS (67.5%) is substantial, indicating wide variance in Telugu support quality. 
+
+4.2.3 Odia Language Results 
+TABLE VI : Odia ASR Model Performance (Ranked by WER) 
+
+Rank Model WER CER MER AWWER 
+
+1 Azure Diarize (BS) 35.1% 15.2% 31.6% 29.8% 
+
+2 Sarvam AI 35.8% 15.3% 31.8% 43.3% 
+
+3 Gemini 2.5 Pro (BS) 37.8% 22.5% 32.9% 32.0% 
+
+4 MMS (Meta) 61.3% 35.7% 55.4% 67.4% 
+
+5 AI4Bharat 64.8% 25.8% 50.3% 50.8% 
+
+6 Google STT 70.7% 32.6% 53.6% 54.6% 
+
+7 Whisper (OpenAI API) 125.6% 122.7% 100.0% 105.3% 
+
+Odia results show a different pattern: Azure Diarize (Best Speaker) leads at 35.1% WER, a large reduction compared to Google STT’s 70.7% WER for Odia (see Table VI ), demonstrating the impact of diarization for low-resource languages. Sarvam AI and Spring Labs are close behind, both at 35.8%, followed by Gemini 2.5 Pro (Best Speaker) at 37.8%. AI4Bharat achieves 64.8% WER. Google STT, which leads in Hindi and Telugu, drops to 70.7% WER for Odia, highlighting the low-resource challenge. Whisper (OpenAI API) exceeds 100% WER (125.6%), indicating severe difficulty with Odia where insertions outnumber correct words. 
+
+4.3 Impact of Speaker Diarization 
+
+Several models in our evaluation support speaker diarization, which identifies and separates speech from different speakers. Multi-speaker recordings are common in agricultural field settings where extension workers consult with groups of farmers. In such cases, diarization enables selecting the transcript of the primary speaker, reducing noise from background conversations. 
+
+Table VII presents the impact of best-speaker selection across models and languages. 
+TABLE VII : Impact of Speaker Diarization: Full Transcript vs Best Speaker WER 
+
+Model Lang. Full WER BS WER Improv. Avg. Spk. Multi-Spk.% 
+
+Google Chirp 3 Hindi 88.3% 30.0% 66.0% 1.75 56.6% 
+
+Gemini 2.5 Pro Hindi 53.5% 18.5% 65.4% 1.37 29.2% 
+
+Azure Diarize Hindi 31.0% 25.6% 17.5% 1.07 7.1% 
+
+Gemini 2.5 Pro Odia 47.4% 37.8% 20.1% 1.21 17.2% 
+
+Azure Diarize Odia 35.1% 35.1% − - 0.2% 1.02 2.2% 
+
+Gemini 2.5 Pro Telugu 57.4% 37.9% 33.9% 1.17 13.8% 
+
+Azure Diarize Telugu 44.5% 41.8% 6.1% 1.03 3.1% 
+Figure 2 : Full transcript WER vs best-speaker WER across models and languages. Models with higher multi-speaker percentages show larger improvements from best-speaker selection. 
+
+Key observations: 
+
+• 
+
+Gemini 2.5 Pro shows the most consistent diarization benefit: 65.4% improvement in Hindi, 33.9% in Telugu, and 20.1% in Odia. This correlates with the multi-speaker percentage in each language’s recordings. 
+
+• 
+
+Google Chirp 3 achieves 66.0% improvement in Hindi (the only language with Chirp 3 data), where 56.6% of recordings contain multiple speakers. 
+
+• 
+
+Azure Diarize shows modest improvement except in Odia ( − - 0.2%), where only 2.2% of recordings contain multiple speakers, making diarization unnecessary. 
+
+• 
+
+The improvement magnitude correlates strongly with the multi-speaker percentage, confirming that diarization benefit is driven by the presence of extraneous speakers. 
+
+Based on these findings, all subsequent analyses use the best-speaker variant for models with diarization capability, as it represents the effective performance achievable through readily available post-processing. 
+
+4.4 Agriculture Domain Error Analysis 
+
+4.4.1 Agricultural Domain Categories 
+
+To analyze agricultural term errors, we defined 12 primary domain categories: 
+
+1. 
+
+Agricultural Practice - Farming methods and techniques 
+
+2. 
+
+Crop Names - Specific crop varieties 
+
+3. 
+
+Pest/Disease - Plant health issues 
+
+4. 
+
+Soil Nutrient/Fertilizer - Soil management terms 
+
+5. 
+
+Chemical Names - Pesticides and chemicals 
+
+6. 
+
+Agriculture Units - Measurement units 
+
+7. 
+
+Season Names - Agricultural seasons 
+
+8. 
+
+Variety Names - Crop varieties and cultivars 
+
+9. 
+
+Symptoms - Plant disease symptoms 
+
+10. 
+
+Month Names - Seasonal timing references 
+
+11. 
+
+Numerals - Quantities and measurements 
+
+12. 
+
+Country/Place - Geographic references 
+
+4.4.2 Confusion Pattern Analysis 
+
+Analysis of confusion patterns reveals systematic errors in agricultural terminology. Figs. 3 – 5 present treemap visualizations of the most frequent confusion pairs across the three languages, categorized by agricultural domain. 
+Figure 3 : Hindi: Treemap of top agricultural term confusion pairs by domain category. Box sizes represent error frequency, with colors indicating domain categories. Figure 4 : Odia: Treemap of top agricultural term confusion pairs by domain category. Box sizes represent error frequency, with colors indicating domain categories. Figure 5 : Telugu: Treemap of top agricultural term confusion pairs by domain category. Box sizes represent error frequency, with colors indicating domain categories. 
+
+Across all three languages, the dominant confusion pairs involve crop names and chemical/fertilizer terms. The specific pairs differ by language and script, but the underlying pattern is consistent: ASR models substitute domain-critical terms with phonetically similar but semantically different words. 
+
+4.4.3 Most Frequent Agriculture Domain Confusions 
+
+Analyzing the most frequent substitution pairs across languages, we observe that high-frequency errors often involve (i) crop names, (ii) chemical/fertilizer terms, (iii) pest/disease vocabulary, and (iv) units/measurement. 
+
+Hindi (selected high-frequency substitutions): 
+
+• 
+
+dava → \rightarrow dabav (Fertilizer/Chemical, 200) 
+
+• 
+
+makka → \rightarrow makai (Crop, 124) 
+
+• 
+
+ekad → \rightarrow ek (Unit/Measurement, 11) 
+
+Odia (selected high-frequency substitutions): 
+
+• 
+
+kapura → \rightarrow pura (Crop, 19) 
+
+• 
+
+baitaalu → \rightarrow baitalu (Crop, 13) 
+
+• 
+
+pratikarak → \rightarrow pratikar (Pest/Disease, 10) 
+
+Telugu (selected high-frequency substitutions): 
+
+• 
+
+tagallu → \rightarrow tagalla (Crop, 58) 
+
+• 
+
+eeroju → \rightarrow roju (Agricultural Practice, 34) 
+
+• 
+
+madulu → \rightarrow madu (Fertilizer/Chemical, 17) 
+
+4.4.4 Error Impact Analysis 
+
+Aggregating errors across all models and languages using AWWER scoring, we found that: 
+
+• 
+
+34% of errors affected high-weight agricultural terms (weight 3–4) 
+
+• 
+
+28% affected medium-weight terms (weight 2) 
+
+• 
+
+38% affected general vocabulary (weight 1) 
+
+Critical errors like gehun → \rightarrow gaon (wheat → \rightarrow village) demonstrate how traditional WER underestimates practical impact in agricultural contexts. 
+
+4.5 AWWER Results Analysis 
+
+AWWER scores reveal domain-specific performance patterns not captured by traditional WER. Table VIII shows the top 3 models per language ranked by AWWER, alongside their WER ranking for comparison. 
+TABLE VIII : Top 3 Models by AWWER per Language 
+
+Language Model WER AWWER Δ \Delta Rank Δ \Delta 
+
+Hindi Gemini 2.5 Pro (BS) 18.5% 13.3% − - 5.2 +2 
+
+Vaani 16.6% 14.4% − - 2.2 — 
+
+Azure Diarize (BS) 25.6% 19.4% − - 6.2 +1 
+
+Odia Azure Diarize (BS) 35.1% 29.8% − - 5.3 — 
+
+Spring Labs 35.8% 30.3% − - 5.5 +1 
+
+Gemini 2.5 Pro (BS) 37.8% 32.0% − - 5.8 +1 
+
+Telugu Google STT 33.2% 28.7% − - 4.5 — 
+
+Gemini 2.5 Pro (BS) 37.9% 30.2% − - 7.7 — 
+
+Vaani 38.7% 30.3% − - 8.4 — 
+Figure 6 : WER vs AWWER comparison for top 3 models per language. Models with AWWER < < WER (negative delta) concentrate errors on general vocabulary rather than on critical agricultural terms. 
+
+The AWWER-WER delta reveals which models handle agricultural terminology relatively well versus poorly: 
+
+• 
+
+Negative delta (AWWER < < WER): The model makes proportionally fewer errors on domain-critical agricultural terms than on general vocabulary. This is desirable for agricultural applications. Gemini 2.5 Pro (Best Speaker) consistently shows negative delta across all three languages. 
+
+• 
+
+Positive delta (AWWER > > WER): The model makes disproportionately more errors on critical agricultural terms, which is worse for practical utility even if overall WER is acceptable. For example, Sarvam AI in Odia has a competitive WER of 35.8% but AWWER of 43.3% ( Δ \Delta = +7.5 pp), indicating its errors concentrate on important agricultural vocabulary. Interestingly, Sarvam AI shows the opposite pattern in Telugu: WER of 46.5% but AWWER of 32.5% ( Δ \Delta = − - 14.0 pp), meaning it handles Telugu agricultural terms relatively well despite higher overall error rates. This cross-language contrast suggests that model performance on domain vocabulary is language-dependent and cannot be assumed from a single language’s results. 
+
+For example, in Hindi: Google Speech-to-Text has the best WER (16.2%) but its AWWER rank drops to 5th (delta +8.3 pp), meaning it makes relatively more errors on agricultural terms. In contrast, Gemini 2.5 Pro (Best Speaker) ranks 1st in AWWER despite being 3rd in WER, demonstrating superior agricultural term recognition. 
+
+4.6 LLM-Based Utility Evaluation 
+
+We scored the transcripts of the top-performing model for each language (Google STT for Hindi and Telugu, Azure Diarize Best Speaker for Odia) using GPT-4o. For each transcript, the model was prompted with both the reference and hypothesis transcripts and asked to rate the utility of the hypothesis for answering the farmer’s agricultural query on a 1–4 scale (Section 3.3.3 ). Distribution of utility scores across languages: 
+
+Hindi: 
+
+• 
+
+Score 4 (Excellent): 32.1% 
+
+• 
+
+Score 3 (Acceptable): 31.3% 
+
+• 
+
+Score 2 (Poor): 18.2% 
+
+• 
+
+Score 1 (Unusable): 18.4% 
+
+Telugu: 
+
+• 
+
+Score 4 (Excellent): 45.2% 
+
+• 
+
+Score 3 (Acceptable): 27.8% 
+
+• 
+
+Score 2 (Poor): 15.1% 
+
+• 
+
+Score 1 (Unusable): 11.9% 
+
+Odia: 
+
+• 
+
+Score 4 (Excellent): 24.1% 
+
+• 
+
+Score 3 (Acceptable): 25.7% 
+
+• 
+
+Score 2 (Poor): 28.3% 
+
+• 
+
+Score 1 (Unusable): 21.9% 
+
+Telugu shows higher utility scores than Hindi despite worse WER (33.2% vs. 16.2%). This discrepancy may reflect several factors: Telugu queries tend to be shorter, reducing error accumulation; Telugu errors may more often affect non-critical words; and the LLM scoring itself may be less calibrated across languages (see Limitations). Hindi exhibits a bimodal distribution, with 32.1% excellent and 18.4% unusable, suggesting high variance in recording quality or query complexity. 
+
+5 Discussion 
+
+5.1 Key Findings 
+
+1. 
+
+Language-Specific Challenges : Odia consistently underperforms across most models, reflecting insufficient training data and model attention for low-resource languages. However, the inclusion of diarization-enabled models closes much of the gap, with Azure Diarize achieving 35.1% WER compared to 70.7% for Google STT without diarization. 
+
+2. 
+
+Domain-Specific Error Patterns : Agricultural terms show recurring confusion patterns across all three languages, particularly in crop names and pest management terminology. The treemap analysis reveals these patterns are consistent across languages despite different scripts and phonologies. 
+
+3. 
+
+Metric Inadequacy : Traditional WER fails to capture domain-specific risks. The AWWER analysis shows that models with acceptable WER (e.g., Google STT in Hindi at 16.2%) may still make disproportionate errors on critical agricultural terms (AWWER rank 7th), while models like Gemini 2.5 Pro (Best Speaker) better preserve agricultural vocabulary. 
+
+4. 
+
+Diarization Impact : Speaker diarization with best-speaker selection provides large WER reductions (up to 66%) in languages with high multi-speaker rates. This is practically important for agricultural field recordings where multiple speakers are common. 
+
+5. 
+
+Audio Quality Effects : Real-world agricultural recordings exhibit high rates of background talk and environmental noise. Odia’s higher proportion of high-noise recordings (12.3% vs Hindi’s 2.8%) partially explains its lower performance. 
+
+6. 
+
+Model Variation : Large performance differences exist even among commercial systems, highlighting the need for domain evaluation. 
+
+5.2 Practical Implications 
+
+For agricultural technology developers: 
+
+1. 
+
+Model Selection : Google Speech-to-Text provides the best WER for Hindi and Telugu, but Gemini 2.5 Pro (Best Speaker) offers superior agricultural term accuracy (lowest AWWER). For Odia, Azure Diarize (Best Speaker) is the clear choice on both WER and AWWER. 
+
+2. 
+
+Diarization Benefit : For deployments involving multi-speaker recordings (common in agricultural extension), enabling speaker diarization and selecting the primary speaker’s transcript can reduce WER upto 66%, depending on the multi-speaker proportion. 
+
+3. 
+
+Post-Processing Needs : All systems require domain-specific correction mechanisms, particularly for critical agricultural terminology. The AWWER delta analysis identifies which models need more aggressive post-processing for agricultural terms. 
+
+4. 
+
+Deployment Considerations : Hindi and Telugu can support semi-automated workflows with top models achieving < < 20% and < < 35% WER respectively. Odia systems, while considerably improved with diarization, still require oversight for critical agricultural advisory content. 
+
+5.3 Limitations 
+
+This study has several limitations. 
+
+Data source. All recordings originate from a single platform (Farmer.Chat), which may not represent the full diversity of agricultural voice interactions in India. Acoustic conditions, user demographics, and query types may differ on other platforms or in other agricultural contexts. 
+
+Ground truth quality. Reference transcripts were produced by human annotators, but we did not measure inter-annotator agreement. Transcription of noisy, domain-specific audio in Indian languages is inherently subjective, and annotator errors would affect all reported metrics. 
+
+LLM-based scoring. The utility scoring relies on GPT-4o, which introduces its own biases. We did not validate LLM scores against human expert judgments, and the scoring prompt was not ablated. 
+
+AWWER weighting. The four-tier weighting scheme (1–4) was defined by the authors based on domain knowledge, with the lexicon derived from human-annotated reference transcripts. The specific weight values and term assignments have not been validated through ablation studies or independent expert review. Different weighting choices could alter model rankings. 
+
+Model coverage. Not all 10 systems were evaluated on all three languages due to language support limitations. Comparisons across languages should account for the different model subsets available. 
+
+6 Future Work 
+
+1. 
+
+Extended Language Coverage : Evaluation of additional Indian languages (Tamil, Kannada, Malayalam). 
+
+2. 
+
+Domain Expansion : Specialized evaluation frameworks for veterinary science, precision agriculture, and agricultural finance. 
+
+3. 
+
+Real-time Systems : Evaluation of streaming ASR performance in agricultural contexts. 
+
+4. 
+
+Acoustic Robustness : Assessment under varying acoustic conditions typical in agricultural settings, building on the audio quality characterization presented here. 
+
+5. 
+
+Domain-Specific Model Fine-Tuning : Building on the agricultural terminology and error patterns identified in this study to fine-tune ASR models through domain-specific vocabulary augmentation, phonetic discrimination training, and AWWER-style priority term weighting. 
+
+6. 
+
+Open-Source Dataset and Toolkit Release : We plan to release the agricultural ASR benchmark dataset (10,934 audio-transcript pairs across Hindi, Telugu, and Odia), the domain confusion matrix, and the AWWER evaluation toolkit under open licenses to support reproducible research and community-driven improvements. 
+
+7. 
+
+Community Collaboration Framework : Establishing contribution guidelines covering audio quality standards, transcription accuracy thresholds, privacy protection for farmer voice data, and expanded regional and dialectal coverage. 
+
+7 Conclusion 
+
+This study benchmarks 10 ASR models across Hindi, Telugu, and Odia for agricultural advisory use, introducing domain-specific metrics (AWWER and LLM-based utility scoring) alongside traditional WER, CER, and MER. 
+
+First, the best model varies by language and by metric: Google STT leads on WER for Hindi and Telugu, but Gemini 2.5 Pro (Best Speaker) ranks first on AWWER for Hindi, and Azure Diarize (Best Speaker) leads on both metrics for Odia. This means model selection must be guided by the deployment language and whether general accuracy or domain-term fidelity is the priority. Second, speaker diarization with best-speaker selection yields WER reductions of up to 66%, making it the single most impactful post-processing step for multi-speaker field recordings. Third, the gap between WER and AWWER rankings exposes a blind spot in standard evaluation: models that score well on WER may disproportionately err on the agricultural terms that matter most. 
+
+These results also highlight open problems. Odia performance remains weak without diarization (70.7% WER for several models), indicating that low-resource language support lags behind deployment needs. The AWWER weighting scheme, while useful, requires validation through expert review and ablation. LLM-based utility scoring shows promise but needs calibration against human judgment, particularly given the unexplained cross-language inconsistencies observed. 
+
+The benchmarks, error analyses, and evaluation tools presented here can serve as a starting point for agricultural ASR development in Indian languages. 
+
+Disclosure 
+
+The authors are employees of Digital Green, which develops and operates the Farmer.Chat platform from which the evaluation data were collected. The ASR models evaluated are third-party systems with no financial relationship to Digital Green. 
+
+References 
+
+[1] Ministry of Agriculture & Farmers Welfare, Government of India, “Agricultural Statistics at a Glance 2022,” New Delhi: Directorate of Economics and Statistics, 2022. 
+
+[2] J. C. Aker, I. Ghosh, and J. Burrell, “The promise (and pitfalls) of ICT for agriculture initiatives,” Agricultural Economics , vol. 47, pp. 35-48, 2016. 
+
+[3] A. Radford, J. W. Kim, T. Xu, G. Brockman, C. McLeavey, and I. Sutskever, “Robust speech recognition via large-scale weak supervision,” International Conference on Machine Learning , pp. 28492-28518, 2023. 
+
+[4] A. Babu et al., “XLS-R: Self-supervised cross-lingual speech representation learning at scale,” arXiv preprint arXiv:2111.09296 , 2021. 
+
+[5] A. Bapna et al., “mSLAM: Massively multilingual joint pre-training for speech and text,” arXiv preprint arXiv:2202.01374 , 2022. 
+
+[6] A. C. Morris, V. Maier, and P. Green, “From WER and RIL to MER and WIL: improved evaluation measures for connected speech recognition,” Eighth International Conference on Spoken Language Processing , pp. 2765-2768, 2004. 
+
+[7] S. Dalmia, R. Sanabria, F. Metze, and A. W. Black, “Sequence-based multi-lingual low resource speech recognition,” IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) , pp. 4909-4913, 2018. 
+
+[8] V. Pratap et al., “MLS: A Large-Scale Multilingual Dataset for Speech Research,” Interspeech 2020 , pp. 2757-2761, 2020. 
+
+[9] S. Fielke, B. Taylor, and E. Jakku, “Digitalisation of agricultural knowledge and advice networks: A state-of-the-art review,” Agricultural Systems , vol. 180, 102763, 2020. 
+
+[10] D. C. Rose et al., “Agriculture 4.0: Making it work for people, production, and the planet,” Land Use Policy , vol. 100, 104933, 2021. 
+
+[11] ARTPARK, IISc Bangalore and Google, “Vaani: Large-scale speech data collection for Indian languages,” 2023. [Online]. Available: https://vaani.iisc.ac.in/ 
+
+[12] H. S. Chadha et al., “Vakyansh: ASR Toolkit for Low-Resource Indic Languages,” arXiv preprint arXiv:2203.16512 , 2022. 
+
+[13] T. Javed et al., “Towards Building ASR Systems for the Next Billion Users,” Proceedings of the AAAI Conference on Artificial Intelligence , vol. 36, pp. 10813–10821, 2022. 
+
+[14] V. Pratap et al., “Scaling Speech Technology to 1,000+ Languages, JMLR vol. 25 (2024)” arXiv preprint arXiv:2305.13516 . 
+
+[15] Google Cloud, “Cloud Speech-to-Text documentation,” 2023. [Online]. Available: https://cloud.google.com/speech-to-text/docs 
+
+[16] Microsoft, “Azure AI Speech documentation,” 2023. [Online]. Available: https://learn.microsoft.com/azure/ai-services/speech-service/ 
+
+[17] Sarvam AI, “Sarvam AI,” 2023. [Online]. Available: https://www.sarvam.ai/ 
+
+[18] Google DeepMind, “Gemini,” 2025. [Online]. Available: https://deepmind.google/technologies/gemini/ 
+
+[19] Google Cloud, “Chirp 3: Cloud Speech-to-Text documentation,” 2025. [Online]. Available: https://docs.cloud.google.com/speech-to-text/docs/models/chirp-3 
+
+[20] National Language Translation Mission (Bhashini), “Bhashini: National Language Translation Mission,” Ministry of Electronics and Information Technology, Government of India, 2022. 
+
+[21] Nithya R et al., “SPRING-INX: A Multilingual Indian Language Speech Corpus by SPRING Lab, IIT Madras,” arXiv preprint arXiv:2310.14654 , 2023. [Online]. Available: https://asr.iitm.ac.in/models

@@ -1,0 +1,294 @@
+SOURCE: https://vexascribe.com/how-accurate-is-whisper
+LABEL:  Vexascribe: Whisper accuracy WER benchmarks 2026
+================================================================================
+
+Home / How Accurate Is Whisper? 
+Formerly NovaScribe — same team, same product, refreshed name. Read the announcement → 
+
+How Accurate Is Whisper in 2026? 
+
+OpenAI Whisper Large-v3 achieves ~2.7% Word Error Rate (WER) on the LibriSpeech benchmark and 8–12% on real-world English audio . Accuracy varies dramatically by language, audio quality, and speaker conditions — here's what the numbers actually mean. 
+
+By VexaScribe (formerly NovaScribe) Editorial · Updated May 2026 
+
+OpenAI Whisper is the open-source speech recognition model behind many AI transcription products, including VexaScribe (formerly NovaScribe) . The current best version, Whisper Large-v3 , achieves around 2.7% Word Error Rate (WER) on the LibriSpeech test-clean benchmark — clean audiobook audio with one speaker. On real-world English audio (meetings, podcasts, phone calls), WER rises to roughly 8–12% . Whisper supports 99 languages, but accuracy varies sharply: major Western European languages perform near English-level, while low-resource languages can have 25%+ WER. Whisper does not perform speaker diarization natively — that requires a separate model. OpenAI also released GPT-4o-transcribe and GPT-4o-mini-transcribe in March 2025 as API-only successors with reportedly lower WER, though they're not open-source like Whisper. The model is MIT-licensed and free to self-host , with the largest version requiring about 10 GB of GPU memory. The OpenAI Whisper API costs $0.006 per minute . This page breaks down what those numbers actually mean for transcription accuracy across audio types, languages, and conditions. 
+
+Whisper Accuracy at a Glance 
+
+~2.7% 
+WER on benchmark 
+LibriSpeech test-clean 
+
+8–12% 
+Real-world English 
+meetings, calls, podcasts 
+
+99 
+Languages supported 
+accuracy varies sharply 
+
+$0 
+MIT license 
+free to self-host 
+
+Whisper Is a Family of Models, Not One Model 
+
+Whisper releases come in 7 sizes from Tiny (39M params) to Large-v3 (1.55B params). Speed and accuracy trade off significantly. Most commercial products use Large-v3 or Large-v3 Turbo (a distilled version released September 2024) for production. 
+
+Model Parameters VRAM Relative speed Use case 
+
+Tiny 39M ~1 GB ~10× faster than Large Mobile, edge devices 
+
+Base 74M ~1 GB ~7× faster Constrained environments 
+
+Small 244M ~2 GB ~4× faster Balanced quality/speed 
+
+Medium 769M ~5 GB ~2× faster Quality-focused 
+
+Large-v2 1.55B ~10 GB 1× (baseline) Production (older) 
+
+Large-v3 ★ 1.55B ~10 GB 1× Production (current best) 
+
+Large-v3 Turbo 809M ~6 GB ~8× faster Fast production (Sept 2024) 
+
+Speed multipliers are relative to Large-v3, not real-time. Specific WER per model size requires reading the OpenAI Whisper paper appendix; we don't reproduce unverified per-size numbers here. Source: openai/whisper README . 
+
+Why Real-World WER Differs From Benchmark WER 
+
+LibriSpeech audiobook benchmarks measure ideal conditions — single speaker, studio recording, scripted speech. Real audio is messy. The same Whisper Large-v3 model produces dramatically different results across audio types. 
+
+Audio condition Approximate WER Notes 
+
+LibriSpeech test-clean (audiobook benchmark) ~2.7% Industry baseline, best case 
+
+Clean studio podcast (one speaker) ~3–6% Real-world but ideal conditions 
+
+Conference call, 2 speakers ~7–12% Business meeting baseline 
+
+Zoom/Teams call (3+ speakers) ~10–15% Common business reality 
+
+Phone audio (8 kHz bandwidth) Higher than studio Bandwidth-limited; specific delta unverified 
+
+Strong accents +5–10% over baseline Documented disparity (JASA Express Letters 2024) 
+
+Heavy background noise +5–15% over baseline Cafés, traffic, music 
+
+Multiple overlapping speakers Significant degradation Whisper doesn't separate speakers 
+
+WER ranges represent typical observations across published benchmarks, not a single controlled study. Use them as directional guidance. 
+
+Why Whisper Sometimes Makes Things Up 
+
+A peer-reviewed study presented at ACM FAccT 2024 documented that Whisper occasionally fabricates content during silences and audio with frequent pauses. Researchers have reported hallucination rates from 1% to 80% of segments depending on conditions. The problem is most pronounced with: 
+
+● Long silences at segment boundaries (greater than 30 seconds) 
+
+● Audio with frequent pauses or speech disfluencies 
+
+● Recordings starting or ending with silence 
+
+● Background noise that resembles speech 
+
+This is not unique to Whisper — most automatic speech recognition models have this issue — but Whisper's tendency was specifically flagged in healthcare contexts (Healthcare Brew, November 2024) where transcript fabrication has serious consequences. For production use, always treat AI transcripts as drafts, not records of truth. 
+
+Sources: ACM FAccT 2024; Cornell coverage (June 2024) ; Calm-Whisper paper . 
+
+Whisper Accuracy Across 99 Languages 
+
+Whisper's training data is heavily English-weighted. Performance scales roughly with how much training data exists per language. The OpenAI Whisper paper (2022) reports per-language WER on FLEURS benchmark in Appendix D. 
+
+High accuracy 
+Similar to English 
+
+Major European languages with substantial training data: 
+
+Spanish, French, German, Italian, Portuguese, Dutch, Polish 
+
+Good accuracy 
+Typically 1.5–2× English WER 
+
+Major non-Western languages with substantial training: 
+
+Japanese, Korean, Russian, Arabic, Hindi, Turkish, Vietnamese — accuracy depends on dialect and audio quality 
+
+Limited accuracy 
+Lower-resource languages 
+
+Welsh, Swahili, Bengali (some dialects), and many other lower-resource languages — substantially higher WER, sometimes 25%+. OpenAI flags 20 of the 99 supported languages as having no training data — those should be considered experimental. 
+
+How Whisper Compares to Commercial APIs 
+
+Most ASR vendors publish their own benchmark numbers, which favor their model. Independent benchmarks (Modal, ionio.ai 2025) paint a slightly different picture. Treat vendor-reported WERs as marketing data; absolute numbers vary 2–3 percentage points across studies. 
+
+Engine Real-world English WER Pricing Source 
+
+Whisper Large-v3 (open source) ~10.6% (independent) Free self-host / $0.006/min API Modal, ionio.ai 2025 
+
+Deepgram Nova-3 ~5.26% batch (vendor) $0.0043/min Deepgram 2026 
+
+AssemblyAI Universal-2 ~8.4% (vendor) $0.00025/sec AssemblyAI 
+
+OpenAI GPT-4o-transcribe Lower than Whisper-v3 (vendor) $0.006/min OpenAI March 2025 
+
+OpenAI GPT-4o-mini-transcribe Higher than 4o full (vendor) $0.003/min OpenAI March 2025 
+
+Google Cloud Speech / Chirp Specific WER unverified $0.016/min Vendor docs 
+
+AWS Transcribe Specific WER unverified $0.024/min Vendor docs 
+
+The takeaway: Whisper, Deepgram, AssemblyAI, and OpenAI's GPT-4o-transcribe are all in the same general accuracy class for English. Differences become more pronounced for non-English languages, custom vocabulary, and specific audio conditions. For a vendor-by-vendor comparison with verified pricing, see our developer transcription API comparison (12 APIs) and the podcast transcription tools comparison (10 podcaster-focused tools). 
+
+What Whisper Doesn't Do 
+
+Whisper is a transcription model. Real production transcription tools need several things Whisper doesn't natively provide: 
+
+Speaker diarization 
+Whisper transcribes all speech but doesn't identify who said what. Pair with pyannote-audio (open source) or WhisperX (combines both) for speaker labels. Commercial tools built on Whisper — including VexaScribe — bundle diarization. 
+
+Live streaming 
+Whisper is batch-oriented. For real-time transcription, look at faster-whisper (CTranslate2 reimplementation) or commercial streaming APIs (Deepgram, AssemblyAI Universal-Streaming). 
+
+Custom vocabulary / domain terms 
+Whisper has limited support for biasing toward specific terms (brand names, technical jargon). Commercial APIs like Deepgram and Google offer better custom vocabulary handling. 
+
+Voice activity detection (VAD) 
+Whisper struggles with empty audio (contributes to the hallucination problem). Most production setups pre-process audio with a VAD model to skip silence. 
+
+Tools and Frameworks Built on Whisper 
+
+Whisper underpins many products and open-source projects. If you're evaluating which Whisper-based tool to use: 
+
+Open-source frameworks 
+
+• faster-whisper — CTranslate2 reimplementation, ~4× faster 
+
+• WhisperX — adds diarization + word-level timestamps 
+
+• distil-whisper — HuggingFace, 6× faster, within 1% WER 
+
+• Calm-Whisper — silence-handling improvements 
+
+Commercial products 
+
+VexaScribe (formerly NovaScribe), TurboScribe, Descript, and many others run Whisper Large-v3 in production with their own UI, editing, exports, and diarization layers. 
+
+OpenAI's own offerings 
+
+• Whisper API (whisper-1) — $0.006/min 
+
+• GPT-4o-transcribe — $0.006/min (Mar 2025) 
+
+• GPT-4o-mini-transcribe — $0.003/min (Mar 2025) 
+
+Should You Run Whisper Yourself? 
+
+Self-host Whisper Use a service like VexaScribe 
+
+Free model, but you pay for GPU/cloud (~$0.50–$2/hr GPU time) $0.006–$0.05/min (typically cheaper at moderate volume) 
+
+You handle VAD, diarization, exports, retries All bundled — diarization, exports, summaries 
+
+Full data privacy (data never leaves your infrastructure) Cloud-based; check provider's privacy policy 
+
+Need GPU + ML expertise Browser upload, no setup 
+
+Best for: high-volume, privacy-sensitive, custom pipelines Best for: occasional/regular use, no infra 
+
+If you're transcribing more than ~50 hours/month and you're comfortable with ML infra, self-hosting can be cheaper. For everyone else, a managed service is simpler. 
+
+Don't want to run Whisper yourself? 
+
+VexaScribe (formerly NovaScribe) runs Whisper Large-v3 in production with diarization, multi-format export, AI summaries, and translation in 133 languages built in. Free 30-min trial, no credit card. 
+
+Frequently Asked Questions 
+
+What is Whisper's word error rate? 
+Whisper Large-v3 achieves approximately 2.7% Word Error Rate (WER) on the LibriSpeech test-clean benchmark — clean audiobook audio with one speaker. On real-world English audio (meetings, podcasts, phone calls), WER rises to roughly 8–12% based on independent benchmarks. Accuracy drops further on noisy audio, strong accents, or languages with limited training data. 
+Is Whisper better than Deepgram, AssemblyAI, or Google? 
+Whisper Large-v3, Deepgram Nova-3, AssemblyAI Universal-2, and Google Cloud Speech are all in the same general accuracy class for English. Vendor-published benchmarks favor each vendor's own model. Independent benchmarks (Modal, ionio.ai 2025) show real-world English WER for Whisper Large-v3 around 10.6%, with commercial alternatives in similar ranges. For non-English languages, custom vocabulary support, and live streaming, the differences become more pronounced. 
+Which Whisper model is most accurate? 
+Whisper Large-v3 (1.55B parameters) is the most accurate Whisper model. Large-v3 Turbo (released September 2024) is a distilled version with about 8× the speed and most of the accuracy. Smaller models — Tiny, Base, Small, Medium — trade accuracy for speed. For production use cases, most commercial transcription products run Large-v3 or Large-v3 Turbo. 
+Is Whisper accurate for languages other than English? 
+Whisper supports 99 languages, but accuracy varies significantly. Major Western European languages (Spanish, French, German, Italian, Portuguese, Dutch, Polish) perform near English-level. Japanese, Korean, Russian, Arabic, Hindi, Turkish, and Vietnamese typically have higher WER than English. OpenAI flags 20 of the 99 supported languages as having no training data — those should be considered experimental. 
+What is GPT-4o-transcribe and how does it differ from Whisper? 
+OpenAI released GPT-4o-transcribe and GPT-4o-mini-transcribe in March 2025 as API-only successors to Whisper. They reportedly have lower WER than Whisper Large-v3, but unlike Whisper they're not open-source — you cannot self-host them. Whisper remains MIT-licensed and free to run locally. The OpenAI Whisper API costs $0.006/minute; GPT-4o-transcribe is also $0.006/min; GPT-4o-mini-transcribe is $0.003/min. 
+Why does Whisper sometimes fabricate text (hallucinations)? 
+A peer-reviewed study presented at ACM FAccT 2024 documented that Whisper occasionally fabricates content during silences and audio with frequent pauses. The hallucination rate varies dramatically by study and conditions (researchers have reported rates from 1% to 80% of segments). The problem is most pronounced with long silences, audio starting or ending in silence, and background noise that resembles speech. For production use, always treat AI transcripts as drafts, not records of truth. 
+Can Whisper handle multiple speakers? 
+Whisper transcribes all speech but does not natively identify speakers (no diarization). For speaker labels, you need to combine Whisper with tools like pyannote-audio or use WhisperX, which adds forced alignment and diarization to Whisper output. Commercial tools built on Whisper — including VexaScribe (formerly NovaScribe) — bundle diarization automatically. 
+Is Whisper free to use commercially? 
+Yes. Whisper is released under the MIT license, which permits unrestricted commercial use. You can self-host, modify, and include it in products you sell. OpenAI also offers a paid Whisper API ($0.006/min) for those who don't want to self-host. 
+Does Whisper work offline? 
+Yes. Once the model is downloaded, Whisper runs entirely locally with no internet connection required. This makes it suitable for privacy-sensitive applications, offline environments, and air-gapped systems. Model sizes range from about 75 MB (Tiny) to about 3 GB on disk (Large-v3). 
+What hardware do I need to run Whisper Large-v3? 
+Whisper Large-v3 requires approximately 10 GB of GPU VRAM to run efficiently. Large-v3 Turbo needs about 6 GB. Smaller models (Tiny, Base, Small) can run on CPU but with significantly slower throughput. For self-hosting at scale, a modern NVIDIA GPU (RTX 3090, 4090, A6000, A100) gives best results. CPU-only inference is possible but typically 5–20× slower. 
+
+Whisper-Powered, Production-Ready 
+
+Skip the GPU setup. Get Whisper Large-v3 with diarization, summaries, translation, and exports in your browser. 
+
+Related 
+
+Transcribe audio to text 
+
+99 languages, 95% accuracy on clear audio 
+
+MP3 to text 
+
+Bitrate impact on accuracy explained 
+
+Transcript to summary 
+
+AI summary quality vs human-written 
+
+Transcribe and translate 
+
+Translate transcripts to 133 languages 
+
+13 Best transcription software 2026 
+
+Otter, VexaScribe, Rev, Descript, Granola, AssemblyAI Universal-2, Deepgram Nova-3 compared 
+
+pyannote.audio 
+
+Diarization benchmarks (DER) — the “who spoke when” counterpart to Whisper's WER 
+
+Transcribe Spanish audio 
+
+Spanish dialect coverage + WER benchmarks 
+
+OGG to text 
+
+Whisper accuracy on 24 kbps WhatsApp voice notes 
+
+Transcription for qualitative research 
+
+Koenecke et al. bias context + research methodology 
+
+Whisper transcription 
+
+Hosted Whisper Large-v3 — no GPU, no API setup 
+
+SRT generator 
+
+Subtitle files with millisecond timestamps 
+
+Best transcription API for developers 
+
+12 STT APIs compared — price, latency, accuracy 
+
+AI transcription — full guide 
+
+Category overview — how AI transcription works end-to-end 
+
+AI vs human transcription 
+
+Decision framework — when each is worth it 
+
+Best podcast transcription tools 
+
+10 podcast tools compared — Descript, Castmagic, Otter, Rev 
+
+Editorial standards 
+
+How we test and disclose
