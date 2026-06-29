@@ -1,0 +1,1686 @@
+\documentclass[12pt,a4paper]{article}
+
+% ─── Packages ─────────────────────────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue!70!black,
+            citecolor=blue!70!black,urlcolor=blue!70!black]{hyperref}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{ragged2e}
+\usepackage{listings}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{textcomp}
+\usepackage{lscape}
+
+% Unicode rupee -> pdflatex-safe substitution
+\DeclareUnicodeCharacter{20B9}{\mbox{Rs.\,}}
+
+\geometry{top=1in,bottom=1in,left=1.2in,right=1.2in}
+\onehalfspacing
+
+% ─── Custom column types ──────────────────────────────────────────────────────
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\Centering\arraybackslash}p{#1}}
+
+% ─── Listings ─────────────────────────────────────────────────────────────────
+\definecolor{codebg}{rgb}{0.96,0.96,0.96}
+\lstset{
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  captionpos=b,
+  frame=single,
+  framesep=5pt,
+  keepspaces=true,
+  showspaces=false,
+  showstringspaces=false,
+  tabsize=2,
+  xleftmargin=6pt,xrightmargin=6pt,
+}
+\lstdefinestyle{bash}{language=bash,morekeywords={docker,pip,python}}
+
+% ─── Metadata ─────────────────────────────────────────────────────────────────
+\title{%
+  \LARGE\bfseries Voice AI: Business Opportunities for AMD\\[6pt]
+  \large A Techno-Business Analysis%
+}
+\author{Hari Krishna Vydana \\ \small Advanced Micro Devices (AMD)}
+\date{June 2026}
+
+% ==============================================================================
+\begin{document}
+\maketitle\thispagestyle{empty}
+
+% ─── Abstract ─────────────────────────────────────────────────────────────────
+\begin{abstract}
+\noindent
+Voice AI has crossed from novelty to critical enterprise infrastructure.
+The global AI voice-agents market reached \$2.4\,billion in 2024 and is
+projected at \$47.5\,billion by 2034 at a 35\% CAGR.  Venture-capital
+funding into voice AI reached \$2.1\,billion in 2025---eight times the
+2022 level.  This article provides a comprehensive techno-business analysis
+across six dimensions: (1) the five-layer technology stack (telephony,
+ASR, LLM, TTS, orchestration); (2) cost anatomy for managed versus
+self-hosted deployments; (3) the open-source stack and its gaps; (4) ASR
+accuracy realities for Indian-language and telephony-quality audio;
+(5) AMD's hardware competitive position with a 25--40\% cost advantage on
+LLM inference and a 192\,GB HBM3 memory advantage on the MI300X; and
+(6) India's structural position as the second-largest voice AI startup
+ecosystem globally, where on-premise AMD hardware is simultaneously
+cost-optimal and compliance-mandated under the DPDP Act.  Beyond the core
+stack, the article maps the geographic opportunity across seven regions,
+examines the three orchestration frameworks that every production voice AI
+company converges on, and identifies AMD's specific gaps---from missing
+Docker containers and PyPI packages to absent ISV integrations and
+industrial edge hardware---versus NVIDIA's NIM ecosystem strategy.
+Conservative modelling estimates that voice AI could reclaim 3.75 billion
+work-hours annually in India alone, translating to approximately
+\$1.1\,billion in economic value.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ==============================================================================
+\section{Market Landscape}
+\label{sec:market}
+
+Voice AI has crossed the threshold from novelty to critical infrastructure
+(Table~\ref{tab:market-metrics}).
+
+\begin{table}[H]\centering
+\caption{Global Voice AI Market Metrics (2024--2026)}
+\label{tab:market-metrics}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Global voice recognition market (2025) & \$18.39 billion \\
+Global voice recognition market (2031) & \$61.71 billion at 22\% CAGR \\
+AI voice agents market (2024) & \$2.4 billion \\
+AI voice agents market (2034) & \$47.5 billion at 35\% CAGR \\
+VC funding (2025) & \$2.1 billion --- 8$\times$ the 2022 level \\
+VC funding in H1 2026 & \$559 million --- 68\% above 2025 pace \\
+YoY growth in production deployments & 340\% across 500+ organisations \\
+Median end-to-end latency (2026) & 680\,ms (was 1{,}200\,ms in 2024) \\
+Builders actively deploying agents & 87.5\% \\
+Businesses planning voice AI in customer service (2026) & 80\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Top-Funded Companies (2026)}
+
+\begin{table}[H]\centering
+\caption{Leading Voice AI Companies by Funding and Valuation}
+\label{tab:top-companies}
+\small
+\begin{tabularx}{\textwidth}{L{2.6cm}L{4.0cm}L{1.6cm}X}
+\toprule
+\textbf{Company} & \textbf{Funding} & \textbf{Valuation} & \textbf{Key Metric} \\
+\midrule
+ElevenLabs & \$791M (incl.\ \$500M Series~D, Feb 2026) & \$11B & ARR \$500M by May 2026 \\
+Deepgram   & ---                                        & \$1.3B & Core STT/TTS infrastructure \\
+PolyAI     & \$200M+ (incl.\ \$86M Series~D, Dec 2025) & \$750M & 2{,}000+ deployments, 45 languages \\
+Vapi       & \$72M (incl.\ \$50M Series~B)             & \$500M & Amazon Ring chose Vapi over 40 rivals \\
+Retell AI  & ---                                        & ---    & \$40M+ ARR; 40M+ calls/month \\
+Sarvam AI  & \$275M (incl.\ \$234M Series~B, Jun 2026) & \$1.5B & India's first sovereign AI unicorn \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Geographic Distribution}
+\begin{itemize}[noitemsep]
+  \item \textbf{US:} 62 voice AI startups; 40.6\% of global revenue.
+  \item \textbf{India:} 32 startups --- second globally.
+  \item \textbf{UK:} 11 startups.
+  \item \textbf{Asia-Pacific:} Fastest-growing region.
+\end{itemize}
+
+% ==============================================================================
+\section{Application Verticals}
+\label{sec:applications}
+
+\subsection{BFSI --- 32.9\% Global Market Share}
+
+BFSI is the largest vertical adopter.  Key use cases: multilingual IVR
+replacing touch-tone menus; lead qualification (India: cost down from
+Rs.\,800 to Rs.\,120/lead, 85\% reduction); voice-guided loan processing in
+regional languages; voice biometrics for real-time authentication.
+
+Gnani.ai processes 30M+ daily voice AI conversations for Indian banks using
+a 14B-parameter voice foundation model \cite{callerdigital-guide}.  57\%
+of Indian BFSI institutions use voice analytics.
+
+\subsection{Healthcare --- 37.79\% CAGR}
+
+Use cases: appointment scheduling (no-shows reduced 30--40\%), clinical
+documentation (physicians speak; notes write themselves), multilingual
+patient intake, pharmacy refill reminders.  70\% of healthcare organisations
+credit voice AI with measurable improvements.
+
+\subsection{Contact Centers \& Customer Service}
+
+Gartner predicts voice AI will reduce contact center labour costs by
+\$80\,billion in 2026 \cite{nextlevel-roi}.  Table~\ref{tab:contact-center}
+contrasts human versus AI performance.
+
+\begin{table}[H]\centering
+\caption{Human Agent vs.\ Voice AI in Contact Centers}
+\label{tab:contact-center}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Metric} & \textbf{Human Agent} & \textbf{Voice AI} \\
+\midrule
+Cost per call        & \$7--\$12   & \$0.40 \\
+Simultaneous calls   & 1           & Unlimited \\
+Availability         & 8\,hrs/day  & 24/7/365 \\
+Languages            & 1--2        & 45--70+ \\
+QA call coverage     & 1--2\%      & 100\% (automated) \\
+Call deflection rate & ---         & 60--80\% \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Retell AI alone processes 40M+ AI phone calls per month.  PolyAI customers
+report 391\% ROI and \$10.3M average annual savings \cite{assemblyai-voice2026}.
+
+\subsection{Outbound Sales \& Lead Qualification}
+
+Outbound voice agents are the fastest-growing deployment segment through
+2033: appointment reminders, payment follow-ups, lead qualification, and
+re-engagement campaigns.  In India, SquadStack and Caller Digital handle
+tens of millions of outbound calls monthly for D2C brands, NBFCs, and
+insurers.
+
+\subsection{Agriculture \& Micro-Enterprise (India-Specific)}
+
+Mandi price queries in Bhojpuri and Haryanvi; weather-based crop advisory
+in local dialects; government scheme eligibility (PM-KISAN, Ayushman
+Bharat); GST filing by voice; UPI alerts; kirana store inventory by spoken
+command \cite{business-standard-india}.
+
+\subsection{Other Verticals}
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Education:} Accent coaching, pronunciation feedback, voice-based tutoring and adaptive quizzes.
+  \item \textbf{Hospitality:} Multilingual hotel concierge (24/7); field-worker guided instructions (hands-free).
+  \item \textbf{Automotive:} In-cabin voice assistants; 75M+ cars ship with voice integration annually.
+\end{itemize}
+
+% ==============================================================================
+\section{Business Impact Metrics}
+\label{sec:impact}
+
+\begin{table}[H]\centering
+\caption{Verified Business Impact and ROI Metrics (2026)}
+\label{tab:roi}
+\begin{tabularx}{\textwidth}{lll}
+\toprule
+\textbf{Metric} & \textbf{Value} & \textbf{Source} \\
+\midrule
+3-year ROI                       & 331--391\%                      & Forrester \\
+ROI breakeven                    & 3.2 months (median)             & Industry \\
+Cost reduction per call          & 90--95\% (\$0.40 vs.\ \$7--12) & Industry \\
+Contact center labour savings (2026) & \$80 billion               & Gartner \\
+Small-business annual savings    & \$23{,}000--\$42{,}000          & Industry \\
+Latency improvement (2024--2026) & 1{,}200\,ms $\to$ 680\,ms      & Voice Agent Report \\
+VC funding surge (2022--2025)    & 7$\times$ (\$315M $\to$ \$2.1B)& Crunchbase \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Gartner expects agentic AI to autonomously resolve 80\% of common
+customer-service issues by 2029, reducing operational costs by 30\%.  By
+end of 2026, 40\% of enterprise applications will integrate task-specific AI
+agents, up from below 5\% in 2025.
+
+% ==============================================================================
+\section{Technology Stack}
+\label{sec:stack}
+
+A voice AI system is a five-layer pipeline (Listing~\ref{lst:pipeline}).
+Each layer has its own latency budget, cost structure, and vendor ecosystem.
+
+\begin{lstlisting}[caption={Five-Layer Voice AI Pipeline},label=lst:pipeline,
+                   basicstyle=\ttfamily\scriptsize]
+User speaks  (phone / browser / mic / WhatsApp)
+                      |  raw audio
+                      v
+LAYER 1: Telephony / Transport
+  Routes audio; handles SIP, WebRTC
+  Vendors: Twilio  Telnyx  LiveKit  Plivo  SignalWire
+                      |  PCM audio stream
+                      v
+LAYER 2: ASR / STT  -  "The Ears"
+  Converts speech -> text  (<150 ms)
+  Vendors: Deepgram  AssemblyAI  Whisper  Sarvam Saarika
+                      |  transcript text
+                      v
+LAYER 3: LLM / NLU  -  "The Brain"
+  Understands intent; generates reply
+  Vendors: GPT-4o  Claude  Gemini  Llama 3  Mistral
+                      |  response text
+                      v
+LAYER 4: TTS  -  "The Voice"
+  Converts text -> natural audio  (<150 ms)
+  Vendors: ElevenLabs  Cartesia  Kokoro  Coqui XTTS-v2
+                      |  audio stream
+                      v
+LAYER 5: Orchestration  -  "The Conductor"
+  VAD, turn-taking, context, routing
+  Vendors: Vapi  Retell AI  Pipecat  LiveKit Agents
+\end{lstlisting}
+
+\begin{table}[H]\centering
+\caption{End-to-End Latency Budget per Conversation Turn}
+\label{tab:latency}
+\begin{tabularx}{\textwidth}{lll}
+\toprule
+\textbf{Layer} & \textbf{Target} & \textbf{Notes} \\
+\midrule
+Telephony             & $<$50\,ms   & Network round-trip \\
+ASR                   & $<$150\,ms  & End-of-speech to transcript \\
+LLM (first token)     & $<$200\,ms  & Time-to-first-token \\
+TTS (first chunk)     & $<$150\,ms  & Streaming synthesis \\
+\midrule
+\textbf{Total}        & \textbf{$<$680\,ms} & Median 2026; target $<$500\,ms for India \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Layer 1: Telephony}
+
+US DID: \$0.50--\$1.15/month; per-minute: \$0.0035--\$0.014/min.  At
+1M\,min/month: \$3{,}500--\$14{,}000 in telephony alone.  Indian cellular
+audio arrives at 8\,kHz narrowband, significantly degrading ASR accuracy.
+
+\subsection{Layer 2: ASR / STT}
+
+\begin{table}[H]\centering
+\caption{ASR Provider Comparison (2026 Pricing and Accuracy)}
+\label{tab:asr}
+\small
+\begin{tabularx}{\textwidth}{L{3.4cm}L{1.8cm}L{2.0cm}X}
+\toprule
+\textbf{Provider} & \textbf{Price/min} & \textbf{Eng.\ WER} & \textbf{Indian Language Notes} \\
+\midrule
+Deepgram Nova-3              & \$0.0043  & $\sim$5.26\%  & Good Hindi; limited regional \\
+OpenAI gpt-4o-transcribe     & \$0.006   & $<$Whisper v3 & No Indian specialisation \\
+AssemblyAI Universal-2       & \$0.015   & $\sim$8.4\%   & Limited Indian \\
+Google Chirp 2/3             & \$0.024   & Unverified    & Good multilingual \\
+Whisper Large-v3 (self-host) & GPU only  & $\sim$10.6\%  & Hindi ok; Bengali 25\%+ \\
+Faster-Whisper (self-host)   & GPU only  & Same          & 4$\times$ throughput \\
+Sarvam Saarika               & INR       & Indian-opt.   & 22 Indian langs, telephony-trained \\
+NVIDIA Parakeet TDT 0.6B     & $\sim$\$0.0015 & Competitive & English-primary \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Layer 3: LLM / NLU}
+
+LLM inference is the \emph{cheapest} layer per minute for most voice AI
+systems: a system running 10{,}000\,min/month spends under \$200 on the LLM.
+What matters is latency.  LLMs must return first tokens in $<$200\,ms;
+smaller models (Llama~3.1~8B, Mistral~7B) are often preferred over larger
+ones for voice.
+
+\subsection{Layer 4: TTS --- The Hidden Budget Killer}
+
+TTS is often more expensive per minute than ASR and LLM combined.
+
+\begin{table}[H]\centering
+\caption{TTS Provider Comparison with AMD ROCm Compatibility}
+\label{tab:tts}
+\small
+\begin{tabularx}{\textwidth}{L{3.2cm}L{2.0cm}L{2.2cm}X}
+\toprule
+\textbf{Provider} & \textbf{Price/min} & \textbf{Quality} & \textbf{AMD ROCm} \\
+\midrule
+ElevenLabs               & \$0.10--\$0.30 & Best-in-class          & Cloud only \\
+Cartesia Sonic-3         & \$0.05--\$0.10 & Excellent, low latency & Cloud only \\
+Amazon Nova Sonic        & $\sim$\$0.02   & Good                   & Cloud only \\
+Gnani Vachana TTS        & INR            & Best Indian, 12 langs  & On-premise \\
+Sarvam Bulbul            & INR            & 10 Indian languages    & On-premise \\
+Kokoro 82M (self-host)   & GPU compute    & Very good, Apache 2.0  & $\checkmark$ Full \\
+Chatterbox (self-host)   & GPU compute    & Excellent              & $\checkmark$ Full \\
+Coqui XTTS-v2 (self-host)& GPU compute   & Good, 17 langs         & Partial \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent\textbf{Gnani Vachana TTS:} clones human voices across 12 Indian
+languages using $<$10\,s of reference audio, runs entirely on-premise in
+India, designed for low-bandwidth deployment --- DPDP-compliant by design.
+
+\subsection{Layer 5: Orchestration}
+
+\begin{table}[H]\centering
+\caption{Voice Orchestration Platform Comparison}
+\label{tab:orchestration}
+\small
+\begin{tabularx}{\textwidth}{L{2.4cm}L{2.4cm}L{2.0cm}X}
+\toprule
+\textbf{Platform} & \textbf{Type} & \textbf{Pricing} & \textbf{India Compliance} \\
+\midrule
+Vapi          & Managed, API-first   & USD/min              & Developer-managed \\
+Retell AI     & Managed              & USD/min              & Developer-managed \\
+Bolna.ai      & Managed, Indian      & $\sim$Rs.\,5.52/min  & Developer-managed \\
+Caller Digital& Managed, Indian      & INR per-outcome      & Built-in TRAI + DPDP \\
+Pipecat       & Open-source          & GPU compute          & Self-managed \\
+LiveKit Agents& Open-source/cloud    & Compute cost         & Self-managed \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ==============================================================================
+\section{Cost Anatomy}
+\label{sec:cost}
+
+\begin{table}[H]\centering
+\caption{Full-Stack Cost per 10{,}000 Minutes/Month: Self-Hosted vs.\ Managed Cloud}
+\label{tab:cost-breakdown}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Layer} & \textbf{DIY / Self-Hosted} & \textbf{Managed Cloud} \\
+\midrule
+Telephony            & \$35--\$140              & \$35--\$140 \\
+ASR/STT              & \$15--\$50 (GPU)         & \$43--\$240 \\
+LLM                  & \$20--\$150              & \$20--\$150 \\
+TTS                  & \$20--\$50 (GPU)         & \$200--\$3{,}000 \\
+Infrastructure (GPU) & \$200--\$800             & Included \\
+\midrule
+\textbf{Total}       & \textbf{\$290--\$1{,}190/month} & \textbf{\$298--\$3{,}530/month} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{The INR vs.\ USD Gap in India}
+
+A 3-minute call costs approximately \$0.75--\$1.50 ($\approx$Rs.\,63--125)
+on a USD-priced platform, versus Rs.\,16--45 on an INR-priced platform.  At
+1M calls/month this is a gap of \textbf{Rs.\,2--8 crore/month}
+\cite{callerdigital-guide}.
+
+\begin{table}[H]\centering
+\caption{Build Cost by System Complexity}
+\label{tab:build-cost}
+\small
+\begin{tabularx}{\textwidth}{L{4.2cm}L{2.8cm}X}
+\toprule
+\textbf{System Type} & \textbf{Build Cost} & \textbf{Monthly Ops} \\
+\midrule
+Basic IVR replacement                       & \$15{,}000--\$35{,}000  & \$1{,}500--\$3{,}000 \\
+Multi-intent customer service agent         & \$35{,}000--\$80{,}000  & \$3{,}000--\$6{,}000 \\
+Enterprise platform (CRM + multilang)       & \$80{,}000--\$150{,}000+& \$6{,}000--\$8{,}000+ \\
+India-compliant BFSI (DPDP+TRAI+RBI)        & Add 30--50\% compliance & +Rs.\,50K--2L/month audit \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ==============================================================================
+\section{The Open-Source Stack}
+\label{sec:opensource}
+
+A fully capable voice AI system can be assembled from open-source
+components---no API fees, no data leaving the infrastructure.  This is
+especially relevant for India (DPDP compliance) and AMD (on-premise GPU
+cost advantage).
+
+\begin{lstlisting}[caption={Canonical Open-Source Pipeline (2026)},label=lst:oss]
+Faster-Whisper or Sarvam Saarika  (STT)
+      |
+Llama 3.1 8B / 70B via Ollama    (LLM)
+      |
+Kokoro 82M / Chatterbox           (TTS)
+      |
+LiveKit Agents / Pipecat          (Orchestration)
+      |
+Plivo / Telnyx SIP trunk          (Telephony)
+\end{lstlisting}
+
+\begin{table}[H]\centering
+\caption{Open-Source STT Models with AMD ROCm Compatibility}
+\label{tab:oss-stt}
+\begin{tabularx}{\textwidth}{lllll}
+\toprule
+\textbf{Model} & \textbf{WER (English)} & \textbf{Speed} & \textbf{License} & \textbf{ROCm} \\
+\midrule
+Whisper Large-v3 & $\sim$10.6\%          & 1$\times$ & MIT        & $\checkmark$ \\
+Faster-Whisper   & Same                  & 4$\times$ & MIT        & $\checkmark$ \\
+distil-whisper   & Within 1\% of Whisper & 6$\times$ & Apache 2.0 & $\checkmark$ \\
+WhisperX         & Same + diarisation    & 4$\times$ & MIT        & $\checkmark$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\noindent\textbf{Critical gap:} All Whisper variants are batch-only.  Real-time
+agents must pair Whisper with Silero VAD and aggressive audio chunking.
+Commercial streaming ASR remains the easier path for sub-300\,ms latency.
+
+\subsection{Remaining Gaps in the Open-Source Ecosystem}
+
+\begin{enumerate}[noitemsep]
+  \item Sub-100\,ms streaming ASR.
+  \item Indian-language models with telephony training.
+  \item Telephony integration (no open-source Twilio equivalent).
+  \item Emotion and prosody control.
+  \item DPDP-compliant audit logging.
+  \item VAD tuned for 8\,kHz phone audio.
+\end{enumerate}
+
+% ==============================================================================
+\section{ASR Accuracy: The Language Reality}
+\label{sec:asr-accuracy}
+
+\begin{table}[H]\centering
+\caption{Whisper WER Degradation Across Real-World Conditions}
+\label{tab:wer-conditions}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Condition} & \textbf{WER} & \textbf{Notes} \\
+\midrule
+LibriSpeech test-clean (benchmark) & $\sim$2.7\%        & Audiobook, single speaker \\
+Clean studio podcast               & 3--6\%             & Controlled environment \\
+Conference call, 2 speakers        & 7--12\%            & Business baseline \\
+Phone audio (8\,kHz narrowband)    & Significantly higher & Bandwidth-limited \\
+Strong accents                     & +5--10\% over baseline & JASA Express Letters 2024 \\
+Heavy background noise             & +5--15\%           & Cafes, traffic, construction \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[H]\centering
+\caption{WER Estimates by Indian Language Group (Whisper Large-v3, FLEURS)}
+\label{tab:indian-wer}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Language Group} & \textbf{WER} & \textbf{Notes} \\
+\midrule
+Major European languages         & $\sim$3--6\%   & Spanish, French, German \\
+Hindi                            & $\sim$15--20\% & $\approx$1.5--2$\times$ English WER \\
+Bengali                          & 25\%+          & Significantly higher \\
+Tamil, Telugu, Kannada           & 20--35\%       & Low training data \\
+Bhojpuri, Rajasthani, dialects   & Experimental   & Essentially no training data \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{The Hinglish problem.}
+Most Indian professional phone calls involve code-switching mid-sentence
+(e.g., \textit{``haan aapka order Bandra mein deliver hoga next Tuesday
+ko''}).  Whisper's language detection resets at segment boundaries, causing
+errors on code-switched audio.  India-tuned models (Sarvam Saarika, Gnani
+ASR) handle this natively.
+
+\paragraph{Whisper hallucination risk.}
+An ACM FAccT 2024 study documented Whisper fabricating content during
+silences.  Hallucination rates range 1--80\% of segments depending on
+conditions \cite{vexascribe-wer}.  Mitigation: Silero VAD to gate ASR input;
+Calm-Whisper for silence-aware handling.
+
+\begin{table}[H]\centering
+\caption{ASR Providers for Indian-Language Deployments}
+\label{tab:asr-india}
+\small
+\begin{tabularx}{\textwidth}{L{3.2cm}L{2.6cm}L{2.2cm}X}
+\toprule
+\textbf{Provider} & \textbf{Indian Language Support} & \textbf{Telephony-Trained} & \textbf{Pricing} \\
+\midrule
+Sarvam Saarika         & 22 official Indian languages & $\checkmark$ Explicitly & INR \\
+Gnani.ai ASR           & 40+ Indian languages         & $\checkmark$ Telephony  & Enterprise INR \\
+Deepgram Nova-3        & Limited Indian               & $\times$                & USD \\
+AssemblyAI Universal-2 & Limited Indian               & $\times$                & USD \\
+Whisper Large-v3       & Hindi ok; others variable    & $\times$                & GPU \\
+Google Chirp 2/3       & Strong multilingual          & Partial                 & \$0.024/min \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+For Tier-1 Indian languages, Sarvam Saarika and Gnani's ASR outperform
+global models on real telephony audio by 15--20 WER percentage points.
+
+% ==============================================================================
+\section{AMD's Opportunity in the Voice AI Stack}
+\label{sec:amd}
+
+\subsection{AMD vs.\ NVIDIA in 2026}
+
+\begin{table}[H]\centering
+\caption{AMD MI300X / MI355X vs.\ NVIDIA H100 SXM5}
+\label{tab:amd-vs-nvidia}
+\small
+\begin{tabularx}{\textwidth}{L{3.8cm}L{2.6cm}L{2.6cm}X}
+\toprule
+\textbf{Dimension} & \textbf{AMD MI300X} & \textbf{AMD MI355X} & \textbf{NVIDIA H100 SXM5} \\
+\midrule
+VRAM                    & 192\,GB HBM3       & 288\,GB HBM3e       & 80\,GB HBM3e \\
+On-demand cloud price   & \$1.50--\$2.50/hr  & Est.\ higher        & \$2.90/hr \\
+Llama 3.1 70B (tok/s)   & $\sim$18{,}000     & $\sim$22{,}000+     & $\sim$19{,}500 \\
+Cost / million tokens   & $\sim$\$0.027      & $\sim$\$0.025       & $\sim$\$0.041 \\
+PyTorch + vLLM          & $\checkmark$ Full  & $\checkmark$ Full   & $\checkmark$ Full \\
+TensorRT-LLM            & $\times$           & $\times$            & $\checkmark$ Native \\
+FlashAttention 3        & $\times$           & $\times$            & $\checkmark$ (Hopper+) \\
+HuggingFace TEI         & $\times$           & $\times$            & $\checkmark$ Full \\
+TTS (Kokoro/Chatterbox) & $\checkmark$       & $\checkmark$        & $\checkmark$ \\
+AMD--Meta 6\,GW deal    & $\checkmark$       & ---                 & --- \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+MLPerf Inference 6.0 (April 2026): MI355X within single-digit percentage
+points of B200 on server inference \cite{spheron-rocm-cuda}.
+
+\subsection{Where AMD Wins}
+
+\paragraph{LLM Inference --- 25--40\% Cost Advantage.}
+At one million tokens:
+H100 SXM5 (\$2.90/hr): \$0.041/M\,tokens.
+MI300X (\$1.75/hr): \$0.027/M\,tokens.
+A voice AI system handling 1M\,min/month generates $\approx$6B tokens/month;
+AMD savings $\approx$\textbf{\$84{,}000/month} \cite{vllm-rocm}.
+
+\paragraph{VRAM Fit.}
+A model needing two H100s (160\,GB) fits on one MI300X (192\,GB).  Halves
+node cost; eliminates NVLink complexity.  Structural advantage for
+70B+ parameter LLMs common in enterprise voice agents.
+
+\paragraph{TTS Inference.}
+Kokoro, Chatterbox, and Coqui XTTS-v2 are pure PyTorch.  They run
+correctly on AMD ROCm without modification---avoiding ElevenLabs costs
+(\$0.10--\$0.30/min).
+
+\paragraph{Price-Sensitive On-Premise Markets.}
+India's DPDP compliance mandates audio stays in India.  AMD's hardware cost
+($\approx$half NVIDIA list price) is a direct competitive advantage in
+BFSI procurement.
+
+\subsection{Where AMD Is Behind}
+
+\paragraph{Streaming ASR.}
+Deepgram and AssemblyAI run cloud infrastructure on NVIDIA.  HuggingFace
+inference containers default to CUDA.  \textit{Action:} Publish certified
+ROCm builds for Faster-Whisper + Silero VAD; partner with Sarvam to
+validate Saarika ASR on MI300X.
+
+\paragraph{HuggingFace TEI.}
+TEI---used for RAG-augmented voice agents---has no AMD support.
+\textit{Action:} Upstream ROCm support into TEI.  Bounded engineering
+with high ecosystem multiplier.
+
+\paragraph{FlashAttention 3 / TensorRT-LLM.}
+NVIDIA holds 20--30\% throughput advantage at batch size 1--4.  AMD's
+advantage is at batch size 64--128, not ultra-low-latency single-user
+inference.
+
+\subsection{ROCm Migration Path}
+
+\begin{lstlisting}[style=bash,caption={ROCm Migration for Voice AI},label=lst:rocm]
+# Step 1: AMD's official container
+docker pull rocm/pytorch:rocm6.2_ubuntu22.04_py3.10_pytorch_2.4.0
+
+# Step 2: ROCm-compatible vLLM
+pip install vllm --extra-index-url \
+  https://download.pytorch.org/whl/rocm6.2
+
+# Step 3: Serve LLM (API-identical to CUDA version)
+python -m vllm.entrypoints.openai.api_server \
+  --model meta-llama/Llama-3.1-70B-Instruct --dtype float16
+
+# Step 4: TTS (Kokoro / Chatterbox) - no changes needed
+# Pure PyTorch; ROCm routes CUDA calls via HIP automatically
+\end{lstlisting}
+
+\begin{table}[H]\centering
+\caption{ROCm Compatibility Summary for Voice AI Workloads}
+\label{tab:rocm-compat}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Component} & \textbf{AMD ROCm} & \textbf{Notes} \\
+\midrule
+LLM serving (vLLM + Llama 3.1)   & $\checkmark$ Full  & 90--95\% of H100 throughput \\
+LLM serving (SGLang)              & $\checkmark$ Full  & Within 5--10\% of CUDA \\
+TTS: Kokoro, Chatterbox           & $\checkmark$ Full  & Pure PyTorch \\
+TTS: Coqui XTTS-v2               & Partial            & Works with effort \\
+ASR: Faster-Whisper (batch)       & $\checkmark$ Full  & Real-time needs extra work \\
+ASR: HuggingFace containers       & $\times$           & NVIDIA CUDA assumed \\
+Embeddings: HuggingFace TEI       & $\times$           & No ROCm support \\
+Streaming ASR                     & $\times$           & Needs community work \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% ==============================================================================
+\section{India Market Deep Dive}
+\label{sec:india}
+
+\begin{table}[H]\centering
+\caption{India Voice AI Market Metrics (2024--2033)}
+\label{tab:india-market}
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+India voice AI market (2024)            & \$153 million \\
+India voice AI market (2030, projected) & \$1 billion (CAGR 35.7\%) \\
+India voice recognition market (2024)   & \$462.8 million \\
+India voice recognition market (2033)   & \$2.98 billion (CAGR 23\%) \\
+Indian voice AI startups                & 32 --- second globally \\
+India's official languages              & 22 \\
+India mobile users                      & 1.2 billion \\
+New digital users reachable via voice   & 300 million \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+India's five structural differentiators: (1) linguistic depth (22 official
+languages, 100+ dialects); (2) cost sensitivity (sub-Rs.\,2/call required
+for SMB viability); (3) data sovereignty (DPDP mandates Indian data stays
+in India); (4) call volume scale (billions of BFSI calls yearly); and
+(5) inclusion---300M Indians who cannot type can speak \cite{business-standard-india}.
+
+\begin{table}[H]\centering
+\caption{Top 10 Voice AI Platforms for India (June 2026)}
+\label{tab:india-ecosystem}
+\small
+\begin{tabularx}{\textwidth}{cL{2.2cm}L{2.8cm}L{1.8cm}X}
+\toprule
+\# & \textbf{Company} & \textbf{Strength} & \textbf{Pricing} & \textbf{Best For} \\
+\midrule
+1 & Caller Digital & 14 langs; TRAI+DPDP+RBI built-in & INR per-outcome & BFSI, D2C, healthcare \\
+2 & Bolna.ai       & API-first; Sarvam-powered; YC    & $\sim$Rs.\,5.52/min & Developers \\
+3 & Gnani.ai       & 30M+ daily calls; 14B model      & Enterprise INR  & Tier-1 banks \\
+4 & ElevenLabs     & Best voice quality; 12 Indian    & USD/min         & Global brands \\
+5 & Sarvam AI      & 22 languages; sovereign infra    & Enterprise INR  & Govt/PSU/infra \\
+6 & Retell AI      & Global developer API             & USD/min         & Global SaaS \\
+7 & Vapi.ai        & Developer-loved agent stack      & USD/min         & Global devs \\
+8 & Ringg.ai       & Hindi-first                      & INR/min         & Hindi-belt D2C \\
+9 & SquadStack     & AI + managed human service       & INR per-outcome & Managed outbound \\
+10& Haptik         & Enterprise legacy, evolving      & Enterprise INR  & Existing customers \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Sarvam AI: India's Sovereign AI Unicorn}
+
+Founded August 2023.  Series~B closed June 2026: \$234M at \$1.5B
+valuation---India's first sovereign AI unicorn \cite{slator-sarvam}.
+Foundation models: Sarvam-30B (MoE, $\sim$1B active params/token, 32K
+context) and Sarvam-105B (MoE, $\sim$9B active params/token, 128K context),
+both open-sourced on HuggingFace.  Voice: ASR, TTS, speech-to-speech across
+all 22 scheduled Indian languages; trained for Hinglish code-switching;
+handles 8\,kHz narrowband natively.
+
+\textbf{AMD opportunity:} Sarvam's on-premise government and BFSI
+deployments are natural AMD targets.  Sarvam-30B/105B MoE models fit
+efficiently on MI300X (192\,GB).  An AMD--Sarvam partnership for on-premise
+Indian-language voice AI inference would serve compliance-sensitive segments
+cloud providers cannot reach under DPDP.
+
+\subsection{Gnani.ai: Enterprise Voice AI for Indian Finance}
+
+Founded 2016, Bengaluru.  Scale: 30M+ daily voice AI conversations; 200+
+enterprise customers; FY26 revenue $\approx$Rs.\,160\,crore.  Products: 14B
+parameter voice foundation model (real-time speech-to-speech); Vachana TTS
+(voice cloning in 12 Indian languages, $<$10\,s of reference audio,
+on-premise, low-bandwidth); Armour365\texttrademark{} voice biometrics.
+
+\textbf{AMD opportunity:} 14B model fits on a single MI300X.
+Gnani's low-bandwidth TTS would benefit from AMD NPU/RDNA edge hardware
+for distributed branch-level deployments.
+
+% ==============================================================================
+\section{DPDP Compliance: India's Regulatory Stack}
+\label{sec:dpdp}
+
+\begin{table}[H]\centering
+\caption{India's Four Voice AI Regulatory Frameworks}
+\label{tab:dpdp-regulators}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Regulator} & \textbf{Framework} & \textbf{Voice AI Impact} \\
+\midrule
+MeitY & DPDP Act            & Data localisation; consent; biometric classification of voice \\
+TRAI  & DLT + DND           & Outbound call registration; consent management \\
+RBI   & NBFC/Bank guidelines& Collections calling hours and frequency limits \\
+IRDAI & Insurance guidelines & Mis-selling prevention in AI insurance calls \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Full DPDP enforcement expected May 13, 2027.  When voice is processed to
+identify or authenticate, it qualifies as \emph{biometric personal
+data}---the strictest DPDP category.  Every AI call generates voice
+recordings (biometric), transcripts (personal data), call metadata, and LLM
+outputs, all subject to the Act.
+
+Key requirements: prior consent; data localisation (audio and transcripts
+cannot freely leave India); TRAI DLT registration and DND scrubbing before
+each outbound call; RBI collections window 8:00\,AM--7:00\,PM; penalties up
+to Rs.\,250\,crore per breach \cite{callerdigital-dpdp}.
+
+Building the compliance stack from scratch adds 30--50\% to deployment cost
+and 3--6 months to timeline.  Indian-native platforms that ship compliance
+as baseline are 12+ weeks ahead.
+
+% ==============================================================================
+\section{Hours Saved and GDP Impact}
+\label{sec:gdp}
+
+Gartner's \$80\,billion contact center savings (2026) $\approx$ 6.7M
+full-time agent-equivalent positions automated.  In India: 1.3M BPO workers
++ 400K banking call-center agents = 1.7M roles being augmented.
+
+\begin{table}[H]\centering
+\caption{India Voice AI Hours Saved: Three Adoption Scenarios}
+\label{tab:hours-saved}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Scenario} & \textbf{Hours Saved/Year} & \textbf{Economic Value} \\
+\midrule
+Conservative (10\% adoption) & 1.25 billion & Rs.\,3{,}125 crore ($\approx$\$375M) \\
+Moderate (30\% adoption)     & 3.75 billion & Rs.\,9{,}375 crore ($\approx$\$1.1B) \\
+Ambitious (300M new users)   & ---          & Rs.\,1.5 lakh crore ($\approx$\$18B) new activity \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The ambitious scenario rests on 30M formal economy transactions/year for
+previously excluded users at Rs.\,5{,}000 average --- approximately 0.5\%
+of India's \$3.5T GDP.
+
+% ==============================================================================
+\section{Unsolved Problems and Gaps}
+\label{sec:gaps}
+
+\begin{table}[H]\centering
+\caption{Remaining Unsolved Problems in Voice AI (2026)}
+\label{tab:gaps}
+\small
+\begin{tabularx}{\textwidth}{L{3.0cm}L{3.6cm}X}
+\toprule
+\textbf{Problem} & \textbf{Current State} & \textbf{What Is Needed} \\
+\midrule
+Sub-300\,ms end-to-end    & Median 680\,ms; target $<$500\,ms  & Better TTS streaming + LLM speculative decoding \\
+Multilingual streaming ASR& Batch-only OSS; English-dominant   & Sarvam-class open telephony models \\
+Hinglish code-switching   & Global models fail                 & Open-source telephony-trained Indic ASR \\
+Indian-language TTS       & Vachana/Bulbul good; OSS weak      & Apache-licensed multilingual TTS \\
+Voice hallucination       & 1--80\% of segments by condition   & Better VAD + silence-aware models \\
+DPDP audit tooling        & No standard OSS scaffold           & Reference DPDP-compliant pipeline \\
+AMD ROCm streaming ASR    & NVIDIA-assumed containers          & Certified ROCm ASR stack + TEI support \\
+Edge / on-device ASR      & Cloud-dependent                    & AMD Ryzen AI NPU for offline Whisper \\
+Emotion-aware TTS         & Limited prosody control            & Prosody-aware synthesis \\
+Long conversation memory  & Context fills at 20+ turns         & Compressed memory in orchestration \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{The AMD Ryzen AI NPU Opportunity}
+
+AMD's documentation for running Whisper on Ryzen AI 300 series NPUs
+\cite{amd-npu-whisper}: BFP16 precision; inference without CPU/GPU cycles;
+audio stays on device; model range from Whisper Tiny (39M, 75\,MB) to
+Large-v3 Turbo ($\sim$1.5\,GB).
+
+\textbf{India edge scenario:} A Ryzen AI laptop at a rural BFSI branch
+handles voice agents in Hindi, Tamil, or Bengali with zero data leaving the
+branch, zero cloud cost, DPDP compliance by design.
+
+% ==============================================================================
+\section{Geographic Analysis: Applications, Opportunities, and Barriers}
+\label{sec:geo}
+
+Voice AI is seven regional markets with different dominant applications,
+purchasing power, regulatory climates, and languages.
+
+\begin{table}[H]\centering
+\caption{Global Voice AI Market by Region (2025)}
+\label{tab:global-snapshot}
+\begin{tabularx}{\textwidth}{llll}
+\toprule
+\textbf{Region} & \textbf{Share} & \textbf{CAGR} & \textbf{Dominant Sector} \\
+\midrule
+North America  & 40--42\% & $\sim$25\%  & Enterprise contact center, BFSI, healthcare \\
+Asia-Pacific   & 28--34\% & 33--41\% (fastest) & E-commerce, BFSI, government \\
+Europe         & 19\%     & $\sim$20\% & GDPR-compliant customer service, automotive \\
+Middle East/Africa & 5\%  & 17--22\%  & Government services, telecom, banking \\
+Latin America  & Emerging & $\sim$25\% & Telecom, retail, financial inclusion \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{North America --- The Mature Market}
+
+North America holds 40--42\% of global revenue (\$1.69B in 2025; projected
+\$21.32B by 2035 at 28.85\% CAGR).  The largest applications are contact
+center automation (\$0.40/call vs.\ \$7--12); healthcare intake and
+documentation (70\% of orgs report improvement); insurance FNOL (first
+notice of loss 24/7); outbound sales (300\%+ YoY agent growth); and
+automotive in-cabin assistants (75M+ cars shipped annually with voice).
+
+\textbf{Opportunity:} Vertical specialisation in underserved areas (legal,
+real estate, logistics); AI-human handoff optimisation; 100\% call
+analytics; voice for senior care (aging population reaches 20\% of US by 2030).
+
+\textbf{Key barriers:} TCPA governs outbound AI calls; state-level biometric
+laws (Illinois BIPA, Texas CUBI); enterprise procurement cycles 9--12 months
+for Fortune~500 BFSI and healthcare; accent and dialect gaps in AAVE and
+Southern US dialects.
+
+\subsection{Europe --- The Compliance-First Market}
+
+Europe holds 19\% of global revenue.  GDPR compliance forces differentiated,
+privacy-native solutions.  Key applications: GDPR-compliant customer service
+(on-premise or EU-hosted); multilingual e-commerce support (one agent, 24 EU
+languages); automotive voice (BMW, Mercedes, Stellantis); MiFID\,II voice
+recording + AI analysis (investment advice calls mandatorily recorded, AI
+analysis mostly unmonetized); e-Government (Estonia leads globally).
+
+\textbf{Opportunity:} EU-sovereign voice AI commands price premium; MiFID\,II
+data is a data asset awaiting AI; EU AI Act compliance-as-a-service is a new
+market.
+
+\textbf{Key barriers:} GDPR data residency (Very High); EU AI Act conformity
+assessment for high-risk categories; language fragmentation (24 EU official
+languages; Polish, Romanian still lag); German works-council approval delays.
+
+\subsection{East Asia --- China, Japan, South Korea}
+
+China's voice recognition market is projected \$1.46B by 2026 (Alibaba
+Tmall Genie, Baidu DuerOS, Xiaomi XiaoAI dominate).  The market is
+effectively closed to foreign companies.
+
+Japan (\$1.01B by 2026): key applications are elder care voice assistants
+(29\% of population over 65; medication reminders, fall detection,
+companionship), automotive in-cabin, and financial services.  Barriers:
+Japanese language complexity (kanji + keigo formality levels); cultural
+preference for human service (\textit{omotenashi}); closed enterprise
+ecosystems (NTT, Fujitsu, NEC).
+
+South Korea: Samsung Bixby deeply integrated (70\%+ smartphone market
+share); Kakao Bank voice authentication; K-content dubbing opportunity.
+Barriers: domestic platform dominance.
+
+\subsection{Southeast Asia --- The Multilingual Frontier}
+
+685 million people, 1{,}000+ languages, 75--95\% urban mobile penetration,
+CAGR among the fastest globally.
+
+\begin{table}[H]\centering
+\caption{Top SEA Country Applications}
+\label{tab:sea-apps}
+\small
+\begin{tabularx}{\textwidth}{lL{4.6cm}X}
+\toprule
+\textbf{Country} & \textbf{Top Applications} & \textbf{Why} \\
+\midrule
+Indonesia   & E-commerce (Tokopedia/Shopee); microfinance (1.7M unbanked adults) & 270M people, 700+ dialects \\
+Philippines & BPO augmentation; OFW remittance guidance & World's 3rd largest English-speaking nation; 10M overseas workers \\
+Vietnam     & Manufacturing QA; e-commerce; education & Fast-growing manufacturing hub \\
+Thailand    & Tourism voice (Thai+English+Chinese); banking & 40M tourists/year \\
+Malaysia    & Multilingual customer service (Bahasa, English, Mandarin, Tamil) & Official trilingual market \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{Key barriers:} Language data poverty (1{,}000+ languages, most with
+almost no annotated voice data); low willingness to pay (\$0.01--0.03/call
+required); infrastructure reliability (voice must work on 3G); code-switching
+(Taglish, Singlish, Manglish); epidemic phone scams creating trust deficit.
+
+\textbf{Business direction:} Localise-then-scale.  Pick one country, build
+a production-grade stack, prove unit economics, then expand.  Price in local
+currency; bill per outcome, not per minute.
+
+\subsection{Middle East --- The Premium Compliance Market}
+
+Key markets: UAE (CAGR 17.2\%), Saudi Arabia, Israel, Egypt, Qatar.
+Languages: Arabic (Modern Standard + 20+ regional dialects), Hebrew, English,
+Urdu (large expat population).
+
+Top applications: Government citizen services (UAE's ``Government of the
+Future'' initiative; 100\% digital government by 2027 target); Islamic finance
+voice agents (unique terminology: sukuk, murabaha, ijara); healthcare intake in
+Arabic; construction and logistics voice (NEOM, Dubai Expo legacy sites);
+call-center modernisation in Egypt (MENA's BPO hub).
+
+\textbf{Opportunity:} GCC governments are the world's biggest AI investors
+relative to GDP.  A single UAE or KSA government contract can be worth
+\$50--100M over 5 years.  The Arabic language gap (80\% of real conversations
+use regional dialects that differ dramatically from Modern Standard Arabic)
+is a defensible moat.  \textbf{AethexAI} (launched June 2026, \$3M
+pre-seed) targets this with Kora~1 --- trained on call center recordings
+and radio from the region at \$0.030/min.
+
+\textbf{Key barriers:} Arabic dialect fragmentation (Gulf, Egyptian,
+Levantine, Moroccan need different models); data sovereignty (government data
+must stay in-country); relationship-driven procurement (local partner with
+wasta required, 12--24 months); cultural voice quality expectations (robotic
+TTS is rejected).
+
+\textbf{Business direction:} Government-first.  Win one UAE or KSA
+department; use it as reference to expand across ministries.  Compete on
+Arabic accuracy, not cost.  Egypt is the path to broader Arabic volume.
+
+\subsection{Africa --- The Voice-First Continent}
+
+1.4 billion people (projected 2.5B by 2050); 2{,}000+ languages; 495 million
+mobile internet users growing 10\%/year.  Africa may leapfrog text-based
+digital interaction entirely --- 250 million functional illiterates make voice
+the native UI.
+
+Top applications: mobile money voice guidance (760M M-Pesa/MTN MoMo
+accounts); agricultural advisory in Hausa, Yoruba, Swahili; healthcare
+triage (1 doctor per 5{,}000 rural patients); financial inclusion
+(microfinance); Nollywood dubbing in local languages.
+
+\textbf{Language data breakthrough:} Google WAXAL (launched February 2026):
+11{,}000 hours, 2M recordings, 21 Sub-Saharan African languages, controlled
+by local institutions.  Gates Foundation African Next Voices (late 2025):
+9{,}000 hours across 18 languages.  These open-source datasets enable the
+first commercially viable African-language voice AI.
+
+\textbf{Key barriers:} Language data poverty (WAXAL covers only 21 of
+2{,}000+ languages); electricity and connectivity (600M without reliable
+power; 3G ceiling; models must work offline); trust deficit (vishing
+epidemic); willingness to pay (sub-\$0.01/call required).
+
+\textbf{Business direction:} Telco-partnership first.  MTN (310M subs),
+Airtel Africa (140M), and Safaricom/M-Pesa each have distribution, billing
+infrastructure, and customer relationships.  Target mobile money first
+(highest value, clearest ROI).
+
+\subsection{Latin America --- The Spanish-Portuguese Opportunity}
+
+660 million people.  Spanish ($\approx$450M speakers), Brazilian Portuguese
+($\approx$215M).  LatAm averages 6$\times$ below world average in AI
+investment relative to GDP.
+
+Top applications: telecom customer service (Claro, Vivo, Telmex; 60--80\%
+agent cost reduction); banking and credit access (45\% of LatAm adults
+unbanked); e-commerce voice (25\%+ growth/year); government services
+(2--6 hour queues for basic services); Brazil SUS public health system
+(215M patients; appointment and triage via voice); Mexico--US remittance
+guidance (\$150B/year, 40M senders).
+
+\textbf{Opportunity:} Brazil is the 5th most populous country, speaks a
+unique language (no global competitor optimises for Brazilian Portuguese),
+and has LGPD (Brazil's GDPR equivalent) creating EU-style on-premise demand.
+
+\textbf{Key barriers:} Accent variation across markets; economic volatility
+(Argentine inflation, Brazilian political cycles); telecom duopoly
+gatekeeping (America Movil + Telefonica); cloud latency (Sao Paulo to US
+East Coast $\approx$120ms; local hosting essential).
+
+\textbf{Business direction:} Brazil-first, then Mexico.  Build a
+Brazil-native stack (Brazilian Portuguese ASR + TTS + Claro/Vivo
+integration); prove unit economics; then expand to Mexican Spanish.
+
+\subsection{Cross-Regional AMD Opportunity}
+
+\begin{table}[H]\centering
+\caption{AMD Opportunity Ranking by Region}
+\label{tab:amd-geo}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Region} & \textbf{AMD Relevance} & \textbf{Specific Use Case} \\
+\midrule
+India          & Very High (Strategic)   & DPDP on-premise; Sarvam/Gnani; sub-Rs.\,2/call \\
+Middle East    & High                    & Data sovereignty; govt AI buildout; Arabic LLM \\
+Europe         & High                    & GDPR + EU AI Act on-premise mandate \\
+Southeast Asia & Medium                  & Cost-sensitive; local hosting latency \\
+Japan/Korea    & Medium                  & Govt AI investment; automotive in-cabin \\
+Africa         & Medium                  & NPU/edge for offline voice (Ryzen AI) \\
+North America  & Medium                  & LLM inference cost savings at scale \\
+Latin America  & Medium                  & LGPD on-premise; cost-sensitive telecoms \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\textbf{AMD global voice AI strategy in one sentence:} Build certified,
+on-premise voice AI stacks (Sarvam + Faster-Whisper + vLLM + Kokoro on
+MI300X) for the markets where data sovereignty law, cost sensitivity, and
+large-scale Indic/Arabic language models intersect --- India first, then
+Middle East, then Southeast Asia.
+
+% ==============================================================================
+\section{The Three Frameworks That Rule Everything}
+\label{sec:frameworks}
+
+Despite hundreds of companies and billions in funding, every production
+voice AI product converges on \textbf{two or three open-source orchestration
+frameworks}.
+
+\begin{lstlisting}[caption={Industry Convergence: Every Voice AI Company Builds on Three Frameworks},
+                   label=lst:convergence,basicstyle=\ttfamily\scriptsize]
+   EVERY VOICE AI COMPANY
+   Vapi  Retell  Bolna  ElevenAgents  Caller Digital
+   Gnani  Sarvam Agents  PolyAI  Synthflow  Ringg.ai
+              |               |               |
+      +-------+------+ +------+-----+ +-------+-----+
+      | LiveKit       | | Pipecat    | | TEN         |
+      | Agents        | |            | | Framework   |
+      | (Apache 2.0)  | | (BSD-2)    | | (C++/Go)    |
+      +---------------+ +------------+ +-------------+
+              |               |               |
+      +-------+---------------+---------------+------+
+      |               SHARED MODEL LAYER              |
+      |  STT: Faster-Whisper / Deepgram / Sarvam     |
+      |  LLM: Llama 3.1 / Mistral / Claude / GPT-4o  |
+      |  TTS: Kokoro / ElevenLabs / Coqui / Vachana  |
+      +-------------------------------+---------------+
+                                      |
+                          +-----------+-----------+
+                          |   GPU COMPUTE LAYER   |
+                          |   NVIDIA  /  AMD      |
+                          +-----------------------+
+\end{lstlisting}
+
+Win at the framework layer or the compute layer --- everything above is
+margin compression.
+
+\subsection{LiveKit Agents (Apache 2.0) --- The WebRTC Backbone}
+
+LiveKit is the open-source WebRTC stack that OpenAI's ChatGPT Voice Mode
+runs on.  Character.ai, Meta, and thousands of production voice products use
+it.  LiveKit Agents 1.5.x is current as of April 2026.
+
+An agent joins a ``room'' as a headless participant, subscribes to the
+caller's audio track, runs it through STT, feeds text to an LLM with
+tool-calling, and publishes synthesised speech back.  Native SIP and phone
+numbers shipped in 2025---no Twilio bridge needed.  Multi-participant native;
+Model Context Protocol (MCP) built in; entire media server + Agents SDK is
+Apache 2.0.
+
+\textbf{AMD angle:} LiveKit handles network.  The GPU is needed for the
+model layer.  If STT, LLM, and TTS models run on AMD GPUs, AMD becomes the
+compute substrate for every LiveKit deployment.
+
+\subsection{Pipecat (BSD-2) --- The Model Integration Layer}
+
+Pipecat is a Python framework from Daily.ai that reached v1.0 in April 2026
+with 60+ service connectors covering every STT, LLM, TTS, and transport
+combination.  Architecture: left-to-right frame pipeline---each audio frame
+flows through VAD $\to$ STT $\to$ LLM $\to$ TTS $\to$ output.  Each stage
+is a swappable component.
+
+\textbf{AMD angle:} Pipecat is transport-agnostic; pure Python, pure PyTorch
+under the hood --- ROCm compatibility is direct.  Its self-hosted model
+support (Ollama, vLLM, local Whisper) is exactly the AMD deployment scenario.
+\texttt{pipecat create} scaffolds a working agent in under 60 seconds ---
+AMD needs to be the compute target when that command runs.
+
+\subsection{TEN Framework (C++ / Go / Python) --- The Performance Core}
+
+TEN (Transformative Extensions Network) is the highest-performance framework
+because its core is C++.  It includes proprietary VAD and turn-detection
+models optimised for sub-300\,ms response.  TEN is where avatar + voice
+combinations run (Trulience, HeyGen, Tavus lip-sync integrations).  Requires
+Docker + Agora account.
+
+\textbf{AMD angle:} TEN's C++ compute core calls the GPU driver directly.
+A ROCm-certified TEN container would validate AMD for the
+highest-performance tier.
+
+\subsection{How NVIDIA Became the Hardware Gateway --- The NIM Playbook}
+
+NVIDIA won voice AI not by making better silicon alone, but by making their
+silicon the \emph{path of least resistance} for every developer.  The NIM
+(NVIDIA Inference Microservices) strategy:
+
+\begin{enumerate}[noitemsep]
+  \item \texttt{docker pull nvidia/riva-asr} --- Parakeet TDT, production-ready, CUDA-optimised, one command.
+  \item \texttt{docker pull nvidia/riva-tts} --- Maxine Studio Voice, same one-pull model.
+  \item \textbf{AI Blueprints} --- complete, working voice agent applications; developers clone, not design.
+  \item \textbf{RTX Spark} (Grace + Blackwell, 128\,GB shared memory) --- entire large models in shared memory; no bottleneck.
+  \item \textbf{VS Code NIM extension} --- the tool every programmer uses defaults to NVIDIA compute targets.
+  \item \textbf{Azure AI Foundry} native NIM (July 2026) --- deploy from VS Code, one click, NVIDIA GPU underneath.
+  \item \textbf{28 million developers} who downloaded NIM opted into the NVIDIA ecosystem by default.
+\end{enumerate}
+
+Result: when a developer runs any AI Blueprint or follows any voice agent
+tutorial, GPU choice is already made.  NVIDIA is the default.  Everything
+else requires active choice.
+
+\subsection{AMD's Gateway Strategy}
+
+\paragraph{Step 1 --- Three Certified Containers.}
+
+\begin{lstlisting}[style=bash,caption={The Three AMD Voice AI Containers (Target State)},label=lst:containers]
+# Container 1: Generic Pipecat Voice Agent
+docker pull amd/rocm-pipecat-voice:latest
+# Inside: Faster-Whisper + vLLM (Llama 3.1 8B) + Kokoro TTS
+#         + Pipecat 1.0 + Silero VAD + LiveKit transport
+#         AMD-certified on MI300X, MI355X, RX 7900 XTX
+
+# Container 2: LiveKit Voice Agent (WebRTC-first)
+docker pull amd/rocm-livekit-voice:latest
+# Inside: same model stack + LiveKit Agents 1.5 + SIP bridge
+
+# Container 3: Sarvam India Voice Agent (India-specific)
+docker pull amd/rocm-sarvam-india-voice:latest
+# Inside: Sarvam Saarika ASR + Sarvam Bulbul TTS + Sarvam-30B LLM
+#         + Pipecat + Hinglish VAD + DPDP audit logging layer
+#         Runs entirely on-premise in India
+\end{lstlisting}
+
+\paragraph{Step 2 --- AMD Voice AI Blueprints.}
+
+\begin{table}[H]\centering
+\caption{AMD Voice AI Blueprint Targets}
+\label{tab:blueprints}
+\small
+\begin{tabularx}{\textwidth}{L{3.8cm}L{4.8cm}X}
+\toprule
+\textbf{Blueprint} & \textbf{Stack} & \textbf{Target Market} \\
+\midrule
+amd-voice-contact-center & Pipecat + Faster-Whisper + Llama 3.1 70B + Kokoro & US/EU enterprise \\
+amd-voice-india-bfsi     & LiveKit + Sarvam Saarika + Sarvam-30B + Vachana TTS & Indian BFSI \\
+amd-voice-arabic-banking & Pipecat + Arabic-tuned ASR + Llama 3.1 + Gulf TTS & GCC banking \\
+amd-voice-edge-offline   & Ryzen AI NPU + Whisper Small + Llama 3.2 3B + Kokoro & Edge/offline India \\
+amd-voice-latam          & Pipecat + Whisper + Llama 3.1 + Brazil Portuguese TTS & LatAm telecom \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Each Blueprint ships as one \texttt{docker-compose.yml}, one
+\texttt{README.md}, one Python entry point.  Works on MI300X and on RX 7900
+XTX ($\approx$\$700 consumer GPU) to reach developers without data center
+budgets.
+
+\paragraph{Step 3 --- ROCm Plugin for Pipecat.}
+An official \texttt{pipecat-amd} package on PyPI: \texttt{pip install
+pipecat-ai[amd]}.  Registers AMD-optimised Faster-Whisper, Kokoro, and vLLM
+as first-class Pipecat processors.  Appears in Pipecat's official docs.
+\textbf{Two weeks of engineering.}
+
+\paragraph{Step 4 --- HuggingFace TEI on ROCm.}
+One missing piece blocking enterprise voice AI on AMD.  Voice agents using
+RAG need TEI for embeddings.  Fund the ROCm TEI port.  Once shipped, AMD
+closes the last meaningful software gap vs NVIDIA for the voice AI stack.
+
+\paragraph{Step 5 --- Ryzen AI NPU as Developer On-Ramp.}
+Ship a \texttt{pipecat create --backend amd-npu} template: Whisper Tiny on
+NPU, Llama 3.2 3B via Ollama, Kokoro TTS on CPU.  No GPU.  No cloud.  No
+API key.  Runs offline.  DPDP-compliant.  This is the demo that converts
+engineers into AMD advocates.
+
+\begin{table}[H]\centering
+\caption{NVIDIA NIM vs.\ AMD Required Response}
+\label{tab:nim-vs-amd}
+\small
+\begin{tabularx}{\textwidth}{L{4.2cm}L{4.2cm}X}
+\toprule
+\textbf{NVIDIA (Current)} & \textbf{AMD (Required)} & \textbf{Effort} \\
+\midrule
+\texttt{docker pull nvidia/riva-asr}     & \texttt{docker pull amd/rocm-faster-whisper} & 2 weeks \\
+\texttt{docker pull nvidia/riva-tts}     & \texttt{docker pull amd/rocm-kokoro-tts}      & 2 weeks \\
+AI Blueprint: generic voice agent        & AMD Blueprint: Pipecat on MI300X              & 4 weeks \\
+AI Blueprint: India voice                & AMD Blueprint: Sarvam on MI300X               & 4 weeks \\
+VS Code NIM extension                    & VS Code ROCm / AMD Quark extension            & 8 weeks \\
+Pipecat docs show NVIDIA                 & Pipecat official AMD processor (PyPI)         & 2 weeks \\
+Azure Foundry NIM (July 2026)            & Azure AMD inference endpoint                  & 12 weeks \\
+Riva ASR (NVIDIA's own model)            & AMD--Sarvam partnership                       & 8 weeks \\
+RTX Spark NPU template                   & Ryzen AI NPU voice template                   & 4 weeks \\
+SI certification: TCS, Infosys, Wipro    & India SI certification (TCS/Infosys/HCL)      & 16 weeks \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Total engineering for Steps 1--4: approximately 12--16 weeks for a focused
+team of 6--8 engineers.
+
+% ==============================================================================
+\section{The Five Ecosystem Layers}
+\label{sec:ecosystem}
+
+Beyond the three frameworks, NVIDIA has staked out positions across five
+distinct ecosystem layers.  Each layer operates on the same logic: ship a
+named package or container; let developers adopt it as the default; AMD
+silicon becomes invisible at the call site.
+
+\subsection{Layer 1 --- Framework Plugin Slots}
+
+\begin{table}[H]\centering
+\caption{Framework Plugin Presence: NVIDIA vs.\ AMD}
+\label{tab:plugins}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Framework} & \textbf{NVIDIA Presence} & \textbf{AMD Presence} \\
+\midrule
+Pipecat         & Official processor plugin, docs, examples & None \\
+LiveKit Agents  & Certified GPU backend                     & None \\
+LangChain       & \texttt{langchain-nvidia-ai-endpoints}: chat, embeddings, reranking, tool calling & None \\
+LlamaIndex      & \texttt{llama-index-llms-nvidia}: NIM-backed LLM + embeddings & None \\
+Haystack        & NIM integration as native pipeline component & None \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Every LangChain or LlamaIndex voice agent that uses NIM routes to NVIDIA
+hardware.  The developer writes \texttt{ChatNVIDIA(model="...")}---done.
+AMD does not exist in that call.
+
+\subsection{Layer 2 --- Inference Serving Infrastructure}
+
+\textbf{NVIDIA Triton / Dynamo-Triton} is the invisible substrate beneath
+every production voice pipeline.  ASR, LLM, and TTS models all serve from
+Triton.  Users include Microsoft, American Express, Salesforce, Hugging
+Face.  In March 2025 NVIDIA folded Triton into \textbf{NVIDIA Dynamo} with
+disaggregated LLM serving (prefix caching, KV offload to storage).
+
+\textbf{TensorRT-LLM} sits on top: at batch size 1--4 (real-time voice),
+TensorRT-LLM holds 20--30\% throughput advantage over vLLM ROCm.  A 50\,ms
+difference in LLM token generation is audible to a human ear.
+
+AMD's position: vLLM ROCm became first-class in January 2026 (CI pass rate:
+37\% in November 2025 $\to$ 93\% six weeks later; first pre-built Docker image
+shipped).  But vLLM is one serving tool.  There is no AMD model-serving
+standard, no AMD inference server with multi-model ensemble orchestration,
+no Dynamo equivalent for AMD.
+
+\subsection{Layer 3 --- Voice-Domain SDKs}
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{NVIDIA Riva:} Full conversational AI SDK --- ASR + TTS + NMT + diarisation + speaker ID + VAD, served as gRPC microservices.  Fine-tunable via NeMo.  Supports English plus Hindi, Arabic, Mandarin, Spanish, and others.  Real-world: Caterpillar's Cat AI Assistant runs Riva on Jetson Thor inside bulldozers (offline, no cloud).  \textit{AMD alternative: stitch Whisper + Coqui TTS + pyannote manually; no enterprise SLA, no unified API.}
+
+  \item \textbf{NVIDIA Maxine:} Real-time noise suppression, acoustic echo cancellation, room reverb removal.  Used in Cisco and Zoom.  In a noisy call center, noise suppression before ASR is the difference between 10\% WER and 25\% WER.  \textit{AMD alternative: none.}
+
+  \item \textbf{NVIDIA ACE (Avatar Cloud Engine):} Riva + Audio2Face (lip sync from audio) + Nemotron LLM + P-Flow voice cloning, all as NIM microservices.  Deployed in customer service kiosks, retail concierges, healthcare reception, and gaming NPCs.  \textit{AMD alternative: none.}
+\end{enumerate}
+
+A bank branch digital concierge on ACE is locked to NVIDIA at every layer
+--- not by contract, but by absence of AMD-equivalent components.
+
+\subsection{Layer 4 --- Edge Hardware}
+
+\textbf{NVIDIA Jetson:} Jetson Nano ($\sim$\$100) through Jetson AGX Orin
+(64\,GB, 275\,TOPS) to Jetson Thor (241\,TOPS with MIG).  JetPack OS ships
+with Riva, vLLM, NemoClaw agentic framework, and full CUDA stack.  Certified
+OEM partners: ADLINK, Siemens, KUKA.  \textit{Example:} Cat AI Assistant on
+Jetson Thor + Riva ASR + Qwen3~4B via vLLM inside a bulldozer cab.  Offline,
+no latency, full privacy.
+
+\textbf{AMD answer:} Ryzen AI NPU runs Whisper BFP16 on a laptop.  It works.
+But there is no industrial edge module, no JetPack-equivalent OS image, no
+certified hardware partners for robotics or kiosk deployment.  Ryzen AI NPU
+addresses the developer laptop; Jetson addresses every physical deployment
+at the edge --- different markets, only NVIDIA present in physical
+deployment.
+
+\subsection{Layer 5 --- Cloud Marketplace Slots}
+
+\begin{table}[H]\centering
+\caption{Cloud Marketplace Presence: NVIDIA vs.\ AMD}
+\label{tab:cloud}
+\begin{tabularx}{\textwidth}{lXX}
+\toprule
+\textbf{Platform} & \textbf{NVIDIA} & \textbf{AMD} \\
+\midrule
+Azure AI Foundry          & NIM native integration (July 2026) & Not present \\
+HuggingFace Inference EP  & T4, A10G, A100, H100 selectable    & Not selectable \\
+AWS SageMaker             & Triton + NIM supported             & Limited \\
+Google Vertex AI          & Triton available                   & Limited \\
+Oracle Cloud AI           & Triton available                   & Not present \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The HuggingFace Inference Endpoints gap is the sharpest example.  AMD has a
+formal hardware partnership with HuggingFace.  The TGI ROCm Docker image is
+production-ready (MI210, MI250, MI300X).  FlashAttention 2, AWQ, and
+DeepSpeed are all validated.  But when a developer clicks ``deploy this
+Whisper model,'' MI300X does not appear in the GPU dropdown.  NVIDIA T4
+through H100 does.  The developer selects NVIDIA---not because AMD cannot run
+the model, but because AMD is not on the menu.
+
+\textbf{This is the ecosystem gap in its simplest form: not a silicon gap
+but a slot gap.}
+
+\subsection{Where AMD Can Move Fast}
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{HuggingFace Inference Endpoints --- 0 engineering weeks, 1 business conversation.}  TGI ROCm is production-ready.  AMD needs one commercial agreement with Hugging Face to make MI300X selectable.  Every model deployment that flows through HF Inference Endpoints---voice, LLM, embedding---would immediately have an AMD option.
+
+  \item \textbf{LangChain / LlamaIndex / Haystack packages --- 2--4 weeks each.}  AMD ROCm already serves OpenAI-compatible endpoints via vLLM.  A \texttt{langchain-amd} package is a thin wrapper registering AMD NIM-equivalent endpoints.  Three packages, 6--8 weeks total, covering the entire agentic AI framework layer.
+
+  \item \textbf{Pipecat AMD processor (PyPI) --- 2 weeks} (identified in Section~\ref{sec:frameworks}).
+
+  \item \textbf{Triton ROCm certified image --- 12--16 weeks.}  Triton is BSD-3 open-source.  A \texttt{triton-rocm} Docker image closes the model-serving infrastructure gap.
+
+  \item \textbf{Jetson-equivalent edge platform --- 2--3 years.}  Requires hardware: compact, industrial-grade AMD module with fixed power envelope and certified thermal design.  Product strategy decision, not an engineering sprint.  Every quarter AMD waits, Jetson OEM certification moats deepen.
+\end{enumerate}
+
+% ==============================================================================
+\section{The Four Upstream Gaps}
+\label{sec:upstream}
+
+Sections~\ref{sec:frameworks} and~\ref{sec:ecosystem} map downstream gaps:
+framework plugins, serving containers, marketplace slots, and edge hardware.
+Those are real and closeable.  But four upstream gaps operate at a different
+layer---before a model is deployed, before a developer picks a framework,
+and before an enterprise issues a purchase order.  Closing only downstream
+gaps puts AMD in the running for inference workloads.  Closing upstream gaps
+creates platform momentum.
+
+\subsection{Gap 1 --- Training and Fine-Tuning Moat}
+
+Voice AI companies fine-tune continuously on proprietary data: custom ASR
+acoustic models on customer speech (medical, legal, financial), custom TTS
+voice clones, custom NLU models on domain intents.  This fine-tuning loop
+runs weekly or monthly through NVIDIA-anchored tooling.
+
+\textbf{NVIDIA NeMo} provides training and fine-tuning recipes for ASR
+(Conformer, Parakeet), TTS voice cloning (FastPitch, HiFi-GAN), and LLM
+instruction tuning---all with Triton export as the final step.  A company
+that fine-tunes Riva ASR using NeMo gets a TensorRT-optimised artifact
+deploying directly to Triton.  The entire pipeline from raw audio to
+production microservice is one command.
+
+\begin{table}[H]\centering
+\caption{Critical Library Gaps on AMD ROCm (Training / Fine-Tuning)}
+\label{tab:lib-gaps}
+\begin{tabularx}{\textwidth}{llX}
+\toprule
+\textbf{Library} & \textbf{Role} & \textbf{AMD ROCm Status} \\
+\midrule
+\texttt{bitsandbytes} & Most-used quantisation lib (4-bit, 8-bit) & No official support --- community fork only \\
+\texttt{trl} (HuggingFace) & RLHF and fine-tuning framework & CUDA-primary; ROCm experimental \\
+Axolotl & Most popular open-source fine-tuning tool & CUDA-primary; ROCm untested \\
+PEFT & LoRA, QLoRA adapters & Works but less tested on AMD \\
+FlashAttention 3 & Fastest attention kernel & Hopper-only; no AMD equivalent \\
+NVIDIA CUTLASS & High-performance CUDA matrix kernel templates & AMD CK exists; far smaller ecosystem \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The consequence: a company that fine-tunes ASR using NeMo will not switch
+GPU vendors for inference.  The model's artifact, quantisation format, and
+deployment recipe are NVIDIA-native.  Re-running fine-tuning on AMD requires
+porting the recipe, validating outputs, and re-benchmarking---cost with no
+revenue upside.
+
+\textbf{What AMD needs:} Official ROCm support in \texttt{bitsandbytes}
+(community fork engineering work already exists); a NeMo-equivalent speech
+training framework or certified NeMo-ROCm Docker image; FlashAttention 3
+port or competitive CDNA3 replacement kernel.
+
+\subsection{Gap 2 --- ISV and SI Sales Channel Moat}
+
+Enterprises buy voice AI through independent software vendors (ISVs) and
+deploy through systems integrators (SIs).  The GPU is chosen implicitly by
+the ISV's architecture decision, made years before enterprise procurement.
+
+\textbf{ISV integrations NVIDIA holds in voice AI:} Genesys (11{,}000+
+enterprise customers; GPU-backed real-time agent assist); Salesforce Einstein
+Voice; Cisco Webex (NVIDIA Maxine noise suppression baked in, not a feature
+toggle); ServiceNow Now Assist; Five9, NICE CXone, Avaya.
+
+\textbf{SI certification moat:} NVIDIA has formally certified TCS, Infosys,
+Wipro, Accenture, and Capgemini as NIM implementation partners.  Their
+engineers are trained on NVIDIA tooling; delivery playbooks reference it;
+pre-sales demos run on it.  A client asking for AMD requires the SI to
+rebuild its practice from scratch.
+
+\textbf{What AMD needs:} Three to five direct ISV integration partnerships
+(Genesys is highest leverage); an SI certification program equivalent to
+NVIDIA's NIM partner program.
+
+\subsection{Gap 3 --- Voice Plus Vision Convergence}
+
+The next generation of deployed voice AI agents---retail kiosks, factory
+copilots, healthcare reception, in-vehicle assistants, delivery
+robots---combines voice with vision.
+
+NVIDIA's unified multi-modal stack on Jetson Thor: Isaac (robotics vision),
+Metropolis (video analytics), Riva (voice), ACE (avatar), and Cosmos (world
+model for synthetic data), all on one CUDA substrate.  A Siemens factory
+copilot combines machine-vision anomaly detection with natural-language
+operator guidance using the same stack.
+
+When voice AI companies grow their product to include a camera---and they
+will, because vision context dramatically improves voice agent responses---they
+stay on NVIDIA because AMD has no landing zone.  AMD has Instinct MI300X
+(data center inference, no vision pipeline), Ryzen AI NPU (laptop, no
+industrial form factor), and Radeon GPUs (separate driver stack, not
+integrated with ROCm).
+
+\textbf{What AMD needs:} A Jetson-equivalent embedded AI module with a
+unified SDK bridging voice and vision on a single AMD device.  This is a
+2--3 year hardware roadmap decision, not an engineering sprint.
+
+\subsection{Gap 4 --- Synthetic Data Pipeline for Low-Resource Languages}
+
+Training high-quality ASR for low-resource languages requires synthetic
+speech data.  Real transcribed audio in Hindi, Bengali, Tamil, Swahili, or
+Filipino is scarce---not because languages are rare, but because the
+recording and transcription infrastructure has never been systematically
+built for these markets.
+
+\textbf{NVIDIA's answer:} The Nemotron synthetic data pipeline generates
+diverse high-quality synthetic speech including varied accents, speaking
+rates, and background conditions.  Sarvam AI, Gnani.ai, and AI4Bharat (IIT
+Madras)---the three organisations building India's language model
+foundation---all trained on NVIDIA DGX clusters using NVIDIA-native pipelines.
+
+\textbf{The data flywheel:} NVIDIA's synthetic pipeline feeds training
+$\to$ better models $\to$ more voice AI companies $\to$ more fine-tuning
+data $\to$ better models.  AMD is not in this loop at any point.
+
+\textbf{What AMD needs:} An AMD-sponsored voice data initiative for
+high-priority markets --- partnership with AI4Bharat or similar to fund
+transcription and annotation of 10{,}000+ hours per language, with AMD
+compute provided for training.  Cost: approximately \$2--5M in compute
+credits and \$3--8M in data collection over two years.  Return: model
+ecosystem that is AMD-native from inception.
+
+\subsection{Prioritised AMD Action Roadmap}
+
+\begin{table}[H]\centering
+\caption{Prioritised AMD Action Roadmap Across All Layers}
+\label{tab:roadmap}
+\small
+\begin{tabularx}{\textwidth}{L{4.4cm}L{2.0cm}L{2.0cm}X}
+\toprule
+\textbf{Action} & \textbf{Effort} & \textbf{Timeline} & \textbf{Impact} \\
+\midrule
+HF Inference Endpoints slot            & Business negotiation & 0--4 weeks  & High --- immediate developer visibility \\
+LangChain / LlamaIndex / Haystack pkgs & 2--4 weeks each      & 1--2 months & High --- agentic AI framework layer \\
+Pipecat AMD processor (PyPI)           & 2 weeks              & 1 month     & Medium --- voice AI developer niche \\
+Official \texttt{bitsandbytes} ROCm support & 4--6 weeks      & 2 months    & High --- unlocks fine-tuning ecosystem \\
+Triton ROCm certified image            & 12--16 weeks         & 4 months    & High --- closes serving infra gap \\
+Genesys ISV integration                & Business dev         & 6--12 months & Very high --- enterprise channel \\
+SI certification program               & Program build        & 6--12 months & Very high --- enterprise sales \\
+AMD voice data initiative (India 22 langs) & \$5--13M, 2 yr  & 18--24 months & Strategic --- model ecosystem \\
+FlashAttention 3 port / CDNA3 equiv    & 16--24 weeks         & 6 months    & Medium --- fine-tuning performance \\
+Jetson-equiv industrial edge module    & Hardware roadmap     & 2--3 years  & Very high --- physical deployment \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The first four items require no new silicon, no new partnerships, and no new
+product categories.  The remaining items require progressively more strategic
+commitment but address progressively more durable lock-in.  The window on
+ISV integrations and SI certification is closing: every year NVIDIA's
+enterprise relationships deepen, and the cost of displacing them rises.
+
+% ==============================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+
+Voice AI has become essential infrastructure.  The five-layer stack is
+standardising.  The India opportunity is massive, unique, and structurally
+underserved.  The geographic analysis confirms that compliance-mandated,
+cost-sensitive on-premise deployments cluster in exactly the markets where
+AMD's hardware economics are strongest: India, the Middle East, and Europe.
+
+NVIDIA owns training and the current ecosystem.  CUDA's 15-year head start
+in tooling, documentation, and production confidence is real.  For teams
+without capacity to adapt, CUDA remains the default.  But
+inference---the workload that runs 24 hours a day serving voice
+calls---is where AMD has a genuine opening:
+
+\begin{itemize}[noitemsep]
+  \item 25--40\% lower cost per token for LLM inference.
+  \item 192\,GB HBM3 on MI300X fits 70B models on a single GPU.
+  \item Pure PyTorch TTS (Kokoro, Chatterbox) works on ROCm today with no code changes.
+  \item MI355X within single-digit percentage points of B200 on server inference (MLPerf 6.0, April 2026).
+  \item AMD--Meta 6\,GW production commitment signals ecosystem reliability.
+\end{itemize}
+
+The gap between ``AMD is an alternative'' and ``AMD is the gateway'' is
+\textbf{three Docker containers, two Blueprints, one PyPI package, and one
+TEI port}.  Beyond that, closing the four upstream gaps (fine-tuning
+toolchain, ISV integrations, voice-plus-vision convergence, and synthetic
+data pipelines) is what creates durable platform momentum.
+
+\textbf{India is AMD's entry point.}  DPDP compliance demands on-premise
+deployment; cost sensitivity demands lower CapEx than NVIDIA; 22 languages
+demand Indian-language models (Sarvam, Gnani) that run on AMD; Sarvam's
+\$234M raise and UIDAI partnership signal government intent to build on
+sovereign infrastructure; AMD hardware cost advantage maps directly to
+India's unit economics requirement.
+
+The voice AI stack is five layers.  AMD is competitive in two today and
+closing the gap in a third.  The strategic question is not whether AMD can
+serve the voice AI market.  It is whether AMD moves fast enough to define
+the on-premise, compliance-first, India-and-Asia stack before the market
+standard calcifies around NVIDIA.
+
+% ==============================================================================
+\begin{thebibliography}{99}
+
+\bibitem{assemblyai-voice2026}
+AssemblyAI.
+\newblock Voice {AI} in 2026: Companies and investments.
+\newblock \url{https://www.assemblyai.com/blog/voice-ai-in-2026-series-1}, 2026.
+
+\bibitem{assemblyai-stack}
+AssemblyAI.
+\newblock The voice {AI} stack for building agents.
+\newblock \url{https://www.assemblyai.com/blog/the-voice-ai-stack-for-building-agents}, 2026.
+
+\bibitem{assemblyai-stt}
+AssemblyAI.
+\newblock Top 8 open-source {STT} options for voice applications.
+\newblock \url{https://www.assemblyai.com/blog/top-open-source-stt-options-for-voice-applications}, 2026.
+
+\bibitem{spheron-rocm-cuda}
+Spheron Network.
+\newblock {ROCm} vs {CUDA} {GPU} cloud 2026.
+\newblock \url{https://www.spheron.network/blog/rocm-vs-cuda-gpu-cloud-2026/}, 2026.
+
+\bibitem{vllm-rocm}
+vLLM Blog.
+\newblock High-performance inference on {AMD} {ROCm}.
+\newblock \url{https://vllm.ai/blog/2026-02-27-rocm-attention-backend}, 2026.
+
+\bibitem{amd-rocm-tutorial}
+{AMD ROCm}.
+\newblock Voice pipeline {RAG} {Ollama} tutorial.
+\newblock \url{https://rocm.docs.amd.com/projects/ai-developer-hub/en/latest/notebooks/inference/voice_pipeline_rag_ollama.html}, 2025.
+
+\bibitem{amd-npu-whisper}
+{AMD}.
+\newblock On-device {ASR} with {Whisper} on {Ryzen AI NPUs}.
+\newblock \url{https://www.amd.com/en/developer/resources/technical-articles/2025/unlocking-on-device-asr-with-whisper-on-ryzen-ai-npus.html}, 2025.
+
+\bibitem{callerdigital-top10}
+Caller Digital.
+\newblock Top 10 voice {AI} agents {India} 2026.
+\newblock \url{https://caller.digital/blog/top-10-voice-ai-agents-india-2026}, 2026.
+
+\bibitem{callerdigital-guide}
+Caller Digital.
+\newblock Voice {AI} {India} 2026 complete guide.
+\newblock \url{https://caller.digital/blog/voice-ai-india-2026-complete-guide}, 2026.
+
+\bibitem{callerdigital-dpdp}
+Caller Digital.
+\newblock {DPDP} compliance checklist for voice {AI}.
+\newblock \url{https://caller.digital/blog/dpdp-act-compliance-checklist-voice-ai-india}, 2026.
+
+\bibitem{slator-sarvam}
+Slator.
+\newblock Sarvam raises \$234{M} for sovereign multilingual {AI}.
+\newblock \url{https://slator.com/sarvam-raises-234m-sovereign-multilingual-ai/}, 2026.
+
+\bibitem{vexascribe-wer}
+Vexascribe.
+\newblock Whisper accuracy and {WER} benchmarks 2026.
+\newblock \url{https://vexascribe.com/how-accurate-is-whisper}, 2026.
+
+\bibitem{raftlabs-cost}
+{RaftLabs}.
+\newblock Voice {AI} development cost breakdown.
+\newblock \url{https://www.raftlabs.com/blog/voice-ai-development-cost}, 2026.
+
+\bibitem{nextlevel-roi}
+{NextLevel.ai}.
+\newblock Voice {AI} enterprise adoption and {ROI}.
+\newblock \url{https://nextlevel.ai/voice-ai-trends-enterprise-adoption-roi/}, 2026.
+
+\bibitem{ainora-stats}
+{AInora}.
+\newblock 50+ voice {AI} statistics 2026.
+\newblock \url{https://ainora.lt/blog/voice-ai-statistics-market-data-2026}, 2026.
+
+\bibitem{grandview-market}
+{Grand View Research}.
+\newblock {AI} voice agents market 2026--2033.
+\newblock \url{https://www.grandviewresearch.com/industry-analysis/ai-voice-agents-market-report}, 2026.
+
+\bibitem{sarvam-asr-eval}
+{Sarvam AI}.
+\newblock Evaluating {Indian} language {ASR}.
+\newblock \url{https://www.sarvam.ai/blogs/evaluating-indian-language-asr}, 2025.
+
+\bibitem{arxiv-indic-asr}
+Anonymous.
+\newblock {ASR} benchmarks for {Indian} languages.
+\newblock \textit{arXiv preprint}, arXiv:2602.03868, 2026.
+
+\bibitem{business-standard-india}
+{Business Standard}.
+\newblock Voice {AI} could bridge the gap between {India}'s {AI} haves and have-nots.
+\newblock \url{https://www.business-standard.com/amp/technology/artificial-intelligence/voice-ai-could-bridge-the-gap-between-india-s-ai-haves-and-have-nots-126061501393_1.html}, 2026.
+
+\bibitem{conversailabs-compliance}
+{ConversAI Labs}.
+\newblock Voice {AI} compliance in {India}.
+\newblock \url{https://www.conversailabs.com/blog/voice-ai-compliance-in-india}, 2026.
+
+\bibitem{vomyra-india}
+{Vomyra}.
+\newblock Future of voice {AI} in {India}.
+\newblock \url{https://vomyra.com/blogs/the-future-of-voice-ai-in-india-trends-growth}, 2026.
+
+\bibitem{techcrunch-vapi}
+{TechCrunch}.
+\newblock Vapi hits \$500{M} valuation as {Amazon Ring} chose its {AI} platform over 40 rivals.
+\newblock \url{https://techcrunch.com/2026/05/12/vapi-hits-500m-valuation-as-amazon-ring-chose-its-ai-platform-over-40-rivals/}, 2026.
+
+\bibitem{shunyalabs-2026}
+{Shunyalabs}.
+\newblock Speech {AI} in 2026.
+\newblock \url{https://www.shunyalabs.ai/blog/speech-ai-in-2026}, 2026.
+
+\bibitem{bentoml-tts}
+{BentoML}.
+\newblock Best open-source {TTS} models 2026.
+\newblock \url{https://bentoml.com/blog/exploring-the-world-of-open-source-text-to-speech-models}, 2026.
+
+\end{thebibliography}
+
+\end{document}

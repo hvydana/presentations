@@ -1224,3 +1224,583 @@ AMD's opportunity is not evenly distributed across all regions. It concentrates 
 | **Middle East** | Government AI + Arabic banking | Government-first; local partner essential | Arabic dialect fragmentation | High — data sovereignty |
 | **Africa** | Mobile money + agricultural advisory + healthcare | Telco-first partnership (MTN, Safaricom) | Language data poverty + connectivity | Medium — NPU/edge for offline |
 | **Latin America** | Telecom customer service + banking | Brazil-first; Portuguese-native stack | Accent variation + economic volatility | Medium — LGPD on-premise |
+
+---
+
+## 14. The Three Frameworks That Rule Everything — and How AMD Becomes the Gateway
+
+### The Convergence No One Talks About
+
+Here is the uncomfortable truth beneath the voice AI hype: despite hundreds of companies, thousands of GitHub repos, and billions in funding, the entire industry's production code converges on **two or three open-source orchestration frameworks**. Everything else — Vapi, Retell, Bolna, Caller Digital, Gnani — is a business layer sitting on top of one of these three:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    EVERY VOICE AI COMPANY                   │
+│   Vapi · Retell · Bolna · ElevenAgents · Caller Digital    │
+│   Gnani · Sarvam Agents · PolyAI · Synthflow · Ringg.ai   │
+└────────────────────┬──────────────┬───────────────┬────────┘
+                     │              │               │
+            ┌────────▼──────┐ ┌────▼─────┐ ┌─────▼──────┐
+            │  LiveKit      │ │ Pipecat  │ │    TEN     │
+            │  Agents       │ │          │ │ Framework  │
+            │  (Apache 2.0) │ │ (BSD-2)  │ │  (C++/Go)  │
+            └───────────────┘ └──────────┘ └────────────┘
+                     │              │               │
+         ┌───────────▼──────────────▼───────────────▼───────┐
+         │              SHARED MODEL LAYER                   │
+         │  STT: Faster-Whisper / Deepgram / Sarvam Saarika  │
+         │  LLM: Llama 3.1 / Mistral / Claude / GPT-4o       │
+         │  TTS: Kokoro / ElevenLabs / Coqui / Vachana       │
+         └───────────────────────────┬───────────────────────┘
+                                     │
+                         ┌───────────▼──────────┐
+                         │   GPU COMPUTE LAYER  │
+                         │  NVIDIA / AMD        │
+                         └──────────────────────┘
+```
+
+Win at the framework layer or the compute layer — everything above is margin compression.
+
+---
+
+### The Three Frameworks Dissected
+
+#### LiveKit Agents (Apache 2.0) — The WebRTC Backbone
+
+LiveKit is the open-source WebRTC stack that **OpenAI's ChatGPT Voice Mode runs on**. Character.ai, Meta, and thousands of production voice products use it. LiveKit Agents 1.0 shipped April 2025; 1.5.x is current as of April 2026.
+
+**Architecture:** A LiveKit agent joins a "room" as a headless participant — the same way a human would dial in. It subscribes to the caller's audio track, runs it through STT, feeds text to an LLM with tool-calling, and publishes synthesized speech back on its own audio track. Real-time, bi-directional, parallel.
+
+**Why it dominates:**
+- Native SIP and phone numbers shipped 2025 — no Twilio bridge needed
+- Multi-participant native: group calls, video + voice, screen sharing built-in
+- Model Context Protocol (MCP) tool support built in
+- The entire media server, Agents SDK, and SIP bridge are Apache 2.0 — you can run the whole stack yourself
+
+**The GPU bottleneck:** LiveKit handles network. The GPU is needed for the model layer — STT, LLM, TTS. If those models run on AMD GPUs, AMD becomes the compute substrate for every LiveKit deployment.
+
+---
+
+#### Pipecat (BSD-2) — The Model Integration Layer
+
+Pipecat is a Python framework from Daily.ai that reached v1.0 in April 2026. It is **the framework with the largest integration library** — 60+ service connectors covering every STT, LLM, TTS, and transport combination commercially available.
+
+**Architecture:** Left-to-right frame pipeline. Every audio frame flows through:
+```
+VAD (silence detection) → STT (speech to text) → LLM (response) → TTS (synthesis) → output
+```
+Each stage is a swappable component. Change Deepgram to Faster-Whisper. Change ElevenLabs to Kokoro. Change GPT-4o to Llama 3.1. No code rewrite — just swap the processor.
+
+**Why it matters for AMD:**
+- Pipecat is transport-agnostic — works with LiveKit, WebRTC, telephony, or raw audio
+- It's pure Python, pure PyTorch under the hood — **ROCm compatibility is direct**
+- Its self-hosted model support (Ollama, vLLM, local Whisper) is exactly the AMD deployment scenario
+- `pipecat create` scaffolds a working agent in under 60 seconds — AMD needs to be the compute target when that command runs
+
+**Key tools shipping with Pipecat:** Whisker (real-time pipeline debugging), Tail (live monitoring), OpenTelemetry integration — a full production observability stack.
+
+---
+
+#### TEN Framework (C++ / Go / Python) — The Performance Core
+
+TEN (Transformative Extensions Network) is the highest-performance framework because its core is C++, not Python. Extensions can be written in C++, Go, or Python. It includes proprietary VAD and turn-detection models optimized for sub-300ms response.
+
+**Why it matters:** TEN is where **avatar + voice** combinations run — lip-sync integrations with Trulience, HeyGen, Tavus. The TMAN Designer visual editor means non-engineers can wire together voice agents. It requires Docker + Agora account to run, making it heavier than LiveKit or Pipecat.
+
+**AMD angle:** TEN's C++ compute core means its GPU calls go directly to the driver level. An AMD ROCm-certified TEN container would validate AMD for the highest-performance tier.
+
+---
+
+### How NVIDIA Became the Hardware Gateway — The NIM Playbook
+
+NVIDIA did not win voice AI by making better silicon (though that helped). They won by making their silicon the **path of least resistance** for every developer. The NIM (NVIDIA Inference Microservices) strategy is the clearest example of hardware-as-platform executed correctly.
+
+```
+NVIDIA's Gateway Strategy:
+┌─────────────────────────────────────────────────────────────┐
+│                    NVIDIA NIM ECOSYSTEM                      │
+├──────────────────┬──────────────────┬────────────────────────┤
+│  Compute Layer   │  Software Layer  │  Developer Layer       │
+│                  │                  │                        │
+│  RTX 50 Series   │  NIM containers  │  28M developers on NIM │
+│  FP4 support     │  (TensorRT-LLM   │  AI Blueprints         │
+│  32GB VRAM       │   vLLM, SGLang)  │  VS Code NIM extension │
+│  RTX Spark       │                  │  Azure AI Foundry NIM  │
+│  (Grace+Blackwell│  Riva ASR        │  (from July 2026)      │
+│   128GB shared)  │  Maxine TTS      │                        │
+│                  │                  │  Global SI certs:      │
+│  DGX / Certified │  AI Blueprints   │  TCS, Infosys, Wipro   │
+│  Systems         │  for voice       │  Accenture, Deloitte   │
+└──────────────────┴──────────────────┴────────────────────────┘
+```
+
+**What NIM actually does for voice AI:**
+1. **Pre-packages Riva ASR** (Parakeet TDT model) as a production-ready container — one Docker pull, CUDA-optimized, benchmarked, supported
+2. **Pre-packages Maxine Studio Voice TTS** — same one-pull model
+3. **AI Blueprints** are reference implementations for complete voice workflows — developers don't design the stack, they clone it
+4. **RTX Spark** (Grace CPU + Blackwell GPU, 128GB shared memory) eliminates the CPU/GPU memory bottleneck — entire large models live in shared memory
+5. **VS Code NIM extension** means the developer tool every programmer uses defaults to NVIDIA compute targets
+6. **Azure AI Foundry** native NIM support from July 2026 — deploy to cloud from VS Code with one click, NVIDIA GPU underneath
+7. **28 million developers** who downloaded NIM effectively opted into the NVIDIA ecosystem by default
+
+The result: when a developer runs `docker pull nvidia/riva-asr` or follows an AI Blueprint for a voice agent, they never think about GPU choice — it's already made for them. NVIDIA is the default. Everything else requires active choice.
+
+---
+
+### What AMD Has — and What It's Missing
+
+**What AMD has today:**
+- MI300X: 192GB HBM3, 25–40% cheaper per inference token than H100
+- ROCm 7.2: PyTorch, vLLM, Ollama, llama.cpp all work natively
+- HIP compatibility: CUDA calls route to AMD automatically — most PyTorch code needs zero changes
+- vLLM ROCm wheel: `pip install vllm --extra-index-url https://download.pytorch.org/whl/rocm6.2`
+- Ryzen AI NPU: runs Whisper on-device with BFP16 precision
+- AMD-Meta 6GW production commitment — ecosystem credibility signal
+
+**What AMD is missing — the NIM gap:**
+
+| NVIDIA Has | AMD Equivalent | Status |
+|-----------|---------------|--------|
+| `nvidia/riva-asr` NIM container | AMD-certified ASR container | ❌ Does not exist |
+| `nvidia/riva-tts` NIM container | AMD-certified TTS container | ❌ Does not exist |
+| AI Blueprint: Voice Agent | AMD voice AI Blueprint | ❌ Does not exist |
+| Pipecat validated on RTX | Pipecat validated on MI300X | ❌ No official validation |
+| LiveKit + Riva reference stack | LiveKit + AMD ROCm reference | ❌ No official reference |
+| VS Code NIM extension (NVIDIA target) | VS Code AMD target | ❌ Does not exist |
+| Azure Foundry NIM (July 2026) | AMD cloud inference on Azure | ❌ Partial only |
+| 28M developers defaulting to CUDA | AMD developer default | ❌ Developers must opt in |
+
+**The gap is not silicon.** AMD's MI300X is competitive with H100 for inference. The gap is **three missing Docker containers and two missing documentation pages.**
+
+---
+
+### The AMD Gateway Strategy: Match NIM, Beat It on Cost
+
+AMD's path to becoming the gateway for voice AI requires executing the same playbook NVIDIA ran — but targeting the specific wedge NVIDIA's pricing creates:
+
+#### Step 1 — The Three Certified Containers (Do This First)
+
+```bash
+# Container 1: AMD Pipecat Voice Agent (generic, global)
+docker pull amd/rocm-pipecat-voice:latest
+# Inside: Faster-Whisper + vLLM (Llama 3.1 8B) + Kokoro TTS
+#         + Pipecat 1.0 + Silero VAD + LiveKit transport
+#         + ROCm 7.2 base image
+#         AMD-certified on MI300X, MI355X, RX 7900 XTX
+
+# Container 2: AMD LiveKit Voice Agent (WebRTC-first)
+docker pull amd/rocm-livekit-voice:latest
+# Inside: Same model stack with LiveKit Agents 1.5
+#         + native SIP bridge
+#         + AMD ROCm-optimized vLLM serving
+
+# Container 3: AMD Sarvam India Voice Agent (India-specific)
+docker pull amd/rocm-sarvam-india-voice:latest
+# Inside: Sarvam Saarika ASR + Sarvam Bulbul TTS
+#         + Llama 3.1 or Sarvam-30B LLM
+#         + Pipecat + Hinglish VAD tuning
+#         + DPDP-compliant audit logging layer
+#         AMD-certified, runs entirely on-premise in India
+```
+
+**Why three containers?** Because every developer evaluating voice AI asks "does this run on AMD?" If the answer is `docker pull amd/rocm-pipecat-voice` — it takes 30 seconds to validate. If the answer is "install ROCm, configure HIP, port the Whisper container..." — they choose NVIDIA.
+
+#### Step 2 — AMD Voice AI Blueprints
+
+Mirror NVIDIA's AI Blueprints concept. Each Blueprint is a complete, working voice agent application — not documentation, not a tutorial, an actual deployable repo.
+
+| Blueprint | Stack | Target Market |
+|-----------|-------|--------------|
+| `amd-voice-contact-center` | Pipecat + Faster-Whisper + Llama 3.1 70B + Kokoro | US/EU enterprise |
+| `amd-voice-india-bfsi` | LiveKit + Sarvam Saarika + Sarvam-30B + Vachana TTS | Indian BFSI |
+| `amd-voice-arabic-banking` | Pipecat + Arabic-tuned ASR + Llama 3.1 + Gulf Arabic TTS | GCC banking |
+| `amd-voice-edge-offline` | Ryzen AI NPU + Whisper Small + Llama 3.2 3B + Kokoro | Edge/offline India |
+| `amd-voice-multilingual-latam` | Pipecat + Whisper + Llama 3.1 + Brazil Portuguese TTS | LatAm telecom |
+
+Each Blueprint ships as: one `docker-compose.yml`, one `README.md`, one Python entry point. It works on MI300X and — critically — also on the RX 7900 XTX (consumer GPU, ~$700) to reach the developer who can't expense a data center GPU.
+
+#### Step 3 — ROCm Plugin Certification for Pipecat
+
+Pipecat's architecture is built around pluggable processors. AMD needs:
+- An official `pipecat-amd` package on PyPI: `pip install pipecat-ai[amd]`
+- Registers AMD-optimized Faster-Whisper, AMD-optimized Kokoro, AMD-optimized vLLM serving as first-class Pipecat processors
+- Shows up in Pipecat's official documentation as a supported compute backend
+
+This is **two weeks of engineering work** and positions AMD alongside Deepgram, ElevenLabs, and OpenAI as an official Pipecat integration partner.
+
+#### Step 4 — HuggingFace TEI on ROCm (Closes the Biggest Gap)
+
+The one missing piece that genuinely blocks enterprise voice AI on AMD: HuggingFace Text Embeddings Inference (TEI) has no ROCm support. Voice agents using RAG (retrieval-augmented generation) — product catalogues, policy documents, FAQ databases — need TEI for embeddings. Without it, AMD cannot serve the RAG-augmented enterprise voice agent market.
+
+Fund the ROCm TEI port. It is bounded engineering. Once it ships, AMD closes the last meaningful software gap vs NVIDIA for the voice AI stack.
+
+#### Step 5 — The Ryzen AI NPU as the Developer On-Ramp
+
+NVIDIA's RTX AI PC strategy (RTX Spark, AI PCs with GeForce RTX 50 Series) reaches developers through consumer hardware. AMD has the same play with **Ryzen AI NPU**:
+
+```
+NVIDIA RTX AI PC Strategy        AMD Ryzen AI Strategy
+─────────────────────────         ────────────────────────────
+RTX 50 Series GPU               ← Ryzen AI 300 NPU
+NIM local containers            ← AMD ROCm Pipecat Blueprint
+CUDA default in VS Code         ← AMD Quark + ROCm extension
+32GB VRAM                       ← NPU (dedicated, no GPU needed)
+$1,500+ laptop                  ← $800 Ryzen AI laptop
+```
+
+AMD already publishes Whisper-on-NPU documentation. The next step: ship a `pipecat create --backend amd-npu` template that scaffolds a complete voice agent running on Ryzen AI — Whisper Tiny on NPU, Llama 3.2 3B via Ollama, Kokoro TTS on CPU. No GPU required. No cloud required. No API key required. Runs offline. DPDP-compliant.
+
+This is the developer laptop demo that converts engineers into AMD advocates.
+
+---
+
+### Side-by-Side: NVIDIA NIM vs AMD's Required Response
+
+| NVIDIA (Current) | AMD (Required) | Effort |
+|-----------------|---------------|--------|
+| `docker pull nvidia/riva-asr` | `docker pull amd/rocm-faster-whisper` | 2 weeks |
+| `docker pull nvidia/riva-tts` | `docker pull amd/rocm-kokoro-tts` | 2 weeks |
+| AI Blueprint: voice agent | AMD Blueprint: Pipecat on MI300X | 4 weeks |
+| AI Blueprint: India voice | AMD Blueprint: Sarvam on MI300X | 4 weeks |
+| VS Code NIM extension | VS Code ROCm / AMD Quark extension | 8 weeks |
+| Pipecat docs show NVIDIA | Pipecat official AMD processor | 2 weeks |
+| Azure Foundry NIM (July 2026) | Azure AMD inference endpoint | 12 weeks |
+| Riva ASR (NVIDIA's own model) | Partner with Sarvam (AMD-Sarvam deal) | 8 weeks |
+| RTX Spark (Grace+Blackwell) | Ryzen AI NPU voice template | 4 weeks |
+| SI certification (TCS, Infosys) | India SI certification (TCS, Infosys, HCL) | 16 weeks |
+
+**Total engineering investment for steps 1–4: approximately 12–16 weeks for a focused team of 6–8 engineers.**
+
+The ROI: AMD positions itself as the compute substrate for every Pipecat and LiveKit voice agent deployment targeting on-premise, India, Middle East, or cost-optimized serving. At AMD's current cost advantage ($0.027 vs $0.041 per million tokens), the pitch to every voice AI company is:
+
+> "Same Pipecat code. Same LiveKit transport. Replace `nvidia/riva-asr` with `amd/rocm-faster-whisper`. Pay 34% less per conversation. For a platform doing 10M minutes/month, that's $600,000/year."
+
+---
+
+### The Strategic Summary
+
+The voice AI market has converged on three frameworks. The GPU market has converged on NVIDIA through software, not just silicon. AMD has a real silicon advantage in the deployment workload that matters — inference. The missing piece is not hardware. It is **three Docker containers, two Blueprints, one PyPI package, and one TEI port.**
+
+That is the entire gap between "AMD is an alternative" and "AMD is the gateway."
+
+```
+AMD Voice AI Gateway — Target State
+
+Developer types:
+  pipecat create --backend amd
+
+Gets:
+  ✅ Faster-Whisper (STT)  — AMD ROCm certified
+  ✅ Llama 3.1 via vLLM    — AMD ROCm certified
+  ✅ Kokoro TTS             — AMD ROCm certified
+  ✅ LiveKit transport      — AMD ROCm certified
+  ✅ DPDP audit logging     — India-compliant
+  ✅ Sarvam plugin option   — 22 Indian languages
+  ✅ Works on MI300X        — 34% cheaper than H100
+  ✅ Works on Ryzen AI NPU  — offline, no cloud
+
+Result:
+  Every Pipecat developer who chooses AMD gets a complete,
+  working, production-grade voice agent in 60 seconds.
+  NVIDIA requires the same 60 seconds.
+  AMD costs 34% less per conversation at scale.
+  In India, AMD costs 50% less in CapEx.
+
+That is the gateway.
+```
+
+---
+
+## 15. The Five Ecosystem Layers — Where NVIDIA Lives and AMD Does Not
+
+Beyond the three orchestration frameworks (§14), NVIDIA has staked out positions across five distinct ecosystem layers. Each layer operates on the same logic: ship a named package, container, or SDK; let developers adopt it as the default; AMD silicon becomes invisible at the call site. The following is a complete map.
+
+---
+
+### Layer 1 — Framework Plugin Slots (the Pipecat pattern, repeated)
+
+| Framework | NVIDIA presence | AMD presence |
+|---|---|---|
+| **Pipecat** | Official processor plugin, docs, examples | None |
+| **LiveKit Agents** | Certified GPU backend | None |
+| **LangChain** | `langchain-nvidia-ai-endpoints` — chat, embeddings, reranking, tool calling, LangGraph parallel execution | None |
+| **LlamaIndex** | `llama-index-llms-nvidia` — NIM-backed LLM + embeddings | None |
+| **Haystack** | NIM integration as a native pipeline component | None |
+
+Every LangChain or LlamaIndex voice agent that uses NIM routes to NVIDIA hardware at the endpoint level. The developer writes `ChatNVIDIA(model="...")` — done. AMD does not exist in that call. The same call, repeated across millions of agent pipelines, is the mechanism by which NVIDIA becomes the default GPU substrate for every voice AI application built in 2025–2026.
+
+---
+
+### Layer 2 — Inference Serving Infrastructure (the deepest lock-in)
+
+**NVIDIA Triton / Dynamo-Triton** is the invisible substrate beneath every production voice pipeline. ASR model served from Triton. LLM served from Triton. TTS served from Triton. Users include Microsoft, American Express, Salesforce, Naver, and Hugging Face. It runs inside AWS SageMaker, Azure Machine Learning, Google Vertex AI, and Oracle Cloud. In March 2025 NVIDIA folded it into the **NVIDIA Dynamo** platform, adding disaggregated LLM serving (prefix caching, KV offload to storage), making it the only inference server that handles both traditional ML models and large-scale LLM serving in a single orchestration layer.
+
+**TensorRT-LLM** sits on top of Triton — hand-tuned CUDA kernels for LLM inference. At batch size 1–4 (real-time voice, latency-critical), TensorRT-LLM holds a 20–30% throughput advantage over vLLM ROCm. This is the latency gap that matters for voice: a 50ms difference in LLM token generation is audible to a human ear.
+
+AMD's position: **vLLM ROCm became officially first-class in January 2026** (CI pass rate jumped from 37% in November 2025 to 93% in six weeks; first pre-built Docker image shipped). This is genuine progress. But vLLM is one serving tool. Triton is infrastructure. There is no AMD model serving standard, no AMD inference server with multi-model ensemble orchestration, no AMD equivalent of Dynamo's disaggregated serving.
+
+---
+
+### Layer 3 — Voice-Domain SDKs (vertically integrated stacks)
+
+NVIDIA ships three domain-specific SDKs for voice AI. Each one pulls Triton and TensorRT as dependencies, creating a complete vertical stack from model to microservice that a developer cannot easily swap hardware under.
+
+**NVIDIA Riva** — full conversational AI SDK: ASR + TTS + neural machine translation + speaker diarization + speaker identification + voice activity detection, served as gRPC microservices. Enterprise-licensed with SLA. Fine-tunable via NVIDIA NeMo on custom speech data. Supports English plus 11 languages including Hindi, Arabic, Mandarin, and Spanish. Real-world deployment: Caterpillar's Cat AI Assistant runs Riva on Jetson Thor inside heavy construction machinery — offline, no cloud dependency, full operator voice interaction.
+
+AMD alternative: stitch Whisper + Coqui TTS + pyannote-audio together manually. No enterprise support. No unified gRPC API. No SLA. No fine-tuning pipeline.
+
+**NVIDIA Maxine** — audio and video enhancement SDK: real-time noise suppression, acoustic echo cancellation, room reverb removal, background replacement, video super-resolution. Used in Cisco and Zoom integrations. For voice AI in call centers, noise suppression before ASR is not optional — it is the difference between 10% WER and 25% WER in a noisy environment.
+
+AMD alternative: none.
+
+**NVIDIA ACE (Avatar Cloud Engine)** — digital human platform: Riva (voice) + Audio2Face (lip sync and facial animation from audio signal) + Nemotron LLM (dialogue) + P-Flow voice cloning from 30 minutes of audio, all packaged as NIM microservices. Partners: Convai, Inworld, UneeQ, SoftServe. Deployed in customer service kiosks, retail concierges, healthcare reception, and gaming NPCs rendered in Unreal Engine 5.
+
+AMD alternative: none.
+
+The three form a natural progression: Riva for the voice backend, Maxine for audio quality on the wire, ACE for animated avatar frontend. A hospital reception kiosk or bank branch digital concierge built on ACE is locked to NVIDIA at every layer of the stack — not by contract, but by the absence of any AMD-equivalent component at any layer.
+
+---
+
+### Layer 4 — Edge Hardware and SDK (Jetson versus nothing)
+
+**NVIDIA Jetson** is the dominant embedded AI compute platform: hardware modules from Jetson Nano (entry-level, ~$100) to Jetson AGX Orin (64GB, 275 TOPS) to Jetson Thor (next-gen, 241 TOPS with MIG). JetPack OS ships with Riva, vLLM, NemoClaw agentic framework, and full CUDA stack. Certified OEM hardware partners include ADLINK, Siemens, and KUKA. Industries served: retail kiosks, smart factory floor copilots, autonomous mobile robots, agricultural drones, in-vehicle assistants.
+
+The Caterpillar case study is the clearest signal of where this is heading: Jetson Thor + Riva ASR (Nemotron speech models) + Qwen3 4B via vLLM, running entirely on-device inside a bulldozer cab. No cloud, no latency, full privacy. This is the template for embedded voice AI across heavy industry, healthcare, and automotive.
+
+AMD's answer: **Ryzen AI NPU** runs Whisper BFP16 locally on a laptop. It works. But there is no industrial edge module, no JetPack-equivalent OS image, no certified hardware partners for robotics or kiosk deployment, no AMD reference design for an offline factory floor voice copilot.
+
+Ryzen AI NPU addresses the developer laptop. Jetson addresses every physical deployment at the edge. These are different markets with different buyer profiles — and only NVIDIA is present in the physical deployment market.
+
+---
+
+### Layer 5 — Cloud Marketplace Slots
+
+| Platform | NVIDIA | AMD |
+|---|---|---|
+| **Azure AI Foundry** | NIM native integration (July 2026) | Not present |
+| **HuggingFace Inference Endpoints** | T4, A10G, A100, H100 selectable | Not selectable — despite formal AMD–HF partnership |
+| **AWS SageMaker** | Triton available, NIM containers supported | Limited |
+| **Google Vertex AI** | Triton available | Limited |
+| **Oracle Cloud AI** | Triton available | Not present |
+
+The Hugging Face Inference Endpoints gap is the sharpest example of the pattern. AMD has a formal hardware partnership with Hugging Face. The TGI ROCm Docker image is production-ready and supports MI210, MI250, and MI300X. Flash Attention 2, AWQ quantization, and DeepSpeed are all validated on AMD. The engineering work is done. But when a developer opens the HF Inference Endpoints UI and clicks "deploy this Whisper model" or "deploy this Llama model," MI300X does not appear in the GPU dropdown. NVIDIA T4 through H100 does. The developer selects NVIDIA — not because AMD cannot run the model, but because AMD is not on the menu.
+
+That is the ecosystem gap in its simplest form. It is not a silicon gap. It is a slot gap.
+
+---
+
+### The complete gap map
+
+```
+                         NVIDIA                           AMD
+                         ──────                           ───
+
+Framework plugins        LangChain · LlamaIndex           ──
+                         Haystack · Pipecat · LiveKit
+
+Serving infra            Triton/Dynamo-Triton             vLLM ROCm (Jan 2026,
+                         TensorRT-LLM                     first-class)
+                                                          TRT-LLM equivalent: none
+
+Voice domain SDKs        Riva · Maxine · ACE              ──
+
+Edge platform            Jetson (Nano → AGX Orin → Thor)  Ryzen AI NPU (laptops only)
+                         JetPack OS · NemoClaw
+                         Certified OEM partners
+
+Cloud marketplace        Azure AI Foundry                  ──
+                         HF Inference Endpoints
+                         AWS SageMaker · GCP Vertex
+```
+
+---
+
+### Where AMD can move fast — ranked by effort versus impact
+
+Three of the five layers have low engineering cost because the underlying capability already exists:
+
+**1. HuggingFace Inference Endpoints — 0 engineering weeks, 1 business conversation.**
+TGI ROCm is production-ready. AMD needs one commercial agreement with Hugging Face to make MI300X appear as a selectable GPU option. This is the highest-leverage action available: every model deployment that flows through HF Inference Endpoints — voice, LLM, embedding — would immediately have an AMD option. The developer does not need to know anything about ROCm.
+
+**2. LangChain / LlamaIndex / Haystack packages — 2–4 engineering weeks each.**
+AMD ROCm already serves OpenAI-compatible endpoints via vLLM. A `langchain-amd` package is a thin wrapper that registers AMD NIM-equivalent endpoints with documented model names, authentication, and examples. The LangChain integration architecture is public. LlamaIndex and Haystack follow the same pattern. Three packages, six to eight weeks total, covering the entire agentic AI framework layer.
+
+**3. Pipecat AMD processor PyPI plugin — 2 weeks (already identified in §14).**
+
+**4. Triton adoption for ROCm — 12–16 weeks.**
+Triton is open-source (BSD-3). AMD could certify and ship a `triton-rocm` Docker image — Triton backend running on MI300X with ROCm runtime. This is bounded engineering work, not a rewrite. It closes the model-serving infrastructure gap and gives enterprises a path to run their existing Triton-based pipelines on AMD hardware without rewriting serving logic.
+
+**5. Jetson-equivalent edge platform — 2–3 years.**
+This requires hardware: a compact, industrial-grade AMD module with fixed power envelope, certified thermal design, and software stack. Not a laptop chip. This is a product strategy decision, not an engineering sprint. The window is open because Jetson is still scaling — but the longer AMD waits, the deeper the OEM certification moats become.
+
+---
+
+### What closes the voice AI gap specifically
+
+A voice AI developer building on LangChain + Pipecat + HuggingFace today touches NVIDIA at five points before writing a single line of business logic:
+
+1. `ChatNVIDIA` endpoint in LangChain
+2. NVIDIA processor in Pipecat
+3. NVIDIA GPU in HF Inference Endpoints
+4. NVIDIA Triton serving the ASR and TTS models
+5. NVIDIA Riva if they want enterprise support
+
+Close points 1, 2, and 3 — the three lowest-effort items above — and AMD becomes visible to that developer at the moment of first contact. Points 4 and 5 can follow once the developer is already building on AMD hardware. The same snowball logic that made NVIDIA the default runs in both directions: make AMD the path of least resistance at the first touchpoint, and the rest of the stack follows adoption.
+
+---
+
+## 16. The Four Upstream Gaps — What §14 and §15 Did Not Cover
+
+Sections 14 and 15 map the downstream gaps: the framework plugins, serving containers, cloud marketplace slots, and edge hardware that AMD is absent from. Those are real and closeable. But there are four upstream gaps that operate at a different layer — they happen before a model is ever deployed, before a developer picks a framework, and before an enterprise issues a purchase order. Closing only the downstream gaps puts AMD in the running for inference workloads. Closing the upstream gaps is what creates platform momentum.
+
+---
+
+### Gap 1 — The Training and Fine-Tuning Moat
+
+Everything in §14 and §15 assumes AMD competes at inference time. The implicit assumption is that a model already exists and a developer just needs to serve it. That is the smaller half of the problem.
+
+Voice AI companies do not just serve pre-trained models. They fine-tune on proprietary data continuously: custom ASR acoustic models trained on their customers' speech (medical transcription, legal dictation, financial advisory), custom TTS voice clones trained to sound like a brand's specific voice persona, custom NLU models trained on domain-specific intents. This fine-tuning loop runs weekly or monthly in production. The toolchain it runs through is entirely NVIDIA-anchored:
+
+**NVIDIA NeMo** is the training and fine-tuning framework purpose-built for speech and language models. It provides recipes for ASR fine-tuning (Conformer, Parakeet), TTS voice cloning (FastPitch, HiFi-GAN), and LLM instruction tuning — all with Triton export as the final step. A company that fine-tunes a Riva ASR model using NeMo gets a TensorRT-optimized artifact that deploys directly to Triton. The entire pipeline from raw audio to production microservice is one command.
+
+**Critical library gaps on AMD:**
+
+| Library | Role | AMD ROCm status |
+|---|---|---|
+| `bitsandbytes` | Most-used quantization lib (4-bit, 8-bit) | No official support — community fork only |
+| `trl` (HuggingFace) | RLHF and fine-tuning framework | CUDA-primary; ROCm experimental |
+| `Axolotl` | Most popular open-source fine-tuning tool | CUDA-primary; ROCm untested |
+| `PEFT` | LoRA, QLoRA adapters | Works but less tested on AMD |
+| FlashAttention 3 | Fastest attention kernel (Hopper-only) | No AMD equivalent — FA2 exists, not FA3 |
+| NVIDIA CUTLASS | High-performance CUDA matrix kernel templates | AMD CK (Composable Kernel) exists, far smaller ecosystem |
+
+The consequence is direct: a voice AI company that fine-tunes its ASR model using NeMo is not going to switch GPU vendors for inference. The training moat creates inference lock-in. The model's artifact, optimization flags, quantization format, and deployment recipe are all NVIDIA-native. Re-running fine-tuning on AMD requires porting the recipe, validating outputs, and re-benchmarking — cost with no revenue upside. Companies do not do this.
+
+**What AMD needs here:** Official ROCm support in `bitsandbytes` (the engineering work exists in the community fork — needs AMD to adopt and maintain it); a NeMo-equivalent speech training framework or a certified NeMo-ROCm Docker image; FlashAttention 3 port or a competitive replacement kernel for CDNA3 architecture.
+
+---
+
+### Gap 2 — The ISV and SI Sales Channel Moat
+
+The article focuses on developers choosing frameworks. Enterprises do not choose GPU vendors directly. They buy software from independent software vendors (ISVs) and deploy through systems integrators (SIs). The GPU is chosen implicitly by the ISV's architecture decision, made years before the enterprise procurement conversation.
+
+**ISV integrations NVIDIA has in voice AI:**
+
+- **Genesys** (largest global contact center platform, 11,000+ enterprise customers) — NVIDIA GPU-backed real-time agent assist and post-call analytics
+- **Salesforce Einstein Voice** — NVIDIA inference backend for voice-to-CRM transcription and intent extraction
+- **Cisco Webex** — NVIDIA Maxine noise suppression and transcription baked into the product; not a feature toggle, it is the product
+- **ServiceNow Now Assist** — NVIDIA NIM backend for voice-triggered workflow automation
+- **Five9, NICE CXone, Avaya** — contact center platforms with NVIDIA integrations
+
+When an enterprise's procurement team selects Genesys or Cisco Webex, AMD is not in the conversation. The GPU vendor was selected when Genesys chose its AI stack. AMD has no presence in any of the major contact center ISV platforms.
+
+**SI certification moat:** NVIDIA has formally certified TCS, Infosys, Wipro, Accenture, and Capgemini as NVIDIA NIM implementation partners. These SIs now sell NVIDIA-based voice AI to their Fortune 500 clients as a packaged offering. An SI's certified practice is built around NVIDIA tooling — their engineers are trained on it, their delivery playbooks reference it, their pre-sales demos run on it. A client asking for AMD would require the SI to rebuild its practice from scratch. SIs do not do this unless a client specifically mandates it — and no client mandates AMD because no client has been sold AMD.
+
+**What AMD needs here:** Three to five direct ISV integration partnerships (Genesys is the highest leverage — it reaches more enterprise contact center seats than any other platform). An SI certification program equivalent to NVIDIA's NIM partner program. Without SI certification, AMD hardware will not appear in enterprise voice AI bids regardless of technical merit.
+
+---
+
+### Gap 3 — Voice Plus Vision Convergence
+
+The article treats voice AI in isolation. That is accurate for 2024 deployments but increasingly wrong for 2026 and beyond. The next generation of deployed voice AI agents — retail kiosks, factory floor copilots, healthcare reception desks, in-vehicle assistants, delivery robots — combine voice with vision. A camera observes the environment or the person; a microphone captures speech; the system integrates both to respond appropriately.
+
+**NVIDIA's unified multi-modal story:**
+
+```
+Jetson Thor (edge compute)
+    ├── Isaac (robotics vision + manipulation)
+    ├── Metropolis (retail + industrial video analytics)
+    ├── Riva (voice ASR + TTS)
+    ├── ACE (avatar + face animation)
+    └── Cosmos (world model for synthetic training data)
+
+All on one CUDA substrate. One SDK. One vendor relationship.
+```
+
+Real-world example: the Caterpillar Cat AI Assistant on Jetson Thor combines obstacle detection (vision via Isaac), operator voice commands (Riva ASR), response generation (Qwen3 4B via vLLM), and spoken response (Riva TTS) — all on a single embedded module inside a bulldozer cab. A Siemens factory copilot combines machine vision (anomaly detection) with natural language operator guidance using the same stack.
+
+When voice AI companies grow their product to include a camera — and they will, because vision context dramatically improves voice agent responses — they stay on NVIDIA because AMD has no landing zone for them. AMD has:
+
+- **Instinct MI300X** — data center inference (no vision pipeline)
+- **Ryzen AI NPU** — laptop on-device inference (no industrial form factor)
+- **Radeon GPUs** — graphics and gaming (separate driver stack, not integrated with ROCm)
+
+No unified edge module. No certified hardware for industrial deployment. No multi-modal SDK that bridges voice and vision on a single AMD device. The product gap here is not a missing library — it is a missing product category.
+
+**What AMD needs here:** A Jetson-equivalent embedded AI module — compact, fixed power envelope, thermally certified for industrial environments — with a unified SDK that runs ROCm-based voice and vision pipelines on the same device. This is a 2–3 year hardware roadmap decision, not an engineering sprint. Every quarter AMD waits, Jetson OEM certifications deepen.
+
+---
+
+### Gap 4 — Synthetic Data Pipeline for Low-Resource Languages
+
+Training high-quality ASR for low-resource languages requires synthetic speech data. Real transcribed audio in Hindi, Bengali, Tamil, Telugu, Swahili, or Filipino is scarce — not because the languages are rare, but because the recording and transcription infrastructure to produce training-grade data has never been systematically built for these markets.
+
+NVIDIA's answer is the **Nemotron synthetic data pipeline** — a system that generates diverse, high-quality synthetic speech from text, including varied accents, speaking rates, background conditions, and speaker demographics. This is what enables training ASR at scale for languages where real data is thin. Sarvam AI, Gnani.ai, and AI4Bharat (IIT Madras) — the three organizations building India's language model foundation — all trained on NVIDIA DGX clusters, using NVIDIA-native pipelines.
+
+The consequence compounds: even if AMD wins an inference contract for a Sarvam-based voice agent, the Sarvam model was trained on NVIDIA. Its fine-tuning requires NVIDIA-compatible tooling. Its next version will be trained on NVIDIA. The model's entire lifecycle is anchored to NVIDIA before it reaches a production AMD server.
+
+**The data flywheel:** NVIDIA's synthetic data pipeline feeds training, which produces better models, which attract more voice AI companies, which generate more fine-tuning data, which trains better models. AMD is not in this loop at any point. AMD has no synthetic speech data generation capability, no partnership with AI4Bharat or Sarvam for training compute, no AMD-sponsored voice dataset for Indian or African or Southeast Asian languages.
+
+For the India opportunity specifically (§10), this matters enormously. India's 22 official languages represent a 1.4-billion-person market where the quality of language models determines which company wins. Every model trained on NVIDIA infrastructure creates a training-data dependency that outlasts the initial compute decision.
+
+**What AMD needs here:** An AMD-sponsored voice data initiative for high-priority markets — a partnership with AI4Bharat or a similar academic institution to fund transcription and annotation of 10,000+ hours of speech per language, with AMD compute provided for training. Cost: approximately $2–5M in compute credits and $3–8M in data collection over two years. Return: model ecosystem that is AMD-native from inception, not ported from NVIDIA as an afterthought.
+
+---
+
+### The complete gap map — all layers
+
+```
+Layer                    NVIDIA                           AMD
+─────────────────────────────────────────────────────────────────────
+Synthetic data           Nemotron pipeline                ──
+(upstream of training)   Cosmos world models
+
+Training / fine-tuning   NeMo · TensorRT-LLM              vLLM ROCm (inference)
+                         bitsandbytes · FA3               bitsandbytes: community fork
+                         CUTLASS kernels                  CK: smaller ecosystem
+
+Framework plugins        LangChain · LlamaIndex           ──
+(§15 Layer 1)            Haystack · Pipecat · LiveKit
+
+Serving infra            Triton/Dynamo-Triton             vLLM ROCm (Jan 2026)
+(§15 Layer 2)            TensorRT-LLM                     Triton ROCm: not shipped
+
+Voice domain SDKs        Riva · Maxine · ACE              ──
+(§15 Layer 3)
+
+Edge platform            Jetson (Nano→Thor)                Ryzen AI NPU (laptops only)
+(§15 Layer 4)            JetPack · Isaac · Metropolis      No industrial module
+
+Cloud marketplace        Azure AI Foundry                  ──
+(§15 Layer 5)            HF Inference Endpoints
+                         AWS SageMaker · GCP Vertex
+
+ISV integrations         Genesys · Salesforce             ──
+(§16 Gap 2)              Cisco · ServiceNow
+                         Five9 · NICE CXone
+
+SI certification         TCS · Infosys · Wipro             ──
+(§16 Gap 2)              Accenture · Capgemini
+
+Multi-modal              Isaac · Metropolis · Cosmos       ──
+(§16 Gap 3)              ACE · Jetson unified stack
+```
+
+---
+
+### Prioritized AMD action roadmap across all layers
+
+| Action | Effort | Time horizon | Impact |
+|---|---|---|---|
+| HF Inference Endpoints slot | Business negotiation | 0–4 weeks | High — immediate developer visibility |
+| LangChain / LlamaIndex / Haystack packages | 2–4 weeks each | 1–2 months | High — agentic AI framework layer |
+| Pipecat AMD processor (PyPI) | 2 weeks | 1 month | Medium — voice AI developer niche |
+| Official `bitsandbytes` ROCm support | 4–6 weeks | 2 months | High — unlocks fine-tuning ecosystem |
+| Triton ROCm certified image | 12–16 weeks | 4 months | High — closes serving infra gap |
+| Genesys ISV integration | Business development | 6–12 months | Very high — enterprise channel access |
+| SI certification program (TCS/Infosys/Wipro) | Program build | 6–12 months | Very high — enterprise sales channel |
+| AMD voice data initiative (India 22 languages) | $5–13M, 2 years | 18–24 months | Strategic — model ecosystem ownership |
+| FlashAttention 3 port or CDNA3 equivalent | 16–24 weeks | 6 months | Medium — fine-tuning performance |
+| Jetson-equivalent industrial edge module | Hardware roadmap | 2–3 years | Very high — physical deployment market |
+
+The first four items require no new silicon, no new partnerships, and no new product categories. They are software and business development actions that close the most visible gaps — the ones a developer or enterprise architect encounters on day one. The remaining items require progressively more strategic commitment but address progressively more durable lock-in. The window on the ISV integrations and SI certification program is closing: every year NVIDIA's enterprise relationships deepen, and the cost of displacing them rises.
