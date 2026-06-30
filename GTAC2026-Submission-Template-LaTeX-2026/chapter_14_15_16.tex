@@ -7,6 +7,7 @@
 \usepackage{cite}
 \usepackage{xcolor}
 \usepackage{booktabs}
+\usepackage{float}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
@@ -57,18 +58,18 @@ This paper makes three contributions. First, we characterize the voice AI stack 
 
 A voice AI conversation traverses five distinct layers (Figure~\ref{fig:pipe}). The 2026 production end-to-end latency median is 680\,ms; the emerging bar is sub-500\,ms, which is especially tight on Indian cellular networks that add \texttt{\textasciitilde}50\,ms overhead over fiber~\cite{assemblyai_stack}.
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
-  font=\scriptsize,
-  box/.style={draw, rounded corners, align=center, text width=2.55in,
-              minimum height=2.6ex, inner sep=2pt},
+  font=\tiny,
+  box/.style={draw, rounded corners, align=center, text width=1.6in,
+              minimum height=2.6ex, inner sep=1pt},
   comp/.style={box, fill=red!8},
   light/.style={box, fill=gray!8},
   arr/.style={-{Stealth[length=1.3mm]}, shorten >=0.5pt, shorten <=0.5pt}
 ]
 \node[light] (tel) {\textbf{1. Telephony / Transport} ($<$50\,ms)\\ SIP / WebRTC routing};
-\node[comp, below=1.4ex of tel] (asr)
+\node[comp, below=0.8ex of tel] (asr)
   {\textbf{2. ASR / STT} ($<$150\,ms) -- \emph{compute}\\ speech $\rightarrow$ text};
 \node[comp, below=1.4ex of asr] (llm)
   {\textbf{3. LLM / NLU} ($<$200\,ms) -- \emph{compute}\\ intent $\rightarrow$ reply text};
@@ -102,7 +103,7 @@ Despite hundreds of voice AI companies and billions in funding, production code 
 
 Figure~\ref{fig:convergence} maps this convergence. Every commercial platform is a business layer above one of the three frameworks, which in turn share a common model layer. The GPU compute layer is the single point where AMD's hardware advantage and its ecosystem gap both reside: win there---or at the framework plugin layer immediately above---and the hardware choice is made for every platform above.
 
-\begin{figure}[t]
+\begin{figure}[H]
 \centering
 \begin{tikzpicture}[
   font=\scriptsize,
@@ -168,13 +169,13 @@ Figure~\ref{fig:convergence} maps this convergence. Every commercial platform is
 \label{sec:amd_today}
 %---------------------------------------------------------------------------
 
-Table~\ref{tab:compat} summarizes AMD's current ROCm coverage across the voice AI compute stack. The pattern is clear: the two heaviest compute layers (LLM serving and TTS synthesis) are solved; two narrower but load-bearing pieces---streaming ASR and HuggingFace Text Embeddings Inference (TEI) for RAG-augmented agents---remain open.
+The pattern from Table~\ref{tab:compat} is clear: the two heaviest compute layers (LLM serving and TTS synthesis) are solved; two narrower but load-bearing pieces---streaming ASR and HuggingFace Text Embeddings Inference (TEI) for RAG-augmented agents---remain open.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
+\tiny
 \caption{ROCm support for voice-AI components (2026).}
 \label{tab:compat}
-\footnotesize
 \begin{tabular}{@{}lll@{}}
 \toprule
 Component & ROCm & Note \\
@@ -191,13 +192,13 @@ Embeddings: HF TEI & \textbf{Gap} & No ROCm build available \\
 \end{table}
 
 \textbf{LLM layer: structural CapEx and cost-per-token advantage.}
-Table~\ref{tab:llm} shows MI300X delivering comparable throughput at substantially lower hourly cost, yielding a 34\% lower cost per million tokens. The VRAM result is structural rather than incremental: a 70B-class model requires two H100s (160\,GB combined) but fits on a single MI300X, halving node count and removing the NVLink/interconnect complexity. On MLPerf Inference v6.0, MI355X (288\,GB HBM3e) landed within single-digit percentage points of B200 on server inference workloads~\cite{mlperf6}.
+Table~\ref{tab:llm} shows MI300X delivering comparable throughput at substantially lower hourly cost. The VRAM result is structural rather than incremental: a 70B-class model requires two H100s (160\,GB combined) but fits on a single MI300X, halving node count and removing the NVLink/interconnect complexity. On MLPerf Inference v6.0, MI355X (288\,GB HBM3e) landed within single-digit percentage points of B200 on server inference workloads~\cite{mlperf6}.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{LLM inference: MI300X vs.\ H100 SXM5 (2026 figures).}
 \label{tab:llm}
-\footnotesize
+\tiny
 \begin{tabular}{@{}lcc@{}}
 \toprule
 Dimension & MI300X & H100 SXM5 \\
@@ -215,13 +216,13 @@ Cost / 1M tokens & \textbf{\$0.027} & \$0.041 \\
 The leading self-hostable TTS models---Kokoro (82\,M parameters, Apache 2.0), Chatterbox, and Coqui XTTS-v2---are pure PyTorch and run on ROCm without source changes because HIP transparently maps CUDA calls~\cite{bentoml_tts}. For any operator self-hosting TTS to avoid \$0.10--\$0.30/min hosted pricing, AMD is already a viable cost-competitive target with no porting effort.
 
 \textbf{What AMD is missing.}
-Despite competitive silicon, AMD is absent from the ecosystem surface that drives the adoption decision. Table~\ref{tab:nim_gap} shows the NIM-layer gap: ten ecosystem positions where NVIDIA is present and AMD is not. The gap is not silicon; it is containers, plugins, blueprints, and marketplace slots.
+Despite competitive silicon, AMD is absent from the ecosystem surface that drives the adoption decision. Table~\ref{tab:nim_gap} shows the NIM-layer gap: ten ecosystem positions where NVIDIA is present and AMD is not. The gap is not silicon but its the least resistant path-to-silicon; it is containers, plugins, blueprints, and marketplace slots.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{NIM ecosystem gap: NVIDIA current vs.\ AMD required.}
 \label{tab:nim_gap}
-\footnotesize
+\tiny
 \begin{tabular}{@{}lll@{}}
 \toprule
 NVIDIA Has & AMD Equivalent & Status \\
@@ -229,12 +230,11 @@ NVIDIA Has & AMD Equivalent & Status \\
 Riva ASR NIM container & AMD-certified ASR container & \textbf{Absent} \\
 Riva TTS NIM container & AMD-certified TTS container & \textbf{Absent} \\
 AI Blueprint: voice agent (global) & AMD Blueprint: Pipecat on MI300X & \textbf{Absent} \\
-AI Blueprint: India voice & AMD Blueprint: Sarvam on MI300X & \textbf{Absent} \\
 Pipecat official NVIDIA processor & Pipecat official AMD processor & \textbf{Absent} \\
 LiveKit certified GPU backend & LiveKit AMD-certified backend & \textbf{Absent} \\
 VS Code NIM extension & VS Code ROCm / AMD Quark extension & \textbf{Absent} \\
 Azure Foundry NIM (July 2026) & Azure AMD inference endpoint & Partial \\
-SI certification (TCS, Infosys...) & India SI certification program & \textbf{Absent} \\
+SI certification (TCS, Infosys...) & SI certification program & \textbf{Absent} \\
 28M developers defaulting to CUDA & AMD developer default & Opt-in only \\
 \bottomrule
 \end{tabular}
@@ -267,11 +267,11 @@ NVIDIA's ecosystem position spans five distinct downstream layers. Each operates
 
 \subsection{Layer 1 --- Framework Plugin Slots}
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Framework ecosystem presence.}
 \label{tab:framework}
-\footnotesize
+\tiny
 \begin{tabular}{@{}lll@{}}
 \toprule
 Framework & NVIDIA & AMD \\
@@ -317,11 +317,11 @@ AMD's answer: the Ryzen AI NPU runs Whisper BFP16 locally on a laptop and is doc
 
 \subsection{Layer 5 --- Cloud Marketplace Slots}
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Cloud marketplace GPU presence.}
 \label{tab:cloud}
-\footnotesize
+\tiny
 \begin{tabular}{@{}lll@{}}
 \toprule
 Platform & NVIDIA & AMD \\
@@ -355,11 +355,11 @@ Voice AI companies do not merely serve pre-trained models. They fine-tune on pro
 
 Critical fine-tuning libraries are CUDA-primary on AMD (Table~\ref{tab:finetune}).
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Fine-tuning library gaps on AMD ROCm.}
 \label{tab:finetune}
-\footnotesize
+\tiny
 \begin{tabular}{@{}lll@{}}
 \toprule
 Library & Role & AMD ROCm Status \\
@@ -399,7 +399,7 @@ The next generation of deployed voice AI agents---retail kiosks, factory floor c
 
 \begin{itemize}
   \item \textbf{Jetson Thor} with Isaac (robotics vision + manipulation), Metropolis (video analytics), Riva (voice), and ACE (avatar)---all on a single CUDA substrate, one SDK, one vendor relationship.
-  \item The Caterpillar Cat AI Assistant exemplifies the template: Jetson Thor + Isaac obstacle detection + Riva ASR + Qwen3 4B LLM + Riva TTS, entirely on-device inside a bulldozer cab.
+  %\item The Caterpillar Cat AI Assistant exemplifies the template: Jetson Thor + Isaac obstacle detection + Riva ASR + Qwen3 4B LLM + Riva TTS, entirely on-device inside a bulldozer cab.
 \end{itemize}
 
 When voice AI companies grow their product to include a camera---and they will, because vision context dramatically improves agent responses---they stay on NVIDIA because AMD has no landing zone. AMD's current product lines do not converge on a single device:
@@ -412,15 +412,9 @@ When voice AI companies grow their product to include a camera---and they will, 
 
 No unified edge module. No multi-modal SDK bridging voice and vision on a single AMD device. This is a missing product category, not a missing library, and it requires a hardware roadmap decision rather than an engineering sprint.
 
-\subsection{Gap 4 --- Synthetic Data for Low-Resource Languages}
-
-Training high-quality ASR for low-resource languages requires synthetic speech data. Real transcribed audio in Hindi, Bengali, Tamil, Telugu, Swahili, or Filipino is scarce---not because the languages are rare, but because the recording and transcription infrastructure to produce training-grade data at scale has never been systematically built for these markets.
-
-\textbf{NVIDIA's Nemotron} is a synthetic speech data generation pipeline that produces diverse, high-quality synthetic audio from text, including varied accents, speaking rates, background conditions, and speaker demographics. Sarvam AI, Gnani.ai, and AI4Bharat (IIT Madras)---the three organizations building India's voice AI language model foundation---all trained on NVIDIA DGX clusters using NVIDIA-native pipelines.
-
-The consequence compounds: even if AMD wins an inference contract for a Sarvam-based voice agent, the Sarvam model was trained on NVIDIA. Its fine-tuning requires NVIDIA-compatible tooling; its next version will be trained on NVIDIA. The model's lifecycle is anchored to NVIDIA before it reaches a production AMD server. AMD has no synthetic speech data generation capability, no training compute partnership with AI4Bharat or Sarvam, and no AMD-sponsored voice dataset for Indian, African, or Southeast Asian languages~\cite{indic_asr,sarvam_asr}.
-
-For the India BFSI opportunity (Section~\ref{sec:roadmap}), this matters enormously. India's 22 official languages represent a 1.4B-person market where model quality determines which company wins. Every model trained on NVIDIA infrastructure creates a training-data dependency that outlasts the initial compute decision.
+\begin{itemize}
+  \item \textbf{Synthetic training data for low-resource languages.} NVIDIA's ecosystem includes speech data generation pipelines, models trained on NVIDIA infrastructure carry a lifecycle dependency that predates any inference decision---AMD has no equivalent capability or academic training partnership in these markets~\cite{indic_asr,sarvam_asr}.
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{The AMD Gateway Strategy}
@@ -454,11 +448,11 @@ AMD already publishes Whisper-on-NPU documentation~\cite{amd_ryzen_whisper}. The
 
 Table~\ref{tab:roadmap} presents the full gap map with effort estimates across all ecosystem layers. The first group requires no new silicon, no new product categories, and no hardware roadmap decisions. The second group requires business development alongside engineering. The third group requires strategic hardware commitments and has a 2--3 year minimum horizon.
 
-\begin{table}[t]
+\begin{table}[H]
 \centering
 \caption{Prioritized AMD action roadmap across all ecosystem layers.}
 \label{tab:roadmap}
-\footnotesize
+\tiny
 \begin{tabular}{@{}p{1.38in}p{0.62in}p{0.62in}p{0.52in}@{}}
 \toprule
 Action & Effort & Horizon & Impact \\
