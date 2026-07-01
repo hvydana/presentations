@@ -17,7 +17,7 @@
 \SetWatermarkAngle{30}
 \SetWatermarkColor{gray!20}
 
-\title{{Physical AI and Vertical Sotware: Bridging the AMD's Softpower Gap - from the Voice AI Lens}}
+\title{{Physical AI and Vertical Software: Bridging AMD's Softpower Gap - From the Voice AI Perspective}}
 
 \author{Anonymous}
 
@@ -33,7 +33,7 @@
 \thispagestyle{fancy}
 
 \begin{abstract}
-The voice AI market, projected to reach \$47.5B by 2034 at a 35\% CAGR, has converged on a five-layer inference pipeline orchestrated by three dominant open-source frameworks: LiveKit Agents, Pipecat, and TEN. Within this convergence, NVIDIA has secured the hardware default not through silicon superiority alone but through \textbf{softpower}---a layered ecosystem surface of pre-packaged NIM inference containers, official framework integrations across LangChain, LlamaIndex, Pipecat, and LiveKit, domain-specific voice SDKs (Riva, Maxine, ACE), an embedded AI edge platform (Jetson), and cloud marketplace presence across Azure, AWS, and GCP. AMD holds a demonstrable structural inference advantage---34\% lower cost-per-token for 70B-class LLMs on MI300X versus H100, and single-GPU fit (192\,GB HBM3) for models that otherwise require two H100s---yet this advantage remains unrealized because AMD is absent from the ecosystem positions that determine the hardware default before a developer ever consciously selects compute. This paper uses the voice AI stack as a lens to map AMD's softpower gap across five downstream layers (framework plugin slots, serving infrastructure, voice-domain SDKs, edge hardware, cloud marketplace) and four upstream barriers (training and fine-tuning toolchain, ISV and systems-integrator channel, voice-plus-vision convergence, synthetic data for low-resource languages). We argue the bridge is already being built: Physical AI vertical software delivery---converting AMD model outputs into production pipelines and devkits for real customer deployments---is organically producing the same assets that close the ecosystem gap: a unified inference SDK, accelerated multi-modal pipelines, and a Jetson-class embedded devkit. The softpower gap is not unique to voice AI---the same pattern appears in robotics, industrial inspection, and healthcare imaging, making this analysis generalizable across AMD's physical AI investment areas.
+The voice AI market, projected to reach \$47.5B by 2034 at a 35\% CAGR, has converged on a five-layer inference pipeline orchestrated by three dominant open-source frameworks: LiveKit Agents, Pipecat, and TEN. Within this convergence, NVIDIA has secured the hardware default not through silicon superiority alone but through \textbf{softpower}---a layered ecosystem surface of pre-packaged NIM inference containers, official framework integrations across LangChain, LlamaIndex, Pipecat, and LiveKit, domain-specific voice SDKs (Riva, Maxine, ACE), an embedded AI edge platform (Jetson), and cloud marketplace presence across Azure, AWS, and GCP. AMD holds a demonstrable structural inference advantage---34\% lower cost-per-token for 70B-class LLMs on MI300X versus H100, and single-GPU fit (192\,GB HBM3) for models that otherwise require two H100s---yet this advantage remains unrealized because AMD is absent from the ecosystem positions that determine the hardware default before a developer ever consciously selects compute. This paper uses the voice AI stack as a lens to map AMD's softpower gap across five downstream layers (framework plugin slots, serving infrastructure, voice-domain SDKs, edge hardware, cloud marketplace) and four upstream barriers (training and fine-tuning toolchain, ISV and systems-integrator channel, voice-plus-vision convergence, synthetic data for low-resource languages). We argue the bridge is already being built: the Physical AI and VS team---working to operationalize models into production pipelines and devkits for real customer deployments---are organically producing the same assets that close the ecosystem gap: a unified inference SDK, accelerated multi-modal pipelines, and a Jetson-class embedded devkit. The softpower gap is not unique to voice AI---the same pattern appears in robotics, industrial, and healthcare, making this analysis generalizable across various domains.
 \end{abstract}
 
 \keywords{ROCm, MI300X, voice AI, ecosystem strategy, NIM, Pipecat, LiveKit, LangChain, inference, on-premise, DPDP, Riva.}
@@ -423,6 +423,9 @@ No unified edge module. No multi-modal SDK bridging voice and vision on a single
 
 The downstream gaps are closeable with bounded engineering effort. The strategic playbook is to execute what NVIDIA ran---but targeting the cost wedge that NVIDIA's pricing creates. At 1M minutes/month, the LLM cost advantage alone is \$84K/month~\cite{spheron_rocm,vllm_rocm}; self-hosted ROCm TTS eliminates an additional \$100K--\$300K/month in hosted synthesis costs; and India on-premise deployments benefit from \texttt{\textasciitilde}50\% lower GPU CapEx. The pitch is straightforward: same Pipecat code, same LiveKit transport, 34\% lower per-conversation LLM cost.
 
+\textbf{The structural position.}
+The Physical AI Vertical Software (PAVS) team sits exactly at the intersection where AMD's softpower gap is most visible and most closeable: between AMD's AI Group (AIG) model outputs and lighthouse customers who validate and deploy those models in real environments. Every time PAVS converts a raw AIG model into production-ready vertical software for a lighthouse customer, it is doing---organically---exactly what NVIDIA's platform teams do intentionally: turning hardware capability into software that developers and customers can adopt without understanding the hardware beneath it. The six steps below are the explicit form of what PAVS is already doing implicitly.
+
 \textbf{Step 1: Three certified containers.}
 The developer test is: ``Does this run on AMD?'' If the answer is a single \texttt{docker pull} to a certified, benchmarked AMD container, it takes 30 seconds to validate. Three containers cover the critical use cases: (a) an AMD Pipecat Voice Agent container combining Faster-Whisper + vLLM (Llama 3.1 8B) + Kokoro TTS + Pipecat 1.0 + Silero VAD + LiveKit transport on ROCm 7.2; (b) an AMD LiveKit Voice Agent container with the same model stack and native SIP bridge; (c) an AMD Sarvam India Voice Agent container with Sarvam Saarika ASR + Sarvam Bulbul TTS + Llama 3.1 + Pipecat, with DPDP-compliant audit logging, running entirely on-premise.
 
@@ -440,6 +443,17 @@ TGI ROCm is production-ready; AMD needs a commercial agreement with HuggingFace 
 
 \textbf{Step 6: Ryzen AI NPU as developer on-ramp.}
 AMD already publishes Whisper-on-NPU documentation~\cite{amd_ryzen_whisper}. The next step is a \texttt{pipecat create {-}{-}backend amd-npu} template that scaffolds a complete voice agent on Ryzen AI---Whisper Tiny on NPU, Llama 3.2 3B via Ollama, Kokoro TTS on CPU. No GPU required. No cloud required. No API key required. Runs offline. DPDP-compliant. This is the developer laptop demo that converts engineers into AMD advocates---the same role that RTX Spark plays for NVIDIA.
+
+\textbf{The pattern generalizes.}
+Voice AI is the lens, not the limit. The same softpower deficit appears in robotics (no Isaac equivalent), in industrial inspection (no Metropolis equivalent), in healthcare imaging (no certified clinical inference pipeline), and in automotive (no JetPack for embedded x86). Every domain where PAVS works with a lighthouse customer is a domain where AMD's softpower gap is real and where vertical software delivery directly addresses it:
+
+\begin{itemize}
+  \item Each lighthouse deployment that produces a reusable pipeline is a step toward an AMD-native software ecosystem.
+  \item Each model the Physical AI SDK supports is a model that no longer requires NVIDIA tooling to deploy on AMD hardware.
+  \item Each robotics pipeline that runs on Ryzen AI APU is a reference design that an OEM, SI, or ISV can build on.
+\end{itemize}
+
+The window is open. NVIDIA's Jetson ecosystem deepens every quarter; its NIM integrations expand; its SI certifications multiply. The cost of displacing those relationships rises with each passing quarter. The softpower gap is not a hardware problem---it cannot be closed by a new chip. It is a software and ecosystem problem, which means it is exactly the kind of problem that a team doing vertical software delivery is positioned to solve.
 
 %---------------------------------------------------------------------------
 \section{Prioritized Action Roadmap}

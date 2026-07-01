@@ -1236,9 +1236,9 @@ Here is the uncomfortable truth beneath the voice AI hype: despite hundreds of c
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                    EVERY VOICE AI COMPANY                   │
-│   Vapi · Retell · Bolna · ElevenAgents · Caller Digital    │
-│   Gnani · Sarvam Agents · PolyAI · Synthflow · Ringg.ai   │
-└────────────────────┬──────────────┬───────────────┬────────┘
+│   Vapi · Retell · Bolna · ElevenAgents · Caller Digital     │
+│   Gnani · Sarvam Agents · PolyAI · Synthflow · Ringg.ai     │
+└────────────────────┬──────────────┬───────────────┬─────────┘
                      │              │               │
             ┌────────▼──────┐ ┌────▼─────┐ ┌─────▼──────┐
             │  LiveKit      │ │ Pipecat  │ │    TEN     │
