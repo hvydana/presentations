@@ -31,6 +31,5 @@ I have worked in reducing algoritmic latency of padim model,  the repo is here a
               Speedup           -           77x
               Accuracy           90.5%       90.5% (preserved)
  
-    I am attaching the complete slides for this work(). Please have a look.
-    I have also provided a training pipeline for this model so users can add newer image classes and extend the model.
-`
+    I am attaching the complete slides for this work(`/home/AMD/hvydana/presentations/Padim_model_optimization_v1.md`, `/home/AMD/hvydana/presentations/Padim_model_optimization.md`, `/home/AMD/hvydana/presentations/Padim_model_optimization.pdf`). Please have a look.
+    I have also provided a training pipeline for this model so users can add newer image classes and extend the model.`

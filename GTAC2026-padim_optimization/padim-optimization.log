@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.6.25)  3 JUL 2026 09:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.6.25)  3 JUL 2026 09:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**gesture_mimic.tex
-(./gesture_mimic.tex
+**padim-optimization.tex
+(./padim-optimization.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 (./gtac.cls (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
@@ -884,8 +884,9 @@ LaTeX Font Info:    Trying to load font information for OT1+ptm on input line 2
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
-) (./gesture_mimic.aux)
-\openout1 = `gesture_mimic.aux'.
+)
+(./padim-optimization.aux)
+\openout1 = `padim-optimization.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
@@ -905,7 +906,8 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
 LaTeX Font Info:    ... okay on input line 29.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count341
 \scratchdimen=\dimen332
@@ -967,9 +969,9 @@ Package caption Info: End \AtBeginDocument code.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 Package hyperref Info: Link coloring ON on input line 29.
-(./gesture_mimic.out) (./gesture_mimic.out)
+(./padim-optimization.out) (./padim-optimization.out)
 \@outlinefile=\write4
-\openout4 = `gesture_mimic.out'.
+\openout4 = `padim-optimization.out'.
 
 LaTeX Font Info:    Calculating math sizes for size <18> on input line 32.
 LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
@@ -1103,7 +1105,7 @@ Overfull \hbox (44.68013pt too wide) in paragraph at lines 546--555
  [][] 
  []
 
-[4] (./gesture_mimic.bbl
+[4] (./padim-optimization.bbl
 Underfull \vbox (badness 1052) has occurred while \output is active []
 
 
@@ -1129,7 +1131,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 86--91
 
 [5]) [6
 
-] (./gesture_mimic.aux)
+] (./padim-optimization.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -1139,17 +1141,17 @@ L3 programming layer <2024-01-22>
 LaTeX Font Warning: Size substitutions with differences
 (Font)              up to 2.49063pt have occurred.
 
-Package rerunfilecheck Info: File `gesture_mimic.out' has not changed.
+Package rerunfilecheck Info: File `padim-optimization.out' has not changed.
 (rerunfilecheck)             Checksum: 31DFAC1CC2061A01E42D72691D482C44;4681.
  ) 
 Here is how much of TeX's memory you used:
  26318 strings out of 474222
- 491080 string characters out of 5748733
+ 491200 string characters out of 5748733
  1956975 words of memory out of 5000000
  48025 multiletter control sequences out of 15000+600000
  650796 words of font info for 256 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 94i,12n,107p,456b,797s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 94i,12n,107p,461b,797s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texli
@@ -1173,7 +1175,7 @@ er/ucrr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on gesture_mimic.pdf (6 pages, 280337 bytes).
+Output written on padim-optimization.pdf (6 pages, 280337 bytes).
 PDF statistics:
  376 PDF objects out of 1000 (max. 8388607)
  314 compressed objects within 4 object streams

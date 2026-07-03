@@ -4,7 +4,7 @@
 
 set -e
 
-DOC="${1:-gesture_mimic}"
+DOC="${1:-padim-optimization}"
 
 echo "==> pdflatex pass 1"
 pdflatex -interaction=nonstopmode -halt-on-error "${DOC}.tex"
