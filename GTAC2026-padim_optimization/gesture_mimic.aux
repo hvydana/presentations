@@ -1,0 +1,99 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{rt2,openvla,pi0,smolvla}
+\citation{lerobot}
+\citation{act,pi0,smolvla}
+\citation{act}
+\citation{act}
+\citation{pi0,smolvla}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background and Related Work}{1}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{1}{Background and Related Work}{section.2}{}}
+\citation{diffusionpolicy}
+\citation{flowmatching}
+\citation{pi0}
+\citation{pi05}
+\citation{smolvla}
+\citation{openvla}
+\citation{pi0}
+\citation{smolvla}
+\citation{smolvlm}
+\citation{rtc}
+\citation{smolvla}
+\citation{lerobot}
+\citation{act}
+\citation{smolvla}
+\citation{smolvlm}
+\citation{flowmatching,pi0}
+\@writefile{toc}{\contentsline {section}{\numberline {3}The Gesture-Mimic Task and Dataset}{2}{section.3}\protected@file@percent }
+\newlabel{sec:task}{{3}{2}{The Gesture-Mimic Task and Dataset}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Task Definition}{2}{subsection.3.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces The gesture-mimic closed loop. A single camera observation $o_t$ drives the SmolVLA policy, which emits a chunk of $n$ future actions executed by the SO-101 arm. Because the operator moves continuously, any latency between observation and execution appears directly as tracking lag.}}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:loop}{{1}{2}{The gesture-mimic closed loop. A single camera observation $o_t$ drives the SmolVLA policy, which emits a chunk of $n$ future actions executed by the SO-101 arm. Because the operator moves continuously, any latency between observation and execution appears directly as tracking lag}{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Data Collection by Master--Slave Teleoperation}{2}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Policy Architecture}{2}{section.4}\protected@file@percent }
+\newlabel{sec:model}{{4}{2}{Policy Architecture}{section.4}{}}
+\citation{smolvla}
+\citation{rtc,smolvla}
+\citation{rtc,smolvla}
+\citation{rocm}
+\citation{smolvla,pytorch2}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Speed Is the New Accuracy}{3}{section.5}\protected@file@percent }
+\newlabel{sec:speed}{{5}{3}{Speed Is the New Accuracy}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Why Consuming a Chunk Hurts Accuracy}{3}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces MAE versus number of consumed (stale) action states, at fixed $\sim $65\,ms latency (SmolVLA v1, FP16). Executing more of a chunk before re-observing sharply worsens accuracy.}}{3}{table.caption.2}\protected@file@percent }
+\newlabel{tab:actionstates}{{1}{3}{MAE versus number of consumed (stale) action states, at fixed $\sim $65\,ms latency (SmolVLA v1, FP16). Executing more of a chunk before re-observing sharply worsens accuracy}{table.caption.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}The Latency--Reactivity Identity}{3}{subsection.5.2}\protected@file@percent }
+\newlabel{eq:g}{{1}{3}{The Latency--Reactivity Identity}{equation.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Real-Time Chunking and Asynchronous Inference}{3}{section.6}\protected@file@percent }
+\newlabel{sec:rtc}{{6}{3}{Real-Time Chunking and Asynchronous Inference}{section.6}{}}
+\@writefile{loa}{\contentsline {algorithm}{\numberline {1}{\ignorespaces Asynchronous Real-Time Chunking control loop}}{3}{algorithm.1}\protected@file@percent }
+\newlabel{alg:rtc}{{1}{3}{Asynchronous Real-Time Chunking control loop}{algorithm.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Systems Optimization on AMD Hardware}{3}{section.7}\protected@file@percent }
+\newlabel{sec:amd}{{7}{3}{Systems Optimization on AMD Hardware}{section.7}{}}
+\citation{pytorch2}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Optimization ladder on a single AMD GPU. Each row is cumulative.}}{4}{table.caption.3}\protected@file@percent }
+\newlabel{tab:ladder}{{2}{4}{Optimization ladder on a single AMD GPU. Each row is cumulative}{table.caption.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Compile-mode comparison at 10 consumed actions. FP16 with full-graph compilation gives the lowest latency.}}{4}{table.caption.4}\protected@file@percent }
+\newlabel{tab:compile}{{3}{4}{Compile-mode comparison at 10 consumed actions. FP16 with full-graph compilation gives the lowest latency}{table.caption.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Experiments and Results}{4}{section.8}\protected@file@percent }
+\newlabel{sec:results}{{8}{4}{Experiments and Results}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Throughput and Accuracy}{4}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Model Version Progression}{4}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces MAE by version (30\,FPS, $\sim $31\,ms, wrist-roll excluded). Single-channel processing (v1.1) and 2k-episode data (v2) each help.}}{4}{table.caption.5}\protected@file@percent }
+\newlabel{tab:versions}{{4}{4}{MAE by version (30\,FPS, $\sim $31\,ms, wrist-roll excluded). Single-channel processing (v1.1) and 2k-episode data (v2) each help}{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Behavioral Evaluation}{4}{subsection.8.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces On-robot behavioral pass/fail across eight gesture actions.}}{4}{table.caption.6}\protected@file@percent }
+\newlabel{tab:behavior}{{5}{4}{On-robot behavioral pass/fail across eight gesture actions}{table.caption.6}{}}
+\citation{rtc}
+\citation{act}
+\citation{pi05}
+\citation{rtc,smolvla}
+\bibstyle{abbrv}
+\bibdata{gesture_refs}
+\bibcite{rocm}{1}
+\bibcite{pytorch2}{2}
+\bibcite{pi0}{3}
+\bibcite{rtc}{4}
+\bibcite{rt2}{5}
+\bibcite{lerobot}{6}
+\bibcite{diffusionpolicy}{7}
+\bibcite{pi05}{8}
+\bibcite{openvla}{9}
+\bibcite{flowmatching}{10}
+\bibcite{smolvlm}{11}
+\bibcite{smolvla}{12}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Control-Loop Throughput}{5}{subsection.8.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Inference and control-loop rates (FPS).}}{5}{table.caption.7}\protected@file@percent }
+\newlabel{tab:fps}{{6}{5}{Inference and control-loop rates (FPS)}{table.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Discussion and Limitations}{5}{section.9}\protected@file@percent }
+\newlabel{sec:discussion}{{9}{5}{Discussion and Limitations}{section.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10}Conclusion}{5}{section.10}\protected@file@percent }
+\newlabel{sec:conclusion}{{10}{5}{Conclusion}{section.10}{}}
+\@writefile{toc}{\contentsline {section}{References}{5}{section*.8}\protected@file@percent }
+\bibcite{act}{13}
+\gdef \@abspage@last{6}
