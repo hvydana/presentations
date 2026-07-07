@@ -66,6 +66,12 @@ echo "[compile] chrome: $CHROME"
 # footer logo) still resolve because marp keeps them relative to the deck dir.
 ( cd /tmp && "$MARP" --html "$SRC" -o "$HTML" )
 
+# Marp wraps code/headings in a JS-driven "marp-pre" auto-scaling custom element.
+# That JS does not finalize during Chrome's headless --print-to-pdf, so scaled
+# code blocks collapse to blank white boxes. Strip the auto-scaling hooks so the
+# <pre> renders as plain HTML (syntax highlighting is preserved).
+sed -i 's/ is="marp-pre"//g; s/ data-auto-scaling="[^"]*"//g' "$HTML"
+
 # --- 2. HTML -> PDF via Chrome ----------------------------------------------
 # Chrome's own headless print works even though marp's puppeteer cannot.
 # The dbus/UPower warnings Chrome prints here are harmless.

@@ -71,7 +71,7 @@ style: |
   }
 
   section.tiny h2 {
-    font-size: 1.3em;
+    font-size: 28px;
     margin-bottom: 0.3em;
   }
 
@@ -344,7 +344,7 @@ style: |
 
 ## Physical AI SDK — The Pitch
 
-**NMTS = "Not More Than Ten (lines of code)" — one unit of developer effort.**
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin-top:-0.4em; margin-bottom:0.5em;">From Camera to Product — in 4 NMTS</div>
 
 <div class="columns">
 <div>
@@ -359,7 +359,11 @@ style: |
     <div style="width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent; border-bottom:13px solid #3498db;"></div>
     <div style="width:4px; height:16px; background:#3498db;"></div>
   </div>
-  <div style="background:#3498db; border-radius:5px; padding:8px 18px; text-align:center; color:#ffffff; width:190px;"><strong style="color:#ffffff;">Physical AI SDK</strong><br><span style="font-size:0.85em;">Inference Engine · 0 NMTS</span></div>
+  <div style="display:flex; align-items:center; justify-content:center; gap:10px;">
+    <div style="width:90px;"></div>
+    <div style="background:#3498db; border-radius:5px; padding:8px 18px; text-align:center; color:#ffffff; width:190px;"><strong style="color:#ffffff;">Physical AI SDK</strong><br><span style="font-size:0.85em;">Inference Engine</span></div>
+    <div style="width:90px; color:#4caf50; font-weight:bold; font-size:0.82em; line-height:1.15;">0 NMTS<br>you write none</div>
+  </div>
   <div style="display:flex; flex-direction:column; align-items:center; margin:3px 0;">
     <div style="width:0; height:0; border-left:9px solid transparent; border-right:9px solid transparent; border-bottom:13px solid #3498db;"></div>
     <div style="width:4px; height:16px; background:#3498db;"></div>
@@ -380,6 +384,8 @@ style: |
 </div>
 <div>
 
+<div style="font-size:0.82em; color:#ffffff; margin-bottom:5px;"><strong style="color:#3498db;">NMTS</strong> = "Not More Than Ten (lines of code)" — one unit of developer effort.</div>
+
 **The whole application — in Python**
 
 <pre style="background:#f6f8fa; color:#24292e; font-family:'Courier New',monospace; font-size:0.62em; padding:9px 11px; border-radius:5px; line-height:1.4; white-space:pre; margin:0;"><span style="color:#6a737d;"># NMTS 1 · set up the SDK</span>
@@ -393,6 +399,8 @@ dets = yolo.predict(frame)
 <span style="color:#6a737d;"># NMTS 4 · act on the results</span>
 <span style="color:#d73a49;">for</span> d <span style="color:#d73a49;">in</span> dets:
     <span style="color:#6f42c1;">draw_box</span>(frame, d.box, d.label)</pre>
+
+<div style="margin-top:6px; font-size:0.72em; color:#cccccc;">Same call, every language: <span style="display:inline-block; background:#2a2a2a; border:1px solid #3498db; color:#00bcd4; border-radius:10px; padding:1px 8px; margin:0 1px; font-weight:bold;">Python</span> <span style="display:inline-block; background:#2a2a2a; border:1px solid #3498db; color:#00bcd4; border-radius:10px; padding:1px 8px; margin:0 1px; font-weight:bold;">C++</span> <span style="display:inline-block; background:#2a2a2a; border:1px solid #3498db; color:#00bcd4; border-radius:10px; padding:1px 8px; margin:0 1px; font-weight:bold;">Kotlin</span> <span style="display:inline-block; background:#2a2a2a; border:1px solid #3498db; color:#00bcd4; border-radius:10px; padding:1px 8px; margin:0 1px; font-weight:bold;">JS</span></div>
 
 <div style="border:2px solid #3498db; border-radius:6px; padding:7px; background:#202020; margin-top:6px;">
   <div style="text-align:center; font-weight:bold; color:#ffffff; margin-bottom:4px; font-size:0.88em;">Physical AI SDK</div>
@@ -414,10 +422,14 @@ dets = yolo.predict(frame)
 </div>
 </div>
 
-<div class="highlight-box">
+<div style="display:flex; align-items:stretch; gap:10px; margin-top:22px;">
+  <div style="flex:1; background:#2a2a2a; border-left:4px solid #e05555; border-radius:5px; padding:7px 12px; font-size:0.85em;"><strong style="color:#ff8a8a;">Without PAI SDK</strong> — Triton + ROCm + gRPC setup, per-language rewrites, <strong style="color:#ff8a8a;">weeks</strong> to first inference</div>
+  <div style="display:flex; align-items:center;"><div style="width:0; height:0; border-top:11px solid transparent; border-bottom:11px solid transparent; border-left:18px solid #3498db;"></div></div>
+  <div style="flex:1; background:#2a2a2a; border-left:4px solid #4caf50; border-radius:5px; padding:7px 12px; font-size:0.85em;"><strong style="color:#4caf50;">With PAI SDK</strong> — one call, <strong style="color:#4caf50;">4 NMTS</strong>, 2 engineers, <strong style="color:#4caf50;">half a week</strong> to a stable app on AMD</div>
+</div>
 
-**2 engineers · half a week · a stable application on AMD hardware.**
-
+<div class="highlight-box" style="margin-top:12px; text-align:center;">
+<span style="font-size:1.5em; font-weight:bold; color:#4caf50;"><span style="color:#ffffff;">The Pitch:</span> Physical AI SDK accelerates AI development on AMD Edge-HW — <span style="color:#4aa3ff;">from a quarter to a week</span></span>
 </div>
 
 ---
@@ -485,92 +497,40 @@ const dets = await yolo.predict(frame);
 
 ---
 
-<!-- _class: small -->
-
-## The USP — One Engine Over Every Model
-
-- **ROCm-optimized models** sit as interchangeable **sub-blocks** under one engine.
-
-- **One inference engine** — a uniform horizontal layer on top of every model.
-
-- **Add a model = drop a config** — it lights up on every transport and every language.
-
-<div class="highlight-box">
-
-The **engine is the product**. The models plug in. Your app talks to **one interface**.
-
-</div>
-
----
-
 <!-- _class: smallest -->
 
-## Unified Inference Engine — The Interface Flow
-
-**One idea: `connect → model → predict`. Everything else is a detail you choose.**
-
-```
-     from physical_ai_sdk.inference_engine import InferenceEngine
-                            │
-                  ┌─────────▼──────────┐
-                  │  InferenceEngine   │
-                  │  .model("yolov12") │
-                  │  .predict(frame)   │
-                  └─────────┬──────────┘
-          ┌─────────────────┼─────────────────┐
-          ▼                 ▼                 ▼
-      IN-PLACE            gRPC              HTTP
-    (in-process)       (streaming)         (REST)
-      DLPack ZC        shm handle ZC     shm handle ZC
-          └─────────────────┴─────────────────┘
-                            │
-          Same call in  Python · C++ · Android · JS
-```
-
-- **Transport is a choice, not a rewrite** — the call site is identical everywhere.
-- **In-place is an add-on** — the model runs inside your process: zero-copy, zero network.
-
----
-
-<!-- _class: smallest -->
-
-## Zero-Copy Everywhere — The Edge Advantage
-
-PAI SDK targets the **edge**: your app and the engine run on the **same device**, so the tensor never travels — **every transport passes a shared-memory handle, not the data.**
+## What Am I Getting in This SDK?
 
 <div class="columns">
 <div>
 
-```
-IN-PLACE: app ─DLPack ptr─▶ model
-          (same GPU buffer)
+<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin-bottom:2px;">The Engine</div>
 
-gRPC:     app ─shm handle─▶ engine
-          (tensor stays in shm)
+- **Unified inference engine** — one interface across **CPU · GPU · NPU**, every language (Python · C++ · Android · JS) and transport (in-place · gRPC · HTTP), **zero-copy on edge**
 
-HTTP:     app ─shm handle─▶ engine
-          (tensor stays in shm)
-```
+<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin:8px 0 2px;">The Models</div>
 
-<span class="success">~130 inf/s on AMD Strix Halo iGPU</span>
-gRPC within ~5% of in-place.
+- **Optimized model zoo** — AMD-tuned models per task
+- **Add a model = drop a config**; parallel · sequential · batched pipelines, all by config
 
 </div>
 <div>
 
-| Transport | Data moves | Copy? |
-|---|---|---|
-| **IN-PLACE** | DLPack pointer | **Zero-copy** |
-| **gRPC (edge)** | Handle only | **Zero-copy** |
-| **HTTP (edge)** | Handle only | **Zero-copy** |
-| Remote (fallback) | Serialized | Copy |
+<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin-bottom:2px;">The Proof</div>
+
+- **Accuracy, throughput & PnP benchmarks** on edge for every model — <span class="success">~130 inf/s on AMD Strix Halo</span>
+
+<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin:8px 0 2px;">The Delivery</div>
+
+- **OBB & Docker** — reproducible, ready-to-ship packaging
+- **Co-engineering** with lighthouse customers — cut latency, tune accuracy
 
 </div>
 </div>
 
 <div class="highlight-box">
 
-Zero-copy is the **default** on edge — not a premium tier — because client and server share physical memory.
+A **low-resistance path** to a **co-engineered, benchmarked, containerized** product on AMD edge hardware.
 
 </div>
 
@@ -589,8 +549,8 @@ Zero-copy is the **default** on edge — not a premium tier — because client a
 # pipelines/detect_classify.yaml
 name: detect_classify
 parallel:
-  - model: yolov12       # ┐ run
-  - model: mobilenetv3   # ┘ side by side
+  - model: yolov12       # run
+  - model: mobilenetv3   # side by side
 ```
 
 ```python
@@ -632,47 +592,6 @@ weights: my_detector.onnx
 **Parallel · sequential · batched · load-shared** — all a config choice. New models appear on every transport and language automatically.
 
 </div>
-
----
-
-<!-- _class: small -->
-
-## What Am I Getting in This SDK?
-
-<div class="columns">
-<div>
-
-- **Unified inference engine** with one interface across **CPU · GPU · NPU**
-
-- **Low-resistance pathway** to AMD silicon — no Triton / ROCm / MIGraphX expertise required
-
-- **Optimized model zoo** for AMD hardware with representative models per task
-
-</div>
-<div>
-
-- **Co-engineering with lighthouse customers** — reduce algorithmic latency + customize for use-case accuracy
-
-- **Accuracy, throughput & PnP benchmarks** on edge devices for every model
-
-- **OBB & Docker** — reproducible, ready-to-ship packaging
-
-</div>
-</div>
-
-<div class="highlight-box">
-
-From a **low-resistance path** to a **co-engineered, benchmarked, containerized** product on AMD edge hardware.
-
-</div>
-
----
-
-<!-- _class: lead -->
-
-# Relation with AIG & Value Add
-
-### How PAI SDK builds on — and feeds back into — the AMD AI ecosystem
 
 ---
 
@@ -804,6 +723,14 @@ make eval                           # evaluation pipeline
 
 </div>
 </div>
+
+---
+
+<!-- _class: lead -->
+
+# Relation with AIG & Value Add
+
+### How PAI SDK builds on — and feeds back into — the AMD AI ecosystem
 
 ---
 
@@ -1037,9 +964,11 @@ Taking the generic model all the way to working applications — not just benchm
 - Started discussions to explore co-engineering across SDK verticals
 - Shared infrastructure, tooling, and pipeline patterns
 
-**Foundation Robotics — First Lighthouse Customer**
-- Working toward Foundation Robotics as the first co-engineering lighthouse engagement
-- End-to-end story: AIG model → PAVS task-tuning → accuracy validation → AARTS inference pipeline → real robot application
+**Rivian (RVT) — Automotive Stack**
+- Using PAI SDK models to build an **in-car monitoring system** and **voice assistant** on AMD hardware
+
+**Google — Gemma on LiteRT**
+- Running the **Gemma** model on **LiteRT** on AMD hardware
 
 </div>
 </div>
