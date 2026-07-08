@@ -516,13 +516,14 @@ const dets = await yolo.predict(frame);
 </div>
 <div>
 
-<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin-bottom:2px;">The Proof</div>
+<div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin-bottom:2px;">The performance</div>
 
-- **Accuracy, throughput & PnP benchmarks** on edge for every model — <span class="success">~130 inf/s on AMD Strix Halo</span>
+- **Accuracy, throughput & PnP benchmarks** on edge for every model
 
 <div style="color:#00bcd4; font-weight:bold; font-size:1.08em; margin:8px 0 2px;">The Delivery</div>
 
-- **OBB & Docker** — reproducible, ready-to-ship packaging
+- **OOB & Docker** — reproducible, ready-to-ship packaging
+
 - **Co-engineering** with lighthouse customers — cut latency, tune accuracy
 
 </div>
