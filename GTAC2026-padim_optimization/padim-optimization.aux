@@ -3,11 +3,12 @@
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \citation{defard2021padim}
-\citation{bergmann2019mvtec}
+\citation{bergmann2019mvtec,bergmann2021mvtec}
 \citation{padim_repo}
 \citation{bergmann2019mvtec}
 \citation{defard2021padim}
 \citation{he2016deep}
+\citation{deng2009imagenet}
 \citation{padim_repo}
 \citation{bergmann2019improving}
 \citation{cohen2020sub}
@@ -15,17 +16,19 @@
 \citation{roth2022towards}
 \citation{zavrtanik2021reconstruction}
 \citation{gudovskiy2022cflow}
+\citation{deng2022anomaly}
+\citation{batzner2024efficientad}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
 \newlabel{sec:intro}{{1}{1}{Introduction}{section.1}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Background and Related Work}{1}{section.2}\protected@file@percent }
 \newlabel{sec:background}{{2}{1}{Background and Related Work}{section.2}{}}
+\citation{he2016deep}
+\citation{deng2009imagenet}
 \citation{onnxruntime}
 \citation{migraphx}
 \citation{rocm}
 \citation{vitisai}
 \citation{padim_repo}
-\citation{migraphx}
-\citation{rocm}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Bottleneck Analysis}{2}{section.3}\protected@file@percent }
 \newlabel{sec:analysis}{{3}{2}{Bottleneck Analysis}{section.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Reference Implementation}{2}{subsection.3.1}\protected@file@percent }
@@ -43,8 +46,13 @@
 \newlabel{eq:diff}{{3}{2}{Optimization 2: Vectorized Mahalanobis via Einstein Summation}{equation.4.3}{}}
 \newlabel{eq:tmp}{{4}{2}{Optimization 2: Vectorized Mahalanobis via Einstein Summation}{equation.4.4}{}}
 \newlabel{eq:dist}{{5}{2}{Optimization 2: Vectorized Mahalanobis via Einstein Summation}{equation.4.5}{}}
+\citation{migraphx}
+\citation{rocm}
+\citation{micikevicius2018mixed}
 \citation{migraphx,rocm}
 \citation{vitisai,ryzenai}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Gaussian scan visualization of the Mahalanobis scoring step. (a)~Sequential baseline: covariance inversions are computed one spatial position at a time, leaving all parallel compute resources idle between iterations. (b)~Vectorized optimized pipeline: the pre-computed inverse covariance tensor $\mathbf  {C}^{-1}$ enables all 3{,}136 positions to be scored simultaneously via batched tensor contractions, saturating SIMD and GPU thread resources. An animated rendering of the full scan progression is provided as supplementary material (\texttt  {gaussian\_scan.gif}).}}{3}{figure.caption.2}\protected@file@percent }
+\newlabel{fig:gaussian_scan}{{1}{3}{Gaussian scan visualization of the Mahalanobis scoring step. (a)~Sequential baseline: covariance inversions are computed one spatial position at a time, leaving all parallel compute resources idle between iterations. (b)~Vectorized optimized pipeline: the pre-computed inverse covariance tensor $\mathbf {C}^{-1}$ enables all 3{,}136 positions to be scored simultaneously via batched tensor contractions, saturating SIMD and GPU thread resources. An animated rendering of the full scan progression is provided as supplementary material (\texttt {gaussian\_scan.gif})}{figure.caption.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Optimization 3: ONNX Export and AMD GPU Execution}{3}{subsection.4.3}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Optimization 4: Diagonal Covariance Approximation}{3}{subsection.4.4}\protected@file@percent }
 \newlabel{eq:diag}{{6}{3}{Optimization 4: Diagonal Covariance Approximation}{equation.4.6}{}}
@@ -52,50 +60,57 @@
 \newlabel{sec:implementation}{{5}{3}{Implementation}{section.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Inference Backends}{3}{subsection.5.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Covariance Mode Selection}{3}{subsection.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Optimized PaDiM inference pipeline. The Mahalanobis step now operates on all 3{,}136 spatial positions in a single vectorized call, using inverse covariance pre-loaded from training artifacts. The ONNX export wraps the entire graph (backbone + distance head) for GPU/NPU execution.}}{3}{figure.caption.2}\protected@file@percent }
-\newlabel{fig:pipeline}{{1}{3}{Optimized PaDiM inference pipeline. The Mahalanobis step now operates on all 3{,}136 spatial positions in a single vectorized call, using inverse covariance pre-loaded from training artifacts. The ONNX export wraps the entire graph (backbone + distance head) for GPU/NPU execution}{figure.caption.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments and Results}{3}{section.6}\protected@file@percent }
-\newlabel{sec:experiments}{{6}{3}{Experiments and Results}{section.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Experimental Setup}{3}{subsection.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Optimization Ladder}{3}{subsection.6.2}\protected@file@percent }
-\citation{roth2022towards}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Cumulative optimization ladder. Each row adds one optimization to all previous ones. Baseline uses the reference SciPy loop; subsequent rows add pre-computed $\Sigma ^{-1}$, vectorized einsum, ONNX GPU execution, and diagonal covariance in sequence.}}{4}{table.caption.3}\protected@file@percent }
-\newlabel{tab:ladder}{{2}{4}{Cumulative optimization ladder. Each row adds one optimization to all previous ones. Baseline uses the reference SciPy loop; subsequent rows add pre-computed $\Sigma ^{-1}$, vectorized einsum, ONNX GPU execution, and diagonal covariance in sequence}{table.caption.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Optimized PaDiM inference pipeline. The Mahalanobis step now operates on all 3{,}136 spatial positions in a single vectorized call, using inverse covariance pre-loaded from training artifacts. The ONNX export wraps the entire graph (backbone + distance head) for GPU/NPU execution.}}{4}{figure.caption.3}\protected@file@percent }
+\newlabel{fig:pipeline}{{2}{4}{Optimized PaDiM inference pipeline. The Mahalanobis step now operates on all 3{,}136 spatial positions in a single vectorized call, using inverse covariance pre-loaded from training artifacts. The ONNX export wraps the entire graph (backbone + distance head) for GPU/NPU execution}{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Experiments and Results}{4}{section.6}\protected@file@percent }
+\newlabel{sec:experiments}{{6}{4}{Experiments and Results}{section.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Experimental Setup}{4}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Optimization Ladder}{4}{subsection.6.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Cumulative optimization ladder. Each row adds one optimization to all previous ones. Baseline uses the reference sequential loop; subsequent rows add pre-computed $\Sigma ^{-1}$, batched tensor contraction, ONNX GPU execution, and diagonal covariance in sequence.}}{4}{table.caption.4}\protected@file@percent }
+\newlabel{tab:ladder}{{2}{4}{Cumulative optimization ladder. Each row adds one optimization to all previous ones. Baseline uses the reference sequential loop; subsequent rows add pre-computed $\Sigma ^{-1}$, batched tensor contraction, ONNX GPU execution, and diagonal covariance in sequence}{table.caption.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Full Configuration Benchmark}{4}{subsection.6.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Full benchmark: all configurations ranked by inference time. GPU variants use the MIGraphX execution provider on AMD GPU. CPU variants use ONNX Runtime CPUExecutionProvider. Baseline (reference SciPy loop) shown for comparison.}}{4}{table.caption.4}\protected@file@percent }
-\newlabel{tab:benchmark}{{3}{4}{Full benchmark: all configurations ranked by inference time. GPU variants use the MIGraphX execution provider on AMD GPU. CPU variants use ONNX Runtime CPUExecutionProvider. Baseline (reference SciPy loop) shown for comparison}{table.caption.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Full benchmark: all configurations ranked by inference time. GPU variants use the MIGraphX execution provider on AMD GPU. CPU variants use ONNX Runtime \texttt  {CPUExecutionProvider}. Baseline (reference sequential implementation) shown for comparison.}}{4}{table.caption.5}\protected@file@percent }
+\newlabel{tab:benchmark}{{3}{4}{Full benchmark: all configurations ranked by inference time. GPU variants use the MIGraphX execution provider on AMD GPU. CPU variants use ONNX Runtime \texttt {CPUExecutionProvider}. Baseline (reference sequential implementation) shown for comparison}{table.caption.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Accuracy Preservation}{4}{subsection.6.4}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Detection accuracy: baseline vs.\ optimized. Diagonal covariance incurs zero accuracy loss.}}{4}{table.caption.5}\protected@file@percent }
-\newlabel{tab:accuracy}{{4}{4}{Detection accuracy: baseline vs.\ optimized. Diagonal covariance incurs zero accuracy loss}{table.caption.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Detection accuracy: baseline vs.\ optimized. Diagonal covariance incurs zero accuracy loss.}}{4}{table.caption.6}\protected@file@percent }
+\newlabel{tab:accuracy}{{4}{4}{Detection accuracy: baseline vs.\ optimized. Diagonal covariance incurs zero accuracy loss}{table.caption.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.5}Covariance Mode Comparison}{4}{subsection.6.5}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Full vs.\ diagonal covariance on GPU FP32. Diagonal is 4.5$\times $ faster end-to-end at identical accuracy, and reduces the parameter footprint from 31\,MB to $\sim $2\,MB.}}{4}{table.caption.6}\protected@file@percent }
-\newlabel{tab:covmode}{{5}{4}{Full vs.\ diagonal covariance on GPU FP32. Diagonal is 4.5$\times $ faster end-to-end at identical accuracy, and reduces the parameter footprint from 31\,MB to $\sim $2\,MB}{table.caption.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Production Deployment}{4}{section.7}\protected@file@percent }
-\newlabel{sec:deployment}{{7}{4}{Production Deployment}{section.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Training and Model Registration}{4}{subsection.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}AMD Hardware Coverage}{4}{subsection.7.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces AMD hardware deployment targets and achieved throughput.}}{4}{table.caption.7}\protected@file@percent }
-\newlabel{tab:hw}{{6}{4}{AMD hardware deployment targets and achieved throughput}{table.caption.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{4}{section.8}\protected@file@percent }
-\newlabel{sec:discussion}{{8}{4}{Discussion}{section.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Full vs.\ diagonal covariance on GPU FP32. Diagonal is 4.5$\times $ faster end-to-end at identical accuracy, and reduces the parameter footprint from 31\,MB to $\sim $2\,MB.}}{4}{table.caption.7}\protected@file@percent }
+\newlabel{tab:covmode}{{5}{4}{Full vs.\ diagonal covariance on GPU FP32. Diagonal is 4.5$\times $ faster end-to-end at identical accuracy, and reduces the parameter footprint from 31\,MB to $\sim $2\,MB}{table.caption.7}{}}
+\citation{johnson1984extensions}
+\citation{roth2022towards}
 \citation{defard2021padim}
 \bibstyle{abbrv}
 \bibdata{gesture_refs}
 \bibcite{ryzenai}{1}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Production Deployment}{5}{section.7}\protected@file@percent }
+\newlabel{sec:deployment}{{7}{5}{Production Deployment}{section.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Training and Model Registration}{5}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}AMD Hardware Coverage}{5}{subsection.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces AMD hardware deployment targets and achieved throughput. $^\dagger $NPU throughput pending VitisAI environment certification.}}{5}{table.caption.8}\protected@file@percent }
+\newlabel{tab:hw}{{6}{5}{AMD hardware deployment targets and achieved throughput. $^\dagger $NPU throughput pending VitisAI environment certification}{table.caption.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Discussion}{5}{section.8}\protected@file@percent }
+\newlabel{sec:discussion}{{8}{5}{Discussion}{section.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{5}{section.9}\protected@file@percent }
+\newlabel{sec:conclusion}{{9}{5}{Conclusion}{section.9}{}}
 \bibcite{migraphx}{2}
 \bibcite{rocm}{3}
 \bibcite{vitisai}{4}
-\bibcite{bergmann2019mvtec}{5}
-\bibcite{bergmann2019improving}{6}
-\bibcite{cohen2020sub}{7}
-\bibcite{defard2021padim}{8}
-\bibcite{gudovskiy2022cflow}{9}
-\bibcite{he2016deep}{10}
-\bibcite{onnxruntime}{11}
-\bibcite{roth2022towards}{12}
-\bibcite{padim_repo}{13}
-\@writefile{toc}{\contentsline {section}{\numberline {9}Conclusion}{5}{section.9}\protected@file@percent }
-\newlabel{sec:conclusion}{{9}{5}{Conclusion}{section.9}{}}
-\@writefile{toc}{\contentsline {section}{References}{5}{section*.8}\protected@file@percent }
-\bibcite{zavrtanik2021reconstruction}{14}
+\bibcite{batzner2024efficientad}{5}
+\bibcite{bergmann2021mvtec}{6}
+\bibcite{bergmann2019mvtec}{7}
+\bibcite{bergmann2019improving}{8}
+\bibcite{cohen2020sub}{9}
+\bibcite{defard2021padim}{10}
+\bibcite{deng2022anomaly}{11}
+\bibcite{deng2009imagenet}{12}
+\bibcite{gudovskiy2022cflow}{13}
+\bibcite{he2016deep}{14}
+\bibcite{johnson1984extensions}{15}
+\bibcite{micikevicius2018mixed}{16}
+\bibcite{onnxruntime}{17}
+\bibcite{roth2022towards}{18}
+\bibcite{padim_repo}{19}
+\bibcite{zavrtanik2021reconstruction}{20}
+\@writefile{toc}{\contentsline {section}{References}{6}{section*.9}\protected@file@percent }
 \gdef \@abspage@last{6}

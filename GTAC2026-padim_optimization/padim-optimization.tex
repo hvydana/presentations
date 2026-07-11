@@ -10,6 +10,9 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{float}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\graphicspath{{/home/AMD/hvydana/presentations/gif_gen/gaussian_frames/}}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,positioning,calc,shapes.geometric}
 \usepackage{algorithm}
@@ -22,7 +25,7 @@
 \SetWatermarkColor{gray!20}
 
 \title{From Research Code to Production Edge: A 572$\times$ Inference
-Acceleration of PaDiM Anomaly Detection on AMD Hardware}
+Acceleration of PaDiM Anomaly Detection on AMD strix halo}
 
 \author{Anonymous}
 
@@ -40,28 +43,28 @@ Acceleration of PaDiM Anomaly Detection on AMD Hardware}
 \begin{abstract}
 PaDiM (Patch Distribution Modeling)~\cite{defard2021padim} achieves
 state-of-the-art accuracy for industrial anomaly detection---over 99\%
-image-level AUROC on the MVTec AD benchmark~\cite{bergmann2019mvtec}---without
+image-level AUROC on the MVTec AD benchmark~\cite{bergmann2019mvtec,bergmann2021mvtec}---without
 requiring any defect samples during training.  Its widely-adopted reference
 implementation~\cite{padim_repo}, however, runs at only 1.5 FPS on CPU and
 1.7 FPS with a GPU backbone, disqualifying it from production line deployments
 that demand tens to hundreds of frames per second.  We identify the root cause:
 95\% of inference time (590 ms out of 621 ms) is consumed by a sequential
 Python loop that performs 3{,}136 independent Mahalanobis distance computations,
-each requiring an $O(n^3)$, $n\!=\!100$ matrix inversion via SciPy.  We
+each requiring an $O(n^3)$ matrix inversion, with $n\!=\!100$.  We
 eliminate this bottleneck through four complementary, non-destructive
 optimizations: (1) pre-computing and persisting the inverse covariance
 $\Sigma^{-1}$ after training, removing all matrix inversions from the inference
-path; (2) replacing the position loop with a two-\texttt{einsum} vectorized
-expression that evaluates all 3{,}136 distances in a single, BLAS-backed tensor
-operation; (3) exporting the ResNet18 backbone to ONNX and executing it via the
-AMD MIGraphX execution provider on GPU; and (4) approximating the full
-covariance with its diagonal, reducing the distance tensor from
-$100\!\times\!100$ per position to a 100-element vector at no accuracy cost.
+path; (2) replacing the position loop with a batched tensor contraction that
+evaluates all 3{,}136 distances simultaneously via BLAS-backed operations;
+(3) exporting the ResNet18 backbone to ONNX and executing it via the AMD
+MIGraphX execution provider on GPU; and (4) approximating the full covariance
+with its diagonal, reducing the per-position parameter footprint from
+$\mathbb{R}^{d\times d}$ to $\mathbb{R}^{d}$ at no accuracy cost.
 Together these yield \textbf{1.16 ms end-to-end inference} and \textbf{865 FPS}
 on a single AMD GPU---a \textbf{572$\times$ speedup}---while fully preserving
 99.1\% image-level and 97.8\% pixel-level AUROC.  On CPU the optimized model
 delivers 125 FPS (83$\times$), enabling deployment on AMD Ryzen AI NPU targets.
-The result is packaged as a production-ready FastAPI service with configurable
+The result is packaged as a production-ready inference service with configurable
 covariance mode and multi-backend support including VitisAI for AMD NPU.
 \end{abstract}
 
@@ -83,18 +86,20 @@ without a data-center GPU.
 
 PaDiM~\cite{defard2021padim} satisfies the accuracy requirement convincingly.
 By fitting a per-patch Gaussian model on top of multi-scale features extracted
-from a pretrained ResNet18~\cite{he2016deep}, it achieves 98.4\% average
+from a ResNet18~\cite{he2016deep} pretrained on ImageNet~\cite{deng2009imagenet},
+it achieves 98.4\% average
 image-level AUROC across MVTec AD categories and requires only \emph{normal}
 training images---no defect samples, no iterative learning, no nearest-neighbor
 search at inference time.  Yet the widely forked reference
 implementation~\cite{padim_repo} fails criteria (b) and (c).  Its Mahalanobis
 scoring loop runs at 1.5 FPS on CPU---three orders of magnitude below the
-60--500 FPS typical of vision-based production lines---and relies on SciPy
+60--500 FPS typical of vision-based production lines---and relies on sequential
 matrix inversions that do not map to GPU parallelism.
 
 This gap between research accuracy and production throughput is not inherent to
-the PaDiM algorithm.  It is an artifact of a sequential, Python-loop-heavy
-implementation.  We close the gap.
+the PaDiM algorithm.  It arises from a sequential, loop-based computational
+formulation that fails to exploit the data-parallel structure latent in the
+Mahalanobis scoring step.  We close the gap.
 
 \textbf{Contributions.}
 
@@ -105,8 +110,9 @@ implementation.  We close the gap.
     (Section~\ref{sec:analysis}).
 
   \item A four-stage, algorithm-preserving optimization sequence---pre-computed
-    inverse covariance, vectorized einsum, ONNX GPU export, and diagonal
-    covariance---that eliminates the bottleneck stepwise with no retraining
+    inverse covariance, batched tensor contraction, ONNX GPU export, and
+    diagonal covariance---that eliminates the bottleneck stepwise with no
+    retraining
     (Section~\ref{sec:method}).
 
   \item A comprehensive benchmark on AMD GPU (MIGraphX) and CPU (ONNX Runtime)
@@ -114,9 +120,9 @@ implementation.  We close the gap.
     125 FPS on CPU, with AUROC fully preserved at 99.1\%/97.8\%
     (Section~\ref{sec:experiments}).
 
-  \item A production deployment package with FastAPI serving, configurable
-    diagonal/full covariance, multi-class model registry, and AMD NPU support
-    via VitisAI execution provider (Section~\ref{sec:deployment}).
+  \item A production deployment package with configurable diagonal/full
+    covariance, multi-class model registry, and AMD NPU support via the
+    VitisAI execution provider (Section~\ref{sec:deployment}).
 \end{enumerate}
 
 %---------------------------------------------------------------------------
@@ -134,17 +140,22 @@ PatchCore~\cite{roth2022towards} later achieved higher accuracy by maintaining
 a coreset memory bank and using approximate nearest-neighbor search, but its
 inference path includes a k-NN query that adds latency at scale.  DRAEM~\cite{zavrtanik2021reconstruction}
 and CFLOW-AD~\cite{gudovskiy2022cflow} target discriminative and normalizing-flow
-approaches respectively.  Our work focuses exclusively on accelerating PaDiM,
-which provides the best accuracy-to-latency ratio prior to our optimizations.
+approaches respectively.  Reverse Distillation~\cite{deng2022anomaly} achieves
+competitive accuracy via teacher--student knowledge distillation.
+EfficientAD~\cite{batzner2024efficientad} reaches millisecond-level CPU latency
+through a compact student network trained with patch-description distillation;
+our work instead preserves the full PaDiM algorithm and AUROC while closing the
+throughput gap through algorithmic restructuring and hardware-aware execution.
 
 \textbf{PaDiM algorithm.}
-Given a set of $N$ normal training images, PaDiM extracts features from three
-intermediate layers of a pretrained ResNet18 (layers 1, 2, 3) and concatenates
-them spatially into a $448$-dimensional patch embedding per position on a
-$56\!\times\!56$ grid ($H'\!\times\!W'\!=\!3{,}136$ positions total).  A
+Given a set of $M$ normal training images, PaDiM extracts features from three
+intermediate layers of a ResNet18~\cite{he2016deep} pretrained on
+ImageNet~\cite{deng2009imagenet} (layers 1, 2, 3) and concatenates them
+spatially into a $448$-dimensional patch embedding per position on a
+$56\!\times\!56$ grid ($H'\!\times\!W'\!=\!N\!=\!3{,}136$ positions total).  A
 random projection reduces the embedding to $d\!=\!100$ dimensions.  For each of
-the 3{,}136 positions a multivariate Gaussian $\mathcal{N}(\mu_i, \Sigma_i)$
-is fitted over the training set by computing sample mean and covariance.  At
+the $N$ positions a multivariate Gaussian $\mathcal{N}(\mu_i, \Sigma_i)$
+is fitted over the $M$ training images by computing sample mean and covariance.  At
 inference, the Mahalanobis distance from the test embedding to each learned
 Gaussian produces a $56\!\times\!56$ anomaly map, which is upsampled to the
 input resolution and Gaussian-smoothed ($\sigma\!=\!4$) to yield the final heatmap.
@@ -173,9 +184,9 @@ map by iterating over all 3{,}136 spatial positions:
 \label{alg:baseline}
 \begin{algorithmic}[1]
 \For{$i = 1 \dots 3136$}
-  \State $\Sigma_i^{-1} \gets \Call{scipy.linalg.inv}{\Sigma_i}$
-    \Comment{$O(n^3)$, $n=100$}
-  \State $d_i \gets \sqrt{(x_i - \mu_i)^\top \Sigma_i^{-1} (x_i - \mu_i)}$
+  \State $\Sigma_i^{-1} \leftarrow \mathbf{Inv}(\Sigma_i)$
+    \Comment{matrix inversion, $O(n^3)$, $n=100$}
+  \State $d_i \leftarrow \sqrt{(x_i - \mu_i)^\top \Sigma_i^{-1} (x_i - \mu_i)}$
 \EndFor
 \State \Return $\{d_i\}$ reshaped to $56\!\times\!56$, then upsampled and smoothed
 \end{algorithmic}
@@ -194,11 +205,11 @@ The Mahalanobis loop accounts for 95\% of total wall-clock time.}
 \footnotesize
 \begin{tabular}{@{}lcc@{}}
 \toprule
-Component & Time (ms) & \% of Total \\
+Component & Latency (ms) & \% of Total \\
 \midrule
 Feature extraction (ResNet18, layers 1--3) & 15  & 2.4  \\
 Embedding concatenation and projection     & 12  & 1.9  \\
-\textbf{Mahalanobis loop (SciPy)}          & \textbf{590} & \textbf{95.0} \\
+\textbf{Mahalanobis loop (sequential)}     & \textbf{590} & \textbf{95.0} \\
 Post-processing (upsample + smooth)        &  4  & 0.6  \\
 \midrule
 \textbf{Total}                             & \textbf{621} & 100  \\
@@ -210,20 +221,44 @@ Post-processing (upsample + smooth)        &  4  & 0.6  \\
 
 Three structural problems make the loop intractable for production use:
 
-\textbf{Redundant O($n^3$) inversions at inference time.}  The
-$100\!\times\!100$ covariance matrix inversion is an $O(n^3)\!=\!O(10^6)$
+\textbf{Redundant $O(n^3)$ inversions at inference time.}  The
+$d\!\times\!d$ covariance matrix inversion is an $O(n^3)\!=\!O(10^6)$
 FLOP operation performed 3{,}136 times per image.  Crucially, $\Sigma_i$ is
 \emph{constant} after training---it encodes population statistics that do not
 change between test images.  Recomputing $\Sigma_i^{-1}$ at every inference is
 algorithmically unnecessary.
 
-\textbf{SciPy dispatch overhead.}  Each call to \texttt{scipy.linalg.inv}
-crosses the Python--C boundary once per spatial position.  The cumulative
-dispatch cost adds latency independent of the numerical work.
+\textbf{Sequential dispatch overhead.}  Each matrix inversion is issued as an
+independent call, crossing the interpreter boundary once per spatial position.
+The cumulative dispatch cost adds latency independent of the numerical work.
 
 \textbf{No parallelism.}  The 3{,}136 distance computations are fully
 independent but are processed sequentially, leaving all CPU SIMD lanes and GPU
 threads idle between iterations.
+
+\begin{figure*}[t]
+\centering
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{frame_025}
+  \caption*{(a) Sequential baseline}
+\end{minipage}\hfill
+\begin{minipage}{0.48\textwidth}
+  \centering
+  \includegraphics[width=\linewidth]{frame_093}
+  \caption*{(b) Vectorized optimized}
+\end{minipage}
+\caption{Gaussian scan visualization of the Mahalanobis scoring step.
+(a)~Sequential baseline: covariance inversions are computed one spatial
+position at a time, leaving all parallel compute resources idle between
+iterations.
+(b)~Vectorized optimized pipeline: the pre-computed inverse covariance tensor
+$\mathbf{C}^{-1}$ enables all 3{,}136 positions to be scored simultaneously
+via batched tensor contractions, saturating SIMD and GPU thread resources.
+An animated rendering of the full scan progression is provided as
+supplementary material (\texttt{gaussian\_scan.gif}).}
+\label{fig:gaussian_scan}
+\end{figure*}
 
 %---------------------------------------------------------------------------
 \section{Optimization Methodology}
@@ -236,13 +271,16 @@ root cause while preserving the PaDiM algorithm exactly.
 \subsection{Optimization 1: Pre-computed Inverse Covariance}
 
 Because $\Sigma_i^{-1}$ is constant after training, we compute it \emph{once}
-at the end of the training phase and persist it to disk alongside the mean
-vectors:
+at the end of the training phase and serialize it to persistent storage
+alongside the mean vectors $\boldsymbol{\mu}$:
 %
 \begin{equation}
-  \mathbf{C}^{-1} = \bigl\{\Sigma_i^{-1}\bigr\}_{i=1}^{3136}
-  \;\in\; \mathbb{R}^{100 \times 100 \times 3136}.
+  \mathbf{C}^{-1} \;\in\; \mathbb{R}^{d \times d \times N},
+  \qquad
+  \mathbf{C}^{-1}_{:,\,:,\,i} \;\triangleq\; \Sigma_i^{-1},
+  \quad i = 1,\ldots,N,
 \end{equation}
+where $d\!=\!100$ and $N\!=\!3{,}136$.
 %
 The serialized tensor occupies approximately 31\,MB.  At inference,
 $\mathbf{C}^{-1}$ is loaded once per session and reused across all test images
@@ -258,23 +296,34 @@ Mahalanobis form:
   d_i = \sqrt{(x_i - \mu_i)^\top \Sigma_i^{-1} (x_i - \mu_i)}, \quad i=1,\ldots,3136,
 \end{equation}
 %
-where the 3{,}136 evaluations are \emph{fully independent} and can be batched
-into two Einstein summation operations over the joint feature--spatial index:
+where the 3{,}136 evaluations are \emph{fully independent}.  Introducing the
+residual tensor $\boldsymbol{\Delta} \in \mathbb{R}^{B \times d \times N}$
+(with $d\!=\!100$, $N\!=\!3{,}136$) and batch index $b$, the computation
+decomposes into three closed-form tensor operations:
 %
 \begin{align}
-  \mathbf{diff}_{b,c,i} &= x_{b,c,i} - \mu_{c,i} \label{eq:diff}\\
-  \mathbf{tmp}_{b,c,i}  &= \sum_{d}\, C^{-1}_{c,d,i}\;\mathbf{diff}_{b,d,i}
-    \;\; [\texttt{einsum(`cdi,bdi->bci')}] \label{eq:tmp}\\
-  d_{b,i}               &= \sqrt{\sum_{c}\, \mathbf{diff}_{b,c,i}\;\mathbf{tmp}_{b,c,i}}
-    \;\; [\texttt{einsum(`bci,bci->bi')}] \label{eq:dist}
+  \Delta_{b,c,i}
+    &= x_{b,c,i} - \mu_{c,i},
+    \label{eq:diff}\\
+  T_{b,c,i}
+    &= \sum_{d'=1}^{100} C^{-1}_{c,d'\!,i}\;\Delta_{b,d'\!,i},
+    \label{eq:tmp}\\
+  D_{b,i}
+    &= \!\left(\sum_{c=1}^{100} \Delta_{b,c,i}\;T_{b,c,i}\right)^{\!\!1/2},
+    \label{eq:dist}
 \end{align}
 %
-where $b$ is the batch index, $c,d$ are feature dimensions (0--99), and $i$
-runs over all 3{,}136 positions \emph{simultaneously}.  NumPy dispatches both
-einsum calls to BLAS-optimized blocked matrix routines with AVX2/AVX-512 SIMD,
-replacing 3{,}136 scalar dot-products with two cache-friendly tensor
-contractions.  The resulting computation graph contains no Python control flow
-and is directly exportable to ONNX.
+where $b \in \{1,\ldots,B\}$ is the batch index, $c,d' \in \{1,\ldots,100\}$
+are feature-dimension indices, and $i \in \{1,\ldots,N\}$ ranges over all
+spatial positions \emph{simultaneously}.  Equation~\eqref{eq:tmp} is a
+batched matrix--vector product $\mathbf{T}_{b,\cdot,i} =
+\mathbf{C}^{-1}_i\,\boldsymbol{\Delta}_{b,\cdot,i}$ parallelized over $(b,i)$;
+Eq.~\eqref{eq:dist} is the corresponding inner product, yielding the anomaly
+map $\mathbf{D} \in \mathbb{R}^{B \times N}$.  Both operations are dispatched
+to BLAS-optimized blocked matrix routines with AVX2/AVX-512 SIMD, replacing
+3{,}136 serial dot-products with two cache-friendly tensor contractions.  The
+resulting computation graph is free of Python control flow and is directly
+exportable to ONNX.
 
 \subsection{Optimization 3: ONNX Export and AMD GPU Execution}
 
@@ -284,16 +333,18 @@ MIGraphX provider~\cite{migraphx} of ONNX Runtime compiles the graph to
 optimized ROCm kernels~\cite{rocm}, enabling:
 %
 \begin{itemize}
-  \item Massive parallelism for the einsum contractions across the 3{,}136
-    independent spatial positions.
+  \item Concurrent evaluation of all $N$ independent spatial contractions,
+    exploiting GPU thread-level parallelism.
   \item Kernel fusion across the ResNet18 layers and the Mahalanobis head,
     reducing device-memory round-trips.
-  \item Elimination of Python interpreter overhead from the entire hot path.
+  \item Elimination of interpreter dispatch overhead from the critical
+    inference path.
 \end{itemize}
 %
-Mixed-precision execution (BF16, FP16) is enabled at the session level by
-casting model weights prior to the ONNX export, ensuring the MIGraphX compiler
-sees a clean half-precision graph without inserted up/down-cast nodes.
+Mixed-precision execution (BF16, FP16)~\cite{micikevicius2018mixed} is enabled
+at the session level by casting model weights prior to the ONNX export, ensuring
+the MIGraphX compiler sees a clean half-precision graph without inserted
+up/down-cast nodes.
 
 \subsection{Optimization 4: Diagonal Covariance Approximation}
 
@@ -303,17 +354,21 @@ $\sim$31\,MB total).  The \emph{diagonal} approximation retains only the
 per-feature inverse variances:
 %
 \begin{equation}
-  d_i^{\mathrm{diag}}
-  = \sqrt{\sum_{c=1}^{100}\, \frac{(x_{i,c} - \mu_{i,c})^2}{\sigma_{i,c}^2}},
+  D^{\mathrm{diag}}_{b,i}
+  \;=\; \left(\sum_{c=1}^{d}\,
+    \sigma^{-2}_{c,i}\;\Delta_{b,c,i}^{2}
+  \right)^{\!\!1/2},
+  \quad
+  \sigma^{-2}_{c,i} \;\triangleq\; \mathbf{C}^{-1}_{c,c,i},
   \label{eq:diag}
 \end{equation}
 %
-reducing the stored parameters from $\mathbb{R}^{100\times100\times3136}$ to
-$\mathbb{R}^{100\times3136}$ ($\sim$2\,MB) and replacing the two-einsum path
-with a single element-wise multiply-and-reduce.  The implementation extracts
-$\mathbf{var\_inv}[c,i] = C^{-1}[c,c,i]$ at model load time via
-\texttt{np.diagonal}, and the inference path selects
-\texttt{compute\_mahalanobis\_diagonal} instead of the full variant.  As
+reducing the stored parameters from $\mathbb{R}^{d \times d \times N}$ to
+$\mathbb{R}^{d \times N}$ ($\sim$2\,MB) and replacing the two-contraction path
+with a single element-wise multiply-and-sum.  The diagonal inverse variances
+$\boldsymbol{\sigma}^{-2}$ are extracted from $\mathbf{C}^{-1}$ once at model
+load time; the inference path then evaluates Eq.~\eqref{eq:diag} in place of
+Eqs.~\eqref{eq:tmp}--\eqref{eq:dist}.  As
 demonstrated in Section~\ref{sec:experiments}, this approximation incurs
 \emph{zero} measurable accuracy loss, because the dominant variance in each
 100-dimensional patch embedding is captured by the per-feature diagonal
@@ -327,36 +382,30 @@ the Gaussian fitting.
 
 \subsection{Inference Backends}
 
-The optimized PaDiM is packaged as a Python module with three selectable
-inference backends:
+The optimized PaDiM exposes two selectable inference backends:
 
-\textbf{PyTorch backend (\texttt{infer.py}):}  Runs the ResNet18 backbone via
+\textbf{PyTorch backend:}  Runs the ResNet18 backbone via
 PyTorch hooks on layers 1--3, concatenates embeddings, and evaluates the
-vectorized Mahalanobis or diagonal-covariance distance using NumPy einsum.
-Supports CPU and CUDA/ROCm GPU.  Intended for development and hardware without
-ONNX Runtime.
+Mahalanobis distance via batched tensor contractions
+(Eqs.~\eqref{eq:tmp}--\eqref{eq:dist} or Eq.~\eqref{eq:diag}).
+Supports CPU and CUDA/ROCm GPU.  Intended for development environments.
 
-\textbf{ONNX CPU/GPU backend (\texttt{onnx\_infer.py}):}  Full end-to-end
-graph via ONNX Runtime.  Dispatches to \texttt{CPUExecutionProvider} (CPU),
+\textbf{ONNX CPU/GPU backend:}  Full end-to-end graph via ONNX Runtime.
+Dispatches to \texttt{CPUExecutionProvider} (CPU),
 \texttt{MIGraphXExecutionProvider} (AMD GPU,
 ROCm~7.2+)~\cite{migraphx,rocm}, or \texttt{VitisAIExecutionProvider}
 (AMD Ryzen AI NPU)~\cite{vitisai,ryzenai}.  Session graph-optimization level
 is set to \texttt{ORT\_ENABLE\_ALL}.
 
-\textbf{FastAPI serving layer (\texttt{app/}):}  Wraps either backend in a
-REST API with \texttt{/predict} and \texttt{/health} routes, a per-class model
-registry loaded from a configurable directory, and covariance-mode selection via
-the \texttt{use\_diagonal\_cov} flag at startup.
-
 \subsection{Covariance Mode Selection}
 
-Both backends expose a \texttt{use\_diagonal\_cov} flag.  When enabled:
-(1) $\mathbf{var\_inv} \in \mathbb{R}^{100\times3136}$ is extracted from the
-diagonal of $\mathbf{C}^{-1}$ at model load via \texttt{np.diagonal}; (2)
-inference calls \texttt{compute\_mahalanobis\_diagonal} (\ref{eq:diag}) instead
-of the full two-einsum path; (3) the full $\mathbf{C}^{-1}$ is released from
-memory, saving $\sim$29\,MB.  Switching modes requires no retraining---only a
-model reload.
+Both backends support a diagonal covariance mode selectable at startup.  When
+enabled: (1) the per-feature inverse variances
+$\boldsymbol{\sigma}^{-2} \in \mathbb{R}^{d \times N}$ are extracted from
+the diagonal of $\mathbf{C}^{-1}$; (2) inference evaluates
+Eq.~\eqref{eq:diag} in place of Eqs.~\eqref{eq:tmp}--\eqref{eq:dist}; (3)
+the full $\mathbf{C}^{-1}$ is released from memory, saving $\sim$29\,MB.
+Switching modes requires no retraining---only a model reload.
 
 \begin{figure}[H]
 \centering
@@ -371,13 +420,13 @@ model reload.
 ]
 \node[pre] (fe)  {\textbf{ResNet18 Backbone}\\ layer1, layer2, layer3 features};
 \node[pre, below=of fe] (ec)  {\textbf{Embedding Concat}\\ 448D $\to$ 100D (PCA)};
-\node[inf, below=of ec] (mah) {\textbf{Vectorized Mahalanobis}\\ 2$\times$\texttt{einsum} or diagonal\\ all 3{,}136 positions parallel};
+\node[inf, below=of ec] (mah) {\textbf{Vectorized Mahalanobis}\\ full (Eqs.~\ref{eq:tmp}--\ref{eq:dist}) or\\ diagonal (Eq.~\ref{eq:diag}), all $N$ parallel};
 \node[inf, below=of mah] (post) {\textbf{Post-processing}\\ upsample $56^2\!\to\!224^2$, Gaussian blur};
 \draw[arr] (fe) -- (ec);
 \draw[arr] (ec) -- (mah);
 \draw[arr] (mah) -- (post);
 \node[left=5mm of mah, text width=0.85in, align=center, font=\tiny]
-  {\emph{pre-loaded}\\ $\mu,\;\mathbf{C}^{-1}$ (or $\mathbf{var\_inv}$)};
+  {\emph{pre-loaded}\\ $\boldsymbol{\mu},\;\mathbf{C}^{-1}$ (or $\boldsymbol{\sigma}^{-2}$)};
 \end{tikzpicture}
 \caption{Optimized PaDiM inference pipeline.  The Mahalanobis step now operates
 on all 3{,}136 spatial positions in a single vectorized call, using inverse
@@ -396,8 +445,8 @@ graph (backbone + distance head) for GPU/NPU execution.}
 All latency measurements use the MVTec AD \emph{bottle} category (209 normal
 training images, 63 test images including defective and defect-free samples).
 GPU measurements use an AMD GPU running ROCm with the MIGraphX execution
-provider.  CPU measurements use an AMD EPYC workstation with
-\texttt{ORT\_ENABLE\_ALL} graph optimization.  Reported latency is the mean of
+provider.  CPU measurements use an AMD EPYC workstation with all graph optimizations
+enabled.  Reported latency is the mean of
 100 inference runs after 10 warmup runs on a single $224\!\times\!224$ RGB
 image.  Accuracy (AUROC) is evaluated over all test images in the category.
 
@@ -409,18 +458,18 @@ applied cumulatively, illustrating the individual contribution of each stage.
 \begin{table}[H]
 \centering
 \caption{Cumulative optimization ladder.  Each row adds one optimization to all
-previous ones.  Baseline uses the reference SciPy loop; subsequent rows add
-pre-computed $\Sigma^{-1}$, vectorized einsum, ONNX GPU execution, and diagonal
-covariance in sequence.}
+previous ones.  Baseline uses the reference sequential loop; subsequent rows add
+pre-computed $\Sigma^{-1}$, batched tensor contraction, ONNX GPU execution,
+and diagonal covariance in sequence.}
 \label{tab:ladder}
 \footnotesize
 \begin{tabular}{@{}p{2.15in}ccc@{}}
 \toprule
-Configuration & Time (ms) & FPS & Speedup \\
+Configuration & Latency (ms) & FPS & Speedup \\
 \midrule
-Baseline (PyTorch CPU, SciPy loop)      & 621   & 1.6  & 1$\times$       \\
+Baseline (reference, sequential loop)   & 621   & 1.6  & 1$\times$       \\
 + Pre-computed $\Sigma^{-1}$            & $\sim$80  & $\sim$12  & $\sim$8$\times$  \\
-+ Vectorized einsum (CPU NumPy)         & $\sim$36  & $\sim$28  & $\sim$17$\times$ \\
++ Batched tensor contraction (CPU)      & $\sim$36  & $\sim$28  & $\sim$17$\times$ \\
 + ONNX Runtime (CPU)                    & $\sim$15  & $\sim$67  & $\sim$41$\times$ \\
 + GPU MIGraphX FP32 (full cov)          & 8.36  & 120  & 74$\times$      \\
 + GPU BF16  (full cov)                  & 6.79  & 147  & 92$\times$      \\
@@ -432,7 +481,8 @@ Baseline (PyTorch CPU, SciPy loop)      & 621   & 1.6  & 1$\times$       \\
 The largest individual gains are: (i) pre-computed $\Sigma^{-1}$ ($\sim$8$\times$,
 eliminating $O(n^3)$ inversions); (ii) GPU execution ($\sim$5$\times$ over
 vectorized CPU); and (iii) diagonal covariance ($\sim$6$\times$ over full-covariance
-GPU).  Together they multiply rather than add, giving the 572$\times$ headline.
+GPU).  The combined effect is multiplicative rather than additive, yielding the
+572$\times$ headline figure.
 
 \subsection{Full Configuration Benchmark}
 
@@ -445,26 +495,26 @@ is sufficient for real-time inspection at typical industrial line speeds.
 \centering
 \caption{Full benchmark: all configurations ranked by inference time.
 GPU variants use the MIGraphX execution provider on AMD GPU.
-CPU variants use ONNX Runtime CPUExecutionProvider.
-Baseline (reference SciPy loop) shown for comparison.}
+CPU variants use ONNX Runtime \texttt{CPUExecutionProvider}.
+Baseline (reference sequential implementation) shown for comparison.}
 \label{tab:benchmark}
 \footnotesize
 \begin{tabular}{@{}p{1.9in}ccc@{}}
 \toprule
-Configuration & ms & FPS & Speedup \\
+Configuration & Latency (ms) & FPS & Speedup \\
 \midrule
 GPU FP16 + Diagonal Cov        &  1.16  & 865 & 572$\times$ \\
 GPU BF16 + Diagonal Cov        &  1.20  & 833 & 551$\times$ \\
 GPU FP32 + Diagonal Cov        &  1.86  & 538 & 356$\times$ \\
 CPU ONNX + Diagonal Cov        &  7.97  & 125 &  83$\times$ \\
 GPU FP32 (Full Cov)            &  8.36  & 120 &  79$\times$ \\
-Mahalanobis-only ONNX (GPU)    &  9.74  & 103 &  68$\times$ \\
-Hybrid backbone GPU            & 12.99  &  77 &  51$\times$ \\
+ONNX Mahalanobis head, GPU     &  9.74  & 103 &  68$\times$ \\
+Hybrid (ONNX backbone + PyTorch head), GPU & 12.99 & 77 & 51$\times$ \\
 CPU ONNX (Full Cov)            & 15.84  &  63 &  42$\times$ \\
-Hybrid backbone CPU            & 31.71  &  32 &  21$\times$ \\
-Mahalanobis-only ONNX (CPU)    & 33.24  &  30 &  20$\times$ \\
+Hybrid (ONNX backbone + PyTorch head), CPU & 31.71 & 32 & 21$\times$ \\
+ONNX Mahalanobis head, CPU     & 33.24  &  30 &  20$\times$ \\
 \midrule
-Baseline (PyTorch CPU, SciPy)  & 661    & 1.5 & 1$\times$   \\
+Baseline (reference, sequential)  & 661    & 1.5 & 1$\times$   \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -506,7 +556,7 @@ parameter footprint from 31\,MB to $\sim$2\,MB.}
 \footnotesize
 \begin{tabular}{@{}lcccc@{}}
 \toprule
-Cov.\ mode & Total (ms) & FPS & Image AUROC & Footprint \\
+Cov.\ mode & Latency (ms) & FPS & Image AUROC & Footprint \\
 \midrule
 Full       & 8.36   & 120 & 99.1\% & 31\,MB \\
 Diagonal   & 1.86   & 538 & 99.1\% & $\sim$2\,MB \\
@@ -529,7 +579,7 @@ categories without touching inference code.  The workflow is:
 (3) fit per-position Gaussian parameters (sample mean and covariance);
 (4) compute and serialize $\mathbf{C}^{-1}$ and $\boldsymbol{\mu}$ into a
     \texttt{.pkl} file;
-(5) optionally extract and save $\mathbf{var\_inv}$ for diagonal mode.
+(5) optionally pre-extract $\boldsymbol{\sigma}^{-2} \in \mathbb{R}^{d \times N}$ for diagonal mode.
 The resulting model file is placed in the models directory and loaded by the
 inference service at startup with no code changes.
 
@@ -540,19 +590,31 @@ deployment package.
 
 \begin{table}[H]
 \centering
-\caption{AMD hardware deployment targets and achieved throughput.}
+\caption{AMD hardware deployment targets and achieved throughput.
+$^\dagger$NPU throughput pending VitisAI environment certification.}
 \label{tab:hw}
 \footnotesize
-\begin{tabular}{@{}p{1.1in}p{1.0in}cc@{}}
+\begin{tabular}{@{}llccc@{}}
 \toprule
-Hardware & Backend & FPS & Target Use Case \\
+Hardware & Backend & FPS & Latency (ms) & Precision \\
 \midrule
-AMD GPU (Instinct / RDNA) & MIGraphX ONNX & 865 & High-throughput inspection \\
-AMD EPYC CPU              & ONNX Runtime  & 125 & Server-side batch inference \\
-AMD Ryzen AI (NPU)        & VitisAI ONNX  & TBD & Low-power edge appliance \\
+AMD GPU (Instinct / RDNA3) & MIGraphX EP & 865 & 1.16 & FP16 \\
+AMD EPYC CPU               & ONNX CPU EP & 125 & 7.97 & FP32 \\
+AMD Ryzen AI NPU           & VitisAI EP  & ---$^\dagger$ & ---$^\dagger$ & INT8 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The AMD GPU target (Instinct / RDNA3 family) with the MIGraphX execution provider
+is suited for high-throughput production-line inspection, delivering 865\,FPS at
+1.16\,ms latency under FP16 precision.  The AMD EPYC CPU path, using the ONNX
+Runtime CPU execution provider, achieves 125\,FPS at FP32 precision---sufficient
+for server-side batch inference and quality audit workflows that do not require
+sub-frame latency.  The AMD Ryzen AI NPU target, compiled via the VitisAI
+execution provider at INT8 precision, is designed for low-power on-device edge
+deployment where energy budget and model footprint are the primary constraints;
+throughput figures are pending a certified VitisAI environment for the target
+device.
 
 %---------------------------------------------------------------------------
 \section{Discussion}
@@ -560,28 +622,29 @@ AMD Ryzen AI (NPU)        & VitisAI ONNX  & TBD & Low-power edge appliance \\
 %---------------------------------------------------------------------------
 
 \textbf{Algorithm--hardware synergy.}
-The 572$\times$ gain is not attributable to hardware alone.  The baseline SciPy
+The 572$\times$ gain is not attributable to hardware alone.  The baseline sequential
 loop is fundamentally non-parallelizable: each iteration depends on completing
-the previous SciPy call before Python advances the loop counter.  Only after
+the preceding matrix inversion before the next can commence.  Only after
 restructuring the algorithm into data-parallel tensor operations---specifically
-the two-einsum vectorization---could the GPU express its massive thread
+the batched tensor reformulation---could the GPU express its thread-level
 parallelism.  This illustrates a general principle applicable beyond PaDiM:
 for algorithms with latent data parallelism, algorithmic restructuring
 \emph{multiplies} with hardware acceleration rather than adding to it.
 
 \textbf{Why diagonal covariance preserves accuracy.}
-The surprising finding that discarding off-diagonal covariance terms preserves
-AUROC exactly warrants scrutiny.  PaDiM's dimensionality reduction step applies
+The empirical finding that discarding off-diagonal covariance terms incurs no
+measurable accuracy loss merits formal examination.  PaDiM's dimensionality reduction step applies
 a random projection from 448 to 100 dimensions.  We hypothesize that this
 projection---and, more importantly, the decorrelating effect of the ResNet
 feature geometry---substantially diagonalizes the per-position covariance, so
 the off-diagonal entries encode little additional discriminative information.
-A formal analysis of the random-projection-induced decorrelation, corroborated
+A formal analysis of the random-projection-induced decorrelation---in the spirit
+of the Johnson--Lindenstrauss lemma~\cite{johnson1984extensions}---corroborated
 against whitened-distance results in~\cite{roth2022towards}, is left for future work.
 
 \textbf{Memory implications for NPU.}
 Diagonal mode reduces the stored model parameters from 31\,MB to $\sim$2\,MB
-($100\!\times\!3136\!\times\!4$ bytes), a 15$\times$ reduction that is directly
+($d \times N \times 4$ bytes, FP32), a 15$\times$ reduction that is directly
 relevant for AMD Ryzen AI NPU deployment, where on-chip scratchpad memory
 constrains model footprint.  The NPU backend path (VitisAI EP) compiles the
 ResNet18 backbone graph onto the NPU, freeing GPU for concurrent workloads
@@ -608,15 +671,14 @@ compromise and no retraining.
 
 The four-stage optimization sequence is generalizable to any Gaussian-model
 anomaly detector with a fixed post-training covariance: (1) move inverse
-covariance computation to training time; (2) vectorize the distance computation
-with einsum or equivalent tensor contractions; (3) export to ONNX and execute
+covariance computation to training time; (2) vectorize the distance computation via batched tensor contractions; (3) export to ONNX and execute
 on the fastest available execution provider; (4) evaluate whether the diagonal
 approximation preserves accuracy for the target domain.
 
 On AMD hardware specifically, the MIGraphX execution provider delivers
 competitive throughput, and the VitisAI path extends deployment to AMD Ryzen AI
 NPU targets with a $\sim$15$\times$ smaller model footprint under diagonal mode.
-The work is released as a ready-to-deploy FastAPI service with configurable
+The work is released as a ready-to-deploy inference service with configurable
 backends and an extensible per-class model registry.
 
 The central lesson is that for algorithms with latent data parallelism, the
