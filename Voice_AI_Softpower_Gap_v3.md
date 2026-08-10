@@ -319,7 +319,7 @@ style: |
 ## From the Voice AI Perspective
 
 **Why a competitive silicon doesn't win by itself?**
-**Voice AI is the lens -- conclusions Hold**
+**Voice AI is the lens — conclusions Hold**
 
 ---
 
@@ -567,22 +567,42 @@ style: |
 <div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.3em 0 0.4em;"> Same logic at every layer: ship a named package → developers adopt the default → the hardware choice becomes invisible at the call site.</div>
 
 **1 · Framework plugin slots**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">`ChatNVIDIA(...)` routes to NVIDIA at the endpoint. AMD doesn't exist at that call site — repeated across millions of pipelines.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+`ChatNVIDIA(...)` routes to NVIDIA at the endpoint. AMD doesn't exist at that call site — repeated across millions of pipelines.
+
+</div>
 
 **2 · Inference serving infrastructure**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Triton / Dynamo + TensorRT-LLM = the invisible substrate (20–30% edge at batch 1–4). AMD has **vLLM ROCm only** — one tool, not infrastructure.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Triton / Dynamo + TensorRT-LLM = the invisible substrate (20–30% edge at batch 1–4). AMD has **vLLM ROCm only** — one tool, not infrastructure.
+
+</div>
 
 **3 · Voice-domain SDKs**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Riva (ASR+TTS+MT+diarization) · Maxine (noise suppression) · ACE (digital humans). **AMD has no equivalent for any of the three.**</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Riva (ASR+TTS+MT+diarization) · Maxine (noise suppression) · ACE (digital humans). **AMD has no equivalent for any of the three.**
+
+</div>
 
 </div>
 <div>
 
 **4 · Edge hardware platform**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Jetson (Nano → Thor) + JetPack ships Riva, vLLM, CUDA. Certified OEMs: Siemens, KUKA, ADLINK. Caterpillar runs Jetson Thor + Riva inside a bulldozer cab. AMD — <span class="warning">partial</span>: Kria (latest) launched but not ecosystem-certified for industrial voice pipelines.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Jetson (Nano → Thor) + JetPack ships Riva, vLLM, CUDA. Certified OEMs: Siemens, KUKA, ADLINK. Caterpillar runs Jetson Thor + Riva inside a bulldozer cab. AMD — <span class="warning">partial</span>: Kria (latest) launched but not ecosystem-certified for industrial voice pipelines.
+
+</div>
 
 **5 · Cloud marketplace slots**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">NIM native on Azure Foundry; selectable on HF, SageMaker, Vertex. AMD <span class="warning">partial</span>: [`huggingface/testing-rocm7.0-preview`](https://hub.docker.com/r/huggingface/testing-rocm7.0-preview) exists — preview only, **not surfaced in the UI**.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+NIM native on Azure Foundry; selectable on HF, SageMaker, Vertex. AMD <span class="warning">partial</span>: [`huggingface/testing-rocm7.0-preview`](https://hub.docker.com/r/huggingface/testing-rocm7.0-preview) exists — preview only, **not surfaced in the UI**.
+
+</div>
 
 </div>
 </div>
@@ -602,19 +622,35 @@ style: |
 <div>
 
 **Gap 1 · Training & fine-tuning moat**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Voice companies fine-tune weekly (custom ASR/TTS/NLU). **NeMo → Triton export** locks the whole loop to NVIDIA.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Voice companies fine-tune weekly (custom ASR/TTS/NLU). **NeMo → Triton export** locks the whole loop to NVIDIA.
+
+</div>
 
 **Gap 2 · ISV & SI sales channel**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">GPU chosen implicitly by the ISV. NVIDIA is in **Genesys** (11k+ customers), **Cisco Webex** (Maxine), **Salesforce**, **ServiceNow**. SIs (TCS, Infosys, Wipro, Accenture) are **certified on NVIDIA**. AMD: no presence in any major contact-center ISV.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+GPU chosen implicitly by the ISV. NVIDIA is in **Genesys** (11k+ customers), **Cisco Webex** (Maxine), **Salesforce**, **ServiceNow**. SIs (TCS, Infosys, Wipro, Accenture) are **certified on NVIDIA**. AMD: no presence in any major contact-center ISV.
+
+</div>
 
 </div>
 <div>
 
 **Gap 3 · Voice + vision convergence**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Next-gen agents fuse camera + mic. Jetson Thor unifies **Isaac · Metropolis · Riva · ACE** on one substrate. AMD's lines still converging <span style="color:#4caf50;"> AMD-PAVS AI Pipelines </span> — a **converging but early stage**.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Next-gen agents fuse camera + mic. Jetson Thor unifies **Isaac · Metropolis · Riva · ACE** on one substrate. AMD's lines still converging <span style="color:#4caf50;"> AMD-PAVS AI Pipelines </span> — a **converging but early stage**.
+
+</div>
 
 **Gap 4 · Synthetic data for low-resource languages**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">No AMD-native syntheitc-data pipeline's or minimal academic partnership's → lifecycle dependency predates any inference decision.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+No AMD-native syntheitc-data pipeline's or minimal academic partnership's → lifecycle dependency predates any inference decision.
+
+</div>
 
 </div>
 </div>
@@ -636,28 +672,52 @@ closing upstream  <span style="color:#4caf50;">creates platform momentum</span>.
 <div>
 
 **Step 1 · Three certified containers**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">`docker pull` → validated in 30 s: (a) Pipecat Voice Agent (Whisper + vLLM + Kokoro), (b) LiveKit + SIP, (c) DPDP-compliant, on-prem setup.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+`docker pull` → validated in 30 s: (a) Pipecat Voice Agent (Whisper + vLLM + Kokoro), (b) LiveKit + SIP, (c) DPDP-compliant, on-prem setup.
+
+</div>
 
 **Step 2 · AMD Voice AI Blueprints**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Deployable repos, not docs — US/EU contact center, India BFSI, Arabic GCC, edge/offline. Must run on a **~$700 consumer GPU**.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Deployable repos, not docs — US/EU contact center, India BFSI, Arabic GCC, edge/offline. Must run on a **~$700 consumer GPU**.
+
+</div>
 
 </div>
 <div>
 
 **Step 3 · Pipecat ROCm plugin**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">`pipecat-ai[amd]` on PyPI — AMD as an official processor alongside Deepgram / ElevenLabs.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+`pipecat-ai[amd]` on PyPI — AMD as an official processor alongside Deepgram / ElevenLabs.
+
+</div>
 
 **Step 4 · HF TEI on ROCm**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">Upstream ROCm into Text-Embeddings-Inference — closes the last RAG software gap.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+Upstream ROCm into Text-Embeddings-Inference — closes the last RAG software gap.
+
+</div>
 
 </div>
 <div>
 
 **Step 5 · HF Inference Endpoints slot**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">TGI ROCm is ready — one **business agreement** makes MI300X selectable. **Zero eng weeks.**</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+TGI ROCm is ready — one **business agreement** makes MI300X selectable. **Zero eng weeks.**
+
+</div>
 
 **Step 6 · Ryzen AI NPU on-ramp**
-<div style="font-size:0.82em; margin:0.1em 0 0.5em;">`pipecat create --backend amd-npu` — offline, no GPU, no API key. The dev-laptop demo that mirrors **RTX Spark**.</div>
+<div style="font-size:0.82em; margin:0.1em 0 0.5em;">
+
+`pipecat create --backend amd-npu` — offline, no GPU, no API key. The dev-laptop demo that mirrors **RTX Spark**.
+
+</div>
 
 </div>
 </div>
@@ -665,6 +725,48 @@ closing upstream  <span style="color:#4caf50;">creates platform momentum</span>.
 <div class="highlight-box" style="text-align:center;">
 <span style="font-size:1.1em; font-weight:bold; color:#ffffff;"><span style="color:#4caf50;">PAVS sits exactly at this intersection</span> — <span style="color:#4aa3ff;">between AIG model outputs and lighthouse customers. It does <span style="color:#4caf50;">Implicitly</span> what NVIDIA's platform teams do intentionally</span></span>
 </div>
+
+---
+
+<!-- _class: small -->
+
+## How the Bridge Is Being Closed
+
+<div class="columns">
+<div>
+
+**The gap can't be closed by a new chip**
+
+- It's a **software & ecosystem** problem — containers, plugins, blueprints, marketplace slots
+- Which is **exactly** the problem a **vertical-software team** solves
+
+**PAVS produces the closing assets <span style="color:#4caf50;">Implicitly</span>**
+
+- Each lighthouse deployment → a **reusable pipeline** = a step toward an AMD-native ecosystem
+- Each model the Physical AI SDK supports → **one less** requiring NVIDIA tooling on AMD HW
+- Each robotics pipeline on Ryzen AI APU → a **reference design** for an OEM / SI / ISV
+
+</div>
+<div>
+
+<div style="border:1px solid #3498db; border-radius:6px; padding:6px; background:#202020; text-align:center; font-size:0.72em; max-width:80%; margin:0 auto;">
+<div style="color:#aaaaaa;">AMD AI Group (AIG)</div>
+<div style="color:#3498db;">↓ models + research &nbsp;&nbsp; ↑ deployment feedback</div>
+<div style="background:#3498db; color:#fff; font-weight:bold; border-radius:4px; padding:3px 0; margin:4px 0;">PAVS</div>
+<div style="color:#3498db;">↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑</div>
+<div style="display:flex; gap:5px; margin-top:3px;">
+<div style="flex:1; background:#2a2a2a; border-radius:4px; padding:4px; font-size:0.85em;"><strong style="color:#00bcd4;">Physical AI SDK</strong><br>inference substrate</div>
+<div style="flex:1; background:#2a2a2a; border-radius:4px; padding:4px; font-size:0.85em;"><strong style="color:#00bcd4;">Multi-modal pipelines</strong><br>+ Jetson-class devkit</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">Make AMD <span style="color:#4caf50;"> the path of least resistance at the first developer touchpoint</span>, and the rest of the stack follows.</span>
+</div>
+
 
 ---
 
@@ -702,46 +804,7 @@ closing upstream  <span style="color:#4caf50;">creates platform momentum</span>.
 </div>
 
 <div class="highlight-box" style="text-align:center;">
-<span style="font-size:1.1em; font-weight:bold; color:#ffffff;"><span style="color:#4caf50;">First 12–16 weeks:</span> Steps 1–4 with 6–8 engineers make AMD visible at first contact. <span style="color:#4aa3ff;">India BFSI under DPDP is the natural beachhead</span> — on-prem mandatory, ~50% lower CapEx.</span>
-</div>
+<span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">First 12–16 weeks: Steps 1–4 with~(6–8 engineers) <span style="color:#4caf50;"> make AMD visible at first contact.</span> 
 
----
-
-<!-- _class: small -->
-
-## How the Bridge Is Being Closed
-
-<div class="columns">
-<div>
-
-**The gap can't be closed by a new chip**
-
-- It's a **software & ecosystem** problem — containers, plugins, blueprints, marketplace slots
-- Which is **exactly** the problem a **vertical-software team** solves
-
-**PAVS produces the closing assets organically**
-
-- Each lighthouse deployment → a **reusable pipeline** = a step toward an AMD-native ecosystem
-- Each model the Physical AI SDK supports → **one less** requiring NVIDIA tooling on AMD HW
-- Each robotics pipeline on Ryzen AI APU → a **reference design** for an OEM / SI / ISV
-
-</div>
-<div>
-
-<div style="border:1px solid #3498db; border-radius:6px; padding:9px; background:#202020; text-align:center; font-size:0.9em;">
-<div style="color:#aaaaaa;">AMD AI Group (AIG)</div>
-<div style="color:#3498db;">↓ models + research &nbsp;&nbsp; ↑ deployment feedback</div>
-<div style="background:#3498db; color:#fff; font-weight:bold; border-radius:4px; padding:4px 0; margin:5px 0;">PAVS</div>
-<div style="color:#3498db;">↓ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↑</div>
-<div style="display:flex; gap:6px; margin-top:4px;">
-<div style="flex:1; background:#2a2a2a; border-radius:4px; padding:5px; font-size:0.85em;"><strong style="color:#00bcd4;">Physical AI SDK</strong><br>inference substrate</div>
-<div style="flex:1; background:#2a2a2a; border-radius:4px; padding:5px; font-size:0.85em;"><strong style="color:#00bcd4;">Multi-modal pipelines</strong><br>+ Jetson-class devkit</div>
-</div>
-</div>
-
-</div>
-</div>
-
-<div class="highlight-box" style="text-align:center;">
-<span style="font-size:1.2em; font-weight:bold; color:#4caf50;">Make AMD the path of least resistance at the first touchpoint, and the rest of the stack follows.</span>
+<span style="color:#4caf50;">DPDP & GDPR is the natural beachhead</span> — on-prem mandatory, ~50% lower CapEx will be the pitch.</span>
 </div>
