@@ -730,7 +730,7 @@ TGI ROCm is ready — one **business agreement** makes MI300X selectable. **Zero
 
 <!-- _class: small -->
 
-## How the Bridge Is Being Closed
+## How the Bridge Is Being Built
 
 <div class="columns">
 <div>
