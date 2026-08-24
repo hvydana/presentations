@@ -1,0 +1,793 @@
+
+
+
+
+
+
+
+<!doctype html>
+<html
+  lang="en"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#FFFFFF" />
+  
+  <title>Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost &middot; Technical news about AI, coding and all</title>
+    <meta name="title" content="Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost &middot; Technical news about AI, coding and all" />
+  
+  
+  
+  
+  
+  <script
+    type="text/javascript"
+    src="https://dasroot.net/js/appearance.min.8a082f81b27f3cb2ee528df0b0bdc39787034cf2cc34d4669fbc9977c929023c.js"
+    integrity="sha256-iggvgbJ/PLLuUo3wsL3Dl4cDTPLMNNRmn7yZd8kpAjw="
+  ></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="https://dasroot.net/css/main.bundle.min.28444ee30a9d248be6638b45327596ba12fc952f0746bce44381e7c4d7f892aa.css"
+    integrity="sha256-KERO4wqdJIvmY4tFMnWWuhL8lS8HRrzkQ4HnxNf4kqo="
+  />
+  
+  
+  
+  
+  
+  
+  
+  <meta
+    name="description"
+    content="
+      Learn how to monitor latency, tokens per second, and cost in LLM inference using vLLM, TensorRT-LLM, and Prometheus. Discover key metrics, tools, and optimization strategies for efficient AI deployment.
+    "
+  />
+  
+  
+  
+  
+    <link rel="canonical" href="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/" />
+  
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/">
+  <meta property="og:site_name" content="Technical news about AI, coding and all">
+  <meta property="og:title" content="Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost">
+  <meta property="og:description" content="Learn how to monitor latency, tokens per second, and cost in LLM inference using vLLM, TensorRT-LLM, and Prometheus. Discover key metrics, tools, and optimization strategies for efficient AI deployment.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-03-25T17:53:58+11:00">
+    <meta property="article:modified_time" content="2026-03-30T16:22:06+11:00">
+    <meta property="article:tag" content="LLM Inference">
+    <meta property="article:tag" content="Observability">
+    <meta property="article:tag" content="VLLM">
+    <meta property="article:tag" content="TensorRT-LLM">
+    <meta property="article:tag" content="Prometheus">
+    <meta property="og:image" content="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover.jpg">
+  <meta name="twitter:title" content="Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost">
+  <meta name="twitter:description" content="Learn how to monitor latency, tokens per second, and cost in LLM inference using vLLM, TensorRT-LLM, and Prometheus. Discover key metrics, tools, and optimization strategies for efficient AI deployment.">
+
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "Observability for LLM Inference: Monitoring Latency, Tokens\/sec, and Cost",
+    "headline": "Observability for LLM Inference: Monitoring Latency, Tokens\/sec, and Cost",
+    "description": "Learn how to monitor latency, tokens per second, and cost in LLM inference using vLLM, TensorRT-LLM, and Prometheus. Discover key metrics, tools, and optimization strategies for efficient AI deployment.",
+    "abstract": "\u003cp\u003e\u003ca href=\u0022https:\/\/dasroot.net\/posts\/2026\/03\/llm-inference-observability-latency-tokens-cost\/\u0022 title=\u0022Observability for LLM Inference (Latency, Tokens\/sec, Cost)\u0022\u003eObservability for LLM inference\u003c\/a\u003e in 2026 focuses on monitoring latency, tokens per second, and cost to ensure efficient model deployment.\u003c\/p\u003e",
+    "inLanguage": "en",
+    "url" : "https:\/\/dasroot.net\/posts\/2026\/03\/llm-inference-observability-latency-tokens-cost\/",
+    "author" : {
+      "@type": "Person",
+      "name": ""
+    },
+    "copyrightYear": "2026",
+    "dateCreated": "2026-03-25T17:53:58\u002b11:00",
+    "datePublished": "2026-03-25T17:53:58\u002b11:00",
+    
+    "dateModified": "2026-03-30T16:22:06\u002b11:00",
+    
+    "keywords": ["LLM inference","observability","vLLM","TensorRT-LLM","Prometheus"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "1992"
+  }
+  </script>
+    
+    <script type="application/ld+json">
+    {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     {
+       "@type": "ListItem",
+       "item": "https://dasroot.net/",
+       "name": "Welcome to Dasroot! Tada",
+       "position": 1
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://dasroot.net/posts/",
+       "name": "Posts",
+       "position": 2
+     },
+     {
+       "@type": "ListItem",
+       "item": "https://dasroot.net/categories/ai/ml/",
+       "name": "AI/ML",
+       "position": 3
+     },
+     {
+       "@type": "ListItem",
+       "name": "Observability for Llm Inference Monitoring Latency, Tokens Sec, and Cost",
+       "position": 4
+     }
+   ]
+ }
+  </script>
+
+  
+  
+  
+  
+  
+
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-5ZFF0ZZ0C4"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-5ZFF0ZZ0C4');
+        }
+      </script>
+
+
+  
+  
+</head>
+<body
+    class="m-auto flex h-screen max-w-7xl flex-col bg-neutral px-6 text-lg leading-7 text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="-translate-y-8 rounded-b-lg bg-primary-200 px-3 py-1 text-sm focus:translate-y-0 dark:bg-neutral-600"
+        href="#main-content"
+        ><span class="pe-2 font-bold text-primary-600 dark:text-primary-400">&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold text-neutral-900 dark:text-neutral sm:py-10 print:hidden">
+  <nav class="flex items-start justify-between sm:items-center">
+    
+    <div class="flex flex-row items-center">
+      
+  <a
+    class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+    rel="me"
+    href="/"
+    >Technical news about AI, coding and all</a
+  >
+
+    </div>
+    
+    
+      <ul class="flex list-none flex-col text-end sm:flex-row">
+        
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/posts/"
+                  title="Posts"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Blog</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/categories/"
+                  title="Categories"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Categories</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                <a
+                  href="/tags/"
+                  title="Tags"
+                  
+                  ><span
+                      class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                      >Tags</span
+                    >
+                  </a
+                >
+              
+            </li>
+          
+            
+            <li class="group mb-1 sm:mb-0 sm:me-7 sm:last:me-0.5">
+              
+                
+                
+              
+            </li>
+          
+            
+              
+          
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex grow flex-col">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+      <h1 class="mb-8 mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost
+      </h1>
+      
+        <div class="mb-10 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+          
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2026-03-25 17:53:58 &#43;1100 AEDT">25 March 2026</time><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">10 mins</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+    <div class="my-1 flex flex-wrap text-xs leading-relaxed text-neutral-500 dark:text-neutral-400">
+      
+        
+          
+            <a
+              href="https://dasroot.net/categories/ai/ml/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >AI/ML</a
+            >
+          
+            <a
+              href="https://dasroot.net/categories/monitoring/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Monitoring</a
+            >
+          
+        
+      
+        
+          
+            <a
+              href="https://dasroot.net/tags/llm-inference/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >LLM Inference</a
+            >
+          
+            <a
+              href="https://dasroot.net/tags/observability/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Observability</a
+            >
+          
+            <a
+              href="https://dasroot.net/tags/vllm/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >VLLM</a
+            >
+          
+            <a
+              href="https://dasroot.net/tags/tensorrt-llm/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >TensorRT-LLM</a
+            >
+          
+            <a
+              href="https://dasroot.net/tags/prometheus/"
+              class="mx-1 my-1 rounded-md border border-neutral-200 px-1 py-[1px] hover:border-primary-300 hover:text-primary-700 dark:border-neutral-600 dark:hover:border-primary-600 dark:hover:text-primary-400"
+              >Prometheus</a
+            >
+          
+        
+      
+    </div>
+  
+
+
+        </div>
+      
+      
+        <div class="prose">
+          
+          
+          
+          
+
+
+
+
+
+
+
+
+  
+    <picture
+      class="mb-6 rounded-md"
+      
+    >
+      
+      
+      
+      
+        <source
+          
+            srcset="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_10c471ebee47cdff.webp 330w,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_5d0affbfd7f68f4b.webp 660w
+            
+              
+                ,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_df6b1d15f7f96fa9.webp 800w
+              
+            
+            
+              
+                ,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_df6b1d15f7f96fa9.webp 800w
+              
+            "
+          
+          sizes="100vw"
+          type="image/webp"
+        />
+      
+      <img
+        width="800"
+        height="592"
+        class="mb-6 rounded-md"
+        
+        
+        
+          src="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_8612c25a956971a1.jpg" srcset="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_78d8f8286d00b8eb.jpg 330w,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover_hu_8612c25a956971a1.jpg 660w
+          
+            ,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover.jpg 800w
+          
+          
+            ,https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/cover.jpg 800w
+          "
+          sizes="100vw"
+        
+      />
+    </picture>
+  
+
+
+          
+        </div>
+      
+    </header>
+    <section class="prose mt-0 flex max-w-full flex-col dark:prose-invert lg:flex-row">
+      
+      <div class="min-h-0 min-w-0 max-w-prose grow">
+        <p><a href="https://dasroot.net/posts/2026/03/llm-inference-observability-latency-tokens-cost/" title="Observability for LLM Inference (Latency, Tokens/sec, Cost)">Observability for LLM inference</a> in 2026 focuses on monitoring latency, tokens per second, and cost to ensure efficient model deployment.</p>
+<p>Effective tracking of these metrics enables identification of performance bottlenecks and cost overruns in real-time. This post examines key observability metrics, available tools and frameworks, and strategies for optimizing inference workloads using collected data. Familiarity with LLM deployment and monitoring systems is assumed.</p>
+<h2 id="key-metrics-for-observability-in-llm-inference" class="relative group">Key Metrics for Observability in LLM Inference <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#key-metrics-for-observability-in-llm-inference" aria-label="Anchor">#</a></span></h2><p>Observability in large language model (LLM) inference is essential for ensuring performance, reliability, and cost efficiency in production systems. The three most critical metrics for evaluating LLM <a href="https://dasroot.net/posts/2026/02/cpu-vs-gpu-inference-llm-cost-1m-tokens/" title="Compare CPU vs GPU inference for LLMs in 2026, focusing on cost per 1M tokens, performance, and scalability. Learn when to use NVIDIA Grace CPUs or Rubin CPX GPUs for optimal efficiency.">inference are latency, tokens per</a> second (TPS), and cost. These metrics provide actionable insights into model behavior, infrastructure utilization, and financial impact, enabling teams to optimize their AI workloads effectively.</p>
+<h3 id="latency-time-to-first-token-ttft-and-end-to-end-performance" class="relative group">Latency: Time to First Token (TTFT) and End-to-End Performance <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#latency-time-to-first-token-ttft-and-end-to-end-performance" aria-label="Anchor">#</a></span></h3><p>Latency measures the time taken for a model to generate a response, with the most critical sub-metric being Time to First Token (TTFT). In 2026 benchmarks, vLLM demonstrated a TTFT of 120 ms for 50 concurrent requests on an H100 GPU, while TensorRT-LLM achieved 105 ms. These figures highlight the importance of TTFT in determining perceived responsiveness for interactive applications such as chatbots <a href="https://dasroot.net/posts/2026/02/go-ai-terminal-coding-assistants-crush-bubbletea/" title="Learn how Crush and BubbleTea, terminal-friendly AI coding assistants built with Go, enhance development workflows with multi-model support, LSP integration, and privacy-first design for efficient coding, debugging, and automation.">and coding assistants</a>.</p>
+<p>For example, in a deployment using the Llama 3.3 70B model at FP8 precision, vLLM achieved a TTFT of 120 ms for 50 concurrent requests, which is crucial for applications requiring low-latency responses. This is especially important for user-facing systems where even a slight delay can impact <a href="https://dasroot.net/posts/2026/02/measuring-user-satisfaction-ai-systems/" title="Learn how to measure user satisfaction in AI systems using sentiment analysis, A/B testing, and continuous feedback loops. Discover key metrics and tools to improve AI performance and user experience.">user satisfaction</a> and engagement.</p>
+<h3 id="tokens-per-second-tps-throughput-and-concurrency" class="relative group">Tokens per Second (TPS): Throughput and Concurrency <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tokens-per-second-tps-throughput-and-concurrency" aria-label="Anchor">#</a></span></h3><p>Tokens per second (TPS) is a key performance indicator that evaluates the throughput of an LLM, indicating how quickly it can process input and generate <a href="https://dasroot.net/posts/2026/02/go-vs-python-ai-infrastructure-throughput-benchmarks-2026/" title="A 2026 performance comparison of Go vs Python for AI infrastructure, analyzing throughput, latency, and concurrency in high-RPS environments. Learn when to use Go for low-latency AI gateways and Python for AI/ML development.">output. In 2026 benchmarks</a>, vLLM achieved 1,850 TPS for 50 concurrent requests on an H100 GPU, while TensorRT-LLM delivered 2,100 TPS.</p>
+<p>These metrics are essential for applications that require high throughput, such as large-scale chatbot deployments or content generation systems. For instance, vLLM&rsquo;s throughput of 1,850 TPS for 50 concurrent requests on the Llama 3.3 70B model at FP8 precision shows that it can handle a significant volume of requests efficiently, making it suitable for <a href="https://dasroot.net/posts/2026/02/reproducible-ai-environments-docker/" title="Learn how to create reproducible AI environments with Docker, ensuring consistency across development, testing, and production. Covers Dockerfile best practices, multi-stage builds, version control, and Kubernetes deployment security.">production environments with</a> high concurrency demands.</p>
+<h3 id="cost-financial-impact-and-resource-utilization" class="relative group">Cost: Financial Impact and Resource Utilization <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cost-financial-impact-and-resource-utilization" aria-label="Anchor">#</a></span></h3><p>Cost is a critical metric for evaluating the financial impact of LLM inference, often based on compute resources and model complexity. In 2026, the NVIDIA Blackwell platform has been widely adopted by leading inference providers to reduce <a href="https://dasroot.net/posts/2026/02/cost-monitoring-per-customer-ai-saas/" title="Learn how to implement per-customer cost monitoring in AI SaaS using tools like Prometheus, Grafana, and AWS Cost Explorer. Discover best practices for tracking GPU usage, inference costs, and API expenses to optimize profitability and ensure accurate billing.">cost per token</a> by up to 10x.</p>
+<p>For example, the GB300 NVL72 system delivers up to 50x better performance for low-latency workloads compared to the Hopper platform, resulting in 35x lower cost per token. This makes it an ideal choice for applications that require both <a href="https://dasroot.net/posts/2026/01/self-hosted-llm-vs-cloud-apis-cost-performance/" title="Compare self-hosted LLMs with cloud APIs like Claude and GPT-5, analyzing cost, performance, and use cases. Learn when to choose local deployment for data control and cost savings versus cloud for scalability and ease of use.">high performance and cost</a> efficiency, such as agentic coding assistants and interactive AI systems.</p>
+<p>Additionally, the use of FP8 quantization in vLLM and SGLang has been shown to reduce <a href="https://dasroot.net/posts/2026/03/optimizing-vram-usage-local-llms/" title="Learn how to optimize VRAM usage for local LLMs using quantization, memory management, and hardware-software synergy. Discover practical techniques for efficient inference on consumer-grade GPUs.">VRAM usage</a> and improve throughput, further optimizing inference costs. For instance, the vLLM 0.18.0 version supports FP8 quantization and has demonstrated significant improvements in both memory efficiency and throughput on H100 GPUs.</p>
+<h3 id="monitoring-and-alerting-configuration" class="relative group">Monitoring and Alerting Configuration <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#monitoring-and-alerting-configuration" aria-label="Anchor">#</a></span></h3><p>To ensure optimal performance and reliability, it is essential to monitor these metrics in real time. Below is a sample monitoring configuration using Prometheus and Grafana:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># prometheus.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;vllm&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;localhost:8000&#39;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="c1">// grafana dashboard configuration
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;panels&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;TTFT p50&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timeseries&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;expr&#34;</span><span class="p">:</span> <span class="s2">&#34;vllm_ttft_p50&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;TPS&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timeseries&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;expr&#34;</span><span class="p">:</span> <span class="s2">&#34;vllm_tokens_per_second&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;Cost per Token&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timeseries&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&#34;expr&#34;</span><span class="p">:</span> <span class="s2">&#34;vllm_cost_per_token&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">  <span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="verification-commands" class="relative group">Verification Commands <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#verification-commands" aria-label="Anchor">#</a></span></h3><p>To verify that the monitoring setup is working, run the following commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Check if Prometheus is scraping metrics from vLLM</span>
+</span></span><span class="line"><span class="cl">curl http://localhost:9090/api/v1/query?query<span class="o">=</span>vllm_ttft_p50
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Check if Grafana is displaying the dashboard correctly</span>
+</span></span><span class="line"><span class="cl">grafana-cli dashboard import vllm_dashboard.json
+</span></span></code></pre></div><h3 id="sample-alerts" class="relative group">Sample Alerts <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#sample-alerts" aria-label="Anchor">#</a></span></h3><p>Here is an example of a Prometheus alert rule for high TTFT:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l">HighTTFT</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l">vllm_ttft_p50 &gt; 200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l">1m</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l">warning</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="l">High TTFT detected</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;TTFT p50 has exceeded 200 ms for more than 1 minute.&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>These metrics provide a comprehensive view <a href="https://dasroot.net/posts/2026/01/webassembly-llm-inference-browsers-onnx-webgpu/" title="Learn how WebAssembly enables efficient, privacy-preserving LLM inference directly in browsers using ONNX Runtime Web, WebGPU, and model quantization for low-latency AI applications.">of LLM inference</a> performance, helping teams make informed decisions about model selection, infrastructure sizing, and deployment strategies. By monitoring and optimizing these key metrics, organizations can ensure that their AI systems deliver both high-quality results and cost-effective operations.</p>
+<h2 id="tools-and-frameworks-for-observability" class="relative group">Tools and Frameworks for Observability <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#tools-and-frameworks-for-observability" aria-label="Anchor">#</a></span></h2><p>In 2026, the landscape of observability tools and frameworks has evolved significantly, with Prometheus and Grafana leading the way in real-time monitoring and visualization, while OpenTelemetry has become the de facto standard for <a href="https://dasroot.net/posts/2026/03/microservices-observability-distributed-tracing-logging-2026/" title="Explore the evolution of distributed tracing and logging in 2026, featuring OpenTelemetry, Dash0, Grafana Tempo, and AI-powered observability tools for microservices. Learn best practices for trace-led debugging and unified observability.">distributed tracing and logging</a>. These tools are essential for achieving comprehensive observability in large-scale systems, especially in the context of LLM inference where performance and reliability are critical.</p>
+<h3 id="prometheus-and-grafana" class="relative group">Prometheus and Grafana <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#prometheus-and-grafana" aria-label="Anchor">#</a></span></h3><p>Prometheus, at version <strong>3.10.0</strong>, offers enhanced capabilities for collecting and querying metrics, making it an ideal choice for monitoring the health and performance of LLM inference systems. The latest stable release, <strong>3.10.0</strong>, introduces improved query performance, support for new metrics types, and enhanced alerting capabilities. Grafana, in its latest version <strong>12</strong>, has introduced several features that improve the visualization of data, including enhanced dashboard capabilities and more intuitive user interfaces. Grafana&rsquo;s integration with Prometheus allows for the creation of dynamic dashboards that can visualize complex metrics in real-time, helping teams quickly respond to issues as they arise.</p>
+<p>For example, Grafana 12 now supports <strong>live dashboards</strong>, which provide real-time updates without requiring a page refresh. This feature is particularly useful for monitoring high-throughput systems such as LLM inference pipelines. Additionally, Grafana 12 includes <strong>built-in anomaly detection</strong>, which can automatically flag unusual patterns in metrics without manual configuration.</p>
+<p>A sample Prometheus configuration for an <a href="https://dasroot.net/posts/2026/02/running-llm-inference-on-kubernetes-what-breaks-first/" title="Learn the critical failure points when running LLM inference on Kubernetes, including resource constraints, operator compatibility, security, scalability, and monitoring best practices for production workloads.">LLM inference</a> system might look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># prometheus.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;llm-inference&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;llm-inference-service:9090&#39;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>To verify the setup, run the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl http://localhost:9090/metrics
+</span></span></code></pre></div><p>For Grafana, a simple dashboard can be created using the following JSON structure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nt">&#34;dashboard&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;panels&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">      <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;timeseries&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;title&#34;</span><span class="p">:</span> <span class="s2">&#34;LLM Inference Latency&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;targets&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">          <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;expr&#34;</span><span class="p">:</span> <span class="s2">&#34;llm_inference_latency_seconds{job=\&#34;llm-inference\&#34;}&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&#34;refId&#34;</span><span class="p">:</span> <span class="s2">&#34;A&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">      <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h3 id="opentelemetry" class="relative group">OpenTelemetry <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#opentelemetry" aria-label="Anchor">#</a></span></h3><p>OpenTelemetry has made significant strides in 2026, with its latest version <strong>1.20.0</strong> supporting a broader range of protocols and languages, including eBPF instrumentation. This allows for <strong>zero-code observability</strong>, which is particularly beneficial for organizations looking to monitor complex systems without the overhead of manual instrumentation. OpenTelemetry&rsquo;s support for cloud service SDKs, such as those for Google Cloud, AWS, and Azure, provides visibility into cloud API calls, helping teams understand their applications&rsquo; interactions with cloud infrastructure.</p>
+<p>A key enhancement in 2026 is the <strong>eBPF instrumentation</strong> for OpenTelemetry, which enables capturing telemetry data at the kernel level without modifying application code. This feature is particularly useful for monitoring low-level system behaviors in distributed environments.</p>
+<p>To configure OpenTelemetry with eBPF instrumentation, use the following configuration:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># openTelemetryConfig.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">otel</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sampling</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">probability</span><span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">exporter</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;http://otel-collector:4318&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>To verify the setup, run the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">otelcol --config<span class="o">=</span>openTelemetryConfig.yaml --help
+</span></span></code></pre></div><h3 id="cloud-provider-specific-tools" class="relative group">Cloud Provider-Specific Tools <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cloud-provider-specific-tools" aria-label="Anchor">#</a></span></h3><p>Cloud providers such as AWS and Azure have also enhanced their observability tools, integrating them with Prometheus and OpenTelemetry for a more <a href="https://dasroot.net/posts/2026/02/mcp-vs-rag-comparison-ai-system-design/" title="Compare RAG and MCP for AI system design—learn when to use retrieval-augmented generation vs model context protocol for accurate responses and real-time actions with external systems.">comprehensive view of system</a> performance. For example, AWS CloudWatch and Azure Monitor offer features that allow for the collection of metrics and logs from various services, providing insights into the performance of LLM inference systems. These tools are designed to work seamlessly with existing infrastructure, making it easier for teams to monitor and manage their systems.</p>
+<p>AWS CloudWatch now supports <strong>automated anomaly detection</strong> and <strong>real-time alerting</strong> for LLM inference workloads. Azure Monitor has introduced <strong>predictive analytics</strong>, which can forecast potential performance issues based on historical data. These features help teams proactively manage their infrastructure and avoid service disruptions.</p>
+<p>In conclusion, the combination of Prometheus, Grafana, and OpenTelemetry, along with cloud provider-specific tools, provides a robust framework for achieving comprehensive observability in LLM inference systems. These tools enable teams to monitor, analyze, and optimize their systems effectively, ensuring that they can respond to issues quickly and maintain high performance.</p>
+<h2 id="optimizing-llm-inference-with-observability-data" class="relative group">Optimizing LLM Inference with Observability Data <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#optimizing-llm-inference-with-observability-data" aria-label="Anchor">#</a></span></h2><p>Optimizing LLM inference using observability data involves leveraging detailed metrics and insights to identify bottlenecks, implement efficient scaling strategies, and reduce costs. By analyzing latency, token throughput, and cost trends, teams can fine-tune their LLM deployments for performance and affordability.</p>
+<h3 id="identifying-bottlenecks-through-latency-analysis" class="relative group">Identifying Bottlenecks through Latency Analysis <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#identifying-bottlenecks-through-latency-analysis" aria-label="Anchor">#</a></span></h3><p>Latency analysis is a critical component of observability, helping teams pinpoint where delays occur in the inference pipeline. Recent studies have shown that optimized quantization and parallelization strategies can significantly improve inference performance. For example, the Qwen3-235B model, deployed on AMD MI300X GPUs, achieved a <strong>Time to First Token (TTFT)</strong> improvement of <strong>1.67×</strong> and a <strong>Time Per Output Token (TPOT)</strong> improvement of <strong>2.12×</strong>. These improvements were made possible through the use of the <strong>PTPC (Per Token Activation, Per Channel Weight)</strong> quantization method, which aligns better with the compute architecture of modern GPUs.</p>
+<p>Tools like <strong>Arize Phoenix</strong> and <strong>Langfuse</strong> provide granular insights into request tracing, allowing developers to identify slow or inefficient components. For instance, misaligned matrix operations or suboptimal attention module configurations can be detected early, enabling teams to focus their optimization efforts on the most impactful areas.</p>
+<h3 id="scaling-strategies-based-on-tokens-per-second-metrics" class="relative group">Scaling Strategies Based on Tokens per Second Metrics <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#scaling-strategies-based-on-tokens-per-second-metrics" aria-label="Anchor">#</a></span></h3><p>Token throughput, measured in <strong>tokens per second (TPS)</strong>, is a key metric for scaling LLM inference. High TPS indicates efficient model execution, while low TPS suggests potential resource constraints or inefficiencies. The <strong>PTPC</strong> quantization method improved <strong>GEMM operations</strong> on the <strong>AMD ROCm</strong> platform by <strong>15–30%</strong>, enabling more efficient use of hardware resources and allowing for higher throughput.</p>
+<p>When scaling, teams should monitor <strong>TPS</strong> across different workloads and adjust the number of parallel GPUs or inference servers accordingly. Tools like <strong>Portkey</strong> and <strong>Helicone</strong> provide <strong>real-time TPS tracking</strong>, helping teams optimize resource allocation and avoid overprovisioning. For example, a deployment using <strong>Portkey</strong> with <strong>250+ models</strong> can achieve <strong>20–40ms overhead</strong>, ensuring efficient scaling across multiple inference requests.</p>
+<h3 id="cost-optimization-techniques" class="relative group">Cost Optimization Techniques <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#cost-optimization-techniques" aria-label="Anchor">#</a></span></h3><p>Cost optimization is essential for maintaining efficiency in LLM inference. <strong>Model quantization</strong> is one of the most effective techniques, as demonstrated by the <strong>Qwen3.5 9B</strong> model, which achieved <strong>FP16-level performance at INT4 quantization</strong>, with only a <strong>2.3-point drop in AIME-24 score</strong>. This approach significantly reduces memory usage, enabling models to run on <strong>consumer-grade hardware</strong> with minimal performance loss.</p>
+<p>Additionally, efficient resource allocation strategies, such as <strong>dynamic scaling based on observed workloads</strong>, can further reduce costs. Tools like <strong>Confident AI</strong> and <strong>Braintrust</strong> offer <strong>cost attribution features</strong>, allowing teams to track spending per model, user, or prompt, and enforce <strong>budget limits</strong> to prevent unexpected overruns.</p>
+<p>For instance, <strong>Confident AI</strong> allows teams to evaluate <strong>production traces</strong> with <strong>50+ metrics</strong>, alerting on quality regressions and making results accessible to <strong>PMs and domain experts</strong>. This ensures that teams can identify and address cost inefficiencies before they impact production performance.</p>
+<h3 id="benchmarking-and-performance-evaluation" class="relative group">Benchmarking and Performance Evaluation <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#benchmarking-and-performance-evaluation" aria-label="Anchor">#</a></span></h3><p>To ensure that optimization strategies are effective, it is important to use <strong>benchmarks</strong> and <strong>performance metrics</strong> that reflect real-world conditions. The following table compares the performance of different quantization techniques on the <strong>AMD ROCm</strong> platform:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Quantization Method</th>
+          <th>TTFT Improvement</th>
+          <th>TPOT Improvement</th>
+          <th>Memory Usage Reduction</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>FP32</td>
+          <td>1.0×</td>
+          <td>1.0×</td>
+          <td>0%</td>
+      </tr>
+      <tr>
+          <td>FP16</td>
+          <td>1.2×</td>
+          <td>1.4×</td>
+          <td>50%</td>
+      </tr>
+      <tr>
+          <td>PTPC (FP8)</td>
+          <td>1.67×</td>
+          <td>2.12×</td>
+          <td>70%</td>
+      </tr>
+      <tr>
+          <td>INT4 (ParoQuant)</td>
+          <td>1.8×</td>
+          <td>2.3×</td>
+          <td>85%</td>
+      </tr>
+  </tbody>
+</table>
+<p>These benchmarks were tested on <strong>AMD MI300X GPUs</strong> with <strong>192 GB HBM3 memory</strong> and <strong>5.3 TB/s memory bandwidth</strong>, providing a realistic environment for evaluating inference performance. Teams should use these metrics to guide their optimization strategies and ensure that they achieve both <strong>performance and cost efficiency</strong> in LLM inference.</p>
+<h2 id="conclusion" class="relative group">Conclusion <span class="absolute top-0 w-6 transition-opacity opacity-0 -start-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#conclusion" aria-label="Anchor">#</a></span></h2><p>Observability for LLM inference requires precise monitoring of latency, throughput, and cost to ensure efficient deployment. vLLM and TensorRT-LLM demonstrate TTFT improvements down to 105 ms on H100 GPUs with Llama 3.3 70B at FP8, emphasizing the need for detailed latency tracking. Prometheus 3.10.0 and Grafana 12 enable robust metric collection and visualization for real-time performance analysis. Implement end-to-end observability using Arize Phoenix or Langfuse to trace latency bottlenecks and optimize inference pipelines. Prioritize metrics like TTFT and TPOT, and consider PTPC quantization for significant performance gains on large models like Qwen3-235B.</p>
+
+      </div>
+    </section>
+    <footer class="max-w-prose pt-8 print:hidden">
+      
+  <div class="flex">
+    
+    
+    
+    <div class="place-self-center">
+      
+      
+      <div class="text-2xl sm:text-lg">
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="group flex" href="https://dasroot.net/posts/2026/03/visual-studio-code-docker-mcp-github-copilot/">
+              <span
+                class="me-2 text-neutral-700 transition-transform group-hover:-translate-x-[2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&larr;</span
+                ><span class="ltr:hidden rtl:inline">&rarr;</span></span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Visual Studio Code: Docker MCP Toolkit for GitHub Copilot</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-03-24 10:01:21 &#43;1100 AEDT">24 March 2026</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+            <a class="group flex text-right" href="https://dasroot.net/posts/2026/03/python-embedding-generation-sentence-transformers-bge/">
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >Python Embedding Generation: Sentence Transformers and BGE</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2026-03-25 18:02:24 &#43;1100 AEDT">25 March 2026</time>
+                  
+                </span>
+              </span>
+              <span
+                class="ms-2 text-neutral-700 transition-transform group-hover:-translate-x-[-2px] group-hover:text-primary-600 dark:text-neutral dark:group-hover:text-primary-400"
+                ><span class="ltr:inline rtl:hidden">&rarr;</span
+                ><span class="ltr:hidden rtl:inline">&larr;</span></span
+              >
+            </a>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+      </main>
+      
+        <div
+          class="pointer-events-none absolute bottom-0 end-0 top-[100vh] w-12"
+          id="to-top"
+          hidden="true"
+        >
+          <a
+            href="#the-top"
+            class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 backdrop-blur hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+            aria-label="Scroll to top"
+            title="Scroll to top"
+          >
+            &uarr;
+          </a>
+        </div>
+      <footer class="py-10 print:hidden">
+  
+  
+    <nav class="pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex list-none flex-col sm:flex-row">
+        
+          
+          <li class="group mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0">
+            
+              <a
+                href="/privacy/"
+                title="Privacy Policy"
+                
+                ><span
+                    class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                    >Privacy Policy</span
+                  >
+                </a
+              >
+            
+          </li>
+        
+          
+          <li class="group mb-1 text-end sm:mb-0 sm:me-7 sm:last:me-0">
+            
+              <a
+                href="/terms/"
+                title="Terms and Conditions"
+                
+                ><span
+                    class="decoration-primary-500 group-hover:underline group-hover:decoration-2 group-hover:underline-offset-2"
+                    >Terms and Conditions</span
+                  >
+                </a
+              >
+            
+          </li>
+        
+      </ul>
+    </nav>
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2026
+            
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://github.com/jpanther/congo" target="_blank" rel="noopener noreferrer">Congo</a>
+        </p>
+      
+    </div>
+    <div class="flex flex-row items-center">
+      
+      
+      
+      
+    </div>
+  </div>
+  
+  
+</footer>
+
+    </div>
+  </body>
+</html>

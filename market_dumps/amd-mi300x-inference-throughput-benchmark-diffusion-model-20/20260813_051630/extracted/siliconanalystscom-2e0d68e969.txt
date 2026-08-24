@@ -1,0 +1,128 @@
+NVIDIA holds approximately 80% of the AI accelerator market in 2026, with data center revenue reaching $193.7 billion in FY2026. AMD's Instinct GPU line generated an estimated $7–8 billion in 2025, capturing roughly 5–7% market share. However, the competitive landscape is more nuanced than a two-horse race: hyperscaler custom silicon (Google TPU, AWS Trainium, Broadcom ASICs) collectively represents a larger and faster-growing threat to NVIDIA than AMD does. The AI accelerator total addressable market has grown from roughly $55B in 2023 to an estimated $160B in 2025, heading toward $200B+ in 2026, with inference on track to represent two-thirds of all spending. Data as of April 2026.
+Market share: NVIDIA ~80%, AMD ~5-7%, custom silicon rising
+NVIDIA's data center business has compounded at extraordinary rates, driven first by Hopper (H100/H200) and then by the Blackwell (B200/GB200) ramp.
+| Fiscal Year | NVIDIA DC Revenue | Total Revenue | DC % of Total | YoY DC Growth | 
+|---|---|---|---|---|
+| FY2024 (ended Jan 2024) | $47.5B | $60.9B | 78% | +217% | 
+| FY2025 (ended Jan 2025) | $115.2B | $130.5B | 88% | +142% | 
+| FY2026 (ended Jan 2026) | $193.7B | $215.9B | 90% | +68% | 
+Q4 FY26 alone saw data center compute revenue of $51.3B (up 58% YoY) and networking at $11.0B (up 263% YoY), reflecting NVLink fabric bundled with Blackwell rack-scale systems. NVIDIA's net income for FY2026 was $120.1B, and it guided Q1 FY27 revenue at approximately $78B (NVIDIA SEC filings).
+AMD's trajectory is more modest but structurally important. The company's Data Center segment (EPYC CPUs + Instinct GPUs) reached $16.6B in FY2025, with MI-series GPU revenue estimated at $6–8B. MI300X was the fastest-ramping product in AMD history — initial 2024 guidance of ~$2B was revised four times to "more than $5B" actual (AMD SEC filings). Q4 2025 data center revenue reached a record $5.4B with 33% operating margin, recovering from an $800M MI308 China inventory charge earlier in the year.
+The year-by-year competitive picture, synthesizing Bloomberg Intelligence, IDC, and Silicon Analysts estimates:
+| Player | 2022 | 2023 | 2024 | 2025E | 2026E | 
+|---|---|---|---|---|---|
+| NVIDIA | ~75% | ~86% | ~87% (peak) | ~80–81% | ~75% | 
+| AMD | ~2–3% | ~3–4% | ~5% | ~6–8% | ~7–10% | 
+| Broadcom (custom ASICs) | ~1–2% | ~2–3% | ~7–10% | ~10–12% | ~12–15% | 
+| Google TPU | ~3% | ~3–4% | ~5–7% | ~5–7% | ~6–8% | 
+| AWS Trainium/Inferentia | ~1% | ~1–2% | ~3–5% | ~3–5% | ~4–6% | 
+| Huawei Ascend | <1% | ~1–2% | ~2–3% | ~3–5% | ~4–6% | 
+| Microsoft Maia | 0% | 0% | ~1% | ~2–4% | ~3–5% | 
+| Meta MTIA | 0% | 0% | ~1% | ~1–2% | ~2–3% | 
+| Marvell (custom ASICs) | <1% | <1% | ~1–2% | ~2–3% | ~3–4% | 
+| Intel Gaudi | <1% | <1% | <1% | <1% | ~0% (discontinued) | 
+A critical distinction: revenue share vastly exceeds unit share for NVIDIA. Average data center GPU ASP is roughly $33,000 for NVIDIA versus $29,000 for AMD (Bloomberg Intelligence). In China specifically, IDC data shows NVIDIA shipped ~2.2M units (55%) versus domestic Chinese vendors' 1.65M (41%) and AMD's ~160K (4%).
+Key takeaway: NVIDIA is winning overall, but AMD is winning the right to exist as a credible second source. The absolute revenue gap is widening — NVIDIA grew $78B in one year while AMD grew ~$2B — but AMD's relative position (from <1% to 5-7% in three years) represents real structural change.
+Specification comparison: every GPU side by side
+Per-GPU dense (non-sparsity) specifications from official datasheets:
+| Spec | H100 SXM5 | H200 SXM | B200 | MI300X | MI325X | MI350X/355X | 
+|---|---|---|---|---|---|---|
+| Architecture | Hopper | Hopper | Blackwell | CDNA 3 | CDNA 3 | CDNA 4 | 
+| Process node | TSMC 4N | TSMC 4N | TSMC 4NP | 5nm/6nm | 5nm/6nm | TSMC 3nm | 
+| Transistors | 80B | 80B | 208B (dual-die) | 153B (chiplets) | ~153B | 185B | 
+| BF16 dense TFLOPS | 989 | 989 | 2,250 | 1,307 | 1,307 | ~2,300 | 
+| FP8 dense TFLOPS | 1,979 | 1,979 | 4,500 | 2,615 | 2,615 | ~4,600 | 
+| FP4 dense TFLOPS | N/A | N/A | 9,000 | N/A | N/A | Supported | 
+| HBM type | HBM3 | HBM3e | HBM3e | HBM3 | HBM3E | HBM3E | 
+| HBM capacity | 80 GB | 141 GB | 192 GB | 192 GB | 256 GB | 288 GB | 
+| HBM bandwidth | 3.35 TB/s | 4.8 TB/s | 8.0 TB/s | 5.3 TB/s | 6.0 TB/s | 8.0 TB/s | 
+| Interconnect | NVLink 4.0 | NVLink 4.0 | NVLink 5.0 | Infinity Fabric | IF 4th Gen | IF 4th Gen | 
+| Per-GPU link BW | 900 GB/s | 900 GB/s | 1.8 TB/s | ~128 GB/s p2p | ~128 GB/s p2p | TBD | 
+| TDP | 700W | 700W | 1,000W | 750W | 1,000W | 750–1,400W | 
+| Launch date | H1 2023 | Q2 2024 | 2025 | Dec 2023 | Oct 2024 | Mid-2025 | 
+| Est. unit price | $25–40K | $30–40K | $30–40K | $10–15K | ~$15–20K | ~$20–30K | 
+AMD has consistently offered a memory advantage — MI300X shipped with 2.4× the HBM capacity of H100 at roughly half the price. The MI350X's 288GB maintains that lead over B200's 192GB. NVIDIA's counter is interconnect: NVLink delivers 900 GB/s → 1.8 TB/s per GPU versus Infinity Fabric's ~128 GB/s per pair, which directly impacts multi-GPU scaling efficiency.
+Next-generation roadmap. NVIDIA's Vera Rubin (H2 2026) targets 336B transistors, HBM4 (288 GB, ~13 TB/s), NVLink 6.0 (3.6 TB/s per GPU), with an NVL72 system at 3.6 ExaFLOPS FP4. AMD's MI400 series (H2 2026) moves to TSMC 2nm — the first GPUs on 2nm — anchored by the OpenAI 6GW deal. The Helios rack will house 72 MI455X GPUs with 31 TB HBM4 and 2.9 ExaFLOPS FP4.
+For side-by-side cost modeling of these parts, see the Price/Performance Frontier tool.
+The performance gap: specs vs reality
+MLPerf Training v5.0 (June 2025) marked AMD's first-ever training submission — a significant milestone. Key results:
+- NVIDIA GB200 NVL72 trained Llama 3.1 405B in 10 minutes (5,120 GPUs), delivering 3.2× faster training per GPU versus Hopper.
+- AMD MI325X (8 GPUs) completed Llama 2 70B LoRA fine-tuning in 21.75 minutes — 8% faster than NVIDIA H200 in the same configuration.
+- AMD MI355X achieved near-parity with B200 on Llama 2 70B LoRA (10.18 min vs 9.85 min).
+But there's a critical caveat: AMD has not submitted Llama 3.1 405B pre-training results. Only NVIDIA has demonstrated full-scale foundation model training at the 405B parameter class. AMD's multi-node scaling was also mediocre — 32 MI300X GPUs delivered only ~3× the throughput of 8 GPUs (theoretical: 4×).
+The 45% utilization problem. A rigorous study from Celestial AI (arxiv:2510.27583, October 2025) found that while NVIDIA H100 and B200 achieve roughly 93% of theoretical peak FLOPS in microbenchmarks, MI300X achieves only ~45%. Two root causes: MI300X's 2,100 MHz boost clock drops to 1,083–1,217 MHz under dense tensor workloads (a 42% clock loss), and ROCm software efficiency runs at 80–85% versus NVIDIA's ~93%.
+SemiAnalysis's independent study (December 2024) went further, finding that MI300X achieves less than 30% of theoretical FLOPS in real training workloads versus NVIDIA's ~40%, and that H100 outperforms MI300X by 10–25% in multi-node training with the gap widening at scale. Their conclusion: "Training performance per TCO is worse on MI300X on public stable releases of AMD software."
+The exception: memory-bound inference. MI300X's 192GB HBM3 delivers a 40% latency advantage over H100 on Llama 2 70B inference and fits models in a single GPU that H100 cannot. On the MLPerf Inference suite, MI300X scored within 2–3% of H100 on Llama 2 70B.
+Key takeaway: AMD's MI350X matches B200 on FP8 compute and exceeds it on memory, but NVIDIA's software maturity delivers 50–55% MFU vs AMD's ~45%, meaning real-world performance per dollar favors NVIDIA for training and is roughly equal for inference.
+CUDA vs ROCm: the software moat
+NVIDIA's CUDA ecosystem encompasses ~5.9 million developers (NVIDIA FY2025 10-K), 18 years of accumulated libraries (cuDNN, cuBLAS, TensorRT, NCCL, CUTLASS), and first-class integration with every major ML framework. The paid enterprise layer — NVIDIA AI Enterprise at ~$4,500/GPU/year — bundles NeMo, NIM microservices, and production deployment tools.
+AMD's ROCm has reached version 7.2.1, with dramatic improvements: ROCm 7.0 delivered up to 3.5× inference performance over ROCm 6.0. PyTorch lists ROCm as a first-class option, JAX has full support, and OpenAI's Triton compiler generates optimized code for AMD GPUs. AMD acquired Nod.ai for compiler expertise and declared ROCm the company's "#1 priority." Seven of the top 10 largest AI model builders now run production workloads on AMD Instinct GPUs.
+The remaining gaps are real but narrowing:
+- Linux-only for the full stack (PyTorch on Windows is in preview)
+- Installation more complex than CUDA
+- Debugging/profiling toolkit less polished than NVIDIA Nsight
+- 10–30% performance gap in compute-intensive workloads
+- Multi-node training tooling less mature
+- StackOverflow/tutorial knowledge base overwhelmingly assumes CUDA
+Triton is the great equalizer. OpenAI's Triton compiler represents the most significant erosion of CUDA's moat. It generates optimized kernels for both NVIDIA (via PTX) and AMD (via LLVM AMDGPU backend), and is now embedded in PyTorch's torch.compile → TorchInductor pipeline as the default kernel generation path. AMD VP Anush Elangovan called Triton "the great equalizer of GPU programming."
+For inference, frameworks like vLLM and SGLang abstract away CUDA/ROCm differences almost entirely. Microsoft runs GPT-3.5 and GPT-4 inference on MI300X through ONNX Runtime with no CUDA dependency. The inference shift inherently weakens CUDA's advantage because inference is more price-sensitive and less dependent on custom kernel optimization.
+Pricing and TCO: AMD's clearest advantage
+AMD's hardware cost advantage is substantial — MI300X sells for roughly half the price of H100 — but utilization differences narrow the effective gap.
+| GPU | Est. Purchase Price | Cloud $/GPU-hr Range | Availability | 
+|---|---|---|---|
+| H100 SXM5 | $25,000–$40,000 | $1.99–$12.29 | All major clouds | 
+| H200 | $30,000–$40,000 | $2.50–$5.58 | Most clouds | 
+| B200 | $30,000–$40,000 | $3.99–$8.64 | Growing | 
+| GB200 NVL72 (rack) | ~$2–3M (72 GPUs) | N/A (system sale) | CoreWeave, hyperscalers | 
+| MI300X | $10,000–$15,000 | $1.50–$6.98 | Azure, Oracle, Vultr, TensorWave, RunPod | 
+| MI325X | ~$15,000–$20,000 | Limited cloud data | Vultr, select providers | 
+| MI350X | ~$20,000–$30,000 | $4.40 (DigitalOcean) | Growing | 
+Cloud pricing has collapsed for H100 — AWS cut prices 44% in June 2025, and spot rates now reach $1.49–$2.00/GPU-hour. MI300X cloud pricing runs roughly 40–60% below H100 at comparable providers. Use the Cloud GPU Pricing tool to benchmark current rates.
+Three-year TCO for a 32-GPU training cluster:
+| Component | NVIDIA H100 (32 GPUs) | AMD MI300X (32 GPUs) | 
+|---|---|---|
+| Hardware (4× 8-GPU nodes) | ~$1.0M | ~$480K | 
+| 3-year power + cooling | ~$350K | ~$370K | 
+| Networking | ~$200K | ~$180K | 
+| Software licensing (NVAIE) | ~$430K | $0 | 
+| Engineering (3yr, kernel opt) | ~$150K | ~$450K | 
+| Total 3-year TCO | ~$2.13M | ~$1.48M | 
+| Effective utilization | 70–85% | 50–70% | 
+| TCO per effective FLOP | baseline | roughly equal for inference, ~15-25% worse for training | 
+The break-even point occurs when AMD utilization exceeds roughly 60% of NVIDIA's effective utilization. For inference-heavy workloads — particularly memory-bound LLM serving — MI300X achieves competitive or superior cost per token at most batch sizes. For training, NVIDIA still wins on performance-per-TCO unless significant AMD-specific kernel optimization is invested in. See the Cost Bridge tool for side-by-side BOM comparison.
+Manufacturing margins tell the rest of the story. H100's estimated BOM is ~$3,300 (selling at $25–40K, implying ~88% chip-level margin), while MI300X costs ~$5,300 to produce (selling at $10–15K, ~65% chip-level margin). NVIDIA's overall data center gross margin runs 73–75% GAAP versus AMD's company-wide 54–57%. To model your own chip BOM at different yields, wafer prices, and packaging choices, use the Chip Price Calculator.
+Key takeaway: AMD's 30–50% hardware price advantage is real, but software utilization and engineering overhead erase much of it for training. For inference, AMD's price + memory-capacity combination is genuinely cost-advantaged.
+Who buys what: customer adoption map
+| Customer | Primary NVIDIA Deployment | AMD Deployment | Custom Silicon | 
+|---|---|---|---|
+| Microsoft | ~485,000 GPUs in 2024; ~$31B datacenter capex | GPT-3.5/4 inference on MI300X in production | Maia 100 (internal), Maia 200 delayed to 2026 | 
+| Meta | 600K+ H100-equivalents; 1.3M GPU target by 2025 | 100% of live Llama 405B inference on MI300X; $60–100B multi-year deal | MTIA (hundreds of thousands deployed) | 
+| OpenAI | Large H100/B200 fleet via Microsoft Azure | 6GW MI450 deal starting H2 2026 (largest AMD win ever); potential 10% equity stake | — | 
+| xAI | Colossus Memphis: 200K+ GPUs (150K H100, 50K H200, 30K GB200); expanding to 555K | — | — | 
+| Oracle | Large H100/H200 deployments | Zettascale clusters up to 131,072 MI355X GPUs | — | 
+|  | Minimal internal use; GCP resale | — | TPUs run >75% of Gemini; Anthropic deal for 1M Trillium by 2027 | 
+| AWS | Large H100/H200 fleet | Limited | Trainium >50% of Bedrock tokens; Trainium3 (3nm) early 2026 | 
+| CoreWeave | 250K+ GPUs across 32 DCs; $6.3B NVIDIA capacity deal | Growing MI300X footprint | — | 
+Three things jump out. First, dual-sourcing has become the norm — Microsoft, Meta, Oracle, and OpenAI all operate both NVIDIA and AMD GPUs in production, driven by supply security, pricing leverage, and workload-specific optimization. Second, AMD has moved from "NVIDIA filler" to strategic second source — the OpenAI 6GW deal and Meta's $60–100B commitment are structural, not opportunistic. Third, custom silicon growth is the bigger threat: Broadcom's AI ASIC revenue hit $8.4B in a single quarter (Q2 FY2026, +106% YoY), with a $73B backlog providing visibility through mid-2027.
+Competitive outlook: the three-front war
+NVIDIA's annual architecture cadence (Blackwell → Vera Rubin → Rubin Ultra → Feynman) maintains performance leadership. Jensen Huang cited $1 trillion in committed orders through 2027 at GTC 2026 and declared "we are going to be short." The company has deepened its moat beyond silicon: investing $2B in CoreWeave, open-sourcing Dynamo and Nemotron, licensing Groq technology for inference, and expanding into physical AI. NVIDIA mentioned "inference" 47 times in its Q3 2025 earnings call (up from 12 in Q2 2024).
+AMD's stated target of double-digit market share within 3–5 years (November 2025 Analyst Day) is within reach given current momentum: OpenAI 6GW, Meta multi-year, and MI400's first-to-2nm advantage all create tailwinds. Lisa Su projects >60% annual data center growth and "tens of billions" in AI GPU revenue by 2027. The largest risk remains software — AMD's out-of-box experience still requires significant kernel engineering to close the utilization gap.
+The inference shift is the great leveler. Inference is projected to represent two-thirds of all AI compute spending by 2026 (Deloitte TMT Predictions) and 70–80% by 2028–2030. This alters competitive dynamics in three ways:
+- Inference is more price-sensitive than training — favoring AMD's cost advantage and custom silicon's TCO optimization.
+- Inference is less CUDA-dependent — vLLM, SGLang, and ONNX Runtime abstract GPU-specific code.
+- Memory capacity matters most for memory-bound inference serving of large models — AMD's 192–288 GB lead is decisive.
+The AI accelerator market is transitioning from NVIDIA monopoly to a three-tier competitive structure: NVIDIA retains 60–75% through 2028, AMD reaches 10–15% as the credible merchant silicon alternative, and custom silicon captures 15–25% concentrated in cloud-locked inference. All three can grow simultaneously because TAM is expanding from ~$200B to $500B+.
+Both companies can win. Data as of April 2026.
+FAQ
+Is AMD catching up to NVIDIA in AI GPUs?
+AMD grew from near-zero to ~$7–8 billion in AI GPU revenue in two years, but NVIDIA's data center revenue simultaneously grew to $193.7 billion. AMD is gaining share in relative terms (from <1% to ~5–7%) but the gap in total market power is widening, not narrowing.
+Which is better for AI training: NVIDIA or AMD?
+NVIDIA remains the clear leader for large-scale training. The H100 achieves 50–55% MFU at scale versus MI300X's ~45%, and CUDA's ecosystem provides better multi-node scaling via NCCL and NVLink. AMD is competitive for single-node and small-cluster training, especially after significant kernel optimization work.
+Which is better for AI inference: NVIDIA or AMD?
+AMD is increasingly competitive for inference. The MI350X's 288GB HBM3E can fit Llama 4 Maverick on 3 GPUs versus 5 B200 GPUs at FP16. Microsoft runs GPT-3.5 and GPT-4 inference on MI300X in production, calling it one of the most cost-effective GPUs available for LLM serving.
+How much cheaper is AMD than NVIDIA?
+MI300X systems cost roughly 30–50% less than H100 equivalents. Cloud pricing ranges from $1.50–$6.98/hr for MI300X versus $1.99–$12.29/hr for H100. However, lower software utilization partially offsets the hardware price advantage for training workloads — the effective TCO gap is closer to 15–25% for training and near zero (or favorable to AMD) for inference.
+Will CUDA lock-in last forever?
+CUDA's moat is gradually narrowing. OpenAI Triton enables write-once GPU programming, PyTorch torch.compile abstracts hardware differences, and ROCm 7 is within 10–30% of CUDA for most workloads. However, system-level integration (cuDNN, TensorRT-LLM, NCCL) still creates deep NVIDIA stickiness for training at scale. Full parity is years away.
+What about Google TPU and custom AI chips?
+Custom silicon is growing faster than AMD. Broadcom's AI ASIC revenue reached ~$20B+ in FY2025 with a $73B backlog. Google runs >75% of Gemini on TPUs. AWS Trainium processes >50% of Bedrock token throughput. The combined custom silicon market may pose a larger structural threat to NVIDIA than AMD does, because ~40% of NVIDIA's revenue comes from four hyperscalers that are all building competing chips.

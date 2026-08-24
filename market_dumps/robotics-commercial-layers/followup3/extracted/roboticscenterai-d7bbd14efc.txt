@@ -1,0 +1,41 @@
+What Is the Robot Data Flywheel?
+The robot data flywheel is a compounding feedback loop: collect demonstrations, train a policy, deploy it, collect the failures, retrain, and repeat. Each cycle produces a stronger policy with less marginal effort than the last — because you are targeting exactly the failure modes your current policy exhibits, not randomly sampling from all possible robot behavior.
+The four stages repeat continuously: (1) Collect — gather human demonstration data for the target task; (2) Train — train or fine-tune a policy on the collected data; (3) Deploy — run the policy in a real or semi-real environment and log all episodes; (4) Mine failures — identify which episodes failed, collect corrective demonstrations, and return to training.
+This case study documents a real pick-and-place task run through five phases of the flywheel. The robot: a 6-DOF arm with a parallel-jaw gripper. The task: pick a small foam block from a fixed position and place it in a bin 40 cm away. Object placement varied within a 10 cm radius. All data collected via SVRC teleoperation infrastructure.
+Phase 1 — Bootstrap: 500 Demos, 72% Baseline
+We started with 500 teleoperated demonstrations collected over two days by three operators. Episodes averaged 8 seconds. The data was used to train a Diffusion Policy checkpoint from scratch with a ResNet-18 visual encoder.
+Evaluation protocol: 100 trials with object placement randomly sampled within the allowed radius. A trial counts as success only if the block is placed fully inside the bin.
+| Phase | Total Demos | New Demos Added | Success Rate | 
+|---|---|---|---|
+| Phase 1 — Bootstrap | 500 | 500 | 72% | 
+| Phase 3 — Failure Retrain | 640 | 140 | 88% | 
+| Phase 5 — Active Learning Retrain | 940 | 300 | 93% | 
+A 72% success rate on a simple pick-and-place task sounds low. In practice it is a realistic starting point — real environments have lighting variation, gripper wear, and object surface variation that simulation pre-training does not capture.
+Phase 2 — Failure Mining: 140 Episodes, Two Failure Types
+After the Phase 1 policy was deployed in the test environment for one week (automated rollouts, no human present), 28% of 500 logged episodes were classified as failures by an outcome classifier — a small CNN trained on 200 hand-labeled frames to detect "block in bin" vs. "not in bin".
+Of 140 failure episodes, two clusters emerged after qualitative review:
+- Near-miss (80 episodes): Robot successfully grasped the block and moved toward the bin, but released too early or at the wrong angle, causing the block to bounce out. Gripper open timing was the root cause.
+- Complete miss (60 episodes): Robot failed to grasp at all — finger placement was off center by 3–5 mm, typically when the block was placed at the extremes of the allowed radius.
+Operators reviewed the 140 failure episodes through the SVRC human review queue. For each failure, an operator watched the failed episode and then recorded a corrective demonstration starting from the same initial object position. This produced 140 targeted demos directly addressing the policy's weakest points.
+Phase 3 — Retrain on Bootstrap + Failures: 88% Success Rate
+Retraining on the combined 640-demo dataset (500 original + 140 failure-targeted) pushed success rate to 88% — a 16-point improvement on 140 new demos. For comparison, we estimated that achieving 88% from Phase 1 alone would have required approximately 400 additional randomly collected demos based on the observed learning curve slope.
+The failure-targeted approach was roughly 2.9× more sample-efficient than random collection for closing the gap from 72% to 88%.
+Phase 4 — Active Learning: Uncertainty-Flagged Collection
+For Phase 4 we switched to an uncertainty-aware variant of the policy. Diffusion Policy produces implicit uncertainty via ensemble disagreement — we added a small ensemble of three noise prediction heads and flagged episodes where inter-head disagreement on the predicted action trajectory exceeded a threshold.
+Over 1,000 automated rollouts, 20% (200 episodes) were flagged as high-uncertainty. Operators reviewed the flagged set and collected corrective demonstrations for 200 additional episodes. The active learning criterion ensured these demos covered genuine distributional gaps — primarily unusual object orientations and edge-of-workspace placements.
+Phase 5 — Final Retrain: 93% Success Rate
+Retraining on all 940 demos (500 bootstrap + 140 failure-targeted + 200 active learning) achieved 93% success rate. The learning curve had visibly flattened — empirically, this task appears to reach a ceiling near 95% due to irreducible environment noise (lighting flicker, gripper wear over time).
+Infrastructure Required to Run the Flywheel
+The flywheel is not purely an ML problem — it is an infrastructure problem. The following components are required to make the loop close reliably:
+- Deployment logging: Every robot episode must be recorded with synchronized RGB, proprioception, and outcome metadata. Without complete logs, failure mining is impossible.
+- Outcome classifier: A fast, reliable classifier that labels episodes as success or failure automatically. Manual labeling at scale is a bottleneck. Even a simple CNN trained on a few hundred labeled frames is sufficient for many tasks.
+- Human review queue: A UI for operators to watch failed episodes and record corrective demonstrations. The queue must show operators the initial state from which to start the corrective demo. SVRC's data collection platform includes this queue as a standard feature.
+- Automated training trigger: When a sufficient number of new demos accumulate in the queue, training should launch automatically. Manual orchestration breaks the loop cadence.
+- Model registry with rollback: New checkpoints must be versioned and compared against the previous deployment before promoting. A regression in success rate should trigger automatic rollback.
+Key Metrics: The Demo Efficiency Curve
+Across this task type, the empirical relationship between total demos and success rate follows a logarithmic curve. The "knee" of the curve — where marginal returns drop sharply — appears around 600–800 demos for simple pick-and-place. Beyond the knee, each additional 5% improvement requires 3–5× as many demos as the previous 5% improvement.
+The flywheel does not change the shape of this curve. What it does is ensure you are always operating at the steepest part of the curve by targeting failure modes directly, rather than diluting new data with redundant easy demonstrations.
+ROI Comparison: Flywheel vs. Upfront Collection
+To reach 93% success rate via purely upfront random collection, our extrapolation from the learning curve suggests approximately 2,000 demos would be needed. The flywheel approach reached 93% with 940 total demos — 53% more efficient.
+At SVRC's standard collection rate of $4–8 per demonstration (depending on task complexity), the savings on a single task are $4,240–$8,480. For an organization deploying 10 distinct robot behaviors, the flywheel approach saves $42K–$85K in data collection cost per policy generation — before accounting for the ongoing improvement the flywheel produces post-deployment.
+Explore how SVRC can implement the data flywheel for your robot programs via our data collection services or the Fearless Platform for self-managed data pipelines.

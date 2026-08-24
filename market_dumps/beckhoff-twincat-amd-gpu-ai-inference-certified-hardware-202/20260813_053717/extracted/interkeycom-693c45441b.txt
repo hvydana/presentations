@@ -1,0 +1,49 @@
+Beckhoff TwinCAT CoAgent: MCP-native physical AI from Hannover Messe 2026
+Multi-agent architecture. Open Model Context Protocol. Voice control. Companies plug their own MCP servers in. The most philosophically aligned incumbent move.
+Disclosure: Interkey makes a competing product (Interkey Brain). We try to represent every other vendor by their own published material — links to source documents are inline throughout. If we have gotten anything wrong, email editorial@interkey.com.
+At Hannover Messe 2026 (April 20–24), Beckhoff Automation unveiled TwinCAT CoAgent: a multi-agent architecture built on the open Model Context Protocol (MCP), demonstrated by an ATRO modular industrial robot playing chess against trade-show visitors using voice commands. The framing from Hans Beckhoff at the launch was characteristically clear:
+We are moving AI away from chat windows and directly into machines and enabling language models to access the real world of controls through new standards such as MCP.
+We are going to spend this article doing something we do not do often: praising a competitor. Beckhoff and Interkey are the two MCP-native players in industrial control, and the architectural choices CoAgent makes are the closest of any incumbent to the choices we made building Brain. There are still meaningful differences for buyers — we will get to those — but the headline is convergence, not divergence.
+Context: Beckhoff was always different
+Beckhoff has spent two decades doing PC-based control: TwinCAT runs on Windows, real-time tasks run alongside general-purpose compute, and the hardware story is the most flexible in the industry. While Siemens optimized for breadth of install base and Rockwell optimized for SCADA depth, Beckhoff optimized for the engineer who wanted to build whatever they wanted on top of an open hardware abstraction.
+That history matters here, because CoAgent is a continuation of the same strategy: open standards, programmable platform, build it yourself if Beckhoff did not. Most incumbents bolt AI onto a closed engineering tool. Beckhoff bolted MCP onto an already-open engineering tool. The difference shows up in what customers can do with the result.
+What CoAgent actually is
+Per the Hannover Messe announcement and the Beckhoff product material, CoAgent has three layers:
+- An intelligent planner and coordinator. The top-level agent decomposes goals (operator speech, written tasks, system events) into steps and routes them to the right specialized agent.
+- An agent gateway. The gateway orchestrates activity across specialized agents — PLC agent, I/O agent, HMI agent, motion agent, vision agent — and exposes them via MCP.
+- External MCP integration. Customers can plug their own MCP servers into the gateway: ERP systems, databases, knowledge bases, external tools. The control system consumes them as agent tools alongside its own.
+The Hannover demo — natural language → robot motion → chess moves — is a deliberately playful test of the architecture. The actual production target is industrial robot programming and cross-system orchestration, where the value of MCP is talking to ERP and MES from the control system without a custom integration per protocol.
+Why this is philosophically aligned
+Three things in the CoAgent architecture match what we believe at Interkey:
+1. MCP is the right standard. Industrial control systems need to talk to a long tail of external systems — recipe libraries, MES, ERP, OEM-specific knowledge bases. Most incumbents responded by building proprietary tool layers. Beckhoff and Interkey both bet that MCP is the right shape: an open protocol that lets anyone be a tool provider. We expect the rest of the industry to follow.
+2. Multi-agent beats monolith. The right way to build an industrial AI agent is not one giant prompt. It is specialized agents (engineering, commissioning, monitoring, responding, optimizing) coordinated by a planner. CoAgent ships that architecture. Brain ships the same architecture under different names (/agents). Convergence here is a sign both teams reasoned from first principles to roughly the same answer.
+3. AI out of the chat window.Hans Beckhoff’s framing — directly into machines, accessing the real world of controls — is exactly right. A control system is not a chat box. It is a deterministic loop of sensor → decision → actuator, and the AI’s job is to take goals and act, not to reply to prompts. Brain’s positioning — “describe your machine, watch it build” — comes from the same starting point.
+What CoAgent does not solve
+Three things matter for buyers, and they are not architectural criticisms — they are pragmatic ones.
+- It is still a tool layer over Beckhoff hardware. Beckhoff sells you a CX controller, EtherCAT I/O modules, an industrial PC, an HMI panel, and the cabinet you assemble it in. CoAgent makes all of that more programmable; it does not give you a single-cabinet integrated product. For a Beckhoff customer with engineering in-house, this is a feature. For a machine builder who wants “open the box, power it on, done”, it is not the answer.
+- Windows is still in the loop. TwinCAT runs on Windows. That is a strength for IT integration and a weakness for full air-gap deployments — the attack surface and the patching story are Windows-shaped, with everything that implies. Brain runs Linux + STM32 firmware with no Windows dependency. For pharma GMP and defense customers, the OS choice is a procurement question, not a religious one.
+- Pricing is per-CPU. Beckhoff licenses TwinCAT per Industrial PC. CoAgent pricing has not been published yet, but the historical pattern suggests it will scale with the installed compute. Brain Core is a flat €2,500 forever. Brain Pro is €5,000 forever. For a machine-builder OEM running 50 shipped machines, the math is different.
+- Published safety model is unclear. Beckhoff has a strong functional-safety story for the underlying hardware (TwinSAFE, etc.). What is less clear from the launch material is the authorization and audit model for the AI agent itself — how does CoAgent decide what it is allowed to do, who approves changes, what the audit trail looks like for an agent that just rewrote a robot path. We expect Beckhoff will publish more here over the next year.
+Implications for buyers
+- If you are already a Beckhoff shop, CoAgent is probably the right path. It extends what you already have, it uses the open MCP standard, and Beckhoff has the strongest story among incumbents on customer-extensible AI.
+- If you are a machine builderwho wants to ship finished machines fast — open the box, configure the recipe, done — Brain’s vertically integrated cabinet is the stronger answer. The integration cost on a Beckhoff platform is real even with CoAgent making it easier.
+- If air-gap and OS constraints matter(pharma GMP, defense, classified), Brain’s Linux + STM32 stack gives you a smaller and more controllable surface than TwinCAT on Windows.
+- If you want to extend the agent yourself, both platforms support it. Beckhoff via MCP plus the broader TwinCAT customization story; Brain via the Python plugin SDK plus MCP. For pure MCP integration, the platforms are more similar than different. For Python-first plugin development, Brain is ahead.
+How Brain compares
+Beckhoff TwinCAT CoAgent and Interkey Brain are the closest two products in the market. The differences are about packaging and deployment more than philosophy.
+Packaging. Brain is a single-cabinet integrated product: controller, I/O, status display, AI co-processor, and software stack ship together. CoAgent is software running on a Beckhoff Industrial PC with the rest of the cabinet assembled separately. For machine builders, the difference shows up in commissioning time. For systems integrators with deep Beckhoff expertise, it does not.
+Operating system. Brain is Linux + STM32. TwinCAT is Windows. For air-gapped pharma and defense, the OS choice changes the procurement story.
+Pricing. Brain Core €2,500 forever, Brain Pro €5,000 forever. TwinCAT is per-CPU, with separate cabinet, I/O, and HMI components. The integrated-cabinet TCO at the machine-builder volume tends to favor Brain by a wide margin.
+Safety model.Brain’s 5-tier authorization model and audit trail are published in detail at /safety. CoAgent’s agent-level safety story is still being documented; we expect that to be filled in over the next year.
+Verdict
+Beckhoff and Interkey have arrived at the same architectural conclusions from opposite ends of the industry. That is good for the customer: it means the architecture itself is converging on a defensible answer, rather than each vendor pushing a proprietary story.
+Choose Beckhoff if you are already a Beckhoff customer or you value the maximum-flexibility hardware story. Choose Brain if you want a single-cabinet integrated product, a published safety model, a Linux + STM32 stack for air-gap deployments, or a forever license at sub-€5,000.
+Choose either if you want to be on the right side of the architectural shift. The closed, autocomplete-shaped products from other vendors are not going to age well.
+Sources: Beckhoff Hannover Messe 2026 announcement; TwinCAT AI-supported engineering product page; OEM Update on Beckhoff Physical AI; CoAgent for Operations (Beckhoff).
+Related
+More from the Industry Analysis series
+Siemens Eigen Engineering Agent: what the April 2026 GA means for the industry
+Real autonomous task execution — not autocomplete. Sold via Siemens Digital Exchange. Cloud-only. Locked to TIA Portal. Here is the honest read.
+Rockwell + NVIDIA Nemotron: the first edge-AI industrial Copilot
+Nemotron-Nano-9B-v2 on HMI panels and air-gapped servers. Microsoft Azure on the cloud path. Vendor-billed AI. Here is what is new and what is still locked.
+See how Brain compares

@@ -1,0 +1,33 @@
+Table of Contents
+AMD for AI: Where Things Stand
+AMD has invested heavily in positioning its GPUs as a credible alternative to NVIDIA for AI workloads. As of April 2026, the MI300X with 192 GB of HBM3 memory offers a compelling VRAM advantage for large model inference, and ROCm has improved substantially. However, the software ecosystem gap remains the primary barrier to adoption for most teams evaluating dedicated GPU hosting options.
+This updated assessment covers the current state of AMD’s AI capabilities with an emphasis on practical deployment readiness rather than theoretical performance.
+ROCm Software Stack Status
+ROCm 6.x has resolved many of the compatibility issues that plagued earlier versions. PyTorch support is now stable for most common operations, and the major inference engines have added or improved AMD support:
+| Software | AMD/ROCm Support | Stability | Notes | 
+|---|---|---|---|
+| PyTorch 2.x | Official | Stable | Most ops supported | 
+| vLLM | Experimental | Improving | Core features work, some gaps | 
+| Ollama | Partial | Limited | Basic models only | 
+| ONNX Runtime | Official | Stable | Good coverage | 
+| llama.cpp | Official (ROCm) | Stable | Good performance | 
+MI300X Performance Data
+Where ROCm support works, the MI300X delivers competitive performance. Its 192 GB of HBM3 memory is the standout feature, allowing full-precision serving of models that require multi-GPU setups on NVIDIA hardware:
+| Benchmark | MI300X | RTX 6000 Pro 96 GB | MI300X Advantage | 
+|---|---|---|---|
+| LLaMA 70B FP16 (tok/s) | 125 | 142 | -12% (but fits on 1 GPU) | 
+| LLaMA 405B Q4 (tok/s) | 48 | Requires 3+ GPUs | Single GPU capability | 
+| Memory Bandwidth | 5.3 TB/s | 3.35 TB/s | +58% | 
+The raw hardware is competitive. The 192 GB VRAM pool is uniquely valuable for running unquantised large models on a single accelerator, something no NVIDIA GPU below the B200 can match.
+Software Compatibility Matrix
+The critical question is whether your specific model and inference engine combination works on ROCm. vLLM on AMD handles standard LLM inference for popular models but lacks some advanced features like speculative decoding. Ollama support remains limited. For the inference engines that matter, NVIDIA’s CUDA ecosystem still provides the broadest compatibility.
+Teams that rely on specialised workloads like image generation through ComfyUI, TTS models, or OCR pipelines should verify AMD compatibility for each specific component before committing to AMD hardware.
+Practical Challenges Remain
+Despite hardware improvements, practical challenges persist in April 2026. Driver stability on long-running inference servers occasionally requires attention. Community support and troubleshooting resources remain significantly smaller than NVIDIA’s ecosystem. Most tutorials, guides, and deployment scripts default to CUDA, requiring adaptation for ROCm.
+For teams without dedicated ML infrastructure engineers, the additional support overhead of AMD hardware can offset hardware cost savings. The GPU comparisons section provides NVIDIA-focused guidance that applies to the majority of deployments.
+Deploy on Battle-Tested NVIDIA GPUs
+Dedicated GPU servers with RTX 3090, RTX 5090, RTX 6000 Pro, and RTX 6000 Pro. Full CUDA compatibility, proven inference stack, instant deployment.
+View GPU Servers
+Should You Consider AMD for AI
+Consider AMD MI300X if you need massive VRAM for unquantised large models, have ML engineering resources to handle ROCm debugging, and your workload runs on well-supported software like PyTorch and llama.cpp. Avoid AMD if you rely on the broader CUDA ecosystem, use multiple specialised AI tools, or need the widest possible model compatibility.
+For most teams in April 2026, NVIDIA remains the safer choice for private AI hosting. Review the best GPUs for AI in April 2026 for current NVIDIA recommendations, and use the tokens per second benchmark to compare performance across available hardware.

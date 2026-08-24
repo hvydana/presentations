@@ -1,0 +1,544 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<title>AI Boost Bites: Your Edge in the AI-Powered World | Google Skills</title>
+<link crossorigin href='https://cdn.qwiklabs.com' rel='preconnect'>
+<link crossorigin href='https://fonts.gstatic.com' rel='preconnect'>
+<link crossorigin href='https://fonts.googleapis.com' rel='preconnect'>
+<link as='font' crossorigin='anonymous' href='https://cdn.qwiklabs.com/fonts/google-symbols.woff2' rel='preload' type='font/woff2'>
+<link as='font' crossorigin='anonymous' href='https://cdn.qwiklabs.com/fonts/material-icons.woff2' rel='preload' type='font/woff2'>
+<link as='font' crossorigin='anonymous' href='https://cdn.qwiklabs.com/fonts/google-material-icons.woff2' rel='preload' type='font/woff2'>
+<style>
+  @mixin font_face_props {
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+  }
+  
+  @font-face {
+    @include font_face_props;
+  
+    font-family: 'Google Material Icons';
+    src: url('https://cdn.qwiklabs.com/fonts/google-material-icons.woff2') format('woff2');
+  }
+  
+  @font-face {
+    @include font_face_props;
+  
+    font-family: 'Material Icons';
+    src: url('https://cdn.qwiklabs.com/fonts/material-icons.woff2') format('woff2');
+  }
+  
+  @font-face {
+    @include font_face_props;
+  
+    font-family: 'Google Symbols';
+    src: url('https://cdn.qwiklabs.com/fonts/google-symbols.woff2') format('woff2');
+  }
+  
+  .material-icons {
+    font-family: 'Material Icons';
+  }
+  
+  .google-symbols {
+    font-family: 'Google Symbols';
+  }
+  
+  .google-material-icons {
+    font-family: 'Google Material Icons';
+  }
+  
+  .material-icons,
+  .google-symbols,
+  .google-material-icons {
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+  }
+</style>
+
+<meta name="action-cable-url" content="/cable" />
+<script>
+//<![CDATA[
+window.gon={};gon.deployment="google-run";
+//]]>
+</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() {
+    if (arguments[0] === 'event') {
+      dataLayer.push({ event: arguments[1], eventParams: arguments[2] }, { eventParams: undefined });
+    } else {
+      dataLayer.push(arguments);
+    }
+  }
+  let gtmLoaded = false;
+  function glueCookieNotificationBarLoaded() {
+    if (!gtmLoaded) {
+      dataLayerInit(
+        false,
+        false,
+        false,
+        false,
+        'google-run'
+      );
+      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer',"GTM-MBRHNDG7");
+      pushPageEvent();
+      if (typeof sessEvent !== 'undefined') {
+        pushSessionEvent(sessEvent, sessLoginStatus, sessPreviousPath);
+      }
+      gtmLoaded = true;
+    }
+  }
+</script>
+<script src="https://cdn.qwiklabs.com/assets/hallofmirrors/polyfills/webcomponents-loader-2e147cb1679d97581f981243bfc2d1c03dc34a58.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/head_scripts-78121e337319c81329ed63eb61196ea57f74a57d.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/vendor-1c75122c864db561eb016ef97dbd4eb4a740856f.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/application-18710c4194650fa2a5222fb897f8528fbe9789de.js"></script>
+<script src="https://cdn.qwiklabs.com/assets/hallofmirrors/hallofmirrors-780288a880fe2b58c7fdf17c5ccfcc9a2f61c6c4.js"></script>
+<script src="https://cdn.qwiklabs.com/nk_components/1.1.44/index.js"></script>
+<script src="https://support.google.com/inapp/api.js"></script>
+<script type='application/ld+json'>
+{"@context":"https://schema.org/","@id":"https://www.skills.google/paths/4293","@type":"Course","name":"AI Boost Bites: Your Edge in the AI-Powered World","description":"In just 10 minutes per session, you'll discover how Google's own experts wield AI tools like Gemini, Gemini for Workspace, Gemini Notebook, and AI Studio. These aren't just theories; they're battle-tested strategies for content creation, market intelligence, and solving real-world business challenges. Each \"Bite\" comes with a hands-on challenge, urging you to apply what you've learned immediately. This isn't just learning; it's active transformation, equipping you with the practical AI fluenc...","image":["https://cdn.qwiklabs.com/uXPRJ%2BNiwpvUv9DfO83%2BxYYNNccbXKChRD8Uawt4x24%3D"],"provider":{"@type":"Organization","name":"Google Cloud","url":"https://cloud.google.com/learn"},"publisher":{"@type":"Organization","name":"Google Skills","url":"https://www.skills.google"},"datePublished":"2026-07-24","inLanguage":"en","availableLanguage":["en"],"offers":[{"@type":"Offer","category":"Partially Free"},{"@type":"Offer","category":"Subscription"}],"hasCourseInstance":[{"@type":"CourseInstance","courseMode":"Online","courseWorkload":"PT7H10M"}],"hasPart":[{"@type":"Course","name":"AI Boost Bites: Gemini Gems – Your ultimate marketing sidekick","description":"\u003cp\u003eThis video covers how to create your own Gemini Gems, advanced AI capabilities that can automate repetitive tasks and supercharge your productivity.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1349"},{"@type":"Course","name":"AI Boost Bites: Content Generation with Gemini Made Easy","description":"\u003cp\u003eThis video will cover how you can leverage Gemini's advanced AI capabilities in Google Docs to brainstorm ideas, draft various marketing content, and collaborate with your team.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1369"},{"@type":"Course","name":"AI Boost Bites: Prompting like a Pro with Google Workspace","description":"\u003cp\u003e This video covers prompt engineering fundamentals for effective AI communication. Learn a simple framework (Persona, Task, Context, Format) to craft clear prompts, getting better, faster results from Gemini in Google Workspace. Discover how to use natural language, be specific, and iterate for optimal AI assistance. \u003c/p\u003e","url":"https://www.skills.google/course_templates/1365"},{"@type":"Course","name":"AI Boost Bites: TL;DR with Gemini in Docs \u0026 Drive","description":"\u003cp\u003e This video covers how you can use Gemini to summarize long documents in Google Workspace, so you can quickly get the information you need and save time. You'll learn how to use Gemini to summarize entire documents or just selected text, as well as how to use Gemini in Drive to summarize across multiple files. \u003c/p\u003e","url":"https://www.skills.google/course_templates/1357"},{"@type":"Course","name":"AI Boost Bites: Personalization with customized prompts","description":"\u003cp\u003eThis video covers how to personalize your Gemini results in Google\n    Workspace. Learn to incorporate documents and research papers directly\n    into your prompts using the \"@\" symbol to get more targeted and relevant\n    AI output tailored to your needs.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1366"},{"@type":"Course","name":"AI Boost Bites: Poke Holes in Your Strategy","description":"\u003cp\u003eAI Boost Bites is a video series designed to help you leverage Google's AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you'll get a challenge to apply what you've learned. It's an easy, interactive way to boost your AI skills and improve your productivity.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1363"},{"@type":"Course","name":"AI Boost Bites: Gemini Image-to-Sheets Hack","description":"\u003cp\u003eThis video covers how to eliminate tedious manual data entry using Gemini. Learn how to take a picture or screenshot of data (from PDFs, paper, or images) and prompt Gemini to instantly convert it into a structured Google Sheet. Discover this simple hack to save countless hours transcribing data, turning Gemini into your personal data entry assistant. Just snap, prompt, and export!\u003c/p\u003e","url":"https://www.skills.google/course_templates/1353"},{"@type":"Course","name":"AI Boost Bites: Automate tasks with Gemini and Apps Script","description":"\u003cp\u003eThis video covers how to use Gemini and Apps Script to automate manual tasks across Google Workspace. You'll learn to prompt Gemini to generate Apps Script code that automatically drafts email reminders in Google Sheets for tasks not marked 'Complete.' Automate your workflow with little to no technical expertise, freeing up time for more important work and eliminating manual follow-ups.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1371"},{"@type":"Course","name":"AI Boost Bites: Exec Summaries with Gemini Gems","description":"\u003cp\u003e This video covers how you can create your own Brevity Gem to summarize and transform messy notes or long documents into clear, concise, executive-ready summaries. \u003c/p\u003e","url":"https://www.skills.google/course_templates/1355"},{"@type":"Course","name":"AI Boost Bites: Amplify Exec Voices with AI","description":"\u003cp\u003eThis video will cover how to leverage Gemini Gems to create authentic\n    social media posts in your leader's unique voice. Learn to overcome the\n    challenge of scaling executive social presence by training a Gem with\n    writing samples and clear instructions. Discover how to generate engaging\n    posts quickly, saving time while amplifying thought leadership and\n    ensuring authenticity.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1350"},{"@type":"Course","name":"AI Boost Bites: No-Code Sheets \u0026 Scripts","description":"\u003cp\u003eThis video covers how you can leverage Gemini's advanced AI capabilities within Google Sheets to effortlessly pull data and generate insights in minutes, all without the need for any technical or coding background.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1351"},{"@type":"Course","name":"AI Boost Bites: Gemini Slide Summaries","description":"\u003cp\u003eThis video covers how to use Gemini in Slides to automatically generate\n    meeting recaps and draft follow-up emails, which can streamline your\n    post-meeting workflow and save you time.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1367"},{"@type":"Course","name":"AI Boost Bites: Tame Your Inbox with AI","description":"\u003cp\u003eThis video covers how to use Gemini in Gmail to summarize emails, find information, and draft replies, helping you manage your inbox more efficiently.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1416"},{"@type":"Course","name":"AI Boost Bites: Create Docs in Seconds","description":"\u003cp\u003e This video covers how to use the 'Help me create' feature in Google Docs to generate a complete, formatted document by referencing content from other files in your Drive. \u003c/p\u003e","url":"https://www.skills.google/course_templates/1419"},{"@type":"Course","name":"AI Boost Bites: Email Content Creation","description":"\u003cp\u003eThis video covers how to use Gemini in Gmail to draft new emails,\n    refine their tone, respond with context from Drive files, and use smart\n    reply suggestions.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1421"},{"@type":"Course","name":"AI Boost Bites: Presentation Scripts with Gemini","description":"\u003cp\u003eAI Boost Bites is a video series designed to help you leverage Google's AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you'll get a challenge to apply what you've learned. It's an easy, interactive way to boost your AI skills and improve your productivity.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1433"},{"@type":"Course","name":"AI Boost Bites: Your Personal Feedback Agent","description":"\u003cp\u003eThis video covers how to build a personalized \"Work with Me\" agent using Gemini Gems, which helps streamline foundational feedback and makes your meetings more strategic and efficient.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1449"},{"@type":"Course","name":"AI Boost Bites: From Napkin Sketch to Functional App","description":"\u003cp\u003eIn this video, you'll learn to use Gemini Canvas to turn a simple drawing into a working app. You'll upload a sketch, use a simple prompt to generate code, watch a live preview build itself, and make iterative changes to your app prototype using natural language.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1480"},{"@type":"Course","name":"AI Boost Bites: One-Click Campaign Visuals","description":"\u003cp\u003eIn this video, you'll learn to use the Create menu in Gemini Canvas to instantly convert a block of text into a variety of visual formats. You’ll see how to take a brainstormed marketing campaign and turn it into both a shareable infographic and an internal webpage with just one click.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1485"},{"@type":"Course","name":"AI Boost Bites: Create Your Ultimate College Scouting Report","description":"\u003cp\u003eIn this video, you'll learn to use creative prompts in Gemini to make complex research fun and easy to understand. You'll see how to ask Gemini to research a topic and present the findings in a creative format, like a sports scouting report and a head-to-head bracket, to better visualize and compare your options.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1471"},{"@type":"Course","name":"AI Boost Bites: Become a \"Vibe DJ\"","description":"\u003cp\u003eIn this video, you'll learn to build a working music synthesizer using a simple text prompt in Gemini Canvas. You'll see how to specify controls like waveform, attack, and sustain, and then interact with the generated instrument to create and experiment with your own unique sounds.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1493"},{"@type":"Course","name":"AI Boost Bites: Create Your Own Retro Arcade Game","description":"\u003cp\u003eIn this video, you'll learn to use a simple text prompt in Gemini Canvas to build a playable game. You'll see how to create a Tic-Tac-Toe game, use a follow-up prompt to customize its theme to a retro 8-bit style, and share the final game with a link.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1467"},{"@type":"Course","name":"AI Boost Bites: Guided Learning with Gemini","description":"\u003cp\u003eIn this video, you'll learn to use the Guided Learning experience in Gemini to build a deep understanding of any topic. You'll see how to start a conversation, engage with Gemini's probing questions, and use interactive tools like diagrams and quizzes to guide your learning journey.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1481"},{"@type":"Course","name":"AI Boost Bites: Create Your Own Productivity Tools","description":"\u003cp\u003eIn this video, you'll learn to build a custom personal utility app using Gemini Canvas. You'll see how to write a detailed prompt to create a Pomodoro timer tailored to your specific needs, and then use follow-up prompts to adjust its visual design.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1476"},{"@type":"Course","name":"AI Boost Bites: Create a 3D Solar System","description":"\u003cp\u003eIn this video, you'll learn to create an interactive 3D simulation using Gemini Canvas. You'll see how to build a 3D model of the solar system from a single sentence and then use follow-up prompts to add interactive and educational features, like clickable planets and fun facts.\u003c/p\u003e\n\u003cp\u003e\u003c/p\u003e","url":"https://www.skills.google/course_templates/1488"},{"@type":"Course","name":"AI Boost Bites: Build a Personalized Weather App","description":"\u003cp\u003eIn this video, you'll learn to build a working prototype of a personalized weather app using Gemini Canvas. You'll see how to specify the cities for a 7-day forecast and then use a follow-up prompt to change the app's theme to a minimal, dark mode interface.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1472"},{"@type":"Course","name":"AI Boost Bites: Get Your Competitor's Playbook in Minutes","description":"\u003cp\u003eIn this video, you'll learn to use Gemini Deep Research to conduct competitive marketing analysis. You'll see how to submit a research prompt, approve the personalized research plan Gemini creates, and receive a detailed, synthesized report on competitor campaigns to inform your strategy.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1494"},{"@type":"Course","name":"AI Boost Bites: Gamify Your Study Guides","description":"\u003cp\u003eIn this video, you'll learn to turn your study guides into interactive quizzes using Gemini Canvas. You'll see how to upload your notes and use a simple prompt to generate a quiz with multiple choice and fill-in-the-blank questions that provide immediate feedback.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1468"},{"@type":"Course","name":"AI Boost Bites: Your Personal AI Tutor","description":"\u003cp\u003eIn this video, you'll learn to build a reusable, custom \"Study Guide Gem.\" You'll see how to write the core instructions for your Gem once, and then use it again and again to transform messy notes and articles into a perfectly structured study guide with a summary, outline, and glossary.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1482"},{"@type":"Course","name":"AI Boost Bites: Turn Your Ideas into Animated Art","description":"\u003cp\u003eIn this video, you'll learn to create complex animated art using Gemini Canvas. You'll see how to write a descriptive prompt to generate a kinetic typography animation with distortion effects, and then use a follow-up prompt to completely change its color style.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1486"},{"@type":"Course","name":"AI Boost Bites: Animated Charts with Gemini","description":"\u003cp\u003eIn this video, you'll learn to create an animated bar chart race using Gemini Canvas. You'll see how to write a prompt to visualize data over time and then use a follow-up prompt to refine the animation, such as slowing it down for a presentation.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1473"},{"@type":"Course","name":"AI Boost Bites: Make Any Big Purchase with Confidence","description":"\u003cp\u003eIn this video, you'll learn to use Gemini Deep Research to make complex purchasing decisions with confidence. You'll see how to write a nuanced, personal prompt about your specific needs and receive a synthesized, comparative report that cuts through the clutter of online reviews.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1477"},{"@type":"Course","name":"AI Boost Bites: Supercharge Research with Gemini","description":"\u003cp\u003eIn this video, you'll learn pro tips for conducting thorough competitive research with Gemini Deep Research. You'll see how to enhance a basic prompt by assigning a persona, specifying a table format for the output, and directing the AI to search specific sources like Reddit for richer insights.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1498"},{"@type":"Course","name":"AI Boost Bites: Streamline Event Planning with AI","description":"\u003cp\u003eIn this video, you'll learn to use an AI assistant to streamline large-scale event planning. You'll see how to prompt an AI to brainstorm off-site ideas, create fair groups for icebreakers, build a shuttle schedule based on arrival times, and analyze survey feedback for gains and losses.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1490"},{"@type":"Course","name":"AI Boost Bites: Create the Perfect Portrait","description":"\u003cp\u003eIn this video, you'll learn to create imaginative portraits in the Gemini app that maintain your likeness. You'll see how to use the \"Subject, Action, Scene, Style\" formula for better prompts, transport yourself into a vintage photo, and combine a photo of yourself and your dog into one new image.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1491"},{"@type":"Course","name":"AI Boost Bites: Become an AI Art Director for Your World","description":"\u003cp\u003eIn this video, you'll learn to art direct your images in the Gemini app. You'll see how to use multi-turn editing to furnish an empty room step-by-step, and how to \"remix\" a photo by applying the color and texture of a butterfly's wings to a pair of rainboots.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1474"},{"@type":"Course","name":"AI Boost Bites: Become a Creative Mashup Artist","description":"\u003cp\u003eIn this video, you'll learn the \"creative mashup artist\" technique for combining images. You'll see how to generate a subject and a scene as two separate images, and then use a final blending prompt to fuse the astronaut from the first image and the court from the second into one new picture.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1492"},{"@type":"Course","name":"AI Boost Bites: AI Magic in a Sheets Cell","description":"\u003cp\u003eIn this video, you'll learn to use the =AI() function in Google Sheets to automate your work. You'll see how to generate text like slogans, summarize paragraphs of customer feedback, and categorize data by classifying inquiries and analyzing sentiment.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1487"},{"@type":"Course","name":"AI Boost Bites: Talk to Your Data in Sheets","description":"\u003cp\u003eIn this video, you'll learn to use the \"Ask Gemini\" feature in Google Sheets to manage your data with natural language. You'll see how to ask Gemini to create dropdowns, highlight sales data, create a pivot table, filter by month, and sort by revenue.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1484"},{"@type":"Course","name":"AI Boost Bites: Build Slides Fast with Gemini","description":"\u003cp\u003eIn this video, you'll learn to use Gemini in Google Slides to build polished presentations efficiently. You'll see how to create slides by referencing content directly from your Google Drive files using the \"@\" symbol. You'll also learn to generate custom, professional images from a simple text prompt to visually enhance your presentation.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1499"},{"@type":"Course","name":"AI Boost Bites: Gemini Calendar Hacks in Gmail","description":"\u003cp\u003eIn this video, you'll learn to use Gemini in Google Workspace to manage your calendar from your Gmail inbox. You'll learn how to ask Gemini about your schedule in the side panel and how to create new events without switching apps. You'll also learn how to use Gemini's one-click scheduling feature when it automatically detects event details in an email.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1495"},{"@type":"Course","name":"AI Boost Bites: Notes to Sheets with Gemini","description":"\u003cp\u003eIn this video, you'll learn to use Gemini in Google Sheets to automatically generate organized trackers from unstructured data. You'll learn how to write a prompt that references other Google Drive files using the \"@\" symbol. You'll also see how Gemini builds a fully formatted, color-coded table with drop-down menus based on the data in your notes, saving you significant manual effort.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1489"},{"@type":"Course","name":"AI Boost Bites: Advanced Analysis in Sheets","description":"\u003cp\u003eIn this video, you'll learn to use Gemini in Google Sheets for advanced data analysis. You'll learn how to create data visualizations, like a scatter plot, using a simple prompt. You'll also learn how to ask Gemini to analyze your data for strategic insights and recommendations, such as how to save money.\u003c/p\u003e","url":"https://www.skills.google/course_templates/1479"}]}
+</script>
+
+
+<meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="R3y-XkRqJWQ8raf7-3rKJCnP0Kj_UFM_Ypdziyo76cmuyMagQBx2ywkkKkewl122QsO8Z47YGgZum39qzpxZ_A" />
+<meta content='width=device-width, initial-scale=1.0, user-scalable=yes' name='viewport'>
+<meta content='1rRsY0INj8RvwB5EF5pwdxt2A2P9aDgAlsICaJ0d5w0' name='google-site-verification'>
+<meta content='#3681E4' property='msapplication-TileColor'>
+<meta content='/super_G_optimized.png' property='msapplication-TileImage'>
+<meta content='{&quot;userId&quot;:null,&quot;experimentIds&quot;:[&quot;recalculate_activities&quot;,&quot;cdn_fonts&quot;,&quot;front_door_landing_page&quot;,&quot;lab_page_redesign&quot;,&quot;one_stop_hub&quot;,&quot;gamification_xp&quot;,&quot;oauth_risc_shutoff&quot;,&quot;cache_explore_page_result&quot;,&quot;dialog_queue&quot;,&quot;learning_plan_search&quot;,&quot;challenge_lab_fast_track&quot;,&quot;relaunch_for_sso&quot;,&quot;canonical_domain_redirect&quot;,&quot;recert&quot;,&quot;use_docebo_features&quot;,&quot;relaunch_credentials&quot;,&quot;entity_api_keys&quot;,&quot;analytics_v2&quot;,&quot;show_new_course_exams&quot;,&quot;wipeout_hard_delete&quot;,&quot;in_context_view&quot;,&quot;sso_redirect&quot;,&quot;relaunch_extra&quot;,&quot;one_tap&quot;,&quot;gwg_catalog&quot;,&quot;discovery_lab_duration_estimate&quot;,&quot;search_sort_by&quot;,&quot;gamification_achievements&quot;,&quot;remove_gdp_subscription&quot;,&quot;docebo_ux&quot;,&quot;gamification_leagues&quot;,&quot;innovator_sign_in&quot;,&quot;dashboard_jobs&quot;,&quot;updated_recalculation_ux&quot;,&quot;search_suggestions&quot;,&quot;org_invite_link&quot;,&quot;docebo_sync&quot;,&quot;gamification_ui&quot;,&quot;relaunch_subscriptions&quot;,&quot;relaunch&quot;,&quot;catalog_filter_chips&quot;,&quot;next_2026_collections&quot;,&quot;sitemap_poc&quot;,&quot;innovator_gear_sign_in&quot;,&quot;learn_with_ai&quot;,&quot;chime_use_abuse_details&quot;,&quot;google_dev_payment&quot;,&quot;relaunch_collection_ai&quot;,&quot;banner_breadcrumbs&quot;,&quot;search_autocomplete&quot;,&quot;catalog_filters_button&quot;,&quot;gwg_paid_chip&quot;,&quot;learner_grace_period_upgrade&quot;,&quot;auto_upgrade_game_labs&quot;,&quot;relaunch_grid_list&quot;,&quot;search_async&quot;,&quot;new_org_dashboard&quot;,&quot;recert_query_all_used_cert_activities&quot;,&quot;credly_integration_announcement_modal&quot;,&quot;gamification&quot;,&quot;credly&quot;,&quot;hide_unpopular_filters&quot;,&quot;use_mosaic&quot;,&quot;alexandria_subscriptions_pagination&quot;,&quot;docebo_sync_org_support&quot;,&quot;feedback&quot;,&quot;learning_plan_slug&quot;,&quot;reroute_new_interview_warmup&quot;,&quot;switch_path_and_explore_headers&quot;,&quot;subscription_ux&quot;,&quot;offboard_gwg_june&quot;,&quot;interview_warmup_turndown&quot;,&quot;landing_page&quot;,&quot;quota_service_use_lua&quot;,&quot;gamification_leaderboards&quot;,&quot;course_exams&quot;,&quot;in_context_all_labs&quot;,&quot;onramp&quot;,&quot;show_org_catalog_button&quot;,&quot;new_org_dashboard_announcement&quot;,&quot;zendesk_to_cases&quot;,&quot;new_sidenav&quot;,&quot;use_recommender_agent&quot;,&quot;gamification_streaks&quot;]}' name='help-api-product-data'>
+<meta content='{&quot;groupIds&quot;:[]}' name='help-api-custom-data'>
+<meta content='Learn and earn with Google Skills, a platform that provides  free training and certifications for Google Cloud partners and beginners. Explore now.' name='description'>
+<meta content='Google Skills' name='author'>
+<meta content='https://www.skills.google/paths/2480' property='og:url'>
+<meta content='AI Boost Bites: Your Edge in the AI-Powered World | Google Skills' property='og:title'>
+<meta content='website' property='og:type'>
+<meta content='/super_G_optimized.png' property='og:image'>
+<meta content='1200' property='og:image:width'>
+<meta content='630' property='og:image:height'>
+<meta content='image/png' property='og:image:type'>
+<meta content='Google Skills' property='og:site_name'>
+<meta content='Learn and earn with Google Skills, a platform that provides  free training and certifications for Google Cloud partners and beginners. Explore now.' property='og:description'>
+
+
+<link href='https://www.skills.google/paths/2480?locale=ar' hreflang='ar' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=de' hreflang='de' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=es' hreflang='es' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=fr' hreflang='fr' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=fr_CA' hreflang='fr-CA' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=he' hreflang='he' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=id' hreflang='id' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=it' hreflang='it' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=ja' hreflang='ja' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=ko' hreflang='ko' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=pl' hreflang='pl' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=pt_BR' hreflang='pt-BR' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=pt_PT' hreflang='pt-PT' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=ru' hreflang='ru' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=tr' hreflang='tr' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=uk' hreflang='uk' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=zh' hreflang='zh' rel='alternate'>
+<link href='https://www.skills.google/paths/2480?locale=zh_TW' hreflang='zh-TW' rel='alternate'>
+<link href='https://www.skills.google/paths/2480' hreflang='en' rel='alternate'>
+<link href='https://www.skills.google/paths/2480' hreflang='x-default' rel='alternate'>
+<link href='https://cdn.qwiklabs.com/X46FrQX4iLxHW5MxL8jICvgZM0evMEKscCeQO%2BazGdo%3D' rel='icon' type='image/x-icon'>
+<link href='https://www.skills.google/paths/2480' rel='canonical'>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:400|Roboto+Mono:400,700|Roboto:300,400,500,700|Google+Sans:300,400,500,700|Google+Sans+Display:400|Google+Sans+Text:400,500,700" />
+
+<link rel="stylesheet" href="https://cdn.qwiklabs.com/assets/application-7ab357a281ddc5c9aa6b00ac0855945a5ffe1af0.css" media="all" />
+<link rel="stylesheet" href="https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.css" />
+
+
+<style>
+  :root {
+    --primary-text-on-surface-color: #355d9c;
+    --primary-text-on-surface-color-dark: #2f538b;
+    --primary-text-on-surface-color-darker: #29497a;
+    --primary-text-on-surface-color-darkest: #243e69;
+    --primary-surface-color: #586d8d;
+    --primary-surface-color-rgb: 88,109,141;
+    --primary-surface-color-light: #e0e4eb;
+    --primary-surface-color-lightest: #eff2f5;
+    --text-on-primary-color: #ffffff;
+    --accent-text-on-surface-color: #f000e8;
+    --accent-surface-color: #f9ab00;
+    --accent-surface-color-rgb: 249,171,0;
+    --accent-surface-color-light: #ffefcc;
+    --text-on-accent-color: #000000;
+  }
+</style>
+
+
+
+</head>
+<body class='learning-plans-body relaunch learner-layout-body relaunch '>
+<div class='body-container' relaunch>
+<div class='body-header'>
+<ql-toolbar class='app-toolbar' jumpEnabled role='banner'>
+<div class='toolbar-navigation' slot='navigation'>
+<ql-toggle-button animatedToggle="true" expandable="true" for="app-nav" onIcon="menu_open" offIcon="menu" label="Menu" class="always-show" data-tooltip-text="Menu"></ql-toggle-button>
+</div>
+<div class='toolbar-title gs-logo' slot='title'>
+<a class="custom-logo" aria-label="Google Skills" href="/"><div class="custom-logo"><img alt="Google Skills" height="24" aria-label="Google Skills" src="https://cdn.qwiklabs.com/lqJbxogu4tSLez1OvjDcIO8rwow6cPLwvrfIdmQLf6U%3D" /></div></a>
+
+</div>
+<div class='search-bar tablet-hide' slot='search'><div class='search-bar-container visible-search-header'>
+<form class="header-search-form" action="/catalog" accept-charset="UTF-8" method="get">
+<input aria-autocomplete='list' aria-controls='searchbar-autocomplete-menu-center' aria-expanded='false' autocomplete='off' class='header-search-input' id='searchbar-autocomplete-center' name='keywords' placeholder='What do you want to learn today?' role='combobox'>
+<div class='elevation-3' id='searchbar-autocomplete-loading-icon-center'>
+<ql-spinner></ql-spinner>
+<div class='ql-body-small'>Loading...</div>
+</div>
+<div class='elevation-3' id='searchbar-autocomplete-no-results-center'>
+<div class='ql-body-small'>No results found.</div>
+</div>
+<ul aria-hidden='true' aria-live='polite' class='hide' id='searchbar-autocomplete-menu-center' role='listbox'></ul>
+<ql-icon-button class='search-bar-button search-button' icon='search' label='Search' type='submit'></ql-icon-button>
+</form>
+
+<ql-icon-button class='exit-search-button show-tablet' icon='close' inert label='Exit search'></ql-icon-button>
+</div>
+</div>
+<div class='toolbar-actions' slot='action'>
+
+<ql-icon-button class='header-search-button show-tablet' data-toggle='tooltip' icon='search' label='Search for Google Skills content' title='Search'></ql-icon-button>
+
+<ql-icon-button class='mobile-hide' data-tooltip-text='Help' icon='help_outline' id='help-menu-button' label='Help options'></ql-icon-button>
+<ql-menu for='help-menu-button' id='help-menu'>
+<ql-menu-item data-analytics-action='opened_help' data-analytics-label='' label='Help Center' onclick='hallofmirrors.helpService.startHelp({&quot;productData&quot;:{&quot;userId&quot;:null},&quot;context&quot;:&quot;&quot;})'></ql-menu-item>
+<ql-menu-item href='https://support.google.com/qwiklabs/contact/Google_Skills' label='Contact Us' target='_blank'></ql-menu-item>
+<ql-menu-item href='https://reportingwidget.google.com/widget/54?cid=1&amp;url=https://www.skills.google/paths/2480?' label='Report Illegal Content'></ql-menu-item>
+</ql-menu>
+
+<ql-icon-button class='mobile-hide' data-tooltip-text='Language' icon='language' id='language' label='Language options'></ql-icon-button>
+<ql-menu for='language'>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ar' href='/paths/2480?locale=ar' label='العربية‬‎' lang='ar'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='de' href='/paths/2480?locale=de' label='Deutsch' lang='de'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='en' href='/paths/2480?locale=en' label='English' lang='en'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='es' href='/paths/2480?locale=es' label='español (Latinoamérica)' lang='es'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr' href='/paths/2480?locale=fr' label='français' lang='fr'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr_CA' href='/paths/2480?locale=fr_CA' label='français (Canada)' lang='fr-CA'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='he' href='/paths/2480?locale=he' label='עברית' lang='he'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='id' href='/paths/2480?locale=id' label='bahasa Indonesia' lang='id'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='it' href='/paths/2480?locale=it' label='italiano' lang='it'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ja' href='/paths/2480?locale=ja' label='日本語' lang='ja'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ko' href='/paths/2480?locale=ko' label='한국어' lang='ko'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pl' href='/paths/2480?locale=pl' label='polski' lang='pl'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_BR' href='/paths/2480?locale=pt_BR' label='português (Brasil)' lang='pt-BR'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_PT' href='/paths/2480?locale=pt_PT' label='português (Portugal)' lang='pt-PT'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ru' href='/paths/2480?locale=ru' label='русский' lang='ru'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='tr' href='/paths/2480?locale=tr' label='Türkçe' lang='tr'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='uk' href='/paths/2480?locale=uk' label='українська' lang='uk'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh' href='/paths/2480?locale=zh' label='简体中文' lang='zh'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh_TW' href='/paths/2480?locale=zh_TW' label='繁體中文' lang='zh-TW'></ql-menu-item>
+</ql-menu>
+
+<ql-icon-button aria-expanded='false' aria-haspopup aria-label='More options' class='mobile-show' data-toggle='tooltip' icon='more_vert' id='mobile-more-menu-button' title='More options'></ql-icon-button>
+<ql-menu for='mobile-more-menu-button' id='mobile-more-menu'>
+
+
+<ql-menu-item aria-controls='help-submenu' aria-expanded='false' aria-haspopup='true' id='help-submenu-button' label='Help' role='button' tabindex='0'></ql-menu-item>
+<ql-menu-item aria-controls='language-submenu' aria-expanded='false' aria-haspopup='true' id='language-submenu-button' label='Language' role='button' tabindex='0'></ql-menu-item>
+</ql-menu>
+
+<ql-menu class='submenu' for='help-submenu-button' id='help-submenu'>
+<ql-menu-item data-analytics-action='opened_help' data-analytics-label='' label='Help Center' onclick='hallofmirrors.helpService.startHelp({&quot;productData&quot;:{&quot;userId&quot;:null},&quot;context&quot;:&quot;&quot;})'></ql-menu-item>
+<ql-menu-item href='https://support.google.com/qwiklabs/contact/Google_Skills' label='Contact Us' target='_blank'></ql-menu-item>
+<ql-menu-item href='https://reportingwidget.google.com/widget/54?cid=1&amp;url=https%3A%2F%2Fwww.skills.google%2Fpaths%2F2480%3F' label='Report Illegal Content'></ql-menu-item>
+</ql-menu>
+<ql-menu class='submenu' for='language-submenu-button' id='language-submenu'>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ar' href='/paths/2480?locale=ar' label='العربية‬‎' lang='ar' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='de' href='/paths/2480?locale=de' label='Deutsch' lang='de' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='en' href='/paths/2480?locale=en' label='English' lang='en' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='es' href='/paths/2480?locale=es' label='español (Latinoamérica)' lang='es' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr' href='/paths/2480?locale=fr' label='français' lang='fr' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='fr_CA' href='/paths/2480?locale=fr_CA' label='français (Canada)' lang='fr-CA' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='he' href='/paths/2480?locale=he' label='עברית' lang='he' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='id' href='/paths/2480?locale=id' label='bahasa Indonesia' lang='id' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='it' href='/paths/2480?locale=it' label='italiano' lang='it' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ja' href='/paths/2480?locale=ja' label='日本語' lang='ja' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ko' href='/paths/2480?locale=ko' label='한국어' lang='ko' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pl' href='/paths/2480?locale=pl' label='polski' lang='pl' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_BR' href='/paths/2480?locale=pt_BR' label='português (Brasil)' lang='pt-BR' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='pt_PT' href='/paths/2480?locale=pt_PT' label='português (Portugal)' lang='pt-PT' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='ru' href='/paths/2480?locale=ru' label='русский' lang='ru' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='tr' href='/paths/2480?locale=tr' label='Türkçe' lang='tr' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='uk' href='/paths/2480?locale=uk' label='українська' lang='uk' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh' href='/paths/2480?locale=zh' label='简体中文' lang='zh' role='menuitem'></ql-menu-item>
+<ql-menu-item data-analytics-action='changed_locale' data-analytics-label='zh_TW' href='/paths/2480?locale=zh_TW' label='繁體中文' lang='zh-TW' role='menuitem'></ql-menu-item>
+</ql-menu>
+
+<ql-button class='mobile-hide' data-analytics-action='clicked_header_sign_in' data-analytics-actions='[&quot;clicked_header_sign_in&quot;, &quot;navigation&quot;]' data-analytics-button-text='Sign in' data-analytics-label='Sign in' data-analytics-legacy-event-name='clicked_header_sign_in' data-analytics-link-url='/users/sign_in' data-analytics-position='header' data-analytics-type='eventParams' href='/users/sign_in' label='Sign in' text></ql-button>
+<ql-button ariaLabel='Join by creating an account' class='join-btn' data-analytics-action='clicked_header_join' data-analytics-actions='[&quot;clicked_header_join&quot;, &quot;navigation&quot;]' data-analytics-button-text='Join' data-analytics-label='Join' data-analytics-legacy-event-name='clicked_header_join' data-analytics-link-url='/users/sign_up' data-analytics-position='header' data-analytics-type='eventParams' href='/users/sign_up' label='Join'></ql-button>
+<script src='https://accounts.google.com/gsi/client'></script>
+<div data-authenticity_token='2fZThPd4jLyV_2ss07aX_8diuQx7jMDEE3IcPBn5NJ8wQit68w7fE6B25pCYWwBtrG7VwwoEif0ffhDd_V6Eqg' data-cancel_on_tap_outside='false' data-client_id='1023251155897-tb54g624q9e77gtsrnemgv4c2ihekurv.apps.googleusercontent.com' data-login_uri='/auth/google?tos=false' data-prompt_parent_id='g_id_onload' data-turbo='false' id='g_id_onload'></div>
+
+
+</div>
+</ql-toolbar>
+</div>
+<div class='body-container__inner'>
+<ql-sidenav id='app-nav' items='[{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Home&quot;,&quot;icon&quot;:&quot;home&quot;,&quot;active&quot;:false,&quot;href&quot;:&quot;/&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Home&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Catalog&quot;,&quot;icon&quot;:&quot;book_2&quot;,&quot;active&quot;:false,&quot;href&quot;:&quot;/catalog&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Catalog&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Paths&quot;,&quot;icon&quot;:&quot;conversion_path&quot;,&quot;active&quot;:true,&quot;href&quot;:&quot;/paths&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Paths&quot;}},{&quot;type&quot;:&quot;dropdown&quot;,&quot;label&quot;:&quot;Collections&quot;,&quot;icon&quot;:&quot;category&quot;,&quot;active&quot;:false,&quot;children&quot;:[{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;AI Boost Bites&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/collections/ai-boost-bites&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_collections&quot;,&quot;label&quot;:&quot;AI Boost Bites&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Cloud&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/collections/cloud&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_collections&quot;,&quot;label&quot;:&quot;Cloud&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;DeepMind&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/collections/deepmind&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_collections&quot;,&quot;label&quot;:&quot;DeepMind&quot;}}],&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Collections&quot;}},{&quot;type&quot;:&quot;dropdown&quot;,&quot;label&quot;:&quot;Credentials&quot;,&quot;icon&quot;:&quot;license&quot;,&quot;active&quot;:false,&quot;children&quot;:[{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Certificate&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/credentials/certificate&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_credentials&quot;,&quot;label&quot;:&quot;Certificate&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Skill badge&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/credentials/skill_badge&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_credentials&quot;,&quot;label&quot;:&quot;Skill badge&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Certification&quot;,&quot;icon&quot;:null,&quot;active&quot;:false,&quot;href&quot;:&quot;/credentials/tech_certification&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav_credentials&quot;,&quot;label&quot;:&quot;Certification&quot;}}],&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Credentials&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Subscriptions&quot;,&quot;icon&quot;:&quot;subscriptions&quot;,&quot;active&quot;:false,&quot;href&quot;:&quot;/subscriptions&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Subscriptions&quot;}},{&quot;type&quot;:&quot;item&quot;,&quot;label&quot;:&quot;Organizations&quot;,&quot;icon&quot;:&quot;corporate_fare&quot;,&quot;active&quot;:false,&quot;href&quot;:&quot;/learningcenter&quot;,&quot;analytics&quot;:{&quot;position&quot;:&quot;application_sidenav&quot;,&quot;label&quot;:&quot;Organizations&quot;}}]'>
+<ql-fab data-analytics-action='login_start' data-analytics-button-text='Sign in' data-analytics-label='Sign in' data-analytics-position='application_sidenav' data-analytics-type='eventParams' expandable href='/users/sign_in' icon='login' label='Sign in' slot='start'></ql-fab>
+</ql-sidenav>
+
+<div class='body-content'>
+<div class='banner'>
+<div id='callout-container'>
+</div>
+
+</div>
+<div class='page-header'>
+<div class='page-main-banner'>
+<div class='page-main-banner-breadcrumbs'>
+<nav aria-label='Breadcrumb' class='breadcrumbs-container' role='navigation'>
+<ol>
+<li class='breadcrumb-item ql-label-medium'>
+<ql-icon-button href='/' icon='home_filled' iconFill></ql-icon-button>
+
+<ql-icon class='breadcrumb-arrow'>navigate_next</ql-icon>
+</li>
+<li class='breadcrumb-item ql-label-medium'>
+<a href="/paths">Paths</a>
+<ql-icon class='breadcrumb-arrow'>navigate_next</ql-icon>
+</li>
+<li class='breadcrumb-item ql-label-medium' tabindex='0'>
+AI Boost Bites: Your Edge in the AI-Powered World
+</li>
+</ol>
+</nav>
+
+</div>
+<aside aria-label='Free trial' class='page-main-banner-console-free-trial'>
+<div class='console-free-trial'>
+<p class='console-free-trial-content ql-body-medium'>
+Apply your skills in Google Cloud console
+</p>
+<div class='console-free-trial-actions'>
+<ql-button data-analytics-action='gcp_cta' data-analytics-position='free trial banner' data-analytics-type='eventParams' elevated href='https://console.cloud.google.com/freetrial' label='Get started' target='_blank'></ql-button>
+</div>
+</div>
+</aside>
+</div>
+
+</div>
+<main id='jump-content' tabindex='-1'>
+
+
+
+<div class='learning-wrapper js-confetti-anchor'>
+<div class='top-matter'>
+<div class='top-container'>
+<div class='top-content'>
+<div class='top-title'>
+<div class='learnable-type-chip'>
+<img alt='Learning Path Icon' src='https://cdn.qwiklabs.com/assets/learning_plans/shapes-activities-chip-82e9b02395fa0c83cc0b38e6a323b23b865fe7de.svg'>
+Path
+</div>
+<h1 class='learning-plan-title'>AI Boost Bites: Your Edge in the AI-Powered World</h1>
+<div class='learning-plan-details'>
+<div class='ql-title-medium detail'>
+Managed by Google Cloud
+</div>
+<div class='ql-title-medium detail'>
+43 activities
+</div>
+<div class='ql-title-medium detail'>
+Last updated 20 days
+</div>
+</div>
+</div>
+<div class='top-image'>
+<img alt='Learning Path Shape' src='https://cdn.qwiklabs.com/assets/learning_plans/shapes-activities-bbd699f18f1125385c6f6b83694bbbc41b8873ab.svg'>
+</div>
+</div>
+<div class='top-cta-progress-section'>
+<div class='cta-and-like-section'>
+<ql-button aria-label='Sign in or join' data-analytics-action='login_start' data-analytics-button-text='Sign in or join' data-analytics-label='AI Boost Bites: Your Edge in the AI-Powered World' data-analytics-position='hero' data-analytics-type='eventParams' data-name='AI Boost Bites: Your Edge in the AI-Powered World' elevated href='/paths/2480/select_active' icon='login' id='sign-in-to-start' method='post'>
+Sign in or join
+</ql-button>
+</div>
+<div alt='Progress: 0.000%' class='learnable-progress-bar'>
+<ql-progress-bar color='#0B57D0' progress='0.0' progressBarStyles='{&quot;background&quot;:&quot;#C2E7FF&quot;,&quot;height&quot;:&quot;8px&quot;,&quot;width&quot;:&quot;100%&quot;}'></ql-progress-bar>
+</div>
+</div>
+</div>
+</div>
+<div class='content-selector'>
+<ql-contents-menu modules='[{&quot;steps&quot;:[{&quot;activities&quot;:[{&quot;id&quot;:203208,&quot;href&quot;:&quot;/paths/2480/course_templates/1349&quot;,&quot;description&quot;:&quot;This video covers how to create your own Gemini Gems, advanced AI capabilities that can automate repetitive tasks and supercharge your productivity.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Gemini Gems – Your ultimate marketing sidekick&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203209,&quot;href&quot;:&quot;/paths/2480/course_templates/1369&quot;,&quot;description&quot;:&quot;This video will cover how you can leverage Gemini&#39;s advanced AI capabilities in Google Docs to brainstorm ideas, draft various marketing content, and collaborate with your team.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Content Generation with Gemini Made Easy&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203210,&quot;href&quot;:&quot;/paths/2480/course_templates/1365&quot;,&quot;description&quot;:&quot; This video covers prompt engineering fundamentals for effective AI communication. Learn a simple framework (Persona, Task, Context, Format) to craft clear prompts, getting better, faster results from Gemini in Google Workspace. Discover how to use natural language, be specific, and...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Prompting like a Pro with Google Workspace&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203211,&quot;href&quot;:&quot;/paths/2480/course_templates/1357&quot;,&quot;description&quot;:&quot; This video covers how you can use Gemini to summarize long documents in Google Workspace, so you can quickly get the information you need and save time. You&#39;ll learn how to use Gemini to summarize entire documents or just selected...&quot;,&quot;title&quot;:&quot;AI Boost Bites: TL;DR with Gemini in Docs \u0026 Drive&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203212,&quot;href&quot;:&quot;/paths/2480/course_templates/1366&quot;,&quot;description&quot;:&quot;This video covers how to personalize your Gemini results in Google\n    Workspace. Learn to incorporate documents and research papers directly\n    into your prompts using the \&quot;@\&quot; symbol to get more targeted and relevant\n    AI output tailored to your needs.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Personalization with customized prompts&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203213,&quot;href&quot;:&quot;/paths/2480/course_templates/1363&quot;,&quot;description&quot;:&quot;AI Boost Bites is a video series designed to help you leverage Google&#39;s AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you&#39;ll...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Poke Holes in Your Strategy&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203214,&quot;href&quot;:&quot;/paths/2480/course_templates/1353&quot;,&quot;description&quot;:&quot;This video covers how to eliminate tedious manual data entry using Gemini. Learn how to take a picture or screenshot of data (from PDFs, paper, or images) and prompt Gemini to instantly convert it into a structured Google Sheet. Discover...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Gemini Image-to-Sheets Hack&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203215,&quot;href&quot;:&quot;/paths/2480/course_templates/1371&quot;,&quot;description&quot;:&quot;This video covers how to use Gemini and Apps Script to automate manual tasks across Google Workspace. You&#39;ll learn to prompt Gemini to generate Apps Script code that automatically drafts email reminders in Google Sheets for tasks not marked &#39;Complete.&#39;...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Automate tasks with Gemini and Apps Script&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203216,&quot;href&quot;:&quot;/paths/2480/course_templates/1355&quot;,&quot;description&quot;:&quot; This video covers how you can create your own Brevity Gem to summarize and transform messy notes or long documents into clear, concise, executive-ready summaries. &quot;,&quot;title&quot;:&quot;AI Boost Bites: Exec Summaries with Gemini Gems&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203217,&quot;href&quot;:&quot;/paths/2480/course_templates/1350&quot;,&quot;description&quot;:&quot;This video will cover how to leverage Gemini Gems to create authentic\n    social media posts in your leader&#39;s unique voice. Learn to overcome the\n    challenge of scaling executive social presence by training a Gem with\n    writing samples and clear instructions....&quot;,&quot;title&quot;:&quot;AI Boost Bites: Amplify Exec Voices with AI&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203218,&quot;href&quot;:&quot;/paths/2480/course_templates/1351&quot;,&quot;description&quot;:&quot;This video covers how you can leverage Gemini&#39;s advanced AI capabilities within Google Sheets to effortlessly pull data and generate insights in minutes, all without the need for any technical or coding background.&quot;,&quot;title&quot;:&quot;AI Boost Bites: No-Code Sheets \u0026 Scripts&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203219,&quot;href&quot;:&quot;/paths/2480/course_templates/1367&quot;,&quot;description&quot;:&quot;This video covers how to use Gemini in Slides to automatically generate\n    meeting recaps and draft follow-up emails, which can streamline your\n    post-meeting workflow and save you time.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Gemini Slide Summaries&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203220,&quot;href&quot;:&quot;/paths/2480/course_templates/1416&quot;,&quot;description&quot;:&quot;This video covers how to use Gemini in Gmail to summarize emails, find information, and draft replies, helping you manage your inbox more efficiently.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Tame Your Inbox with AI&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203221,&quot;href&quot;:&quot;/paths/2480/course_templates/1419&quot;,&quot;description&quot;:&quot; This video covers how to use the &#39;Help me create&#39; feature in Google Docs to generate a complete, formatted document by referencing content from other files in your Drive. &quot;,&quot;title&quot;:&quot;AI Boost Bites: Create Docs in Seconds&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203222,&quot;href&quot;:&quot;/paths/2480/course_templates/1421&quot;,&quot;description&quot;:&quot;This video covers how to use Gemini in Gmail to draft new emails,\n    refine their tone, respond with context from Drive files, and use smart\n    reply suggestions.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Email Content Creation&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203223,&quot;href&quot;:&quot;/paths/2480/course_templates/1433&quot;,&quot;description&quot;:&quot;AI Boost Bites is a video series designed to help you leverage Google&#39;s AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you&#39;ll...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Presentation Scripts with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203224,&quot;href&quot;:&quot;/paths/2480/course_templates/1449&quot;,&quot;description&quot;:&quot;This video covers how to build a personalized \&quot;Work with Me\&quot; agent using Gemini Gems, which helps streamline foundational feedback and makes your meetings more strategic and efficient.&quot;,&quot;title&quot;:&quot;AI Boost Bites: Your Personal Feedback Agent&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203225,&quot;href&quot;:&quot;/paths/2480/course_templates/1480&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini Canvas to turn a simple drawing into a working app. You&#39;ll upload a sketch, use a simple prompt to generate code, watch a live preview build itself, and make iterative changes to...&quot;,&quot;title&quot;:&quot;AI Boost Bites: From Napkin Sketch to Functional App&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203226,&quot;href&quot;:&quot;/paths/2480/course_templates/1485&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use the Create menu in Gemini Canvas to instantly convert a block of text into a variety of visual formats. You’ll see how to take a brainstormed marketing campaign and turn it into both...&quot;,&quot;title&quot;:&quot;AI Boost Bites: One-Click Campaign Visuals&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203227,&quot;href&quot;:&quot;/paths/2480/course_templates/1471&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use creative prompts in Gemini to make complex research fun and easy to understand. You&#39;ll see how to ask Gemini to research a topic and present the findings in a creative format, like a...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Create Your Ultimate College Scouting Report&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203228,&quot;href&quot;:&quot;/paths/2480/course_templates/1493&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to build a working music synthesizer using a simple text prompt in Gemini Canvas. You&#39;ll see how to specify controls like waveform, attack, and sustain, and then interact with the generated instrument to create and...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Become a \&quot;Vibe DJ\&quot;&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203229,&quot;href&quot;:&quot;/paths/2480/course_templates/1467&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use a simple text prompt in Gemini Canvas to build a playable game. You&#39;ll see how to create a Tic-Tac-Toe game, use a follow-up prompt to customize its theme to a retro 8-bit style,...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Create Your Own Retro Arcade Game&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203230,&quot;href&quot;:&quot;/paths/2480/course_templates/1481&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use the Guided Learning experience in Gemini to build a deep understanding of any topic. You&#39;ll see how to start a conversation, engage with Gemini&#39;s probing questions, and use interactive tools like diagrams and...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Guided Learning with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203231,&quot;href&quot;:&quot;/paths/2480/course_templates/1476&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to build a custom personal utility app using Gemini Canvas. You&#39;ll see how to write a detailed prompt to create a Pomodoro timer tailored to your specific needs, and then use follow-up prompts to adjust...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Create Your Own Productivity Tools&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203232,&quot;href&quot;:&quot;/paths/2480/course_templates/1488&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to create an interactive 3D simulation using Gemini Canvas. You&#39;ll see how to build a 3D model of the solar system from a single sentence and then use follow-up prompts to add interactive and educational...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Create a 3D Solar System&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203233,&quot;href&quot;:&quot;/paths/2480/course_templates/1472&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to build a working prototype of a personalized weather app using Gemini Canvas. You&#39;ll see how to specify the cities for a 7-day forecast and then use a follow-up prompt to change the app&#39;s theme...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Build a Personalized Weather App&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203234,&quot;href&quot;:&quot;/paths/2480/course_templates/1494&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini Deep Research to conduct competitive marketing analysis. You&#39;ll see how to submit a research prompt, approve the personalized research plan Gemini creates, and receive a detailed, synthesized report on competitor campaigns to...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Get Your Competitor&#39;s Playbook in Minutes&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203235,&quot;href&quot;:&quot;/paths/2480/course_templates/1468&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to turn your study guides into interactive quizzes using Gemini Canvas. You&#39;ll see how to upload your notes and use a simple prompt to generate a quiz with multiple choice and fill-in-the-blank questions that provide...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Gamify Your Study Guides&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203236,&quot;href&quot;:&quot;/paths/2480/course_templates/1482&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to build a reusable, custom \&quot;Study Guide Gem.\&quot; You&#39;ll see how to write the core instructions for your Gem once, and then use it again and again to transform messy notes and articles into a...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Your Personal AI Tutor&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203237,&quot;href&quot;:&quot;/paths/2480/course_templates/1486&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to create complex animated art using Gemini Canvas. You&#39;ll see how to write a descriptive prompt to generate a kinetic typography animation with distortion effects, and then use a follow-up prompt to completely change its...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Turn Your Ideas into Animated Art&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203238,&quot;href&quot;:&quot;/paths/2480/course_templates/1473&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to create an animated bar chart race using Gemini Canvas. You&#39;ll see how to write a prompt to visualize data over time and then use a follow-up prompt to refine the animation, such as slowing...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Animated Charts with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203239,&quot;href&quot;:&quot;/paths/2480/course_templates/1477&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini Deep Research to make complex purchasing decisions with confidence. You&#39;ll see how to write a nuanced, personal prompt about your specific needs and receive a synthesized, comparative report that cuts through the...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Make Any Big Purchase with Confidence&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203240,&quot;href&quot;:&quot;/paths/2480/course_templates/1498&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn pro tips for conducting thorough competitive research with Gemini Deep Research. You&#39;ll see how to enhance a basic prompt by assigning a persona, specifying a table format for the output, and directing the AI to...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Supercharge Research with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203241,&quot;href&quot;:&quot;/paths/2480/course_templates/1490&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use an AI assistant to streamline large-scale event planning. You&#39;ll see how to prompt an AI to brainstorm off-site ideas, create fair groups for icebreakers, build a shuttle schedule based on arrival times, and...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Streamline Event Planning with AI&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203242,&quot;href&quot;:&quot;/paths/2480/course_templates/1491&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to create imaginative portraits in the Gemini app that maintain your likeness. You&#39;ll see how to use the \&quot;Subject, Action, Scene, Style\&quot; formula for better prompts, transport yourself into a vintage photo, and combine a...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Create the Perfect Portrait&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203243,&quot;href&quot;:&quot;/paths/2480/course_templates/1474&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to art direct your images in the Gemini app. You&#39;ll see how to use multi-turn editing to furnish an empty room step-by-step, and how to \&quot;remix\&quot; a photo by applying the color and texture of...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Become an AI Art Director for Your World&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203244,&quot;href&quot;:&quot;/paths/2480/course_templates/1492&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn the \&quot;creative mashup artist\&quot; technique for combining images. You&#39;ll see how to generate a subject and a scene as two separate images, and then use a final blending prompt to fuse the astronaut from the...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Become a Creative Mashup Artist&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203245,&quot;href&quot;:&quot;/paths/2480/course_templates/1487&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use the =AI() function in Google Sheets to automate your work. You&#39;ll see how to generate text like slogans, summarize paragraphs of customer feedback, and categorize data by classifying inquiries and analyzing sentiment.&quot;,&quot;title&quot;:&quot;AI Boost Bites: AI Magic in a Sheets Cell&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203246,&quot;href&quot;:&quot;/paths/2480/course_templates/1484&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use the \&quot;Ask Gemini\&quot; feature in Google Sheets to manage your data with natural language. You&#39;ll see how to ask Gemini to create dropdowns, highlight sales data, create a pivot table, filter by month,...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Talk to Your Data in Sheets&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203247,&quot;href&quot;:&quot;/paths/2480/course_templates/1499&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini in Google Slides to build polished presentations efficiently. You&#39;ll see how to create slides by referencing content directly from your Google Drive files using the \&quot;@\&quot; symbol. You&#39;ll also learn to generate...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Build Slides Fast with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203248,&quot;href&quot;:&quot;/paths/2480/course_templates/1495&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini in Google Workspace to manage your calendar from your Gmail inbox. You&#39;ll learn how to ask Gemini about your schedule in the side panel and how to create new events without switching...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Gemini Calendar Hacks in Gmail&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203249,&quot;href&quot;:&quot;/paths/2480/course_templates/1489&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini in Google Sheets to automatically generate organized trackers from unstructured data. You&#39;ll learn how to write a prompt that references other Google Drive files using the \&quot;@\&quot; symbol. You&#39;ll also see how...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Notes to Sheets with Gemini&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null},{&quot;id&quot;:203250,&quot;href&quot;:&quot;/paths/2480/course_templates/1479&quot;,&quot;description&quot;:&quot;In this video, you&#39;ll learn to use Gemini in Google Sheets for advanced data analysis. You&#39;ll learn how to create data visualizations, like a scatter plot, using a simple prompt. You&#39;ll also learn how to ask Gemini to analyze your...&quot;,&quot;title&quot;:&quot;AI Boost Bites: Advanced Analysis in Sheets&quot;,&quot;isLocked&quot;:false,&quot;isComplete&quot;:false,&quot;inProgress&quot;:false,&quot;disabled&quot;:false,&quot;progress&quot;:null}]}]}]'></ql-contents-menu>
+</div>
+<div class='ql-body-large'>
+<span>Imagine sharpening your skills with the precision of AI, transforming challenges into triumphs with every insight. AI Boost Bites is your tactical toolkit: a series of concise, impactful video lessons designed to elevate your expertise in the dynamic world of artificial intelligence.</span>
+<span>In just 10 minutes per session, you'll discover how Google's own experts wield AI tools like Gemini, Gemini for Workspace, Gemini Notebook, and AI Studio. These aren't just theories; they're battle-tested strategies for content creation, market intelligence, and solving real-world business challenges. Each "Bite" comes with a hands-on challenge, urging you to apply what you've learned immediately. This isn't just learning; it's active transformation, equipping you with the practical AI fluency essential for today’s competitive landscape. Unleash your potential and redefine what's possible with Google’s AI tools.</span>
+</div>
+<div class='learning-plan-actions-row'>
+
+<ql-button-group id='view-selector' options='[{&quot;label&quot;:&quot;Grid&quot;,&quot;icon&quot;:&quot;grid_view&quot;,&quot;value&quot;:&quot;grid&quot;},{&quot;label&quot;:&quot;List&quot;,&quot;icon&quot;:&quot;list&quot;,&quot;value&quot;:&quot;list&quot;}]' tonal value='grid'></ql-button-group>
+</div>
+<div class='activities'>
+<div class='grid' id='activities-wrapper'>
+<ql-activity-card description='This video covers how to create your own Gemini Gems, advanced AI capabilities that can automate repetitive tasks and supercharge your productivity.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Gemini Gems – Your ultimate marketing sidekick' padded path='/paths/2480/course_templates/1349' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video will cover how you can leverage Gemini&#39;s advanced AI capabilities in Google Docs to brainstorm ideas, draft various marketing content, and collaborate with your team.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Content Generation with Gemini Made Easy' padded path='/paths/2480/course_templates/1369' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description=' This video covers prompt engineering fundamentals for effective AI communication. Learn a simple framework (Persona, Task, Context, Format) to craft clear prompts, getting better, faster results from Gemini in Google Workspace. Discover how to use natural language, be specific, and...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Prompting like a Pro with Google Workspace' padded path='/paths/2480/course_templates/1365' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description=' This video covers how you can use Gemini to summarize long documents in Google Workspace, so you can quickly get the information you need and save time. You&#39;ll learn how to use Gemini to summarize entire documents or just selected...' duration='10 minutes' elevation='-1' name='AI Boost Bites: TL;DR with Gemini in Docs &amp; Drive' padded path='/paths/2480/course_templates/1357' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to personalize your Gemini results in Google
+    Workspace. Learn to incorporate documents and research papers directly
+    into your prompts using the &quot;@&quot; symbol to get more targeted and relevant
+    AI output tailored to your needs.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Personalization with customized prompts' padded path='/paths/2480/course_templates/1366' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='AI Boost Bites is a video series designed to help you leverage Google&#39;s AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you&#39;ll...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Poke Holes in Your Strategy' padded path='/paths/2480/course_templates/1363' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to eliminate tedious manual data entry using Gemini. Learn how to take a picture or screenshot of data (from PDFs, paper, or images) and prompt Gemini to instantly convert it into a structured Google Sheet. Discover...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Gemini Image-to-Sheets Hack' padded path='/paths/2480/course_templates/1353' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to use Gemini and Apps Script to automate manual tasks across Google Workspace. You&#39;ll learn to prompt Gemini to generate Apps Script code that automatically drafts email reminders in Google Sheets for tasks not marked &#39;Complete.&#39;...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Automate tasks with Gemini and Apps Script' padded path='/paths/2480/course_templates/1371' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description=' This video covers how you can create your own Brevity Gem to summarize and transform messy notes or long documents into clear, concise, executive-ready summaries. ' duration='10 minutes' elevation='-1' name='AI Boost Bites: Exec Summaries with Gemini Gems' padded path='/paths/2480/course_templates/1355' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video will cover how to leverage Gemini Gems to create authentic
+    social media posts in your leader&#39;s unique voice. Learn to overcome the
+    challenge of scaling executive social presence by training a Gem with
+    writing samples and clear instructions....' duration='10 minutes' elevation='-1' name='AI Boost Bites: Amplify Exec Voices with AI' padded path='/paths/2480/course_templates/1350' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how you can leverage Gemini&#39;s advanced AI capabilities within Google Sheets to effortlessly pull data and generate insights in minutes, all without the need for any technical or coding background.' duration='10 minutes' elevation='-1' name='AI Boost Bites: No-Code Sheets &amp; Scripts' padded path='/paths/2480/course_templates/1351' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to use Gemini in Slides to automatically generate
+    meeting recaps and draft follow-up emails, which can streamline your
+    post-meeting workflow and save you time.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Gemini Slide Summaries' padded path='/paths/2480/course_templates/1367' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to use Gemini in Gmail to summarize emails, find information, and draft replies, helping you manage your inbox more efficiently.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Tame Your Inbox with AI' padded path='/paths/2480/course_templates/1416' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description=' This video covers how to use the &#39;Help me create&#39; feature in Google Docs to generate a complete, formatted document by referencing content from other files in your Drive. ' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create Docs in Seconds' padded path='/paths/2480/course_templates/1419' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to use Gemini in Gmail to draft new emails,
+    refine their tone, respond with context from Drive files, and use smart
+    reply suggestions.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Email Content Creation' padded path='/paths/2480/course_templates/1421' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='AI Boost Bites is a video series designed to help you leverage Google&#39;s AI tools in your daily work. Each episode, under 10 minutes, features a quick video demonstrating a real-world AI use case or topic. After the video, you&#39;ll...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Presentation Scripts with Gemini' padded path='/paths/2480/course_templates/1433' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='This video covers how to build a personalized &quot;Work with Me&quot; agent using Gemini Gems, which helps streamline foundational feedback and makes your meetings more strategic and efficient.' duration='10 minutes' elevation='-1' name='AI Boost Bites: Your Personal Feedback Agent' padded path='/paths/2480/course_templates/1449' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini Canvas to turn a simple drawing into a working app. You&#39;ll upload a sketch, use a simple prompt to generate code, watch a live preview build itself, and make iterative changes to...' duration='10 minutes' elevation='-1' name='AI Boost Bites: From Napkin Sketch to Functional App' padded path='/paths/2480/course_templates/1480' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use the Create menu in Gemini Canvas to instantly convert a block of text into a variety of visual formats. You’ll see how to take a brainstormed marketing campaign and turn it into both...' duration='10 minutes' elevation='-1' name='AI Boost Bites: One-Click Campaign Visuals' padded path='/paths/2480/course_templates/1485' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use creative prompts in Gemini to make complex research fun and easy to understand. You&#39;ll see how to ask Gemini to research a topic and present the findings in a creative format, like a...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create Your Ultimate College Scouting Report' padded path='/paths/2480/course_templates/1471' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to build a working music synthesizer using a simple text prompt in Gemini Canvas. You&#39;ll see how to specify controls like waveform, attack, and sustain, and then interact with the generated instrument to create and...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Become a &quot;Vibe DJ&quot;' padded path='/paths/2480/course_templates/1493' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use a simple text prompt in Gemini Canvas to build a playable game. You&#39;ll see how to create a Tic-Tac-Toe game, use a follow-up prompt to customize its theme to a retro 8-bit style,...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create Your Own Retro Arcade Game' padded path='/paths/2480/course_templates/1467' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use the Guided Learning experience in Gemini to build a deep understanding of any topic. You&#39;ll see how to start a conversation, engage with Gemini&#39;s probing questions, and use interactive tools like diagrams and...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Guided Learning with Gemini' padded path='/paths/2480/course_templates/1481' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to build a custom personal utility app using Gemini Canvas. You&#39;ll see how to write a detailed prompt to create a Pomodoro timer tailored to your specific needs, and then use follow-up prompts to adjust...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create Your Own Productivity Tools' padded path='/paths/2480/course_templates/1476' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to create an interactive 3D simulation using Gemini Canvas. You&#39;ll see how to build a 3D model of the solar system from a single sentence and then use follow-up prompts to add interactive and educational...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create a 3D Solar System' padded path='/paths/2480/course_templates/1488' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to build a working prototype of a personalized weather app using Gemini Canvas. You&#39;ll see how to specify the cities for a 7-day forecast and then use a follow-up prompt to change the app&#39;s theme...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Build a Personalized Weather App' padded path='/paths/2480/course_templates/1472' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini Deep Research to conduct competitive marketing analysis. You&#39;ll see how to submit a research prompt, approve the personalized research plan Gemini creates, and receive a detailed, synthesized report on competitor campaigns to...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Get Your Competitor&#39;s Playbook in Minutes' padded path='/paths/2480/course_templates/1494' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to turn your study guides into interactive quizzes using Gemini Canvas. You&#39;ll see how to upload your notes and use a simple prompt to generate a quiz with multiple choice and fill-in-the-blank questions that provide...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Gamify Your Study Guides' padded path='/paths/2480/course_templates/1468' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to build a reusable, custom &quot;Study Guide Gem.&quot; You&#39;ll see how to write the core instructions for your Gem once, and then use it again and again to transform messy notes and articles into a...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Your Personal AI Tutor' padded path='/paths/2480/course_templates/1482' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to create complex animated art using Gemini Canvas. You&#39;ll see how to write a descriptive prompt to generate a kinetic typography animation with distortion effects, and then use a follow-up prompt to completely change its...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Turn Your Ideas into Animated Art' padded path='/paths/2480/course_templates/1486' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to create an animated bar chart race using Gemini Canvas. You&#39;ll see how to write a prompt to visualize data over time and then use a follow-up prompt to refine the animation, such as slowing...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Animated Charts with Gemini' padded path='/paths/2480/course_templates/1473' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini Deep Research to make complex purchasing decisions with confidence. You&#39;ll see how to write a nuanced, personal prompt about your specific needs and receive a synthesized, comparative report that cuts through the...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Make Any Big Purchase with Confidence' padded path='/paths/2480/course_templates/1477' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn pro tips for conducting thorough competitive research with Gemini Deep Research. You&#39;ll see how to enhance a basic prompt by assigning a persona, specifying a table format for the output, and directing the AI to...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Supercharge Research with Gemini' padded path='/paths/2480/course_templates/1498' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use an AI assistant to streamline large-scale event planning. You&#39;ll see how to prompt an AI to brainstorm off-site ideas, create fair groups for icebreakers, build a shuttle schedule based on arrival times, and...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Streamline Event Planning with AI' padded path='/paths/2480/course_templates/1490' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to create imaginative portraits in the Gemini app that maintain your likeness. You&#39;ll see how to use the &quot;Subject, Action, Scene, Style&quot; formula for better prompts, transport yourself into a vintage photo, and combine a...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Create the Perfect Portrait' padded path='/paths/2480/course_templates/1491' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to art direct your images in the Gemini app. You&#39;ll see how to use multi-turn editing to furnish an empty room step-by-step, and how to &quot;remix&quot; a photo by applying the color and texture of...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Become an AI Art Director for Your World' padded path='/paths/2480/course_templates/1474' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn the &quot;creative mashup artist&quot; technique for combining images. You&#39;ll see how to generate a subject and a scene as two separate images, and then use a final blending prompt to fuse the astronaut from the...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Become a Creative Mashup Artist' padded path='/paths/2480/course_templates/1492' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use the =AI() function in Google Sheets to automate your work. You&#39;ll see how to generate text like slogans, summarize paragraphs of customer feedback, and categorize data by classifying inquiries and analyzing sentiment.' duration='10 minutes' elevation='-1' name='AI Boost Bites: AI Magic in a Sheets Cell' padded path='/paths/2480/course_templates/1487' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use the &quot;Ask Gemini&quot; feature in Google Sheets to manage your data with natural language. You&#39;ll see how to ask Gemini to create dropdowns, highlight sales data, create a pivot table, filter by month,...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Talk to Your Data in Sheets' padded path='/paths/2480/course_templates/1484' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini in Google Slides to build polished presentations efficiently. You&#39;ll see how to create slides by referencing content directly from your Google Drive files using the &quot;@&quot; symbol. You&#39;ll also learn to generate...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Build Slides Fast with Gemini' padded path='/paths/2480/course_templates/1499' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini in Google Workspace to manage your calendar from your Gmail inbox. You&#39;ll learn how to ask Gemini about your schedule in the side panel and how to create new events without switching...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Gemini Calendar Hacks in Gmail' padded path='/paths/2480/course_templates/1495' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini in Google Sheets to automatically generate organized trackers from unstructured data. You&#39;ll learn how to write a prompt that references other Google Drive files using the &quot;@&quot; symbol. You&#39;ll also see how...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Notes to Sheets with Gemini' padded path='/paths/2480/course_templates/1489' relaunch_extra type='course'></ql-activity-card>
+<ql-activity-card description='In this video, you&#39;ll learn to use Gemini in Google Sheets for advanced data analysis. You&#39;ll learn how to create data visualizations, like a scatter plot, using a simple prompt. You&#39;ll also learn how to ask Gemini to analyze your...' duration='10 minutes' elevation='-1' name='AI Boost Bites: Advanced Analysis in Sheets' padded path='/paths/2480/course_templates/1479' relaunch_extra type='course'></ql-activity-card>
+
+</div>
+</div>
+</div>
+<script src="https://cdn.qwiklabs.com/assets/learning_plan_show-6d56f6f793165674658f3333d553b32d0cbad20a.js"></script>
+
+
+</main>
+
+<footer slot='drawer-content'>
+<nav ariaLabel='Footer navigation' class='application-footer relaunch-extra'>
+
+<div class='footer-container'>
+<div class='footer-logo'>
+<a class="custom-logo" aria-label="Google Skills" href="/"><div class="custom-logo"><img alt="Google Skills" height="24" aria-label="Google Skills" src="https://cdn.qwiklabs.com/lqJbxogu4tSLez1OvjDcIO8rwow6cPLwvrfIdmQLf6U%3D" /></div></a>
+</div>
+<div class='footer-row'>
+<a href="/">Home</a>
+<a href="/catalog">Catalog</a>
+<a href="/paths">Paths</a>
+<a href="/subscriptions">Subscriptions</a>
+<a href="/profile/stay_on_track">Activities</a>
+<a href="/profile/badges">Achievements</a>
+<a href="/my_account/profile">Settings</a>
+<a href="/users/sign_in">Sign in or Join</a>
+</div>
+<div class='footer-row'>
+<a class="g-cloud-youtube" target="_blank" rel="noopener" href="https://www.youtube.com/@googlecloud"><ql-icon icon='video_youtube'></ql-icon>
+Youtube
+</a><a rel="noopener" onclick="hallofmirrors.helpService.startHelp({&quot;productData&quot;:{&quot;userId&quot;:null},&quot;context&quot;:&quot;&quot;}); return false;" href="/help">Help Center</a>
+<a href="/terms_of_service">Terms</a>
+<a target="_blank" href="/privacy_policy">Privacy</a>
+<a aria-hidden='true' class='glue-cookie-notification-bar-control'>
+Manage cookies
+</a>
+</div>
+</div>
+
+</nav>
+</footer>
+</div>
+</div>
+</div>
+
+
+<span class='hidden' id='flash-sibling-before'></span>
+<ql-snackbar></ql-snackbar>
+
+<script data-glue-cookie-notification-bar-category='2A' src='https://www.gstatic.com/glue/cookienotificationbar/cookienotificationbar.min.js'></script>
+
+
+
+
+
+<script>
+  document.addEventListener("turbo:load", function () {
+    ql.initMaterialInputs();
+    ql.tomSelect.init();
+    initTabs();
+    ql.list.init();
+    ql.favoriting.init();
+    ql.header.myAccount.init();
+    initTooltips();
+    ql.autocomplete.init();
+    ql.modals.init();
+    ql.toggleButtons.init();
+    Turbo.session.drive = false;
+    ql.gridListView.init();
+  ql.searchHeader.init({isRelaunch: true});
+  (new ql.searchAutocomplete()).init({forHeaderNew: true, topSuggestions: [{"label":"machine learning"},{"label":"cloud architecture"},{"label":"generative ai"},{"label":"data analyst"},{"label":"security fundamentals"}]});
+  ql.messages.init();
+  ql.jumpContent.init();
+  
+  }, {once: true});
+</script>
+<script>
+  document.addEventListener("turbo:load", () => ql.analyticsV2.init());
+  document.addEventListener("turbo:frame-load", () => ql.analyticsV2.init());
+</script>
+<script>
+  document.addEventListener("turbo:load", function () {
+    ql.celebrations.init({"course_complete":"COURSE COMPLETED","document_complete":"DOCUMENT COMPLETED","experience_label":"Experience points","lab_complete":"LAB COMPLETED","learning_plan_complete":"PATH COMPLETED","lesson_complete":"LESSON COMPLETED","quiz_complete":"QUIZ COMPLETED","video_complete":"VIDEO COMPLETED"});
+    ql.achievements.init();
+  }, {once: true});
+</script>
+
+</body>
+</html>
+
+

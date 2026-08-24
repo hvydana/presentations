@@ -1,0 +1,64 @@
+Left: The ML6 G1 robot with the default rubber hands.
+Right: The ML6 G1 robot with Inspire Hands attached.
+Executive Summary
+Humanoid robots can struggle to maintain balance when additional weight or arm movement shifts their center of mass. The default locomotion policy of the Unitree G1 robot cannot walk stably when equipped with Inspire Hands and holding its arms raised. In this project, we trained an arm-pose invariant locomotion policy using reinforcement learning. By introducing arm-pose randomization during training and modifying the reward structure in the Holosoma framework, we enabled stable walking regardless of arm position.
+We validate the policy through:
+-Sim-to-sim transfer (IsaacSim → Mujoco)
+-Sim-to-real deployment on the physical G1 robot
+We open source:
+-The trained locomotion policy
+-The Mujoco robot model with Inspire Hands
+-Inference code for deployment
+This work enables humanoid robots to walk while manipulating objects — a foundational step toward real-world multitasking robotics.
+Multitasking Is Not So Easy
+Often, humans take for granted our ability to perform simple tasks at the same time without thinking. For example, being able to walk and chew bubblegum. In fact, this phrase describes the ability to multitask as being so basic as to be fundamental to intelligence. But this “basic” ability to multitask does not come so easily for robots.
+In this case, we are of course not talking about making a robot chew bubblegum, but instead do something useful, such as performing repetitive tasks on an assembly line. The basic foundation of abilities that a robot must have to perform useful tasks is to be able to walk and simultaneously use its arms.
+At ML6 we recently purchased a Unitree G1 Humanoid robot. This robot comes with rubber hands, which are not actuated. Unitree helpfully sells the robot with Inspire Hands, which are actuated and designed to mimic the human hand.
+However, it does not come with the ability to walk and use these hands at the same time. It can walk with these hands, when its arms hang by its side, but the robot is unable to keep its balance and properly walk when the arms are raised to any degree. We want the robot to be able to walk, while an Imitiation Learning policy controls the arms. To learn more about our efforts with Imitation Learning, read this blog post.
+Walking Without Using Your Arms
+The model that controls the robot’s walking is called a locomotion policy. The G1 robot comes with locomotion policy installed, which works well when the robot is equipped with its original rubber hands. But this default locomotion policy is not trained to cope with the Inspire Hands. These are larger and heavier and so they throw off the robot’s centre of gravity. While the default locomotion policy can cope with the Inspire Hands while the robot’s arms are hanging by its side, it loses balance as soon as the arms are raised.
+🔎 What Is a Locomotion Policy? Expand for definition.
+In humanoid robotics, a locomotion policy is a control function — often learned via reinforcement learning — that maps sensor observations to joint motor commands to maintain balance and generate stable walking gaits under dynamic conditions.
+Why Center of Mass Matters in Humanoid Robots
+Raising or extending the arms shifts the robot’s center of mass and alters its angular momentum. If the locomotion controller is not trained to compensate for these dynamic mass shifts, balance degrades and the robot falls.
+The default policy trying to raise its arms with the Inspire Hands attached. Note that it is meant to stand still.
+So how can we train a policy which allows us to use the robot’s arms with the Inspire Hands while it walks?
+We can use reinforcement learning (RL) to train a humanoid locomotion policy that is invariant to arm position and robust to center-of-mass shifts.
+This means that the robot’s ability to walk will not depend on the position of its arms.
+🔎 What Is Arm-Pose Invariance? Expand for definition.
+Arm-pose invariance refers to a locomotion policy’s ability to maintain gait stability regardless of arm configuration. This property is essential when a humanoid robot performs manipulation tasks while walking.
+To do so we use the Holosoma library, published by Amazon FAR. Holosoma is a RL framework to train locomotion and whole-body tracking policies (which control the whole body of the robot, not just the legs) for humanoid robots. They provide a recipe to quickly train a locomotion policy for a G1 robot.
+Their original training recipe can be read in detail in the original paper. I will outline some important details here. The first part of their recipe is the RL algorithm, Fast-SAC. A full description of Fast-SAC would be too long for this blogpost, but suffice to say it is the state-of-the-art algorithm in RL currently.
+The second ingredient is the simulation environment. They use “massively parallel simulations”, scaling the number of concurrent simulation environments up to 32768 at once. They find that this not only decreases the time it takes to train a policy, but also increases the performance of the final trained policy.
+We only need to make two changes to Holosoma’s original locomotion training recipe:
+- 
+Add Inspire Hands to the robot’s model.
+- 
+Have the robot’s arms move to random positions while training.
+Point #1 is easy enough: there is a URDF of the G1 robot with Inspire Hands provided by Unitree. We made a Mujoco version of this robot model for sim2sim validation. We will open source this file on Huggingface.
+The idea of moving the robot’s arms to random positions it to make the policy invariant to arm position. If the policy learns to walk and stand with the arms in random positions, then it will not matter where the arms are when the robot is walking in real life. (Note: we are not the first to think of this: OpenHomie also samples random arm positions to train an arm-pose invariant policy).
+The original Holosoma RL locomotion training recipe uses episodes that last 20 seconds. Each episode has the robot follow two random velocities, each for 10 seconds, with standing still (a velocity of 0) sampled 20% of the time. The original Holosoma paper constructs a reward which penalises the arms deviating from a default position by the side of the robot.
+We alter this recipe by randomly sampling a joint position every second of the episode for each joint in both arms. The arm is then moved to the new position over one second. The penalty for arm pose deviation is removed, and the penalty for self-contact from the whole-body tracking experiment is added.
+Training the policy with random arm positions.
+Sim-to-Sim and Sim-to-Real Validation
+As in any good RL project, we first validate the results of our trained policy by sim-to-sim transfer. We train the policy in IsaacSim and validate it in Mujoco, using the Holosoma library. Below you can see our custom policy, which is able to stand still and walk with the arms outstretched, while the default policy from Holosoma is unable to even keep its balance when holding its arms out.
+🔎 What Is Sim-to-Sim and Sim-to-Real Transfer? Expand for definition.
+Sim-to-Sim transfer is the process of training a control policy in one physics simulator and transferring it to a different simulator, while Sim-to-real transfer is the process of training a control policy in a physics simulator and deploying it on real hardware. In both scenarios with the aim of maintaining performance. Robust sim-to-sim and sim-to-real pipelines reduce hardware risk and accelerate robotics development cycle.
+01 The arm-position invariant locomotion policy standing and then walking forward whilst holding its arms up.
+02 The default Holosoma locomotion policy trying to stand still whilst holding its arms up.
+But no good RL in robotics project is complete without sim2real validation. We transfer the policy to our G1 robot and have it stand and walk with arms outstretched, again using the Holosoma library.
+The default policy is unable to hold the Inspire Hands up.
+We transfer the policy to our G1 robot and have it stand and walk with arms up, again using the Holosoma library. It is able to walk successfully!
+Our custom policy on the G1 robot, walking and standing with the Inspire Hands.
+Why This Matters for Industrial Robotics
+In structured industrial environments, fixed-base robots operate under predictable constraints. Humanoid robots, however, must maintain dynamic balance while performing contact-rich tasks and mobile manipulation.
+Arm-pose invariant locomotion is a prerequisite for:
+- Assembly-line manipulation while mobile
+- Industrial inspection
+- Contact-rich locomotion
+- Search and rescue operations
+Enabling stable walking under external disturbances and shifting contact dynamics moves humanoid robotics closer to real-world deployment.
+Now to Chew Bubblegum
+Since we can walk and use our arms, the next steps are to add an Imitation Learning policy so that the robot can perform a useful task while walking.
+In the spirit of enabling robotics research and development, we open source the trained locomotion policy, and Mujoco robot model on our Huggingface, as well as code snippets to use the policy.
+Follow us here to see more updates on AI in robotics and learn more on our website.

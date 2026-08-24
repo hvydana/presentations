@@ -1,0 +1,55 @@
+A comprehensive suite of GPU-accelerated environments for robot learning research and sim-to-real, built with MuJoCo MJX.
+Features include:
+- Classic control environments from dm_control .
+- Quadruped and bipedal locomotion environments.
+- Non-prehensile and dexterous manipulation environments.
+- Vision-based support available via the MJWarp Batch Renderer.
+For more details, check out the project website.
+Note
+We now support training with both the MuJoCo MJX JAX implementation, as well as the MuJoCo Warp implementation at HEAD. See this discussion post for more details.
+You can install MuJoCo Playground directly from PyPI:
+pip install playground
+Important
+We recommend users to install from source to get the latest features and bug fixes from MuJoCo.
+Important
+Requires Python 3.10 or later.
+- git clone git@github.com:google-deepmind/mujoco_playground.git && cd mujoco_playground
+- Install uv, a faster alternative to pip
+- Create a virtual environment: uv venv --python 3.12
+- Activate it: source .venv/bin/activate
+- Install CUDA 12 jax: uv pip install -U "jax[cuda12]" --index-url https://pypi.org/simple  - Verify GPU backend: python -c "import jax; print(jax.default_backend())" should print gpu.unset LD_LIBRARY_PATH may need to be run before running this command.
+- Verify GPU backend: 
+- Install playground from source: uv --no-config sync --all-extras
+- Verify installation: uv --no-config run python -c "import mujoco_playground; print('Success')"  - Note: Menagerie assets will be downloaded automatically the first time you load a locomotion or manipulation environment. You can trigger this with: uv --no-config run python -c "from mujoco_playground import locomotion; locomotion.load('G1JoystickFlatTerrain')"
+- Note: Menagerie assets will be downloaded automatically the first time you load a locomotion or manipulation environment. You can trigger this with: 
+For basic usage, navigate to the repo's directory, install from source with jax[cuda12], and run:
+train-jax-ppo --env_name CartpoleBalance
+To train with MuJoCo Warp:
+train-jax-ppo --env_name CartpoleBalance --impl warp
+Or with uv:
+uv --no-config run train-jax-ppo --env_name CartpoleBalance --impl warp
+uv --no-config run train-rsl-ppo --env_name CartpoleBalance --impl warp
+| Colab | Description | 
+|---|---|
+|  | Introduction to the Playground with DM Control Suite | 
+|  | Locomotion Environments | 
+|  | Manipulation Environments | 
+|  | Vision Environments | 
+To interactively view trajectories throughout training with rscope, install it (pip install rscope) and run:
+python learning/train_jax_ppo.py --env_name PandaPickCube --rscope_envs 16 --run_evals=False --deterministic_rscope=True
+# In a separate terminal
+python -m rscope
+Get started by installing the library and exploring its features! Found a bug? Report it in the issue tracker. Interested in contributing? If you are a developer with robotics experience, we would love your help—check out the contribution guidelines for more details.
+Users with NVIDIA Ampere architecture GPUs (e.g., RTX 30 and 40 series) may experience reproducibility issues in mujoco_playground due to JAX’s default use of TF32 for matrix multiplications. This lower precision can adversely affect RL training stability. To ensure consistent behavior with systems using full float32 precision (as on Turing GPUs), please run export JAX_DEFAULT_MATMUL_PRECISION=highest in your terminal before starting your experiments (or add it to the end of ~/.bashrc).
+To reproduce results using the same exact learning script as used in the paper, run the brax training script which is available here. There are slight differences in results when using the learning/train_jax_ppo.py script, see the issue here for more context.
+If you use Playground in your scientific works, please cite it as follows:
+@misc{mujoco_playground_2025,
+  title = {MuJoCo Playground: An open-source framework for GPU-accelerated robot learning and sim-to-real transfer.},
+  author = {Zakka, Kevin and Tabanpour, Baruch and Liao, Qiayuan and Haiderbhai, Mustafa and Holt, Samuel and Luo, Jing Yuan and Allshire, Arthur and Frey, Erik and Sreenath, Koushil and Kahrs, Lueder A. and Sferrazza, Carlo and Tassa, Yuval and Abbeel, Pieter},
+  year = {2025},
+  publisher = {GitHub},
+  url = {https://github.com/google-deepmind/mujoco_playground}
+}
+The texture used in the rough terrain for the locomotion environments is from Polyhaven and licensed under CC0.
+All other content in this repository is licensed under the Apache License, Version 2.0. A copy of this license is provided in the top-level LICENSE file in this repository. You can also obtain it from https://www.apache.org/licenses/LICENSE-2.0.
+This is not an officially supported Google product.

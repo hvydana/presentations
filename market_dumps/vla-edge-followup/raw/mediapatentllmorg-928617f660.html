@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PyTorch Fixes ROCm/CUDA Embedding; AMD Education Cloud, NVIDIA RTX 5090 News - PatentLLM Blog</title>
+    <link rel="icon" href="/static/favicon.ico">
+    <link rel="apple-touch-icon" href="/static/icon.png">
+    <link rel="canonical" href="https://media.patentllm.org/news/hardware/pytorch-fixes-rocm-cuda-embedding-amd-education-cloud-nvidia-20260809">
+<meta name="description" content="Today&#39;s top tech news features a crucial PyTorch update addressing ROCm/CUDA quantized embedding issues. AMD&#39;s ROCm blog highlights a new learning cloud for AI education, while NVIDIA&#39;s upcoming RTX 5">
+<!-- Open Graph -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="PyTorch Fixes ROCm/CUDA Embedding; AMD Education Cloud, NVIDIA RTX 5090 News">
+<meta property="og:description" content="Today&#39;s top tech news features a crucial PyTorch update addressing ROCm/CUDA quantized embedding issues. AMD&#39;s ROCm blog highlights a new learning cloud for AI education, while NVIDIA&#39;s upcoming RTX 5">
+<meta property="og:url" content="https://media.patentllm.org/news/hardware/pytorch-fixes-rocm-cuda-embedding-amd-education-cloud-nvidia-20260809">
+<meta property="og:site_name" content="PatentLLM Blog">
+<meta property="og:image" content="https://media.patentllm.org/static/icon.png">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PyTorch Fixes ROCm/CUDA Embedding; AMD Education Cloud, NVIDIA RTX 5090 News">
+<meta name="twitter:description" content="Today&#39;s top tech news features a crucial PyTorch update addressing ROCm/CUDA quantized embedding issues. AMD&#39;s ROCm blog highlights a new learning cloud for AI education, while NVIDIA&#39;s upcoming RTX 5">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsArticle", "headline": "PyTorch Fixes ROCm/CUDA Embedding; AMD Education Cloud, NVIDIA RTX 5090 News", "description": "Today's top tech news features a crucial PyTorch update addressing ROCm/CUDA quantized embedding issues. AMD's ROCm blog highlights a new learning cloud for AI education, while NVIDIA's upcoming RTX 5", "url": "https://media.patentllm.org/news/hardware/pytorch-fixes-rocm-cuda-embedding-amd-education-cloud-nvidia-20260809", "author": {"@type": "Person", "name": "soy-tuber"}, "publisher": {"@type": "Organization", "name": "PatentLLM Blog"}, "inLanguage": "en", "datePublished": "2026-08-09"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://media.patentllm.org/"}, {"@type": "ListItem", "position": 2, "name": "Tech News", "item": "https://media.patentllm.org/news/"}, {"@type": "ListItem", "position": 3, "name": "GPU, CUDA & Autonomous Driving", "item": "https://media.patentllm.org/news/hardware/"}]}</script>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:"Segoe UI","Noto Sans JP",sans-serif;background:#fafafa;color:#333;line-height:1.6}
+        a{color:#1a73e8;text-decoration:none}a:hover{text-decoration:underline}
+
+        /* Header */
+        .site-header{max-width:1200px;margin:0 auto;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #e0e0e0}
+        .site-header .logo{display:flex;align-items:center;gap:8px;color:#333;font-weight:700;font-size:1.15em}
+        .site-header .logo img{width:32px;height:32px;border-radius:50%}
+        .site-header .logo:hover{text-decoration:none}
+        .lang-btn{background:#333;color:#fff;padding:2px 10px;border-radius:4px;font-size:0.75em;margin-left:10px;cursor:default;opacity:0.5}
+        .hdr-nav{display:flex;gap:4px;flex-wrap:wrap;align-items:center}
+        .hdr-btn{background:#fff;color:#333;border:1px solid #ccc;padding:2px 10px;border-radius:4px;font-size:0.72em;transition:0.15s}
+        .hdr-btn:hover{background:#333;color:#fff;text-decoration:none}
+
+        /* Main */
+        .main-content{max-width:1200px;margin:0 auto;padding:20px}
+
+        /* Cards grid */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+        .card{display:block;background:#fff;border:1px solid #e0e0e0;padding:20px;border-radius:8px;transition:0.2s;color:#333}
+        .card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08);transform:translateY(-2px);text-decoration:none}
+        .card-cat{display:inline-block;background:#e8f0fe;color:#1a73e8;padding:2px 10px;border-radius:12px;font-size:0.75em;margin-bottom:8px}
+        .card h3{font-size:1em;margin-bottom:6px}
+        .card p{font-size:0.88em;color:#666;margin-bottom:6px}
+        .card time{font-size:0.78em;color:#999}
+
+        /* Article */
+        .article-wrap{background:#fff;padding:32px;border-radius:8px;border:1px solid #e0e0e0;max-width:860px;margin:0 auto}
+        .article-wrap h1{font-size:1.5em;margin-bottom:8px}
+        .article-meta{font-size:0.85em;color:#888;margin-bottom:20px}
+        .article-body{font-size:0.95em;line-height:1.9}
+        .article-body p{margin:12px 0}
+        .article-body h2{font-size:1.25em;margin:28px 0 12px;border-bottom:1px solid #eee;padding-bottom:6px}
+        .article-body h3{font-size:1.1em;margin:20px 0 8px}
+        .article-body a{word-break:break-all}
+        .code-block{background:#1e1e1e;color:#d4d4d4;padding:16px 20px;border-radius:6px;overflow-x:auto;font-family:"SF Mono","Consolas",monospace;font-size:0.85em;line-height:1.7;margin:12px 0;white-space:pre-wrap}
+        .code-block code{background:none;color:inherit;padding:0;font-size:inherit}
+
+        /* Breadcrumb */
+        .breadcrumb{font-size:0.82em;margin-bottom:16px;color:#888}
+        .breadcrumb a{color:#888}.breadcrumb a:hover{color:#333}
+        .breadcrumb span{margin:0 4px}
+        .breadcrumb .current{color:#333}
+
+        /* Section heading */
+        .section-heading{font-size:1.1em;margin-bottom:16px;color:#333;border-left:4px solid #1a73e8;padding-left:10px}
+
+        /* News item */
+        .news-item{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:20px;margin-bottom:16px}
+        .news-item h3{font-size:1.05em;margin-bottom:4px}
+        .news-item .source{font-size:0.8em;color:#1a73e8;margin-bottom:8px}
+        .news-item .desc{font-size:0.92em;color:#444;margin-bottom:8px;line-height:1.7}
+        .news-item .comment{font-size:0.88em;color:#666;font-style:italic;border-left:3px solid #ddd;padding-left:12px;margin-top:8px}
+
+        /* Footer */
+        .site-footer{max-width:1200px;margin:40px auto 0;padding:16px 20px;border-top:1px solid #ddd;text-align:center;font-size:0.8em;color:#999}
+        .site-footer a{color:#999}
+
+        /* Responsive */
+        @media(max-width:768px){
+            .site-header{flex-direction:column;gap:8px}
+            .hdr-nav{justify-content:center}
+            .grid{grid-template-columns:1fr}
+            .article-wrap{padding:16px}
+        }
+    </style>
+    
+</head>
+<body>
+    <header class="site-header">
+        <div style="display:flex;align-items:center">
+            <a href="/" class="logo"><img src="/static/icon.png" alt="">PatentLLM</a>
+        </div>
+        <div class="hdr-nav">
+            <a href="https://hanrei2.patentllm.org" class="hdr-btn" target="_blank" rel="noopener">HanreiLLM</a>
+            <a href="https://patentllm.org" class="hdr-btn" target="_blank" rel="noopener">PatentLLM</a>
+            <a href="https://subsidy.patentllm.org" class="hdr-btn" target="_blank" rel="noopener">SubsidyDB</a>
+            <a href="/rag-saas" class="hdr-btn">RAG</a>
+            <a href="/tech-stack" class="hdr-btn">Eng</a>
+            <a href="/apps" class="hdr-btn">Apps</a>
+            <a href="https://github.com/soy-tuber" class="hdr-btn" target="_blank" rel="noopener">GitHub</a>
+            <a href="/cdn-cgi/l/email-protection#95e4a5a2a5a7a0f4d5f2f8f4fcf9bbf6faf8" class="hdr-btn">Inquiry</a>
+        </div>
+    </header>
+    <main class="main-content">
+        
+
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  
+    
+      <a href="/">Home</a> <span>/</span>
+    
+  
+    
+      <a href="/news/">Tech News</a> <span>/</span>
+    
+  
+    
+      <a href="/news/hardware/">GPU, CUDA &amp; Autonomous Driving</a> <span>/</span>
+    
+  
+    
+      <span class="current">PyTorch Fixes ROCm/CUDA Embedding; AMD E</span>
+    
+  
+</nav>
+
+<div class="article-wrap">
+    <h1>PyTorch Fixes ROCm/CUDA Embedding; AMD Education Cloud, NVIDIA RTX 5090 News</h1>
+    <div class="article-meta">
+        <span>GPU, CUDA &amp; Autonomous Driving</span>
+         &middot; 2026-08-09
+    </div>
+
+    
+    <p style="color:#555;margin-bottom:24px;font-size:0.95em;line-height:1.7">Today&#39;s top tech news features a crucial PyTorch update addressing ROCm/CUDA quantized embedding issues. AMD&#39;s ROCm blog highlights a new learning cloud for AI education, while NVIDIA&#39;s upcoming RTX 5090 GPU appears in an unusual retail bundle.</p>
+    
+
+    
+    <div class="news-item">
+        <h3>PyTorch Fixes ROCm/CUDA Quantized Embedding Bit-Field Extraction (PyTorch)</h3>
+        
+        <div class="source"><a href="https://github.com/pytorch/pytorch/releases/tag/trunk%2Fbbf14e4716f51901fe49058e0ad0f04c0be56800" target="_blank" rel="noopener">PyTorch</a></div>
+        
+        <div class="desc">An official PyTorch trunk release (bbf14e4716f51901fe49058e0ad0f04c0be56800) addresses a critical bug in bit-field extraction (`bfe()`) for quantized CUDA embedding operations, specifically impacting the ROCm backend. This fix is crucial for developers working with quantized models on NVIDIA and AMD GPUs, as incorrect bit-field extraction can lead to precision errors or outright failures in complex numerical computations.
+
+The correction ensures the accurate handling of bit-level operations, which are fundamental in optimized, low-precision AI models. By rectifying this, PyTorch significantly improves the reliability and performance consistency of quantized embeddings across different GPU architectures. This is particularly beneficial for those leveraging AMD&#39;s ROCm platform alongside CUDA-enabled systems for AI workloads, ensuring that advanced quantization techniques can be applied more robustly across diverse hardware. This update is vital for maintaining the integrity of deep learning models that rely on efficient, quantized representations for deployment.</div>
+        
+        <div class="comment">This is a low-level but important fix. Incorrect bit-field operations can silently corrupt data in quantized models, so having this patched in PyTorch for both CUDA and ROCm improves cross-platform reliability for efficient AI inference.</div>
+        
+    </div>
+    
+    <div class="news-item">
+        <h3>AMD&#39;s ROCm Blog Spotlights AUP Learning Cloud for Streamlined AI Education (AMD ROCm Blog)</h3>
+        
+        <div class="source"><a href="https://rocm.blogs.amd.com/ecosystems-and-partners/rocm-aup-learning/README.html" target="_blank" rel="noopener">AMD ROCm Blog</a></div>
+        
+        <div class="desc">The AMD ROCm blog recently highlighted the AUP Learning Cloud, an initiative aimed at simplifying AI education on AMD platforms and fostering its open-source software ecosystem. This announcement underscores AMD&#39;s commitment to broadening access to its powerful Instinct accelerators and Ryzen processors for students and educators alike.
+
+The AUP Learning Cloud provides a hands-on environment where users can directly engage with AMD hardware to train advanced machine learning models, develop sophisticated AI agents, and conduct experiments with large language models (LLMs). This practical approach helps bridge the gap between theoretical understanding and real-world GPU-accelerated AI development. For the PatentLLM blog&#39;s audience, which prioritizes ROCm releases and GPU hardware news, this initiative is particularly relevant as it directly promotes the practical application and accessibility of AMD&#39;s AI computing stack, making it easier for new users to get started and for experienced developers to explore the ROCm platform.</div>
+        
+        <div class="comment">For anyone struggling to get hands-on with AMD&#39;s AI stack, this AUP Learning Cloud could be a game-changer. It lowers the barrier to entry for ROCm, making it easier to prototype and experiment with LLMs on AMD hardware.</div>
+        
+    </div>
+    
+    <div class="news-item">
+        <h3>NVIDIA RTX 5090 Surfaces in Unusual 8-Motherboard Bundle in Taiwan (Tom&#39;s Hardware)</h3>
+        
+        <div class="source"><a href="https://www.tomshardware.com/pc-components/gpus/nvidia-rtx-5090-ships-in-bizarre-8-motherboard-bundle-retailers-hold-gpus-hostage-similar-to-the-crypto-boom" target="_blank" rel="noopener">Tom&#39;s Hardware</a></div>
+        
+        <div class="desc">Tom&#39;s Hardware reports a peculiar bundling strategy for NVIDIA&#39;s upcoming RTX 5090 GPU in Taiwan, where a retailer is reportedly packaging the high-end graphics card with eight motherboards, entry-to-mid-range GPUs, and other components. While not an official product launch, this news provides early insight into the retail dynamics surrounding the RTX 5090, a highly anticipated addition to NVIDIA&#39;s GPU lineup.
+
+The bundling tactic, reminiscent of past cryptocurrency mining booms, raises concerns about artificial scarcity and inflated pricing. For readers interested in GPU hardware and NVIDIA&#39;s product roadmap, this signals the imminent arrival of the next-generation GPU, offering a glimpse into its market introduction strategy, however unconventional. The report highlights potential challenges in acquiring these cards at standard pricing and points to the intense demand for NVIDIA&#39;s latest accelerators.</div>
+        
+        <div class="comment">Seeing the RTX 5090 already tied up in these kinds of bundles before an official launch is a red flag. It hints at high demand and potential price gouging, making it even harder for developers and enthusiasts to get their hands on cutting-edge NVIDIA hardware.</div>
+        
+    </div>
+    
+
+    
+</div>
+
+
+    </main>
+    <footer class="site-footer">
+        <a href="/policy">Privacy Policy</a> | <a href="/cdn-cgi/l/email-protection#83f2b3b4b3b1b6e2c3e4eee2eaefade0ecee">Contact</a> | &copy; 2026 soy-tuber
+    </footer>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"37b6d59745c446d0b6b4b12d39535e50","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

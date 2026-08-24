@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="frontend/css/app.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="frontend/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="frontend/assets/favicon/favicon-16x16.png">
+    <meta name="msapplication-TileColor" content="#161fff">
+    <meta name="theme-color" content="#ffffff">
+    <script src="frontend/js/scroll.js" async></script>
+
+    <title>MuJoCo &mdash; Advanced Physics Simulation</title>
+
+  </head>
+  <body class="antialiased">
+
+
+  <main class="sitePage">
+    <div class="h-screen w-screen max-w-full">
+      <nav class="siteNavigation siteContainer w-screen">
+        <div class="siteNavigationLogo">
+          <a href="/">
+            MuJoCo
+          </a>
+        </div>
+        <nav class="siteNavigationMenu">
+          <a href="https://github.com/google-deepmind/mujoco/releases">
+            <div class="siteNavigationMenuItem ">
+              Download
+            </div>
+          </a>
+          <a href="https://mujoco.readthedocs.io/en/stable/overview.html">
+            <div class="siteNavigationMenuItem">
+              Documentation
+            </div>
+          </a>
+          <a href="https://github.com/google-deepmind/mujoco">
+            <div class="siteNavigationMenuItem">
+              GitHub
+            </div>
+          </a>
+        </nav>
+      </nav>
+      
+      <section class="heroHome bg-shape">
+        <div class="siteContainer">
+          <h1 class="text-8xl text-blue-400 mb-2">
+            MuJoCo
+          </h1>
+          <p class="text-xl text-blue-400">
+            Advanced physics simulation
+          </p>
+        </div>
+        <div id="scroller" class="absolute bottom-5 mx-auto fade-on-scroll">
+          <div class="bg-grey-300 px-1 py-1 rounded-full">
+            <img src="media/arrow_down.svg" />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="siteContainer">
+      <div class="max-w-4xl mx-auto text-base text-left">
+        <p class="text-lg font-medium mb-4">
+          <strong>MuJoCo</strong> is a free and open source physics engine that aims to facilitate research and
+          development in robotics, biomechanics, graphics and animation, and
+          other areas where fast and accurate simulation is needed.
+        </p>
+        <p class="mb-4">
+          MuJoCo offers a unique combination of speed, accuracy and modeling power, yet it is not merely a better simulator. Instead it is the first full-featured simulator designed from the ground up for the purpose of model-based optimization, and in particular optimization through contacts.
+        </p>
+        <p class="mb-6">
+          MuJoCo makes it possible to scale up computationally-intensive techniques such optimal control, physically-consistent state estimation, system identification and automated mechanism design, and apply them to complex dynamical systems in contact-rich behaviors. It also has more traditional applications such as testing and validation of control schemes before deployment on physical robots, interactive scientific visualization, virtual environments, animation and gaming.
+        </p>
+        <div class="table table-fixed w-full mb-6">
+          <div class="table-cell text-center">
+            <a class="button buttonPrimary text-base mr-2" href="https://github.com/google-deepmind/mujoco/releases">Download</a>
+          </div>
+          <div class="table-cell text-center">
+            <a class="button buttonPrimary text-base" href="https://mujoco.readthedocs.io/en/stable/overview.html">Documentation</a>
+          </div>
+          <div class="table-cell text-center">
+            <a class="button buttonPrimary text-base" href="https://github.com/google-deepmind/mujoco">GitHub</a>
+          </div>
+        </div>
+        <h3 class="text-lg font-semibold mb-2">
+          Key features
+        </h3>
+        <ul class="text-base list-disc list-inside">
+          <li>
+            Simulation in generalized coordinates, avoiding joint violations
+          </li>
+          <li>
+            Inverse dynamics that are well-defined even in the presence of contacts
+          </li>
+          <li>
+            Unified continuous-time formulation of constraints via convex optimization
+          </li>
+          <li>
+            Constraints include soft contacts, limits, dry friction, equality constraints
+          </li>
+          <li>
+            Simulation of particle systems, cloth, rope and soft objects
+          </li>
+          <li>
+            Actuators including motors, cylinders, muscles, tendons, slider-cranks
+          </li>
+          <li>
+            Choice of Newton, Conjugate Gradient, or Projected Gauss-Seidel solvers
+          </li>
+          <li>
+            Choice of pyramidal or elliptic friction cones, dense or sparse Jacobians
+          </li>
+          <li>
+            Choice of Euler or Runge-Kutta numerical integrators
+          </li>
+          <li>
+            Multi-threaded sampling and finite-difference approximations
+          </li>
+          <li>
+            Intuitive XML model format (called MJCF) and built-in model compiler
+          </li>
+          <li>
+            Cross-platform GUI with interactive 3D visualization in OpenGL
+          </li>
+          <li>
+            Run-time module written in ANSI C and hand-tuned for performance
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <nav class="siteNavigation siteContainer py-10">
+      <div class="siteFooter">
+        MuJoCo is a trademark of Google DeepMind<br>
+        © 2021 DeepMind Technologies Limited
+      </div>
+      <nav class="siteFooterMenu">
+        <a href="terms">
+          <div class="siteFooterMenuItem">
+            Terms & Conditions
+          </div>
+        </a>
+        <a href="privacy">
+          <div class="siteFooterMenuItem">
+            Privacy Policy
+          </div>
+        </a>
+      </nav>
+    </nav>
+    
+  </main>
+
+  </body>
+</html>
+

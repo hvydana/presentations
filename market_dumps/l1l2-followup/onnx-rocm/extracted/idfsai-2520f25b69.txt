@@ -1,0 +1,133 @@
+AMD GPUs for AI Inference in 2026: What Works, What's Broken, and What to Actually Buy
+Published: April 14, 2026 Authors: Eric Donnell & Luna, IDFS AI TL;DR: AMD's ROCm is finally usable for consumer GPUs in 2026. The RX 7900 XTX runs PyTorch, Ollama, ComfyUI, llama.cpp, and vLLM officially. But there's still a 30–40% performance gap vs. the RTX 4090, critical tools like HuggingFace TEI have no AMD support at all, and the software ecosystem assumes NVIDIA at every turn. Here's the honest field report from evaluating AMD as a replacement for our production inference stack.
+Why We Were Looking
+A few weeks ago we published a deep-dive on HuggingFace TEI vs PyTorch embedding divergence — a discovery that cost us real migration pain when we moved embedding infrastructure across hardware. That post was the first half of the story. This is the second half.
+The question we were trying to answer: can AMD replace NVIDIA for production AI inference in 2026?
+Our production environment runs an RTX 4090 (24GB) and an RTX 3060 (12GB). The 4090 handles TEI with e5-mistral-7b-instruct for embeddings, ComfyUI with a custom LoRA, Chatterbox TTS, and a handful of other services. The 3060 runs VibeVoice-ASR (4-bit quantized). We've been happy with it, but NVIDIA street prices for anything new are brutal, and AMD has been loudly claiming ROCm has caught up. So we put it to the test.
+The short answer: AMD is viable as a supplemental node. It is not a drop-in RTX 4090 replacement. Here's the long answer.
+ROCm 7.2: Where AMD Actually Stands Today
+AMD's ROCm stack (their CUDA equivalent) is now at version 7.2.0, released January 21, 2026, with 7.11 in preview. PyTorch 2.10 has first-class support for ROCm 7.1 stable, and ROCm 7.2 on nightly.
+The consumer GPUs officially supported in ROCm 7.2:
+- RDNA 4 (gfx12xx): RX 9070 XT, RX 9070 GRE, RX 9070, RX 9060 XT LP, RX 9060 XT, RX 9060
+- RDNA 3 (gfx11xx): RX 7900 XTX (gfx1100), RX 7900 XT, RX 7900 GRE, RX 7800 XT, RX 7700 XT, RX 7700
+- Professional RDNA 3: Radeon PRO AI PRO R9700, R9600D, W7900, W7800, W7700
+- Data center CDNA: MI355X, MI350X, MI325X, MI300X, MI300A, MI250X, MI250, MI210, MI100
+Operating system support: Linux only for serious ML work. Ubuntu 24.04, 22.04, RHEL 8/9/10, SLES 15 SP7, Debian 12/13. Windows has a preview Ollama build but ROCm itself is not supported on Windows for ML workloads. macOS: no.
+Critical nuance: "officially supported" on the consumer side is not the same as "tested, optimized, and production-ready." Most framework authors test on MI-series (data center) cards. Consumer RDNA support is real but secondary. You will feel this.
+Hardware: The RX 7900 XTX vs RTX 4090 Showdown
+Let's start with the card worth buying, if you're buying AMD: the RX 7900 XTX.
+| Specification | RX 7900 XTX | RTX 4090 | 
+|---|---|---|
+| Architecture | RDNA 3 (gfx1100) | Ada Lovelace | 
+| VRAM | 24 GB GDDR6 | 24 GB GDDR6X | 
+| Memory Bandwidth | 960 GB/s | 1,008 GB/s | 
+| FP32 TFLOPS | 61.42 | 82.58 | 
+| FP16 TFLOPS | ~122 (no tensor) | 165 (tensor: 330) | 
+| Tensor Cores | None | 512 (4th gen) | 
+| TDP | 355W | 450W | 
+| Street Price (2026) | $500–$750 | End-of-life; successor is RTX 5090 | 
+The critical line in that table: the RX 7900 XTX has zero dedicated tensor cores. The RTX 4090 has 512 of them, providing 2x FP16 throughput with sparsity. This is the architectural reason for the performance gap in ML workloads — not software, not drivers, not ROCm. The silicon doesn't have the accelerators.
+What about RDNA 4?
+If you're thinking "wait, isn't the RX 9070 XT the new card?" — yes, and it has a problem: 16 GB VRAM on a 256-bit bus. For LLM inference, which is memory-bandwidth bound, the older RX 7900 XTX is actually the better AMD choice. No current RDNA 4 card has 24GB+. The RX 9070 XT improves ray tracing and has better AI accelerators than RDNA 3, but if VRAM is your limiter (and for LLMs it usually is), the 7900 XTX wins.
+Price-per-GB Reality Check
+This is where AMD is legitimately compelling:
+| Card | VRAM | Price | $/GB | 
+|---|---|---|---|
+| RX 7900 XTX | 24 GB | ~$600 (used) | $25/GB | 
+| RX 9070 XT | 16 GB | ~$850 | $53/GB | 
+| RTX 4090 | 24 GB | ~$1,600 | $67/GB | 
+| RTX 5090 | 32 GB | ~$2,000 | $63/GB | 
+| Radeon PRO W7900 DS | 48 GB | $4,399 | $92/GB | 
+At $25/GB of VRAM, the RX 7900 XTX is almost 3x cheaper than the RTX 4090. If your workload is memory-bound but compute-tolerant, that's a serious argument.
+Per-Service Reality Check: What Actually Runs
+This is where the rubber meets the road. Here's every service we run on our NVIDIA stack, and whether it works on AMD.
+HuggingFace TEI (Text Embeddings Inference)
+Status: BROKEN. DO NOT EXPECT THIS TO WORK.
+This one hurts. TEI officially supports only NVIDIA GPUs (Turing through Blackwell). PR #295 added ROCm support — and has been stalled for more than 10 months awaiting maintainer review. Even if you build from the unmerged PR branch, it only targets MI-series data center cards. Consumer RDNA is not in the PR. Our e5-mistral-7b model is not tested.
+Workaround: run the embedding model directly through sentence-transformers on PyTorch+ROCm. It works, but you lose TEI's optimized Rust backend. Performance will be noticeably lower.
+If your embeddings pipeline depends on TEI, this is a hard blocker for moving to AMD.
+ComfyUI / Stable Diffusion
+Status: Officially supported. Works well.
+ComfyUI's README has explicit ROCm installation commands. ROCm 7.1 and 7.2 both work. RDNA 3 is listed as supported. SDXL and Flux models confirmed working. Custom LoRA loading works fine — we tested this with our Luna LoRA.
+Expect 25–40% slower generation times vs. the RTX 4090, owing to the tensor core gap.
+Caveat: xformers has only experimental ROCm support. Some ComfyUI nodes that depend on xformers may have stability issues.
+Ollama
+Status: Officially supported. Just works.
+RX 7900 XTX is explicitly listed as supported. Ollama uses the llama.cpp backend, which has mature HIP support. Community reports confirm good performance. If all you want is local LLM inference with a pleasant UX, Ollama on AMD is genuinely fine.
+llama.cpp
+Status: Officially supported via HIP backend.
+Build with cmake -B build -DGGML_HIP=ON. All GGUF quantization formats work (Q4_K_M, Q5_K_M, Q6_K, Q8_0).
+Real benchmarks on Llama 3.1 8B Q4_K_M:
+| Backend | Output tokens/sec | Total tokens/sec | 
+|---|---|---|
+| llama.cpp (AMD) | 68.55 | 97.60 | 
+| MLC-LLM (AMD) | 92.80 | 137.19 | 
+| ExLlamaV2 (AMD) | 3,900+ prompt proc | — | 
+Compared to RTX 4090 on the same model:
+| Metric | AMD (7900 XTX) | NVIDIA (RTX 4090) | Gap | 
+|---|---|---|---|
+| Prompt throughput | 2,576 tok/s | 5,415 tok/s | RTX 4090 is 2.1x faster | 
+| Inference throughput | 119.1 tok/s | 158.4 tok/s | RTX 4090 is 33% faster | 
+The 30–40% gap is consistent across benchmarks. It is real. It is the cost of not having tensor cores.
+vLLM
+Status: Officially supported with caveats for consumer GPUs.
+Works on RDNA 3. AMD provides prebuilt Docker images — but optimized for MI300X. Consumer RDNA is secondary. No FP8 quantization support on consumer cards (MI-series only). AWQ and GPTQ quantization work.
+Expect serving optimizations like PagedAttention and continuous batching to lag NVIDIA significantly.
+Flash Attention
+Status: Supported via AMD's fork, not mainline.
+This is the one that causes the most confusion. AMD maintains a fork of Flash Attention with two backends:
+Composable Kernel (CK) backend (default): supports MI200/MI250/MI300/MI355 only. Does not support RDNA consumer GPUs.
+Triton backend: supports both CDNA (MI200, MI300) and RDNA consumer GPUs. Covers fp16, bf16, fp32, causal masking, variable sequence lengths, MQA/GQA, rotary embeddings, paged attention.
+Install it with:
+FLASH_ATTENTION_TRITON_AMD_ENABLE="TRUE" pip install --no-build-isolation .
+Important gotcha: the mainline Dao-AILab/flash-attention repo does NOT support AMD. Frameworks that expect the Dao-AILab version — and most do — may need patching. If a third-party library imports flash-attention and your rig crashes, this is probably why.
+Chatterbox TTS
+Status: Likely works (pure PyTorch, no custom CUDA kernels).
+Pure PyTorch models with device="cuda" calls map transparently to HIP on ROCm. No Flash Attention requirement. No custom .cu files. Chatterbox should be a 1–2 hour port at most.
+VibeVoice-ASR
+Status: Partially works. Requires AMD's Flash Attention fork.
+PyTorch + ROCm 7.1 works on RX 7900 XTX. The Flash Attention requirement is the challenge — you'd need AMD's ROCm Flash Attention fork via the Triton backend. The 4-bit quantization via bitsandbytes should work since bitsandbytes now supports gfx1100. Expect 30–50% slower inference.
+ONNX Runtime
+Status: Migrated from ROCm EP to MIGraphX EP. Consumer GPU support unclear.
+The ROCm Execution Provider was removed in ONNX Runtime 1.23. Replacement is the MIGraphX EP, which supports ROCm 5.2 through 7.2. But consumer GPU (RDNA) compatibility is not documented for MIGraphX. This is a risk area — older tutorials won't work, and if you need ONNX Runtime in production, validate this on your specific card before committing.
+The Compatibility Matrix (Bookmark This)
+| Service | AMD Support | Status | Performance vs NVIDIA | Deploy Effort | 
+|---|---|---|---|---|
+| HuggingFace TEI | NO | PR stalled 10+ months | N/A | HIGH (custom build, MI only) | 
+| ComfyUI / SD | YES | Official | 25–40% slower | LOW | 
+| Ollama | YES | Official | ~30% slower | NONE | 
+| llama.cpp | YES | Official HIP | ~33% slower | LOW | 
+| vLLM | YES | Official (caveats) | 30–40% slower | LOW–MEDIUM | 
+| Chatterbox TTS | LIKELY YES | Pure PyTorch | 20–30% slower | LOW | 
+| VibeVoice-ASR | PARTIAL | Flash Attention needed | 30–50% slower | MEDIUM | 
+| ONNX Runtime | PARTIAL | MIGraphX EP only | Unknown | MEDIUM | 
+| bitsandbytes | YES | ROCm fork | Similar | LOW | 
+| Flash Attention | YES | AMD fork, Triton | Unknown gap | MEDIUM | 
+| xformers | EXPERIMENTAL | ROCm 7.1 only | Unknown | MEDIUM–HIGH | 
+| AutoGPTQ | YES | ROCm 5.7 | Similar | LOW | 
+The Multi-Vendor Path (Our Actual Recommendation)
+You can run AMD and NVIDIA side-by-side in the same system. ROCm and CUDA coexist on Linux — they use different kernel modules (amdgpu vs nvidia). PyTorch can only use one backend per process, but llama.cpp instances can each target a different GPU, and nothing stops you from running, say, TEI in a CUDA container and ComfyUI in a ROCm container on the same box.
+Our real-world recommendation — if you want to add AMD without blowing up a working NVIDIA stack:
+Move to AMD GPU: - ComfyUI (official ROCm support, LoRAs work) - Ollama / llama.cpp (mature) - Chatterbox TTS (pure PyTorch)
+Keep on NVIDIA GPU: - TEI and anything depending on NVIDIA-optimized embeddings infrastructure - VibeVoice-ASR (designed around NVIDIA containers) - Anything requiring xformers in production
+This is how we'd actually spend the money: pick up a used RX 7900 XTX for ~$500–$600, keep the RTX 4090 on TEI + VibeVoice, and let the AMD card carry image generation and LLM inference. You get 48GB total VRAM across two cards for less than the cost of a single RTX 5090, and you don't have to touch your working embeddings pipeline.
+If You're Replacing Your NVIDIA Stack Entirely
+Don't. At least not yet.
+- TEI has no AMD support, and if you depend on it for embeddings, you will feel it on day one
+- VibeVoice-ASR and most HuggingFace-container-dependent models assume NVIDIA
+- The 30–40% performance penalty is consistent across workloads
+- The software ecosystem friction will cost significant engineering time
+The exception: if your entire workload is Ollama + ComfyUI + llama.cpp, AMD is legitimately fine, and the RX 7900 XTX at $600 used is the best $/GB-of-VRAM deal on the market by a wide margin.
+What Would Change Our Calculus
+Four things would shift this analysis sharply in AMD's favor:
+- TEI merging ROCm support (PR #295 has been open since June 2024)
+- RDNA 5 introducing dedicated AI accelerators equivalent to NVIDIA's tensor cores
+- AMD releasing a consumer card with 24GB+ VRAM on RDNA 4 — unlikely given the 9070 XT's 16GB
+- HuggingFace broadly adopting ROCm in their inference stack
+None of those are guaranteed. Some are clearly not coming soon. Plan accordingly.
+Bottom Line
+AMD's ROCm stack in 2026 is real. It's not a toy. The RX 7900 XTX is a legitimately useful GPU for LLM inference, image generation, and local AI work — especially at its price point.
+But the ecosystem still assumes NVIDIA, the silicon still lacks tensor cores, and some critical tools (TEI is the most painful for us) simply do not run on AMD at all. If you treat AMD as a supplemental node and pick your workloads carefully, you get great value. If you try to replace your NVIDIA stack wholesale, you'll spend the next three months debugging container compatibility and asking yourself why you did this.
+We're keeping our RTX 4090 on TEI. The next card we add to the cluster will probably be an RX 7900 XTX — for ComfyUI, Ollama, and llama.cpp, where the price-per-VRAM is impossible to beat.
+If you're planning an AI infrastructure buildout and want to talk through the real tradeoffs for your workload, get in touch. We've done the homework.
+IDFS AI runs production AI infrastructure and builds AI-powered tools for businesses. This report reflects our own hands-on evaluation and hundreds of hours of community benchmarks as of April 2026. Your mileage may vary — always test on your specific workload before committing.

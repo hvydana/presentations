@@ -1,0 +1,17 @@
+Dyna Robotics has unveiled a new robot foundation model trained on more than 1 million hours of human video, a scale the company says could help overcome one of the biggest challenges in teaching robots to handle physical tasks.
+The Redwood City, California-based company said its DYNA-2 World-Action Model was trained entirely on human egocentric video rather than robot action data. The dataset represents roughly 170 years of continuous waking experience.
+The approach is designed to let robots learn physical skills from how humans interact with objects and their surroundings, reducing reliance on manually collected teleoperation data. Dyna says this could provide a more scalable way to train robots as their capabilities expand.
+In tests, the company reported that DYNA-2 raised task success rates in high-precision manufacturing from 20% to 80%-90% through increased pre-training scale alone. It also demonstrated transfer across stationary robot arms, humanoid prototypes, and dexterous robotic hands.
+Human video becomes training data
+Dyna’s model uses a world-modeling architecture that combines next-frame and next-action prediction. Instead of learning only from actions performed by robots, the system uses human video to develop an understanding of how physical environments change and how objects respond to movement.
+That lets knowledge gained from human behavior transfer across different robot hardware, according to the company. Dyna said DYNA-2 had not seen robot data during pre-training, yet could later be adapted to different platforms with only a few hours of local fine-tuning.
+More from AI and Robotics
+See All
+In one test, 13 minutes of data was enough for DYNA-2 to command a pair of five-fingered robotic hands to twist open a bottle cap. Across 15 benchmark tasks, Dyna said models trained with more human video consistently performed better.
+The company also compared DYNA-2 with its earlier DYNA-1 model, which uses a vision-language-action architecture. In a zero-shot customer deployment, DYNA-2 achieved an 87 percent quality pass rate, compared with 46 percent for DYNA-1.
+Scaling robots beyond teleoperation
+Dyna said the model also showed better resilience when physical disturbances disrupted a task. During tests involving activities such as chopping food and clearing workspaces, DYNA-2 could recover without human intervention, while the earlier model required manual recovery.
+The company said its video co-training method improved scores by 133 percent on instruction-following tasks that required robots to perform different physical motions based on commands.
+“For years, generalist robotics has been choked by a data bottleneck: collecting physical teleoperation data manually simply cannot scale to general intelligence,” said Dyna Robotics co-founder Jason Ma. “Action data is scarce, but video is everywhere, and with DYNA-2, we showed that physical intuition doesn’t require millions of hours of training on a robot arm – it can be learned directly from human video.”
+Dyna Robotics said its robots, powered by the previous DYNA-1 model, are already deployed in hotels, restaurants and laundromats. The company sees DYNA-2 as a step toward making robots capable of learning new physical tasks without requiring large amounts of robot-specific training data.
+The company was founded by Lindon Gao, York Yang and former DeepMind research scientist Jason Ma, and is backed by investors including CRV and First Round.

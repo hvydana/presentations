@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Set up ComfyUI with AMD ROCm 7.2 on Windows or Linux, compare Radeon and Ryzen AI support, and understand CUDA alternative limits.">
+<title>AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI</title>
+
+<link rel='canonical' href='https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/'><link rel="alternate" hreflang="zh-CN" href="https://knightli.com/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"><link rel="alternate" hreflang="zh-TW" href="https://knightli.com/zh-tw/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"><link rel="alternate" hreflang="en" href="https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"><link rel="alternate" hreflang="ja" href="https://knightli.com/ja/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"><link rel="alternate" hreflang="es" href="https://knightli.com/es/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"><link rel="alternate" hreflang="x-default" href="https://knightli.com/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/">
+
+<link rel="stylesheet" href="/scss/style.min.5e5f1f8f7ce389becd0a48fe3eff3e1c79b2750a903584200a3a6fc54ae1e664.css"><meta property='og:title' content="AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI">
+<meta property='og:description' content="Set up ComfyUI with AMD ROCm 7.2 on Windows or Linux, compare Radeon and Ryzen AI support, and understand CUDA alternative limits.">
+<meta property='og:url' content='https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/'>
+<meta property='og:site_name' content='KnightLi Blog'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ROCm' /><meta property='article:tag' content='ComfyUI' /><meta property='article:tag' content='AMD GPU' /><meta property='article:tag' content='AI Art' /><meta property='article:tag' content='Hardware' /><meta property='article:published_time' content='2026-05-08T10:09:05&#43;08:00'/><meta property='article:modified_time' content='2026-05-08T10:09:05&#43;08:00'/>
+<meta name="twitter:title" content="AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI">
+<meta name="twitter:description" content="Set up ComfyUI with AMD ROCm 7.2 on Windows or Linux, compare Radeon and Ryzen AI support, and understand CUDA alternative limits.">
+    <link rel="shortcut icon" href="/img/icon.jpg" />
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPMFJLHWJ2"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QPMFJLHWJ2');
+        }
+      </script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9230324840884748"
+     crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wsfo61vslx");
+</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","articleSection":["Hardware"],"author":{"@type":"Person","name":"KnightLi"},"dateModified":"2026-05-08T10:09:05+08:00","datePublished":"2026-05-08T10:09:05+08:00","description":"Set up ComfyUI with AMD ROCm 7.2 on Windows or Linux, compare Radeon and Ryzen AI support, and understand CUDA alternative limits.","headline":"AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI","inLanguage":"en","keywords":["ROCm","ComfyUI","AMD GPU","AI Art","Hardware"],"mainEntityOfPage":{"@id":"https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/","@type":"WebPage"},"publisher":{"@type":"Organization","name":"KnightLi Blog","url":"https://knightli.com/"},"url":"https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://knightli.com/en/","name":"KnightLi Blog","position":1},{"@type":"ListItem","item":"https://knightli.com/en/post/","name":"Posts","position":2},{"@type":"ListItem","item":"https://knightli.com/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/","name":"AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI","position":3}]}</script>
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/en/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu_9fb47e5b83758359.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            
+                <div class="site-name"><a href="/en">KnightLi Blog</a></div>
+                <div class="site-description">记录并分享日常</div>
+            
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/knightli2003'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/en/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://knightli.com/" >中文简体</option>
+                                
+                                    <option value="https://knightli.com/zh-tw/" >中文繁體</option>
+                                
+                                    <option value="https://knightli.com/en/" selected>English</option>
+                                
+                                    <option value="https://knightli.com/ja/" >日本語</option>
+                                
+                                    <option value="https://knightli.com/es/" >Español</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#quick-answer">Quick Answer</a></li>
+    <li><a href="#what-rocm-72-brings">What ROCm 7.2 Brings</a>
+      <ol>
+        <li><a href="#separate-the-rocm-72-series-from-the-windows-pytorch-baseline">Separate the ROCm 7.2 series from the Windows PyTorch baseline</a></li>
+      </ol>
+    </li>
+    <li><a href="#which-hardware-fits-best">Which Hardware Fits Best</a></li>
+    <li><a href="#windows-provides-pytorch-rocm-components-not-the-full-rocm-stack">Windows provides PyTorch ROCm components, not the full ROCm stack</a></li>
+    <li><a href="#recommended-windows-path">Recommended Windows Path</a></li>
+    <li><a href="#linux-is-still-better-for-heavy-users">Linux Is Still Better For Heavy Users</a></li>
+    <li><a href="#be-careful-with-comfyui-plugins">Be Careful With ComfyUI Plugins</a></li>
+    <li><a href="#why-amd-gpus-are-attractive-for-ai-art">Why AMD GPUs Are Attractive For AI Art</a></li>
+    <li><a href="#limits-you-still-need-to-accept">Limits You Still Need To Accept</a></li>
+    <li><a href="#recommended-setup-strategy">Recommended Setup Strategy</a></li>
+    <li><a href="#summary">Summary</a></li>
+    <li><a href="#choose-the-lowest-risk-path-first">Choose the Lowest-Risk Path First</a></li>
+    <li><a href="#references">References</a></li>
+    <li><a href="#related-local-ai-hardware-guides">Related Local AI Hardware Guides</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            
+            
+            
+            <a href="/en/categories/hardware/" style="background-color: #e76f51; color: #fff;">
+                Hardware
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        
+        <h1 class="article-title">
+            <a href="/en/2026/05/08/amd-rocm-72-comfyui-windows-compatibility/">AMD ROCm 7.2 ComfyUI Guide: Run Local AI on Radeon and Ryzen AI</a>
+        </h1>
+        
+    
+        
+        <h3 class="article-subtitle">
+            Set up ComfyUI with AMD ROCm 7.2 on Windows or Linux, compare Radeon and Ryzen AI support, and understand CUDA alternative limits.
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published" datetime='2026-05-08T10:09:05&#43;08:00'>2026-05-08</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    10 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+</div>
+
+</header>
+
+
+    <section class="article-content">
+    
+    
+    <p>For a long time, local AI art and video tools were built around NVIDIA CUDA by default. Stable Diffusion, ComfyUI, AnimateDiff, video super-resolution, LLM inference, and many plugins usually supported CUDA first. AMD GPUs often offered good VRAM value, but Windows users had to rely on DirectML, ZLUDA, Linux ROCm, or community patches. Stability and tutorial consistency were weaker than NVIDIA.</p>
+<p>The ROCm 7.2 series changes that picture in a meaningful way. At CES 2026, AMD announced the Ryzen AI 400 series and tied ROCm, Radeon, Ryzen AI, and Windows AI workflows more closely together. AMD documentation shows that ROCm 7.2.1 updates PyTorch support on Windows for AMD Radeon graphics products and AMD Ryzen AI processors. ComfyUI Desktop also added official AMD ROCm support starting with v0.7.0.</p>
+<p>This does not mean AMD has fully caught up with the CUDA ecosystem. It does mean that running ComfyUI on AMD GPUs under Windows is moving from a tinkering-only option to something worth seriously evaluating.</p>
+<h2 id="quick-answer">Quick Answer
+</h2><p>ROCm 7.2 makes AMD local AI more realistic, especially for ComfyUI Desktop users on supported Radeon and Ryzen AI hardware. Start with the official ComfyUI Desktop path on Windows, then test a simple workflow before adding many custom nodes.</p>
+<p>If you need heavy batch generation, training, vLLM, Docker, or multi-GPU services, Linux is still the safer ROCm environment. Treat Windows ROCm as a better desktop entry point, not a full CUDA replacement.</p>
+<h2 id="what-rocm-72-brings">What ROCm 7.2 Brings
+</h2><p>ROCm is AMD&rsquo;s open software stack for GPU computing and machine learning. Its role is similar to NVIDIA CUDA. It includes HIP, compilers, math libraries, deep-learning libraries, profilers, PyTorch integration, and low-level runtime components.</p>
+<p>For desktop users, ROCm 7.2 matters in three ways.</p>
+<p>First, Windows support is more official. AMD&rsquo;s Radeon/Ryzen ROCm documentation states that PyTorch on Windows has been updated to ROCm 7.2.1 for AMD Radeon graphics and AMD Ryzen AI processors. This is important for ComfyUI, Hugging Face Transformers, and local inference tools because most upper-layer tools eventually depend on PyTorch.</p>
+<p>Second, hardware support is clearer. AMD documentation mentions support for Radeon 9000 series, selected Radeon 7000 series, Ryzen AI Max 300, selected Ryzen AI 400, and selected Ryzen AI 300 APUs. In other words, &ldquo;AMD GPU&rdquo; does not automatically mean full support. The exact model still needs to be checked against the compatibility matrix.</p>
+<p>Third, ComfyUI now has an official route. In January 2026, the ComfyUI team announced that ComfyUI Desktop for Windows supports AMD ROCm from v0.7.0. For normal users, that matters because it reduces manual environment setup, wheel hunting, and launch-parameter tweaking.</p>
+<p>For people looking for a CUDA alternative, these changes matter more than a single benchmark. Long-term usability depends on whether drivers, frameworks, models, plugins, and the frontend connect reliably.</p>
+<h3 id="separate-the-rocm-72-series-from-the-windows-pytorch-baseline">Separate the ROCm 7.2 series from the Windows PyTorch baseline
+</h3><p>AMD&rsquo;s release history lists ROCm <code>7.2.1</code>, <code>7.2.2</code>, and <code>7.2.3</code>, released on March 25, April 14, and May 4, 2026. That does not mean the Windows ComfyUI instructions automatically track the newest patch. The current AMD Windows guide calls for Python 3.12, driver <code>26.2.2</code>, and a PyTorch package with ROCm <code>7.2.1</code> components. Treat <code>7.2.3</code> as the newest 7.2-series release record and <code>7.2.1</code> as the documented Windows ComfyUI baseline.</p>
+<h2 id="which-hardware-fits-best">Which Hardware Fits Best
+</h2><p>The AMD route should be viewed in three groups.</p>
+<p>The first is Radeon 9000 series. It is the newest discrete-GPU line that ROCm 7.2 focuses on, and it should have the highest priority if you are buying an AMD GPU now for local AI.</p>
+<p>The second is selected Radeon 7000 series cards. These RDNA 3 GPUs already have some ROCm support, but not every model is equally stable. Before buying, check AMD&rsquo;s official compatibility matrix and confirm Windows, Linux, PyTorch, and the target tool all support your card.</p>
+<p>The third is Ryzen AI APUs. Ryzen AI 400 and Ryzen AI Max 300 bring CPU, GPU, NPU, and shared memory into laptops, mini PCs, and development devices. They are better for lightweight inference, development tests, mobile work, and small ComfyUI workflows. They should not be planned like high-end discrete GPUs for heavy model throughput.</p>
+<p>If the goal is smooth mainstream AI art, a discrete GPU is still the safer choice. APUs are attractive for integration and shared memory, but they are not ideal for heavy video generation or large-batch image work.</p>
+<p>AMD&rsquo;s Windows matrix currently specifies Windows 11, Python 3.12, PyTorch 2.9, and ROCm 7.2 components:</p>
+<div class="table-wrapper google-auto-placed-ignore"><table>
+  <thead>
+      <tr>
+          <th>Architecture</th>
+          <th>Representative listed hardware</th>
+          <th>Windows PyTorch</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>gfx1201</code></td>
+          <td>RX 9070, RX 9070 XT, Radeon AI PRO R9700</td>
+          <td>FP16; FP8 on RDNA 4</td>
+      </tr>
+      <tr>
+          <td><code>gfx1200</code></td>
+          <td>RX 9060 XT</td>
+          <td>FP16; FP8 on RDNA 4</td>
+      </tr>
+      <tr>
+          <td><code>gfx1100</code></td>
+          <td>RX 7900 XTX, PRO W7900</td>
+          <td>FP16</td>
+      </tr>
+      <tr>
+          <td><code>gfx1101</code></td>
+          <td>RX 7700</td>
+          <td>FP16</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>Do not infer support for an unlisted Radeon merely because it belongs to the same generation.</p>
+<h2 id="windows-provides-pytorch-rocm-components-not-the-full-rocm-stack">Windows provides PyTorch ROCm components, not the full ROCm stack
+</h2><p>AMD explicitly says that PyTorch on Windows includes ROCm 7.2 components while the complete ROCm stack is not supported. Current limits include PyTorch-only framework support, no ML training support, Python 3.12, and batch-size restrictions for some LLM workloads. A working basic ComfyUI graph therefore does not prove that Triton, CUDA-only extensions, training, or server frameworks will work.</p>
+<h2 id="recommended-windows-path">Recommended Windows Path
+</h2><p>For typical Windows users, ComfyUI Desktop should be the first choice. It is the official support path, reduces environment conflicts, and is easier to update with upstream changes.</p>
+<p>The basic flow is:</p>
+<ol>
+<li>Use Windows 11 and update AMD Software: Adrenalin Edition.</li>
+<li>Confirm your GPU or APU is in the AMD ROCm Radeon/Ryzen compatibility matrix.</li>
+<li>Install ComfyUI Desktop v0.7.0 or later.</li>
+<li>Select or enable the AMD ROCm backend in ComfyUI Desktop.</li>
+<li>After first launch, check the console for PyTorch/ROCm information.</li>
+<li>Test a basic SDXL or Flux workflow before installing many plugins.</li>
+</ol>
+<p>If you use manual ComfyUI, the idea is similar: install Python, install the PyTorch build for the ROCm 7.2 series, then launch <code>main.py</code>. AMD&rsquo;s official ComfyUI guide notes that after launch you should verify the terminal shows the expected ROCm 7.2.1 PyTorch version.</p>
+<p>Low-VRAM devices can try:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-powershell" data-lang="powershell"><span class="line"><span class="cl"><span class="n">python</span> <span class="n">main</span><span class="p">.</span><span class="py">py</span> <span class="p">-</span><span class="n">-lowvram</span> <span class="p">-</span><span class="n">-disable-pinned-memory</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>These options do not always improve speed, but they can reduce memory and VRAM pressure. On 8GB, 12GB, or shared-memory devices, finishing reliably is more important than maximum speed.</p>
+<h2 id="linux-is-still-better-for-heavy-users">Linux Is Still Better For Heavy Users
+</h2><p>ROCm on Windows is more usable now, but Linux remains the more mature AMD AI environment. AMD documentation also shows broader Linux support for Radeon across PyTorch, TensorFlow, JAX, ONNX, vLLM, Llama.cpp, and some training workflows.</p>
+<p>If you only want ComfyUI image generation, Windows is worth trying.<br>
+If you need vLLM, LoRA training, batch video generation, multi-GPU, Docker, automation scripts, or long-running services, Linux is still the stronger choice.</p>
+<p>Choose by workload:</p>
+<ul>
+<li>Windows: desktop users, ComfyUI Desktop, lightweight image generation, local experimentation.</li>
+<li>Linux: developers, heavy AI users, servers, batch processing, and the fuller ROCm ecosystem.</li>
+<li>WSL: useful if you want Windows plus Linux tooling, but you must confirm ROCDXG, driver, and hardware support.</li>
+</ul>
+<p>Do not treat Windows ROCm as the answer to every problem. It lowers the entry barrier and improves desktop use, while heavy production still depends more on Linux support.</p>
+<h2 id="be-careful-with-comfyui-plugins">Be Careful With ComfyUI Plugins
+</h2><p>ComfyUI&rsquo;s difficulty is not only the main program. The plugin ecosystem matters. Many nodes assume CUDA, xFormers, Triton, FlashAttention, or specific PyTorch extensions. After switching to AMD ROCm, common problems include:</p>
+<ul>
+<li>Plugins calling CUDA-only extensions.</li>
+<li>Acceleration libraries without ROCm wheels.</li>
+<li>Custom-node install scripts that check for NVIDIA by default.</li>
+<li>Video nodes depending on codecs or optical-flow libraries without AMD support.</li>
+<li>New model workflows using NVIDIA-optimized settings by default.</li>
+</ul>
+<p>Do not start by copying an old NVIDIA ComfyUI directory into an AMD setup. A cleaner approach is to install a fresh environment, verify a base model, and add plugins one by one.</p>
+<p>Recommended test order:</p>
+<ol>
+<li>Basic text-to-image.</li>
+<li>Image-to-image.</li>
+<li>LoRA.</li>
+<li>ControlNet.</li>
+<li>Upscaling and high-res fix.</li>
+<li>AnimateDiff or video nodes.</li>
+<li>Heavier models such as Flux, SD3, Wan, or HunyuanVideo.</li>
+</ol>
+<p>Test after each plugin group. If something breaks, you can identify the likely node or dependency.</p>
+<h2 id="why-amd-gpus-are-attractive-for-ai-art">Why AMD GPUs Are Attractive For AI Art
+</h2><p>The biggest attraction of AMD is VRAM and price. Many users choose AMD not because its AI software ecosystem is already easier than CUDA, but because the same budget often buys more memory, which helps local creation and long experiments.</p>
+<p>Large VRAM is practical in ComfyUI:</p>
+<ul>
+<li>It can fit larger checkpoints.</li>
+<li>It can raise resolution.</li>
+<li>It can load more LoRA, ControlNet, and reference-image nodes.</li>
+<li>It can reduce the speed loss of low-VRAM mode.</li>
+<li>It makes video generation and batch jobs less likely to run out of memory.</li>
+</ul>
+<p>If ROCm 7.2 keeps PyTorch and ComfyUI stable on Windows, AMD GPUs become a more realistic CUDA alternative, especially for users who do not want cloud services but want more local VRAM.</p>
+<h2 id="limits-you-still-need-to-accept">Limits You Still Need To Accept
+</h2><p>The AMD route is usable, but it is not a no-brainer CUDA replacement.</p>
+<p>Main limits include:</p>
+<ul>
+<li>Supported models are limited; older and some lower-end cards may not be listed.</li>
+<li>Windows framework support is still narrower than Linux.</li>
+<li>Many AI tutorials still assume NVIDIA.</li>
+<li>Some ComfyUI plugins have only been tested on CUDA.</li>
+<li>Community answers are fewer when errors appear.</li>
+<li>The same model may perform very differently on different backends.</li>
+</ul>
+<p>Before choosing AMD, confirm three things:</p>
+<ol>
+<li>Your GPU is in the official compatibility matrix.</li>
+<li>Your main tools explicitly support ROCm.</li>
+<li>Your key plugins do not depend on CUDA-only extensions.</li>
+</ol>
+<p>If all three are acceptable, AMD can be reliable. Otherwise, the money saved on hardware may be spent on environment debugging.</p>
+<h2 id="recommended-setup-strategy">Recommended Setup Strategy
+</h2><p>For beginners, use Windows 11 + a supported Radeon 9000/7000 card + ComfyUI Desktop. Follow the official path first and do not install too many third-party nodes immediately.</p>
+<p>For developers, prepare a Linux environment. ROCm has a fuller toolchain on Linux and is better for batch tasks, LLM inference, Docker, and automation.</p>
+<p>For laptop or mini-PC users, Ryzen AI 400 and Ryzen AI Max platforms are suitable for lightweight local AI. They can handle development, preview, simple image generation, and small-model inference, but should not be planned like high-end discrete GPUs for video generation.</p>
+<p>For heavy ComfyUI users, focus on VRAM, driver version, and plugin compatibility. AMD&rsquo;s memory value is tempting, but if one critical node does not support ROCm, the whole workflow can be affected.</p>
+<h2 id="summary">Summary
+</h2><p>The ROCm 7.2 series is a meaningful step forward for AMD local AI on Windows. Radeon and Ryzen AI PyTorch support is clearer, and ComfyUI Desktop now offers official ROCm support. This brings AMD GPUs closer to a CUDA alternative that ordinary users can actually try.</p>
+<p>But usable does not mean fully compatible. The safer approach is to check the compatibility matrix, use the official install path, test basic ComfyUI first, and then add plugins and complex video workflows gradually. Windows fits lightweight desktop creation; Linux still fits heavy development and production.</p>
+<p>If you want the least friction, CUDA remains the mainstream answer.<br>
+If you are willing to validate the workflow in exchange for larger VRAM and a more open ecosystem, ROCm 7.2 + ComfyUI is now worth serious testing.</p>
+<h2 id="choose-the-lowest-risk-path-first">Choose the Lowest-Risk Path First
+</h2><p>For a first ComfyUI setup, validate the driver, ROCm runtime, and one basic workflow before importing a large custom-node collection. Keep the working environment reproducible, because plugin and version mismatches are usually harder to diagnose than raw GPU performance limits.</p>
+<ul>
+<li><a class="link" href="/en/2026/05/08/laptop-rtx-4060-8gb-local-ai-models/" >Laptop RTX 4060 8GB Local AI Guide</a></li>
+<li><a class="link" href="/en/2026/04/19/ollama-multiple-gpu-notes/" >Ollama Multi-GPU Guide</a></li>
+</ul>
+<h2 id="references">References
+</h2><ul>
+<li><a class="link" href="https://www.amd.com/en/newsroom/press-releases/2026-1-5-amd-expands-ai-leadership-across-client-graphics-.html"  target="_blank" rel="noopener"
+    >AMD: CES 2026 Ryzen AI and ROCm announcement</a></li>
+<li><a class="link" href="https://rocm.docs.amd.com/en/develop/release/versions.html"  target="_blank" rel="noopener"
+    >ROCm Release History</a></li>
+<li><a class="link" href="https://rocm.docs.amd.com/en/docs-7.2.1/about/release-notes.html"  target="_blank" rel="noopener"
+    >ROCm 7.2 Release Notes</a></li>
+<li><a class="link" href="https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/"  target="_blank" rel="noopener"
+    >AMD ROCm on Radeon and Ryzen documentation</a></li>
+<li><a class="link" href="https://rocm.docs.amd.com/projects/radeon-ryzen/en/latest/docs/advanced/advancedryz/windows/comfyui/installcomfyui.html"  target="_blank" rel="noopener"
+    >AMD ROCm: Install ComfyUI on Windows</a></li>
+<li><a class="link" href="https://blog.comfy.org/p/official-amd-rocm-support-arrives"  target="_blank" rel="noopener"
+    >ComfyUI: Official AMD ROCm Support Arrives on Windows</a></li>
+</ul>
+<h2 id="related-local-ai-hardware-guides">Related Local AI Hardware Guides
+</h2><ul>
+<li>
+<p><a class="link" href="/en/2026/05/08/rtx-5090-5080-ai-inference-benchmark/" >RTX 5090 / 5080 AI Inference Benchmarks: Choosing for Local LLMs, 4K Video, and Real-Time 3D</a></p>
+</li>
+<li>
+<p><a class="link" href="/en/2026/05/08/rtx-3060-local-llm-models/" >Best Local LLMs for RTX 3060 12GB: GGUF Models, Quantization, and VRAM Tips</a></p>
+</li>
+<li>
+<p><a class="link" href="/en/2026/05/09/llama-cpp-multi-gpu-offload-performance/" >llama.cpp Multi-GPU Performance Guide: Offload, Split Mode, and VRAM Tradeoffs</a></p>
+</li>
+<li>
+<p><a class="link" href="https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-7.2/docs/compatibility/compatibilityrad/windows/windows_compatibility.html"  target="_blank" rel="noopener"
+    >AMD ROCm 7.2 Windows compatibility matrix</a></p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/en/tags/rocm/">ROCm</a>
+        
+            <a href="/en/tags/comfyui/">ComfyUI</a>
+        
+            <a href="/en/tags/amd-gpu/">AMD GPU</a>
+        
+            <a href="/en/tags/ai-art/">AI Art</a>
+        
+            <a href="/en/tags/hardware/">Hardware</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>如需转载请添加原文链接(<a class="link" href="https://knightli.com/"  target="_blank" rel="noopener"
+    >https://knightli.com</a>)</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+
+    
+
+    
+
+    <aside class="related-content--wrapper">
+        <h2 class="section-title">Related content</h2>
+        <div class="related-content related-content--grid">
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/07/22/cmp-170hx-80gb-memory-unlock-ai-gpu-buying-risk/">
+                        <h3 class="related-card__title">Is the CMP 170HX 80GB Memory Unlock Reliable? AI Mining GPU Buying Risks and Checklist</h3>
+                        
+                            <p class="related-card__excerpt">The CMP 170HX can reportedly unlock compute, PCIe, and HBM limits, but its 40GB, 64GB, and 80GB …</p>
+                        
+                        <time class="related-card__date" datetime="2026-07-22">2026-07-22</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/08/rtx-5090-5080-ai-inference-benchmark/">
+                        <h3 class="related-card__title">RTX 5090 / 5080 AI Inference Benchmarks: Choosing for Local LLMs, 4K Video, and Real-Time 3D</h3>
+                        
+                            <p class="related-card__excerpt">A practical look at RTX 5090 and RTX 5080 specs and AI benchmarks, focusing on VRAM, bandwidth, FP4, …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-08">2026-05-08</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/04/11/usb-pd-decoy-chip-comparison/">
+                        <h3 class="related-card__title">Common USB PD Decoy Chips: CH224K vs HUSB238 vs HUSB237 vs IP2721 vs XSP</h3>
+                        
+                            <p class="related-card__excerpt">A quick comparison of CH224K, HUSB238, HUSB237, IP2721, and XSP series decoy chips for USB PD power …</p>
+                        
+                        <time class="related-card__date" datetime="2026-04-11">2026-04-11</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/06/16/wd-pr4100-pr2100-uart-console-access/">
+                        <h3 class="related-card__title">WD PR4100 / PR2100 Serial Console: UART Pins, Wiring, and Risk Notes</h3>
+                        
+                            <p class="related-card__excerpt">Notes from a WD Community thread about My Cloud PR4100 / PR2100 serial console access: 3.3V …</p>
+                        
+                        <time class="related-card__date" datetime="2026-06-16">2026-06-16</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/06/11/wd-pr2100-ai-hardware-interface-analysis/">
+                        <h3 class="related-card__title">Can AI Read a Motherboard? WD PR2100 HDMI, UART, and Backplane Interface Analysis</h3>
+                        
+                            <p class="related-card__excerpt">A case study of AI-assisted hardware function analysis using the WD PR2100 motherboard: how to break …</p>
+                        
+                        <time class="related-card__date" datetime="2026-06-11">2026-06-11</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/24/above-4g-decoding-pcie-mmio-bar-explained/">
+                        <h3 class="related-card__title">Above 4G Decoding Explained: When to Enable It for GPUs, PCIe Cards, and NAS</h3>
+                        
+                            <p class="related-card__excerpt">Above 4G Decoding lets 64-bit systems map PCIe MMIO above 4GB. Learn when to enable it for GPUs, …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-24">2026-05-24</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/21/cxmt-ymtc-domestic-memory-ipo/">
+                        <h3 class="related-card__title">China&#39;s Two Memory Champions Head Toward IPO: Why CXMT and YMTC Are Moving to the Capital Market</h3>
+                        
+                            <p class="related-card__excerpt">A look at recent public information on CXMT and YMTC's IPO progress: CXMT's STAR Market review has …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-21">2026-05-21</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/17/ruview-wifi-sensing-platform/">
+                        <h3 class="related-card__title">RuView WiFi Sensing Guide: ESP32 CSI, Presence Detection, and Vital Signs</h3>
+                        
+                            <p class="related-card__excerpt">A RuView WiFi sensing guide covering ESP32-S3 CSI, presence detection, breathing and heart-rate …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-17">2026-05-17</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/08/laptop-rtx-4060-8gb-local-ai-models/">
+                        <h3 class="related-card__title">Laptop RTX 4060 8GB Local AI Guide: LLMs, Stable Diffusion, FLUX, and VRAM Limits</h3>
+                        
+                            <p class="related-card__excerpt">A practical laptop RTX 4060 8GB local AI guide covering 3B-8B LLMs, GGUF quantization, Stable …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-08">2026-05-08</time>
+                    </a>
+                </article>
+            
+                
+                <article class="related-card">
+                    <a class="related-card__link" href="/en/2026/05/04/nas-full-cold-data-hc620-terramaster/">
+                        <h3 class="related-card__title">Hard Drive Prices Are Soaring: Do Not Expand Your NAS Yet, Try a $200 TerraMaster &#43; HC620 Cold Data Setup</h3>
+                        
+                            <p class="related-card__excerpt">When hard drive prices are high, keep hot data on the main NAS, move cold data and backups to HC620 …</p>
+                        
+                        <time class="related-card__date" datetime="2026-05-04">2026-05-04</time>
+                    </a>
+                </article>
+            
+        </div>
+    </aside>
+
+
+     
+    
+        
+    <script src="https://utteranc.es/client.js" 
+        repo="knightli2003/knightli2003-hugo-comment"
+        issue-term="pathname"
+        
+        crossorigin="anonymous"
+        async
+        >
+</script>
+
+<style>
+    .utterances {
+        max-width: unset;
+    }
+</style>
+
+<script>
+    let utterancesLoaded = false;
+
+    function setUtterancesTheme(theme) {
+        let utterances = document.querySelector('.utterances iframe');
+        if (utterances) {
+            utterances.contentWindow.postMessage(
+                {
+                    type: 'set-theme',
+                    theme: `github-${theme}`
+                },
+                'https://utteranc.es'
+            );
+        }
+    }
+
+    addEventListener('message', event => {
+        if (event.origin !== 'https://utteranc.es') return;
+
+        
+        utterancesLoaded = true;
+        setUtterancesTheme(document.documentElement.dataset.scheme)
+    });
+
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (!utterancesLoaded) return;
+        setUtterancesTheme(e.detail)
+    })
+</script>
+
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy;
+        
+            2022 -
+        
+        2026 KnightLi Blog
+    </section>
+
+    <section class="powerby">
+        
+            记录并分享 <br/>
+        
+
+        <a href="/en/privacy-policy/">Privacy Policy</a><br/>Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.2">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a7c294da6eb634',t:'MTc4NjYyNDUzMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"549c9cc0c49c471bb3d11559c7e03ce5","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

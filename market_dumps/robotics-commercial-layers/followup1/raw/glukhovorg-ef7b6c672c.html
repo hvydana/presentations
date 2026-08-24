@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Monitor LLM Inference in Production (2026): Prometheus &amp; Grafana for vLLM, TGI, llama.cpp - Rost Glukhov | Personal site and technical blog</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="Learn how to monitor LLM inference in production using Prometheus and Grafana. Track p95 latency, tokens/sec, queue duration, and KV cache usage across vLLM, TGI, and llama.cpp. Includes PromQL examples, dashboards, alerts, Docker &amp; Kubernetes setups.">
+
+	
+
+
+	
+
+
+
+
+
+    
+    <link rel="canonical" href="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/">
+	
+
+  
+    <link rel="alternate" hreflang="en" href="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="ru" href="https://www.glukhov.org/ru/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="de" href="https://www.glukhov.org/de/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="es" href="https://www.glukhov.org/es/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="fr" href="https://www.glukhov.org/fr/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="it" href="https://www.glukhov.org/it/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="ja" href="https://www.glukhov.org/ja/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="ko" href="https://www.glukhov.org/ko/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="pl" href="https://www.glukhov.org/pl/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="nl" href="https://www.glukhov.org/nl/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="pt" href="https://www.glukhov.org/pt/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+    <link rel="alternate" hreflang="sv" href="https://www.glukhov.org/sv/observability/monitoring-llm-inference-prometheus-grafana/">
+  
+
+		<meta property="og:url" content="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/">
+<meta property="og:site_name" content="Rost Glukhov | Personal site and technical blog">
+<meta property="og:title" content="Monitor LLM Inference in Production (2026): Prometheus &amp; Grafana for vLLM, TGI, llama.cpp">
+<meta property="og:locale" content="en">
+<meta property="og:type" content="article">
+<meta property="og:published_time" content="2026-03-04T00:00:00&#43;00:00">
+
+<meta property="og:description" content="Learn how to monitor LLM inference in production using Prometheus and Grafana. Track p95 latency, tokens/sec, queue duration, and KV cache usage across vLLM, TGI, and llama.cpp. Includes PromQL examples, dashboards, alerts, Docker &amp; Kubernetes setups.">
+<meta property="og:image" content="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/monitoging-llm-prometheus-grafana-x800.jpg">
+
+		
+  <meta itemprop="name" content="Monitor LLM Inference in Production (2026): Prometheus & Grafana for vLLM, TGI, llama.cpp">
+  <meta itemprop="description" content="Learn how to monitor LLM inference in production using Prometheus and Grafana. Track p95 latency, tokens/sec, queue duration, and KV cache usage across vLLM, TGI, and llama.cpp. Includes PromQL examples, dashboards, alerts, Docker &amp; Kubernetes setups.">
+  <meta itemprop="datePublished" content="2026-03-04T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-04-10T00:00:00+00:00">
+  <meta itemprop="wordCount" content="1955">
+  <meta itemprop="image" content="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/monitoging-llm-prometheus-grafana-x800.jpg">
+  <meta itemprop="keywords" content="monitoring LLM inference with Prometheus and Grafana,LLM latency monitoring p95 p99 histogram_quantile,token throughput tokens per second Prometheus,vLLM Prometheus metrics /metrics,text-generation-inference TGI metrics Prometheus,llama.cpp server Prometheus metrics endpoint,Grafana dashboard for LLM inference,Kubernetes ServiceMonitor for LLM metrics,SLO alerting for LLM APIs">
+		
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/monitoging-llm-prometheus-grafana-x800.jpg">
+  <meta name="twitter:title" content="Monitor LLM Inference in Production (2026): Prometheus & Grafana for vLLM, TGI, llama.cpp">
+  <meta name="twitter:description" content="Learn how to monitor LLM inference in production using Prometheus and Grafana. Track p95 latency, tokens/sec, queue duration, and KV cache usage across vLLM, TGI, and llama.cpp. Includes PromQL examples, dashboards, alerts, Docker &amp; Kubernetes setups.">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/subscribe.css">
+
+	<link rel="shortcut icon" href="/favicon.ico">
+		
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZRQ2CGRM9"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-YZRQ2CGRM9');
+        }
+      </script>
+
+	<script type="application/ld+json">
+      {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+          
+              
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "How do I monitor LLM inference with Prometheus and Grafana?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Expose the /metrics endpoint from your inference server (vLLM, Hugging Face TGI, or llama.cpp), configure Prometheus to scrape it, and visualize latency, token throughput, queue duration, and KV cache usage in Grafana. Use histogram_quantile() for p95/p99 latency and track tokens/sec rather than just requests/sec."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "What metrics should I track for LLM inference in production?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Track request rate, tokens per second, p50/p95/p99 latency, inter-token latency, queue size, queue duration, error rate, GPU utilization, and KV cache usage. LLM systems are constrained by tokens, batching, and memory pressure — not just RPS."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "What is the difference between request latency and inter-token latency?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Request latency measures total time from request start to final token. Inter-token latency measures how fast tokens are generated during decoding. For streaming UX, inter-token latency and time-to-first-token (TTFT) are often more important than total latency."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "How do I calculate p95 latency in Prometheus for LLM APIs?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Use histogram_quantile() over the rate() of histogram buckets. For example - histogram_quantile(0.95, sum by (le) (rate(tgi_request_duration_bucket[5m]))). This computes the 95th percentile request duration over a rolling window."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "How do I monitor token throughput (tokens per second)?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Use counters that track generated tokens and apply rate() in PromQL. Tokens/sec is more meaningful than requests/sec because LLM cost and performance scale with token generation, not request count."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "Why is my LLM latency suddenly spiking?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Common causes include queue buildup from high concurrency, KV cache exhaustion, GPU memory fragmentation, large max_new_tokens values, or insufficient batching configuration. Check queue duration, running vs waiting requests, and cache utilization first."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "Can I monitor self-hosted LLMs the same way as cloud APIs?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Yes. Whether you run vLLM locally, TGI in Kubernetes, or llama.cpp on a single node, the monitoring model is the same - expose metrics, scrape with Prometheus, and visualize in Grafana. Infrastructure changes, but observability principles stay consistent."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "How do I set up alerts for LLM inference SLOs?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Create alerts for sustained p95 latency breaches, high queue duration, error rates above 1%, KV cache usage above 90%, and Prometheus target downtime. Use time-based conditions (e.g., 5–15 minutes) to avoid alert noise."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "What causes Prometheus cardinality explosions in LLM systems?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "High-cardinality labels such as prompt text, user IDs, or request IDs. Keep labels limited to model, endpoint, status, and instance. Use logs or tracing for per-request debugging instead of labels."
+                      }
+                  }
+                  ,
+              
+                  
+                  
+                  
+                  {
+                      "@type": "Question",
+                      "name": "Should I use OpenTelemetry with Prometheus for LLM monitoring?",
+                      "acceptedAnswer": {
+                      "@type": "Answer",
+                      "text": "Prometheus is ideal for metrics and SLOs. OpenTelemetry complements it with distributed tracing and request-level diagnostics. For production LLM systems, combining metrics, logs, and traces provides the most complete visibility."
+                      }
+                  }
+                  
+              
+          
+          ]
+      }
+    </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https:\/\/www.glukhov.org\/"
+    },{
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Observability in Production: Monitoring, Metrics, Prometheus \u0026 Grafana Guide (2026)",
+      "item": "https:\/\/www.glukhov.org\/observability\/"
+    },{
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "Monitor LLM Inference in Production (2026): Prometheus \u0026 Grafana for vLLM, TGI, llama.cpp",
+      "item": "https:\/\/www.glukhov.org\/observability\/monitoring-llm-inference-prometheus-grafana\/"
+    }]
+}
+</script>
+</head>
+<body class="body">
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container header__container">
+		
+	<div class="logo logo--mixed">
+		<a class="logo__link" href="/" title="Notes on the margins" rel="home">
+			<div class="logo__item logo__imagebox">
+					<img class="logo__img" src="/img/aa-128w.jpg" alt="site logo">
+				</div><div class="logo__item logo__text">
+					<div class="logo__title">Notes on the margins</div>
+					<div class="logo__tagline">Rost Glukhov. Personal site and technical blog</div>
+				</div>
+		</a>
+	</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/ai-systems/">
+				
+				<span class="menu__text">AI Systems</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/documentation-tools/">
+				
+				<span class="menu__text">Doc tools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/hardware/">
+				
+				<span class="menu__text">Hardware</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/llm-architecture/">
+				
+				<span class="menu__text">LLM Architecture</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/llm-hosting/">
+				
+				<span class="menu__text">LLM Hosting</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/llm-performance/">
+				
+				<span class="menu__text">LLM Performance</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/rag/">
+				
+				<span class="menu__text">RAG</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/data-infrastructure/">
+				
+				<span class="menu__text">Data</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/app-architecture/">
+				
+				<span class="menu__text">Architecture</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/observability/">
+				
+				<span class="menu__text">Observability</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/ai-devtools/">
+				
+				<span class="menu__text">AI DevTools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/developer-tools/">
+				
+				<span class="menu__text">DevTools</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/ai-systems/openclaw/">
+				
+				<span class="menu__text">OpenClaw</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/web-infrastructure/">
+				
+				<span class="menu__text">Web Infra</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/tags/cheatsheet/">
+				
+				<span class="menu__text">Cheatsheets</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/knowledge-management/">
+				
+				<span class="menu__text">Knowledge</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/sponsored/">
+				
+				<span class="menu__text">Partnerships</span>
+				
+			</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/about/">
+				
+				<span class="menu__text">About</span>
+				
+			</a>
+		</li>
+	</ul>
+</nav>
+
+	</div>
+</header>
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Monitor LLM Inference in Production (2026): Prometheus &amp; Grafana for vLLM, TGI, llama.cpp</h1>
+			<p class="post__lead">Monitor LLM with Prometheus and Grafana</p>
+			
+		</header>
+		 
+<div class="content post__content clearfix">
+			<p>LLM inference looks like “just another API” — until latency spikes, queues back up, and your GPUs sit at 95% memory with no obvious explanation.</p>
+<p>Monitoring becomes mission-critical the moment you move beyond a single-node setup or start optimizing for throughput. At that point, traditional API metrics aren’t enough. You need visibility into tokens, batching behavior, queue time, and KV cache pressure - the real bottlenecks of modern LLM systems.</p>
+<p>This article is part of my broader <strong><a href="https://www.glukhov.org/observability/" title="Practical observability guide: monitoring vs observability, Prometheus metrics, Grafana dashboards, alerting, Kubernetes and AI/LLM monitoring, and production best practices.">observability and monitoring guide</a></strong>, where I cover monitoring vs observability fundamentals, Prometheus architecture, and production best practices. Here, we’ll focus specifically on <a href="https://www.glukhov.org/observability/monitoring-llm-inference-prometheus-grafana/">monitoring <strong>LLM inference workloads</strong></a>.</p>
+<p>(If you’re deciding on infrastructure, see my guide to <a href="https://www.glukhov.org/llm-hosting/">LLM hosting in 2026</a>. If you want a deep dive into batching mechanics, VRAM limits, and throughput vs latency trade-offs, see the <a href="https://www.glukhov.org/llm-performance/">LLM performance engineering guide</a>.)</p>
+<p>Unlike typical REST services, LLM serving is shaped by <strong>tokens</strong>, <strong>continuous batching</strong>, <strong>KV cache utilization</strong>, <strong>GPU/CPU saturation</strong>, and <strong>queue dynamics</strong>. Two requests with identical payload sizes can have radically different latency depending on <em>max_new_tokens</em>, <em>concurrency</em>, and <em>cache reuse</em>.</p>
+<p>This guide is a practical, production-focused walkthrough for building <strong>LLM inference monitoring with Prometheus and Grafana</strong>:</p>
+<ul>
+<li>What to measure (p95/p99 latency, tokens/sec, queue duration, cache utilization, error rate)</li>
+<li>How to scrape <code>/metrics</code> from common servers (<strong>vLLM</strong>, <strong>Hugging Face TGI</strong>, <strong>llama.cpp</strong>)</li>
+<li>PromQL examples for percentiles, saturation, and throughput</li>
+<li>Deployment patterns with <strong>Docker Compose</strong> and <strong>Kubernetes</strong></li>
+<li>Troubleshooting the issues that only appear under real load</li>
+</ul>
+<blockquote>
+<p>The examples are intentionally vendor-neutral. Whether you later add OpenTelemetry tracing, autoscaling, or a service mesh, the same metric model applies.</p>
+</blockquote>
+<hr>
+<p><img
+  src="/observability/monitoring-llm-inference-prometheus-grafana/monitoging-llm-prometheus-grafana-x800.jpg"
+  width="800"
+  height="533"
+  alt="monitoging llm with prometheus and grafana"
+  title="monitoging llm with prometheus and grafana"
+  loading="lazy"
+  decoding="async"></p>
+<h2 id="why-you-should-monitor-llm-inference-differently">Why you should monitor LLM inference differently</h2>
+<p>Traditional API monitoring (RPS, p95 latency, error rate) is necessary but not sufficient. LLM serving adds additional axes:</p>
+<h3 id="1-latency-has-two-meanings">1) Latency has two meanings</h3>
+<ul>
+<li><strong>E2E latency</strong>: time from request received → final token returned.</li>
+<li><strong>Inter-token latency</strong>: time per token during decode (critical for streaming UX).</li>
+</ul>
+<p>Some servers expose both. For example, TGI exposes request duration and mean time-per-token as histograms.</p>
+<h3 id="2-throughput-is-in-tokens-not-requests">2) Throughput is in tokens, not requests</h3>
+<p>A “fast” service that returns 5 tokens is not comparable to one returning 500 tokens. Your “RPS” should often be “<strong>tokens/sec</strong>”.</p>
+<h3 id="3-the-queue-is-the-product">3) The queue is the product</h3>
+<p>If you run continuous batching, queue depth is what you sell. Watching <strong>queue duration</strong> and <strong>queue size</strong> tells you whether you’re meeting user expectations.</p>
+<h3 id="4-cache-pressure-is-an-outage-precursor">4) Cache pressure is an outage precursor</h3>
+<p>KV cache exhaustion (or fragmentation) often shows up as sudden latency spikes and timeouts. vLLM exposes KV cache usage as a gauge.</p>
+<hr>
+<h2 id="metrics-checklist-for-llm-inference-monitoring">Metrics checklist for LLM inference monitoring</h2>
+<p>Use this as your north star. You don’t need everything on day one—but you’ll want most of it eventually.</p>
+<h3 id="golden-signals-llm-flavored">Golden signals (LLM-flavored)</h3>
+<ul>
+<li><strong>Traffic:</strong> requests/sec, tokens/sec</li>
+<li><strong>Errors:</strong> error rate, timeouts, OOMs, 429s (rate limiting)</li>
+<li><strong>Latency:</strong> p50/p95/p99 request duration; prefill vs decode latency; inter-token latency</li>
+<li><strong>Saturation:</strong> GPU utilization, memory usage, KV cache usage, queue size</li>
+</ul>
+<p>If you need low-level visibility into GPU memory usage, temperature, and utilization outside of Prometheus (for debugging or single-node setups), see my guide to <a href="https://www.glukhov.org/observability/gpu-monitoring-apps-linux/">GPU monitoring applications in Linux / Ubuntu</a>.</p>
+<p>For a broader view of LLM observability beyond metrics — including tracing, structured logs, synthetic testing, GPU profiling, and SLO design — see my in-depth guide on <a href="https://www.glukhov.org/observability/observability-for-llm-systems/">observability for LLM systems</a>.</p>
+<h3 id="useful-dimensions-labels">Useful dimensions (labels)</h3>
+<p>Keep label cardinality low. Good labels:</p>
+<ul>
+<li><code>model</code>, <code>endpoint</code>, <code>method</code> (prefill/decode), <code>status</code> (success/error), <code>instance</code></li>
+</ul>
+<p>Avoid labels like:</p>
+<ul>
+<li>raw <code>prompt</code>, raw <code>user_id</code>, request ids — these explode series count.</li>
+</ul>
+<hr>
+<h2 id="exposing-metrics-built-in-metrics-endpoints-vllm-tgi-llamacpp">Exposing metrics: built-in <code>/metrics</code> endpoints (vLLM, TGI, llama.cpp)</h2>
+<p>The easiest path is: <strong>use the metrics the server already exposes</strong>.</p>
+<h3 id="vllm-prometheus-compatible-metrics">vLLM: Prometheus-compatible <code>/metrics</code></h3>
+<p>vLLM exposes a Prometheus-compatible <code>/metrics</code> endpoint (via its Prometheus metrics logger) and publishes server/request metrics with the <code>vllm:</code> prefix, including gauges like running requests and KV cache usage.</p>
+<p>For container setup, OpenAI-compatible serving, and throughput-oriented runtime tuning, see <a href="https://www.glukhov.org/llm-hosting/vllm/vllm-quickstart/" title="Complete vLLM setup guide with Docker, OpenAI API compatibility, PagedAttention optimization. Compare vLLM vs Ollama vs Docker Model Runner for production.">vLLM Quickstart: High-Performance LLM Serving</a>.</p>
+<p>Example metrics you’ll typically see:</p>
+<ul>
+<li><code>vllm:num_requests_running</code></li>
+<li><code>vllm:num_requests_waiting</code></li>
+<li><code>vllm:kv_cache_usage_perc</code></li>
+</ul>
+<h3 id="hugging-face-tgi-metrics-with-queue--request-histograms">Hugging Face TGI: <code>/metrics</code> with queue + request histograms</h3>
+<p>TGI exposes many production-grade metrics on <code>/metrics</code>, including queue size, request duration, queue duration, and mean time per token.</p>
+<p>Notable ones:</p>
+<ul>
+<li><code>tgi_queue_size</code> (gauge)</li>
+<li><code>tgi_request_duration</code> (histogram, e2e latency)</li>
+<li><code>tgi_request_queue_duration</code> (histogram)</li>
+<li><code>tgi_request_mean_time_per_token_duration</code> (histogram)</li>
+</ul>
+<p>Operational setup—Docker, GPUs, launch flags, and the failures that show up as empty or misleading scrapes—is covered in <a href="https://www.glukhov.org/llm-hosting/tgi/" title="A practical guide to installing Hugging Face TGI, launching your first LLM endpoint, tuning key flags, and fixing the failures you will meet.">TGI - Text Generation Inference - Install, Config, Troubleshoot</a>.</p>
+<h3 id="llamacpp-server-enable-metrics-endpoint">llama.cpp server: enable metrics endpoint</h3>
+<p>The llama.cpp server supports a Prometheus-compatible metrics endpoint that must be enabled with a flag (e.g., <code>--metrics</code>).</p>
+<p>For installation paths, key runtime flags, and OpenAI-compatible server usage, see <a href="https://www.glukhov.org/llm-hosting/llama-cpp/" title="Install llama.cpp, run GGUF models with llama-cli, and serve OpenAI-compatible APIs using llama-server. Key flags, examples, and tuning tips with a short commands cheatsheet">llama.cpp Quickstart with CLI and Server</a>.</p>
+<blockquote>
+<p>If you’re running llama.cpp behind a proxy, scrape the server directly whenever possible (to avoid proxy-level latency hiding the actual inference behavior).</p>
+</blockquote>
+<hr>
+<h2 id="prometheus-configuration-scraping-your-inference-servers">Prometheus configuration: scraping your inference servers</h2>
+<p>This example assumes:</p>
+<ul>
+<li>vLLM at <code>http://vllm:8000/metrics</code></li>
+<li>TGI at <code>http://tgi:8080/metrics</code></li>
+<li>llama.cpp at <code>http://llama:8080/metrics</code></li>
+<li>scrape interval tuned for fast feedback</li>
+</ul>
+<h3 id="prometheusyml"><code>prometheus.yml</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">global</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">scrape_interval</span>: <span style="color:#ae81ff">5s</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">evaluation_interval</span>: <span style="color:#ae81ff">15s</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">scrape_configs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#e6db74">&#34;vllm&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metrics_path</span>: <span style="color:#ae81ff">/metrics</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">static_configs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">targets</span>: [<span style="color:#e6db74">&#34;vllm:8000&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#e6db74">&#34;tgi&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metrics_path</span>: <span style="color:#ae81ff">/metrics</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">static_configs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">targets</span>: [<span style="color:#e6db74">&#34;tgi:8080&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">job_name</span>: <span style="color:#e6db74">&#34;llama_cpp&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">metrics_path</span>: <span style="color:#ae81ff">/metrics</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">static_configs</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">targets</span>: [<span style="color:#e6db74">&#34;llama:8080&#34;</span>]
+</span></span></code></pre></div><p>If you&rsquo;re new to Prometheus or want a deeper explanation of scrape configs, exporters, relabeling, and alerting rules, see my full <a href="https://www.glukhov.org/observability/monitoring-with-prometheus/">Prometheus monitoring setup guide</a>.</p>
+<h3 id="pro-tip-add-a-service-label">Pro tip: add a “service label”</h3>
+<p>If you run multiple models/replicas, add relabeling to include a stable <code>service</code> label for dashboards.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">relabel_configs</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">target_label</span>: <span style="color:#ae81ff">service</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">replacement</span>: <span style="color:#e6db74">&#34;llm-inference&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="promql-examples-you-can-copypaste">PromQL examples you can copy/paste</h2>
+<h3 id="request-rate-rps">Request rate (RPS)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">sum</span><span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_count[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span></code></pre></div><p>For vLLM, use its request counters (names vary by version), but the pattern is the same: <code>sum(rate(&lt;counter&gt;[5m]))</code>.</p>
+<h3 id="error-rate-">Error rate (%)</h3>
+<p>If you have <code>*_success</code> counters, compute failure ratio:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span> <span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">sum</span><span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_success[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">/</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">sum</span><span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_count[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="p95-latency-for-histogram-metrics-prometheus">p95 latency for histogram metrics (Prometheus)</h3>
+<p>Prometheus histograms are bucketed counts; use <code>histogram_quantile()</code> over <code>rate()</code> of the buckets. Prometheus documents this model and the histogram vs summary tradeoffs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">histogram_quantile</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.95</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">sum</span> <span style="color:#66d9ef">by</span> <span style="color:#f92672">(</span>le<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_duration_bucket[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="p99-queue-time">p99 queue time</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">histogram_quantile</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.99</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">sum</span> <span style="color:#66d9ef">by</span> <span style="color:#f92672">(</span>le<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_queue_duration_bucket[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="mean-time-per-token-inter-token-latency">Mean time per token (inter-token latency)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">histogram_quantile</span><span style="color:#f92672">(</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ae81ff">0.95</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">sum</span> <span style="color:#66d9ef">by</span> <span style="color:#f92672">(</span>le<span style="color:#f92672">)</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">rate</span><span style="color:#f92672">(</span>tgi_request_mean_time_per_token_duration_bucket[<span style="color:#e6db74">5m</span>]<span style="color:#f92672">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Inter-token latency is often constrained by decode bottlenecks and memory bandwidth - topics covered in detail in
+<a href="https://www.glukhov.org/llm-performance/" title="Practical LLM performance engineering: throughput vs latency, VRAM limits, parallel requests, memory allocation, and benchmarks across runtimes and hardware.">LLM performance optimization guide</a>.</p>
+<h3 id="queue-depth-instant">Queue depth (instant)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">max</span><span style="color:#f92672">(</span>tgi_queue_size<span style="color:#f92672">)</span>
+</span></span></code></pre></div><h3 id="vllm-kv-cache-utilization-instant">vLLM KV cache utilization (instant)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-promql" data-lang="promql"><span style="display:flex;"><span><span style="color:#66d9ef">max</span><span style="color:#f92672">(</span>vllm<span style="color:#960050;background-color:#1e0010">:</span>kv_cache_usage_perc<span style="color:#f92672">)</span>
+</span></span></code></pre></div><hr>
+<h2 id="grafana-dashboards-panels-that-actually-help-on-call">Grafana dashboards: panels that actually help on-call</h2>
+<p>Grafana can visualize histograms in multiple ways (percentiles, heatmaps, bucket distributions). Grafana Labs has a detailed guide to Prometheus histogram visualization.</p>
+<p>A minimal, high-signal dashboard layout:</p>
+<h3 id="row-1--user-experience">Row 1 — User experience</h3>
+<ol>
+<li><strong>p95 request latency</strong> (time series)</li>
+<li><strong>p95 inter-token latency</strong> (time series)</li>
+<li><strong>Error rate</strong> (time series + stat)</li>
+</ol>
+<h3 id="row-2--capacity-and-saturation">Row 2 — Capacity and saturation</h3>
+<ol start="4">
+<li><strong>Queue size</strong> (time series)</li>
+<li><strong>Running vs waiting requests</strong> (stacked)</li>
+<li><strong>KV cache usage %</strong> (gauge)</li>
+</ol>
+<h3 id="row-3--throughput">Row 3 — Throughput</h3>
+<ol start="7">
+<li><strong>Requests/sec</strong></li>
+<li><strong>Generated tokens/request (p50/p95)</strong></li>
+</ol>
+<blockquote>
+<p>If you have streaming, add a panel for “first token latency” (TTFT) when available.</p>
+</blockquote>
+<h3 id="example-grafana-queries">Example Grafana queries</h3>
+<ul>
+<li>p95 latency panel: the <code>histogram_quantile(0.95, …)</code> query above</li>
+<li>heatmap panel: graph the bucket rates (<code>*_bucket</code>) as a heatmap (Grafana supports this approach)</li>
+</ul>
+<hr>
+<h2 id="deployment-option-1-docker-compose-fast-local--single-node">Deployment option 1: Docker Compose (fast local + single-node)</h2>
+<p>If you&rsquo;re deciding between local, self-hosted, or cloud-based inference architectures, see the full breakdown in my
+<a href="https://www.glukhov.org/llm-hosting/" title="Complete guide to LLM hosting in 2026. Compare Ollama, vLLM, Docker Model Runner, LocalAI and cloud providers. Learn cost, performance, and infrastructure trade-offs.">LLM hosting comparison guide</a>.</p>
+<p>Create a folder like:</p>
+<pre tabindex="0"><code>monitoring/
+  docker-compose.yml
+  prometheus/
+    prometheus.yml
+  grafana/
+    provisioning/
+      datasources/datasource.yml
+      dashboards/dashboards.yml
+    dashboards/
+      llm-inference.json
+</code></pre><h3 id="docker-composeyml"><code>docker-compose.yml</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">services</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">prometheus</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">prom/prometheus:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;9090:9090&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">grafana</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">image</span>: <span style="color:#ae81ff">grafana/grafana:latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">GF_SECURITY_ADMIN_USER=admin</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">GF_SECURITY_ADMIN_PASSWORD=admin</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">volumes</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./grafana/provisioning:/etc/grafana/provisioning</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">./grafana/dashboards:/var/lib/grafana/dashboards</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#e6db74">&#34;3000:3000&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">depends_on</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">prometheus</span>
+</span></span></code></pre></div><p>If you prefer a manual Grafana installation instead of Docker, see my step-by-step guide on <a href="https://www.glukhov.org/observability/grafana-installing-using-in-ubuntu/">installing and using Grafana on Ubuntu</a>.</p>
+<h3 id="grafana-datasource-provisioning-grafanaprovisioningdatasourcesdatasourceyml">Grafana datasource provisioning (<code>grafana/provisioning/datasources/datasource.yml</code>)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">datasources</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Prometheus</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">prometheus</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">access</span>: <span style="color:#ae81ff">proxy</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">url</span>: <span style="color:#ae81ff">http://prometheus:9090</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">isDefault</span>: <span style="color:#66d9ef">true</span>
+</span></span></code></pre></div><h3 id="dashboard-provisioning-grafanaprovisioningdashboardsdashboardsyml">Dashboard provisioning (<code>grafana/provisioning/dashboards/dashboards.yml</code>)</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">providers</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">name</span>: <span style="color:#e6db74">&#34;LLM&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">folder</span>: <span style="color:#e6db74">&#34;LLM&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">type</span>: <span style="color:#ae81ff">file</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">disableDeletion</span>: <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">options</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/var/lib/grafana/dashboards</span>
+</span></span></code></pre></div><hr>
+<h2 id="deployment-option-2-kubernetes-prometheus-operator--servicemonitor">Deployment option 2: Kubernetes (Prometheus Operator + ServiceMonitor)</h2>
+<p>If you use <strong>kube-prometheus-stack</strong> (Prometheus Operator), scrape targets via <code>ServiceMonitor</code>.</p>
+<p>For infrastructure trade-offs between Kubernetes, single-node Docker, and managed inference providers,
+see my
+<a href="https://www.glukhov.org/llm-hosting/" title="Complete guide to LLM hosting in 2026. Compare Ollama, vLLM, Docker Model Runner, LocalAI and cloud providers. Learn cost, performance, and infrastructure trade-offs.">LLM hosting in 2026 guide</a>.</p>
+<h3 id="1-expose-your-inference-deployment-with-a-service">1) Expose your inference deployment with a Service</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tgi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">tgi</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">tgi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">http</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
+</span></span></code></pre></div><h3 id="2-create-a-servicemonitor">2) Create a <code>ServiceMonitor</code></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">monitoring.coreos.com/v1</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">ServiceMonitor</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">tgi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">release</span>: <span style="color:#ae81ff">kube-prometheus-stack</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">matchLabels</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">app</span>: <span style="color:#ae81ff">tgi</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">endpoints</span>:
+</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">port</span>: <span style="color:#ae81ff">http</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/metrics</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">interval</span>: <span style="color:#ae81ff">5s</span>
+</span></span></code></pre></div><p>Repeat for vLLM and llama.cpp services. This scales cleanly as you add replicas.</p>
+<h3 id="3-alerting-slo-style-rules-example">3) Alerting: SLO-style rules (example)</h3>
+<p>Here are good starter alerts:</p>
+<ul>
+<li><strong>High p95 latency</strong> (burn rate)</li>
+<li><strong>Queue time p99 too high</strong> (users waiting)</li>
+<li><strong>Error rate &gt; 1%</strong></li>
+<li><strong>KV cache usage &gt; 90%</strong> sustained (capacity cliff)</li>
+</ul>
+<p>Example rule (p95 request duration):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">alert</span>: <span style="color:#ae81ff">LLMHighP95Latency</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">expr</span>: <span style="color:#ae81ff">histogram_quantile(0.95, sum by (le) (rate(tgi_request_duration_bucket[5m]))) &gt; 3</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">for</span>: <span style="color:#ae81ff">10m</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">labels</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">severity</span>: <span style="color:#ae81ff">page</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">summary</span>: <span style="color:#e6db74">&#34;TGI p95 latency &gt; 3s (10m)&#34;</span>
+</span></span></code></pre></div><hr>
+<h2 id="troubleshooting-common-prometheus--grafana-failures-in-llm-stacks">Troubleshooting: common Prometheus + Grafana failures in LLM stacks</h2>
+<h3 id="1-prometheus-target-is-down">1) Prometheus target is “DOWN”</h3>
+<p><strong>Symptoms</strong></p>
+<ul>
+<li>Prometheus UI → Targets shows <code>DOWN</code></li>
+<li>“context deadline exceeded” or connection refused</li>
+</ul>
+<p><strong>Checklist</strong></p>
+<ul>
+<li>Is the server actually exposing <code>/metrics</code>?</li>
+<li>Wrong port? Wrong scheme (http vs https)?</li>
+<li>Kubernetes: is the Service selecting pods? Is the ServiceMonitor label <code>release</code> correct?</li>
+</ul>
+<p><strong>Quick test</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>curl -sS http://tgi:8080/metrics | head
+</span></span></code></pre></div><h3 id="2-you-can-scrape-metrics-but-panels-are-empty">2) You can scrape metrics, but panels are empty</h3>
+<p><strong>Most common causes</strong></p>
+<ul>
+<li>Wrong metric name (server version changed)</li>
+<li>Dashboard expects <code>_bucket</code> but you only have a gauge/counter</li>
+<li>Prometheus scrape interval too long for short windows (e.g., <code>[1m]</code> with 30s scrape can be noisy)</li>
+</ul>
+<p><strong>Fix</strong></p>
+<ul>
+<li>Use Grafana Explore to search metric prefixes (e.g., <code>tgi_</code> / <code>vllm:</code>)</li>
+<li>Increase range window from <code>[1m]</code> → <code>[5m]</code></li>
+</ul>
+<h3 id="3-histogram-percentiles-look-flat-or-wrong">3) Histogram percentiles look “flat” or wrong</h3>
+<p>Prometheus histograms require correct aggregation:</p>
+<ul>
+<li>use <code>rate(metric_bucket[5m])</code></li>
+<li>then <code>sum by (le)</code> (and <em>optionally</em> other stable labels)</li>
+<li>then <code>histogram_quantile()</code></li>
+</ul>
+<p>Prometheus documents the bucket model and server-side quantile calculation.<br>
+Grafana’s histogram visualization guide includes practical panel patterns.</p>
+<h3 id="4-cardinality-explosion-prometheus-memory-spikes">4) Cardinality explosion (Prometheus memory spikes)</h3>
+<p><strong>Symptoms</strong></p>
+<ul>
+<li>Prometheus RAM usage climbs</li>
+<li>“too many series” errors</li>
+</ul>
+<p><strong>Typical root cause</strong></p>
+<ul>
+<li>You added <code>prompt</code>, <code>user_id</code>, or request ids as labels in a custom exporter.</li>
+</ul>
+<p><strong>Fix</strong></p>
+<ul>
+<li>Remove high-cardinality labels</li>
+<li>Pre-aggregate into low-cardinality labels (model, endpoint, status)</li>
+<li>Consider using logs/traces for per-request debugging instead of labels</li>
+</ul>
+<h3 id="5-we-have-metrics-but-no-idea-why-its-slow">5) “We have metrics, but no idea why it’s slow”</h3>
+<p>Metrics are necessary, but sometimes you need correlation:</p>
+<ul>
+<li>Add <strong>structured logs</strong> with request metadata (model, token counts, TTFT)</li>
+<li>Add <strong>tracing</strong> (OpenTelemetry) around your gateway + inference server</li>
+<li>Use exemplars (when supported) to jump from a latency spike to a trace</li>
+</ul>
+<blockquote>
+<p>A good workflow: Grafana dashboard spike -&gt; click into Explore -&gt; narrow by instance/model -&gt; check logs/traces for that period.</p>
+</blockquote>
+<p>This follows the classic metrics -&gt; logs -&gt; traces model described in
+<a href="https://www.glukhov.org/observability/" title="Practical observability guide: monitoring vs observability">observability and monitoring architecture guide</a>.</p>
+<h3 id="6-vllm--multi-process-metric-quirks">6) vLLM / multi-process metric quirks</h3>
+<p>If your serving stack runs in multiple processes, you may need Prometheus multi-process configuration (depends on how the process exposes metrics). The vLLM docs emphasize exposing metrics via <code>/metrics</code> for Prometheus polling; check the server’s metrics mode when deploying.</p>
+<hr>
+<h2 id="a-practical-day-1-dashboard-and-alert-set">A practical “day-1” dashboard and alert set</h2>
+<p>If you want a lean setup that still works in production, start with:</p>
+<p><strong>Dashboard panels</strong></p>
+<ol>
+<li>p95 request latency</li>
+<li>p95 mean time per token</li>
+<li>queue size</li>
+<li>p95 queue duration</li>
+<li>error rate</li>
+<li>KV cache usage %</li>
+</ol>
+<p><strong>Alerts</strong></p>
+<ul>
+<li>p95 request latency &gt; X for 10m</li>
+<li>p99 queue duration &gt; Y for 10m</li>
+<li>error rate &gt; 1% for 5m</li>
+<li>KV cache usage &gt; 90% for 15m</li>
+<li>Prometheus target down (always)</li>
+</ul>
+<hr>
+<h2 id="related-observability-guides">Related Observability Guides</h2>
+<ul>
+<li><a href="https://www.glukhov.org/observability/">Observability Guide: Prometheus, Grafana &amp; Production Monitoring</a></li>
+<li><a href="https://www.glukhov.org/observability/monitoring-with-prometheus/" title="Guide to Prometheus monitoring system: installation, configuration, PromQL queries, exporters, alerting">Prometheus Monitoring: Setup &amp; Best Practices</a></li>
+<li><a href="https://www.glukhov.org/observability/grafana-installing-using-in-ubuntu/" title="Step-by-step guide to installing, configuring, and using Grafana on Ubuntu">Install and Use Grafana on Ubuntu: Complete Guide</a></li>
+</ul>
+<h2 id="related-llm-infrastructure-guides">Related LLM Infrastructure Guides</h2>
+<ul>
+<li><a href="https://www.glukhov.org/llm-hosting/">LLM Hosting in 2026: Local, Self-Hosted &amp; Cloud Compared</a></li>
+<li><a href="https://www.glukhov.org/llm-performance/">LLM Performance in 2026: Benchmarks &amp; Optimization</a></li>
+</ul>
+<hr>
+<h2 id="closing-notes">Closing notes</h2>
+<p>Prometheus + Grafana gives you the “always-on” view of inference health. Once you have the basics, the next big wins usually come from:</p>
+<ul>
+<li>SLOs per model / tenant</li>
+<li>request shaping (max tokens, concurrency limits)</li>
+<li>autoscaling tied to <strong>queue time</strong> and <strong>KV cache headroom</strong></li>
+</ul>
+<p>For a broader explanation of monitoring vs observability, Prometheus fundamentals, and production patterns, see my complete <a href="https://www.glukhov.org/observability/" title="Practical observability guide: monitoring vs observability, Prometheus metrics, Grafana dashboards, alerting, Kubernetes and AI/LLM monitoring, and production best practices.">observability guide</a>.</p>
+		</div>
+		<footer class="post__footer">
+			
+<div class="post__tags tags clearfix">
+	<svg class="tags__badge icon icon-tag" width="16" height="16" viewBox="0 0 32 32"><path d="M4 0h8s2 0 4 2l15 15s2 2 0 4L21 31s-2 2-4 0L2 16s-2-2-2-4V3s0-3 4-3m3 10a3 3 0 0 0 0-6 3 3 0 0 0 0 6"/></svg>
+	<ul class="tags__list">
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/monitoring/" rel="tag">Monitoring</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/hosting/" rel="tag">Hosting</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/self-hosting/" rel="tag">Self-Hosting</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/llm/" rel="tag">LLM</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/ai/" rel="tag">AI</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/devops/" rel="tag">DevOps</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/docker/" rel="tag">Docker</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/k8s/" rel="tag">K8S</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/prometheus/" rel="tag">Prometheus</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/grafana/" rel="tag">Grafana</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/observability/" rel="tag">observability</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/kubernetes/" rel="tag">kubernetes</a>
+		</li>
+		<li class="tags__item">
+			<a class="tags__link btn" href="/tags/vllm/" rel="tag">vllm</a>
+		</li>
+	</ul>
+</div>
+		</footer>
+	</article><section class="post-subscribe">
+		<h2 class="post-subscribe__title">Subscribe</h2>
+		<p class="post-subscribe__lead">Get new posts on AI systems, Infrastructure, and AI engineering.</p>
+		
+<form
+  action="https://buttondown.com/api/emails/embed-subscribe/rosgluk"
+  method="post"
+  class="subscribe-form"
+>
+  <input type="hidden" name="embed" value="1" />
+
+  <div class="subscribe-form__row">
+    <label for="bd-email-post-bottom" class="subscribe-form__label">Email</label>
+    <input
+      id="bd-email-post-bottom"
+      type="email"
+      name="email"
+      placeholder="you@example.com"
+      required
+      class="subscribe-form__input"
+    />
+  </div>
+
+  
+
+  <input type="hidden" name="metadata__language" value="en" />
+  <input type="hidden" name="metadata__source" value="post-bottom" />
+  <input type="hidden" name="metadata__subscription" value="weekly" />
+  
+  <input type="hidden" name="metadata__topic" value="observability" />
+  
+
+  <button type="submit" class="subscribe-form__button">Subscribe</button>
+</form>
+
+
+	</section>
+</main>
+
+<div class="authorbox clearfix">
+	<figure class="authorbox__avatar">
+		<img alt="Rost Glukhov avatar" src="/img/ava-90x90.jpg" class="avatar" height="90" width="90">
+	</figure>
+	<div class="authorbox__header">
+		<span class="authorbox__name">About Rost Glukhov</span>
+	</div>
+	<div class="authorbox__description">
+		Rost Glukhov is a polyglot developer, has a special interest in web, mobile, backend, AI, devops and other areas. For more details have a look at the <a href="https://www.glukhov.org/about/" title="About Rost Glukhov">About page</a>. For partnership and sponsored content inquiries, see <a href="/sponsored/">Partnerships</a>.
+	</div>
+</div>
+
+<nav class="pager flex">
+	<div class="pager__item pager__item--prev">
+		<a class="pager__link" href="/observability/observability-for-llm-systems/" rel="prev">
+			<span class="pager__subtitle">«&thinsp;Previous</span>
+			<p class="pager__title">Observability for LLM Systems: Metrics, Traces, Logs, and Testing in Production</p>
+		</a>
+	</div>
+	<div class="pager__item pager__item--next">
+		<a class="pager__link" href="/observability/logging/structured-logging-go-slog/" rel="next">
+			<span class="pager__subtitle">Next&thinsp;»</span>
+			<p class="pager__title">Structured Logging in Go with slog for Observability and Alerting</p>
+		</a>
+	</div>
+</nav>
+
+
+			</div>
+			<aside class="sidebar"><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<input class="widget-search__field" type="search" placeholder="Search…" value="" name="q" aria-label="Search…">
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://www.glukhov.org/">
+	</form>
+</div>
+<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/documentation-tools/markdown/gfm-vs-commonmark-vs-pandoc-markdown/">GFM vs CommonMark vs Pandoc Markdown: Syntax Compared</a></li>
+			<li class="widget__item"><a class="widget__link" href="/llm-hosting/self-hosting/data-gravity-ai-vendor-lockin/">Data Gravity: The Real Cost of API-First AI</a></li>
+			<li class="widget__item"><a class="widget__link" href="/ai-devtools/claude-code/claude-code-subagents/">Claude Code Subagents: Setup, Config, and When to Use Them</a></li>
+			<li class="widget__item"><a class="widget__link" href="/llm-hosting/comparisons/ollama-to-vllm-migration/">Ollama to vLLM: When to Migrate Your Local LLM Server</a></li>
+			<li class="widget__item"><a class="widget__link" href="/app-architecture/testing-architecture/specs-tests-code-traceability-ai-development/">Keeping Specs, Tests, And Code In Sync In AI Development</a></li>
+		</ul>
+	</div>
+</div>
+<div class="widget-taglist widget">
+	<h4 class="widget__title">Tags</h4>
+	<div class="widget__content">
+		<a class="widget-taglist__link widget__link btn" href="/tags/ai/" title="AI">AI</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ai-coding/" title="AI Coding">AI Coding</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ai-agents/" title="Ai-Agents">Ai-Agents</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/alerting/" title="Alerting">Alerting</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/anaconda/" title="Anaconda">Anaconda</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/android/" title="Android">Android</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/api/" title="API">API</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/architecture/" title="Architecture">Architecture</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws/" title="AWS">AWS</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/aws-amplify/" title="AWS Amplify">AWS Amplify</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/backup/" title="Backup">Backup</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/bash/" title="Bash">Bash</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cheatsheet/" title="Cheatsheet">Cheatsheet</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/claude-code/" title="Claude-Code">Claude-Code</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cloud/" title="Cloud">Cloud</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/coding/" title="Coding">Coding</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/community/" title="Community">Community</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cookbook/" title="Cookbook">Cookbook</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/cursor/" title="Cursor">Cursor</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/data/" title="Data">Data</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/database/" title="Database">Database</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/deeplearning/" title="DeepLearning">DeepLearning</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/dev/" title="Dev">Dev</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/devops/" title="DevOps">DevOps</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/devtools/" title="Devtools">Devtools</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/dgx-spark/" title="DGX Spark">DGX Spark</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/digital-detox/" title="Digital Detox">Digital Detox</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/docker/" title="Docker">Docker</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/documentation/" title="Documentation">Documentation</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/embeddings/" title="Embeddings">Embeddings</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/filofax/" title="Filofax">Filofax</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/flutter/" title="Flutter">Flutter</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/garage/" title="Garage">Garage</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/git/" title="Git">Git</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gitea/" title="Gitea">Gitea</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/github/" title="GitHub">GitHub</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/go/" title="Go">Go</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/golang/" title="Golang">Golang</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/gpu/" title="Gpu">Gpu</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/grafana/" title="Grafana">Grafana</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hardware/" title="Hardware">Hardware</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hermes/" title="Hermes">Hermes</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hosting/" title="Hosting">Hosting</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/hugo/" title="Hugo">Hugo</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/images/" title="Images">Images</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/infrastructure/" title="Infrastructure">Infrastructure</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/integration/" title="Integration">Integration</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/javascript/" title="JavaScript">JavaScript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/k8s/" title="K8S">K8S</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/knowledge-management/" title="Knowledge-Management">Knowledge-Management</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/kubernetes/" title="Kubernetes">Kubernetes</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/labelstudio/" title="LabelStudio">LabelStudio</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/latex/" title="Latex">Latex</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/linux/" title="Linux">Linux</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/llama.cpp/" title="Llama.cpp">Llama.cpp</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/llm/" title="LLM">LLM</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/logging/" title="Logging">Logging</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/logseq/" title="Logseq">Logseq</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/machine-learning/" title="Machine Learning">Machine Learning</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mainroad/" title="Mainroad">Mainroad</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/markdown/" title="Markdown">Markdown</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/melbourne/" title="Melbourne">Melbourne</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/microservices/" title="Microservices">Microservices</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/minio/" title="Minio">Minio</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/mmdetection/" title="MMDetection">MMDetection</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/monitoring/" title="Monitoring">Monitoring</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/node.js/" title="Node.js">Node.js</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/nvidia/" title="NVidia">NVidia</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/objectdetection/" title="ObjectDetection">ObjectDetection</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/observability/" title="Observability">Observability</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/obsidian/" title="Obsidian">Obsidian</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/offline/" title="Offline">Offline</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ollama/" title="Ollama">Ollama</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/open-source/" title="Open Source">Open Source</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openai/" title="Openai">Openai</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/openclaw/" title="OpenClaw">OpenClaw</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/opencode/" title="OpenCode">OpenCode</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/performance/" title="Performance">Performance</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/perplexica/" title="Perplexica">Perplexica</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/postgresql/" title="PostgreSQL">PostgreSQL</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/printing/" title="Printing">Printing</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/privacy/" title="Privacy">Privacy</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/prometheus/" title="Prometheus">Prometheus</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/python/" title="Python">Python</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/pytorch/" title="PyTorch">PyTorch</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/rag/" title="RAG">RAG</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/s3/" title="S3">S3</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/security/" title="Security">Security</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/self-hosting/" title="Self-Hosting">Self-Hosting</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/selfhosting/" title="SelfHosting">SelfHosting</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/seo/" title="SEO">SEO</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/serverless/" title="Serverless">Serverless</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/sql/" title="SQL">SQL</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/terminal/" title="Terminal">Terminal</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/terraform/" title="Terraform">Terraform</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/typescript/" title="TypeScript">TypeScript</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/ubuntu/" title="Ubuntu">Ubuntu</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/vector-database/" title="Vector Database">Vector Database</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/vector-databases/" title="Vector Databases">Vector Databases</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/vllm/" title="Vllm">Vllm</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/vs-code/" title="VS Code">VS Code</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/vscode/" title="VSCode">VSCode</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/web-hosting/" title="Web Hosting">Web Hosting</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/wiki/" title="Wiki">Wiki</a>
+		<a class="widget-taglist__link widget__link btn" href="/tags/windows/" title="Windows">Windows</a>
+	</div>
+</div>
+</aside>
+		</div>
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+<div class="footer__links">
+	<a class="footer__link" href="/contact/">Contact</a> | <a class="footer__link" href="/privacy/">Privacy Policy</a> | <a class="footer__link" href="/sponsored/">Sponsored Technical Contributions</a> | <a class="footer__link" href="/terms/">Terms and Conditions</a>
+</div>
+		<div class="footer__copyright">
+			&copy; 2026 Rost Glukhov.
+		</div>
+	</div>
+</footer>
+	</div>
+<script async defer src="/js/menu.js"></script>
+
+</body>
+</html>

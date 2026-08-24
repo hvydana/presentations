@@ -1,0 +1,241 @@
+ROCm
+| ROCm |  | 
+|---|---|
+| Developer | AMD | 
+| Release | November 14, 2016 | 
+| Stable release |  | 
+| Written in | C, C++, Python, Fortran, Julia | 
+| Middleware | HIP | 
+| Engine | AMDgpu kernel driver, HIPCC, a LLVM-based compiler | 
+| Operating system | Linux, Windows[2] | 
+| Platform | Supported GPUs | 
+| Predecessor | Close to metal, Stream, HSA | 
+| Size | <2 GiB | 
+| Type | GPGPU libraries and APIs | 
+| License | MIT License | 
+| Website | www | 
+| Repository | Meta-repository github | 
+ROCm is an Advanced Micro Devices (AMD) software stack for graphics processing unit (GPU) programming. ROCm spans several domains, including general-purpose computing on graphics processing units (GPGPU), high-performance computing (HPC), and heterogeneous computing. It offers several programming models: HIP (GPU-kernel-based programming), OpenMP (directive-based programming), and OpenCL.
+ROCm is free, libre and open-source software (except the GPU firmware blobs[3]), and it is distributed under various licenses. The name initially stood for Radeon Open Compute platform;[4] however, due to Open Compute being a registered trademark, the name no longer functions as an acronym.[5][non-primary source needed]
+Background
+[edit]
+The first GPGPU software stack from ATI/AMD was Close to Metal, which became Stream.
+ROCm was launched around 2016[6] with the Boltzmann Initiative.[7] ROCm stack builds upon previous AMD GPU stacks; some tools trace back to GPUOpen and others to the Heterogeneous System Architecture (HSA).
+In July 2026, AMD announce ROCm will be on six week release cycle.[8]
+Heterogeneous System Architecture Intermediate Language
+[edit]
+HSAIL[9] was aimed at producing a middle-level, hardware-agnostic intermediate representation that could be JIT-compiled to the eventual hardware (GPU, FPGA...) using the appropriate finalizer. This approach was dropped for ROCm: now it builds only GPU code, using LLVM, and its AMDGPU backend that was upstreamed,[10] although there is still research on such enhanced modularity with LLVM MLIR.[11]
+Programming abilities
+[edit]
+ROCm as a stack ranges from the kernel driver to the end-user applications. AMD has introductory videos about AMD GCN hardware,[12] and ROCm programming[13] via its learning portal.[14]
+One of the best technical introductions about the stack and ROCm/HIP programming, remains, to date, to be found on Reddit.[15]
+Hardware support
+[edit]
+ROCm is primarily targeted at discrete professional GPUs,[16] but consumer GPUs and APUs of the same architecture as a supported professional GPU are known to work with ROCm. For example, all professional GPUs of the RDNA 2 architecture are officially supported by ROCm 5.x; users report that Consumer RDNA2 units such as the Radeon 6800M APU and the Radeon 6700XT GPU also work.[17]
+Professional-grade GPUs
+[edit]
+Consumer-grade GPUs
+[edit]
+| Name of GPU series | Southern Islands | Sea Islands | Volcanic Islands | Arctic Islands/Polaris | Vega | Navi 1X | Navi 2X | Navi 3X | Navi 4X | 
+|---|---|---|---|---|---|---|---|---|---|
+| Released | Jan 2012 | Sep 2013 | Jun 2015 | Jun 2016 | Jun 2017 | Jul 2019 | Nov 2020 | Dec 2022 | Jan 2025 | 
+| Marketing Name | Radeon HD 7000 | Radeon Rx 200 | Radeon Rx 300 | Radeon RX 400/500 | Radeon RX Vega/Radeon VII(7 nm) | Radeon RX 5000 | Radeon RX 6000 | Radeon RX 7000 | Radeon RX 9000 | 
+| AMD support |  |  |  |  |  |  |  |  |  | 
+| Instruction set | GCN instruction set |  |  |  |  | RDNA instruction set |  |  |  | 
+| Microarchitecture | GCN 1st gen | GCN 2nd gen | GCN 3rd gen | GCN 4th gen | GCN 5th gen | RDNA | RDNA 2 | RDNA 3 | RDNA 4 | 
+| Type | Unified shader model |  |  |  |  |  |  |  |  | 
+| ROCm |  |  |  | need env var in 5.x[18] | dropped in 6.x[19] | [a] |  |  |  | 
+| OpenCL | 1.2 (on Linux: 1.1 (no Image support) with Mesa 3D) | 2.0 (Adrenalin driver on Win7+) (on Linux: 1.1 (no Image support) with Mesa 3D, 2.0 with AMD drivers or AMD ROCm) |  |  |  | 2.0 | 2.1[22] |  |  | 
+| Vulkan | 1.0 (Win 7+ or Mesa 17+) | 1.2 (Adrenalin 20.1, Linux Mesa 3D 20.0) |  |  |  |  |  | 1.3 |  | 
+| Shader model | 5.1 | 5.1 6.3 |  |  | 6.4 |  | 6.5 | 6.7 |  | 
+| OpenGL | 4.6 (on Linux: 4.6 (Mesa 3D 20.0)) |  |  |  |  |  |  |  |  | 
+| Direct3D | 11 (11_1) 12 (11_1) | 11 (12_0) 12 (12_0) |  |  | 11 (12_1) 12 (12_1) |  | 11 (12_1) 12 (12_2) |  |  | 
+| /drm/amdgpu [b] | Experimental[23] |  |  |  |  |  |  |  |  | 
+- ↑ Navi 1.x support in rocBLAS was broken until version 6.1. Before version 5.3 an environmental variable could be used to force the use of gfx1030 code on these GPUs for some functionality, but version 5.3 caused gfx1030 code to no longer run on gfx1010 GPUs.[20][21]
+- ↑ DRM (Direct Rendering Manager) is a component of the Linux kernel.
+Software ecosystem
+[edit]
+Machine learning
+[edit]
+Various deep learning frameworks have a ROCm backend:[24]
+Supercomputing
+[edit]
+ROCm is gaining significant traction in the top 500.[29] ROCm is used with the Exascale supercomputers El Capitan[30][31] and Frontier.
+Some related software is to be found at AMD Infinity hub.[32]
+Other acceleration and graphics interoperation
+[edit]
+As of version 3.0, Blender can use HIP compute kernels for its renderer cycles.[33]
+Other languages
+[edit]
+Julia
+[edit]
+Julia has the AMDGPU.jl package,[34] which integrates with LLVM and selects components of the ROCm stack. Instead of compiling code through HIP, AMDGPU.jl uses Julia's compiler to generate LLVM IR directly, which is later consumed by LLVM to generate native device code. AMDGPU.jl uses ROCr's HSA implementation to upload native code onto the device and execute it, similar to how HIP loads its own generated device code.
+AMDGPU.jl also supports integration with ROCm's rocBLAS (for BLAS), rocRAND (for random number generation), and rocFFT (for FFTs). Future integration with rocALUTION, rocSOLVER, MIOpen, and certain other ROCm libraries is planned.
+Software distribution
+[edit]
+Official
+[edit]
+Installation instructions are provided for Linux and Windows in the official AMD ROCm documentation.[35] ROCm software is currently spread across several public GitHub repositories. Within the main public meta-repository,[36] there is an XML manifest[37] for each official release: using git-repo,[38] a version control tool built on top of Git, is the recommended way to synchronize with the stack locally.[39]
+AMD starts distributing containerized applications for ROCm, notably scientific research applications gathered under AMD Infinity Hub.[40][41]
+AMD itself distributes packages tailored to various Linux distributions.[42]
+Third-party
+[edit]
+There is a growing third-party ecosystem packaging ROCm.[43][better source needed]
+Linux distributions are officially packaging (natively) ROCm, with various degrees of advancement: Arch Linux,[44] Gentoo,[45] Debian, Fedora ,[46] GNU Guix, and NixOS.
+Components
+[edit]
+There is one kernel-space component, ROCk, and the rest – there is roughly a hundred components in the stack – is made of user-space modules.
+The unofficial typographic policy is to use: uppercase ROC, lowercase following for low-level libraries, i.e. ROCt, and the contrary for user-facing libraries, i.e. rocBLAS.[48]
+AMD is active developing with the LLVM community, but upstreaming is not instantaneous, and as of January 2022, is still lagging.[49] AMD still officially packages various LLVM forks[50][51][11] for parts that are not yet upstreamed – compiler optimizations destined to remain proprietary, debug support, OpenMP offloading, etc.
+Low-level
+[edit]
+ROCk – Kernel driver
+[edit]
+ROCm – Device libraries
+[edit]
+Support libraries implemented as LLVM bitcode. These provide various utilities and functions for math operations, atomics, queries for launch parameters, on-device kernel launch, etc.[52]
+ROCt – Thunk
+[edit]
+The thunk is responsible for all the thinking and queuing that goes into the stack.[53]
+ROCr – Runtime
+[edit]
+The ROC runtime is a set of APIs/libraries that allows the launch of compute kernels by host applications.[54] It is AMD's implementation of the HSA runtime API.[55] It is different from the ROC Common Language Runtime.
+ROCm – CompilerSupport
+[edit]
+ROCm code object manager is in charge of interacting with LLVM intermediate representation.[56]
+Mid-level
+[edit]
+ROCclr Common Language Runtime
+[edit]
+The common language runtime is an indirection layer adapting calls to ROCr on Linux and PAL on windows.[57] It used to be able to route between different compilers, like the HSAIL-compiler. It is now being absorbed by the upper indirection layers (HIP and OpenCL).
+OpenCL
+[edit]
+ROCm ships its installable client driver (ICD) loader and an OpenCL[58] implementation bundled together.[59] As of January 2022, ROCm 4.5.2 ships OpenCL 2.2, and is lagging behind competition.[60]
+HIP – Heterogeneous Interface for Portability
+[edit]
+The AMD implementation for its GPUs is called HIPAMD.[61][62] There is also a CPU implementation] mostly for demonstration purposes.[63]
+HIPCC
+[edit]
+HIP builds a HIPCC compiler that either wraps Clang and compiles with LLVM open AMDGPU backend, or redirects to the NVIDIA compiler.[64]
+HIPIFY
+[edit]
+HIPIFY is a source-to-source compiling tool.[65] It translates CUDA to HIP and reverse, either using a Clang-based tool, or a sed-like Perl script.
+GPUFORT
+[edit]
+Like HIPIFY, GPUFORT is a tool compiling source code into other third-generation-language sources, allowing users to migrate from CUDA Fortran to HIP Fortran.[66] It is also in the repertoire of research projects, even more so.[67]
+High-level
+[edit]
+ROCm high-level libraries are usually consumed directly by application software, such as machine learning frameworks. Most of the following libraries are in the General Matrix Multiply (GEMM) category, which GPU architecture excels at.
+The majority of these user-facing libraries comes in dual-form: hip for the indirection layer that can route to Nvidia hardware, and roc for the AMD implementation.[68]
+rocBLAS / hipBLAS
+[edit]
+rocBLAS[69] and hipBLAS[70] are central in high-level libraries, it is the AMD implementation for Basic Linear Algebra Subprograms. It uses the library Tensile privately.[71]
+rocSOLVER / hipSOLVER
+[edit]
+This pair of libraries constitutes the LAPACK implementation for ROCm and is strongly coupled to rocBLAS.
+Utilities
+[edit]
+Comparison with competitors
+[edit]
+ROCm competes with other GPU computing stacks: Nvidia CUDA and Intel OneAPI.
+Nvidia CUDA
+[edit]
+Nvidia's CUDA is closed-source, whereas AMD ROCm is open source. There is open-source software built on top of the closed-source CUDA, for instance RAPIDS.[73]
+CUDA is able to run on consumer GPUs, whereas ROCm support is mostly offered for professional hardware such as AMD Instinct and AMD Radeon Pro.
+Nvidia provides a C/C++-centered frontend and its Parallel Thread Execution (PTX) LLVM GPU backend as the Nvidia CUDA Compiler (NVCC).
+Intel OneAPI
+[edit]
+All the oneAPI corresponding libraries are published on its GitHub Page.[74]
+Unified Acceleration Foundation (UXL)
+[edit]
+Unified Acceleration Foundation (UXL) is a new technology consortium that are working on the continuation of the OneAPI initiative, with the goal to create a new open standard accelerator software ecosystem, related open standards and specification projects through Working Groups and Special Interest Groups (SIGs). The goal will compete with Nvidia's CUDA. The main companies behind it are Intel, Google, Arm, Qualcomm, Samsung, Imagination, and VMware.[75]
+See also
+[edit]
+- AMD Software – a general overview of AMD's drivers, APIs, and development endeavors.
+- GPUOpen – AMD's complementary graphics stack
+- AMD Radeon Software – AMD's software distribution channel
+References
+[edit]
+- ↑ "ROCm 7.14.0 Release". July 16, 2026. Retrieved July 16, 2026.
+- ↑ "New HIP SDK helps democratize GPU Computing". July 27, 2023.
+- ↑ "Details of package firmware-amd-graphics in buster". Debian. Retrieved January 18, 2022.
+- ↑ Crider, Michael (August 29, 2025). "Watch: AMD talks ROCm and how it's a game-changer for Radeon PCs". PC World. Retrieved January 30, 2026.
+- ↑ "Question: What does ROCm stand for? · Issue #1628". RadeonOpenCompute/ROCm. Github.com. Retrieved January 18, 2022.
+- ↑ "AMD @ SC16: Radeon Open Compute Platform (ROCm) 1.3 Released, Boltzmann Comes to Fruition". anandtech.com. Archived from the original on November 14, 2016. Retrieved January 19, 2022.
+- ↑ "AMD @ SC15: Boltzmann Initiative Announced - C++ and CUDA Compilers for AMD GPUs". anandtech.com. Archived from the original on November 17, 2015. Retrieved January 19, 2022.
+- ↑ Larabel, Michael (July 24, 2026). "AMD ROCm Committed To Six Week Release Cycle Moving Forward". www.phoronix.com. Retrieved July 24, 2026.
+- ↑ "HSA Programmer's Reference Manual: HSAIL Virtual ISA and Programming Model, Compiler Writer, and Object Format (BRIG)" (PDF). HSA Foundation. May 2, 2018. Retrieved August 1, 2023.
+- ↑ "User Guide for AMDGPU Backend — LLVM 13 documentation". Llvm.org. Retrieved January 18, 2022.
+- 1 2 "The LLVM Compiler Infrastructure". GitHub. January 19, 2022.
+- ↑ "Introduction to AMD GPU Hardware". June 12, 2020 – via www.youtube.com.
+- ↑ "Fundamentals of HIP Programming". Archived from the original on February 7, 2023.
+- ↑ "ROCm™ Learning Center". AMD.
+- ↑ "AMD ROCm / HCC programming: Introduction". December 26, 2018.
+- ↑ "ROCm Getting Started Guide v5.2.3". Archived from the original on October 2, 2022.
+- ↑ "Here's something you don't see every day: PyTorch running on top of ROCm on a 6800M (6700XT) laptop! Took a ton of minor config tweaks and a few patches but it actually functionally works. HUGE!". December 10, 2021.
+- ↑ "HOW-TO: Stable Diffusion on an AMD GPU". September 23, 2022. ROC_ENABLE_PRE_VEGA
+- ↑ "Changelog — ROCm 6.0.0 Documentation". rocm.docs.amd.com. AMD Instinct MI50, Radeon Pro VII, and Radeon VII products (collectively gfx906 GPUs) enters maintenance mode in ROCm 6.0. [...] end of maintenance [EOM] will be aligned with the closest ROCm release [...] Distribution and operating system updates will continue per the ROCm release cadence for gfx906 GPUs until EOM.
+- ↑ "PSA: RDNA1 (gfx1010/gfx101*) GPUs should start working soon with official packages, hopefully with ROCm 6.1". www.reddit.com.
+- ↑ "Any update on 5700 Xt support?". GitHub. –
+- ↑ "AMD Radeon RX 6800 XT Specs". TechPowerUp. Retrieved January 1, 2021.
+- ↑ Larabel, Michael (December 7, 2016). "The Best Features of the Linux 4.9 Kernel". Phoronix. Retrieved December 7, 2016.
+- ↑ "AMD Introduces Its Deep-Learning Accelerator Instinct MI200 Series GPUs". Infoq.com. Retrieved January 18, 2022.
+- ↑ "Using CuPy on AMD GPU (experimental)".
+- ↑ ROCm/MIOpen, AMD ROCm™ Software, July 20, 2026, retrieved July 24, 2026
+- ↑ The IREE Authors (September 2019), IREE, retrieved July 24, 2026
+- ↑ 0cc4m. "OpenCL dequant_mul_mat by 0cc4m · Pull Request #1459 · ggml-org/llama.cpp". GitHub. Retrieved July 24, 2026.
+- ↑ "AMD Chips Away at Intel in World's Top 500 Supercomputers as GPU War Looms". November 16, 2020.
+- ↑ "El Capitan Supercomputer Detailed: AMD CPUs & GPUs to Drive 2 Exaflops of Compute".{{cite web}} :  CS1 maint: deprecated archival service (link)
+- ↑ "Livermore's el Capitan Supercomputer to Debut HPE 'Rabbit' Near Node Local Storage". February 18, 2021.
+- ↑ "AMD Infinity Hub". AMD. Archived from the original on July 10, 2026. Retrieved July 24, 2026.
+- ↑ "Blender 3.0 takes support for AMD GPUs to the next level. Beta support available now!". AMD GPUOpen. November 15, 2021. Retrieved January 18, 2022.
+- ↑ "AMD ROCm ⋅ JuliaGPU". juliagpu.org. Archived from the original on June 13, 2020. Retrieved January 23, 2022.
+- ↑ "AMD ROCm". rocm.docs.amd.com. Retrieved July 24, 2026.
+- ↑ ROCm/ROCm, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "ROCm/default.xml at develop · ROCm/ROCm". GitHub. Archived from the original on December 8, 2025. Retrieved July 24, 2026.
+- ↑ "git-repo - Git at Google". gerrit.googlesource.com. Retrieved July 24, 2026.
+- ↑ "ROCm Installation v4.3 — ROCm 4.5.0 documentation". Rocmdocs.amd.com. Retrieved January 18, 2022.
+- ↑ "AMD Infinity Hub". Retrieved July 24, 2026.
+- ↑ "Running Scientific Applications on AMD Instinct Accelerators Just Got Easier". HPCwire.com. October 18, 2021. Retrieved January 25, 2022.
+- ↑ "Index of /rocm/". repo.radeon.com. Retrieved July 24, 2026.
+- ↑ "Projects list - Repology". repology.org. Retrieved July 24, 2026.
+- ↑ "ROCm for Arch Linux". Github.com. January 17, 2022. Retrieved January 18, 2022.
+- ↑ "Gentoo Linux Packages Up AMD ROCm, Makes Progress On RISC-V, LTO+PGO Python". Phoronix.com. Retrieved January 18, 2022.
+- ↑ "Fedora & Debian Developers Look At Packaging ROCm For Easier Radeon GPU Computing Experience". Phoronix.com. Retrieved January 18, 2022.
+- ↑ Gamblin, Todd; LeGendre, Matthew; Collette, Michael R.; Lee, Gregory L.; Moody, Adam; de Supinski, Bronis R.; Futral, Scott (November 15, 2015). "The Spack Package Manager: Bringing Order to HPC Software Chaos" – via GitHub.
+- ↑ Bloor, Cordell. "20211221 Packaging session notes and small update". debian-ai@lists.debian.org (Mailing list). Retrieved January 18, 2022.
+- ↑ "[Debian official packaging] How is ROCm LLVM fork still needed? · Issue #2449". ROCm-Developer-Tools/HIP. GitHub.
+- ↑ "Aomp - V 14.0-1". GitHub. January 22, 2022.
+- ↑ "The LLVM Compiler Infrastructure". GitHub. January 10, 2022.
+- ↑ ROCm/ROCm-Device-Libs, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/ROCT-Thunk-Interface, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/ROCR-Runtime, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "HSA Runtime Programmer's Reference Manual" (PDF). HSA Foundation. May 2, 2018. Retrieved August 1, 2023.
+- ↑ ROCm/ROCm-CompilerSupport, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/ROCclr, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "Khronos OpenCL Registry - The Khronos Group Inc". www.khronos.org.
+- ↑ ROCm/ROCm-OpenCL-Runtime, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "List of OpenCL Conformant Products". The Khronos Group Inc. February 3, 2022.
+- ↑ ROCm/hip, AMD ROCm™ Software, retrieved July 24, 2026
+- 1 2 "ROCm Developer Tools". GitHub. Retrieved July 24, 2026.
+- ↑ ROCm/HIP-CPU, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "Figure 3. HIPCC compilation process illustration. The clang compiler".
+- ↑ ROCm/HIPIFY, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/gpufort, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "AMD Publishes Open-Source "GPUFORT" as Newest Effort to Help Transition Away from CUDA".
+- ↑ Maia, Julio; Chalmers, Noel; T. Bauman, Paul; Curtis, Nicholas; Malaya, Nicholas; McDougall, Damon; van Oostrum, Rene; Wolfe, Noah (May 2021). ROCm Library Support & Profiling Tools (PDF). AMD.
+- ↑ ROCm/rocBLAS, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/hipBLAS, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ ROCm/Tensile, AMD ROCm™ Software, retrieved July 24, 2026
+- ↑ "GPUOpen-Tools". GitHub. Retrieved July 24, 2026.
+- ↑ "RAPIDS". GitHub. Retrieved July 24, 2026.
+- ↑ "oneAPI-SRC". GitHub. Retrieved July 24, 2026.
+- ↑ Cherney, Max A.; Cherney, Max A. (March 26, 2024). "Exclusive: Behind the plot to break Nvidia's grip on AI by targeting software". Reuters. Retrieved April 5, 2024.
+External links
+[edit]
+- "ROCm official documentation". AMD. February 10, 2022.
+- "ROCm Learning Center". AMD. January 25, 2022.
+- "ROCm official documentation on the github super-project". AMD. January 25, 2022.
+- "ROCm official documentation - pre 5.0". AMD. January 19, 2022.
+- "GPU-Accelerated Applications with AMD Instinct Accelerators & AMD ROCm Software" (PDF). AMD. January 25, 2022. Archived from the original (PDF) on May 12, 2024.
+- "AMD Infinity Hub". AMD. January 25, 2022. — Docker containers for scientific applications.

@@ -1,0 +1,1848 @@
+<!doctype html>
+<html lang="en-US" class="no-js">
+<head>
+    <meta charset="UTF-8"><script type="text/javascript">(window.NREUM||(NREUM={})).init={privacy:{cookies_enabled:true},ajax:{deny_list:["bam.nr-data.net"]},feature_flags:["soft_nav"],distributed_tracing:{enabled:true}};(window.NREUM||(NREUM={})).loader_config={agentID:"594424436",accountID:"4028038",trustKey:"66686",xpid:"UAYFWVZQABAFUFFVDggGUlE=",licenseKey:"NRJS-31a57c2b1fe38cc7620",applicationID:"540799145",browserID:"594424436"};;/*! For license information please see nr-loader-spa-1.320.0.min.js.LICENSE.txt */
+(()=>{var e={8122(e,t,r){"use strict";r.d(t,{a:()=>s});var n=r(944);function s(e,t){try{if(!e||"object"!=typeof e)return(0,n.R)(3);if(!t||"object"!=typeof t)return(0,n.R)(4);const r=Object.create(Object.getPrototypeOf(t),Object.getOwnPropertyDescriptors(t)),i=0===Object.keys(r).length?e:r;for(let a in i)if(void 0!==e[a])try{if(null===e[a]){r[a]=null;continue}Array.isArray(e[a])&&Array.isArray(t[a])?r[a]=Array.from(new Set([...e[a],...t[a]])):e[a]instanceof Map||e[a]instanceof Set||e[a]instanceof Date||e[a]instanceof RegExp?r[a]=e[a]:"object"==typeof e[a]&&null!==t[a]&&"object"==typeof t[a]?r[a]=s(e[a],t[a]):r[a]=e[a]}catch(e){r[a]||(0,n.R)(1,e)}return r}catch(e){(0,n.R)(2,e)}}},2555(e,t,r){"use strict";r.d(t,{f:()=>a});var n=r(384),s=r(8122);const i={beacon:n.NT.beacon,errorBeacon:n.NT.errorBeacon,licenseKey:void 0,applicationID:void 0,sa:void 0,queueTime:void 0,applicationTime:void 0,ttGuid:void 0,user:void 0,account:void 0,product:void 0,extra:void 0,jsAttributes:{},userAttributes:void 0,atts:void 0,transactionName:void 0,tNamePlain:void 0};function a(e){try{return!!e.licenseKey&&!!e.errorBeacon&&!!e.applicationID}catch(e){return!1}}r.d(t,["D",0,e=>(0,s.a)(e,i)])},7699(e,t,r){"use strict";var n=r(860);const s={[n.K7.logging]:!0,[n.K7.genericEvents]:!0,[n.K7.jserrors]:!0,[n.K7.ajax]:!0};r.d(t,["It",0,1e6,"KC",0,s,"qh",0,"SESSION_ERROR"])},9324(e,t,r){"use strict";r.d(t,["A",0,"@newrelic/rrweb","x",0,"1.320.0"])},981(e,t,r){"use strict";r.d(t,["R",0,{AJAX:"AjaxRequest",PA:"PageAction",UA:"UserAction",BP:"BrowserPerformance",WS:"WebSocket",SPV:"SecurityPolicyViolation",JSE:"JavaScriptError",LOG:"Log",PVE:"PageView",PVT:"PageViewTiming",SR:"SessionReplay",ST:"SessionTrace",BI:"BrowserInteraction"}])},9752(e,t,r){"use strict";const n="newrelic-iframe-",s=n+"timing-update",i=n+"api",a=n+"api-response",o=n+"vitals-update",c=n+"ajax";r.d(t,["$8",0,o,"Gi",0,a,"KU",0,c,"Pl",0,n,"cS",0,i,"cr",0,s])},6154(e,t,r){"use strict";var n=r(1863);const s="undefined"!=typeof window&&!!window.document,i="undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self.navigator instanceof WorkerNavigator||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis.navigator instanceof WorkerNavigator),a=s?window:"undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis),o=Boolean("hidden"===a?.document?.visibilityState),c=""+a?.location,d=/iPad|iPhone|iPod/.test(a.navigator?.userAgent),u=d&&"undefined"==typeof SharedWorker,l=(()=>{const e=a.navigator?.userAgent?.match(/Firefox[/\s](\d+\.\d+)/);return Array.isArray(e)&&e.length>=2?+e[1]:0})(),f=Date.now()-(0,n.t)();r.d(t,["OF",0,d,"RI",0,s,"WN",0,f,"bv",0,i,"gm",0,a,"lR",0,l,"m",0,c,"mw",0,o,"sb",0,u,"zk",0,()=>{const e=a?.performance?.getEntriesByType?.("navigation")?.[0];if(e&&e.responseStart>0&&e.responseStart<a.performance.now())return e}])},7295(e,t,r){"use strict";r.d(t,{Xv:()=>a,gX:()=>s,iW:()=>i});var n=[];function s(e){if(!e||i(e))return!1;if(0===n.length)return!0;if("*"===n[0].hostname)return!1;for(var t=0;t<n.length;t++){var r=n[t];if(r.hostname.test(e.hostname)&&r.pathname.test(e.pathname))return!1}return!0}function i(e){return void 0===e.hostname}function a(e){if(n=[],e&&e.length)for(var t=0;t<e.length;t++){let r=e[t];if(!r)continue;if("*"===r)return void(n=[{hostname:"*"}]);0===r.indexOf("http://")?r=r.substring(7):0===r.indexOf("https://")&&(r=r.substring(8));const s=r.indexOf("/");let i,a;s>0?(i=r.substring(0,s),a=r.substring(s)):(i=r,a="*");let[c]=i.split(":");n.push({hostname:o(c),pathname:o(a,!0)})}}function o(e,t=!1){const r=e.replace(/[.+?^${}()|[\]\\]/g,e=>"\\"+e).replace(/\*/g,".*?");return new RegExp((t?"^":"")+r+"$")}},3241(e,t,r){"use strict";r.d(t,{W:()=>s});var n=r(6154);function s(e={}){try{n.gm.dispatchEvent(new CustomEvent("newrelic",{detail:e}))}catch(e){}}},1687(e,t,r){"use strict";r.d(t,{Ak:()=>o,Ze:()=>d,x3:()=>c});var n=r(3241),s=r(3606),i=r(860),a=r(2646);function o(e,t){if(!e)return;const r={staged:!1,priority:i.P3[t]||0};e.runtime.drainRegistry.get(t)||e.runtime.drainRegistry.set(t,r)}function c(e,t){if(!e)return;const r=e.runtime.drainRegistry;r&&(r.get(t)&&r.delete(t),l(e,t,!1),r.size&&u(e))}function d(e,t="feature",r=!1){if(e){if(!e.runtime.drainRegistry.get(t)||r)return l(e,t);e.runtime.drainRegistry.get(t).staged=!0,u(e)}}function u(e){if(!e)return;const t=Array.from(e.runtime.drainRegistry);t.every(([e,t])=>t.staged)&&(t.sort((e,t)=>e[1].priority-t[1].priority),t.forEach(([t])=>{e.runtime.drainRegistry.delete(t),l(e,t)}))}function l(e,t,r=!0){if(!e)return;const i=e.ee,o=s.i.handlers;if(i&&!i.aborted&&i.backlog&&o){if((0,n.W)({type:"lifecycle",name:"drain",feature:t}),r){const e=i.backlog[t],r=o[t];if(r){for(let t=0;e&&t<e.length;++t)f(e[t],r);Object.entries(r).forEach(([e,t])=>{Object.values(t||{}).forEach(t=>{t[0]?.on&&t[0].context()instanceof a.y&&!t[0].listeners(e).includes(t[1])&&t[0].on(e,t[1])})})}}i.isolatedBacklog||delete o[t],i.backlog[t]=null,i.emit("drain-"+t,[])}}function f(e,t){var r=e[1];Object.values(t[r]||{}).forEach(t=>{var r=e[0];if(t[0]===r){var n=t[1],s=e[3],i=e[2];n.apply(s,i)}})}},7836(e,t,r){"use strict";var n=r(384),s=r(8990),i=r(2646),a=r(5607);const o="nr@context:".concat(a.W),c=function e(t,r){var n={},a={},u={},l=!1;try{l=16===r.length&&d.initializedAgents?.[r]?.runtime.isolatedBacklog}catch(e){}var f={on:p,addEventListener:p,removeEventListener:function(e,t){var r=n[e];if(!r)return;for(var s=0;s<r.length;s++)r[s]===t&&r.splice(s,1)},emit:function(e,r,n,s,i){!1!==i&&(i=!0);if(c.aborted&&!s)return;t&&i&&t.emit(e,r,n);var o=h(n);g(e).forEach(e=>{e.apply(o,r)});var d=v()[a[e]];d&&d.push([f,e,r,o]);return o},get:m,listeners:g,context:h,buffer:function(e,t){const r=v();if(t=t||"feature",f.aborted)return;Object.entries(e||{}).forEach(([e,n])=>{a[n]=t,t in r||(r[t]=[])})},abort:function(){f._aborted=!0,Object.keys(f.backlog).forEach(e=>{delete f.backlog[e]})},isBuffering:function(e){return!!v()[a[e]]},debugId:r,backlog:l?{}:t&&"object"==typeof t.backlog?t.backlog:{},isolatedBacklog:l};return Object.defineProperty(f,"aborted",{get:()=>{let e=f._aborted||!1;return e||(t&&(e=t.aborted),e)}}),f;function h(e){return e&&e instanceof i.y?e:e?(0,s.I)(e,o,()=>new i.y(o)):new i.y(o)}function p(e,t){n[e]=g(e).concat(t)}function g(e){return n[e]||[]}function m(t){return u[t]=u[t]||e(f,t)}function v(){return f.backlog}}(void 0,"globalEE"),d=(0,n.Zm)();d.ee||(d.ee=c),r.d(t,["P",0,o,"ee",0,c])},2646(e,t,r){"use strict";r.d(t,{y:()=>n});class n{constructor(e){this.contextId=e}}},9908(e,t,r){"use strict";r.d(t,{d:()=>n,p:()=>s});var n=r(7836).ee.get("handle");function s(e,t,r,s,i){i?(i.buffer([e],s),i.emit(e,t,r)):(n.buffer([e],s),n.emit(e,t,r))}},3606(e,t,r){"use strict";r.d(t,{i:()=>i});var n=r(9908);i.on=a;var s=i.handlers={};function i(e,t,r,i){a(i||n.d,s,e,t,r)}function a(e,t,r,s,i){i||(i="feature"),e||(e=n.d);var a=t[i]=t[i]||{};(a[r]=a[r]||[]).push([e,s])}},3878(e,t,r){"use strict";function n(e,t){return{capture:e,passive:!1,signal:t}}function s(e,t,r=!1,s){window.addEventListener(e,t,n(r,s))}function i(e,t,r=!1,s){document.addEventListener(e,t,n(r,s))}r.d(t,{DD:()=>i,jT:()=>n,sp:()=>s})},5607(e,t,r){"use strict";const n=(0,r(9566).bz)();r.d(t,["W",0,n])},9566(e,t,r){"use strict";r.d(t,{LA:()=>a,ZF:()=>o,bz:()=>i,el:()=>c});var n=r(6154);function s(e,t){return e?15&e[t]:16*Math.random()|0}function i(){const e=n.gm?.crypto||n.gm?.msCrypto;let t,r=0;return e&&e.getRandomValues&&(t=e.getRandomValues(new Uint8Array(30))),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("").map(e=>"x"===e?s(t,r++).toString(16):"y"===e?(3&s()|8).toString(16):e).join("")}function a(e){const t=n.gm?.crypto||n.gm?.msCrypto;let r,i=0;t&&t.getRandomValues&&(r=t.getRandomValues(new Uint8Array(e)));const a=[];for(var o=0;o<e;o++)a.push(s(r,i++).toString(16));return a.join("")}function o(){return a(16)}function c(){return a(32)}},2614(e,t,r){"use strict";r.d(t,["BB",0,18e5,"Wt",0,"NRBA_SESSION::","g",0,{OFF:0,FULL:1,ERROR:2},"iL",0,{SAME_TAB:"same-tab",CROSS_TAB:"cross-tab"},"tS",0,{STARTED:"session-started",PAUSE:"session-pause",RESET:"session-reset",RESUME:"session-resume",UPDATE:"session-update"},"wk",0,144e5])},733(e,t,r){"use strict";function n(e,t){return function(e){let t=2166136261;for(let r=0;r<e.length;r++)t^=e.charCodeAt(r),t=Math.imul(t,16777619);return(t>>>0).toString(16).padStart(8,"0")}("".concat(String(e),":").concat(String(t)))}r.d(t,{Y:()=>n})},1863(e,t,r){"use strict";function n(){return Math.floor(performance.now())}r.d(t,{t:()=>n})},9119(e,t,r){"use strict";r.d(t,{L:()=>i});var n=/([^?#]*)[^#]*(#[^?]*|$).*/,s=/([^?#]*)().*/;function i(e,t){return e?e.replace(t?n:s,"$1$2"):e}},7485(e,t,r){"use strict";r.d(t,{D:()=>s});var n=r(6154);function s(e){if(0===(e||"").indexOf("data:"))return{protocol:"data"};try{const t=new URL(e,location.href),r={port:t.port,hostname:t.hostname,pathname:t.pathname,search:t.search,protocol:t.protocol.slice(0,t.protocol.indexOf(":")),sameOrigin:t.protocol===n.gm?.location?.protocol&&t.host===n.gm?.location?.host};return r.port&&""!==r.port||("http:"===t.protocol&&(r.port="80"),"https:"===t.protocol&&(r.port="443")),r.pathname&&""!==r.pathname?r.pathname.startsWith("/")||(r.pathname="/".concat(r.pathname)):r.pathname="/",r}catch(e){return{}}}},7866(e,t,r){"use strict";r.d(t,["Nc",0,/^\s*at Function code \(Function code:\d+:\d+\)\s*/i,"cn",0,/^\s*(?:([^@]*)(?:\(.*?\))?@)?((?:file|http|https|chrome|safari-extension).*?):(\d+)(?::(\d+))?\s*$/i,"fL",0,/^\s*at .+ \(eval at \S+ \((?:(?:file|http|https):[^)]+)?\)(?:, [^:]*:\d+:\d+)?\)$/i,"h3",0,/function (.+?)\s*\(/,"hB",0,/^\s*at (?:((?:\[object object\])?(?:[^(]*\([^)]*\))*[^()]*(?: \[as \S+\])?) )?\(?((?:file|http|https|chrome-extension):.*?)?:(\d+)(?::(\d+))?\)?\s*$/i])},944(e,t,r){"use strict";r.d(t,{R:()=>s});var n=r(3241);function s(e,t){"function"==typeof console.debug&&(console.debug("New Relic Warning: https://github.com/newrelic/newrelic-browser-agent/blob/main/docs/warning-codes.md#".concat(e),t),(0,n.W)({drained:null,type:"data",name:"warn",feature:"warn",data:{code:e,secondary:t}}))}},8990(e,t,r){"use strict";r.d(t,{I:()=>s});var n=Object.prototype.hasOwnProperty;function s(e,t,r){if(n.call(e,t))return e[t];var s=r();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:s,writable:!0,enumerable:!1}),s}catch(e){}return e[t]=s,s}},6389(e,t,r){"use strict";function n(e,t=500,r={}){const n=r?.leading||!1;let s;return(...r)=>{n&&void 0===s&&(e.apply(this,r),s=setTimeout(()=>{s=clearTimeout(s)},t)),n||(clearTimeout(s),s=setTimeout(()=>{e.apply(this,r)},t))}}function s(e){let t=!1;return(...r)=>{t||(t=!0,e.apply(this,r))}}r.d(t,{J:()=>s,s:()=>n})},1910(e,t,r){"use strict";r.d(t,{i:()=>i});var n=r(944);const s=new Map;function i(...e){return e.every(e=>{if(s.has(e))return s.get(e);const t="function"==typeof e?e.toString():"",r=t.includes("[native code]"),i=t.includes("nrWrapper");return r||i||(0,n.R)(64,e?.name||t),s.set(e,r),r})}},3304(e,t,r){"use strict";r.d(t,{A:()=>s});var n=r(7836);function s(e){try{return JSON.stringify(e,(()=>{const e=new WeakSet;return(t,r)=>{if("object"==typeof r&&null!==r){if(e.has(r))return;e.add(r)}return r}})())??""}catch(e){try{n.ee.emit("internal-error",[e])}catch(e){}return""}}},5718(e,t,r){"use strict";r.d(t,{AZ:()=>m,Qr:()=>E,QL:()=>v});var n=r(6154),s=r(1863),i=r(9119),a=r(7866);class o{dom=new c;performance=new c;constructor(e){this.url=e,this.claimedBy=new Set}get script(){const e=Math.max(this.dom.start,this.performance.end);return{start:e,end:Math.max(this.dom.end,this.performance.end,e)}}}class c{start=0;end=0;value=void 0}function d(e=()=>{},t){return{get:()=>void 0!==t?t:e(),set:e=>{t=e}}}let u;try{u=m(v())[0]}catch(e){u=m(e)[0]}const l=e=>"script"===e.initiatorType||["link","fetch"].includes(e.initiatorType)&&(0,i.L)(e.name).endsWith(".js"),f=new Map;let h=[];function p(e){return f.get(e)}function g(e){const t=p(e);if(t)return t;const r=new o(e);if(f.set(e,r),f.size>1e3){const e=f.keys().next().value;f.delete(e)}return r}if(n.gm.MutationObserver&&n.gm.document){new MutationObserver(e=>{e.forEach(e=>{e.addedNodes.forEach(e=>{if("SCRIPT"===e.nodeName&&e.src){const t=g((0,i.L)(e.src));t.dom.start=(0,s.t)(),t.dom.value=e;const r=()=>{t.dom.end=(0,s.t)()};["load","error"].forEach(t=>e.addEventListener(t,r,{once:!0}))}})})}).observe(n.gm.document,{childList:!0,subtree:!0})}if(n.gm.PerformanceObserver?.supportedEntryTypes.includes("resource")){new PerformanceObserver(e=>{e.getEntries().filter(l).forEach(e=>{const t=g((0,i.L)(e.name));t.performance.start=Math.floor(e.startTime),t.performance.end=Math.floor(e.responseEnd),t.performance.value=e;const r=[];h.forEach(({test:t,addedAt:n},i)=>{(t(e)||(0,s.t)()-n>1e4)&&r.push(i)}),h=h.filter((e,t)=>!r.includes(t))})}).observe({type:"resource",buffered:!0})}function m(e){if(!e||"string"!=typeof e)return[];const t=new Set,r=e.split("\n");for(const e of r){const r=e.match(a.cn)||e.match(a.hB)||e.match(a.fL);if(r&&r[2])t.add((0,i.L)(r[2]));else{const r=e.match(/\(([^)]+\.js):\d+:\d+\)/)||e.match(/^\s+at\s+([^\s(]+\.js):\d+:\d+/);r&&r[1]&&t.add((0,i.L)(r[1]))}}return[...t]}function v(){let e;try{const t=Error.stackTraceLimit;Error.stackTraceLimit=50,e=(new Error).stack,Error.stackTraceLimit=t}catch(t){e=(new Error).stack}return e}function y(e,t){return(0,i.L)(e.name)===t}function b(e,t){e.fetchStart=Math.floor(t.startTime),e.fetchEnd=Math.floor(t.responseEnd),e.asset=t.name,e.type=t.initiatorType}function E(e){const t=e?.id,r={registeredAt:(0,s.t)(),reportedAt:void 0,fetchStart:0,fetchEnd:0,scriptStart:0,scriptEnd:0,asset:void 0,type:"unknown"},a=v();if(!a)return r;const o=n.gm.performance?.getEntriesByType("navigation")?.[0]?.name||"";try{const e=m(a),c=(e.length>1?e.filter(e=>u!==e):e)[0];if(!c)return r;if(o.includes(c))return r.asset=(0,i.L)(o),r.type="inline",r;r.correlation=p(c);const l=r.correlation?.performance.value||n.gm.performance?.getEntriesByType("resource")?.find(e=>y(e,c));if(l)b(r,l);else{(function(e){if(!e||!n.gm.document)return!1;try{const t=n.gm.document.querySelectorAll('link[rel="preload"][as="script"]');for(const r of t)if((0,i.L)(r.href)===e)return!0}catch(e){}return!1})(c)&&(r.asset=c,r.type="preload"),function(e,t){n.gm.PerformanceObserver?.supportedEntryTypes?.includes("resource")&&h.push({addedAt:(0,s.t)(),test:r=>!!y(r,t)&&(b(e,r),!0)})}(r,c)}const f=r.correlation,g=!!t&&!!f?.claimedBy.has(t);f&&t&&f.claimedBy.add(t);const v=()=>{const e=f?.script.start;if(!g||!e)return!1;return r.registeredAt-e>1e4};Object.defineProperty(r,"scriptStart",d(()=>v()?r.registeredAt:f?.script.start??r.fetchEnd)),Object.defineProperty(r,"scriptEnd",d(()=>v()?r.registeredAt:f?.script.end??r.registeredAt))}catch(e){}return r}},5732(e,t,r){"use strict";r.d(t,{$5:()=>u,B5:()=>d,Ms:()=>i,NG:()=>s,Ux:()=>o,YA:()=>c,yx:()=>a});var n=r(5718);function s(e,t){if(!f(e,t))return;const r=t.runtime.registeredEntities;return r?.find(t=>t.metadata.target.iframeInterfaceId===e)}function i(e,t){if(!f(e,t))return[];const r=t.runtime.registeredEntities;return r?.filter(t=>String(t.metadata.target.id)===String(e)).map(e=>e.metadata.target)||[]}function a(e,t){if(!f(e,t))return[];const r=t.runtime.registeredEntities,n=r?.filter(t=>t.metadata.timings?.asset?.endsWith(e));return function(e){if(!e?.length)return e||[];const t=new Map,r=[];for(const n of e){const e=n.metadata?.timings?.asset;if(!e){r.push(n);continue}const s="".concat(e,"::").concat(n.metadata?.target?.id),i=t.get(s);if(i){if(i.metadata.target?.blocked&&!n.metadata.target?.blocked){const e=r.indexOf(i);-1!==e&&(r[e]=n),t.set(s,n)}}else t.set(s,n),r.push(n)}return r}(n).map(e=>e.metadata.target)}function o(e,t){if(!l(t))return{};const r=t.agentRef.runtime.appMetadata.agents[0].entityGuid;return e?e.attributes:{"entity.guid":r,appId:t.agentRef.info.applicationID}}function c(e,t){return d(e,t)?{"child.id":e.id,"child.type":e.type,...o(void 0,t)}:{}}function d(e,t){return!!e&&!!l(t)&&t.agentRef.init.api.register.duplicate_data_to_container}function u(e){if(!f(!0,e)||!e?.runtime?.registeredEntities?.length)return[void 0];const t=[];try{var r=(0,n.AZ)((0,n.QL)());let s=r.length-1;for(;r[s];)t.push(...a(r[s--],e))}catch(e){}const s=function(e){const t=new Set,r=[];for(const n of e){const e=n?.instance;t.has(e)||(t.add(e),r.push(n))}return r}(t);return s.length||s.push(void 0),s}function l(e){return 2===e?.harvestEndpointVersion}function f(e,t){return!!e&&!!t?.init.api.register.enabled}r.d(t,["fQ",0,{MFE:"MFE",BA:"BA"}])},5289(e,t,r){"use strict";r.d(t,{GG:()=>a,Qr:()=>c,sB:()=>o});var n=r(3878),s=r(6389);function i(){return"undefined"==typeof document||"complete"===document.readyState}function a(e,t){if(i())return e();const r=(0,s.J)(e),a=setInterval(()=>{i()&&(clearInterval(a),r())},500);(0,n.sp)("load",r,t)}function o(e){if(i())return e();(0,n.DD)("DOMContentLoaded",e)}function c(e){if(i())return e();(0,n.sp)("popstate",e)}},384(e,t,r){"use strict";r.d(t,{Zm:()=>c,bQ:()=>u,dV:()=>d,pV:()=>l});var n=r(6154),s=r(1863),i=r(944),a=r(1910);const o={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net"};function c(){return n.gm.NREUM||(n.gm.NREUM={}),void 0===n.gm.newrelic&&(n.gm.newrelic=n.gm.NREUM),n.gm.NREUM}function d(){let e=c();return e.o||(e.o={ST:n.gm.setTimeout,SI:n.gm.setImmediate||n.gm.setInterval,CT:n.gm.clearTimeout,XHR:n.gm.XMLHttpRequest,REQ:n.gm.Request,EV:n.gm.Event,PR:n.gm.Promise,MO:n.gm.MutationObserver,FETCH:n.gm.fetch,WS:n.gm.WebSocket},(0,a.i)(...Object.values(e.o))),e}function u(e,t){let r=c();r.initializedAgents??={},t.initializedAt={ms:(0,s.t)(),date:new Date},r.initializedAgents[e]=t,2===Object.keys(r.initializedAgents).length&&(0,i.R)(69)}function l(){return function(){let e=c();const t=e.info||{};e.info={beacon:o.beacon,errorBeacon:o.errorBeacon,...t}}(),function(){let e=c();const t=e.init||{};e.init={...t}}(),d(),function(){let e=c();const t=e.loader_config||{};e.loader_config={...t}}(),c()}r.d(t,["NT",0,o])},2843(e,t,r){"use strict";r.d(t,{G:()=>i,u:()=>s});var n=r(3878);function s(e,t=!1,r,s){(0,n.DD)("visibilitychange",function(){if(t)return void("hidden"===document.visibilityState&&e());e(document.visibilityState)},r,s)}function i(e,t,r){(0,n.sp)("pagehide",e,t,r)}},8139(e,t,r){"use strict";r.d(t,{u:()=>f});var n=r(7836),s=r(3434),i=r(8990),a=r(6154);const o={},c=a.gm.XMLHttpRequest,d="addEventListener",u="removeEventListener",l="nr@wrapped:".concat(n.P);function f(e){var t=function(e){return(e||n.ee).get("events")}(e);if(o[t.debugId]++)return t;o[t.debugId]=1;var r=(0,s.YM)(t,!0);function f(e){r.inPlace(e,[d,u],"-",p)}function p(e,t){return e[1]}return"getPrototypeOf"in Object&&(a.RI&&h(document,f),c&&h(c.prototype,f),h(a.gm,f)),t.on(d+"-start",function(e,t){var n=e[1];if(null!==n&&("function"==typeof n||"object"==typeof n)&&"newrelic"!==e[0]){var s=(0,i.I)(n,l,function(){var e={object:function(){if("function"!=typeof n.handleEvent)return;return n.handleEvent.apply(n,arguments)},function:n}[typeof n];return e?r(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=e[1]=s}}),t.on(u+"-start",function(e){e[1]=this.wrapped||e[1]}),t}function h(e,t,...r){let n=e;for(;"object"==typeof n&&!Object.prototype.hasOwnProperty.call(n,d);)n=Object.getPrototypeOf(n);n&&t(n,...r)}},3434(e,t,r){"use strict";r.d(t,{YM:()=>d});var n=r(7836),s=r(5607),i=r(5732);const a="nr@original:".concat(s.W);var o=Object.prototype.hasOwnProperty,c=!1;function d(e,t,r){return e||(e=n.ee),s.inPlace=function(e,t,r,n,i,a){r||(r="");const o="-"===r.charAt(0);for(let c=0;c<t.length;c++){const d=t[c],u=e[d];l(u)||(e[d]=s(u,o?d+r:r,n,d,i,a))}},s.flag=a,s;function s(t,n,s,c,f,h){return l(t)?t:(n||(n=""),nrWrapper[a]=t,function(e,t,r){if(Object.defineProperty&&Object.keys)try{return Object.keys(e).forEach(function(r){Object.defineProperty(t,r,{get:function(){return e[r]},set:function(t){return e[r]=t,t}})}),t}catch(e){u([e],r)}for(var n in e)o.call(e,n)&&(t[n]=e[n])}(t,nrWrapper,e),nrWrapper);function nrWrapper(){var a,o,l,p;let g,m;try{o=this,a=[...arguments],m=h?(0,i.$5)(r):[void 0],l="function"==typeof s?s(a,o):s||{}}catch(t){u([t,"",[a,o,c],l],e)}d(n+"start",[a,o,c,m],l,f);const v=performance.now();let y;try{return p=t.apply(o,a),y=performance.now(),p}catch(e){throw y=performance.now(),d(n+"err",[a,o,e,m],l,f),g=e,g}finally{const e=y-v,t={start:v,end:y,duration:e,isLongTask:e>=50,methodName:c,thrownError:g};t.isLongTask&&d("long-task",[t,o,m],l,f),d(n+"end",[a,o,p,m],l,f)}}}function d(r,n,s,i){if(!c||t){var a=c;c=!0;try{e.emit(r,n,s,t,i)}catch(t){u([t,r,n,s],e)}c=a}}}function u(e,t){t||(t=n.ee);try{t.emit("internal-error",e)}catch(e){}}function l(e){return!(e&&"function"==typeof e&&e.apply&&!e[a])}r.d(t,["Jt",0,a])},9300(e,t,r){"use strict";const n=r(860).K7.ajax;r.d(t,["TZ",0,n,"f5",0,"ajaxRequest.id","mo",0,{NONE:"none",FAILURES:"failures",ALL:"all"}])},3333(e,t,r){"use strict";var n=r(981);const s=r(860).K7.genericEvents,i=[n.R.PA,n.R.UA,n.R.BP];r.d(t,["$v",0,{RESOURCES:"experimental.resources",REGISTER:"register"},"TZ",0,s,"Zp",0,["auxclick","click","copy","keydown","paste","scrollend"],"kd",0,i,"qN",0,["focus","blur"]])},6774(e,t,r){"use strict";const n=r(860).K7.jserrors;r.d(t,["T",0,n])},993(e,t,r){"use strict";const n=r(860).K7.logging;r.d(t,["A$",0,{OFF:0,ERROR:1,WARN:2,INFO:3,DEBUG:4,TRACE:5},"TZ",0,n,"p_",0,{ERROR:"ERROR",WARN:"WARN",INFO:"INFO",DEBUG:"DEBUG",TRACE:"TRACE"}])},3785(e,t,r){"use strict";r.d(t,{R:()=>c,b:()=>d});var n=r(9908),s=r(1863),i=r(860),a=r(3969),o=r(993);function c(e,t,r={},c=o.p_.INFO,d=!0,u,l=(0,s.t)()){(0,n.p)(a.xV,["API/logging/".concat(c.toLowerCase(),"/called")],void 0,i.K7.metrics,e),(0,n.p)("log",[l,t,r,c,d,u],void 0,i.K7.logging,e)}function d(e){return"string"==typeof e&&Object.values(o.p_).some(t=>t===e.toUpperCase().trim())}},3969(e,t,r){"use strict";const n=r(860).K7.metrics;r.d(t,["TZ",0,n,"XG",0,"storeEventMetrics","xV",0,"storeSupportabilityMetrics"])},6630(e,t,r){"use strict";const n=r(860).K7.pageViewEvent;r.d(t,["T",0,n])},782(e,t,r){"use strict";const n=r(860).K7.pageViewTiming;r.d(t,["T",0,n])},6344(e,t,r){"use strict";var n=r(2614);const s=r(860).K7.sessionReplay,i={[n.g.ERROR]:15e3,[n.g.FULL]:3e5,[n.g.OFF]:0};r.d(t,["Qb",0,{API:"api",RESUME:"resume",SWITCH_TO_FULL:"switchToFull",INITIALIZE:"initialize",PRELOAD:"preload"},"TZ",0,s,"Vh",0,"errorDuringReplay","_s",0,{DomContentLoaded:0,Load:1,FullSnapshot:2,IncrementalSnapshot:3,Meta:4,Custom:5},"bc",0,{RESET:{message:"Session was reset",sm:"Reset"},IMPORT:{message:"Recorder failed to import",sm:"Import"},TOO_MANY:{message:"429: Too Many Requests",sm:"Too-Many"},TOO_BIG:{message:"Payload was too large",sm:"Too-Big"},CROSS_TAB:{message:"Session Entity was set to OFF on another tab",sm:"Cross-Tab"},ENTITLEMENTS:{message:"Session Replay is not allowed and will not be started",sm:"Entitlement"}},"yP",0,i])},5270(e,t,r){"use strict";r.d(t,{Aw:()=>a,SR:()=>i,rF:()=>o});var n=r(384),s=r(7767);function i(e){return!!(0,n.dV)().o.MO&&(0,s.V)(e)&&!0===e?.session_trace.enabled}function a(e){return!0===e?.session_replay.preload&&i(e)}function o(e,t){try{if("string"==typeof t?.type){if("password"===t.type.toLowerCase())return"*".repeat(e?.length||0);if(void 0!==t?.dataset?.nrUnmask||t?.classList?.contains("nr-unmask"))return e}}catch(e){}return"string"==typeof e?e.replace(/[\S]/g,"*"):"*".repeat(e?.length||0)}},3738(e,t,r){"use strict";const n=r(860).K7.sessionTrace,s="-start",i="-end",a="fn"+s,o="fn"+i;r.d(t,["He",0,"bstResource","Kp",0,i,"Lc",0,o,"Rz",0,"pushState","TZ",0,n,"bD",0,"resource","bc",0,{CROSS_TAB:{message:"Session Entity was set to OFF on another tab"},ENTITLEMENTS:{message:"Session Trace is not allowed and will not be started"},RESET:{message:"Session was reset"},SESSION_CHANGED:{message:"Session identifier changed unexpectedly"}},"d3",0,s,"uP",0,a])},3962(e,t,r){"use strict";const n=r(860).K7.softNav;r.d(t,["O2",0,{INITIAL_PAGE_LOAD:"",ROUTE_CHANGE:1,UNSPECIFIED:2},"OV",0,"popstate","Qu",0,{INTERACTION:1,AJAX:2,CUSTOM_END:3,CUSTOM_TRACER:4},"TZ",0,n,"ih",0,{IP:"in progress",PF:"pending finish",FIN:"finished",CAN:"cancelled"},"pP",0,"initialPageLoad","tC",0,["click","keydown","submit"]])},4234(e,t,r){"use strict";r.d(t,{W:()=>s});var n=r(1687);class s{constructor(e,t){this.agentRef=e,this.ee=e?.ee,this.featureName=t,this.blocked=!1}deregisterDrain(){(0,n.x3)(this.agentRef,this.featureName)}}},7767(e,t,r){"use strict";var n=r(6154);r.d(t,["V",0,e=>n.RI&&!0===e?.privacy.cookies_enabled])},8362(e,t,r){"use strict";r.d(t,{d:()=>i});var n=r(9566),s=r(1741);class i extends s.W{agentIdentifier=(0,n.LA)(16)}},1741(e,t,r){"use strict";r.d(t,{W:()=>i});var n=r(944),s=r(4261);class i{#e(e,...t){if(this[e]!==i.prototype[e])return this[e](...t);(0,n.R)(35,e)}addPageAction(e,t){return this.#e(s.hG,e,t)}register(e){return this.#e(s.eY,e)}recordCustomEvent(e,t){return this.#e(s.fF,e,t)}setPageViewName(e,t){return this.#e(s.Fw,e,t)}setCustomAttribute(e,t,r){return this.#e(s.cD,e,t,r)}noticeError(e,t){return this.#e(s.o5,e,t)}setUserId(e,t=!1){return this.#e(s.Dl,e,t)}setApplicationVersion(e){return this.#e(s.nb,e)}setErrorHandler(e){return this.#e(s.bt,e)}addRelease(e,t){return this.#e(s.k6,e,t)}log(e,t){return this.#e("log",e,t)}start(){return this.#e("start")}finished(e){return this.#e(s.BL,e)}recordReplay(){return this.#e(s.CH)}pauseReplay(){return this.#e(s.Tb)}addToTrace(e){return this.#e(s.U2,e)}setCurrentRouteName(e){return this.#e(s.PA,e)}interaction(e){return this.#e(s.dT,e)}wrapLogger(e,t,r){return this.#e(s.Wb,e,t,r)}measure(e,t){return this.#e(s.V1,e,t)}consent(e){return this.#e(s.Pv,e)}}},4261(e,t,r){"use strict";r.d(t,["BL",0,"finished","CH",0,"recordReplay","Dl",0,"setUserId","Fw",0,"setPageViewName","PA",0,"setCurrentRouteName","Pv",0,"consent","Tb",0,"pauseReplay","U2",0,"addToTrace","V1",0,"measure","Wb",0,"wrapLogger","bt",0,"setErrorHandler","cD",0,"setCustomAttribute","dT",0,"interaction","eY",0,"register","fF",0,"recordCustomEvent","hG",0,"addPageAction","hw",0,"api-ixn-","k6",0,"addRelease","nb",0,"setApplicationVersion","o5",0,"noticeError"])},1738(e,t,r){"use strict";r.d(t,{U:()=>l,Y:()=>u});var n=r(3241),s=r(9908),i=r(1863),a=r(944),o=r(3969),c=r(8362),d=r(860);function u(e,t,r,i){const u=i||r;!u||u[e]&&u[e]!==c.d.prototype[e]||(u[e]=function(){(0,s.p)(o.xV,["API/"+e+"/called"],void 0,d.K7.metrics,r.ee),(0,n.W)({drained:!!r.runtime?.activatedFeatures,type:"data",name:"api",feature:"api-"+e,data:{}});try{return t.apply(this,arguments)}catch(e){(0,a.R)(23,e)}})}function l(e,t,r,n,a){const o=e.info;null===r?delete o.jsAttributes[t]:o.jsAttributes[t]=r,(a||null===r)&&(0,s.p)("api-"+n,[(0,i.t)(),t,r],void 0,"session",e.ee)}},8374(e,t,r){r.nc=(()=>{try{return document?.currentScript?.nonce}catch(e){}return""})()},860(e,t,r){"use strict";const n="events",s="jserrors",i="browser/blobs",a="browser/logs",o={ajax:"ajax",genericEvents:"generic_events",jserrors:s,logging:"logging",metrics:"metrics",pageAction:"page_action",pageViewEvent:"page_view_event",pageViewTiming:"page_view_timing",sessionReplay:"session_replay",sessionTrace:"session_trace",softNav:"soft_navigations"},c={[o.pageViewEvent]:1,[o.pageViewTiming]:2,[o.metrics]:3,[o.jserrors]:4,[o.softNav]:5,[o.ajax]:6,[o.sessionTrace]:7,[o.sessionReplay]:8,[o.logging]:9,[o.genericEvents]:10},d={[o.pageViewEvent]:"rum",[o.pageViewTiming]:n,[o.ajax]:n,[o.softNav]:n,[o.metrics]:s,[o.jserrors]:s,[o.sessionTrace]:i,[o.sessionReplay]:i,[o.logging]:a,[o.genericEvents]:"ins"};r.d(t,["$J",0,d,"K7",0,o,"P3",0,c,"XX",0,s,"Yy",0,a,"df",0,i])}};const t={};function r(n){const s=t[n];if(void 0!==s)return s.exports;const i=t[n]={exports:{}};return e[n](i,i.exports,r),i.exports}r.m=e,r.d=(e,t)=>{if(Array.isArray(t))for(var n=0;n<t.length;){var s=t[n++],i=t[n++];r.o(e,s)?0===i&&n++:0===i?Object.defineProperty(e,s,{enumerable:!0,value:t[n++]}):Object.defineProperty(e,s,{enumerable:!0,get:i})}else for(var s in t)r.o(t,s)&&!r.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:t[s]})},r.f={},r.e=e=>Promise.all(Object.keys(r.f).reduce((t,n)=>(r.f[n](e,t),t),[])),r.u=e=>({212:"nr-spa-compressor",238:"nr-spa-iframe-message-handler",249:"nr-spa-recorder",478:"nr-spa"}[e]+"-1.320.0.min.js"),r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{const e={},t="NRBA-1.320.0.PROD:";r.l=(n,s,i,a)=>{if(e[n])return void e[n].push(s);let o,c;if(void 0!==i){const e=document.getElementsByTagName("script");for(var d=0;d<e.length;d++){const r=e[d];if(r.getAttribute("src")==n||r.getAttribute("data-webpack")==t+i){o=r;break}}}if(!o){c=!0;var u={478:"sha512-ptWW4PpCZnBTIDhhRiGBt+293xNnolQo0m1Qi/t1Z22BYHA8sJuG7z8svwUyA2SkOzC8JSMqxK9Nw1EUOX9JfQ==",249:"sha512-qFikDjo9uUnND9Kqe+t4ZCHWIqREKhALU66Lho8f237ITJsOAKMEMLk0Ok1GEi/BQI9C6x+Zy9Mc0Uu5ynAkyw==",212:"sha512-xrFTS6icwYIkwpvTfypDYb/UToMmmvSFOrWBe5pORVfqBL4uAfm25DWVgmWraLk4eSTWiECVOVuTTZwEPvMzcw==",238:"sha512-Rve9kOApYyZ3KzhgYWObRhZhvZjG5ByN+5PaAXWJN5/bn8PyS6rodnmrH60xw5oGRbZRtm3Iat78cEtFZrx9fg=="};o=document.createElement("script"),o.charset="utf-8",r.nc&&o.setAttribute("nonce",r.nc),o.setAttribute("data-webpack",t+i),o.src=n,0!==o.src.indexOf(window.location.origin+"/")&&(o.crossOrigin="anonymous"),u[a]&&(o.integrity=u[a])}e[n]=[s];const l=(t,r)=>{o.onerror=o.onload=null,clearTimeout(f);const s=e[n];if(delete e[n],o.parentNode?.removeChild(o),s?.forEach(e=>e(r)),t)return t(r)},f=setTimeout(l.bind(null,void 0,{type:"timeout",target:o}),12e4);o.onerror=l.bind(null,o.onerror),o.onload=l.bind(null,o.onload),c&&document.head.appendChild(o)}})(),r.r=e=>{Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.p="https://js-agent.newrelic.com/",(()=>{const e={38:0,788:0};r.f.j=(t,n)=>{let s=r.o(e,t)?e[t]:void 0;if(0!==s)if(s)n.push(s[2]);else{const i=new Promise((r,n)=>s=e[t]=[r,n]);n.push(s[2]=i);const a=r.p+r.u(t),o=new Error,c=n=>{if(r.o(e,t)&&(s=e[t],0!==s&&(e[t]=void 0),s)){const e=n&&("load"===n.type?"missing":n.type),r=n&&n.target&&n.target.src;o.message="Loading chunk "+t+" failed: ("+e+": "+r+")",o.name="ChunkLoadError",o.type=e,o.request=r,s[1](o)}};r.l(a,c,"chunk-"+t,t)}};const t=(t,n)=>{let[s,i,a]=n;var o,c,d=0;if(s.some(t=>0!==e[t])){for(o in i)r.o(i,o)&&(r.m[o]=i[o]);if(a)a(r)}for(t&&t(n);d<s.length;d++)c=s[d],r.o(e,c)&&e[c]&&e[c][0](),e[c]=0},n=self["webpackChunk:NRBA-1.320.0.PROD"]=self["webpackChunk:NRBA-1.320.0.PROD"]||[];n.forEach(t.bind(null,0)),n.push=t.bind(null,n.push.bind(n))})(),(()=>{"use strict";r(8374);var e=r(8362),t=r(860);const n=Object.values(t.K7);var s=r(384),i=r(1741);var a=r(2555),o=r(3333),c=r(9300);const d=e=>{if(!e||"string"!=typeof e)return!1;try{document.createDocumentFragment().querySelector(e)}catch{return!1}return!0};var u=r(2614),l=r(944),f=r(8122);const h="[data-nr-mask]",p=e=>(0,f.a)(e,(()=>{const e={feature_flags:[],experimental:{register:!1,resources:!1,iframe_bridge:!1,iframe_domains:[]},mask_selector:"*",block_selector:"[data-nr-block]",mask_input_options:{color:!1,date:!1,"datetime-local":!1,email:!1,month:!1,number:!1,range:!1,search:!1,tel:!1,text:!1,time:!1,url:!1,week:!1,textarea:!1,select:!1,password:!0}};return{ajax:{deny_list:void 0,block_internal:!0,enabled:!0,autoStart:!0,capture_payloads:c.mo.NONE},api:{register:{get enabled(){return e.feature_flags.includes(o.$v.REGISTER)||e.experimental.register},set enabled(t){e.experimental.register=t},duplicate_data_to_container:!1,get allow_iframe_bridge(){return e.feature_flags.includes(o.$v.IFRAME_BRIDGE)||e.experimental.iframe_bridge},set allow_iframe_bridge(t){e.experimental.iframe_bridge=t},get iframe_domains(){return e.experimental.iframe_domains},set iframe_domains(t){Array.isArray(t)?e.experimental.iframe_domains=t:(0,l.R)(1,t)}}},browser_consent_mode:{enabled:!1},distributed_tracing:{enabled:void 0,exclude_newrelic_header:void 0,cors_use_newrelic_header:void 0,cors_use_tracecontext_headers:void 0,allowed_origins:void 0},get feature_flags(){return e.feature_flags},set feature_flags(t){e.feature_flags=t},generic_events:{enabled:!0,autoStart:!0},harvest:{interval:30},jserrors:{enabled:!0,autoStart:!0},logging:{enabled:!0,autoStart:!0},metrics:{enabled:!0,autoStart:!0},obfuscate:void 0,page_action:{enabled:!0},page_view_event:{enabled:!0,autoStart:!0},page_view_timing:{enabled:!0,autoStart:!0},performance:{capture_marks:!1,capture_measures:!1,capture_detail:!0,resources:{get enabled(){return e.feature_flags.includes(o.$v.RESOURCES)||e.experimental.resources},set enabled(t){e.experimental.resources=t},asset_types:[],first_party_domains:[],ignore_newrelic:!0}},privacy:{cookies_enabled:!0},proxy:{assets:void 0,beacon:void 0},session:{expiresMs:u.wk,inactiveMs:u.BB},session_replay:{autoStart:!0,enabled:!1,preload:!1,sampling_rate:10,error_sampling_rate:100,collect_fonts:!1,inline_images:!1,fix_stylesheets:!0,mask_all_inputs:!0,get mask_text_selector(){return e.mask_selector},set mask_text_selector(t){d(t)?e.mask_selector="".concat(t,",").concat(h):""===t||null===t?e.mask_selector=h:(0,l.R)(5,t)},get block_class(){return"nr-block"},get ignore_class(){return"nr-ignore"},get mask_text_class(){return"nr-mask"},get block_selector(){return e.block_selector},set block_selector(t){d(t)?e.block_selector+=",".concat(t):""!==t&&(0,l.R)(6,t)},get mask_input_options(){return e.mask_input_options},set mask_input_options(t){t&&"object"==typeof t?e.mask_input_options={...t,password:!0}:(0,l.R)(7,t)}},session_trace:{enabled:!0,autoStart:!0},soft_navigations:{enabled:!0,autoStart:!0},ssl:void 0,user_actions:{enabled:!0,elementAttributes:["id","className","tagName","type"]},web_sockets:{enabled:!1}}})());var g=r(6154),m=r(9324);let v=0;const y={buildEnv:"PROD",distMethod:"CDN",version:m.x,originTime:g.WN},b={consented:!1},E={activatedFeatures:void 0,appMetadata:{},configured:!1,get consented(){return this.session?.state?.consent||b.consented},set consented(e){b.consented=e},customTransaction:void 0,denyList:[],disabled:!1,drainRegistry:new Map,harvester:void 0,isolatedBacklog:!1,isRecording:!1,loaderType:void 0,maxBytes:3e4,obfuscator:void 0,onerror:void 0,ptid:void 0,releaseIds:{},session:void 0,timeKeeper:void 0,registeredEntities:[],jsAttributesMetadata:{bytes:0},get harvestCount(){return++v},listeningForIframeMessages:!1};var w=r(7836),R=r(3241);const A={accountID:void 0,trustKey:void 0,agentID:void 0,licenseKey:void 0,applicationID:void 0,xpid:void 0};var T=r(9908),x=r(9752);function S(e,t={},n,o){let{init:c,info:d,loader_config:u,runtime:l={},exposed:h=!0}=t;if(!d){const e=(0,s.pV)();c=e.init,d=e.info,u=e.loader_config}var m;e.init=p(c||{}),e.loader_config=(m=u||{},(0,f.a)(m,A)),d.jsAttributes??={},g.bv&&(d.jsAttributes.isWorker=!0),e.info=(0,a.D)(d);const v=e.init;e.runtime??=(e=>{const t=(0,f.a)(e,E),r=Object.keys(y).reduce((e,t)=>(e[t]={value:y[t],writable:!1,configurable:!0,enumerable:!0},e),{});return Object.defineProperties(t,r)})(l),v.proxy.assets&&(e=>{const t=e.startsWith("http");e+="/",r.p=t?e:"https://"+e})(v.proxy.assets),e.runtime.configured||(Object.defineProperty(e,"beacons",{get:()=>[e.info.beacon,e.info.errorBeacon,e.init.proxy.assets,e.init.proxy.beacon].filter(Boolean)}),Object.defineProperty(e.runtime,"denyList",{get:()=>[...e.init.ajax.deny_list||[],...e.init.ajax.block_internal?e.beacons:[]]}),e.runtime.ptid=e.agentIdentifier,function(e){const t=(0,s.pV)();Object.getOwnPropertyNames(i.W.prototype).forEach(r=>{const n=i.W.prototype[r];if("function"!=typeof n||"constructor"===n)return;let s=t[r];e[r]&&!1!==e.exposed&&"micro-agent"!==e.runtime?.loaderType&&(t[r]=(...t)=>{const n=e[r](...t);return s?s(...t):n})})}(e),e.runtime.loaderType=n,e.ee=w.ee.get(e.agentIdentifier),e.exposed=h,(0,R.W)({drained:!!e.runtime.activatedFeatures,type:"lifecycle",name:"initialize",feature:void 0,data:e.config}),e.init.api.register.allow_iframe_bridge&&g.gm.addEventListener("message",t=>{"string"==typeof t.data?.type&&t.data.type.startsWith(x.Pl)&&(0,T.p)("iframe-message",[t],void 0,"IFRAME",e.ee)}),e.runtime.configured=!0)}var _=r(1863),O=r(4261),N=r(1738);var P=r(1687),L=r(4234),k=r(5289),C=r(5270),I=r(7767),j=r(6389),M=r(7699);const D=new WeakSet;class B extends L.W{constructor(e,t){super(e,t),this.abortHandler=void 0,this.featAggregate=void 0,this.loadedSuccessfully=void 0,this.onAggregateImported=new Promise(e=>{this.loadedSuccessfully=e}),this.deferred=Promise.resolve(),!1===e.init[this.featureName].autoStart?this.deferred=new Promise((t,r)=>{this.ee.on("manual-start-all",(0,j.J)(()=>{(0,P.Ak)(e,this.featureName),t()}))}):(0,P.Ak)(e,t)}importAggregator(e,t,n={}){if(this.featAggregate)return;const s=async()=>{if(await this.deferred,this.#t(e),!(0,a.f)(e.info))return(0,l.R)(43),e.ee.abort(),void this.loadedSuccessfully(!1);let s;try{if((0,I.V)(e.init)){const{setupAgentSession:t}=await r.e(478).then(r.bind(r,8766));s=t(e)}}catch(e){(0,l.R)(20,e),this.ee.emit("internal-error",[e]),(0,T.p)(M.qh,[e],void 0,this.featureName,this.ee)}if(e.init.api.register.allow_iframe_bridge)try{const{setupIframeMFEMessageListener:t}=await r.e(238).then(r.bind(r,6417));t(e)}catch(e){(0,l.R)(23,e)}try{if(!this.#r(this.featureName,s,e.init))return(0,P.Ze)(this.agentRef,this.featureName),void this.loadedSuccessfully(!1);const{Aggregate:r}=await t();this.featAggregate=new r(e,n),e.runtime.harvester.initializedAggregates.push(this.featAggregate),this.loadedSuccessfully(!0)}catch(e){(0,l.R)(34,e),this.abortHandler?.(),(0,P.Ze)(this.agentRef,this.featureName,!0),this.loadedSuccessfully(!1),this.ee&&this.ee.abort()}};g.RI?(0,k.GG)(()=>s(),!0):s()}#r(e,r,n){if(this.blocked)return!1;switch(e){case t.K7.sessionReplay:return(0,C.SR)(n)&&!!r;case t.K7.sessionTrace:return!!r;default:return!0}}#t(e){if(!D.has(e)&&(D.add(e),!(0,a.f)(e.info))){const t=(0,s.pV)();let r={...t.info?.jsAttributes};try{r={...r,...e.info?.jsAttributes}}catch(e){}S(e,{...t,info:{...t.info,jsAttributes:r},runtime:e.runtime},e.runtime.loaderType)}}}var H=r(6630);class K extends B{static featureName=H.T;constructor(e){var t;super(e,H.T),this.setupInspectionEvents(),t=e,(0,N.Y)(O.Fw,function(e,r){"string"==typeof e&&("/"!==e.charAt(0)&&(e="/"+e),t.runtime.customTransaction=(r||"http://custom.transaction")+e,(0,T.p)("api-"+O.Fw,[(0,_.t)()],void 0,void 0,t.ee))},t),this.importAggregator(e,()=>r.e(478).then(r.bind(r,5839)))}setupInspectionEvents(){const e=(e,t)=>{e&&(0,R.W)({timeStamp:e.timeStamp,loaded:"complete"===e.target.readyState,type:"window",name:t,data:e.target.location+""})};(0,k.sB)(t=>{e(t,"DOMContentLoaded")}),(0,k.GG)(t=>{e(t,"load")}),(0,k.Qr)(t=>{e(t,"navigate")}),this.ee.on(u.tS.UPDATE,(e,t)=>{(0,R.W)({type:"lifecycle",name:"session",data:t})})}}class W extends e.d{constructor(e){var t;(super(),g.gm)?(this.features={},(0,s.bQ)(this.agentIdentifier,this),this.desiredFeatures=new Set(e.features||[]),this.desiredFeatures.add(K),S(this,e,e.loaderType||"agent"),t=this,(0,N.Y)(O.cD,function(e,r,n=!1){if("string"==typeof e){if(["string","number","boolean"].includes(typeof r)||null===r)return(0,N.U)(t,e,r,O.cD,n);(0,l.R)(40,typeof r)}else(0,l.R)(39,typeof e)},t),function(e){(0,N.Y)(O.Dl,function(t,r=!1){if("string"!=typeof t&&null!==t)return void(0,l.R)(41,typeof t);const n=e.info.jsAttributes["enduser.id"];r&&null!=n&&n!==t?(0,T.p)("api-setUserIdAndResetSession",[t],void 0,"session",e.ee):(0,N.U)(e,"enduser.id",t,O.Dl,!0)},e)}(this),function(e){(0,N.Y)(O.nb,function(t){if("string"==typeof t||null===t)return(0,N.U)(e,"application.version",t,O.nb,!1);(0,l.R)(42,typeof t)},e)}(this),function(e){(0,N.Y)("start",function(){e.ee.emit("manual-start-all")},e)}(this),function(e){(0,N.Y)(O.Pv,function(t=!0){if("boolean"==typeof t){if((0,T.p)("api-"+O.Pv,[t],void 0,"session",e.ee),e.runtime.consented=t,t){const t=e.features.page_view_event;t.onAggregateImported.then(e=>{const r=t.featAggregate;e&&!r.sentRum&&r.sendRum()})}}else(0,l.R)(65,typeof t)},e)}(this),this.run()):(0,l.R)(21)}get config(){return{info:this.info,init:this.init,loader_config:this.loader_config,runtime:this.runtime}}get api(){return this}run(){try{const e=function(e){const t={};return n.forEach(r=>{t[r]=!!e[r]?.enabled}),t}(this.init),r=[...this.desiredFeatures];r.sort((e,r)=>t.P3[e.featureName]-t.P3[r.featureName]),r.forEach(r=>{if(!e[r.featureName]&&r.featureName!==t.K7.pageViewEvent)return;const n=function(e){switch(e){case t.K7.ajax:return[t.K7.jserrors];case t.K7.sessionTrace:return[t.K7.ajax,t.K7.pageViewEvent];case t.K7.sessionReplay:return[t.K7.sessionTrace];case t.K7.pageViewTiming:return[t.K7.pageViewEvent];default:return[]}}(r.featureName).filter(e=>!(e in this.features));n.length>0&&(0,l.R)(36,{targetFeature:r.featureName,missingDependencies:n}),this.features[r.featureName]=new r(this)})}catch(e){(0,l.R)(22,e);for(const e in this.features)this.features[e].abortHandler?.();const t=(0,s.Zm)();delete t.initializedAgents[this.agentIdentifier]?.features,delete this.sharedAggregator;return t.ee.get(this.agentIdentifier).abort(),!1}}}var F=r(2843),U=r(782);class V extends B{static featureName=U.T;constructor(e){super(e,U.T),g.RI&&((0,F.u)(()=>(0,T.p)("docHidden",[(0,_.t)()],void 0,U.T,this.ee),!0),(0,F.G)(()=>(0,T.p)("winPagehide",[(0,_.t)()],void 0,U.T,this.ee)),this.importAggregator(e,()=>r.e(478).then(r.bind(r,9917))))}}var z=r(3969);class G extends B{static featureName=z.TZ;constructor(e){super(e,z.TZ),this.importAggregator(e,()=>r.e(478).then(r.bind(r,6555)))}}var q=r(6774),Y=r(3878),Z=r(3304);class Q{constructor(e,t,r,n,s){this.name="UncaughtError",this.message="string"==typeof e?e:(0,Z.A)(e),this.sourceURL=t,this.line=r,this.column=n,this.__newrelic=s}}function X(e){return te(e)?e:new Q(void 0!==e?.message?e.message:e,e?.filename||e?.sourceURL,e?.lineno||e?.line,e?.colno||e?.col,e?.__newrelic,e?.cause)}function J(e){const t="Unhandled Promise Rejection: ";if(!e?.reason)return;if(te(e.reason)){try{e.reason.message.startsWith(t)||(e.reason.message=t+e.reason.message)}catch(e){}return X(e.reason)}const r=X(e.reason);return(r.message||"").startsWith(t)||(r.message=t+r.message),r}function ee(e){if(e.error instanceof SyntaxError&&!/:\d+$/.test(e.error.stack?.trim())){const t=new Q(e.message,e.filename,e.lineno,e.colno,e.error.__newrelic,e.cause);return t.name=SyntaxError.name,t}return te(e.error)?e.error:X(e)}function te(e){return e instanceof Error&&!!e.stack}function re(e,r,n,s,i=(0,_.t)()){"string"==typeof e&&(e=new Error(e)),(0,T.p)("err",[e,i,!1,r,n.runtime.isRecording,void 0,s],void 0,t.K7.jserrors,n.ee),(0,T.p)("uaErr",[],void 0,t.K7.genericEvents,n.ee)}var ne=r(5732),se=r(993),ie=r(3785);function ae(e,{customAttributes:t={},level:r=se.p_.INFO}={},n,s,i=(0,_.t)()){(0,ie.R)(n.ee,e,t,r,!1,s,i)}function oe(e,r,n,s,i=(0,_.t)()){(0,T.p)("api-"+O.hG,[i,e,r,s],void 0,t.K7.genericEvents,n.ee)}function ce(e,r,n,s,i=(0,_.t)()){const{start:a,end:o,customAttributes:c}=r||{},d={customAttributes:c||{}};if("object"!=typeof d.customAttributes||"string"!=typeof e||0===e.length)return void(0,l.R)(57);const u=(e,t)=>null==e?t:"number"==typeof e?e:e instanceof PerformanceMark?e.startTime:Number.NaN;if(d.start=u(a,0),d.end=u(o,i),Number.isNaN(d.start)||Number.isNaN(d.end))(0,l.R)(57);else{if(d.duration=d.end-d.start,!(d.duration<0))return(0,T.p)("api-"+O.V1,[d,e,s],void 0,t.K7.genericEvents,n.ee),d;(0,l.R)(58)}}function de(e,r={},n,s,i=(0,_.t)()){(0,T.p)("api-"+O.fF,[i,e,r,s],void 0,t.K7.genericEvents,n.ee)}var ue=r(5718);const le=(e,t)=>e?.nrMfeId===t.id&&(!e?.nrMfeObserved||e?.nrMfeObserved===t.instance),fe=e=>{try{return g.gm.CSS.escape(e)}catch(t){return e}},he=(e,t={})=>{const r=t.id,n=t.instance;if(!e||!r||!n)return!1;try{let r=1===e.nodeType?e:e.parentElement;for(;r?.tagName;){if(le(r.dataset,t))return r.dataset.nrMfeObserved=n,!0;r=r.parentNode}}catch(e){}return!1},pe=(e,t)=>{const r=g.gm.document?.querySelectorAll('[data-nr-mfe-id="'.concat(fe(e.id),'"]')),n=(Array.from(r)||[]).find(t=>le(t.dataset,e));let s=!!n;s&&(n.dataset.nrMfeObserved??=e.instance);const i=new g.gm.MutationObserver(r=>{r.forEach(r=>{r.addedNodes.forEach(r=>{const n=1===r.nodeType?r:null;!s&&le(n?.dataset,e)&&(i.disconnect(),i.observe(n,{childList:!0,subtree:!0}),s=!0,n.dataset.nrMfeObserved=e.instance),(e=>{try{return e?.textContent?.trim()||["img","video","canvas","svg"].includes(e?.nodeName?.toLowerCase())}catch(e){return!1}})(r)&&(s||he(r,e))&&t(r,i)})})});return i.observe(n||g.gm.document,{childList:!0,subtree:!0}),i},ge=(e,t,r)=>{try{const n=new g.gm.PerformanceObserver(e=>{e.getEntries().forEach(r)});return n.observe(t),e.push(n),n}catch(e){return null}};function me(e,t){let r,n;const s=e=>null==e?e:e-(t?.scriptStart||t?.registeredAt||0),i={fcp:{get value(){return s(r)},set value(e){r=e}},lcp:{get value(){return s(n)},set value(e){n=e}},cls:{value:void 0},inp:{value:void 0},disconnect:()=>{}};if(!(e&&g.RI&&g.gm.MutationObserver&&g.gm.PerformanceObserver))return i;const a=[];setTimeout(()=>{r||i.disconnect()},1e4);const o=()=>{r??=(0,_.t)(),n??=(0,_.t)(),i.cls.value??=0},c=g.gm.document?.querySelectorAll('[data-nr-mfe-id="'.concat(fe(e.id),'"]'));Array.from(c||[]).some(t=>le(t.dataset,e))&&o();const d=pe(e,(e,t)=>{o(),t.disconnect()});a.push(d);let u=0,l=null;const f=new Set;try{l=new g.gm.ResizeObserver(e=>{e.forEach(e=>{try{const t=e.contentRect.width*e.contentRect.height;t>u&&(u=t,n=(0,_.t)()),l.unobserve(e.target)}catch(e){}})})}catch(e){}const h=pe(e,e=>{if(o(),l)try{const t=1===e.nodeType?e:e.parentElement;t&&!f.has(t)&&(f.add(t),"IMG"===t.tagName?t.complete?l.observe(t):t.addEventListener("load",()=>{l.observe(t)},{once:!0}):"VIDEO"===t.tagName?t.readyState>=2?l.observe(t):t.addEventListener("loadeddata",()=>{l.observe(t)},{once:!0}):l.observe(t))}catch(e){}});l&&a.push(l),a.push(h),ge(a,{type:"layout-shift",buffered:!0},t=>{t.hadRecentInput||(t.sources||[]).some(r=>!!he(r.node,e)&&(o(),i.cls.value+=t.value,!0))}),ge(a,{type:"event",buffered:!0,durationThreshold:40},t=>{t.interactionId&&he(t.target,e)&&(void 0===i.inp.value||t.duration>i.inp.value)&&(o(),i.inp.value=t.duration)});const p=["pointerdown","keydown"],m=()=>{p.forEach(e=>{g.gm.removeEventListener(e,v,{passive:!0})})};i.disconnect=()=>{a.forEach(e=>{try{e?.disconnect()}catch(e){}}),m(),["visibilitychange","pagehide"].forEach(e=>{g.gm.removeEventListener(e,i.disconnect,{once:!0,passive:!0})})};const v=t=>{he(t?.target,e)&&((()=>{try{h?.disconnect(),l?.disconnect()}catch(e){}})(),m())};return p.forEach(e=>{g.gm.addEventListener(e,v,{passive:!0})}),["visibilitychange","pagehide"].forEach(e=>{g.gm.addEventListener(e,i.disconnect,{once:!0,passive:!0})}),i}var ve=r(9566);const ye=["name","id","type"],be=new Map([[oe,"addPageAction"],[ae,"log"],[ce,"measure"],[re,"noticeError"],[de,"recordCustomEvent"]]),Ee={experimental:(0,j.J)(()=>(0,l.R)(54,"newrelic.register")),disabled:(0,j.J)(()=>(0,l.R)(55)),invalidTarget:(0,j.J)(e=>(0,l.R)(48,e)),deregistered:(0,j.J)(()=>(0,l.R)(68))};function we(e){(0,N.Y)(O.eY,function(t){return Re(e,t)},e)}function Re(e,r){Ee.experimental(),r||={},r.instance=(0,ve.LA)(8),r.type=ne.fQ.MFE,r.licenseKey||=e.info.licenseKey,r.blocked=!1,("object"!=typeof r.tags||null===r.tags||Array.isArray(r.tags))&&(r.tags={}),r.parent??={get id(){return e.runtime.appMetadata.agents?.[0].entityGuid},type:ne.fQ.BA};const n=(0,ue.Qr)(r),s=me(r,n),i={};Object.prototype.hasOwnProperty.call(r,"attributes")||Object.defineProperty(r,"attributes",{get:()=>({...i,"source.id":r.id,"source.name":r.name,"source.type":r.type,"parent.type":r.parent?.type||ne.fQ.BA,"parent.id":r.parent?.id})}),Object.entries(r.tags).forEach(([e,t])=>{ye.includes(e)||(i["source.".concat(e)]=t)});let a=()=>{};const o=e.runtime.registeredEntities,c=e=>{r.blocked=!0,a=e};function d(e){return"string"==typeof e&&!!e.trim()&&e.trim().length<501}e.init.api.register.enabled||c(Ee.disabled),d(r.id)&&d(r.name)||c(()=>Ee.invalidTarget(r));const u={addPageAction:(t,n={})=>g(oe,[t,{...i,...n},e],r),deregister:()=>{h(),c(Ee.deregistered)},log:(t,n={})=>g(ae,[t,{...n,customAttributes:{...i,...n.customAttributes||{}}},e],r),measure:(t,n={})=>g(ce,[t,{...n,customAttributes:{...i,...n.customAttributes||{}}},e],r),noticeError:(t,n={})=>g(re,[t,{...i,...n},e],r),recordCustomEvent:(t,n={})=>g(de,[t,{...i,...n},e],r),setApplicationVersion:e=>p("application.version",e),setCustomAttribute:(e,t)=>p(e,t),setUserId:e=>p("enduser.id",e),metadata:{get customAttributes(){return i},target:r,timings:n,vitals:s,events:{latestTimestamp:void 0}}},f=()=>(r.blocked&&a(),r.blocked);function h(){if(n.reportedAt)return;n.reportedAt=(0,_.t)(),s.disconnect(),n.fcp=s.fcp,n.lcp=s.lcp,n.cls=s.cls,n.inp=s.inp;const e=n.fetchEnd-n.fetchStart,t=n.scriptEnd-n.scriptStart,r={assetUrl:n.asset,assetType:n.type,timeAlive:n.reportedAt-n.registeredAt,timeToBeRequested:n.fetchStart,timeToExecute:t,timeToFetch:e,timeToLoad:e+t,timeToRegister:n.registeredAt,...s.fcp.value>=0&&{"nr.vitals.fcp.value":s.fcp.value},...s.lcp.value>=0&&{"nr.vitals.lcp.value":s.lcp.value},...s.cls.value>=0&&{"nr.vitals.cls.value":s.cls.value},...s.inp.value>=0&&{"nr.vitals.inp.value":s.inp.value}};u.recordCustomEvent("MicroFrontEndTiming",r)}f()||(o.push(u),(0,F.G)(h));const p=(e,t)=>{f()||(i[e]=t)},g=(r,n,s)=>{if(f()&&r!==Re)return;const i=u.metadata.events.latestTimestamp??(0,_.t)();u.metadata.events.latestTimestamp=void 0;const a=be.get(r)||"unknown";(0,T.p)(z.xV,["API/register/".concat(a,"/called")],void 0,t.K7.metrics,e.ee);try{return r(...n,s,i)}catch(e){(0,l.R)(50,e)}};return u}class Ae extends B{static featureName=q.T;constructor(e){var t;super(e,q.T),t=e,(0,N.Y)(O.o5,(e,r)=>re(e,r,t),t),function(e){(0,N.Y)(O.bt,function(t){e.runtime.onerror=t},e)}(e),function(e){let t=0;(0,N.Y)(O.k6,function(e,r){++t>10||(this.runtime.releaseIds[e.slice(-200)]=(""+r).slice(-200))},e)}(e),we(e);try{this.removeOnAbort=new AbortController}catch(e){}this.ee.on("internal-error",(t,r)=>{this.abortHandler&&(0,T.p)("ierr",[X(t),(0,_.t)(),!0,{},e.runtime.isRecording,r],void 0,this.featureName,this.ee)}),g.gm.addEventListener("unhandledrejection",t=>{this.abortHandler&&(0,T.p)("err",[J(t),(0,_.t)(),!1,{unhandledPromiseRejection:1},e.runtime.isRecording],void 0,this.featureName,this.ee)},(0,Y.jT)(!1,this.removeOnAbort?.signal)),g.gm.addEventListener("error",t=>{this.abortHandler&&(0,T.p)("err",[ee(t),(0,_.t)(),!1,{},e.runtime.isRecording],void 0,this.featureName,this.ee)},(0,Y.jT)(!1,this.removeOnAbort?.signal)),this.abortHandler=this.#n,this.importAggregator(e,()=>r.e(478).then(r.bind(r,9377)))}#n(){this.removeOnAbort?.abort(),this.abortHandler=void 0}}var Te=r(8990);let xe=1;function Se(e){const t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===g.gm?0:(0,Te.I)(e,"nr@id",function(){return xe++})}function _e(e){if("string"==typeof e)return e.length;if("object"==typeof e){if("undefined"!=typeof ArrayBuffer&&e instanceof ArrayBuffer&&e.byteLength)return e.byteLength;if("undefined"!=typeof Blob&&e instanceof Blob&&e.size)return e.size;if(!("undefined"!=typeof FormData&&e instanceof FormData))try{return(0,Z.A)(e).length}catch(e){return}}}var Oe=r(8139),Ne=r(3434);const Pe={},Le=["open","send","setRequestHeader"];function ke(e,t){var r=e||w.ee;const n=function(e){return(e||w.ee).get("xhr")}(r);if(void 0===g.gm.XMLHttpRequest)return n;if(Pe[n.debugId]++)return n;Pe[n.debugId]=1,(0,Oe.u)(r);var s=(0,Ne.YM)(n),i=g.gm.XMLHttpRequest,a=g.gm.MutationObserver,o=g.gm.Promise,c=g.gm.setInterval,d="readystatechange",u=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],f=[],h=g.gm.XMLHttpRequest=function(e){const r=new i(e),a=n.context(r);a.targets=(0,ne.$5)(t);try{n.emit("new-xhr",[r],a),r.addEventListener(d,(o=a,function(){var e=this;e.readyState>3&&!o.resolved&&(o.resolved=!0,n.emit("xhr-resolved",[],e)),s.inPlace(e,u,"fn-",E)}),(0,Y.jT)(!1))}catch(e){(0,l.R)(15,e);try{n.emit("internal-error",[e])}catch(e){}}var o;return r};function p(e,t){s.inPlace(t,["onreadystatechange"],"fn-",E)}if(function(e,t){for(var r in e)t[r]=e[r]}(i,h),h.prototype=i.prototype,s.inPlace(h.prototype,Le,"-xhr-",E),n.on("send-xhr-start",function(e,t){p(e,t),function(e){f.push(e),a&&(m?m.then(b):c?c(b):(v=-v,y.data=v))}(t)}),n.on("open-xhr-start",p),a){var m=o&&o.resolve();if(!c&&!o){var v=1,y=document.createTextNode(v);new a(b).observe(y,{characterData:!0})}}else r.on("fn-end",function(e){e[0]&&e[0].type===d||b()});function b(){for(var e=0;e<f.length;e++)p(0,f[e]);f.length&&(f=[])}function E(e,t){return t}return n}var Ce="fetch-",Ie=Ce+"body-",je=["arrayBuffer","blob","json","text","formData"],Me=g.gm.Request,De=g.gm.Response,Be="prototype";const He={};function Ke(e,t){const r=function(e){return(e||w.ee).get("fetch")}(e);if(!(Me&&De&&g.gm.fetch))return r;if(He[r.debugId]++)return r;function n(e,n,s){var i=e[n];"function"==typeof i&&(e[n]=function(){var e=[...arguments];const n={},a=(0,ne.$5)(t);var o;r.emit(s+"before-start",[e],n),n[w.P]&&n[w.P].dt&&(o=n[w.P].dt);var c=i.apply(this,e);return r.emit(s+"start",[e,o],c),c.then(function(e){return r.emit(s+"end",[null,e,a],c),e},function(e){throw r.emit(s+"end",[e,void 0,a],c),e})})}return He[r.debugId]=1,je.forEach(e=>{n(Me[Be],e,Ie),n(De[Be],e,Ie)}),n(g.gm,"fetch",Ce),r.on(Ce+"end",function(e,t,n){var s=this;if(s.targets=n||[void 0],t){var i=t.headers.get("content-length");null!==i&&(s.rxSize=i),r.emit(Ce+"done",[null,t],s)}else r.emit(Ce+"done",[e],s)}),r}var We=r(7485);class Fe{constructor(e){this.agentRef=e}generateTracePayload(e){const t=this.agentRef.loader_config;if(!this.shouldGenerateTrace(e)||!t)return null;var r=(t.accountID||"").toString()||null,n=(t.agentID||"").toString()||null,s=(t.trustKey||"").toString()||null;if(!r||!n)return null;var i=(0,ve.ZF)(),a=(0,ve.el)(),o=Date.now(),c={spanId:i,traceId:a,timestamp:o};return(e.sameOrigin||this.isAllowedOrigin(e)&&this.useTraceContextHeadersForCors())&&(c.traceContextParentHeader=this.generateTraceContextParentHeader(i,a),c.traceContextStateHeader=this.generateTraceContextStateHeader(i,o,r,n,s)),(e.sameOrigin&&!this.excludeNewrelicHeader()||!e.sameOrigin&&this.isAllowedOrigin(e)&&this.useNewrelicHeaderForCors())&&(c.newrelicHeader=this.generateTraceHeader(i,a,o,r,n,s)),c}generateTraceContextParentHeader(e,t){return"00-"+t+"-"+e+"-01"}generateTraceContextStateHeader(e,t,r,n,s){return s+"@nr=0-1-"+r+"-"+n+"-"+e+"----"+t}generateTraceHeader(e,t,r,n,s,i){if(!("function"==typeof g.gm?.btoa))return null;var a={v:[0,1],d:{ty:"Browser",ac:n,ap:s,id:e,tr:t,ti:r}};return i&&n!==i&&(a.d.tk=i),btoa((0,Z.A)(a))}shouldGenerateTrace(e){return this.agentRef.init?.distributed_tracing?.enabled&&this.isAllowedOrigin(e)}isAllowedOrigin(e){var t=!1;const r=this.agentRef.init?.distributed_tracing;if(e.sameOrigin)t=!0;else if(r?.allowed_origins instanceof Array)for(var n=0;n<r.allowed_origins.length;n++){var s=(0,We.D)(r.allowed_origins[n]);if(e.hostname===s.hostname&&e.protocol===s.protocol&&e.port===s.port){t=!0;break}}return t}excludeNewrelicHeader(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!!e.exclude_newrelic_header}useNewrelicHeaderForCors(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!1!==e.cors_use_newrelic_header}useTraceContextHeadersForCors(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!!e.cors_use_tracecontext_headers}}var Ue=r(7295);function Ve(e){return"string"==typeof e?e:e instanceof(0,s.dV)().o.REQ?e.url:g.gm?.URL&&e instanceof URL?e.href:void 0}function ze(e,t){var r=(0,We.D)(t),n=e.params||e;n.hostname=r.hostname,n.port=r.port,n.protocol=r.protocol,n.host=r.hostname+":"+r.port,n.pathname=r.pathname,e.parsedOrigin=r,e.sameOrigin=r.sameOrigin}var Ge=["load","error","abort","timeout"],qe=Ge.length,Ye=(0,s.dV)().o.REQ,Ze=(0,s.dV)().o.XHR;const $e="X-NewRelic-App-Data",Qe="internal-error";class Xe extends B{static featureName=c.TZ;constructor(e){super(e,c.TZ),this.dt=new Fe(e),this.handler=(e,t,r,n)=>(0,T.p)(e,t,r,n,this.ee);try{const e={xmlhttprequest:"xhr",fetch:"fetch",beacon:"beacon"};g.gm?.performance?.getEntriesByType("resource").forEach(r=>{if(r.initiatorType in e&&0!==r.responseStatus){const n={status:r.responseStatus},s={rxSize:r.transferSize,duration:Math.floor(r.duration),cbTime:0};ze(n,r.name),this.handler("xhr",[n,s,r.startTime,r.responseEnd,e[r.initiatorType]],void 0,t.K7.ajax)}})}catch(e){}Ke(this.ee,e),ke(this.ee,e),function(e,r,n,s){const i=[c.mo.ALL,c.mo.FAILURES].includes(e.init.ajax?.capture_payloads);function a(e){var t=this;t.totalCbs=0,t.called=0,t.cbTime=0,t.end=x,t.ended=!1,t.xhrGuids={},t.lastSize=null,t.loadCaptureCalled=!1,t.params=this.params||{},t.metrics=this.metrics||{},t.latestLongtaskEnd=0,e.addEventListener("load",function(r){O(t,e)},(0,Y.jT)(!1)),g.lR||e.addEventListener("progress",function(e){t.lastSize=e.loaded},(0,Y.jT)(!1))}function o(e){this.params={method:e[0]},ze(this,e[1]),this.metrics={}}function d(t,r){e.loader_config.xpid&&this.sameOrigin&&r.setRequestHeader("X-NewRelic-ID",e.loader_config.xpid);var n=s.generateTracePayload(this.parsedOrigin);if(n){var i=!1;n.newrelicHeader&&(r.setRequestHeader("newrelic",n.newrelicHeader),i=!0),n.traceContextParentHeader&&(r.setRequestHeader("traceparent",n.traceContextParentHeader),n.traceContextStateHeader&&r.setRequestHeader("tracestate",n.traceContextStateHeader),i=!0),i&&(this.dt=n)}}function u(e,t){i&&e.length>=2&&(this.requestHeaders??={},this.requestHeaders[e[0].toLowerCase()]=e[1])}function l(e,t){var n=this.metrics,s=e[0],i=this;if(n&&s){var a=_e(s);a&&(n.txSize=a)}this.startTime=(0,_.t)(),this.requestBody=s,this.listener=function(e){try{"abort"!==e.type||i.loadCaptureCalled||(i.params.aborted=!0),("load"!==e.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof t.onload)&&"function"==typeof i.end)&&i.end(t)}catch(e){try{r.emit(Qe,[e])}catch(e){}}};for(var o=0;o<qe;o++)t.addEventListener(Ge[o],this.listener,(0,Y.jT)(!1))}function f(e,t,r){this.cbTime+=e,t?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof r.onload||"function"!=typeof this.end||this.end(r)}function h(e,t){var r=""+Se(e)+!!t;this.xhrGuids&&!this.xhrGuids[r]&&(this.xhrGuids[r]=!0,this.totalCbs+=1)}function p(e,t){var r=""+Se(e)+!!t;this.xhrGuids&&this.xhrGuids[r]&&(delete this.xhrGuids[r],this.totalCbs-=1)}function m(){this.endTime=(0,_.t)()}function v(e,t){t instanceof Ze&&"load"===e[0]&&r.emit("xhr-load-added",[e[1],e[2]],t)}function y(e,t){t instanceof Ze&&"load"===e[0]&&r.emit("xhr-load-removed",[e[1],e[2]],t)}function b(e,t,r){t instanceof Ze&&("onload"===r&&(this.onload=!0),("load"===(e[0]&&e[0].type)||this.onload)&&(this.xhrCbStart=(0,_.t)()))}function E(e,t){this.xhrCbStart&&r.emit("xhr-cb-time",[(0,_.t)()-this.xhrCbStart,this.onload,t],t)}function w(e){var t,r=e[1]||{};if("string"==typeof e[0]?0===(t=e[0]).length&&g.RI&&(t=""+g.gm.location.href):e[0]&&e[0].url?t=e[0].url:g.gm?.URL&&e[0]&&e[0]instanceof URL?t=e[0].href:"function"==typeof e[0].toString&&(t=e[0].toString()),"string"==typeof t&&0!==t.length){t&&(this.parsedOrigin=(0,We.D)(t),this.sameOrigin=this.parsedOrigin.sameOrigin);var n=s.generateTracePayload(this.parsedOrigin);if(n&&(n.newrelicHeader||n.traceContextParentHeader))if(e[0]&&e[0].headers)o(e[0].headers,n)&&(this.dt=n);else{var i={};for(var a in r)i[a]=r[a];i.headers=new Headers(r.headers||{}),o(i.headers,n)&&(this.dt=n),e.length>1?e[1]=i:e.push(i)}}function o(e,t){var r=!1;return t.newrelicHeader&&(e.set("newrelic",t.newrelicHeader),r=!0),t.traceContextParentHeader&&(e.set("traceparent",t.traceContextParentHeader),t.traceContextStateHeader&&e.set("tracestate",t.traceContextStateHeader),r=!0),r}}function R(e,t){this.params={},this.metrics={},this.startTime=(0,_.t)(),this.dt=t;let[r,n={}]=e;ze(this,Ve(r));const s=(""+(r&&r instanceof Ye&&r.method||n.method||"GET")).toUpperCase();this.params.method=s,this.txSize=_e(n.body||r?.body)||0;try{var a=n.headers||r?.headers;if(i&&a)if(this.requestHeaders??={},a instanceof Headers)a.forEach(function(e,t){this.requestHeaders[t.toLowerCase()]=e}.bind(this));else if("object"==typeof a)for(var o in a)this.requestHeaders[o.toLowerCase()]=a[o]}catch(e){}this.requestBody=n.body||r?.body}function A(e,t){if(this.endTime=(0,_.t)(),this.params||(this.params={}),(0,Ue.iW)(this.params))return;this.params.status=t?t.status:0;const n=()=>{const e=+this.rxSize,t=null==this.rxSize||isNaN(e)?void 0:e,r={txSize:this.txSize,rxSize:t,duration:this.endTime-this.startTime},n=[this.params,r,this.startTime,this.endTime,"fetch"];this.targets.forEach(e=>S(n,this,e))};t&&i?t.clone().text().then(e=>{this.responseBody=e,this.rxSize&&"0"!==this.rxSize&&0!==this.rxSize||void 0===e||0===this.params.status||(this.rxSize=_e(e)),t?.headers&&(this.responseHeaders={},t.headers.forEach(function(e,t){this.responseHeaders[t.toLowerCase()]=e}.bind(this)))}).catch(e=>{r.emit(Qe,[e])}).finally(()=>{n()}):n()}function x(e){const t=this.params,n=this.metrics;if(this.ended)return;this.ended=!0;for(let t=0;t<qe;t++)e.removeEventListener(Ge[t],this.listener,!1);if(t.aborted)return;if((0,Ue.iW)(t))return;if(n.duration=this.endTime-this.startTime,this.loadCaptureCalled||4!==e.readyState?null==t.status&&(t.status=0):O(this,e),n.cbTime=this.cbTime,i){try{this.responseBody=e.responseText}catch(t){this.responseBody=e.response}if((!n.rxSize||0===n.rxSize)&&void 0!==this.responseBody&&0!==t.status){const e=_e(this.responseBody);void 0!==e&&(n.rxSize=e)}try{this.responseHeaders=function(e){const t={};return e?(e.split("\r\n").forEach(function(e){const r=e.indexOf(": ");if(r>0){const n=e.substring(0,r),s=e.substring(r+2);t[n.toLowerCase()]=s}}),t):t}(e.getAllResponseHeaders())}catch(e){r.emit(Qe,[e])}}const s=[t,n,this.startTime,this.endTime,"xhr"];this.targets.forEach(e=>S(s,this,e))}function S(e,r,s){n("xhr",[...e,s],r,t.K7.ajax)}function O(e,n){e.params.status=n.status;var s=function(e,t){var r=e.responseType;return"json"===r&&null!==t?t:"arraybuffer"===r||"blob"===r||"json"===r?_e(e.response):"text"===r||""===r||void 0===r?_e(e.responseText):void 0}(n,e.lastSize);if(void 0!==s&&0!==n.status&&(e.metrics.rxSize=s),e.sameOrigin&&n.getAllResponseHeaders().indexOf($e)>=0){var i=n.getResponseHeader($e);i&&((0,T.p)("sm",["Ajax/CrossApplicationTracing/Header/Seen"],void 0,t.K7.metrics,r),e.params.cat=i.split(", ").pop())}e.loadCaptureCalled=!0}r.on("new-xhr",a),r.on("open-xhr-start",o),r.on("open-xhr-end",d),r.on("send-xhr-start",l),r.on("setRequestHeader-xhr-start",u),r.on("xhr-cb-time",f),r.on("xhr-load-added",h),r.on("xhr-load-removed",p),r.on("xhr-resolved",m),r.on("addEventListener-end",v),r.on("removeEventListener-end",y),r.on("fn-end",E),r.on("fetch-before-start",w),r.on("fetch-start",R),r.on("fn-start",b),r.on("fetch-done",A)}(e,this.ee,this.handler,this.dt),this.importAggregator(e,()=>r.e(478).then(r.bind(r,3845)))}}const Je={},et=["pushState","replaceState"];function tt(e){const t=function(e){return(e||w.ee).get("history")}(e);return!g.RI||Je[t.debugId]++||(Je[t.debugId]=1,(0,Ne.YM)(t).inPlace(window.history,et,"-")),t}var rt=r(3738);function nt(e){(0,N.Y)(O.BL,function(r=Date.now()){const n=r-g.WN;n<0&&(0,l.R)(62,r),(0,T.p)(z.XG,[O.BL,{time:n}],void 0,t.K7.metrics,e.ee),e.addToTrace({name:O.BL,start:r,origin:"nr"}),(0,T.p)("api-"+O.hG,[n,O.BL],void 0,t.K7.genericEvents,e.ee)},e)}const{He:st,bD:it,d3:at,Kp:ot,TZ:ct,Lc:dt,uP:ut,Rz:lt}=rt;class ft extends B{static featureName=ct;constructor(e){var n;super(e,ct),n=e,(0,N.Y)(O.U2,function(e){if(!(e&&"object"==typeof e&&e.name&&e.start))return;const r={n:e.name,s:e.start-g.WN,e:(e.end||e.start)-g.WN,o:e.origin||"",t:"api"};r.s<0||r.e<0||r.e<r.s?(0,l.R)(61,{start:r.s,end:r.e}):(0,T.p)("bstApi",[r],void 0,t.K7.sessionTrace,n.ee)},n),nt(e);if(!(0,I.V)(e.init))return void this.deregisterDrain();const s=this.ee;let i;tt(s),this.eventsEE=(0,Oe.u)(s),this.eventsEE.on(ut,function(e,t){this.bstStart=(0,_.t)()}),this.eventsEE.on(dt,function(e,r){(0,T.p)("bst",[e[0],r,this.bstStart,(0,_.t)()],void 0,t.K7.sessionTrace,s)}),s.on(lt+at,function(e){this.time=(0,_.t)(),this.startPath=location.pathname+location.hash}),s.on(lt+ot,function(e){(0,T.p)("bstHist",[location.pathname+location.hash,this.startPath,this.time],void 0,t.K7.sessionTrace,s)});try{i=new PerformanceObserver(e=>{const r=e.getEntries();(0,T.p)(st,[r],void 0,t.K7.sessionTrace,s)}),i.observe({type:it,buffered:!0})}catch(e){}this.importAggregator(e,()=>r.e(478).then(r.bind(r,6974)),{resourceObserver:i})}}var ht=r(733),pt=r(6344);class gt extends B{static featureName=pt.TZ;#s;recorder;constructor(e){var n;let s;super(e,pt.TZ),n=e,(0,N.Y)(O.CH,function(){(0,T.p)(O.CH,[],void 0,t.K7.sessionReplay,n.ee)},n),function(e){(0,N.Y)(O.Tb,function(){(0,T.p)(O.Tb,[],void 0,t.K7.sessionReplay,e.ee)},e)}(e);const i="".concat(u.Wt).concat((0,ht.Y)(e.info.licenseKey,e.info.applicationID));try{s=JSON.parse(localStorage.getItem(i))}catch(e){}(0,C.SR)(e.init)&&this.ee.on(O.CH,()=>this.#i()),this.#a(s)&&this.importRecorder().then(e=>{e.startRecording(pt.Qb.PRELOAD,s?.sessionReplayMode)}),this.importAggregator(this.agentRef,()=>r.e(478).then(r.bind(r,6167)),this),this.ee.on("err",e=>{this.blocked||this.agentRef.runtime.isRecording&&(this.errorNoticed=!0,(0,T.p)(pt.Vh,[e],void 0,this.featureName,this.ee))})}#a(e){return e&&(e.sessionReplayMode===u.g.FULL||e.sessionReplayMode===u.g.ERROR)||(0,C.Aw)(this.agentRef.init)}importRecorder(){return this.recorder?Promise.resolve(this.recorder):(this.#s??=Promise.all([r.e(478),r.e(249)]).then(r.bind(r,4866)).then(({Recorder:e})=>(this.recorder=new e(this),this.recorder)).catch(e=>{throw this.ee.emit("internal-error",[e]),this.blocked=!0,e}),this.#s)}#i(){this.blocked||(this.featAggregate?this.featAggregate.mode!==u.g.FULL&&this.featAggregate.initializeRecording(u.g.FULL,!0,pt.Qb.API):this.importRecorder().then(()=>{this.recorder.startRecording(pt.Qb.API,u.g.FULL)}))}}var mt=r(3962);class vt extends B{static featureName=mt.TZ;constructor(e){if(super(e,mt.TZ),function(e){const r=e.ee.get("tracer");function n(){}(0,N.Y)(O.dT,function(e){return(new n).get("object"==typeof e?e:{})},e);const s=n.prototype={createTracer:function(n,s){var i={},a=this,o="function"==typeof s;return(0,T.p)(z.xV,["API/createTracer/called"],void 0,t.K7.metrics,e.ee),function(){if(r.emit((o?"":"no-")+"fn-start",[(0,_.t)(),a,o],i),o)try{return s.apply(this,arguments)}catch(e){const t="string"==typeof e?new Error(e):e;throw r.emit("fn-err",[arguments,this,t],i),t}finally{r.emit("fn-end",[(0,_.t)()],i)}}}};["actionText","setName","setAttribute","save","ignore","onEnd","getContext","end","get"].forEach(r=>{N.Y.apply(this,[r,function(){return(0,T.p)(O.hw+r,[performance.now(),...arguments],this,t.K7.softNav,e.ee),this},e,s])}),(0,N.Y)(O.PA,function(){(0,T.p)(O.hw+"routeName",[performance.now(),...arguments],void 0,t.K7.softNav,e.ee)},e)}(e),!g.RI||!(0,s.dV)().o.MO)return;const n=tt(this.ee);try{this.removeOnAbort=new AbortController}catch(e){}mt.tC.forEach(e=>{(0,Y.sp)(e,e=>{c(e)},!0,this.removeOnAbort?.signal)});const i=()=>(0,T.p)("newURL",[(0,_.t)(),""+window.location],void 0,this.featureName,this.ee);n.on("pushState-end",i),n.on("replaceState-end",i),(0,Y.sp)(mt.OV,e=>{c(e),(0,T.p)("newURL",[e.timeStamp,""+window.location],void 0,this.featureName,this.ee)},!0,this.removeOnAbort?.signal);let a=!1;const o=new((0,s.dV)().o.MO)((e,t)=>{a||(a=!0,requestAnimationFrame(()=>{(0,T.p)("newDom",[(0,_.t)()],void 0,this.featureName,this.ee),a=!1}))}),c=(0,j.s)(e=>{"loading"!==document.readyState&&((0,T.p)("newUIEvent",[e],void 0,this.featureName,this.ee),o.observe(document.body,{attributes:!0,childList:!0,subtree:!0,characterData:!0}))},100,{leading:!0});this.abortHandler=function(){this.removeOnAbort?.abort(),o.disconnect(),this.abortHandler=void 0},this.importAggregator(e,()=>r.e(478).then(r.bind(r,4393)),{domObserver:o})}}var yt=r(9119),bt=r(981);const Et={},wt=new Set;function Rt(e){return"string"==typeof e?{type:"string",size:(new TextEncoder).encode(e).length}:e instanceof ArrayBuffer?{type:"ArrayBuffer",size:e.byteLength}:e instanceof Blob?{type:"Blob",size:e.size}:e instanceof DataView?{type:"DataView",size:e.byteLength}:ArrayBuffer.isView(e)?{type:"TypedArray",size:e.byteLength}:{type:"unknown",size:0}}class At{constructor(e,t){this.timestamp=(0,_.t)(),this.currentUrl=(0,yt.L)(window.location.href),this.socketId=(0,ve.LA)(8),this.requestedUrl=(0,yt.L)(e),this.requestedProtocols=Array.isArray(t)?t.join(","):t||"",this.openedAt=void 0,this.protocol=void 0,this.extensions=void 0,this.binaryType=void 0,this.messageOrigin=void 0,this.messageCount=0,this.messageBytes=0,this.messageBytesMin=0,this.messageBytesMax=0,this.messageTypes=void 0,this.sendCount=0,this.sendBytes=0,this.sendBytesMin=0,this.sendBytesMax=0,this.sendTypes=void 0,this.closedAt=void 0,this.closeCode=void 0,this.closeReason="unknown",this.closeWasClean=void 0,this.connectedDuration=0,this.hasErrors=void 0}}class Tt extends B{static featureName=o.TZ;constructor(e){super(e,o.TZ);const n=e.init.feature_flags.includes("websockets")||e.init.web_sockets?.enabled,i=!e.init.feature_flags.includes("no_spv"),a=[e.init.page_action.enabled,e.init.performance.capture_marks,e.init.performance.capture_measures,e.init.performance.resources.enabled,e.init.user_actions.enabled,n,i];var c;let d;if(c=e,(0,N.Y)(O.hG,(e,t)=>oe(e,t,c),c),function(e){(0,N.Y)(O.fF,(t,r)=>de(t,r,e),e)}(e),nt(e),we(e),function(e){(0,N.Y)(O.V1,(t,r)=>ce(t,r,e),e)}(e),this.removeOnAbort=new AbortController,this.abortHandler=()=>{this.removeOnAbort.abort(),this.abortHandler=void 0},n){const u=function(e,t){if(!(0,s.dV)().o.WS)return e;const r=e.get("websockets");if(Et[r.debugId]++)return r;Et[r.debugId]=1,(0,F.G)(()=>{const e=(0,_.t)();wt.forEach(t=>{t.nrData.closedAt=e,t.nrData.closeCode=1001,t.nrData.closeReason="Page navigating away",t.nrData.closeWasClean=!1,t.nrData.openedAt&&(t.nrData.connectedDuration=e-t.nrData.openedAt),r.emit("ws",[t.nrData,t.targets],t)})});class n extends WebSocket{static name=bt.R.WS;static toString(){return"function WebSocket() { [native code] }"}toString(){return"[object WebSocket]"}get[Symbol.toStringTag](){return n.name}#o(e){(e.__newrelic??={}).socketId=this.nrData.socketId,this.nrData.hasErrors??=!0}constructor(...e){super(...e),this.nrData=new At(e[0],e[1]),this.targets=(0,ne.$5)(t),this.addEventListener("open",()=>{this.nrData.openedAt=(0,_.t)(),["protocol","extensions","binaryType"].forEach(e=>{this.nrData[e]=this[e]}),wt.add(this)}),this.addEventListener("message",e=>{const{type:t,size:r}=Rt(e.data);this.nrData.messageOrigin??=(0,yt.L)(e.origin),this.nrData.messageCount++,this.nrData.messageBytes+=r,this.nrData.messageBytesMin=Math.min(this.nrData.messageBytesMin||1/0,r),this.nrData.messageBytesMax=Math.max(this.nrData.messageBytesMax,r),(this.nrData.messageTypes??"").includes(t)||(this.nrData.messageTypes=this.nrData.messageTypes?"".concat(this.nrData.messageTypes,",").concat(t):t)}),this.addEventListener("close",e=>{this.nrData.closedAt=(0,_.t)(),this.nrData.closeCode=e.code,e.reason&&(this.nrData.closeReason=e.reason),this.nrData.closeWasClean=e.wasClean,this.nrData.connectedDuration=this.nrData.closedAt-this.nrData.openedAt,wt.delete(this),r.emit("ws",[this.nrData,this.targets],this)})}addEventListener(e,t,...r){const n=this,s="function"==typeof t?function(...e){try{return t.apply(this,e)}catch(e){throw n.#o(e),e}}:t?.handleEvent?{handleEvent:function(...e){try{return t.handleEvent.apply(t,e)}catch(e){throw n.#o(e),e}}}:t;return super.addEventListener(e,s,...r)}send(e){if(this.readyState===WebSocket.OPEN){const{type:t,size:r}=Rt(e);this.nrData.sendCount++,this.nrData.sendBytes+=r,this.nrData.sendBytesMin=Math.min(this.nrData.sendBytesMin||1/0,r),this.nrData.sendBytesMax=Math.max(this.nrData.sendBytesMax,r),(this.nrData.sendTypes??"").includes(t)||(this.nrData.sendTypes=this.nrData.sendTypes?"".concat(this.nrData.sendTypes,",").concat(t):t)}try{return super.send(e)}catch(e){throw this.#o(e),e}}close(...e){try{super.close(...e)}catch(e){throw this.#o(e),e}}}return g.gm.WebSocket=n,r}(this.ee,e);u.on("ws",(e,t)=>{(0,T.p)("ws-complete",[e,t],void 0,this.featureName,this.ee)})}if(i&&g.gm.addEventListener("securitypolicyviolation",e=>{(0,T.p)("spv",[e],void 0,t.K7.genericEvents,this.ee)},(0,Y.jT)(!1,this.removeOnAbort.signal)),g.RI){if(Ke(this.ee,e),ke(this.ee,e),d=tt(this.ee),e.init.user_actions.enabled){function l(t){const r=(0,We.D)(t);return e.beacons.includes(r.hostname+":"+r.port)}function f(){d.emit("navChange")}o.Zp.forEach(e=>(0,Y.sp)(e,e=>(0,T.p)("ua",[e],void 0,this.featureName,this.ee),!0)),o.qN.forEach(e=>{const t=(0,j.s)(e=>{(0,T.p)("ua",[e],void 0,this.featureName,this.ee)},500,{leading:!0});(0,Y.sp)(e,t)}),g.gm.addEventListener("error",()=>{(0,T.p)("uaErr",[],void 0,t.K7.genericEvents,this.ee)},(0,Y.jT)(!1,this.removeOnAbort.signal)),this.ee.on("open-xhr-start",(e,r)=>{l(e[1])||r.addEventListener("readystatechange",()=>{2===r.readyState&&(0,T.p)("uaXhr",[],void 0,t.K7.genericEvents,this.ee)},(0,Y.jT)(void 0,this.removeOnAbort.signal))}),this.ee.on("fetch-start",e=>{e.length>=1&&!l(Ve(e[0]))&&(0,T.p)("uaXhr",[],void 0,t.K7.genericEvents,this.ee)}),d.on("pushState-end",f),d.on("replaceState-end",f),window.addEventListener("hashchange",f,(0,Y.jT)(!0,this.removeOnAbort.signal)),window.addEventListener("popstate",f,(0,Y.jT)(!0,this.removeOnAbort.signal))}if(e.init.performance.resources.enabled&&g.gm.PerformanceObserver?.supportedEntryTypes.includes("resource")){new PerformanceObserver(e=>{e.getEntries().forEach(e=>{(0,T.p)("browserPerformance.resource",[e],void 0,this.featureName,this.ee)})}).observe({type:"resource",buffered:!0})}}a.some(e=>e)?this.importAggregator(e,()=>r.e(478).then(r.bind(r,8019))):this.deregisterDrain()}}var xt=r(2646);const St=new Map;function _t(e,t,r,n,s=!0,i){if("object"!=typeof t||!t||"string"!=typeof r||!r||"function"!=typeof t[r])return(0,l.R)(29);const a=function(e){return(e||w.ee).get("logger")}(e),o=(0,Ne.YM)(a,void 0,i),c=new xt.y(w.P);c.level=n.level,c.customAttributes=n.customAttributes,c.autoCaptured=s;const d=t[r]?.[Ne.Jt]||t[r];return St.set(d,c),o.inPlace(t,[r],"wrap-logger-",()=>St.get(d),void 0,!0),a}var Ot=r(1910);class Nt extends B{static featureName=se.TZ;constructor(e){var t;super(e,se.TZ),t=e,(0,N.Y)("log",(e,r)=>ae(e,r,t),t),function(e){(0,N.Y)(O.Wb,(t,r,{customAttributes:n={},level:s=se.p_.INFO}={})=>{_t(e.ee,t,r,{customAttributes:n,level:s},!1,e)},e)}(e),we(e);const n=this.ee;["log","error","warn","info","debug","trace"].forEach(t=>{(0,Ot.i)(g.gm.console[t]),_t(n,g.gm.console,t,{level:"log"===t?"info":t},void 0,e)}),this.ee.on("wrap-logger-end",function([e],t,r,s=[]){const{level:i,customAttributes:a,autoCaptured:o}=this;s.forEach(t=>{(0,ie.R)(n,e,a,i,o,t)})}),this.importAggregator(e,()=>r.e(478).then(r.bind(r,5288)))}}new W({features:[Xe,K,V,ft,gt,G,Ae,Tt,Nt,vt],loaderType:"spa"})})()})();</script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" /><title>LF Edge 2025 Year in Review and What’s Ahead in 2026 &#8211; LF EDGE: Building an Open Source Framework for the Edge.</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//use.fontawesome.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="LF EDGE: Building an Open Source Framework for the Edge. &raquo; Feed" href="https://lfedge.org/feed/" />
+<link rel="alternate" type="application/rss+xml" title="LF EDGE: Building an Open Source Framework for the Edge. &raquo; Comments Feed" href="https://lfedge.org/comments/feed/" />
+<link rel="alternate" type="text/calendar" title="LF EDGE: Building an Open Source Framework for the Edge. &raquo; iCal Feed" href="https://lfedge.org/events-redirect/?ical=1" />
+<link rel="preload" href="https://lfedge.org/wp-content/themes/salient/css/fonts/icomoon.woff?v=1.7" as="font" type="font/woff" crossorigin="anonymous"><style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='tribe-events-pro-mini-calendar-block-styles-css' href='https://lfedge.org/wp-content/plugins/events-calendar-pro/build/css/tribe-events-pro-mini-calendar-block.css?ver=7.8.0' media='all' />
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:root { --wp--style--global--content-size: 1300px;--wp--style--global--wide-size: 1300px; }:where(body) { margin: 0; }.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }.wp-site-blocks > .alignright { float: right; margin-left: 2em; }.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}.is-layout-flow > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-flow > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-flow > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignleft{float: left;margin-inline-start: 0;margin-inline-end: 2em;}.is-layout-constrained > .alignright{float: right;margin-inline-start: 2em;margin-inline-end: 0;}.is-layout-constrained > .aligncenter{margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > :where(:not(.alignleft):not(.alignright):not(.alignfull)){max-width: var(--wp--style--global--content-size);margin-left: auto !important;margin-right: auto !important;}.is-layout-constrained > .alignwide{max-width: var(--wp--style--global--wide-size);}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='salient-child-featherlight-style-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/featherlight.css?ver=7.0.3' media='all' />
+<link rel='stylesheet' id='notifications-bar-style-css' href='https://lfedge.org/wp-content/plugins/notifications-bar/css/notifications-bar.css?ver=1.9' media='all' />
+<link rel='stylesheet' id='youtube-playlist-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/youtube-playlist.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='salient-child-style-css' href='https://lfedge.org/wp-content/themes/salient-child/style.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='vc-addons-style-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/vc-addons.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='templates-style-css' href='https://lfedge.org/wp-content/themes/salient-child/templates/css/templates.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='widgets-style-css' href='https://lfedge.org/wp-content/themes/salient-child/widgets/css/widgets.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='results-style-css' href='https://lfedge.org/wp-content/themes/salient-child/search-filter/css/results.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='fonts-style-css' href='https://lfedge.org/wp-content/themes/salient-child/fonts/fonts.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='events-calendar-style-css' href='https://lfedge.org/wp-content/themes/salient-child/css/events-calendar.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='linux-foundation-components-style-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/linux-foundation-components.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='latest-posts-linux-style-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/latest-posts-linux.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='projects-linux-style-css' href='https://lfedge.org/wp-content/themes/salient-child/vc-addons/css/projects-linux.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='projects-banner-style-css' href='https://lfedge.org/wp-content/themes/salient-child/css/projects-banner.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://use.fontawesome.com/releases/v6.0.0/css/all.css?ver=6.0.0' media='all' />
+<link rel='stylesheet' id='font-awesome-shim-css' href='https://use.fontawesome.com/releases/v6.0.0/css/v4-shims.css?ver=6.0.0' media='all' />
+<link rel='stylesheet' id='salient-grid-system-css' href='https://lfedge.org/wp-content/themes/salient/css/build/grid-system.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='main-styles-css' href='https://lfedge.org/wp-content/themes/salient/css/build/style.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='nectar-single-styles-css' href='https://lfedge.org/wp-content/themes/salient/css/build/single.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='nectar-basic-events-calendar-css' href='https://lfedge.org/wp-content/themes/salient/css/build/third-party/events-calendar.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='nectar_default_font_open_sans-css' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700&#038;subset=latin%2Clatin-ext&#038;display=swap' media='all' />
+<link rel='stylesheet' id='responsive-css' href='https://lfedge.org/wp-content/themes/salient/css/build/responsive.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='skin-original-css' href='https://lfedge.org/wp-content/themes/salient/css/build/skin-original.css?ver=18.2.1' media='all' />
+<link rel='stylesheet' id='salient-wp-menu-dynamic-css' href='https://lfedge.org/wp-content/uploads/sites/24/salient/menu-dynamic.css?ver=25594' media='all' />
+<link rel='stylesheet' id='tablepress-default-css' href='https://lfedge.org/wp-content/uploads/sites/24/tablepress-combined.min.css?ver=19' media='all' />
+<link rel='stylesheet' id='dynamic-css-css' href='https://lfedge.org/wp-content/uploads/sites/24/salient/salient-dynamic-styles-multi-id-24.css?ver=95808' media='all' />
+<style id="dynamic-css-inline-css">
+#page-header-bg[data-post-hs="default_minimal"] .inner-wrap{text-align:center}#page-header-bg[data-post-hs="default_minimal"] .inner-wrap >a,.material #page-header-bg.fullscreen-header .inner-wrap >a{color:#fff;font-weight:600;border:var(--nectar-border-thickness) solid rgba(255,255,255,0.4);padding:4px 10px;margin:5px 6px 0px 5px;display:inline-block;transition:all 0.2s ease;-webkit-transition:all 0.2s ease;font-size:14px;line-height:18px}body.material #page-header-bg.fullscreen-header .inner-wrap >a{margin-bottom:15px;}body.material #page-header-bg.fullscreen-header .inner-wrap >a{border:none;padding:6px 10px}body[data-button-style^="rounded"] #page-header-bg[data-post-hs="default_minimal"] .inner-wrap >a,body[data-button-style^="rounded"].material #page-header-bg.fullscreen-header .inner-wrap >a{border-radius:100px}body.single [data-post-hs="default_minimal"] #single-below-header span,body.single .heading-title[data-header-style="default_minimal"] #single-below-header span{line-height:14px;}#page-header-bg[data-post-hs="default_minimal"] #single-below-header{text-align:center;position:relative;z-index:100}#page-header-bg[data-post-hs="default_minimal"] #single-below-header span{float:none;display:inline-block}#page-header-bg[data-post-hs="default_minimal"] .inner-wrap >a:hover,#page-header-bg[data-post-hs="default_minimal"] .inner-wrap >a:focus{border-color:transparent}#page-header-bg.fullscreen-header .avatar,#page-header-bg[data-post-hs="default_minimal"] .avatar{border-radius:100%}#page-header-bg.fullscreen-header .meta-author span,#page-header-bg[data-post-hs="default_minimal"] .meta-author span{display:block}#page-header-bg.fullscreen-header .meta-author img{margin-bottom:0;height:50px;width:auto}#page-header-bg[data-post-hs="default_minimal"] .meta-author img{margin-bottom:0;height:40px;width:auto}#page-header-bg[data-post-hs="default_minimal"] .author-section{position:absolute;bottom:30px}#page-header-bg.fullscreen-header .meta-author,#page-header-bg[data-post-hs="default_minimal"] .meta-author{font-size:18px}#page-header-bg.fullscreen-header .author-section .meta-date,#page-header-bg[data-post-hs="default_minimal"] .author-section .meta-date{font-size:12px;color:rgba(255,255,255,0.8)}#page-header-bg.fullscreen-header .author-section .meta-date i{font-size:12px}#page-header-bg[data-post-hs="default_minimal"] .author-section .meta-date i{font-size:11px;line-height:14px}#page-header-bg[data-post-hs="default_minimal"] .author-section .avatar-post-info{position:relative;top:-5px}#page-header-bg.fullscreen-header .author-section a,#page-header-bg[data-post-hs="default_minimal"] .author-section a{display:block;margin-bottom:-2px}#page-header-bg[data-post-hs="default_minimal"] .author-section a{font-size:14px;line-height:14px}#page-header-bg.fullscreen-header .author-section a:hover,#page-header-bg[data-post-hs="default_minimal"] .author-section a:hover{color:rgba(255,255,255,0.85)!important}#page-header-bg.fullscreen-header .author-section,#page-header-bg[data-post-hs="default_minimal"] .author-section{width:100%;z-index:10;text-align:center}#page-header-bg.fullscreen-header .author-section{margin-top:25px;}#page-header-bg.fullscreen-header .author-section span,#page-header-bg[data-post-hs="default_minimal"] .author-section span{padding-left:0;line-height:20px;font-size:20px}#page-header-bg.fullscreen-header .author-section .avatar-post-info,#page-header-bg[data-post-hs="default_minimal"] .author-section .avatar-post-info{margin-left:10px}#page-header-bg.fullscreen-header .author-section .avatar-post-info,#page-header-bg.fullscreen-header .author-section .meta-author,#page-header-bg[data-post-hs="default_minimal"] .author-section .avatar-post-info,#page-header-bg[data-post-hs="default_minimal"] .author-section .meta-author{text-align:left;display:inline-block;top:9px}@media only screen and (min-width :690px) and (max-width :999px){body.single-post #page-header-bg[data-post-hs="default_minimal"]{padding-top:10%;padding-bottom:10%;}}@media only screen and (max-width :690px){#ajax-content-wrap #page-header-bg[data-post-hs="default_minimal"] #single-below-header span:not(.rich-snippet-hidden),#ajax-content-wrap .row.heading-title[data-header-style="default_minimal"] .col.section-title span.meta-category{display:inline-block;}.container-wrap[data-remove-post-comment-number="0"][data-remove-post-author="0"][data-remove-post-date="0"] .heading-title[data-header-style="default_minimal"] #single-below-header > span,#page-header-bg[data-post-hs="default_minimal"] .span_6[data-remove-post-comment-number="0"][data-remove-post-author="0"][data-remove-post-date="0"] #single-below-header > span{padding:0 8px;}.container-wrap[data-remove-post-comment-number="0"][data-remove-post-author="0"][data-remove-post-date="0"] .heading-title[data-header-style="default_minimal"] #single-below-header span,#page-header-bg[data-post-hs="default_minimal"] .span_6[data-remove-post-comment-number="0"][data-remove-post-author="0"][data-remove-post-date="0"] #single-below-header span{font-size:13px;line-height:10px;}.material #page-header-bg.fullscreen-header .author-section{margin-top:5px;}#page-header-bg.fullscreen-header .author-section{bottom:20px;}#page-header-bg.fullscreen-header .author-section .meta-date:not(.updated){margin-top:-4px;display:block;}#page-header-bg.fullscreen-header .author-section .avatar-post-info{margin:10px 0 0 0;}}#page-header-bg h1,#page-header-bg .subheader,.nectar-box-roll .overlaid-content h1,.nectar-box-roll .overlaid-content .subheader,#page-header-bg #portfolio-nav a i,body .section-title #portfolio-nav a:hover i,.page-header-no-bg h1,.page-header-no-bg span,#page-header-bg #portfolio-nav a i,#page-header-bg span,#page-header-bg #single-below-header a:hover,#page-header-bg #single-below-header a:focus,#page-header-bg.fullscreen-header .author-section a{color:#ffffff!important;}body #page-header-bg .pinterest-share i,body #page-header-bg .facebook-share i,body #page-header-bg .linkedin-share i,body #page-header-bg .twitter-share i,body #page-header-bg .google-plus-share i,body #page-header-bg .icon-salient-heart,body #page-header-bg .icon-salient-heart-2{color:#ffffff;}#page-header-bg[data-post-hs="default_minimal"] .inner-wrap > a:not(:hover){color:#ffffff;border-color:rgba(255,255,255,0.4);}.single #page-header-bg #single-below-header > span{border-color:rgba(255,255,255,0.4);}body .section-title #portfolio-nav a:hover i{opacity:0.75;}.single #page-header-bg .blog-title #single-meta .nectar-social.hover > div a,.single #page-header-bg .blog-title #single-meta > div a,.single #page-header-bg .blog-title #single-meta ul .n-shortcode a,#page-header-bg .blog-title #single-meta .nectar-social.hover .share-btn{border-color:rgba(255,255,255,0.4);}.single #page-header-bg .blog-title #single-meta .nectar-social.hover > div a:hover,#page-header-bg .blog-title #single-meta .nectar-social.hover .share-btn:hover,.single #page-header-bg .blog-title #single-meta div > a:hover,.single #page-header-bg .blog-title #single-meta ul .n-shortcode a:hover,.single #page-header-bg .blog-title #single-meta ul li:not(.meta-share-count):hover > a{border-color:rgba(255,255,255,1);}.single #page-header-bg #single-meta div span,.single #page-header-bg #single-meta > div a,.single #page-header-bg #single-meta > div i{color:#ffffff!important;}.single #page-header-bg #single-meta ul .meta-share-count .nectar-social a i{color:rgba(255,255,255,0.7)!important;}.single #page-header-bg #single-meta ul .meta-share-count .nectar-social a:hover i{color:rgba(255,255,255,1)!important;}@media only screen and (min-width:1000px){body #ajax-content-wrap.no-scroll{min-height:calc(100vh - 86px);height:calc(100vh - 86px)!important;}}@media only screen and (min-width:1000px){#page-header-wrap.fullscreen-header,#page-header-wrap.fullscreen-header #page-header-bg,html:not(.nectar-box-roll-loaded) .nectar-box-roll > #page-header-bg.fullscreen-header,.nectar_fullscreen_zoom_recent_projects,#nectar_fullscreen_rows:not(.afterLoaded) > div{height:calc(100vh - 85px);}.wpb_row.vc_row-o-full-height.top-level,.wpb_row.vc_row-o-full-height.top-level > .col.span_12{min-height:calc(100vh - 85px);}html:not(.nectar-box-roll-loaded) .nectar-box-roll > #page-header-bg.fullscreen-header{top:86px;}.nectar-slider-wrap[data-fullscreen="true"]:not(.loaded),.nectar-slider-wrap[data-fullscreen="true"]:not(.loaded) .swiper-container{height:calc(100vh - 84px)!important;}.admin-bar .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded),.admin-bar .nectar-slider-wrap[data-fullscreen="true"]:not(.loaded) .swiper-container{height:calc(100vh - 84px - 32px)!important;}}.admin-bar[class*="page-template-template-no-header"] .wpb_row.vc_row-o-full-height.top-level,.admin-bar[class*="page-template-template-no-header"] .wpb_row.vc_row-o-full-height.top-level > .col.span_12{min-height:calc(100vh - 32px);}body[class*="page-template-template-no-header"] .wpb_row.vc_row-o-full-height.top-level,body[class*="page-template-template-no-header"] .wpb_row.vc_row-o-full-height.top-level > .col.span_12{min-height:100vh;}@media only screen and (max-width:999px){.using-mobile-browser #nectar_fullscreen_rows:not(.afterLoaded):not([data-mobile-disable="on"]) > div{height:calc(100vh - 100px);}.using-mobile-browser .wpb_row.vc_row-o-full-height.top-level,.using-mobile-browser .wpb_row.vc_row-o-full-height.top-level > .col.span_12,[data-permanent-transparent="1"].using-mobile-browser .wpb_row.vc_row-o-full-height.top-level,[data-permanent-transparent="1"].using-mobile-browser .wpb_row.vc_row-o-full-height.top-level > .col.span_12{min-height:calc(100vh - 100px);}html:not(.nectar-box-roll-loaded) .nectar-box-roll > #page-header-bg.fullscreen-header,.nectar_fullscreen_zoom_recent_projects,.nectar-slider-wrap[data-fullscreen="true"]:not(.loaded),.nectar-slider-wrap[data-fullscreen="true"]:not(.loaded) .swiper-container,#nectar_fullscreen_rows:not(.afterLoaded):not([data-mobile-disable="on"]) > div{height:calc(100vh - 47px);}.wpb_row.vc_row-o-full-height.top-level,.wpb_row.vc_row-o-full-height.top-level > .col.span_12{min-height:calc(100vh - 47px);}body[data-transparent-header="false"] #ajax-content-wrap.no-scroll{min-height:calc(100vh - 47px);height:calc(100vh - 47px);}}@media only screen,print{.wpb_column.force-desktop-text-align-left,.wpb_column.force-desktop-text-align-left .col{text-align:left!important;}.wpb_column.force-desktop-text-align-right,.wpb_column.force-desktop-text-align-right .col{text-align:right!important;}.wpb_column.force-desktop-text-align-center,.wpb_column.force-desktop-text-align-center .col,.wpb_column.force-desktop-text-align-center .vc_custom_heading,.wpb_column.force-desktop-text-align-center .nectar-cta{text-align:center!important;}.wpb_column.force-desktop-text-align-center .img-with-aniamtion-wrap img{display:inline-block;}}.nectar_icon_wrap i{vertical-align:middle;top:0;}.nectar_icon_wrap i[class*="nectar-brands"]{display:inline-block;}.wpb_wrapper > .nectar_icon_wrap{margin-bottom:0;}.nectar_icon_wrap i{transition:color .25s ease;}.nectar_icon_wrap path{transition:fill .25s ease;}.nectar_icon_wrap .nectar_icon img.nectar-icon-image{display:block;margin-bottom:0;aspect-ratio:1 / 1;object-fit:contain;}.nectar-pulsate i{display:block;border-radius:200px;background-color:currentColor;position:relative;}.nectar-pulsate i:after{display:block;position:absolute;top:50%;left:50%;content:"";width:100%;height:100%;margin:-50% auto auto -50%;-webkit-transform-origin:50% 50%;transform-origin:50% 50%;border-radius:50%;background-color:currentColor;opacity:1;z-index:11;pointer-events:none;animation:nectar_pulsate 2s cubic-bezier(.2,1,.2,1) infinite;}@keyframes nectar_pulsate{0%{opacity:0.6;transform:scale(1);}100%{opacity:0;transform:scale(3);}}.nectar_icon_wrap[data-style*="default"][data-color*="extra-color-gradient"] .nectar_icon i{border-radius:0!important;text-align:center;}.nectar_icon_wrap[data-style*="default"][data-color*="extra-color-gradient"] .nectar_icon i:before{vertical-align:top;}.nectar_icon_wrap[data-style*="default"][data-color*="extra-color-gradient"] .nectar_icon i[class*="fa-"],.nectar_icon_wrap[data-style*="default"][data-color*="extra-color-gradient"] .nectar_icon i[class^="icon-"]{vertical-align:baseline;}.nectar_icon_wrap[data-color="extra-color-gradient-1"] .nectar_icon i,.nectar_icon_wrap[data-color="extra-color-gradient-2"] .nectar_icon i{display:inline-block;}.nectar_icon_wrap[data-color="extra-color-gradient-1"] .nectar_icon.no-grad i,.nectar_icon_wrap[data-color="extra-color-gradient-2"] .nectar_icon.no-grad i{background-color:transparent!important;background:none!important}.nectar_icon_wrap[data-color="extra-color-gradient-1"] .nectar_icon.no-grad i,.nectar_icon_wrap[data-color="extra-color-gradient-2"] .nectar_icon.no-grad i{-webkit-text-fill-color:initial}.nectar_icon_wrap[data-padding="20px"] .nectar_icon{padding:20px;}.screen-reader-text,.nectar-skip-to-content:not(:focus){border:0;clip:rect(1px,1px,1px,1px);clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute!important;width:1px;word-wrap:normal!important;}.row .col img:not([srcset]){width:auto;}.row .col img.img-with-animation.nectar-lazy:not([srcset]){width:100%;}
+/* GENERAL INFORMATION 
+
+******** COLORS  ********
+
+**** PRIMARY  ****
+DARK BLUE: #003778;
+LIGHT BLUE: #0094FF;
+LIGHT GREY:#E5E5E5;
+SLATE: #4B6073;
+PINK: #B7058F;
+DARK PURPLE: #2E116D;
+
+*/
+
+/* GLOBAL */
+
+.links-underlined a {
+	color: #B7058F !important;
+	text-decoration: underline;
+}
+
+.all-caps-header {
+	font-family: 'Roboto Slab';
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 36px;
+	text-align: center;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #2E116D;
+	margin: 0 auto;
+	max-width: 900px;
+}
+
+.intro p {
+	font-family: 'Roboto Slab';
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 150%;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: #2E116D;
+}
+
+.large p {
+	font-size: 24px;
+	line-height: 145%;
+}
+
+.border-grey-thick .row-bg-wrap {
+	border-top: 15px solid #eaeaea;
+	border-bottom: 15px solid #eaeaea;
+}
+
+.border-grey .row-bg-wrap {
+	border-top: 10px solid #eaeaea;
+	border-bottom: 10px solid #eaeaea;
+}
+
+.border-grey-posts .list-design.flex {
+	border-bottom: 10px solid #eaeaea;
+	margin-top: 10px;
+}
+
+.border-grey-posts .list-design.flex:last-child {
+	border-bottom: none;
+}
+
+.border-grey-posts .list-design.flex:first-child {
+	margin-top: 0;
+}
+
+
+.bordered-full-row-gray .vc_column-inner {
+	border: 10px solid rgba(214, 214, 214, 0.5);
+}
+
+.mission-boxes .vc_column-inner {
+	padding: 33px;
+}
+
+.mission-boxes img {
+	width: 150px !important;
+	height: 150px !important;
+}
+
+::selection {
+	background: #B7058F !important;
+	color: #ffffff !important;
+}
+
+h1.vc_custom_heading.banner-title {
+	background: #ffffff;
+	margin: 100px 0;
+	padding: 0 20px;
+	display: inline-block;
+}
+
+
+h2.vc_custom_heading.h2-dark-background {
+	color: #FFF;
+	font-size: 24px;
+	font-weight: 600;
+	line-height: 150%;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	background: #2E116D;
+	display: inline-block;
+	padding: 5px 20px;
+}
+
+h1.vc_custom_heading.h1-dark-background {
+	color: #FFF;
+	font-size: 42px;
+	line-height: 130%;
+	background: #2E116D;
+	display: inline-block;
+	padding: 5px 20px;
+}
+
+.steps {
+	color: #2E116D;
+	font-weight: 600;
+	letter-spacing: 2px;
+	font-family: Roboto Slab;
+	text-transform: uppercase;
+}
+
+.flickity-slider .img-with-aniamtion-wrap .hover-wrap {
+	margin-bottom: 0 !important;
+}
+
+/* NOTIFICATIONS BAR */
+.notifications-bar .container {
+	font-size: 14px;
+	text-align: center;
+}
+
+.notifications-bar .container strong {
+    font-weight: 900;
+}
+
+.notifications-bar a:hover {
+	text-decoration: underline;
+}
+
+/* PROJECTS PAGE */
+.tabbed ul li a {
+	color: #b7058f !important;
+}
+
+.tabbed ul li a.active-tab {
+	background-color: #b7058f !important;
+	border-color: #b7058f !important;
+	color: #ffffff !important;
+}
+
+.tabbed ul li a.active-tab:hover {
+	color: #ffffff !important;
+}
+
+.tabbed ul li a:hover {
+	color: #ffffff !important;
+}
+
+.grid-design .projects {
+	max-width: 415px;
+}
+
+.grid-design.image-wrapper img {
+	max-width: 175px;
+	object-fit: contain;
+}
+
+.tabbed>ul li a:hover {
+	background-color: #b7058f !important;
+}
+
+
+/* GLOBAL BOTTOM ITEMS */
+
+.become-member-container h4.vc_custom_heading {
+	line-height: 150%;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.become-member-container p {
+	font-size: 24px;
+	line-height: 145%;
+}
+
+.has-global-section {
+	z-index: 1;
+}
+
+/* HIDE PARTIAL GLOBAL BOTTOM ITEMS FOR HOME PAGE ONLY */
+
+.home .become-member-container {
+	display: none;
+}
+
+/* NAVIGATION */
+div#header-outer {
+	border-bottom: 3px solid #e5e5e5;
+}
+
+.join-btn a span {
+	background: #B7058F;
+	border-radius: 30px;
+	padding: 8px 44px !important;
+	margin-left: 20px;
+	color: #ffffff !important;
+}
+
+li#search-btn div {
+	padding-left: 0 !important;
+}
+
+
+/* BUTTONS */
+
+a.nectar-button.large.see-through.extra-color-1 {
+	padding: 8px 44px !important;
+	border: 1px solid #B7058F !important;
+	color: #B7058F !important;
+	border-radius: 30px !important;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 25px;
+	text-align: center;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+}
+
+a.nectar-button.large.see-through.accent-color {
+	padding: 8px 44px !important;
+	border-radius: 30px !important;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 25px;
+	text-align: center;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+}
+
+a.nectar-button.large.regular.extra-color-1.regular-button {
+	padding: 8px 44px !important;
+	border: 1px solid #B7058F !important;
+	color: #ffffff !important;
+	border-radius: 30px !important;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 25px;
+	text-align: center;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	background: #B7058F !important;
+}
+
+a.nectar-button.large.regular.regular-button.become-member-button,
+a.nectar-button.large.regular.accent-color.regular-button.become-a-member {
+	font-size: 24px;
+	line-height: 150%;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	padding: 20px 60px;
+}
+
+/* NECTAR SLIDER */
+body[data-button-style*="slightly_rounded"] .swiper-slide .button a {
+	background: #B7058F !important;
+	border-radius: 30px !important;
+	padding: 8px 44px !important;
+}
+
+h2.ns-heading-el {
+	color: #2E116D !important;
+	background: #ffffff !important;
+	padding: 10px 20px;
+	font-size: 42px !important;
+	font-family: Roboto Slab;
+	font-style: normal;
+	font-weight: 400 !important;
+	line-height: 130% !important;
+}
+
+.swiper-slide .content p {
+	font-weight: 300;
+	font-family: 'Roboto Slab';
+	font-size: 22px;
+	line-height: 30px;
+	color: #FFFFFF;
+	margin: 20px 0 !important;
+}
+
+.swiper-slide .content .buttons {
+	padding-top: 0;
+}
+
+.swiper-active-switch {
+	background: #B7058F !important;
+	border-color: #B7058F !important;
+}
+
+.slider-pagination .swiper-pagination-switch {
+	height: 15px !important;
+	width: 15px !important;
+}
+
+.slider-pagination body[data-button-style*="slightly_rounded"] .swiper-slide .button a {
+	border-radius: 30px !important;
+	padding: 8px 44px !important;
+	background: #B7058F !important;
+	font-size: 17px;
+	line-height: 28px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.slider-pagination span.pagination-switch {
+	height: 15px !important;
+	width: 15px !important;
+}
+
+
+/* ICON ROWS COPY FROM PROJECTS */
+.icon-row a {
+	color: #2E116D;
+	text-align: center;
+	font-size: 15px;
+	font-family: Roboto Slab;
+	font-weight: 600;
+	line-height: 130%;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.icon-row .nectar_icon {
+	padding: 0 !important;
+}
+
+.icon-row .vc_column-inner {
+	text-align: center;
+	border: 10px solid rgba(214, 214, 214, 0.50);
+	padding: 50px 0;
+}
+
+.icon-row .nectar_icon_wrap[data-color="accent-color"] i {
+	color: #2E116D !important;
+}
+
+.icon-row .nectar_icon_wrap {
+	margin-bottom: 10px !important;
+}
+
+.icon-row .nectar_icon i {
+	font-size: 5rem !important;
+	width: 5rem !important;
+	height: 5rem !important;
+	line-height: 70px !important;
+}
+
+/* HOMEPAGE PROJECTS */
+.home-nectar-slider .content {
+	max-width: 1100px;
+}
+
+.home-projects-slider .wpb_wrapper .inner-wrap {
+	border: 1px solid rgba(0, 0, 0, 0.5);
+	border-radius: 15px;
+}
+
+.home-projects-slider .wpb_wrapper .inner-wrap img {
+	max-height: 75px;
+}
+
+
+.nectar-flickity[data-controls*=arrows_overlaid] .flickity-prev-next-button:before,
+.nectar-flickity[data-controls*=arrows_overlaid] .flickity-prev-next-button:before {
+	background: #D6D6D6 !important;
+	color: #ffffff !important;
+}
+
+.nectar-flickity[data-controls*=arrows_overlaid] .flickity-prev-next-button .arrow {
+	fill: #ffffff;
+}
+
+.nectar-flickity[data-controls*=arrows_overlaid] .next:after,
+.nectar-flickity[data-controls*=arrows_overlaid] .previous:after {
+	background-color: #ffffff !important;
+}
+
+button.flickity-button.flickity-prev-next-button.next {
+	margin-right: -100px;
+}
+
+button.flickity-button.flickity-prev-next-button.previous {
+	margin-left: -100px;
+}
+
+
+/* TESTIMONIALS */
+.testimonial_slider .image-icon {
+	display: none !important;
+}
+
+.testimonial_slider blockquote p,
+.testimonial_slider span.title {
+	padding-bottom: 0 !important;
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 150%;
+	text-align: center;
+	color: #00183C !important;
+	max-width: 870px;
+	margin: 0 auto;
+}
+
+
+.testimonial_slider span.pagination-switch {
+	height: 15px !important;
+	width: 15px !important;
+	background: #D6D6D6 !important;
+	border-color: #D6D6D6 !important;
+}
+
+.testimonial_slider span.pagination-switch.active {
+	background: #B7058F !important;
+	border-color: #B7058F !important;
+}
+
+.testimonial_slider span.testimonial-name,
+span.title {
+	font-family: 'Roboto Slab';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 18px !important;
+	line-height: 150% !important;
+	color: #00183C !important;
+	opacity: 1 !important;
+}
+
+.testimonial_slider span.testimonial-name {
+	margin-top: 10px;
+}
+
+/* NEWSLETTER */
+
+.newsletter-box {
+	background: #ffffff;
+	margin: 50px 0 50px 0 !important;
+	padding: 50px;
+	border: 15px solid #d6d6d6;
+}
+
+body[data-form-submit=regular] .container-wrap input[type=submit].hubspot-form-button {
+	background: #B7058F !important;
+	border-radius: 30px !important;
+	padding: 8px 44px !important;
+	margin-top: 20px;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 25px;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+}
+
+.newsletter-box ul.inputs-list {
+	margin: 30px 0 30px 0;
+}
+
+.newsletter-box ul li {
+	list-style: none;
+}
+
+.newsletter-box .legal-consent-container .hs-form-booleancheckbox-display>span {
+	margin-left: 30px;
+}
+
+.legal-consent-container .hs-form-booleancheckbox-display input {
+	width: 20px !important;
+	height: 20px !important;
+	margin-top: 20px;
+	margin-right: 20px;
+}
+
+/* AWSM */
+
+.modal-style.style-1 .awsm-modal-close {
+	top: 275px;
+}
+
+.modal-style.style-1 .awsm-modal-close::after,
+.modal-style.style-1 .awsm-modal-close::before {
+	background: #000000;
+}
+
+.awsm-grid figure img {
+	width: 100% !important;
+	height: 250px !important;
+	object-fit: cover;
+	margin-bottom: 15px !important;
+}
+
+.modal-style.style-1 figcaption .awsm-personal-info span {
+	text-transform: none !important;
+	font-size: .85rem !important;
+	font-weight: 600 !important;
+}
+
+.awsm-grid-wrapper .awsm-grid {
+	padding: 0;
+}
+
+.modal-style.style-1 .awsm-modal-item {
+	max-height: 500px;
+	top: 25%;
+}
+
+.modal-style.style-1 figcaption {
+	background: rgba(183, 5, 143, 0.8);
+}
+
+.modal-style.style-1 figcaption {
+	position: initial !important;
+	left: 0 !important;
+	right: 0 !important;
+	top: 0 !important;
+	bottom: 0 !important;
+	padding: 0 10px !important;
+	background: none !important;
+	color: #3333333 !important;
+	text-align: left !important;
+	opacity: 1 !important;
+	-webkit-backface-visibility: visible !important;
+	-moz-backface-visibility: visible !important;
+	backface-visibility: visible !important;
+	-ms-transform: scale(.6);
+	transform: none !important;
+	-webkit-transform: none !important;
+	-moz-transform: none !important;
+	-webkit-transition: none !important;
+	-moz-transition: none !important;
+	transition: none !important;
+}
+
+.modal-style.style-1 figcaption * {
+	color: #333333 !important;
+}
+
+.awsm-grid-wrapper .grid-5-col>.awsm-grid-card {
+	width: 18%;
+}
+
+.awsm-grid-wrapper .awsm-grid>.awsm-grid-card {
+
+	margin: 1%;
+	padding: 0 !important;
+
+
+}
+
+.cards-style.style-4 figure {
+	padding: 0 !important;
+}
+
+.awsm-grid-modal.awsm-grid.modal-style.style-1.grid-5-col {
+	justify-content: center;
+}
+
+.awsm-personal-info {
+	text-align: center;
+}
+
+.modal-style.style-1 .awsm-modal-details h3 {
+	font-weight: 600 !important;
+	line-height: 150%;
+}
+
+/* CONTACT US */
+
+.contact-top .vc_column_container>.vc_column-inner {
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
+	padding: 30px 0;
+}
+
+.contact-top h4 {
+	color: #2e116d;
+	text-align: center;
+}
+
+.contact-top p,
+.contact-top a {
+	color: #B7058F;
+	text-align: center;
+}
+
+.contact-form {
+	box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.18);
+	border-radius: 5px;
+	padding: 30px !important;
+}
+
+
+/* JOIN */
+
+.join-img img {
+	border-radius: 50%;
+}
+
+.row .col .iwithtext .iwt-icon img:not([srcset]) {
+	width: 70px !important;
+}
+
+.iwithtext .iwt-text {
+	padding-left: 110px;
+	text-align: left;
+}
+
+.testimonials h2 {
+	font-weight: 400 !important;
+}
+
+.testimonials.light .testimonial_slider blockquote p,
+.testimonials.light .testimonial_slider span.title {
+	color: #ffffff !important;
+	font-weight: 400;
+}
+
+.testimonials.light .testimonial_slider span.testimonial-name,
+span.title {
+	color: #ffffff !important;
+	font-weight: 400;
+}
+
+
+/* BLOG */
+.list-design.left {
+	border: none !important;
+}
+
+.list-design.date-calendar:before,
+.list-design.navigation-btn:after {
+	display: none;
+}
+
+.list-design.date-calendar span,
+.grid-design.date {
+	font-size: 17px;
+	font-family: Roboto Slab;
+	font-weight: 700;
+	line-height: 22px;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	padding-bottom: 10px !important;
+}
+
+.list-design.title a,
+.grid-design.title {
+	color: #2E116D !important;
+	font-weight: 400 !important;
+	font-size: 28px !important;
+	line-height: 130% !important;
+	padding: 0 0 10px 0 !important;
+}
+
+.list-design.excerpt,
+.grid-design.excerpt {
+	font-size: 18px !important;
+	line-height: 145% !important;
+}
+
+.list-design.navigation-btn,
+.grid-design.navigation-btn a {
+	color: #B7058F !important;
+	padding: 8px 44px !important;
+	font-size: 18px !important;
+	font-weight: 700;
+	letter-spacing: 0.18px;
+	border-radius: 30px !important;
+	border: 1px solid #B7058F !important;
+	background: #ffffff !important;
+	margin-top: 0 !important;
+}
+
+.grid-design.navigation-btn {
+	justify-content: start !important;
+}
+
+.grid-design .inner {
+	border: 10px solid #eaeaea;
+	padding: 20px;
+}
+
+.recent-posts-pagination {
+	margin: 50px 0 15px 0 !important;
+}
+
+.page-numbers span {
+	color: #4B6073 !important;
+	background-color: #ffffff !important;
+}
+
+.page-numbers.current span {
+	color: #ffffff !important;
+	background-color: #b7058f !important;
+}
+
+
+/* WEBINARS PAGE */
+.no-border .webinars-inner {
+	border: none;
+}
+
+.webinars-inner {
+	border: 10px solid #eaeaea;
+	padding: 20px;
+}
+
+.webinars-navigation-btn a {
+	padding: 10px 30px;
+	border-radius: 45px;
+	color: #ffffff;
+	color: #B7058F !important;
+	padding: 8px 44px !important;
+	font-size: 18px !important;
+	font-weight: 700;
+	letter-spacing: 0.18px;
+	border-radius: 30px !important;
+	border: 1px solid #B7058F !important;
+	background: #ffffff !important;
+	margin-top: 0 !important;
+}
+
+.webinars-title,
+.webinars-title a {
+	color: #2E116D !important;
+	font-weight: 400 !important;
+	font-size: 28px !important;
+	line-height: 130% !important;
+	padding: 0 0 10px 0 !important;
+}
+
+h4.webinars-date {
+	font-size: 17px !important;
+	font-family: Roboto Slab !important;
+	font-weight: 700 !important;
+	line-height: 22px !important;
+	letter-spacing: 1.5px !important;
+	text-transform: uppercase !important;
+	padding-bottom: 10px !important;
+}
+
+/* WEBINARS TEMPLATE */
+.webinars-title-wrap {
+	text-align: center;
+}
+
+h1.vc_custom_heading.webinars-title {
+	color: #2E116D !important;
+	line-height: 74px !important;
+	background: #fff;
+	padding: 5px 20px !important;
+	display: inline;
+	-webkit-box-decoration-break: clone;
+	-o-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+h2.webinars-sub-title {
+	color: #2E116D;
+	font-family: Roboto Slab;
+	font-size: 28px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 130%;
+	margin: 0 !important;
+	padding-bottom: 40px;
+}
+
+.webinars-template .full-width-section.first-section {
+	height: 400px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.webinars-template .become-member-container .row_col_wrap_12.col.span_12.light.left {
+	height: 86px;
+}
+
+/* ABOVE FOOTER */
+.icons-above-footer .nectar_icon_wrap[data-padding="20px"] .nectar_icon {
+	padding: 10px !important;
+	width: auto !important;
+	height: auto !important;
+}
+
+.icons-above-footer .nectar_icon_wrap {
+	margin-bottom: 0 !important;
+}
+
+/* EVENTS CALENDAR */
+
+.tribe-common-l-container.tribe-events-l-container {
+	padding: 0 !important;
+}
+
+.tribe-common-c-btn-border.tribe-events-c-subscribe-dropdown__button {
+	border-color: #B7058F !important;
+	color: #B7058F !important;
+}
+
+body[data-form-submit=regular] .container-wrap button[type=submit] {
+	font-size: 14px !important;
+}
+
+a[data-js="tribe-events-view-link"] {
+	color: #000000 !important;
+}
+
+a[data-js="tribe-events-view-link"] .tribe-events-c-nav__prev-icon-svg path,
+a[data-js="tribe-events-view-link"] .tribe-events-c-nav__next-icon-svg path {
+	fill: #000000 !important;
+}
+
+span.tribe-events-c-nav__prev-label,
+span.tribe-events-c-nav__next-label {
+	font-weight: 600;
+	text-transform: uppercase;
+
+}
+
+.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button.tribe-events-c-subscribe-dropdown__button--active,
+.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus,
+.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus-within,
+.single-tribe_events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover,
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button.tribe-events-c-subscribe-dropdown__button--active,
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus,
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:focus-within,
+.tribe-events .tribe-events-c-subscribe-dropdown .tribe-events-c-subscribe-dropdown__button:hover {
+
+	background-color: #B7058F !important;
+	color: #ffffff !important;
+
+}
+
+.tribe-common .tribe-common-c-svgicon--messages-not-found .tribe-common-c-svgicon__svg-stroke {
+	stroke: #B7058F !important;
+}
+
+li.tribe-events-c-subscribe-dropdown__list-item {
+	list-style: none !important;
+}
+
+ul.tribe-events-sub-nav li {
+	list-style: none !important;
+}
+
+/* BLOG TEMPLATE THREE */
+.single-blog-bottom-navigation {
+	margin: 0 !important;
+	padding: 0 0 56px 0;
+}
+
+.single-blog-bottom-navigation a.back-to-all {
+	background: #B7058F;
+	color: #ffffff;
+	border: 1px solid #B7058F;
+	font-weight: 700;
+}
+
+.single-blog-bottom-navigation a.view-next {
+	background: #ffffff;
+	color: #B7058F;
+	border: 1px solid #B7058F;
+	font-weight: 700;
+}
+
+
+#single-below-header {
+	font-family: 'Roboto Slab';
+	font-weight: 700;
+	font-size: 17px;
+	line-height: 22px;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	color: #000000;
+	padding-bottom: 40px;
+}
+
+#single-below-header a {
+	color: #3A56E9 !important;
+}
+
+
+#page-header-bg h1.entry-title.style-three {
+	color: #2E116D !important;
+	line-height: 74px;
+	background: #fff;
+	padding: 5px 20px !important;
+	display: inline;
+	-webkit-box-decoration-break: clone;
+	-o-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+
+h2.entry-title-small {
+	color: #2E116D;
+	font-family: Roboto Slab;
+	font-size: 28px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 130%;
+	margin: 0 !important;
+	padding-bottom: 40px;
+}
+
+.single #single-below-header {
+	display: none;
+}
+
+
+/* STYLE FOR PROJECTS TEMPLATE TYPE THREE */
+.projects-template p {
+	padding-bottom: 0;
+}
+
+.projects-template h3 {
+	padding-top: 27px;
+}
+
+.projects-template .col.span_12.section-title.projects-title img {
+	height: 200px;
+}
+
+.projects-template .full-width-section.first-section {
+	height: 300px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.projects-template section.projects-description {
+	padding-top: 50px;
+}
+
+.projects-template section.projects-description h2 {
+	font-family: 'Open Sans' !important;
+	font-weight: 400 !important;
+	font-size: 24px !important;
+	line-height: 135% !important;
+	letter-spacing: 0 !important;
+	text-transform: inherit !important;
+	color: #2E116D !important;
+}
+
+.projects-template section.projects-description h3 {
+	font-weight: 600 !important;
+	font-size: 24px !important;
+	line-height: 150% !important;
+	letter-spacing: 2px !important;
+	text-transform: uppercase !important;
+	color: #2E116D !important;
+}
+
+.projects-template .projects-case-studies-box {
+	display: flex;
+	padding: 30px;
+	background: #ffffff;
+	justify-content: center;
+}
+
+.projects-template .projects-case-studies-image img {
+	margin-right: 10px;
+	max-width: 200px !important;
+	max-height: 250px !important;
+}
+
+.projects-template .thumbnail-img {
+	width: 150px;
+	object-fit: contain;
+}
+
+.projects-template .thumbnail-img {
+	width: 150px;
+	object-fit: contain;
+}
+
+.projects-template .thumbnail-img-list {
+	width: 50%;
+}
+
+.projects-template .projects-case-studies-information {
+	width: 50%;
+}
+
+.projects-template .projects-case-studies-information h6 {
+	font-size: 18px !important;
+	margin-bottom: 25px;
+}
+
+.projects-template .projects-case-studies-button {
+	padding: 8px 44px !important;
+	border-radius: 30px !important;
+	font-weight: 700;
+	font-size: 18px;
+	line-height: 25px;
+	text-align: center;
+	letter-spacing: 0.01em;
+	text-transform: uppercase;
+	color: #B7058F !important;
+	border: 1px solid #B7058F;
+}
+
+
+@media screen and (max-width: 1340px) {
+	.projects-template .projects-case-studies-button {
+		padding: 8px 10px !important;
+		font-size: 14px;
+	}
+
+}
+
+.projects-template ul li ul li {
+	list-style: circle;
+}
+
+
+.projects-template h5,
+.projects-template h6 {
+	font-weight: 600 !important;
+	font-size: 24px !important;
+	line-height: 150% !important;
+	letter-spacing: 2px !important;
+	text-transform: uppercase !important;
+	color: #2E116D !important;
+}
+
+.projects-template .projects-links {
+	flex-wrap: wrap;
+}
+
+.projects-template .projects-links a {
+	color: #2E116D !important;
+}
+
+.projects-template .projects-links a i {}
+
+.projects-template .projects-icons {
+	border: 10px solid rgba(214, 214, 214, 0.5);
+	width: 200px;
+	height: 200px;
+	margin: 15px;
+}
+
+.projects-template .projects-links p {
+	padding-bottom: 0 !important;
+	margin-top: 0 !important;
+}
+
+.projects-template h2.case-studies-heading {
+	font-weight: 400;
+	line-height: 130%;
+	text-align: center;
+	color: #2E116D;
+	padding-bottom: 40px;
+}
+
+.single-post #page-header-bg[data-post-hs="default_minimal"] .page-header-bg-image.solid-color:after {
+	background-color: #2E116D;
+	opacity: 1;
+	background-image: url(/wp-content/uploads/sites/24/2023/05/background-newsletter.png);
+	background-size: cover;
+
+}
+
+.projects-template .case-studies-wrapper {
+	padding: 50px 0;
+}
+
+.projects-template .grid-design.outer {
+	display: grid !important;
+	grid-template-columns: repeat(3, 1fr) !important;
+	grid-column-gap: 30px !important;
+}
+
+.projects-template .vc_col-sm-4.grid-design.projects {
+	width: 100% !important;
+}
+
+.projects-bottom-navigation a,
+.single-blog-bottom-navigation a {
+	border: 1px solid #B7058F;
+}
+
+.projects-template iframe.iframe-embed {
+	width: 800px !important;
+	height: 450px !important;
+}
+
+
+/* FOOTER */
+#footer-outer #footer-widgets .col.span_6 {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+#footer-outer .row {
+	padding: 70px 0;
+}
+
+#footer-outer #footer-widgets .col.span_6:nth-child(1) {
+	width: 27% !important;
+	margin-right: 50px;
+}
+
+#footer-outer #footer-widgets .col.span_6:nth-child(2) {
+	width: 65% !important;
+	padding-right: 55px;
+}
+
+#footer-outer .widget {
+	margin-bottom: 0;
+}
+
+#footer-outer #footer-widgets .col p {
+	font-size: 16px;
+	line-height: 24px;
+}
+
+/* MOBILE */
+@media screen and (max-width: 600px) {
+
+	div#nectar-slider-instance-1,
+	.swiper-container,
+	.swiper-slide {
+		height: 500px !important;
+	}
+
+	.newsletter-box {
+		padding: 20px;
+	}
+
+	#footer-outer #footer-widgets .col.span_6:nth-child(1) {
+		width: 100% !important;
+	}
+
+	#footer-outer #footer-widgets .col.span_6:nth-child(2) {
+		width: 100% !important;
+		padding-right: 0;
+	}
+
+	.awsm-grid-wrapper .grid-5-col>.awsm-grid-card {
+		width: 100%;
+	}
+
+	.nectar-slider-wrap[data-full-width="true"][data-fullscreen="false"] .swiper-slide .content h2 {
+		font-size: 26px !important;
+		line-height: 34px !important;
+	}
+
+	.nectar-slider-wrap[data-full-width="true"][data-fullscreen="false"] .swiper-slide .content p,
+	body[data-button-style*="slightly_rounded"] .swiper-slide .button a {
+		font-size: 16px !important;
+		line-height: 22px !important;
+	}
+
+	.awsm-grid figure img {
+		height: 400px !important;
+	}
+
+	.modal-style.style-1 .awsm-modal-item {
+		max-height: 565px;
+	}
+
+	li.tab-item {
+		width: 100%;
+	}
+
+	.webinars-template .become-member-container .row_col_wrap_12.col.span_12.light.left {
+		height: 100%;
+	}
+
+	img.list-view-default {
+		padding-bottom: 20px !important;
+	}
+}
+/*# sourceURL=dynamic-css-inline-css */
+</style>
+<link rel='stylesheet' id='redux-google-fonts-salient_redux-css' href='https://fonts.googleapis.com/css?family=Open+Sans:700%7CRoboto+Slab:500,400,600,300&#038;display=swap&#038;ver=7.0.3' media='all' />
+<script id="jquery-core-js" src="https://lfedge.org/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://lfedge.org/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<script type="text/javascript" nonce="813cd4478f"></script><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://lfedge.org/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0.3" />
+<link rel="canonical" href="https://lfedge.org/lf-edge-2025-year-in-review-and-whats-ahead-in-2026/" />
+<link rel='shortlink' href='https://lfedge.org/?p=12658' />
+<meta name="tec-api-version" content="v1"><meta name="tec-api-origin" content="https://lfedge.org"><link rel="alternate" href="https://lfedge.org/wp-json/tribe/events/v1/" /><script type="text/javascript" nonce="813cd4478f"> var root = document.getElementsByTagName( "html" )[0]; root.setAttribute( "class", "js" ); </script><!-- LFX Segments Analytics -->
+<script src="https://lfx-segment.platform.linuxfoundation.org/latest/lfx-segment-analytics.min.js"></script>
+<script type="text/javascript" nonce="813cd4478f">
+  // Initialize with default configuration (no custom write key needed)
+  LfxAnalytics.LfxSegmentsAnalytics.getInstance().init();
+</script>
+<!-- Google Tag Manager -->
+<script type="text/javascript" nonce="813cd4478f">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-WD7897Q');</script>
+<!-- End Google Tag Manager -->
+<script type="text/javascript" nonce="813cd4478f">
+   jQuery(document).ready(function ($) {
+      // CARDS
+      $(".awsm-personal-info ").each(function () {
+         $(this).children(".awsm-personal-info h3").after($(this).children(".awsm-personal-info span"));
+      });
+      // MODAL POPUP
+      //$(".awsm-modal-content-inner ").each(function() {
+      //$(this).children(".awsm-modal-content-inner h2").after($(this).children(".awsm-modal-content-inner h3"));
+      //});
+   }); 
+</script><meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
+<link rel="icon" href="https://lfedge.org/wp-content/uploads/sites/24/2023/05/favicon.png" sizes="32x32" />
+<link rel="icon" href="https://lfedge.org/wp-content/uploads/sites/24/2023/05/favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://lfedge.org/wp-content/uploads/sites/24/2023/05/favicon.png" />
+<meta name="msapplication-TileImage" content="https://lfedge.org/wp-content/uploads/sites/24/2023/05/favicon.png" />
+<noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript><style id="wp-block-image-inline-css">
+.wp-block-image>a,.wp-block-image>figure>a{display:inline-block}.wp-block-image img{box-sizing:border-box;height:auto;max-width:100%;vertical-align:bottom}@media not (prefers-reduced-motion){.wp-block-image img.hide{visibility:hidden}.wp-block-image img.show{animation:show-content-image .4s}}.wp-block-image[style*=border-radius] img,.wp-block-image[style*=border-radius]>a{border-radius:inherit}.wp-block-image.has-custom-border img{box-sizing:border-box}.wp-block-image.aligncenter{text-align:center}.wp-block-image.alignfull>a,.wp-block-image.alignwide>a{width:100%}.wp-block-image.alignfull img,.wp-block-image.alignwide img{height:auto;width:100%}.wp-block-image .aligncenter,.wp-block-image .alignleft,.wp-block-image .alignright,.wp-block-image.aligncenter,.wp-block-image.alignleft,.wp-block-image.alignright{display:table}.wp-block-image .aligncenter>figcaption,.wp-block-image .alignleft>figcaption,.wp-block-image .alignright>figcaption,.wp-block-image.aligncenter>figcaption,.wp-block-image.alignleft>figcaption,.wp-block-image.alignright>figcaption{caption-side:bottom;display:table-caption}.wp-block-image .alignleft{float:left;margin:.5em 1em .5em 0}.wp-block-image .alignright{float:right;margin:.5em 0 .5em 1em}.wp-block-image .aligncenter{margin-left:auto;margin-right:auto}.wp-block-image :where(figcaption){margin-bottom:1em;margin-top:.5em}.wp-block-image.is-style-circle-mask img{border-radius:9999px}@supports ((-webkit-mask-image:none) or (mask-image:none)) or (-webkit-mask-image:none){.wp-block-image.is-style-circle-mask img{border-radius:0;-webkit-mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-image:url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50"/></svg>');mask-mode:alpha;-webkit-mask-position:center;mask-position:center;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:contain;mask-size:contain}}:root :where(.wp-block-image.is-style-rounded img,.wp-block-image .is-style-rounded img){border-radius:9999px}.wp-block-image figure{margin:0}.wp-lightbox-container{display:flex;flex-direction:column;position:relative}.wp-lightbox-container img{cursor:zoom-in}.wp-lightbox-container img:hover+button{opacity:1}.wp-lightbox-container button{align-items:center;backdrop-filter:blur(16px) saturate(180%);background-color:#5a5a5a40;border:none;border-radius:4px;cursor:zoom-in;display:flex;height:20px;justify-content:center;opacity:0;padding:0;position:absolute;right:16px;text-align:center;top:16px;width:20px;z-index:100}@media not (prefers-reduced-motion){.wp-lightbox-container button{transition:opacity .2s ease}}.wp-lightbox-container button:focus-visible{outline:3px auto #5a5a5a40;outline:3px auto -webkit-focus-ring-color;outline-offset:3px}.wp-lightbox-container button:hover{cursor:pointer;opacity:1}.wp-lightbox-container button:focus{opacity:1}.wp-lightbox-container button:focus,.wp-lightbox-container button:hover,.wp-lightbox-container button:not(:hover):not(:active):not(.has-background){background-color:#5a5a5a40;border:none}.wp-lightbox-overlay{box-sizing:border-box;cursor:zoom-out;height:100vh;left:0;overflow:hidden;position:fixed;top:0;visibility:hidden;width:100%;z-index:100000}.wp-lightbox-overlay .wp-lightbox-close-button{align-items:center;cursor:pointer;display:flex;font-family:inherit;gap:8px;justify-content:center;line-height:1;min-height:40px;min-width:40px;padding:0 4px;position:absolute;right:calc(env(safe-area-inset-right) + 16px);top:calc(env(safe-area-inset-top) + 16px);z-index:5000000}.wp-lightbox-overlay .wp-lightbox-close-button:focus,.wp-lightbox-overlay .wp-lightbox-close-button:hover,.wp-lightbox-overlay .wp-lightbox-close-button:not(:hover):not(:active):not(.has-background){background:none;border:none}.wp-lightbox-overlay .wp-lightbox-close-button:has(.wp-lightbox-close-text:not([hidden])) .wp-lightbox-close-icon svg{height:1em;width:1em}.wp-lightbox-overlay .wp-lightbox-close-icon svg{display:block}.wp-lightbox-overlay .wp-lightbox-navigation-button-next,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{align-items:center;bottom:16px;cursor:pointer;display:flex;font-family:inherit;gap:4px;justify-content:center;line-height:1;min-height:40px;min-width:40px;padding:0 8px;position:absolute;z-index:2000002}.wp-lightbox-overlay .wp-lightbox-navigation-button-next[hidden],.wp-lightbox-overlay .wp-lightbox-navigation-button-prev[hidden]{display:none}@media (min-width:960px){.wp-lightbox-overlay .wp-lightbox-navigation-button-next,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{bottom:50%;transform:translateY(-50%)}}.wp-lightbox-overlay .wp-lightbox-navigation-button-next:focus,.wp-lightbox-overlay .wp-lightbox-navigation-button-next:hover,.wp-lightbox-overlay .wp-lightbox-navigation-button-next:not(:hover):not(:active):not(.has-background),.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:focus,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:hover,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:not(:hover):not(:active):not(.has-background){background:none;border:none;padding:0 8px}.wp-lightbox-overlay .wp-lightbox-navigation-button-next:has(.wp-lightbox-navigation-text:not([hidden])) .wp-lightbox-navigation-icon svg,.wp-lightbox-overlay .wp-lightbox-navigation-button-prev:has(.wp-lightbox-navigation-text:not([hidden])) .wp-lightbox-navigation-icon svg{display:block;height:1.5em;width:1.5em}.wp-lightbox-overlay .wp-lightbox-navigation-button-prev{left:calc(env(safe-area-inset-left) + 16px)}.wp-lightbox-overlay .wp-lightbox-navigation-button-next{right:calc(env(safe-area-inset-right) + 16px)}.wp-lightbox-overlay .wp-lightbox-navigation-icon svg{vertical-align:middle}.wp-lightbox-overlay .lightbox-image-container{height:var(--wp--lightbox-container-height);left:50%;overflow:hidden;position:absolute;top:50%;transform:translate(-50%,-50%);transform-origin:top left;width:var(--wp--lightbox-container-width);z-index:2000001}.wp-lightbox-overlay .wp-block-image{align-items:center;box-sizing:border-box;display:flex;height:100%;justify-content:center;margin:0;position:relative;transform-origin:0 0;width:100%;z-index:3000000}.wp-lightbox-overlay .wp-block-image img{height:var(--wp--lightbox-image-height);min-height:var(--wp--lightbox-image-height);min-width:var(--wp--lightbox-image-width);width:var(--wp--lightbox-image-width)}.wp-lightbox-overlay .wp-block-image figcaption{display:none}.wp-lightbox-overlay button{background:none;border:none}.wp-lightbox-overlay .scrim{background-color:#fff;height:100%;opacity:.9;position:absolute;width:100%;z-index:2000000}.wp-lightbox-overlay.active{visibility:visible}@media not (prefers-reduced-motion){.wp-lightbox-overlay.active{animation:turn-on-visibility .25s both}.wp-lightbox-overlay.active img{animation:turn-on-visibility .35s both}.wp-lightbox-overlay.show-closing-animation:not(.active){animation:turn-off-visibility .35s both}.wp-lightbox-overlay.show-closing-animation:not(.active) img{animation:turn-off-visibility .25s both}.wp-lightbox-overlay.zoom.active{animation:none;opacity:1;visibility:visible}.wp-lightbox-overlay.zoom.active .lightbox-image-container{animation:lightbox-zoom-in .4s}.wp-lightbox-overlay.zoom.active .lightbox-image-container img{animation:none}.wp-lightbox-overlay.zoom.active .scrim{animation:turn-on-visibility .4s forwards}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active){animation:none}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .lightbox-image-container{animation:lightbox-zoom-out .4s}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .lightbox-image-container img{animation:none}.wp-lightbox-overlay.zoom.show-closing-animation:not(.active) .scrim{animation:turn-off-visibility .4s forwards}}@keyframes show-content-image{0%{visibility:hidden}99%{visibility:hidden}to{visibility:visible}}@keyframes turn-on-visibility{0%{opacity:0}to{opacity:1}}@keyframes turn-off-visibility{0%{opacity:1;visibility:visible}99%{opacity:0;visibility:visible}to{opacity:0;visibility:hidden}}@keyframes lightbox-zoom-in{0%{transform:translate(calc((-100vw + var(--wp--lightbox-scrollbar-width))/2 + var(--wp--lightbox-initial-left-position)),calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale))}to{transform:translate(-50%,-50%) scale(1)}}@keyframes lightbox-zoom-out{0%{transform:translate(-50%,-50%) scale(1);visibility:visible}99%{visibility:visible}to{transform:translate(calc((-100vw + var(--wp--lightbox-scrollbar-width))/2 + var(--wp--lightbox-initial-left-position)),calc(-50vh + var(--wp--lightbox-initial-top-position))) scale(var(--wp--lightbox-scale));visibility:hidden}}
+/*# sourceURL=https://lfedge.org/wp-includes/blocks/image/style.min.css */
+</style>
+<style id="wp-block-paragraph-inline-css">
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=https://lfedge.org/wp-includes/blocks/paragraph/style.min.css */
+</style>
+<link rel='stylesheet' id='js_composer_front-css' href='https://lfedge.org/wp-content/themes/salient/css/build/plugins/js_composer.css?ver=18.2.1' media='all' />
+<link data-pagespeed-no-defer data-nowprocket data-wpacu-skip data-no-optimize data-noptimize rel='stylesheet' id='main-styles-non-critical-css' href='https://lfedge.org/wp-content/themes/salient/css/build/style-non-critical.css?ver=18.2.1' media='all' />
+<link data-pagespeed-no-defer data-nowprocket data-wpacu-skip data-no-optimize data-noptimize rel='stylesheet' id='fancyBox-css' href='https://lfedge.org/wp-content/themes/salient/css/build/plugins/jquery.fancybox.css?ver=3.3.1' media='all' />
+<link data-pagespeed-no-defer data-nowprocket data-wpacu-skip data-no-optimize data-noptimize rel='stylesheet' id='nectar-ocm-core-css' href='https://lfedge.org/wp-content/themes/salient/css/build/off-canvas/core.css?ver=18.2.1' media='all' />
+
+</head><body class="wp-singular post-template-default single single-post postid-12658 single-format-standard wp-theme-salient wp-child-theme-salient-child tribe-no-js original wpb-js-composer js-comp-ver-8.7.3 vc_responsive" data-footer-reveal="false" data-footer-reveal-shadow="none" data-header-format="default" data-body-border="off" data-boxed-style="" data-header-breakpoint="1000" data-dropdown-style="minimal" data-cae="easeOutCubic" data-cad="750" data-megamenu-width="contained" data-aie="none" data-ls="fancybox" data-apte="standard" data-hhun="0" data-fancy-form-rcs="default" data-form-style="default" data-form-submit="regular" data-is="minimal" data-button-style="slightly_rounded_shadow" data-user-account-button="false" data-flex-cols="true" data-col-gap="default" data-header-inherit-rc="false" data-header-search="true" data-animated-anchors="true" data-ajax-transitions="false" data-full-width-header="false" data-slide-out-widget-area="true" data-slide-out-widget-area-style="slide-out-from-right" data-user-set-ocm="off" data-loading-animation="none" data-bg-header="false" data-responsive="1" data-ext-responsive="true" data-ext-padding="90" data-header-resize="1" data-header-color="custom" data-transparent-header="false" data-cart="false" data-remove-m-parallax="" data-remove-m-video-bgs="" data-m-animate="0" data-force-header-trans-color="light" data-smooth-scrolling="0" data-permanent-transparent="false" >
+    
+    <script type="text/javascript" nonce="813cd4478f">
+	 (function(window, document) {
+
+		document.documentElement.classList.remove("no-js");
+
+		if(navigator.userAgent.match(/(Android|iPod|iPhone|iPad|BlackBerry|IEMobile|Opera Mini)/)) {
+			document.body.className += " using-mobile-browser mobile ";
+		}
+		if(navigator.userAgent.match(/Mac/) && navigator.maxTouchPoints && navigator.maxTouchPoints > 2) {
+			document.body.className += " using-ios-device ";
+		}
+
+		if( !("ontouchstart" in window) ) {
+
+			var body = document.querySelector("body");
+			var winW = window.innerWidth;
+			var bodyW = body.clientWidth;
+
+			if (winW > bodyW + 4) {
+
+				var vwTestEl = document.createElement("div");
+				vwTestEl.style.position = "absolute";
+				vwTestEl.style.top = "-9999px";
+				vwTestEl.style.width = "100vw";
+				body.appendChild(vwTestEl);
+				var vwWidth = vwTestEl.offsetWidth;
+				body.removeChild(vwTestEl);
+
+				if (vwWidth > bodyW + 4) {
+					body.setAttribute("style", "--scroll-bar-w: " + (winW - bodyW - 4) + "px");
+				} else {
+					body.setAttribute("style", "--scroll-bar-w: 0px");
+				}
+
+			} else {
+				body.setAttribute("style", "--scroll-bar-w: 0px");
+			}
+		}
+
+	 })(window, document);
+   </script><!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WD7897Q"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) --><nav aria-label="Skip links" class="nectar-skip-to-content-wrap" data-nosnippet><a href="#ajax-content-wrap" class="nectar-skip-to-content">Skip to main content</a></nav><div class='lfprojects'><div class='container'><a href='https://www.linuxfoundation.org/projects' target='_blank' rel='noopener noreferrer'><img src='/wp-content/uploads/banners/lfprojects_banner_other.svg' alt='THE LINUX FOUNDATION PROJECTS'></a></div></div>	
+	<div id="header-space"  data-header-mobile-fixed='1'></div> 
+	
+	    <div id="header-outer" data-has-menu="true" data-has-buttons="yes" data-header-button_style="default" data-using-pr-menu="false" data-mobile-fixed="1" data-ptnm="false" data-lhe="default" data-user-set-bg="#ffffff" data-format="default" data-permanent-transparent="false" data-megamenu-rt="0" data-remove-fixed="0" data-header-resize="1" data-cart="false" data-transparency-option="0" data-box-shadow="none" data-shrink-num="6" data-using-secondary="0" data-using-logo="1" data-logo-height="30" data-m-logo-height="24" data-padding="28" data-full-width="false" data-condense="false" >
+        <div class="notifications-bar" style="background-color:#0094ff; color:#ffffff;"><div class="container">Speak at ONE Summit 2026! Share your innovations in Edge AI, edge infrastructure, and open source edge computing. Submit your proposal by <strong>August 24</strong>. <a href="https://events.linuxfoundation.org/open-networking-edge-summit-japan/program/cfp/">LEARN MORE</a></div></div><style>.notifications-bar a { color: #ffffff; }</style>
+<div id="search-outer" class="nectar" data-nosnippet>
+	<div id="search">
+		<div class="container">
+			 <div id="search-box">
+				 <div class="inner-wrap">
+					 <div class="col span_12">
+						  <form role="search" action="https://lfedge.org/" method="GET">
+															<input type="text" name="s" id="s" value="Start Typing..." aria-label="Search" data-placeholder="Start Typing..." />
+							
+						
+						<button aria-label="Search" class="search-box__button" type="submit">Search</button>						</form>
+					</div><!--/span_12-->
+				</div><!--/inner-wrap-->
+			 </div><!--/search-box-->
+			 <div id="close"><a href="#" role="button"><span class="screen-reader-text">Close Search</span>
+				<span class="icon-salient-x" aria-hidden="true"></span>				 </a></div>
+		 </div><!--/container-->
+	</div><!--/search-->
+</div><!--/search-outer-->
+
+<header id="top" role="banner" aria-label="Main Menu">
+		<div class="container">
+		<div class="row">
+			<div class="col span_3">
+								<a id="logo" href="https://lfedge.org" data-supplied-ml-starting-dark="false" data-supplied-ml-starting="false" data-supplied-ml="false" >
+					<img class="stnd skip-lazy dark-version" width="" height="" alt="LF EDGE: Building an Open Source Framework for the Edge." src="https://lfedge.org/wp-content/uploads/sites/24/2023/07/lfedge-logo.svg"  />				</a>
+							</div><!--/span_3-->
+
+			<div class="col span_9 col_last">
+									<div class="nectar-mobile-only mobile-header"><div class="inner"></div></div>
+									<a class="mobile-search" href="#searchbox"><span class="nectar-icon icon-salient-search" aria-hidden="true"></span><span class="screen-reader-text">search</span></a>
+														<div class="slide-out-widget-area-toggle mobile-icon slide-out-from-right" data-custom-color="false" data-icon-animation="simple-transform">
+						<div> <a href="#slide-out-widget-area" role="button" aria-label="Navigation Menu" aria-expanded="false" class="closed">
+							<span class="screen-reader-text">Menu</span><span aria-hidden="true"> <i class="lines-button x2"> <i class="lines"></i> </i> </span>						</a></div>
+					</div>
+				
+									<nav aria-label="Main Menu">
+													<ul class="sf-menu">
+								<li id="menu-item-10928" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item sf-with-ul menu-item-10928"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">About</span><span class="sf-sub-indicator"><i class="fa fa-angle-down icon-in-menu" aria-hidden="true"></i></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-10929" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10929"><a href="https://lfedge.org/about/mission/"><span class="menu-title-text">About LF Edge</span></a></li>
+	<li id="menu-item-10933" class="menu-item menu-item-type-custom menu-item-object-custom nectar-regular-menu-item menu-item-10933"><a href="https://lfprojects.org/policies/code-of-conduct/"><span class="menu-title-text">Code of Conduct</span></a></li>
+	<li id="menu-item-10931" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10931"><a href="https://lfedge.org/about/governing-board/"><span class="menu-title-text">Governing Board</span></a></li>
+	<li id="menu-item-10932" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10932"><a href="https://lfedge.org/about/technical-advisory-council/"><span class="menu-title-text">Technical Advisory Council (TAC)</span></a></li>
+	<li id="menu-item-10930" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10930"><a href="https://lfedge.org/about/contact-us/"><span class="menu-title-text">Contact Us</span></a></li>
+</ul>
+</li>
+<li id="menu-item-10934" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children nectar-regular-menu-item sf-with-ul menu-item-10934"><a href="https://lfedge.org/our-projects/" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Projects</span><span class="sf-sub-indicator"><i class="fa fa-angle-down icon-in-menu" aria-hidden="true"></i></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-10935" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item menu-item-10935"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Impact Projects</span><span class="sf-sub-indicator"><i class="fa fa-angle-right icon-in-menu" aria-hidden="true"></i></span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-10938" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10938"><a href="https://lfedge.org/projects/akraino/"><span class="menu-title-text">Akraino</span></a></li>
+		<li id="menu-item-10937" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10937"><a href="https://lfedge.org/projects/edgex-foundry/"><span class="menu-title-text">EdgeX Foundry</span></a></li>
+		<li id="menu-item-10942" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10942"><a href="https://lfedge.org/projects/eve/"><span class="menu-title-text">EVE</span></a></li>
+		<li id="menu-item-10936" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10936"><a href="https://lfedge.org/projects/fledge/"><span class="menu-title-text">Fledge</span></a></li>
+		<li id="menu-item-10940" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10940"><a href="https://lfedge.org/projects/open-horizon/"><span class="menu-title-text">Open Horizon</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-10939" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item menu-item-10939"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Growth Projects</span><span class="sf-sub-indicator"><i class="fa fa-angle-right icon-in-menu" aria-hidden="true"></i></span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-12206" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-12206"><a href="https://lfedge.org/projects/edgelake/"><span class="menu-title-text">EdgeLake</span></a></li>
+		<li id="menu-item-10945" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10945"><a href="https://lfedge.org/projects/fido-device-onboard/"><span class="menu-title-text">FIDO Device Onboard</span></a></li>
+		<li id="menu-item-10941" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10941"><a href="https://lfedge.org/projects/state-of-the-edge/"><span class="menu-title-text">State of the Edge</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-10943" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item menu-item-10943"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">At-Large Projects</span><span class="sf-sub-indicator"><i class="fa fa-angle-right icon-in-menu" aria-hidden="true"></i></span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-10946" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10946"><a href="https://lfedge.org/projects/ekuiper/"><span class="menu-title-text">eKuiper</span></a></li>
+		<li id="menu-item-12205" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-12205"><a href="https://lfedge.org/projects/infiniedge-ai/"><span class="menu-title-text">InfiniEdge AI</span></a></li>
+		<li id="menu-item-12238" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-12238"><a href="https://lfedge.org/projects/instantx/"><span class="menu-title-text">InstantX</span></a></li>
+		<li id="menu-item-12027" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-12027"><a href="https://lfedge.org/projects/nanomq/"><span class="menu-title-text">NanoMQ</span></a></li>
+		<li id="menu-item-10944" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10944"><a href="https://lfedge.org/projects/nexoedge/"><span class="menu-title-text">Nexoedge</span></a></li>
+		<li id="menu-item-12331" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-12331"><a href="https://lfedge.org/projects/ocre/"><span class="menu-title-text">Ocre</span></a></li>
+	</ul>
+</li>
+	<li id="menu-item-10949" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item menu-item-10949"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Emeritus Projects</span><span class="sf-sub-indicator"><i class="fa fa-angle-right icon-in-menu" aria-hidden="true"></i></span></a>
+	<ul class="sub-menu">
+		<li id="menu-item-10948" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10948"><a href="https://lfedge.org/projects/alvarium/"><span class="menu-title-text">Alvarium</span></a></li>
+		<li id="menu-item-10947" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10947"><a href="https://lfedge.org/projects/baetyl/"><span class="menu-title-text">Baetyl</span></a></li>
+		<li id="menu-item-10950" class="menu-item menu-item-type-post_type menu-item-object-projects nectar-regular-menu-item menu-item-10950"><a href="https://lfedge.org/projects/home-edge/"><span class="menu-title-text">Home Edge</span></a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-10951" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item sf-with-ul menu-item-10951"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Members</span><span class="sf-sub-indicator"><i class="fa fa-angle-down icon-in-menu" aria-hidden="true"></i></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-10952" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10952"><a href="https://lfedge.org/members/"><span class="menu-title-text">Members</span></a></li>
+	<li id="menu-item-10953" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10953"><a href="https://lfedge.org/members/join/"><span class="menu-title-text">Join</span></a></li>
+</ul>
+</li>
+<li id="menu-item-10954" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item sf-with-ul menu-item-10954"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">Resources</span><span class="sf-sub-indicator"><i class="fa fa-angle-down icon-in-menu" aria-hidden="true"></i></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-10958" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10958"><a href="https://lfedge.org/resources/whitepapers-reports/"><span class="menu-title-text">Whitepapers &amp; Reports</span></a></li>
+	<li id="menu-item-10957" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10957"><a href="https://lfedge.org/resources/user-deployment-studies/"><span class="menu-title-text">User &amp; Deployment Studies</span></a></li>
+	<li id="menu-item-10956" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10956"><a href="https://lfedge.org/resources/lf-edge-sandbox/"><span class="menu-title-text">LF Edge Sandbox</span></a></li>
+	<li id="menu-item-10955" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10955"><a href="https://lfedge.org/resources/get-involved/"><span class="menu-title-text">Get Involved</span></a></li>
+	<li id="menu-item-12115" class="menu-item menu-item-type-custom menu-item-object-custom nectar-regular-menu-item menu-item-12115"><a href="https://wiki.lfedge.org/display/LE/LF+Edge"><span class="menu-title-text">Wiki</span></a></li>
+</ul>
+</li>
+<li id="menu-item-10959" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children nectar-regular-menu-item sf-with-ul menu-item-10959"><a href="#" aria-haspopup="true" aria-expanded="false"><span class="menu-title-text">News &amp; Events</span><span class="sf-sub-indicator"><i class="fa fa-angle-down icon-in-menu" aria-hidden="true"></i></span></a>
+<ul class="sub-menu">
+	<li id="menu-item-10961" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10961"><a href="https://lfedge.org/news/blog/"><span class="menu-title-text">Blog</span></a></li>
+	<li id="menu-item-10962" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10962"><a href="https://lfedge.org/news/press/"><span class="menu-title-text">Press Releases</span></a></li>
+	<li id="menu-item-10960" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10960"><a href="https://lfedge.org/events/"><span class="menu-title-text">Events</span></a></li>
+	<li id="menu-item-10963" class="menu-item menu-item-type-post_type menu-item-object-page nectar-regular-menu-item menu-item-10963"><a href="https://lfedge.org/news/webinars/"><span class="menu-title-text">Webinars</span></a></li>
+</ul>
+</li>
+<li id="menu-item-10964" class="join-btn menu-item menu-item-type-custom menu-item-object-custom nectar-regular-menu-item menu-item-10964"><a href="/members/join/"><span class="menu-title-text">Join</span></a></li>
+							</ul>
+													<ul class="buttons sf-menu" data-user-set-ocm="off"><li id="search-btn"><div><a href="#search-box"><span class="icon-salient-search" aria-hidden="true"></span><span class="screen-reader-text">search</span></a></div> </li></ul>
+						
+					</nav>
+
+					
+				</div><!--/span_9-->
+
+				
+			</div><!--/row-->
+					</div><!--/container-->
+	</header>
+        
+    </div>
+        <div id="ajax-content-wrap">
+
+<div id="page-header-wrap" data-animate-in-effect="none" data-midnight="light" class="" style="height: 400px;">
+   <div id="page-header-bg" class="not-loaded  hentry" data-post-hs="default_minimal" data-padding-amt="normal" data-animate-in-effect="none" data-midnight="light" data-text-effect="" data-bg-pos="center" data-alignment="left" data-alignment-v="middle" data-parallax="0" data-height="550" style="height:400px;">
+      <div class="page-header-bg-image-wrap" id="nectar-page-header-p-wrap" data-parallax-speed="fast">
+         <div class="page-header-bg-image solid-color"></div>
+      </div>
+      <div class="container">
+        <div class="row">
+            <div class="col span_6 section-title blog-title" data-remove-post-date="0" data-remove-post-author="0" data-remove-post-comment-number="1">
+               <div class="inner-wrap">
+				 		<h1 class="entry-title style-three">LF Edge 2025 Year in Review and What’s Ahead in 2026</h1>
+						
+							<div id="single-below-header" data-hide-on-mobile="">
+
+
+						</div><!--/single-below-header-->
+						
+               </div>
+            </div>
+            <!--/section-title-->
+         </div>
+         <!--/row-->
+      </div>
+   </div>
+</div>
+<div class="container-wrap no-sidebar"
+     data-midnight="dark"
+     data-remove-post-date="1"
+     data-remove-post-author="1"
+     data-remove-post-comment-number="1">
+
+	<div class="container main-content" role="main">
+
+		
+		<div class="row">
+
+			
+			<div class="post-area col span_12 col_last" role="main">
+
+					
+<article id="post-12658" class="post-12658 post type-post status-publish format-standard category-blog">
+  
+  <div class="inner-wrap">
+
+		<div class="post-content" data-hide-featured-media="0">
+      
+   									<div id="single-below-header" data-hide-on-mobile="">
+										<span class="meta-author vcard author"><span class="fn"><span class="author-leading">By</span> <a href="https://lfedge.org/author/lfedge/" rel="author">LF Edge</a></span></span> | <span class="meta-date date updated">December 1, 2025</span>									</div><!--/single-below-header-->     
+
+		<div class="content-inner"><h2 class="entry-title-small"> LF Edge 2025 Year in Review and What’s Ahead in 2026</h2> <p><span style="font-weight: 400"><img fetchpriority="high" decoding="async" class="wp-image-12661 aligncenter" src="https://lfedge.org/wp-content/uploads/sites/24/2025/12/Screenshot-2025-12-01-at-2.21.13-PM-300x155.png" alt="" width="614" height="317" srcset="https://lfedge.org/wp-content/uploads/sites/24/2025/12/Screenshot-2025-12-01-at-2.21.13-PM-300x155.png 300w, https://lfedge.org/wp-content/uploads/sites/24/2025/12/Screenshot-2025-12-01-at-2.21.13-PM-1024x527.png 1024w, https://lfedge.org/wp-content/uploads/sites/24/2025/12/Screenshot-2025-12-01-at-2.21.13-PM.png 1522w" sizes="(max-width: 614px) 100vw, 614px" /></span></p>
+<p><span style="font-weight: 400">2025 has been a milestone year for edge computing and for the LF Edge community. Market momentum accelerated across every segment, driven by real-time AI needs, device refresh cycles, and the rise of decentralized data processing. At the same time, LF Edge projects saw broad adoption across industrial, energy, manufacturing, retail, and sustainability-focused deployments.</span></p>
+<p><span style="font-weight: 400">As we close out the year, here’s a look back at what we achieved together and where we’re headed in 2026.</span></p>
+<h3><b>Edge and AI: The Market Shift Defining 2025</b></h3>
+<p><span style="font-weight: 400">Industry data shows a clear story: edge computing is now core to AI deployment strategies.</span></p>
+<ul>
+<li style="font-weight: 400"><b>Global edge spending is expected to reach $261B in 2025 and $380B by 2028</b><span style="font-weight: 400"> (<a href="https://my.idc.com/getdoc.jsp?containerId=prUS53261225">IDC</a>).</span></li>
+<li style="font-weight: 400"><b>AI and AR remain the fastest-growing drivers</b><span style="font-weight: 400">, especially in retail, finance, manufacturing, and services (<a href="https://www.mckinsey.com/~/media/mckinsey/business%20functions/mckinsey%20digital/our%20insights/the%20top%20trends%20in%20tech%202025/mckinsey-technology-trends-outlook-2025.pdf?utm_source=chatgpt.com">McKinsey</a>).</span></li>
+<li style="font-weight: 400"><b>On-device and near-device inference is becoming the norm</b><span style="font-weight: 400">, fueled by the growth of AI-capable hardware and lower-latency requirements (<a href="https://www.gartner.com/en/newsroom/press-releases/2025-08-28-gartner-says-artificial-intelligence-pcs-will-represent-31-percent-of-worldwide-pc-market-by-the-end-of-2025#:~:text=%E2%80%9CNevertheless%2C%20users%20will%20invest%20in,PCs%20will%20become%20the%20norm.">Gartner</a>).</span></li>
+<li style="font-weight: 400"><b>Edge AI revenue is forecasted to hit $157B by 2030</b><span style="font-weight: 400">, with strong momentum across transportation, healthcare, manufacturing, logistics, and smart cities (<a href="https://stlpartners.com/research/edge-ai-market-forecast-computer-vision-leads-the-way/">STL Partners</a>).</span></li>
+</ul>
+<p><span style="font-weight: 400">2024 marked the largest investment year in edge computing ever, with USD 16.7B invested since 2020, underscoring rising demand for local compute and real-time intelligence.</span></p>
+<h3><b>2025 Progress Across LF Edge Projects</b></h3>
+<p><span style="font-weight: 400">This year, LF Edge projects continued to expand their footprint across real-world production environments. You can find the full library of <a href="https://lfedge.org/resources/user-deployment-studies/">LF Edge user stories here</a>. Here are a few notable deployment highlights:</span></p>
+<ul>
+<li style="font-weight: 400"><b>EdgeLake</b><span style="font-weight: 400"> deployed across smart heating, tourism, and smart city projects, powering decentralized data lakes and real-time processing.</span></li>
+<li style="font-weight: 400"><b>Open Horizon</b><span style="font-weight: 400"> supported resilient smart farming implementations and joint deployments with EdgeLake for decentralized AI and IoT management.</span></li>
+<li style="font-weight: 400"><b>Fledge</b><span style="font-weight: 400"> remained strong in industrial automation, including grid monitoring for RTE France and safety monitoring at UC Davis and Opus One.</span></li>
+<li style="font-weight: 400"><b>EdgeX Foundry</b><span style="font-weight: 400"> expanded as a common edge platform across Eaton, IBM, Intel, and Scale Computing retail solutions.</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><b>EVE &amp; Alvarium</b><span style="font-weight: 400"> were deployed in the world’s first BioGas plant for secure carbon footprint measurement via DigitalMRV.</span></li>
+</ul>
+<p><span style="font-weight: 400">Across the ecosystem, open, modular stacks were a key differentiator, helping organizations accelerate deployments while reducing lock-in.</span></p>
+<h3><b>Technology Trends That Defined 2025</b></h3>
+<p><span style="font-weight: 400">A few consistent themes emerged across markets and deployments:</span></p>
+<p><b>1. Edge AI Became a Business Priority</b></p>
+<p><span style="font-weight: 400">Organizations moved from experimentation to operational AI on the edge, especially in robotics, automated vehicles, video analytics, predictive maintenance, and observability.</span></p>
+<p><b>2. 5G and Energy Trends Boosted Edge Deployments</b></p>
+<p><span style="font-weight: 400">5G-enabled architectures and renewable-powered edge data centers continued to rise, alongside vendor consolidation in the data center edge.</span></p>
+<p><b>3. AI–Edge Convergence Accelerated</b></p>
+<p><span style="font-weight: 400">LF Edge projects played a central role in enabling </span>autonomous operations, streamlined data pipelines, and real-time analytics<span style="font-weight: 400">, including Akraino R8/R9, InfiniEdge AI 2.0, and new EdgeLake case studies.</span></p>
+<p><b>4. Community Momentum Continued to Grow</b></p>
+<p><span style="font-weight: 400">Our most recent LF Edge webinar brought together 11 speakers from Atym, Emerson, HMS Networks, Schneider Electric, Sony Group, Siemens, and Wind River, highlighting cross-industry collaboration and real-world deployments of Project Ocre.</span></p>
+<h3><b>Looking Ahead: LF Edge Priorities for 2026</b></h3>
+<p><span style="font-weight: 400">As we move into 2026, LF Edge will focus on unifying the ecosystem, expanding community participation, and doubling down on AI-at-the-edge innovation.</span></p>
+<p><b>1. Grow the LF Edge Community</b></p>
+<ul>
+<li style="font-weight: 400"><span style="font-weight: 400">Add 2 new Premier Members and at least 5 new General Members.</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><span style="font-weight: 400">Expand developer and user participation across all projects.</span><span style="font-weight: 400"><br />
+</span></li>
+</ul>
+<p><b>2. Refresh Messaging for the New Edge Landscape</b></p>
+<p><span style="font-weight: 400">We’ll sharpen our positioning around:</span></p>
+<ul>
+<li style="font-weight: 400"><span style="font-weight: 400">Edge AI</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><span style="font-weight: 400">Data at the Edge</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><span style="font-weight: 400">Device-up and Cloud-down architectures</span><span style="font-weight: 400"><br />
+</span></li>
+</ul>
+<p><span style="font-weight: 400">Messaging and campaigns will be tailored for six key verticals: </span><span style="font-weight: 400">Industrial, Automotive, Retail, Energy/O&amp;G, Telecom/Cloud and Smart Cities</span></p>
+<p><b>3. Accelerate Project Ecosystem Growth</b></p>
+<ul>
+<li style="font-weight: 400"><span style="font-weight: 400">Continue identifying new edge and AI-focused projects.</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><span style="font-weight: 400">Build on the 50% project growth seen in 2024 and 2025.</span><span style="font-weight: 400"><br />
+</span></li>
+<li style="font-weight: 400"><span style="font-weight: 400">Prioritize end-to-end vertical solutions and blueprint-driven collaboration.</span><span style="font-weight: 400"><br />
+</span></li>
+</ul>
+<p><b>4. Strengthen Cross-Foundation Alignment</b></p>
+<p><span style="font-weight: 400">We’ll continue working with projects and foundations including LFN, Sylva, CNCF, and Margo, exploring blueprint-based integration, shared labs, and cross-stack solutions.</span></p>
+<p><b>5. Amplify LF Edge’s Position in the Global Ecosystem</b></p>
+<p><span style="font-weight: 400">LF Edge will continue establishing itself as </span><i><span style="font-weight: 400">the</span></i><span style="font-weight: 400"> open source home for edge and IoT unification, supported by analyst partnerships (such as STL Partners) and market-facing content that highlights real deployments and measurable impact.</span></p>
+<h4><b>2026: The Year Edge AI Goes Mainstream</b></h4>
+<p><span style="font-weight: 400">With AI workloads rapidly shifting toward the edge and industries investing in real-time, data-driven operations, LF Edge is uniquely positioned to lead this next wave of transformation. </span><span style="font-weight: 400">2025 showed what our community can achieve, and  2026 will be the year we scale it.</span></p>
+</div>      		<div class="single-blog-bottom-navigation">
+			<a class="back-to-all" href="/blog/">< Back To All Blog Posts</a>
+				<a class="view-next" href="https://lfedge.org/infiniedge-ai-and-aiops-establishing-a-foundation-for-intelligent-edge-operations/" rel="prev">View Next Blog Post ></a>		</div>  
+      </div><!--/post-content-->
+      
+    </div><!--/inner-wrap-->
+    
+</article>
+
+			</div><!--/post-area-->
+
+			
+		</div><!--/row-->
+
+		<div class="row">
+
+			
+			<div class="comments-section"
+			     data-author-bio="false">
+				
+<div class="comment-wrap " data-midnight="dark" data-comments-open="false">
+
+
+			<!-- If comments are closed. -->
+		<!--<p class="nocomments">Comments are closed.</p>-->
+
+	
+
+
+</div>			</div>
+
+		</div><!--/row-->
+
+	</div><!--/container main-content-->
+
+	<div class="nectar-global-section before-footer" role="contentinfo"><div class="container normal-container row">
+		<div id="fws_6a7c20a14106e"  data-column-margin="default" data-midnight="light"  class="wpb_row vc_row-fluid vc_row full-width-section vc_row-o-equal-height vc_row-flex become-member-container"  style="padding-top: 50px; padding-bottom: 50px; "><div class="row-bg-wrap" data-bg-animation="none" data-bg-animation-delay="" data-bg-overlay="false"><div class="inner-wrap row-bg-layer using-image" ><div class="row-bg viewport-desktop using-image"  style="background-position: center center; background-repeat: no-repeat; " data-nectar-img-src="https://lfedge.org/wp-content/uploads/sites/24/2023/05/banner-become-an-lf-edge-member.png"></div></div></div><div class="row_col_wrap_12 col span_12 light left">
+	<div  class="vc_col-sm-4 wpb_column column_container vc_column_container col no-extra-padding inherit_tablet inherit_phone "  data-padding-pos="all" data-has-bg-color="false" data-bg-color="" data-bg-opacity="1" data-animation="" data-delay="0" >
+		<div class="vc_column-inner" >
+			<div class="wpb_wrapper">
+				<a class="nectar-button large regular extra-color-1  regular-button become-member-button"  role="button" style="color: #b7058f; background-color: #ffffff;"  href="/members/join/" data-color-override="#ffffff" data-hover-color-override="false" data-hover-text-color-override="#fff"><span>JOIN LF EDGE</span></a>
+			</div> 
+		</div>
+	</div> 
+
+	<div  class="vc_col-sm-8 wpb_column column_container vc_column_container col no-extra-padding inherit_tablet inherit_phone "  data-padding-pos="all" data-has-bg-color="false" data-bg-color="" data-bg-opacity="1" data-animation="" data-delay="0" >
+		<div class="vc_column-inner" >
+			<div class="wpb_wrapper">
+				<h4 style="color: #ffffff;text-align: left" class="vc_custom_heading vc_do_custom_heading" >BECOME AN LF EDGE MEMBER</h4>
+<div class="wpb_text_column wpb_content_element " >
+	<p>Join LF Edge community and accelerate edge computing adoption</p>
+</div>
+
+
+
+
+			</div> 
+		</div>
+	</div> 
+</div></div>
+		<div id="fws_6a7c20a141cb5"  data-column-margin="default" data-midnight="dark"  class="wpb_row vc_row-fluid vc_row full-width-section icons-above-footer"  style="padding-top: 30px; padding-bottom: 30px; "><div class="row-bg-wrap" data-bg-animation="none" data-bg-animation-delay="" data-bg-overlay="false"><div class="inner-wrap row-bg-layer" ><div class="row-bg viewport-desktop"  style=""></div></div></div><div class="row_col_wrap_12 col span_12 dark left">
+	<div  class="vc_col-sm-12 wpb_column column_container vc_column_container col centered-text no-extra-padding force-desktop-text-align-center inherit_tablet inherit_phone "  data-padding-pos="all" data-has-bg-color="false" data-bg-color="" data-bg-opacity="1" data-animation="" data-delay="0" >
+		<div class="vc_column-inner" >
+			<div class="wpb_wrapper">
+				<div class="nectar_icon_wrap " data-style="default" data-padding="20px" data-color="extra-color-gradient-1" style="" >
+		<div class="nectar_icon" style="height: 78px; width: 78px;"><a href="https://twitter.com/lf_edge" ></a><i style="font-size: 30px; line-height: 36px; height: 36px; width: 36px;" class="fa fa-twitter"></i></div>
+	</div><div class="nectar_icon_wrap " data-style="default" data-padding="20px" data-color="extra-color-gradient-1" style="" >
+		<div class="nectar_icon" style="height: 78px; width: 78px;"><a href="https://www.youtube.com/channel/UCY7H1oSt8gvXNdXH9wrNq5Q" ></a><i style="font-size: 30px; line-height: 36px; height: 36px; width: 36px;" class="fa fa-youtube-play"></i></div>
+	</div><div class="nectar_icon_wrap " data-style="default" data-padding="20px" data-color="extra-color-gradient-1" style="" >
+		<div class="nectar_icon" style="height: 78px; width: 78px;"><a href="https://www.linkedin.com/company/lf-edge" ></a><i style="font-size: 30px; line-height: 36px; height: 36px; width: 36px;" class="fa fa-linkedin"></i></div>
+	</div><div class="nectar_icon_wrap " data-style="default" data-padding="20px" data-color="extra-color-gradient-1" style="" >
+		<div class="nectar_icon" style="height: 78px; width: 78px;"><a href="https://lists.lfedge.org/" ></a><i style="font-size: 30px; line-height: 36px; height: 36px; width: 36px;" class="fa fa-envelope"></i></div>
+	</div><div class="nectar_icon_wrap " data-style="default" data-padding="20px" data-color="extra-color-gradient-1" style="" >
+		<div class="nectar_icon" style="height: 78px; width: 78px;"><a href="https://slack.lfedge.org/" ></a><i style="font-size: 30px; line-height: 36px; height: 36px; width: 36px;" class="fa fa-slack"></i></div>
+	</div>
+			</div> 
+		</div>
+	</div> 
+</div></div>
+<style type="text/css" data-type="vc_shortcodes-default-css">.vc_do_custom_heading{margin-bottom:0.625rem;margin-top:0;}</style></div></div>
+</div><!--/container-wrap-->
+
+
+<div id="footer-outer" data-midnight="light" data-cols="2" data-custom-color="true" data-disable-copyright="true" data-matching-section-color="true" data-copyright-line="false" data-using-bg-img="false" data-bg-img-overlay="0.8" data-full-width="false" data-using-widget-area="true" data-link-hover="default"role="contentinfo">
+	
+		
+	<div id="footer-widgets" data-has-widgets="true" data-cols="2">
+		
+		<div class="container">
+			
+						
+			<div class="row">
+				
+								
+				<div class="col span_6">
+					<div id="block-9" class="widget widget_block widget_media_image">
+<figure class="wp-block-image size-full"><img decoding="async" src="https://lfedge.org/wp-content/uploads/sites/24/2023/05/footer_logo.svg" alt="" class="wp-image-18"/></figure>
+</div>					</div>
+					
+											
+						<div class="col span_6">
+							<div id="block-8" class="widget widget_block widget_text">
+<p class="wp-block-paragraph">Copyright © 2023 The Linux Foundation® . All rights reserved. The Linux Foundation has registered trademarks and uses trademarks. For a list of trademarks of The Linux Foundation, please see our <a href="https://www.linuxfoundation.org/trademark-usage">Trademark Usage</a> page. Linux is a registered trademark of Linus Torvalds. <a href="http://www.linuxfoundation.org/privacy">Privacy Policy</a> and <a href="http://www.linuxfoundation.org/terms">Terms of Use</a>.</p>
+</div>								
+							</div>
+							
+												
+						
+													
+															
+							</div>
+													</div><!--/container-->
+					</div><!--/footer-widgets-->
+					
+						
+</div><!--/footer-outer-->
+
+
+	<div id="slide-out-widget-area-bg" class="slide-out-from-right dark">
+				</div>
+
+		<div id="slide-out-widget-area" role="dialog" aria-modal="true" aria-label="Off Canvas Menu" class="slide-out-from-right" data-dropdown-func="separate-dropdown-parent-link" data-back-txt="Back">
+
+			<div class="inner-wrap">
+			<div class="inner" data-prepend-menu-mobile="false">
+
+				<a class="slide_out_area_close" href="#"><span class="screen-reader-text">Close Menu</span>
+					<span class="icon-salient-x icon-default-style"></span>				</a>
+
+
+									<div class="off-canvas-menu-container mobile-only" role="navigation">
+
+						
+						<ul class="menu">
+							<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10928"><a href="#" aria-haspopup="true" aria-expanded="false">About</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10929"><a href="https://lfedge.org/about/mission/">About LF Edge</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10933"><a href="https://lfprojects.org/policies/code-of-conduct/">Code of Conduct</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10931"><a href="https://lfedge.org/about/governing-board/">Governing Board</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10932"><a href="https://lfedge.org/about/technical-advisory-council/">Technical Advisory Council (TAC)</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10930"><a href="https://lfedge.org/about/contact-us/">Contact Us</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-10934"><a href="https://lfedge.org/our-projects/" aria-haspopup="true" aria-expanded="false">Projects</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10935"><a href="#" aria-haspopup="true" aria-expanded="false">Impact Projects</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10938"><a href="https://lfedge.org/projects/akraino/">Akraino</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10937"><a href="https://lfedge.org/projects/edgex-foundry/">EdgeX Foundry</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10942"><a href="https://lfedge.org/projects/eve/">EVE</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10936"><a href="https://lfedge.org/projects/fledge/">Fledge</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10940"><a href="https://lfedge.org/projects/open-horizon/">Open Horizon</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10939"><a href="#" aria-haspopup="true" aria-expanded="false">Growth Projects</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-12206"><a href="https://lfedge.org/projects/edgelake/">EdgeLake</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10945"><a href="https://lfedge.org/projects/fido-device-onboard/">FIDO Device Onboard</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10941"><a href="https://lfedge.org/projects/state-of-the-edge/">State of the Edge</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10943"><a href="#" aria-haspopup="true" aria-expanded="false">At-Large Projects</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10946"><a href="https://lfedge.org/projects/ekuiper/">eKuiper</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-12205"><a href="https://lfedge.org/projects/infiniedge-ai/">InfiniEdge AI</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-12238"><a href="https://lfedge.org/projects/instantx/">InstantX</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-12027"><a href="https://lfedge.org/projects/nanomq/">NanoMQ</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10944"><a href="https://lfedge.org/projects/nexoedge/">Nexoedge</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-12331"><a href="https://lfedge.org/projects/ocre/">Ocre</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10949"><a href="#" aria-haspopup="true" aria-expanded="false">Emeritus Projects</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10948"><a href="https://lfedge.org/projects/alvarium/">Alvarium</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10947"><a href="https://lfedge.org/projects/baetyl/">Baetyl</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-projects menu-item-10950"><a href="https://lfedge.org/projects/home-edge/">Home Edge</a></li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10951"><a href="#" aria-haspopup="true" aria-expanded="false">Members</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10952"><a href="https://lfedge.org/members/">Members</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10953"><a href="https://lfedge.org/members/join/">Join</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10954"><a href="#" aria-haspopup="true" aria-expanded="false">Resources</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10958"><a href="https://lfedge.org/resources/whitepapers-reports/">Whitepapers &amp; Reports</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10957"><a href="https://lfedge.org/resources/user-deployment-studies/">User &amp; Deployment Studies</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10956"><a href="https://lfedge.org/resources/lf-edge-sandbox/">LF Edge Sandbox</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10955"><a href="https://lfedge.org/resources/get-involved/">Get Involved</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12115"><a href="https://wiki.lfedge.org/display/LE/LF+Edge">Wiki</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-10959"><a href="#" aria-haspopup="true" aria-expanded="false">News &amp; Events</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10961"><a href="https://lfedge.org/news/blog/">Blog</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10962"><a href="https://lfedge.org/news/press/">Press Releases</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10960"><a href="https://lfedge.org/events/">Events</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10963"><a href="https://lfedge.org/news/webinars/">Webinars</a></li>
+</ul>
+</li>
+<li class="join-btn menu-item menu-item-type-custom menu-item-object-custom menu-item-10964"><a href="/members/join/">Join</a></li>
+
+						</ul>
+
+						<ul class="menu secondary-header-items">
+													</ul>
+					</div>
+					
+				</div>
+
+				<div class="bottom-meta-wrap"></div><!--/bottom-meta-wrap--></div> <!--/inner-wrap-->
+				</div>
+		
+</div> <!--/ajax-content-wrap-->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/sites/24/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/salient-child/*","/wp-content/themes/salient/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/javascript" nonce="813cd4478f"> /* <![CDATA[ */var tribe_l10n_datatables = {"aria":{"sort_ascending":": activate to sort column ascending","sort_descending":": activate to sort column descending"},"length_menu":"Show _MENU_ entries","empty_table":"No data available in table","info":"Showing _START_ to _END_ of _TOTAL_ entries","info_empty":"Showing 0 to 0 of 0 entries","info_filtered":"(filtered from _MAX_ total entries)","zero_records":"No matching records found","search":"Search:","all_selected_text":"All items on this page were selected. ","select_all_link":"Select all pages","clear_selection":"Clear Selection.","pagination":{"all":"All","next":"Next","previous":"Previous"},"select":{"rows":{"0":"","_":": Selected %d rows","1":": Selected 1 row"}},"datepicker":{"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["S","M","T","W","T","F","S"],"monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesMin":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"nextText":"Next","prevText":"Prev","currentText":"Today","closeText":"Done","today":"Today","clear":"Clear"}};/* ]]> */ </script><script id="wpb-modifications"> window.wpbCustomElement = 1; </script><script id="jquery-ui-core-js" src="https://lfedge.org/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3"></script>
+<script id="jquery-ui-menu-js" src="https://lfedge.org/wp-includes/js/jquery/ui/menu.min.js?ver=1.13.3"></script>
+<script id="wp-dom-ready-js" src="https://lfedge.org/wp-includes/js/dist/dom-ready.min.js?ver=a06281ae5cf5500e9317"></script>
+<script id="wp-hooks-js" src="https://lfedge.org/wp-includes/js/dist/hooks.min.js?ver=7496969728ca0f95732d"></script>
+<script id="wp-i18n-js" src="https://lfedge.org/wp-includes/js/dist/i18n.min.js?ver=781d11515ad3d91786ec"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="wp-a11y-js" src="https://lfedge.org/wp-includes/js/dist/a11y.min.js?ver=af934e5259bc51b8718e"></script>
+<script id="jquery-ui-autocomplete-js" src="https://lfedge.org/wp-includes/js/jquery/ui/autocomplete.min.js?ver=1.13.3"></script>
+<script id="my_acsearch-js-extra">
+var MyAcSearch = {"url":"https://lfedge.org/wp-admin/admin-ajax.php"};
+//# sourceURL=my_acsearch-js-extra
+</script>
+<script id="my_acsearch-js" src="https://lfedge.org/wp-content/themes/salient/nectar/assets/functions/ajax-search/wpss-search-suggest.js"></script>
+<script id="tec-user-agent-js" src="https://lfedge.org/wp-content/plugins/the-events-calendar/common/build/js/user-agent.js?ver=da75d0bdea6dde3898df"></script>
+<script id="salient-child-featherlight-script-js" src="https://lfedge.org/wp-content/themes/salient-child/vc-addons/js/featherlight.js?ver=3.6.1"></script>
+<script id="youtube-playlist-js" src="https://lfedge.org/wp-content/themes/salient-child/vc-addons/js/youtube-playlist.js?ver=1.0.0"></script>
+<script id="salient-child-javascript-js" src="https://lfedge.org/wp-content/themes/salient-child/javascript.js?ver=3.6.1"></script>
+<script id="jquery-easing-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/jquery.easing.min.js?ver=1.3"></script>
+<script id="nectar_priority-js" src="https://lfedge.org/wp-content/themes/salient/js/build/priority.js?ver=18.2.1"></script>
+<script id="nectar-transit-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/transit.min.js?ver=0.9.9"></script>
+<script id="nectar-waypoints-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/waypoints.js?ver=4.0.2"></script>
+<script id="imagesLoaded-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/imagesLoaded.min.js?ver=4.1.4"></script>
+<script id="hoverintent-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/hoverintent.min.js?ver=1.9"></script>
+<script id="fancyBox-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/jquery.fancybox.js?ver=18.2.1"></script>
+<script id="anime-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/anime.min.js?ver=4.5.1"></script>
+<script id="superfish-js" src="https://lfedge.org/wp-content/themes/salient/js/build/third-party/superfish.js?ver=1.5.8"></script>
+<script id="nectar-frontend-js-extra">
+var nectarLove = {"ajaxurl":"https://lfedge.org/wp-admin/admin-ajax.php","postID":"12658","rooturl":"https://lfedge.org","disqusComments":"false","loveNonce":"a50a54d604","mapApiKey":""};
+var nectarOptions = {"delay_js":"false","smooth_scroll":"false","smooth_scroll_strength":"50","quick_search":"false","react_compat":"disabled","header_entrance":"false","body_border_func":"default","disable_box_roll_mobile":"false","body_border_mobile":"0","dropdown_hover_intent":"default","simplify_ocm_mobile":"0","mobile_header_format":"default","ocm_btn_position":"default","left_header_dropdown_func":"default","ajax_add_to_cart":"0","ocm_remove_ext_menu_items":"remove_images","woo_product_filter_toggle":"0","woo_sidebar_toggles":"true","woo_sticky_sidebar":"0","woo_minimal_product_hover":"default","woo_minimal_product_effect":"default","woo_related_upsell_carousel":"false","woo_product_variable_select":"default","woo_using_cart_addons":"false","view_transitions_effect":""};
+var nectar_front_i18n = {"menu":"Menu","next":"Next","previous":"Previous","close":"Close","slide_of":"Slide %1$s of %2$s","slide":"slide"};
+//# sourceURL=nectar-frontend-js-extra
+</script>
+<script id="nectar-frontend-js" src="https://lfedge.org/wp-content/themes/salient/js/build/init.js?ver=18.2.1"></script>
+<script id="touchswipe-js" src="https://lfedge.org/wp-content/plugins/salient-core/js/third-party/touchswipe.min.js?ver=3.1.5"></script>
+<script id="wpb_composer_front_js-js" src="https://lfedge.org/wp-content/plugins/js_composer_salient/assets/js/dist/js_composer_front.min.js?ver=8.7.3"></script>
+<script type="text/javascript" nonce="813cd4478f"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"NRJS-31a57c2b1fe38cc7620","applicationID":"540799145","transactionName":"YAcHNhMDD0NSUU0PC1lNJAEVCw5eHEFQCANbBw==","queueTime":0,"applicationTime":716,"atts":"TEAEQFsZHE0=","errorBeacon":"bam.nr-data.net","agent":""}</script></body>
+</html>
+<!-- plugin=object-cache-pro client=phpredis metric#hits=16384 metric#misses=35 metric#hit-ratio=99.8 metric#bytes=2914918 metric#prefetches=330 metric#store-reads=48 metric#store-writes=16 metric#store-hits=361 metric#store-misses=16 metric#sql-queries=21 metric#ms-total=716.43 metric#ms-cache=34.05 metric#ms-cache-avg=0.5405 metric#ms-cache-ratio=4.8 -->

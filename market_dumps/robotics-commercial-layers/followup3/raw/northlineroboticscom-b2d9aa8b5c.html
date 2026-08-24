@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From mowing runs to models: the data flywheel — NLR Research</title>
+<meta name="description" content="How a fleet of field robots turns operational runs into labeled data, better models, and better robots — on a loop. The data-engineering pipeline, auto-labeling and weak supervision, active learning, drift detection, and the MLOps that closes the cycle.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,400..500&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,400&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/brand.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cline x1='1' y1='16' x2='31' y2='16' stroke='%23C0392B' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='9' fill='%23F6F4EF' stroke='%2316140F' stroke-width='2.5'/%3E%3C/svg%3E">
+<script>MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+<div class="tape" aria-hidden="true"><i class="t-red"></i><i class="t-blue"></i><i class="t-green"></i><i class="t-amber"></i><i class="t-purple"></i><i class="t-ink"></i></div>
+<div class="masthead-strip"><div class="row"><span><b>Northline Robotics</b> — Research</span><span>NLR · Field Notes · <span data-clock>00:00:00Z</span></span></div></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html" aria-label="NLR home">
+      <svg class="brand__roundel" viewBox="0 0 44 44" aria-hidden="true"><line x1="0" y1="22" x2="44" y2="22" stroke="#C0392B" stroke-width="4"/><circle cx="22" cy="22" r="13.5" fill="#F6F4EF" stroke="#16140F" stroke-width="2.4"/><text x="22" y="26.5" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="11" fill="#16140F">NLR</text></svg>
+      <span class="brand__name"><b>NLR</b><span>Northline Robotics</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="technology.html">Technology</a><a href="fleet.html">Fleet</a><a href="applications.html">Applications</a><a href="research.html" class="is-active">Research</a><a href="investors.html">Investors</a>
+    </div>
+    <div class="nav-cta"><a href="beta.html" class="btn btn--primary btn--sm">Join Beta <span class="arrow">→</span></a><button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false"><span></span></button></div>
+  </div>
+</nav>
+
+<main>
+  <article class="section">
+    <div class="wrap">
+
+      <!-- HERO -->
+      <header class="article-hero article-wrap">
+        <p class="page-crumb sans" style="font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px"><a href="research.html" class="inline-link">Research</a> / Data &amp; MLOps</p>
+        <span class="article-cat t">Data &amp; MLOps</span>
+        <h1 class="article-title">From mowing runs to models</h1>
+        <p class="article-dek">Every pass a robot cuts is also a recording. The hard part is not collecting that data — it is turning a torrent of raw sensor logs into labeled examples, sharper models, and a measurably better robot, on a loop that compounds. Here is how the data flywheel actually turns.</p>
+        <div class="article-meta"><span><b>NLR Autonomy Team</b></span><span>Data Series · Nº 06</span><span>~16 min read</span><span>Updated 2026-05</span></div>
+      </header>
+
+      <div class="article-wrap">
+        <!-- TOC -->
+        <nav class="toc" aria-label="Contents">
+          <h4>Contents</h4>
+          <ol>
+            <li><a href="#flywheel">The data flywheel</a></li>
+            <li><a href="#pipeline">From robot to repository: the data pipeline</a></li>
+            <li><a href="#labeling">Auto-labeling and weak supervision</a></li>
+            <li><a href="#active">Active learning: spending the labeling budget</a></li>
+            <li><a href="#mining">Hard-example mining and sim-to-real</a></li>
+            <li><a href="#versioning">Versioning, lineage, and reproducibility</a></li>
+            <li><a href="#mlops">MLOps: gates, canaries, and OTA updates</a></li>
+            <li><a href="#drift">Watching for drift</a></li>
+            <li><a href="#fleet">Centralized vs federated fleet learning</a></li>
+            <li><a href="#moat">Why the loop is a moat</a></li>
+            <li><a href="#drones">How this transfers to drones</a></li>
+          </ol>
+        </nav>
+
+        <div class="prose">
+
+          <p>A robotic mower spends its summer doing the same thing thousands of times: drive a line, sense the world, decide, repeat. Most of that effort is thrown away the instant it happens. But it does not have to be. Every run is also a high-rate recording of a robot interacting with the messy real world — exactly the data that, handled well, makes the <em>next</em> robot better. The discipline of capturing that exhaust and feeding it back into the models is what separates a clever demo from a system that improves every season without anyone reinventing it.</p>
+
+          <p>This article is the data-processing cornerstone of the series. It walks through the loop a fleet runs to convert operational runs into labeled data, models, and improved behavior — the engineering pipeline that ingests sensor logs, the labeling tricks that make annotation affordable, the active-learning math that decides what is worth a human's attention, and the MLOps that ships a new model to the field safely. None of it is mower-specific. It is the same flywheel for any robot fleet, on the ground or in the air.</p>
+
+          <h2 id="flywheel"><span class="secnum">01</span>The data flywheel</h2>
+          <p>The "flywheel" is a deliberately mechanical metaphor: a heavy wheel that is hard to start but, once spinning, stores momentum and resists slowing. In a data product the wheel has four stations, and each turn feeds the next:</p>
+          <ul>
+            <li><strong>Operations</strong> — the fleet runs in the field and generates sensor logs, outcomes, and interventions.</li>
+            <li><strong>Data</strong> — those runs are ingested, curated, and turned into labeled training examples.</li>
+            <li><strong>Models</strong> — better data trains better perception, prediction, and policy models.</li>
+            <li><strong>Better operations</strong> — improved models reduce failures and unlock new sites, which generates <em>more and more diverse</em> runs — and the wheel comes back around heavier.</li>
+          </ul>
+          <p>The compounding is the point. A robot that handles more conditions gets deployed more widely; wider deployment surfaces rarer edge cases; those edge cases, once labeled and learned, raise the floor again. The hard truth underneath the metaphor is that the wheel does not turn for free. Raw data is not knowledge — it is a liability until processed, and most of the engineering is in the <em>between</em> stations, not the stations themselves.</p>
+
+          <figure>
+            <svg viewBox="0 0 760 300" font-family="Archivo, sans-serif">
+              <defs>
+                <marker id="fw" markerWidth="9" markerHeight="9" refX="6.5" refY="4.5" orient="auto"><path d="M0 0 L8 4.5 L0 9" fill="none" stroke="#1F8A8A" stroke-width="1.6"/></marker>
+              </defs>
+              <!-- four station nodes around a loop -->
+              <g fill="#FCFBF8" stroke="#16140F" stroke-width="1.8">
+                <rect x="300" y="20" width="160" height="52" rx="4"/>
+                <rect x="556" y="124" width="170" height="52" rx="4"/>
+                <rect x="300" y="228" width="160" height="52" rx="4"/>
+                <rect x="34"  y="124" width="170" height="52" rx="4"/>
+              </g>
+              <g font-size="13" fill="#16140F" font-weight="700" text-anchor="middle">
+                <text x="380" y="50">Operations</text>
+                <text x="641" y="146">Data</text>
+                <text x="641" y="163" font-weight="400" font-size="11">ingest · label · curate</text>
+                <text x="380" y="250">Models</text>
+                <text x="380" y="267" font-weight="400" font-size="11">train · evaluate</text>
+                <text x="119" y="146">Better ops</text>
+                <text x="119" y="163" font-weight="400" font-size="11">fewer failures · new sites</text>
+              </g>
+              <g font-size="10.5" fill="#16140F" font-weight="400" text-anchor="middle">
+                <text x="375" y="38" font-weight="700" font-size="11">the fleet runs</text>
+              </g>
+              <!-- clockwise arrows -->
+              <g fill="none" stroke="#1F8A8A" stroke-width="2" marker-end="url(#fw)">
+                <path d="M460 50 C 540 56, 600 84, 632 120"/>
+                <path d="M636 176 C 612 214, 540 244, 462 252"/>
+                <path d="M300 256 C 220 248, 156 218, 126 178"/>
+                <path d="M120 124 C 144 84, 220 54, 298 48"/>
+              </g>
+              <!-- hub label + red accent showing the human-in-the-loop spoke -->
+              <circle cx="380" cy="150" r="30" fill="#FCFBF8" stroke="#16140F" stroke-width="1.6"/>
+              <text x="380" y="147" text-anchor="middle" font-size="10.5" font-weight="700" fill="#16140F">active</text>
+              <text x="380" y="160" text-anchor="middle" font-size="10.5" font-weight="700" fill="#16140F">learning</text>
+              <g stroke="#C0392B" stroke-width="1.7" fill="none" stroke-dasharray="4 3" marker-end="url(#fw)">
+                <path d="M380 220 L380 182"/>
+              </g>
+              <text x="396" y="205" font-size="10" fill="#C0392B">uncertain → label</text>
+            </svg>
+            <figcaption>Fig. 1 — The flywheel. Operations produce data; data trains models; better models improve operations, which produce more and richer data. Active learning (the red spoke) routes the model's <em>own</em> uncertainty back to human labelers so each turn spends effort where it pays.</figcaption>
+          </figure>
+
+          <h2 id="pipeline"><span class="secnum">02</span>From robot to repository: the data pipeline</h2>
+          <p>Before any learning happens there is a sizeable data-engineering problem: getting bytes off the robot, intact and intelligible, at sane cost. A single platform might carry a camera or two, an IMU at hundreds of hertz, wheel encoders, GNSS, and sometimes lidar — together easily tens to hundreds of gigabytes per operating hour of raw streams. You cannot ship all of it, and you cannot keep all of it forever.</p>
+          <p>The pipeline has a few hard requirements:</p>
+          <ul>
+            <li><strong>Time synchronization.</strong> Sensors run on different clocks at different rates. Fusing a camera frame with the IMU sample that was true at the instant of exposure requires a common, monotonic timebase and careful timestamping at the source — hardware-triggered where possible. A label is only as good as the time alignment beneath it; a 50&nbsp;ms skew between image and pose can silently corrupt a traversed-path label.</li>
+            <li><strong>Storage formats.</strong> Logs are typically captured in a container such as ROS&nbsp;bag or MCAP for fidelity, then transcoded into columnar, query-friendly formats (Parquet for tabular telemetry, sharded records for imagery) so that training jobs can read slices without rehydrating whole sessions.</li>
+            <li><strong>Tiering and triage.</strong> The cost of raw sensor data is dominated by the boring streams — long stretches of nominal driving that look like every other nominal stretch. The fleet uploads compressed summaries and metadata by default, and only the <em>interesting</em> windows at full fidelity: interventions, near-misses, high model uncertainty, novel scenes. This event-triggered upload is the first, crudest filter of the flywheel, and it can cut bandwidth and storage by an order of magnitude.</li>
+          </ul>
+          <p>The output of this stage is not "data" in the loose sense — it is an indexed, time-aligned, queryable corpus where a curator can ask "show me every frame where the robot was within 30&nbsp;cm of a bed boundary in low light" and get an answer in seconds. That index is the substrate everything downstream stands on.</p>
+
+          <h2 id="labeling"><span class="secnum">03</span>Auto-labeling and weak supervision</h2>
+          <p>Human annotation is the single most expensive line item in most perception programs, so the highest-leverage move is to <em>not</em> pay for labels you can derive for free. Field robotics is unusually rich in opportunities to do exactly that, because the robot is an embodied agent whose later experience reveals the truth of its earlier observations.</p>
+          <p>The canonical example is <strong>traversed-path-as-label</strong>. When a mower drives over a patch of ground without getting stuck, that patch was — by definition — traversable. The robot's own future trajectory, projected back into the camera frame it captured a few seconds earlier, becomes a free positive label for "drivable surface." This is self-supervision in the most literal sense: the system that produces the label is the robot's later state, not a person. Stronger sensors can teach cheaper ones the same way — lidar geometry or RTK-GNSS pose can supervise a camera-only model, so the fielded robot can eventually drop the expensive sensor and still perform.</p>
+          <p>These cheap labels are <em>weak</em>: noisy, biased, and incomplete. Traversed-path tells you what <em>was</em> drivable, never what was not; the robot avoids the rose bed, so it never harvests a label proving the bed is off-limits. Weak-supervision practice is to treat such signals as plentiful-but-noisy sources to be combined and denoised, then to spend the scarce human budget on the cases the cheap labels cannot reach. Which raises the obvious question: <em>which</em> cases?</p>
+
+          <div class="callout callout--key">
+            <div class="clabel">Key idea</div>
+            <p>The cheapest label is the one you never paid a human for. In field robotics, the robot's <strong>future</strong> — where it actually drove, what a stronger sensor actually saw — is a free, if noisy, teacher for its past observations. Auto-labeling sets the floor; human effort is reserved for the cases auto-labeling can't reach.</p>
+          </div>
+
+          <h2 id="active"><span class="secnum">04</span>Active learning: spending the labeling budget</h2>
+          <p>If you can only afford to label a small fraction of what the fleet records, you should label the fraction that teaches the model the most. That is the premise of <strong>active learning</strong>: let the model nominate the examples it is most unsure about, label those, and retrain — rather than labeling at random.<a href="#s1" class="cite">1</a> Settles' survey is the standard map of the query strategies; the workhorse of them is <strong>uncertainty sampling</strong>.</p>
+          <p>For a classifier outputting class probabilities \(p_\theta(y\mid x)\), the most general uncertainty score is the predictive <strong>Shannon entropy</strong> — high when the model spreads probability across many classes, low when it is confident in one:</p>
+          $$ \mathbb{H}\big[y \mid x\big] = -\sum_{c} p_\theta(y=c \mid x)\,\log p_\theta(y=c \mid x). $$
+          <p>Active learning then selects, from the unlabeled pool \(\mathcal{U}\), the example that maximizes an acquisition function \(a(x)\) — here, the entropy:</p>
+          $$ x^\* = \arg\max_{x \in \mathcal{U}} \; a(x), \qquad a(x) = \mathbb{H}\big[y \mid x\big]. $$
+          <p>Entropy is one of a family. <em>Least-confidence</em> sampling scores \(1-\max_c p_\theta(y=c\mid x)\); <em>margin</em> sampling scores the gap between the top two classes. For models that can express epistemic uncertainty (deep ensembles, MC-dropout), <strong>BALD</strong>-style scores prefer points where the <em>models disagree</em>, not merely where any single model is unsure. The unifying idea is to send the labeler to the frontier of the model's competence.</p>
+          <p>Pure uncertainty has a known failure mode: the most uncertain points are often the most useless — ambiguous, corrupted, or mislabeled outliers that no amount of labeling will resolve. A more principled (if costlier) objective is <strong>expected error reduction</strong>: choose the example whose label is expected to most reduce the model's future error over the whole pool, in expectation over its possible labels,</p>
+          $$ x^\* = \arg\min_{x \in \mathcal{U}} \; \mathbb{E}_{y \sim p_\theta(y\mid x)}\!\left[\, \sum_{x' \in \mathcal{U}} \mathbb{H}\big[y' \mid x';\, \mathcal{L}\cup\{(x,y)\}\big] \right]. $$
+          <p>This optimizes the thing you actually care about — generalization — rather than a proxy, but it requires a hypothetical retrain per candidate, so in practice it is approximated or reserved for small pools. Most fleets ship uncertainty sampling with a diversity/outlier guard and call it a day.</p>
+
+          <p class="codecap">Pseudocode — the active-learning loop, end to end</p>
+          <pre><code><span class="c-cm"># One turn of the flywheel: infer -> score -> select -> label</span>
+<span class="c-cm"># -> retrain -> gate -> deploy. Runs on each batch of fleet logs.</span>
+<span class="c-kw">def</span> <span class="c-fn">flywheel_turn</span>(model, pool, labeled, budget, val):
+    <span class="c-cm"># 1. INFER over unlabeled field data</span>
+    probs   = model.predict_proba(pool)            <span class="c-cm"># p_theta(y|x)</span>
+
+    <span class="c-cm"># 2. SCORE uncertainty (entropy) + reject outliers</span>
+    score   = entropy(probs)                        <span class="c-cm"># H[y|x]</span>
+    score   = score * novelty_ok(pool)              <span class="c-cm"># 0 for garbage/dupes</span>
+
+    <span class="c-cm"># 3. SELECT a diverse, high-score batch</span>
+    query   = diverse_topk(pool, score, k=budget)   <span class="c-cm"># spend the budget</span>
+
+    <span class="c-cm"># 4. LABEL: auto where we can, humans where we must</span>
+    auto    = self_supervise(query)                 <span class="c-cm"># traversed-path, lidar->cam</span>
+    human   = annotate(query - auto.covered)        <span class="c-cm"># the scarce resource</span>
+    labeled = labeled + auto + human
+
+    <span class="c-cm"># 5. RETRAIN on the grown, versioned dataset</span>
+    cand    = train(base=model, data=labeled)
+
+    <span class="c-cm"># 6. EVAL-GATE: ship only on a held-out, frozen slice</span>
+    <span class="c-kw">if</span> regresses(cand, model, val, slices=SAFETY_SLICES):
+        <span class="c-kw">return</span> model                          <span class="c-cm"># block: do no harm</span>
+
+    <span class="c-cm"># 7. DEPLOY via canary, then fleet-wide OTA</span>
+    <span class="c-kw">return</span> canary_then_rollout(cand)</code></pre>
+          <p>Notice that the loop never trusts itself blindly: outliers are scored to zero, auto-labels carry the work humans would otherwise do, and nothing reaches the fleet without clearing an evaluation gate. The loop's job is to keep the wheel turning <em>and</em> to refuse to ship a regression.</p>
+
+          <h2 id="mining"><span class="secnum">05</span>Hard-example mining and sim-to-real</h2>
+          <p>Closely related to active learning is <strong>hard-example mining</strong>: instead of asking which examples to <em>label</em>, ask which already-labeled examples the model keeps getting wrong, and train on them more. Mining the long tail of failures — the cases where the loss is highest — focuses gradient updates where the model is weakest, and counters the tyranny of the common case in which a million frames of empty lawn drown out the one frame with a child's toy in the grass.</p>
+          <p>Some edge cases are too rare or too dangerous to wait for in the field. Here the flywheel borrows from simulation. <strong>Domain randomization</strong> trains the model on synthetic scenes whose textures, lighting, camera poses, and clutter are randomized so aggressively that the real world looks, to the model, like just one more variation it has already seen.<a href="#s2" class="cite">2</a> Tobin et al. showed this could transfer an object detector trained <em>only</em> on non-photorealistic simulation to real-world robotic control — first evidence that you can manufacture rare training data instead of waiting to record it. In a mowing context this means generating obstacles, weather, and sun angles on demand, then mixing that synthetic data with real logs so the model is robust before it ever meets the situation on a lawn.</p>
+
+          <h2 id="versioning"><span class="secnum">06</span>Versioning, lineage, and reproducibility</h2>
+          <p>Once data is feeding models on a loop, an uncomfortable question appears: <em>which</em> data produced <em>which</em> model? Without an answer you cannot reproduce a result, cannot audit a regression, and cannot roll back safely. The flywheel is only trustworthy if it is reproducible, and that demands the same rigor for datasets that source control brought to code.</p>
+          <ul>
+            <li><strong>Dataset versioning.</strong> Every training set is an immutable, content-addressed snapshot — a hash over the exact examples and labels — so "model v37 was trained on dataset d91" is a precise, verifiable claim, not a vibe.</li>
+            <li><strong>Lineage.</strong> Each label records its provenance: which run it came from, whether it was human- or auto-generated, which labeling model or rule produced it, and when. When a bad auto-labeling heuristic is discovered, lineage lets you find and purge every example it touched.</li>
+            <li><strong>Reproducibility.</strong> A model artifact is pinned to its dataset hash, code commit, hyperparameters, and random seed. Re-running the recipe reproduces the model bit-for-bit — the precondition for trusting an evaluation at all.</li>
+          </ul>
+          <p>This is unglamorous bookkeeping, and it is exactly the kind of "hidden technical debt" that quietly strangles ML systems when skipped.<a href="#s3" class="cite">3</a> Sculley and colleagues catalogued how data dependencies, undeclared consumers, and feedback loops accrue maintenance cost that dwarfs the modeling itself — a warning that the pipeline, not the model, is where programs live or die.</p>
+
+          <h2 id="mlops"><span class="secnum">07</span>MLOps: gates, canaries, and OTA updates</h2>
+          <p>A retrained model is a hypothesis, not an improvement, until it is proven on data it has never seen and shipped without breaking the fleet. The operational layer that does this — <strong>MLOps</strong> — is what makes the flywheel safe to run continuously rather than once a year by hand.</p>
+          <ul>
+            <li><strong>Evaluation gates.</strong> A candidate must beat the incumbent on a frozen, held-out evaluation set <em>and</em> must not regress on any protected slice — night scenes, wet grass, boundaries, the rare-object set. A model that improves the average while quietly getting worse near flowerbeds fails the gate. Aggregate metrics lie; sliced metrics are the gate.</li>
+            <li><strong>Shadow deployment.</strong> The candidate runs alongside the production model on live data without acting on its outputs. You compare its decisions to the incumbent's at zero risk, surfacing disagreements as the next batch of examples to label.</li>
+            <li><strong>Canary rollout.</strong> When the gate passes, the model goes to a small, representative slice of the fleet first. Its real-world failure and intervention rates are monitored against the rest of the fleet; only if it holds does it roll out widely.</li>
+            <li><strong>Over-the-air updates &amp; monitoring.</strong> Models ship to robots over the air, versioned and reversible, so a regression caught in canary is rolled back in minutes, not a truck-roll. Continuous monitoring of live metrics closes the loop — and feeds the next turn.</li>
+          </ul>
+
+          <h2 id="drift"><span class="secnum">08</span>Watching for drift</h2>
+          <p>The world the model was trained on is not the world it will face next month. Seasons change, grass browns, the fleet enters new regions, the sun sits at new angles. <strong>Distribution shift</strong> — the slow divergence of live data from training data — silently erodes accuracy, and detecting it early is the difference between a graceful retrain and a field failure. The flywheel must monitor not just model outputs but the <em>statistics of its inputs</em>.</p>
+          <p>The standard lightweight tool is the <strong>Population Stability Index (PSI)</strong>, a symmetrized form of the Kullback–Leibler divergence. Bin a feature (or a model score) into \(B\) buckets; let \(e_i\) and \(a_i\) be the expected (training) and actual (live) proportions in bucket \(i\). Then:</p>
+          $$ \mathrm{PSI} = \sum_{i=1}^{B} \big(a_i - e_i\big)\,\ln\!\frac{a_i}{e_i}. $$
+          <p>The rule of thumb that has survived from credit-risk monitoring into ML: \(\mathrm{PSI}<0.1\) is stable, \(0.1\le \mathrm{PSI}<0.25\) warrants attention, and \(\mathrm{PSI}\ge 0.25\) signals a major shift that likely demands a retrain. For a direct information-theoretic view of how far the live distribution \(P\) has moved from the reference \(Q\), the <strong>KL divergence</strong> itself is the underlying quantity,</p>
+          $$ D_{\mathrm{KL}}\!\left(P \,\|\, Q\right) = \sum_{i} P(i)\,\log\frac{P(i)}{Q(i)} \;\ge\; 0, $$
+          <p>zero only when the distributions match. (PSI is essentially \(D_{\mathrm{KL}}(P\|Q) + D_{\mathrm{KL}}(Q\|P)\) evaluated on the binned proportions, which is why it is symmetric and convenient as a single dashboard number.) When drift crosses a threshold, the system does not panic — it triggers targeted collection in the shifted region, which is to say it gives the flywheel a reason to turn.</p>
+
+          <h2 id="fleet"><span class="secnum">09</span>Centralized vs federated fleet learning</h2>
+          <p>A fleet is a sensor network, and there are two ways to learn from it. The <strong>centralized</strong> approach hauls (filtered) data back to a data platform, where curation, labeling, training, and evaluation happen with full visibility — the model that comes out is shared by the whole fleet. This is simplest and gives the cleanest control over data quality and versioning; it is the default, and the right default for most ground robots whose data is not privacy-sensitive.</p>
+          <p>The <strong>federated</strong> alternative trains across robots without centralizing the raw data: each robot computes a model update on its own logs, and only the <em>updates</em> (gradients or weights), not the data, are aggregated centrally. This matters when data is sensitive (imagery of private property), when bandwidth is the binding constraint, or when regulation forbids moving raw data across borders. The tradeoff is engineering complexity and weaker data-quality control — you cannot inspect what you never centralize. In practice a fleet often runs a hybrid: centralize the rare, valuable, event-triggered slices; keep the bulk on-device; and let federated updates carry what cannot leave the robot.</p>
+
+          <h2 id="moat"><span class="secnum">10</span>Why the loop is a moat</h2>
+          <p>Models are increasingly commodities; the recipes are published and the open weights are good. What is hard to copy is a fleet that has been running long enough to have <em>seen</em> the long tail of the operating environment — and a pipeline disciplined enough to have captured, labeled, and learned from it. That asset compounds: more deployment yields more data yields better models yields more deployment, and a competitor starting today has to traverse the same loop from a standstill.</p>
+          <p>The return on each turn is not constant, though. Early data is enormously valuable because the model is bad and almost everything is informative; later, the marginal unlabeled frame is usually redundant, and value concentrates in the rare, the novel, and the failed. This is precisely why active learning, hard-example mining, and drift-triggered collection matter more as the program matures — they are how you keep extracting signal once random data has stopped paying. The flywheel is a moat not because data is scarce, but because <em>the right data, well-processed, on a loop</em> is.</p>
+
+          <h2 id="drones"><span class="secnum">11</span>How this transfers to drones</h2>
+          <p>The flywheel is indifferent to what kind of robot feeds it. Operations produce data; data trains models; better models improve operations — the wheel turns the same whether the platform rolls or flies, and almost every technique above ports without modification.</p>
+          <div class="callout callout--drone">
+            <div class="clabel">↪ Transfers to drones &amp; aerial robots</div>
+            <p>An aerial fleet is, if anything, a <em>purer</em> data flywheel. The pipeline is the same — time-synced ingest, tiered upload of only the interesting flights, versioned datasets, eval-gated OTA model updates. <strong>Active learning on drone imagery</strong> is the obvious win: aerial surveys generate enormous image volumes, almost all of it redundant, so entropy/BALD acquisition to find the few frames worth a human's label is not a luxury but a necessity. Self-supervision transfers too — a drone's later, closer pass can label its earlier, distant view; a higher-resolution sensor can teach a lighter one. Domain randomization<a href="#s2" class="cite">2</a> was proven on flying-robot perception. Drift detection by PSI or KL flags the season, region, or altitude the model has not seen. And federated fleet learning is often <em>more</em> compelling in the air, where individual flights may be bandwidth-limited or privacy-sensitive. Build the data platform for a fleet of mowers and you have built it for a fleet of drones; only the sensors on the front end change.</p>
+          </div>
+          <p>That is the throughline of NLR's program. We do not think of ourselves as building a mower — we build a fleet and the data platform that learns from it. The environment changes — snow, grass, altitude — but the loop is one loop, and a loop that has been turning longer is the hardest thing in robotics to catch.</p>
+
+          <!-- SOURCES -->
+          <section class="sources">
+            <h2>Sources &amp; further reading</h2>
+            <ol>
+              <li id="s1">Settles, B. "Active Learning Literature Survey." <em>Computer Sciences Technical Report 1648</em>, University of Wisconsin–Madison, 2009. The standard survey of query strategies, including uncertainty sampling, entropy acquisition, and expected error reduction.</li>
+              <li id="s2">Tobin, J., Fong, R., Ray, A., Schneider, J., Zaremba, W., &amp; Abbeel, P. "Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World." <em>IEEE/RSJ IROS</em>, 2017. <a href="https://arxiv.org/abs/1703.06907">arXiv:1703.06907</a></li>
+              <li id="s3">Sculley, D., Holt, G., Golovin, D., Davydov, E., Phillips, T., Ebner, D., Chaudhary, V., Young, M., Crespo, J.-F., &amp; Dennison, D. "Hidden Technical Debt in Machine Learning Systems." <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 2015. The canonical account of data dependencies, feedback loops, and pipeline debt in production ML.</li>
+              <li id="s4">Ratner, A., Bach, S.H., Ehrenberg, H., Fries, J., Wu, S., &amp; Ré, C. "Snorkel: Rapid Training Data Creation with Weak Supervision." <em>Proceedings of the VLDB Endowment</em>, 2017. <a href="https://doi.org/10.14778/3157794.3157797">doi:10.14778/3157794.3157797</a> — programmatic weak supervision for combining noisy labeling sources.</li>
+              <li id="s5">Gal, Y., Islam, R., &amp; Ghahramani, Z. "Deep Bayesian Active Learning with Image Data." <em>ICML</em>, 2017. <a href="https://arxiv.org/abs/1703.02910">arXiv:1703.02910</a> — BALD-style acquisition with model uncertainty for deep nets.</li>
+            </ol>
+          </section>
+
+          <div class="article-foot">
+            <a href="research.html" class="link-arrow">← All research</a>
+            <a href="research.html" class="link-arrow">Back to all research →</a>
+          </div>
+
+        </div><!-- /prose -->
+      </div><!-- /article-wrap -->
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html" aria-label="NLR home">
+          <svg class="brand__roundel" viewBox="0 0 44 44" aria-hidden="true"><line x1="0" y1="22" x2="44" y2="22" stroke="#C0392B" stroke-width="4"/><circle cx="22" cy="22" r="13.5" fill="#F6F4EF" stroke="#16140F" stroke-width="2.4"/><text x="22" y="26.5" text-anchor="middle" font-family="Archivo, sans-serif" font-weight="700" font-size="11" fill="#16140F">NLR</text></svg>
+          <span class="brand__name"><b>NLR</b><span>Northline Robotics</span></span>
+        </a>
+        <p class="measure-sm">Autonomy and field-data infrastructure for the world's hardest operating environments — beginning with the Canadian winter.</p>
+      </div>
+      <div class="footer-col"><h4>Platform</h4><a href="technology.html">Technology</a><a href="fleet.html">Fleet</a><a href="applications.html">Applications</a></div>
+      <div class="footer-col"><h4>Company</h4><a href="research.html">Research</a><a href="investors.html">Investors</a><a href="beta.html">Beta Program</a><a href="brand.html">Brand</a></div>
+      <div class="footer-col"><h4>Contact</h4><a href="mailto:research@northlinerobotics.com">research@northlinerobotics.com</a><a href="beta.html">Field deployment</a><a href="investors.html">Investor relations</a></div>
+    </div>
+    <div class="footer-bottom"><span>© <span data-year>2026</span> Northline Robotics Inc. · NLR</span><span>44.30° N / 79.60° W · northlinerobotics.com</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/analytics.js" defer></script>
+<script src="assets/js/site.js" defer></script>
+</body>
+</html>

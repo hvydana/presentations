@@ -1,0 +1,64 @@
+NVIDIA Isaac ROS
+NVIDIA Isaac™ ROS (Robot Operating System) is a collection of NVIDIA® CUDA®-accelerated computing packages and AI models designed to streamline and expedite the development of advanced AI robotics applications.
+How NVIDIA Isaac ROS Works
+Isaac ROS gives you a powerful toolkit for building robotic applications. It offers ready-to-use packages for common tasks like navigation and perception, uses NVIDIA frameworks for optimal performance, and can be deployed on both workstations and embedded systems like NVIDIA Jetson™.
+Quick Start Guide
+Learn what you need to get started and how to set up using the Isaac ROS suite to tap into the power of NVIDIA acceleration on NVIDIA Jetson.
+Introductory Talk
+Isaac ROS offers modular packages for robotic perception and easy integration into existing ROS 2-based applications. This talk covers Isaac ROS GEMs and how to use multiple GEMs in your robotics pipeline.
+Introductory Webinars
+Check out a series of Isaac ROS webinars covering various topics, from running your own ROS 2 benchmarks to harnessing the power of NVIDIA NITROS. 
+Key Features
+Open Ecosystem
+Built on ROS
+NVIDIA Isaac ROS is built on the open-source ROS 2™ software framework. This means the millions of developers in the ROS community can easily take advantage of NVIDIA-accelerated libraries and AI models to fast track their AI robot development and deployment workflows.
+Hardware Acceleration
+NVIDIA Isaac Transport for ROS
+The NVIDIA implementation of type adaption and negotiation is called NITROS, which includes ROS processing pipelines made up of Isaac ROS hardware-accelerated modules (a.k.a. GEMs). NITROS lets ROS 2 applications take full advantage of GPU hardware acceleration, potentially achieving higher performance and more efficient use of computing resources across the entire ROS 2 graph. 
+for ROS (Github)
+High-Throughput Perception
+Isaac ROS delivers a rich collection of individual ROS packages (GEMs) and complete pipelines (NITROS) optimized for NVIDIA GPUs, NVIDIA Jetson™, and NVIDIA DGX Spark™ platforms. This helps you achieve more with reduced development times.
+Modular, Flexible Packages
+Plug and play with a selection of packages for computer vision, image processing, robust object detection, collision detection, and trajectory optimization, and easily go to production.
+The Power of NVIDIA AI  
+Isaac ROS is compatible with all ROS 2 nodes, making it easier to integrate into existing applications. Develop robotic applications using NVIDIA AI and pretrained models from robotics-specific datasets for faster development.
+Getting Started on NVIDIA Isaac ROS
+System Setup
+Tap into NVIDIA-accelerated libraries and AI models to speed up your AI robot workflows. Check your system requirements and set up your system.
+Plug-and-Play ROS Packages
+Read through the Isaac ROS concepts and easily move to production with a selection of advanced packages.
+Deployment on the Edge With Partner Kits
+NVIDIA Jetson provides hardware acceleration, optimized AI software, a robust ecosystem, and energy efficiency, making it an ideal platform to deploy your Isaac ROS applications. NVIDIA Nova Carter and the Nova Orin™ developer platforms also help you accelerate AMR development. 
+NVIDIA Isaac for Manipulation
+CUDA-accelerated libraries and AI models give you a faster, easier way to develop AI-powered robotic arms that can seamlessly perceive, understand, and interact with their environments.
+NVIDIA Isaac for Mobility
+Accelerate the development of advanced autonomous mobile robots (AMRs) that can perceive, localize, and operate in unstructured environments like warehouses or factories.
+High-Performance Perception With NITROS Pipelines
+ROS 2 graphs using NITROS-based,  NVIDIA-accelerated Isaac ROS packages can significantly increase performance. 
+You can find a complete performance summary here.
+| Node | Input Size | AGX Thor T5000 | AGX Thor T4000 | DGX Spark | x86_64 w/ RTX 5090 | 
+|---|---|---|---|---|---|
+| AprilTag Node | 720p | 385 fps 2.9 ms @ 30 Hz  | 280 fps 11 ms @ 30 Hz  | 462 fps 2.4 ms @ 30 Hz | 596 fps 2.0 ms @ 30 Hz  | 
+| TensorRT Node PeopleSemSegNet  | 544p | 566 fps 2.1 ms @ 30 Hz  | 407 fps 6.8 ms @ 30 Hz  | 594 fps 1.4 ms @ 30 Hz | 1570 fps 1.5 ms @ 30 Hz  | 
+| Triton Node PeopleSemSegNet  | 544p | 361 fps 4.0 ms @ 30 Hz  | 280 fps 11 ms @ 30 Hz  | 362 fps 3.1 ms @ 30 Hz | 485 fps 5.4 ms @ 30 Hz  | 
+| DNN Stereo Disparity Node Full | 576p | 175 fps 8.8 ms @ 30 Hz  | 68.5 fps 38 ms @ 30 Hz  | 167 fps 8.2 ms @ 30 Hz | 350 fps 5.3 ms @ 30 Hz | 
+| H.264 Decoder Node | 1080p | 296 fps 4.5 ms @ 30 Hz  | 296 fps 5.3 ms @ 30 Hz  | 736 fps 4.35 ms @ 30 Hz | 766 fps 4.6 ms @ 30 Hz | 
+| H.264 Encoder Node I-frame Support  | 1080p | 296 fps 4.9 ms @ 30 Hz  | 297 fps 10 ms @ 30 Hz  | 921 fps 2.7 ms @ 30 Hz  | 1047 fps 3.8 ms @ 30 Hz  | 
+| H.264 Encoder Node P-frame Support  | 1080p | 296 fps 2.9 ms @ 30 Hz  | 297 fps 9.5 ms @ 30 Hz  | 846 fps 3.1 ms @ 30 Hz   | 1047fps 3.8 ms @ 30 Hz  | 
+| Nvblox Node | - | 4.94 fps 89.8 ms  | - | - | 4.96 fps 23.1 ms  | 
+Starter Kits
+Start developing your robotics and AI application with Isaac ROS with these forums, release notes, and comprehensive documentation.
+Localization and Mapping
+Isaac ROS Visual SLAM provides a high-performance, best-in-class ROS 2 package for VSLAM (visual simultaneous localization and mapping).
+3D Scene Reconstruction
+Isaac ROS nvBlox uses RGB-D and/or lidar data to create a dense 3D map, including unforeseen obstacles, to generate a temporal costmap for navigation.
+Pose Estimation and Tracking
+NVIDIA’s FoundationPose is a state-of-the-art foundation model for 6D pose estimation and tracking of novel objects.
+Motion Planning
+Isaac ROS cuMotion is an NVIDIA CUDA-accelerated library for solving robot motion planning problems at scale by running multiple trajectory optimizations simultaneously to return the best solution.
+Testing and Validation in Simulation
+Virtually train, test, and validate robotics systems using NVIDIA Isaac Sim and NVIDIA Isaac Lab.
+Isaac ROS Learning Library
+More Resources
+Get Started
+Accelerate your robotic application development and get started today with NVIDIA Isaac ROS.

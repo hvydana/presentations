@@ -1,0 +1,102 @@
+Linux Foundation Welcomes Newton: The Next Open Physics Engine for Robotics
+Introduction
+Simulating physics is central to robotics: before a robot ever moves in the real world, much of its learning, testing, and control happens in a virtual environment. But traditional simulators often struggle to match real-world physical complexity, especially where contact, friction, deformable materials, and unpredictable surfaces are involved. That discrepancy is known as the sim-to-real gap, and it’s one of the biggest hurdles in robotics and embodied AI.
+On September 29th, the Linux Foundation announced that it is contributing Newton, a next-generation, GPU-accelerated physics engine, as a fully open, community-governed project. This move aims to accelerate robotics research, reduce barriers to entry, and ensure long-term sustainability under neutral governance.
+In this article, we’ll unpack what Newton is, how its architecture stands out, the role the Linux Foundation will play, early use cases and challenges, and what this could mean for the future of robotics and simulation.
+What Is Newton?
+Newton is a physics simulation engine designed specifically for roboticists and simulation researchers who want high fidelity, performance, and extensibility. It was conceived through collaboration among Disney Research, Google DeepMind, and NVIDIA. The recent contribution to the Linux Foundation transforms Newton into an open governance project, inviting broader community collaboration.
+Design Goals & Key Features
+- 
+	GPU-accelerated simulation: Newton leverages NVIDIA Warp as its compute backbone, enabling physics computations on GPUs for much higher throughput than traditional CPU-based simulators.
+- 
+	Differentiable physics: Newton allows gradients to be propagated through simulation steps, making it possible to integrate physics into learning pipelines (e.g. backpropagation through control parameters).
+- 
+	Extensible and multi-solver architecture: Users or researchers can plug in custom solvers, mix models (rigid bodies, soft bodies, cloth), and tailor functionality for domain-specific needs.
+- 
+	Interoperability via OpenUSD: Newton builds on OpenUSD (Universal Scene Description) to allow flexible data modeling of robots and environments, and easier integration with asset pipelines.
+- 
+	Compatibility with MuJoCo-Warp: As part of the Newton project, the MuJoCo backbone is adapted (MuJoCo-Warp) for high-performance simulation within Newton’s framework.
+The GitHub organization for Newton confirms that the project is governed under the Linux Foundation, is community-built, and is licensed under Apache 2.0. The repository readme describes it as aiming to supersede warp.sim (a prior module) with a more general, open architecture.
+Linux Foundation’s Role & Governance
+The decision to house Newton under the Linux Foundation marks an important inflection point. Rather than being beholden to one corporate steward, Newton now benefits from neutral governance, community oversight, and long-term sustainability.
+Why Contribute to the Linux Foundation?
+- 
+	Vendor neutrality: With multiple contributors (Disney, DeepMind, NVIDIA), a neutral home helps avoid conflicts and provides shared trust.
+- 
+	Open community model: The Linux Foundation offers governance processes, contributor structures, legal frameworks, and a trusted brand to support growth.
+- 
+	Broader adoption: Projects under the Linux Foundation often attract a wider base of contributors, adopters, and integrators.
+- 
+	Newton is licensed under Apache 2.0, a permissive open-source license that encourages commercial use, redistribution, and modification.
+- 
+	The GitHub organization hosts several repositories: the main engine, governance documents, assets, and converters (e.g. MuJoCo to USD).
+- 
+	The project is still in alpha / early stages, with instability expected, and the API likely to evolve rapidly.
+- 
+	The initial integration exists in Isaac Lab (a NVIDIA / robotics simulation framework), in a branch under active development.
+By embedding Newton under the Linux Foundation, the project seeks to balance innovation with stability, and to build a sustainable open ecosystem for robotic simulation.
+Technical Highlights & Capabilities
+Here’s a deeper look at what Newton offers under the hood, and why its architecture is noteworthy.
+Multi-Solver & Extensibility
+Newton supports a modular solver architecture. Rather than being locked into one physics model, it allows:
+- 
+	Custom solvers or hybrids (rigid body, soft body, cloth, granular)
+- 
+	Mixed domains (e.g. soft-rigid coupling)
+- 
+	User-defined constraints, integrators, numerical methods
+This flexibility is crucial in robotics, where interactions with deformable objects, fluids, or irregular terrain often require specialized models.
+Differentiable Physics
+A distinguishing feature is differentiable simulation, meaning that Newton can compute derivatives of physical outcomes with respect to inputs or control parameters. This is valuable when coupling simulation with machine learning, robots can learn with gradients rather than only trial-and-error reinforcement.
+Differentiability enables more efficient optimization, better policy learning, and tighter integration between simulation and control loops.
+GPU Acceleration via Warp
+Newton is built atop NVIDIA Warp, which allows writing GPU kernels and parallel routines in Python (or a hybrid language). Warp handles the low-level scheduling, data movement, and parallel execution, so users can express physics logic at a higher level without wrestling with GPU boilerplate. This enables realistic simulators with thousands of interacting bodies or fine-grained contact computation.
+Integration with Robotics Frameworks
+Newton is being integrated into Isaac Lab, where it enables sim-to-sim or sim-to-real workflows. The Isaac Lab branch can already transfer policies trained in Newton to other simulators like PhysX, and even deploy to hardware in some cases. The integration is still experimental, but early results are promising.
+Using Newton in a robotics stack gives users a more consistent, high-performance physics core, with options to swap solvers or link with legacy frameworks.
+Data & Asset Interoperability
+Using OpenUSD as a base for representation helps Newton integrate cleanly with visual and asset pipelines. It ensures that environment descriptions, robot models, and scenes can be shared or reused across tools (renderers, simulation engines, asset editors). Newton also includes tooling such as MuJoCo-to-USD converters to ease migration.
+Use Cases & Early Adoption
+Newton’s design makes it well suited to many advanced robotics and simulation applications. Here are some exciting early use cases:
+Robotics Research & Generalist Robots
+Newton is explicitly targeted at generalist robotics, robots that must act across multiple tasks, environments, and physical interactions. The capacity for extensibility, differentiability, and contact-rich behavior (walking over snow or gravel, handling fragile objects) is central to that vision.
+Sim-to-Real Policy Transfer
+Because Newton supports training and deployment workflows, researchers can train control policies in simulation and then transfer them to real robots. The ability to experiment across physics models helps narrow the sim-to-real gap.
+Expressive Robotic Characters & Entertainment
+Disney Research plans to leverage Newton for robotic characters that must interact subtly and convincingly in real-world settings (e.g. entertainment bots performing gestures, handling objects, expressing motion). The physics fidelity and extensibility make Newton an attractive engine for these demanding tasks.
+Academic & Institutional Adoption
+Prominent institutions like Technical University of Munich and Peking University have already shown interest or engagement with Newton. As the Linux Foundation project gains traction, more labs may adopt Newton for their simulation and control research.
+Challenges, Risks & Areas to Watch
+While Newton is highly promising, several risks and challenges lie ahead.
+Alpha State & API Instability
+Newton is currently in early development. Its API may change, features may shift, and integrations may break as it evolves. Users must be cautious adopting it for production tasks until it stabilizes.
+Validation vs Mature Engines
+Established engines like PhysX, Bullet, or MuJoCo have decades of usage, debugging, and community support. Newton must prove parity in correctness, stability, and edge-case handling before it becomes a default alternative for critical tasks.
+Performance vs Accuracy Tradeoffs
+Simulators often balance speed against physical fidelity (e.g. simplifying contact resolution, relaxing constraints). Newton will need to navigate these tradeoffs carefully, users will demand both fast simulations and believable, safe dynamics.
+Community & Ecosystem Adoption
+An open engine only thrives with broad adoption. Challenges include:
+- 
+	Attracting contributors and users
+- 
+	Building documentation, tutorials, and tooling
+- 
+	Ensuring interoperability with existing frameworks
+- 
+	Avoiding fragmentation (forks, competing standards)
+What This Means for Robotics & Open Source
+The Linux Foundation’s hosting of Newton is more than a technical announcement, it signals shifts in how robotics software is developed and shared.
+- 
+	Lowering barriers to simulation: Smaller labs or startups can access high-end simulation capabilities without prohibitive licensing costs.
+- 
+	Reduction in vendor lock-in: With a permissively licensed, community-governed engine, developers aren’t tied to one company’s roadmap.
+- 
+	Acceleration of innovation: Researchers can build custom physics modules, experiment with new solvers, and share improvements freely.
+- 
+	Competition & collaboration: Newton may coexist or compete with existing engines (PhysX, Bullet, MuJoCo), fostering richer choices.
+- 
+	Better integration between ML and robotics: Differentiable physics offers a tighter coupling between learning and control, potentially accelerating progress in embodied AI.
+Over time, Newton could become a foundational tool in robotics, simulation, and AI-enabled physical systems.
+Conclusion
+The Linux Foundation’s adoption of the Newton physics engine marks a pivotal moment for robotics and open-source simulation. Newton’s architecture, GPU-accelerated, extensible, differentiable, positions it to be a powerful engine for next-generation robotics research and deployment.
+That said, it is still early. Stability, community adoption, and validation will be key in the months ahead. But if Newton can deliver on its ambitions under neutral governance, it stands to reshape how robotics systems are simulated and learned.

@@ -1,0 +1,36 @@
+From Experiments to Production: How NVIDIA OSMO on Azure Accelerates Robotics
+For customers to adopt intelligent robotics, developers must scale beyond experimentation and move toward workflows that increase development velocity and address data scarcity.
+NVIDIA OSMO is a cloud-native, open-source orchestration framework designed to support this transition. OSMO is available on Azure and can be used by physical AI and robotics developers to scale their workloads across edge and cloud environments. With OSMO on Azure, developers can orchestrate, visualize, and manage tasks such as data generation, model training, and reinforcement learning. When deployed on Azure, developers can take advantage of seamless integration with existing CI/CD pipelines and support for GPU utilization across different compute nodes. The framework also offers features like workflow tasks and secure data management, making it suitable for robotics development, simulation, and AI workloads.
+At Microsoft Ignite we showcased how OSMO accelerates industrial AI and robotics innovation through hands-on demos and technical deep dives.
+Integrated with Azure services and NVIDIA accelerated computing, OSMO enables orchestration of robotics pipelines that combine simulation, reinforcement learning, and real-time operations.
+Who can leverage
+Robotics and Physical AI Developers
+Developers using simulation, generating synthetic data, training robots policies through reinforcement learning or imitation learning, and post-training foundation models can orchestrate repeatable workflows that span physical robots and simulated environments helps with reducing friction between experimentation, training, and deployment.
+Enterprises Operating Robots at Scale
+For example, teams deploying robots for automated inspection can capture images and video at the edge, stream that data to the cloud, augment real imagery, generate synthetic failure cases, and use video indexing to organize and label inspection data. That data is then used to train defect-detection models, which can be deployed where they are needed, edge or cloud.
+This allows anomalies to be detected as they occur—shortening response times and keeping production systems running.
+Academic, R&D, and Simulation Agencies
+Universities, research labs, and simulation or AI studios can leverage OSMO for reproducible research, experiment tracking, and shared access to cloud-scale compute. This allows teams to run heavy workloads without being constrained by individual developer machines.
+Why on Azure
+Scalable, Cloud-Native Robotics Orchestration
+Run and scale robotics and physical AI workflows—from simulation and training to hardware testing—using Azure’s global cloud infrastructure and shared compute resources.
+Recommended by LinkedIn
+Portability and Simple Workflow Design
+Use YAML-based, “write once, run anywhere” pipelines to quickly migrate, develop, and manage workloads across local, on-prem, and Azure cloud resources without code changes.
+Efficient Data Management and Resource Utilization
+Integrate with Azure Blob Storage or Microsoft Fabric OneLake for cost-effective data handling, and leverage Azure AKS for optimal use of GPU and compute resources across teams.
+How it works
+Workflow Orchestration via YAML & Kubernetes
+You define robotics/AI pipelines in YAML, which OSMO parses and schedules as containerized tasks on Azure Kubernetes Service (AKS), managing dependencies and resource allocation automatically.
+Cloud-Native Data & Resource Management
+OSMO stores datasets, logs, and assets in Azure Blob Storage or Fabric OneLake using content-addressable storage for traceability and deduplication, and provisions cloud compute (GPUs/CPUs) for each pipeline stage as needed.
+Live Interaction & CI/CD Integration
+Developers can debug, monitor, or automate workflows using OSMO’s APIs/CLI from local machines or integrate with CI/CD pipelines; security and lineage are maintained with Azure identity controls and tracking.
+Getting started with the Azure Samples Repository
+Get started with Robotics Accelerator toolchain to orchestrate robotics and ai workloads on Azure using NVIDIA’s open-source robotics frameworks such as Isaac Lab, Isaac Sim on Azure orchestrated by OSMO.
+          
+        
+Real world models seem to be the direction for 2026, and beyond!
+Aaron Schnieder 🙌 Osmo is the ultimate cure for the 'it works on my machine' syndrome. By scaling photorealistic simulation on Azure, NVIDIA is making sure robots do their ‘growing pains’ in the cloud so they can be geniuses on the ground. The future of AI isn't just being built; it’s being rendered—in real-time
+If folks want to check out I have posted a video series dedicated to it on my channel. https://youtu.be/3EYN4a1tK94?si=W1-CbrDACRBOvOy6
+#NVIDIA OSMO is OSoMOe (awesome)!!

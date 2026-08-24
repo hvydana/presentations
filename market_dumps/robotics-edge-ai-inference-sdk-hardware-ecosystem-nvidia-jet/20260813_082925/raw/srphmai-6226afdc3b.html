@@ -1,0 +1,1950 @@
+<!--
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║  Another Godly Site by Seraphim Vietnam                                       ║
+║  https://seraphim.vn | Enterprise Cloud, AI & Cybersecurity                   ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en" data-active-domain="intl">
+<head>
+<style id="critical-css">
+/* Critical Above-the-Fold CSS - inlined for fast first paint */
+:root{--void:#000;--surface:#0a0a0a;--surface-elevated:#111;--border:rgba(255,255,255,0.08);--border-glow:rgba(255,255,255,0.15);--terminal-green:#00ff88;--terminal-silver:#c8d4e0;--terminal-silver-bright:#e8f0f8;--text-bright:#fff;--text-secondary:#b8c0c8;--text-muted:#8a95a5;--text-dim:#404448;--glow-green:rgba(0,255,136,0.4);--glow-silver:rgba(200,212,224,0.3);--glass-primary:rgba(0,100,150,0.08);--glass-secondary:rgba(0,50,100,0.05);--glass-accent:rgba(0,80,120,0.06);--glass-base:rgba(5,8,12,0.92);--ambient-glow-1:rgba(0,200,255,0.08);--ambient-glow-2:rgba(0,255,136,0.06);--ambient-glow-3:rgba(100,150,255,0.05);--edge-highlight:rgba(0,200,255,0.4);--edge-prismatic-1:rgba(0,255,136,0.3);--edge-prismatic-2:rgba(0,200,255,0.4);--edge-prismatic-3:rgba(100,150,255,0.3);--glass-blur:blur(20px) saturate(180%) brightness(95%)}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'JetBrains Mono','Noto Sans KR',monospace;background:var(--void);color:var(--text-secondary);line-height:1.6;overflow-x:hidden}
+.container{max-width:1200px;margin:0 auto;padding:0 clamp(16px,4vw,50px)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;height:auto}
+.no-preloader .preloader,.no-preloader #preloader{display:none!important}.preloader{position:fixed;inset:0;z-index:100000;display:flex;align-items:center;justify-content:center;background:var(--void);transition:opacity .8s ease,visibility .8s ease}
+.preloader.hidden{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+.preloader-bg{position:absolute;inset:0;background:radial-gradient(ellipse at center,#050505 0%,#000 100%)}
+.preloader-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center}
+.preloader-video{width:min(50vw,280px);height:auto;margin-bottom:30px;border-radius:4px;pointer-events:none!important;-webkit-appearance:none!important;appearance:none!important}
+.preloader-video::-webkit-media-controls,.preloader-video::-webkit-media-controls-panel,.preloader-video::-webkit-media-controls-play-button,.preloader-video::-webkit-media-controls-start-playback-button,.preloader-video::-webkit-media-controls-overlay-play-button,.preloader-video::-webkit-media-controls-current-time-display,.preloader-video::-webkit-media-controls-time-remaining-display,.preloader-video::-webkit-media-controls-timeline,.preloader-video::-webkit-media-controls-volume-slider,.preloader-video::-webkit-media-controls-mute-button,.preloader-video::-webkit-media-controls-fullscreen-button,.preloader-video::-webkit-media-controls-enclosure{display:none!important;-webkit-appearance:none!important;opacity:0!important;visibility:hidden!important;width:0!important;height:0!important;position:absolute!important;pointer-events:none!important}
+video::-webkit-media-controls-start-playback-button,video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none!important;opacity:0!important;pointer-events:none!important;position:absolute!important;width:0!important;height:0!important}
+.preloader-text{font-size:.7rem;letter-spacing:.4em;color:var(--terminal-green);margin-bottom:30px;text-shadow:0 0 20px var(--glow-green)}
+.preloader-bar-container{display:flex;align-items:center;gap:20px;position:relative}
+.preloader-bar{width:280px;height:4px;background:rgba(0,255,136,0.1);border-radius:3px;overflow:visible;position:relative;border:1px solid rgba(0,255,136,0.2)}
+.preloader-progress{height:100%;width:0%;background:linear-gradient(90deg,var(--terminal-green),var(--terminal-silver-bright),var(--terminal-green));background-size:200% 100%;transition:width .15s ease-out;border-radius:3px;box-shadow:0 0 10px var(--glow-green),0 0 20px var(--glow-green)}
+.preloader-percent{font-size:.75rem;color:var(--terminal-green);font-weight:500;min-width:45px}
+.preloader-particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.bg-container,.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none}
+.bg-image{position:absolute;inset:0;background:url('../../assets/bg.webp') center/cover;opacity:.65}
+.bg-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.25) 50%,rgba(0,0,0,.5) 100%)}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px}
+.bg-scanlines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.05) 2px,rgba(0,0,0,.05) 4px)}
+.bg-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,.4) 100%)}
+.header,.site-header{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,transparent 40%),linear-gradient(135deg,var(--glass-primary) 0%,var(--glass-secondary) 25%,rgba(0,20,40,.03) 50%,var(--glass-accent) 75%,var(--glass-primary) 100%),radial-gradient(ellipse at 20% 50%,var(--ambient-glow-1) 0%,transparent 50%),radial-gradient(ellipse at 80% 50%,var(--ambient-glow-2) 0%,transparent 50%),var(--glass-base);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border-bottom:1px solid rgba(255,255,255,.06);isolation:isolate}
+.header-row-1,.header-top{display:flex;align-items:center;justify-content:space-between;padding:20px 50px;gap:30px;flex-wrap:wrap;position:relative;z-index:3}
+.header-logo{display:flex;align-items:center;gap:20px}
+.header-logo img{height:110px;transition:all .4s ease}
+.header-logo img.logo-full{display:block}
+.header-logo img.logo-s,.header-logo img.s-logo{display:none}
+@media(max-width:768px){.header-logo img.logo-s,.header-logo img.s-logo{display:block!important;height:36px!important;width:auto!important;min-width:36px!important;opacity:1!important;visibility:visible!important}.header-logo img.logo-full{display:none!important}.header-tagline{display:none!important}}
+.header-tagline{font-size:.55rem;letter-spacing:.2em;color:var(--text-muted);border-left:1px solid rgba(255,255,255,.1);padding-left:20px;line-height:1.6;max-width:140px}
+.main,.main-content{position:relative;z-index:1;padding-top:160px}.sph-nav{display:flex!important;align-items:center;padding:0 40px;min-height:52px}.sph-nav .sph-item{padding:16px 22px;display:inline-flex;align-items:center;font-size:.75rem;white-space:nowrap}@media(max-width:900px){.sph-nav{display:none!important}}.sph-nav .sph-dropdown,.sph-nav .sph-mega-dropdown{opacity:0!important;visibility:hidden!important;pointer-events:none!important;position:absolute!important}
+.lang-content{display:none}
+.lang-content.active{display:block}
+h1.lang-content{display:none}
+h1.lang-content.active{display:block}
+p.lang-content{display:none}
+p.lang-content.active{display:block}
+.btn,.btn-primary,.btn-secondary{display:inline-block;padding:16px 32px;font-family:inherit;font-size:.7rem;letter-spacing:.12em;cursor:pointer;transition:all .3s;border:none}
+.btn.primary,.btn-primary{background:var(--terminal-green);color:var(--void)}
+.btn.secondary,.btn-secondary{background:transparent;color:var(--terminal-silver);border:1px solid var(--terminal-silver)}
+.btn.large{padding:18px 38px;font-size:.8rem}
+</style>
+<script>if(/bot|crawl|spider|lighthouse|pagespeed|PTST|headless/i.test(navigator.userAgent)||navigator.webdriver){document.documentElement.classList.add("no-preloader");window.__noJS=1}</script>
+<style id="preloader-critical">.preloader.hidden{display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important}.preloader-video::-webkit-media-controls,.preloader-video::-webkit-media-controls-panel,.preloader-video::-webkit-media-controls-play-button,.preloader-video::-webkit-media-controls-start-playback-button,.preloader-video::-webkit-media-controls-overlay-play-button{display:none!important;-webkit-appearance:none!important;opacity:0!important}</style>
+<script>
+window.addEventListener('load',function(){if(navigator.webdriver||/bot|lighthouse|pagespeed|PTST/i.test(navigator.userAgent))return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-19BZWLPET8';document.head.appendChild(s);s.onload=function(){window.dataLayer=window.dataLayer||[];function g(){dataLayer.push(arguments)}g('js',new Date());g('config','G-19BZWLPET8')}});
+</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#00ff88">
+    <title>Edge Computing for Robotics: NVIDIA Jetson, Real-Time AI & Fog Architecture | Seraphim Vietnam</title>
+    <meta name="description" content="Comprehensive guide to edge computing in robotics covering NVIDIA Jetson Orin, Intel OpenVINO, Google Coral, Hailo-8, TensorRT inference, fog architecture, K3s edge deployment, 5G mobile robots, and OTA model updates for APAC operations.">
+    <meta name="keywords" content="edge computing robotics, NVIDIA Jetson Orin, edge AI inference, TensorRT robotics, fog computing architecture, K3s edge deployment, real-time AI robotics, Google Coral, Hailo-8, Qualcomm RB5, OpenVINO robotics, edge computing Vietnam, 5G edge robotics APAC, OTA model updates">
+    <link rel="canonical" href="https://srphm.ai/pages/robotics/edge-computing-robotics.html">
+    <link rel="icon" href="../../assets/icon.png">
+    <link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+    <link rel="manifest" href="../../manifest.json">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Imbue:opsz,wght@10..100,100..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" onload="if(!window.__noJS)this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=Imbue:opsz,wght@10..100,100..900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"></noscript>
+    <!-- Critical CSS (render-blocking) -->
+    <link rel="stylesheet" href="../../assets/css/1-core.css">
+    <link rel="stylesheet" href="../../assets/css/2-layout.css">
+    <link rel="stylesheet" href="../../assets/css/3-components.css">
+    <!-- Non-critical CSS (async) -->
+    <link rel="stylesheet" href="../../assets/css/4-effects.css" media="all">
+    <link rel="stylesheet" href="../../assets/css/5-effects-advanced.css" media="all">
+    <noscript><link rel="stylesheet" href="../../assets/css/4-effects.css"><link rel="stylesheet" href="../../assets/css/5-effects-advanced.css"></noscript>
+    <link rel="stylesheet" href="../../assets/nav-v23.css" media="all">
+    <noscript><style>.sph-dropdown,.sph-mega-dropdown{display:none!important}</style></noscript>
+    <link rel="stylesheet" href="../../assets/weather.css">
+    <script type="application/ld+json"></script>
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://srphm.ai/"},{"@type":"ListItem","position":2,"name":"Robotics","item":"https://srphm.ai/pages/robotics.html"},{"@type":"ListItem","position":3,"name":"Knowledge Hub","item":"https://srphm.ai/pages/robotics-hub.html"},{"@type":"ListItem","position":4,"name":"Edge Computing for Robotics","item":"https://srphm.ai/pages/robotics/edge-computing-robotics.html"}]}
+    </script>
+    <style>
+        .insight-content { max-width: 900px; margin: 0 auto; padding: 60px 20px; }
+        .insight-meta { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        .insight-meta-item { font-size: 0.85rem; color: var(--text-muted); }
+        .insight-category { background: rgba(0,255,136,0.1); color: var(--terminal-green); padding: 4px 12px; border-radius: 4px; font-size: 0.75rem; font-weight: 600; }
+        .insight-content h2 { color: var(--terminal-green); margin: 50px 0 20px; padding-left: 15px; border-left: 3px solid var(--terminal-green); }
+        .insight-content h3 { color: var(--text-primary); margin: 35px 0 15px; }
+        .insight-content p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; }
+        .insight-content ul, .insight-content ol { color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px; padding-left: 25px; }
+        .insight-content li { margin-bottom: 10px; }
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 30px 0; }
+        .stat-card { background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 8px; padding: 25px; text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--terminal-green); font-family: 'JetBrains Mono', monospace; }
+        .stat-label { font-size: 0.85rem; color: var(--text-muted); margin-top: 8px; }
+        .code-block { background: rgba(0,0,0,0.5); border: 1px solid var(--border); border-radius: 8px; padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--terminal-green); overflow-x: auto; margin: 20px 0; }
+        .callout { background: linear-gradient(135deg, rgba(0,255,136,0.1), rgba(0,255,136,0.02)); border-left: 3px solid var(--terminal-green); padding: 20px; margin: 30px 0; border-radius: 0 8px 8px 0; }
+        .callout-title { font-weight: 600; color: var(--terminal-green); margin-bottom: 10px; }
+        .toc { background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; padding: 25px; margin: 30px 0; }
+        .toc-title { font-weight: 600; color: var(--terminal-green); margin-bottom: 15px; }
+        .toc ul { list-style: none; padding: 0; }
+        .toc li { margin-bottom: 8px; }
+        .toc a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; }
+        .toc a:hover { color: var(--terminal-green); }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 0.9rem; }
+        .comparison-table th { background: rgba(0,255,136,0.15); color: var(--terminal-green); padding: 12px 16px; text-align: left; border: 1px solid var(--border); }
+        .comparison-table td { padding: 12px 16px; border: 1px solid var(--border); color: var(--text-secondary); }
+        .comparison-table tr:hover { background: rgba(0,255,136,0.05); }
+    </style>
+</head>
+<body>
+    <div class="preloader" id="preloader"><div class="preloader-bg"></div><div class="preloader-content"><video class="preloader-video" id="preloader-video" autoplay muted playsinline loop preload="metadata" webkit-playsinline><source src="../../assets/preloader-med.mp4" type="video/mp4"></video><p class="preloader-text" id="preloader-text">INITIALIZING SYSTEMS</p><div class="preloader-bar-container"><div class="preloader-bar"><div class="preloader-progress" id="preloader-progress"></div>
+    <script>
+    // Inline preloader failsafe - not affected by Rocket Loader or defer.
+    // Guarantees preloader is killed even if external scripts are delayed.
+    (function(){
+        var killed = false;
+        function kill() {
+            if (killed) return;
+            killed = true;
+            var p = document.getElementById('preloader');
+            if (p && !p.classList.contains('hidden')) {
+                p.style.cssText = 'display:none!important;opacity:0!important;visibility:hidden!important;pointer-events:none!important;';
+                p.className = 'preloader hidden';
+                try { p.remove(); } catch(e) {}
+            }
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
+        }
+        // Kill after 5s no matter what
+        setTimeout(kill, 5000);
+        // Also kill on window load + 1s buffer (page is ready)
+        window.addEventListener('load', function() { setTimeout(kill, 1000); });
+    })();
+    </script></div><span class="preloader-percent" id="preloader-percent">0%</span></div></div><div class="preloader-particles" id="preloader-particles"></div></div>
+    <div class="bg-container"><div class="bg-image"></div><div class="bg-overlay"></div><div class="bg-grid"></div><div class="bg-vignette"></div></div>
+
+    <header class="header">
+        <div class="header-row-1">
+            <a href="../../index.html" class="header-logo"><picture><source srcset="../../assets/logo.webp" type="image/webp"><img src="../../assets/logo.png" class="logo-full" alt="Seraphim Vietnam" width="600" height="337"></picture><picture><source srcset="../../assets/s-logo.webp" type="image/webp"><img src="../../assets/s-logo.png" class="logo-s" alt="S" width="200" height="112"></picture><span class="header-tagline">ENTERPRISE TECHNOLOGY PARTNER</span></a>
+            <div class="header-contact-info" data-domain="vn" style=";display:none!important"><a href="https://zalo.me/0366553592" target="_blank" data-domain="vn" style=";display:none!important">Zalo: 0366 553 592</a><a href="/cdn-cgi/l/email-protection#5a33343c351a293f283b2a323337742c34"><span class="__cf_email__" data-cfemail="670e0901082714021506170f0e0a491109">[email&#160;protected]</span></a></div>
+            <div class="lang-switcher-nav"><a href="edge-computing-robotics.html" class="lang-link active">EN</a><a href="../../vi/index.html" class="lang-link">VI</a><a href="../../ko/index.html" class="lang-link">KO</a></div>
+        </div>
+        <!-- NAV_START -->
+        <!-- ================================================================
+             _includes/nav.html - BUILD SYSTEM PARTIAL
+             This file is the single source of truth for site navigation.
+             It is injected into all HTML pages by build.js (node build.js).
+
+             HOW IT WORKS:
+             1. build.js reads this file
+             2. Scans HTML files for NAV marker comments
+             3. Replaces content between markers with this template
+             4. ../.. placeholders below are replaced with the correct
+                relative path (e.g. "." for root, ".." for pages/)
+
+             IMPORTANT:
+             - Edit navigation here, then run `node build.js` to propagate
+             - Do NOT edit nav directly in individual HTML pages
+             - All links use ../../pages/... format for path resolution
+             ================================================================ -->
+        <!-- DESKTOP NAV v25 - Conversion Optimized -->
+        <nav class="sph-nav" role="navigation" aria-label="Main navigation">
+            <div class="sph-nav-inner">
+                <!-- SOLUTIONS - Mega Dropdown -->
+                <div class="sph-item sph-mega-parent">
+                    <span>SOLUTIONS</span><span class="sph-arrow">&#9662;</span>
+                    <div class="sph-mega-dropdown">
+                        <div class="sph-mega-grid">
+                            <div class="sph-mega-col">
+                                <div class="sph-mega-heading">Cloud & Infrastructure</div>
+                                <a href="../../pages/cloud-solutions.html">Cloud Solutions</a>
+                                <a href="../../pages/aws.html">AWS Services</a>
+                                <a href="../../pages/azure.html">Azure Services</a>
+                                <a href="../../pages/gcp.html">GCP Services</a>
+                                <a href="../../pages/cloud-migration-southeast-asia.html">Cloud Migration</a>
+                            </div>
+                            <div class="sph-mega-col">
+                                <div class="sph-mega-heading">AI & Machine Learning</div>
+                                <a href="../../pages/ai-solutions.html">AI Solutions</a>
+                                <a href="../../pages/ai-agents.html">AI Agents</a>
+                                <a href="../../pages/ai-secure-training.html">Secure Training</a>
+                                <a href="../../pages/ai-rag.html">RAG Systems</a>
+                                <a href="../../pages/data-analytics.html">Data Analytics</a>
+                            </div>
+                            <div class="sph-mega-col">
+                                <div class="sph-mega-heading">Cybersecurity</div>
+                                <a href="../../pages/cybersecurity.html">Security Overview</a>
+                                <a href="../../pages/cybersecurity-audits.html">Security Audits</a>
+                                <a href="../../pages/cybersecurity-compliance.html">Compliance Services</a>
+                                <a href="../../pages/enterprise-cloud-security-compliance.html">Enterprise Security</a>
+                            </div>
+                            <div class="sph-mega-col">
+                                <div class="sph-mega-heading">Digital Services</div>
+                                <a href="../../pages/ui-design.html">UI/UX Design</a>
+                                <a href="../../pages/shopify.html">E-Commerce</a>
+                                <a href="../../pages/robotics.html">Robotics</a>
+                                <a href="../../pages/humanoid-robotics-consulting.html">Humanoid Robotics</a>
+                                <a href="../../pages/outsourcing.html">IT Outsourcing</a>
+                                <a href="../../pages/fashion.html">Fashion Tech</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INDUSTRIES -->
+                <div class="sph-item">
+                    <span>INDUSTRIES</span><span class="sph-arrow">&#9662;</span>
+                    <div class="sph-dropdown">
+                        <a href="../../pages/singapore-cloud-ai-guide.html">Singapore</a>
+                        <a href="../../pages/digital-transformation-vietnam.html">Vietnam</a>
+                        <a href="../../pages/enterprise-ai-transformation.html">Enterprise AI</a>
+                        <a href="../../pages/singapore-it-outsourcing.html">IT Outsourcing</a>
+                        <a href="../../pages/aws-vs-azure-vs-gcp-vietnam.html">Cloud Comparison</a>
+                    </div>
+                </div>
+
+                <!-- TOOLS -->
+                <div class="sph-item">
+                    <span>TOOLS</span><span class="sph-arrow">&#9662;</span>
+                    <div class="sph-dropdown sph-dropdown-wide">
+                        <div class="sph-dropdown-group-label">Security Tools</div>
+                        <a href="../../pages/mewtwo-security-scanner.html">Mewtwo Security Scanner</a>
+                        <a href="../../pages/compliance-gap-analyzer.html">Compliance Gap Analyzer</a>
+                        <div class="sph-dropdown-group-label">AI Tools</div>
+                        <a href="../../pages/ai-consultant.html">Ghost Consultant</a>
+                        <a href="../../pages/meeting-summarizer.html">Meeting Summarizer</a>
+                        <a href="../../pages/brand-sentiment-analyzer.html">Brand Sentiment Analyzer</a>
+                        <a href="../../pages/board-deck-generator.html">Board Deck Generator</a>
+                        <a href="../../pages/interview-question-generator.html">Interview Question Generator</a>
+                        <a href="../../pages/onboarding-document-generator.html">Onboarding Document Generator</a>
+                        <a href="../../pages/ai-readiness-assessment.html">AI Readiness Assessment</a>
+                        <div class="sph-dropdown-group-label">Cloud & Infrastructure</div>
+                        <a href="../../pages/cloud-cost-calculator.html">Cloud Cost Calculator</a>
+                        <a href="../../pages/tech-stack-builder.html">Tech Stack Builder</a>
+                        <a href="../../pages/vendor-selection-matrix.html">Vendor Selection Matrix</a>
+                        <a href="../../pages/ai-architecture-diagram-generator.html">Architecture Diagram Generator</a>
+                        <div class="sph-dropdown-group-label">Business Tools</div>
+                        <a href="../../pages/speed-audit.html">Speed Audit</a>
+                        <a href="../../pages/seo-keyword-value-calculator.html">SEO Keyword Calculator</a>
+                        <a href="../../pages/threat-intelligence-dashboard.html">Threat Intelligence Dashboard</a>
+                        <a href="../../pages/contract-clause-analyzer.html">Contract Clause Analyzer</a>
+                        <div class="sph-dropdown-group-label">Employment Contracts</div>
+                        <a href="../../pages/singapore-employment-contract-generator-v3.html">Singapore</a>
+                        <a href="../../pages/hongkong-employment-contract-generator-v2.html">Hong Kong</a>
+                        <a href="../../pages/vietnam-employment-contract-generator-v2.html">Vietnam</a>
+                        <a href="../../pages/malaysia-employment-contract-generator-v2.html">Malaysia</a>
+                        <div class="sph-dropdown-group-label">Privacy Policies</div>
+                        <a href="../../pages/singapore-pdpa-privacy-policy-generator.html">Singapore PDPA</a>
+                        <a href="../../pages/malaysia-pdpa-privacy-policy-generator.html">Malaysia PDPA</a>
+                        <div class="sph-dropdown-group-label">Document Generators</div>
+                        <a href="../../pages/nda-generator.html">NDA Generator</a>
+                        <a href="../../pages/saas-agreement-generator.html">SaaS Agreement Generator</a>
+                        <a href="../../pages/freelancer-contract-generator.html">Freelancer Contract Generator</a>
+                        <a href="../../pages/privacy-policy-generator.html">Privacy Policy Generator</a>
+                    </div>
+                </div>
+
+                <!-- RESOURCES -->
+                <div class="sph-item">
+                    <span>RESOURCES</span><span class="sph-arrow">&#9662;</span>
+                    <div class="sph-dropdown sph-dropdown-wide">
+                        <div class="sph-dropdown-group-label">Knowledge Hubs</div>
+                        <a href="../../pages/robotics-hub.html">Robotics Hub</a>
+                        <a href="../../pages/robotics-consultant.html">Robotics Consultant</a>
+                        <a href="../../pages/humanoid-robotics-consulting.html">Humanoid Robotics</a>
+                        <a href="../../pages/humanoid-robotics-retail.html">Retail Robotics</a>
+                        <a href="../../pages/data-analytics-hub.html">Analytics Hub</a>
+                        <div class="sph-dropdown-group-label">Country Guides</div>
+                        <a href="../../pages/digital-transformation-vietnam.html" data-domain="vn" style=";display:none!important">Vietnam</a>
+                        <a href="../../pages/singapore-cloud-ai-guide.html">Singapore</a>
+                        <a href="../../pages/singapore-ai-implementation.html">SG AI Implementation</a>
+                        <a href="../../pages/vietnam-ai-development.html" data-domain="vn" style=";display:none!important">VN AI Development</a>
+                        <a href="../../pages/vietnam-cloud-services.html" data-domain="vn" style=";display:none!important">VN Cloud Services</a>
+                        <div class="sph-dropdown-group-label">Compliance Frameworks</div>
+                        <a href="../../pages/gdpr-compliance.html">GDPR</a>
+                        <a href="../../pages/hipaa-compliance.html">HIPAA</a>
+                        <a href="../../pages/soc2-compliance.html">SOC 2</a>
+                        <a href="../../pages/iso27001-compliance.html">ISO 27001</a>
+                        <a href="../../pages/pci-dss-compliance.html">PCI DSS</a>
+                        <a href="../../pages/pdpa-compliance.html">PDPA</a>
+                        <a href="../../pages/vietnam-pdpd-compliance.html" data-domain="vn" style=";display:none!important">PDPD</a>
+                        <a href="../../pages/ccpa-compliance.html">CCPA</a>
+                        <a href="../../pages/asean-data-compliance-framework.html">ASEAN Framework</a>
+                        <div class="sph-dropdown-group-label">Insights</div>
+                        <a href="../../pages/ai-use-cases-roi.html">AI Use Cases & ROI</a>
+                        <a href="../../pages/data-privacy-story.html">Data Privacy Story</a>
+                        <a href="../../pages/infomercial-roi.html">Infomercial ROI</a>
+                    </div>
+                </div>
+
+                <!-- ABOUT -->
+                <a href="../../pages/about.html" class="sph-item">ABOUT</a>
+            </div>
+
+            <!-- CTA -->
+            <a href="tel:+15055086098" class="us-phone-contact" style="display:none;align-items:center;gap:6px;color:#00ff88;font-family:'JetBrains Mono',monospace;font-size:0.75rem;text-decoration:none;white-space:nowrap;letter-spacing:0.02em;margin-right:8px;" data-domain="intl">&#x1F4DE; +1 (505) 508-6098</a>
+            <a href="../../pages/contact.html" class="sph-nav-cta">Get Free Assessment</a>
+        </nav>
+
+        <!-- Mobile nav is injected OUTSIDE header via MOBILE_NAV_START/END markers.
+             See _includes/mobile-nav.html for the template. -->
+
+<!-- NAV_END -->
+    </header>
+
+<!-- MOBILE_NAV_START -->
+<!-- MOBILE NAV v30 - FUTURISTIC HUD ============================================
+     Completely self-contained. All CSS in scoped <style>, all JS inline.
+     NO external CSS dependencies. Uses #sph-m- ID selectors for max specificity.
+     Glassmorphism HUD with CLI aesthetic and neon glow effects.
+     ============================================================================ -->
+
+<style id="sph-mobile-nav-v30">
+/* ═══ MOBILE NAV v30 - Futuristic HUD ═══ */
+
+/* Show/hide based on viewport */
+@media (max-width: 900px) {
+    #sph-m-toggle { display: flex !important; }
+    #sph-m-nav { display: block !important; }
+    #sph-m-overlay { display: block !important; }
+}
+@media (min-width: 901px) {
+    #sph-m-toggle, #sph-m-nav, #sph-m-overlay { display: none !important; }
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes sph-m-glow-pulse {
+    0%, 100% { box-shadow: 0 0 15px rgba(0,255,136,0.2), 0 0 30px rgba(0,255,136,0.1), inset 0 0 8px rgba(0,255,136,0.05); }
+    50% { box-shadow: 0 0 20px rgba(0,255,136,0.4), 0 0 40px rgba(0,255,136,0.15), inset 0 0 12px rgba(0,255,136,0.1); }
+}
+@keyframes sph-m-scan {
+    0% { top: 0; opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { top: 100%; opacity: 0; }
+}
+@keyframes sph-m-border-glow {
+    0%, 100% { border-left-color: rgba(0,255,136,0.2); }
+    50% { border-left-color: rgba(0,255,136,0.6); }
+}
+@keyframes sph-m-cursor-blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+}
+@keyframes sph-m-glitch-in {
+    0% { transform: translateX(100%) skewX(-2deg); opacity: 0.5; filter: hue-rotate(90deg); }
+    30% { transform: translateX(0) skewX(1deg); opacity: 0.8; filter: hue-rotate(0deg); }
+    50% { transform: translateX(2px) skewX(0); opacity: 1; }
+    70% { transform: translateX(-1px); }
+    100% { transform: translateX(0); opacity: 1; filter: none; }
+}
+@keyframes sph-m-flicker {
+    0%, 90%, 100% { opacity: 1; }
+    92% { opacity: 0.7; }
+    94% { opacity: 1; }
+    96% { opacity: 0.6; }
+    98% { opacity: 1; }
+}
+
+/* ═══ HAMBURGER BUTTON ═══ */
+#sph-m-toggle {
+    display: none;
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 2147483647;
+    width: 46px;
+    height: 46px;
+    padding: 11px;
+    margin: 0;
+    background: rgba(5, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(0,255,136,0.35);
+    border-radius: 6px;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    pointer-events: auto;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0,255,136,0.2);
+    animation: sph-m-glow-pulse 3s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+#sph-m-toggle:active {
+    transform: scale(0.92);
+}
+#sph-m-toggle .sph-m-bar {
+    display: block;
+    height: 2px;
+    background: #00ff88;
+    border-radius: 2px;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 8px rgba(0,255,136,0.6);
+}
+#sph-m-toggle .sph-m-bar:nth-child(1) { width: 22px; }
+#sph-m-toggle .sph-m-bar:nth-child(2) { width: 15px; }
+#sph-m-toggle .sph-m-bar:nth-child(3) { width: 19px; }
+
+/* Hamburger → X */
+#sph-m-toggle.open .sph-m-bar:nth-child(1) { transform: rotate(45deg) translate(6px, 6px); width: 22px; }
+#sph-m-toggle.open .sph-m-bar:nth-child(2) { opacity: 0; width: 0; }
+#sph-m-toggle.open .sph-m-bar:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); width: 22px; }
+#sph-m-toggle.open {
+    border-color: rgba(0,255,136,0.7);
+    box-shadow: 0 0 25px rgba(0,255,136,0.5), 0 0 50px rgba(0,255,136,0.15), inset 0 0 15px rgba(0,255,136,0.1);
+}
+
+/* ═══ OVERLAY ═══ */
+#sph-m-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 2147483640;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+#sph-m-overlay.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* ═══ NAV PANEL - HUD GLASSMORPHISM ═══ */
+#sph-m-nav {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 88%;
+    max-width: 360px;
+    height: 100vh;
+    height: 100dvh;
+    /* Heavy glassmorphism - see through to page behind */
+    background: linear-gradient(
+        180deg,
+        rgba(5, 12, 20, 0.78) 0%,
+        rgba(2, 8, 15, 0.82) 40%,
+        rgba(0, 5, 12, 0.85) 100%
+    );
+    backdrop-filter: blur(25px) saturate(180%) brightness(95%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%) brightness(95%);
+    border-left: 2px solid rgba(0,255,136,0.25);
+    z-index: 2147483645;
+    padding: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow:
+        -20px 0 60px rgba(0,0,0,0.4),
+        -5px 0 30px rgba(0,255,136,0.05),
+        inset 2px 0 20px rgba(0,255,136,0.03);
+    animation: sph-m-border-glow 4s ease-in-out infinite;
+}
+#sph-m-nav.open {
+    right: 0;
+    animation: sph-m-glitch-in 0.5s ease-out, sph-m-border-glow 4s ease-in-out infinite;
+}
+
+/* Scan line effect */
+#sph-m-nav::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0,255,136,0.4), transparent);
+    z-index: 10;
+    animation: sph-m-scan 6s linear infinite;
+    pointer-events: none;
+}
+
+/* Inner glass layer for depth */
+#sph-m-nav::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(0,255,136,0.02) 0%,
+        transparent 30%,
+        transparent 70%,
+        rgba(0,255,136,0.015) 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ═══ NAV CONTENT WRAPPER ═══ */
+#sph-m-nav .sph-m-content {
+    position: relative;
+    z-index: 1;
+    padding: 24px 20px 30px;
+}
+
+/* ═══ HUD HEADER ═══ */
+#sph-m-nav .sph-m-hud-header {
+    padding: 16px 0 20px;
+    border-bottom: 1px solid rgba(0,255,136,0.15);
+    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace;
+}
+#sph-m-nav .sph-m-hud-status {
+    font-size: 0.65rem;
+    color: rgba(0,255,136,0.7);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+}
+#sph-m-nav .sph-m-hud-status::after {
+    content: '█';
+    animation: sph-m-cursor-blink 1s step-end infinite;
+    margin-left: 4px;
+    font-size: 0.55rem;
+}
+#sph-m-nav .sph-m-hud-title {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+}
+
+/* ═══ CTA BUTTON ═══ */
+#sph-m-nav .sph-m-cta {
+    display: block;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, rgba(0,255,136,0.12) 0%, rgba(0,200,100,0.08) 100%);
+    border: 1px solid rgba(0,255,136,0.4);
+    border-radius: 6px;
+    color: #00ff88;
+    font-family: 'JetBrains Mono', 'Space Grotesk', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,255,136,0.1), inset 0 0 15px rgba(0,255,136,0.03);
+}
+#sph-m-nav .sph-m-cta:hover,
+#sph-m-nav .sph-m-cta:active {
+    background: linear-gradient(135deg, rgba(0,255,136,0.2) 0%, rgba(0,200,100,0.15) 100%);
+    box-shadow: 0 0 25px rgba(0,255,136,0.25), inset 0 0 20px rgba(0,255,136,0.05);
+    border-color: rgba(0,255,136,0.6);
+}
+
+/* ═══ NAV SECTIONS ═══ */
+#sph-m-nav .sph-m-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    color: #d0d8e0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    min-height: 44px;
+}
+#sph-m-nav .sph-m-section::before {
+    content: '>';
+    color: rgba(0,255,136,0.4);
+    font-size: 0.75rem;
+    margin-right: 8px;
+    transition: all 0.25s ease;
+}
+#sph-m-nav .sph-m-section:hover,
+#sph-m-nav .sph-m-section:active {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0,255,136,0.3);
+}
+#sph-m-nav .sph-m-section:hover::before,
+#sph-m-nav .sph-m-section:active::before {
+    color: #00ff88;
+}
+#sph-m-nav .sph-m-section .sph-m-arrow {
+    font-size: 0.6em;
+    color: rgba(0,255,136,0.5);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+#sph-m-nav .sph-m-section.open .sph-m-arrow {
+    transform: rotate(180deg);
+}
+#sph-m-nav .sph-m-section.open {
+    color: #00ff88;
+    border-bottom-color: rgba(0,255,136,0.15);
+}
+
+/* ═══ DROPDOWNS ═══ */
+#sph-m-nav .sph-m-dropdown {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(0,255,136,0.015);
+    border-left: 1px solid rgba(0,255,136,0.08);
+    margin-left: 12px;
+    padding-left: 12px;
+}
+#sph-m-nav .sph-m-dropdown.open {
+    border-left-color: rgba(0,255,136,0.25);
+}
+
+/* Dropdown category labels */
+#sph-m-nav .sph-m-label {
+    padding: 10px 0 4px;
+    color: rgba(0,255,136,0.6);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+#sph-m-nav .sph-m-label::before {
+    content: '$ ';
+    opacity: 0.5;
+}
+
+/* Dropdown links */
+#sph-m-nav .sph-m-dropdown a {
+    display: block;
+    padding: 10px 0;
+    color: rgba(180,190,200,0.8);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    min-height: 44px;
+    line-height: 24px;
+}
+#sph-m-nav .sph-m-dropdown a:hover,
+#sph-m-nav .sph-m-dropdown a:active {
+    color: #00ff88;
+    padding-left: 6px;
+    text-shadow: 0 0 8px rgba(0,255,136,0.2);
+}
+
+/* ═══ DIRECT LINKS ═══ */
+#sph-m-nav .sph-m-link {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    color: #d0d8e0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+    transition: all 0.25s ease;
+    min-height: 44px;
+}
+#sph-m-nav .sph-m-link::before {
+    content: '>';
+    color: rgba(0,255,136,0.4);
+    font-size: 0.75rem;
+    margin-right: 8px;
+    transition: color 0.25s ease;
+}
+#sph-m-nav .sph-m-link:hover,
+#sph-m-nav .sph-m-link:active {
+    color: #00ff88;
+    text-shadow: 0 0 10px rgba(0,255,136,0.3);
+}
+#sph-m-nav .sph-m-link:hover::before { color: #00ff88; }
+
+/* ═══ CONTACT BUTTONS ═══ */
+#sph-m-nav .sph-m-contacts {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(0,255,136,0.1);
+}
+#sph-m-nav .sph-m-contacts a {
+    flex: 1;
+    padding: 12px 8px;
+    border-radius: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#sph-m-nav .sph-m-wa {
+    background: rgba(37,211,102,0.1);
+    border: 1px solid rgba(37,211,102,0.3);
+    color: #25D366;
+}
+#sph-m-nav .sph-m-wa:hover {
+    background: rgba(37,211,102,0.2);
+    box-shadow: 0 0 15px rgba(37,211,102,0.2);
+}
+#sph-m-nav .sph-m-zalo {
+    background: rgba(0,136,255,0.1);
+    border: 1px solid rgba(0,136,255,0.3);
+    color: #0088FF;
+}
+#sph-m-nav .sph-m-zalo:hover {
+    background: rgba(0,136,255,0.2);
+    box-shadow: 0 0 15px rgba(0,136,255,0.2);
+}
+
+/* ═══ HUD FOOTER ═══ */
+#sph-m-nav .sph-m-hud-footer {
+    margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0,255,136,0.08);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.55rem;
+    color: rgba(0,255,136,0.25);
+    letter-spacing: 0.1em;
+    text-align: center;
+    animation: sph-m-flicker 8s ease-in-out infinite;
+}
+</style>
+
+<!-- HAMBURGER BUTTON -->
+<button type="button" id="sph-m-toggle" aria-label="Open menu" aria-expanded="false">
+    <span class="sph-m-bar"></span>
+    <span class="sph-m-bar"></span>
+    <span class="sph-m-bar"></span>
+</button>
+
+<!-- OVERLAY -->
+<div id="sph-m-overlay"></div>
+
+<!-- NAV PANEL -->
+<aside id="sph-m-nav" aria-label="Mobile navigation">
+    <div class="sph-m-content">
+
+        <!-- HUD Header -->
+        <div class="sph-m-hud-header">
+            <div class="sph-m-hud-status">SERAPHIM_NAV [CONNECTED]</div>
+            <div class="sph-m-hud-title">ENTERPRISE TECHNOLOGY PARTNER</div>
+        </div>
+
+        <!-- CTA -->
+        <a href="../../pages/ai-consultant.html" class="sph-m-cta">&#10022; Engage Ghost &#10022;</a>
+        <p style="font-size:0.6rem;opacity:0.4;text-align:center;margin:-14px 0 16px;font-family:'JetBrains Mono',monospace;color:#8a9aaa;letter-spacing:0.05em;">Consult our agent, available 24/7</p>
+
+        <!-- SOLUTIONS -->
+        <div class="sph-m-section" data-toggle="sph-m-solutions">
+            <span>Solutions</span>
+            <span class="sph-m-arrow">&#9662;</span>
+        </div>
+        <div class="sph-m-dropdown" id="sph-m-solutions">
+            <div class="sph-m-label">Cloud & Infrastructure</div>
+            <a href="../../pages/cloud-solutions.html">Cloud Solutions</a>
+            <a href="../../pages/aws.html">AWS Services</a>
+            <a href="../../pages/azure.html">Azure Services</a>
+            <a href="../../pages/gcp.html">GCP Services</a>
+            <a href="../../pages/cloud-migration-southeast-asia.html">Cloud Migration</a>
+            <div class="sph-m-label">AI & Machine Learning</div>
+            <a href="../../pages/ai-solutions.html">AI Solutions</a>
+            <a href="../../pages/ai-agents.html">AI Agents</a>
+            <a href="../../pages/ai-secure-training.html">Secure Training</a>
+            <a href="../../pages/ai-rag.html">RAG Systems</a>
+            <a href="../../pages/data-analytics.html">Data Analytics</a>
+            <div class="sph-m-label">Cybersecurity</div>
+            <a href="../../pages/cybersecurity.html">Security Overview</a>
+            <a href="../../pages/cybersecurity-audits.html">Security Audits</a>
+            <a href="../../pages/cybersecurity-compliance.html">Compliance Services</a>
+            <a href="../../pages/enterprise-cloud-security-compliance.html">Enterprise Security</a>
+            <div class="sph-m-label">Digital Services</div>
+            <a href="../../pages/ui-design.html">UI/UX Design</a>
+            <a href="../../pages/shopify.html">E-Commerce</a>
+            <a href="../../pages/robotics.html">Robotics</a>
+            <a href="../../pages/outsourcing.html">IT Outsourcing</a>
+            <a href="../../pages/fashion.html">Fashion Tech</a>
+        </div>
+
+        <!-- INDUSTRIES -->
+        <div class="sph-m-section" data-toggle="sph-m-industries">
+            <span>Industries</span>
+            <span class="sph-m-arrow">&#9662;</span>
+        </div>
+        <div class="sph-m-dropdown" id="sph-m-industries">
+            <a href="../../pages/singapore-cloud-ai-guide.html">Singapore</a>
+            <a href="../../pages/digital-transformation-vietnam.html">Vietnam</a>
+            <a href="../../pages/enterprise-ai-transformation.html">Enterprise AI</a>
+            <a href="../../pages/singapore-it-outsourcing.html">IT Outsourcing</a>
+        </div>
+
+        <!-- TOOLS -->
+        <div class="sph-m-section" data-toggle="sph-m-tools">
+            <span>Tools</span>
+            <span class="sph-m-arrow">&#9662;</span>
+        </div>
+        <div class="sph-m-dropdown" id="sph-m-tools">
+            <div class="sph-m-label">Security Tools</div>
+            <a href="../../pages/mewtwo-security-scanner.html">Mewtwo Security Scanner</a>
+            <a href="../../pages/compliance-gap-analyzer.html">Compliance Gap Analyzer</a>
+            <div class="sph-m-label">AI Tools</div>
+            <a href="../../pages/ai-consultant.html">Ghost Consultant</a>
+            <a href="../../pages/meeting-summarizer.html">Meeting Summarizer</a>
+            <a href="../../pages/brand-sentiment-analyzer.html">Brand Sentiment Analyzer</a>
+            <a href="../../pages/board-deck-generator.html">Board Deck Generator</a>
+            <a href="../../pages/interview-question-generator.html">Interview Question Generator</a>
+            <a href="../../pages/onboarding-document-generator.html">Onboarding Document Generator</a>
+            <a href="../../pages/ai-readiness-assessment.html">AI Readiness Assessment</a>
+            <div class="sph-m-label">Cloud & Infrastructure</div>
+            <a href="../../pages/cloud-cost-calculator.html">Cloud Cost Calculator</a>
+            <a href="../../pages/tech-stack-builder.html">Tech Stack Builder</a>
+            <a href="../../pages/vendor-selection-matrix.html">Vendor Selection Matrix</a>
+            <a href="../../pages/ai-architecture-diagram-generator.html">Architecture Diagram Generator</a>
+            <div class="sph-m-label">Business Tools</div>
+            <a href="../../pages/speed-audit.html">Speed Audit</a>
+            <a href="../../pages/seo-keyword-value-calculator.html">SEO Keyword Calculator</a>
+            <a href="../../pages/threat-intelligence-dashboard.html">Threat Intelligence Dashboard</a>
+            <a href="../../pages/contract-clause-analyzer.html">Contract Clause Analyzer</a>
+            <div class="sph-m-label">Employment Contracts</div>
+            <a href="../../pages/singapore-employment-contract-generator-v3.html">Singapore</a>
+            <a href="../../pages/hongkong-employment-contract-generator-v2.html">Hong Kong</a>
+            <a href="../../pages/vietnam-employment-contract-generator-v2.html">Vietnam</a>
+            <a href="../../pages/malaysia-employment-contract-generator-v2.html">Malaysia</a>
+            <a href="../../pages/taiwan-employment-contract-generator.html">Taiwan</a>
+            <div class="sph-m-label">Privacy Policies</div>
+            <a href="../../pages/singapore-pdpa-privacy-policy-generator.html">Singapore PDPA</a>
+            <a href="../../pages/malaysia-pdpa-privacy-policy-generator.html">Malaysia PDPA</a>
+            <a href="../../pages/taiwan-pdpa-privacy-policy-generator.html">Taiwan PDPA</a>
+            <div class="sph-m-label">Document Generators</div>
+            <a href="../../pages/nda-generator.html">NDA Generator</a>
+            <a href="../../pages/saas-agreement-generator.html">SaaS Agreement Generator</a>
+            <a href="../../pages/freelancer-contract-generator.html">Freelancer Contract Generator</a>
+            <a href="../../pages/privacy-policy-generator.html">Privacy Policy Generator</a>
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="sph-m-section" data-toggle="sph-m-resources">
+            <span>Resources</span>
+            <span class="sph-m-arrow">&#9662;</span>
+        </div>
+        <div class="sph-m-dropdown" id="sph-m-resources">
+            <div class="sph-m-label">Knowledge Hubs</div>
+            <a href="../../pages/robotics-hub.html">Robotics Hub</a>
+            <a href="../../pages/robotics-consultant.html">Robotics Consultant</a>
+            <a href="../../pages/data-analytics-hub.html">Analytics Hub</a>
+            <div class="sph-m-label">Country Guides</div>
+            <a href="../../pages/digital-transformation-vietnam.html">Vietnam</a>
+            <a href="../../pages/singapore-cloud-ai-guide.html">Singapore</a>
+            <a href="../../pages/singapore-ai-implementation.html">SG AI Implementation</a>
+            <div class="sph-m-label">Compliance</div>
+            <a href="../../pages/gdpr-compliance.html">GDPR</a>
+            <a href="../../pages/hipaa-compliance.html">HIPAA</a>
+            <a href="../../pages/soc2-compliance.html">SOC 2</a>
+            <a href="../../pages/iso27001-compliance.html">ISO 27001</a>
+            <a href="../../pages/pdpa-compliance.html">PDPA</a>
+            <a href="../../pages/vietnam-pdpd-compliance.html">PDPD</a>
+            <div class="sph-m-label">Insights</div>
+            <a href="../../pages/ai-use-cases-roi.html">AI Use Cases & ROI</a>
+            <a href="../../pages/data-privacy-story.html">Data Privacy Story</a>
+        </div>
+
+        <!-- DIRECT LINKS -->
+        <a href="../../pages/about.html" class="sph-m-link">About</a>
+        <a href="../../pages/contact.html" class="sph-m-link">Contact</a>
+
+        <!-- US PHONE (shown by geo-detection JS for US visitors) -->
+        <a href="tel:+15055086098" class="us-phone-contact sph-m-link" style="display:none;color:#00ff88;font-size:0.85rem;border-bottom:1px solid rgba(0,255,136,0.15);" data-domain="intl">&#x1F4DE; +1 (505) 508-6098, Los Alamos, NM</a>
+
+        <!-- CONTACT BUTTONS -->
+        <div class="sph-m-contacts">
+            <a href="https://wa.me/447880922330" target="_blank" rel="noopener noreferrer" class="sph-m-wa">WhatsApp</a>
+            <a href="https://zalo.me/0366553592" target="_blank" rel="noopener noreferrer" class="sph-m-zalo" data-domain="vn" style=";display:none!important">Zalo</a>
+        </div>
+
+        <!-- HUD Footer -->
+        <div class="sph-m-hud-footer" data-domain="vn" style=";display:none!important">SERAPHIM.VN // NEURAL INTERFACE v30</div>
+        <div class="sph-m-hud-footer" data-domain="intl">SRPHM.AI // NEURAL INTERFACE v30</div>
+
+    </div>
+</aside>
+
+<!-- MOBILE NAV CONTROLLER v30 -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+(function() {
+    'use strict';
+    if (navigator.webdriver||/bot|lighthouse|pagespeed|PTST/i.test(navigator.userAgent)) return;if (window.__sphMobileV30) return;
+    window.__sphMobileV30 = true;
+
+    var isOpen = false;
+    var toggle, nav, overlay;
+    var scrollY = 0;
+
+    function init() {
+        toggle = document.getElementById('sph-m-toggle');
+        nav = document.getElementById('sph-m-nav');
+        overlay = document.getElementById('sph-m-overlay');
+        if (!toggle || !nav || !overlay) {
+            setTimeout(init, 100);
+            return;
+        }
+
+        // Prevent duplicate init (setTimeout safety call)
+        if (nav.dataset.sphInit === '1') return;
+        nav.dataset.sphInit = '1';
+
+        // Clone toggle to remove any stale listeners
+        var fresh = toggle.cloneNode(true);
+        toggle.parentNode.replaceChild(fresh, toggle);
+        toggle = fresh;
+
+        // Toggle click
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            isOpen ? close() : open();
+        }, true);
+
+        // Toggle touch (prevent ghost clicks)
+        toggle.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isOpen ? close() : open();
+        }, { passive: false, capture: true });
+
+        // Overlay closes menu
+        overlay.addEventListener('click', close);
+        overlay.addEventListener('touchend', function(e) { e.preventDefault(); close(); }, { passive: false });
+
+        // Section dropdowns
+        nav.querySelectorAll('.sph-m-section').forEach(function(sec) {
+            sec.addEventListener('click', function(e) {
+                e.stopPropagation();
+                var id = this.getAttribute('data-toggle');
+                var dd = document.getElementById(id);
+                if (!dd) return;
+
+                var wasOpen = dd.classList.contains('open');
+
+                // Close all
+                nav.querySelectorAll('.sph-m-dropdown').forEach(function(d) {
+                    d.style.maxHeight = '0';
+                    d.classList.remove('open');
+                });
+                nav.querySelectorAll('.sph-m-section').forEach(function(s) {
+                    s.classList.remove('open');
+                });
+
+                // Open this one
+                if (!wasOpen) {
+                    dd.classList.add('open');
+                    dd.style.maxHeight = dd.scrollHeight + 'px';
+                    this.classList.add('open');
+                }
+            });
+        });
+
+        // Links close menu
+        nav.querySelectorAll('a').forEach(function(a) {
+            a.addEventListener('click', function() { setTimeout(close, 80); });
+        });
+
+        // Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && isOpen) close();
+        });
+
+        // Resize: close if going to desktop
+        var rt;
+        window.addEventListener('resize', function() {
+            clearTimeout(rt);
+            rt = setTimeout(function() { if (window.innerWidth > 1024 && isOpen) close(); }, 150);
+        });
+    }
+
+    function open() {
+        isOpen = true;
+        scrollY = window.scrollY;
+        toggle.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+        overlay.classList.add('open');
+        nav.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
+        document.body.style.width = '100%';
+        document.body.style.top = '-' + scrollY + 'px';
+    }
+
+    function close() {
+        if (!isOpen) return;
+        isOpen = false;
+        toggle.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        overlay.classList.remove('open');
+        nav.classList.remove('open');
+        nav.style.right = '';
+
+        // Close all dropdowns
+        nav.querySelectorAll('.sph-m-dropdown').forEach(function(d) {
+            d.style.maxHeight = '0';
+            d.classList.remove('open');
+        });
+        nav.querySelectorAll('.sph-m-section').forEach(function(s) {
+            s.classList.remove('open');
+        });
+
+        // Restore scroll
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        window.scrollTo(0, scrollY);
+    }
+
+    // Export for debugging
+    window.__sphMobileToggle = function() { isOpen ? close() : open(); };
+    window.__sphMobileOpen = open;
+    window.__sphMobileClose = close;
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+    setTimeout(init, 500);
+})();
+</script>
+
+<!-- MOBILE_NAV_END -->
+
+
+<main class="main">
+            <nav style="max-width:900px;margin:0 auto;padding:18px 20px 0;">
+        <a href="../robotics-hub.html" style="font-size:0.75rem;letter-spacing:0.1em;color:#00ff88;text-decoration:none;transition:color 0.3s;">&#8592; Robotics Hub</a>
+    </nav>
+
+        <section class="page-hero">
+            <div class="container">
+                <span class="page-badge">EDGE COMPUTING</span>
+                <h1 class="page-title">Edge Computing for Robotics<br><span class="gradient">NVIDIA Jetson, Real-Time AI & Fog Architecture</span></h1>
+                <p class="page-desc">A comprehensive technical guide to edge computing in robotics covering hardware platforms from NVIDIA Jetson to Google Coral, inference optimization with TensorRT and OpenVINO, fog computing architecture, containerized K3s deployment, 5G connectivity, and power-efficient AI processing for APAC robotic operations.</p>
+            </div>
+        </section>
+
+        <article class="insight-content">
+            <div class="insight-meta">
+                <span class="insight-category">ROBOTICS</span>
+                <span class="insight-meta-item">January 2026</span>
+                <span class="insight-meta-item">25 min read</span>
+                <span class="insight-meta-item">Technical Depth: Advanced</span>
+            </div>
+
+            <div class="toc">
+                <div class="toc-title">Table of Contents</div>
+                <ul>
+                    <li><a href="#executive-summary">1. Executive Summary</a></li>
+                    <li><a href="#market-landscape">2. Edge Computing in Robotics Market</a></li>
+                    <li><a href="#why-edge">3. Why Edge Matters: Latency, Bandwidth & Privacy</a></li>
+                    <li><a href="#nvidia-jetson">4. NVIDIA Jetson Platform Deep Dive</a></li>
+                    <li><a href="#edge-hardware">5. Edge Hardware Ecosystem: Intel, Google Coral, Hailo & Qualcomm</a></li>
+                    <li><a href="#inference-frameworks">6. Edge AI Inference Frameworks</a></li>
+                    <li><a href="#fog-architecture">7. Fog Computing Architecture</a></li>
+                    <li><a href="#edge-cloud">8. Edge-Cloud Hybrid Patterns</a></li>
+                    <li><a href="#containerized-deployment">9. Containerized Edge Deployment</a></li>
+                    <li><a href="#ota-updates">10. OTA Model Updates & Lifecycle Management</a></li>
+                    <li><a href="#5g-edge">11. 5G + Edge for Mobile Robots</a></li>
+                    <li><a href="#security-power">12. Edge Security & Power Optimization</a></li>
+                    <li><a href="#apac-infrastructure">13. APAC Edge Infrastructure</a></li>
+                    <li><a href="#implementation">14. Implementation Roadmap</a></li>
+                </ul>
+            </div>
+
+            <h2 id="executive-summary">1. Executive Summary</h2>
+            <p>Edge computing has become the foundational enabler of modern autonomous robotics. By processing sensor data, running AI inference, and executing control loops directly on the robot or at a nearby fog node, edge architectures eliminate the latency, bandwidth, and reliability constraints that make cloud-only approaches untenable for real-time robotic systems. The global edge computing market for robotics is projected to reach $9.8 billion by 2028, growing at a CAGR of 23.4% as manufacturers recognize that sub-10ms inference latency is not optional for safety-critical autonomy.</p>
+            <p>This guide provides a comprehensive technical framework for designing, selecting, and deploying edge computing infrastructure across the full spectrum of robotic systems -- from warehouse AMRs and manufacturing cobots to agricultural drones and last-mile delivery robots. We cover the leading hardware platforms (NVIDIA Jetson, Intel Movidius, Google Coral, Hailo-8, Qualcomm RB5), inference optimization frameworks (TensorRT, ONNX Runtime, OpenVINO), fog computing architectures, containerized deployment with K3s, and the emerging 5G-edge convergence that is unlocking new classes of mobile robotic applications.</p>
+            <p>Based on our deployment experience across 35+ edge-enabled robotic systems in the APAC region, properly architected edge solutions deliver 10-50x latency reduction over cloud inference, 80-95% bandwidth savings, complete data sovereignty compliance, and the deterministic real-time performance required for ISO 13849 safety-rated applications.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card"><div class="stat-value">$9.8B</div><div class="stat-label">Edge Computing for Robotics Market by 2028</div></div>
+                <div class="stat-card"><div class="stat-value">&lt;10ms</div><div class="stat-label">Edge Inference Latency (vs 100-300ms Cloud)</div></div>
+                <div class="stat-card"><div class="stat-value">80-95%</div><div class="stat-label">Bandwidth Reduction with Edge Processing</div></div>
+                <div class="stat-card"><div class="stat-value">275 TOPS</div><div class="stat-label">NVIDIA Jetson AGX Orin INT8 Performance</div></div>
+            </div>
+
+            <h2 id="market-landscape">2. Edge Computing in Robotics Market</h2>
+            <h3>2.1 Market Growth Drivers</h3>
+            <p>The convergence of three technology waves is driving explosive growth in edge computing for robotics. First, the rapid advancement of system-on-module (SoM) platforms has placed datacenter-class AI inference capability into 15-30W power envelopes that fit on mobile robots. NVIDIA's Jetson Orin family delivers up to 275 TOPS of INT8 inference performance -- equivalent to what required a full GPU server just five years ago. Second, the maturation of inference optimization toolchains (TensorRT, ONNX Runtime, OpenVINO) has made it practical to deploy production neural networks on constrained hardware without sacrificing accuracy. Third, 5G and Wi-Fi 6E networks are creating the reliable, low-latency connectivity needed for edge-cloud hybrid architectures where the edge handles time-critical inference and the cloud handles training, fleet analytics, and long-horizon planning.</p>
+            <p>Industry analysts estimate that by 2027, over 70% of robotic AI inference will occur at the edge rather than in the cloud, a dramatic inversion from the cloud-centric architectures that dominated the 2018-2022 era. This shift is accelerated by data privacy regulations (Vietnam's PDPD, GDPR, China's PIPL) that restrict transmission of camera feeds and sensor data to external cloud environments.</p>
+
+            <h3>2.2 Market Segmentation by Robot Type</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Robot Category</th><th>Edge Compute Need</th><th>Typical Platform</th><th>Latency Requirement</th><th>Market Size (2028)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Warehouse AMR</td><td>Navigation, obstacle avoidance</td><td>Jetson Orin NX / Hailo-8</td><td>&lt;30ms</td><td>$2.8B</td></tr>
+                    <tr><td>Manufacturing Cobot</td><td>Safety monitoring, vision QA</td><td>Jetson AGX Orin / Intel NUC</td><td>&lt;10ms</td><td>$2.1B</td></tr>
+                    <tr><td>Agricultural Drone</td><td>Crop analysis, path planning</td><td>Google Coral / Jetson Orin Nano</td><td>&lt;50ms</td><td>$1.4B</td></tr>
+                    <tr><td>Delivery Robot</td><td>Pedestrian detection, mapping</td><td>Qualcomm RB5 / Jetson Orin NX</td><td>&lt;20ms</td><td>$1.2B</td></tr>
+                    <tr><td>Surgical Robot</td><td>Tissue classification, haptics</td><td>Jetson AGX Orin / Custom FPGA</td><td>&lt;5ms</td><td>$1.1B</td></tr>
+                    <tr><td>Inspection Robot</td><td>Defect detection, 3D mapping</td><td>Hailo-8 / Jetson Orin NX</td><td>&lt;100ms</td><td>$1.2B</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="why-edge">3. Why Edge Matters: Latency, Bandwidth & Privacy</h2>
+            <h3>3.1 Latency: The Physics of Real-Time Autonomy</h3>
+            <p>For a robot operating at 1.5 m/s -- typical for a warehouse AMR -- every 100ms of decision latency translates to 15cm of travel distance before the robot can react to a detected obstacle. In safety-critical scenarios involving human workers, this gap between perception and action can mean the difference between a graceful stop and a collision. Cloud-based inference introduces 100-300ms of round-trip latency even on well-provisioned networks (network transit + serialization + queue time + inference + response), making it fundamentally unsuitable for real-time control loops.</p>
+            <p>Edge inference eliminates network transit entirely. A NVIDIA Jetson Orin NX running a YOLOv8 object detection model delivers inference results in 6-12ms, providing the deterministic sub-frame latency required for 30Hz control loops. For safety-rated applications under ISO 13849 or IEC 62443, edge processing is not merely preferred -- it is a compliance requirement, as safety functions cannot depend on network availability.</p>
+
+            <div class="callout">
+                <div class="callout-title">Latency Budget Analysis: Warehouse AMR Safety Stop</div>
+                <p><strong>Cloud path (total ~210ms):</strong> Camera capture: 33ms + Image encoding: 5ms + Network upload: 40ms + Cloud queue: 30ms + Cloud inference: 50ms + Network download: 40ms + Motor command: 12ms<br><br>
+                <strong>Edge path (total ~28ms):</strong> Camera capture: 33ms (pipelined) + Edge inference: 8ms + Motor command: 12ms + Safety margin: 8ms<br><br>
+                <strong>At 1.5 m/s:</strong> Cloud = 31.5cm reaction distance | Edge = 4.2cm reaction distance<br>
+                <strong>Conclusion:</strong> Edge provides 7.5x faster reaction, critical for ISO 13849 PL-d safety compliance.</p>
+            </div>
+
+            <h3>3.2 Bandwidth: Economics of Sensor Data</h3>
+            <p>A single robot equipped with modern sensor arrays generates enormous data volumes. A typical AMR with two LiDAR sensors, four cameras, and an IMU produces 150-400 Mbps of raw sensor data. For a fleet of 50 robots, this translates to 7.5-20 Gbps of continuous upstream bandwidth -- a prohibitive requirement for any facility network, let alone a cellular connection. Edge processing reduces this to a trickle of structured telemetry (robot state, task updates, anomaly alerts) at 50-200 Kbps per robot, a 1000x bandwidth reduction.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card"><div class="stat-value">400 Mbps</div><div class="stat-label">Raw Sensor Data Per Robot</div></div>
+                <div class="stat-card"><div class="stat-value">1000x</div><div class="stat-label">Bandwidth Reduction via Edge</div></div>
+                <div class="stat-card"><div class="stat-value">99.99%</div><div class="stat-label">Edge Uptime (No Cloud Dependency)</div></div>
+                <div class="stat-card"><div class="stat-value">7.5x</div><div class="stat-label">Faster Reaction vs Cloud</div></div>
+            </div>
+
+            <h3>3.3 Data Privacy & Sovereignty</h3>
+            <p>Edge computing addresses critical data sovereignty requirements that are increasingly enforced across APAC. Vietnam's Personal Data Protection Decree (PDPD, effective 2023) restricts cross-border transfer of personal data, which includes camera feeds containing identifiable individuals. Robots operating in warehouses, hospitals, and public spaces continuously capture imagery of workers and civilians. Edge processing allows all privacy-sensitive inference (person detection, face blurring, behavior analysis) to occur locally, with only anonymized metadata transmitted to the cloud. This architecture satisfies PDPD compliance, Singapore's PDPA, and South Korea's PIPA without requiring expensive data localization infrastructure for raw sensor storage.</p>
+
+            <h2 id="nvidia-jetson">4. NVIDIA Jetson Platform Deep Dive</h2>
+            <h3>4.1 Jetson Orin Family Overview</h3>
+            <p>The NVIDIA Jetson platform has established itself as the de facto standard for edge AI in robotics, commanding over 60% market share in autonomous machine applications. The Jetson Orin generation, built on the Ampere GPU architecture with dedicated DLA (Deep Learning Accelerator) cores, represents a generational leap in performance-per-watt that has fundamentally changed what is possible at the edge.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Specification</th><th>Jetson Orin Nano</th><th>Jetson Orin NX 16GB</th><th>Jetson AGX Orin 64GB</th><th>Jetson Thor (2026)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>AI Performance</td><td>40 TOPS</td><td>100 TOPS</td><td>275 TOPS</td><td>800+ TOPS</td></tr>
+                    <tr><td>GPU Cores</td><td>1024 CUDA</td><td>1024 CUDA</td><td>2048 CUDA + 64 Tensor</td><td>Blackwell GPU</td></tr>
+                    <tr><td>CPU</td><td>6-core Arm A78AE</td><td>8-core Arm A78AE</td><td>12-core Arm A78AE</td><td>Grace Arm CPU</td></tr>
+                    <tr><td>Memory</td><td>8GB LPDDR5</td><td>16GB LPDDR5</td><td>64GB LPDDR5</td><td>128GB LPDDR5X</td></tr>
+                    <tr><td>Memory BW</td><td>68 GB/s</td><td>102 GB/s</td><td>204 GB/s</td><td>273 GB/s</td></tr>
+                    <tr><td>Power</td><td>7-15W</td><td>10-25W</td><td>15-60W</td><td>30-100W</td></tr>
+                    <tr><td>DLA Cores</td><td>1</td><td>2</td><td>2</td><td>4</td></tr>
+                    <tr><td>Video Encode</td><td>1x 4K60</td><td>2x 4K60</td><td>4x 4K60</td><td>8x 4K60</td></tr>
+                    <tr><td>CSI Cameras</td><td>Up to 4</td><td>Up to 6</td><td>Up to 16</td><td>Up to 32</td></tr>
+                    <tr><td>Price (Module)</td><td>$199</td><td>$399-$599</td><td>$999-$1,599</td><td>TBD (~$2,500)</td></tr>
+                    <tr><td>Best For</td><td>Single-task bots</td><td>AMR, delivery bots</td><td>Multi-sensor autonomy</td><td>Humanoid, L4 AV</td></tr>
+                </tbody>
+            </table>
+
+            <h3>4.2 Jetson Orin NX: The Sweet Spot for Robotics</h3>
+            <p>The Jetson Orin NX 16GB has emerged as the most widely deployed edge compute module in commercial robotics. At 100 TOPS within a 10-25W envelope, it supports simultaneous execution of multiple neural networks -- object detection, semantic segmentation, depth estimation, and path planning -- while leaving sufficient CPU headroom for ROS 2 middleware, fleet communication, and sensor drivers. Its 16GB unified memory eliminates the host-device memory copy overhead that plagues discrete GPU architectures, enabling zero-copy camera-to-inference pipelines.</p>
+
+            <div class="code-block">
+# Jetson Orin NX Multi-Model Pipeline with DeepStream + TensorRT
+# docker-compose.yml for production robot deployment
+
+version: '3.8'
+services:
+  perception:
+    image: nvcr.io/nvidia/deepstream:7.0-triton-multiarch
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DS_PIPELINE_CONFIG=/config/perception.txt
+    volumes:
+      - /dev/video0:/dev/video0
+      - ./models:/models
+      - ./config:/config
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    networks:
+      - robot_net
+
+  navigation:
+    image: ros:humble-perception
+    volumes:
+      - /dev:/dev
+      - ./nav_config:/opt/ros_ws/config
+    command: >
+      ros2 launch nav2_bringup navigation_launch.py
+        use_sim_time:=false
+        params_file:=/opt/ros_ws/config/nav2_params.yaml
+    privileged: true
+    networks:
+      - robot_net
+
+  fleet_agent:
+    image: registry.seraphim.vn/fleet-agent:2.4
+    environment:
+      - MQTT_BROKER=fog-gateway.local
+      - ROBOT_ID=${ROBOT_SERIAL}
+      - HEARTBEAT_INTERVAL=5
+    networks:
+      - robot_net
+
+networks:
+  robot_net:
+    driver: bridge
+            </div>
+
+            <h3>4.3 Jetson AGX Orin: Multi-Sensor Autonomy</h3>
+            <p>The AGX Orin targets premium robotic platforms requiring concurrent processing of 8-16 camera streams alongside LiDAR point clouds and radar data. Its 275 TOPS performance enables running transformer-based perception models (BEVFormer, StreamPETR) that were previously cloud-only. With 64GB of unified LPDDR5 memory, the AGX Orin can maintain large environmental maps, cache multiple model variants for different operating contexts, and run on-device model fine-tuning for continual learning. Power modes from 15W (standby navigation) to 60W (full autonomous operation) allow dynamic power management based on situational complexity.</p>
+
+            <h3>4.4 NVIDIA Thor: The Next Frontier</h3>
+            <p>Announced for 2026 availability, NVIDIA Thor represents a convergence of autonomous vehicle and robotics computing. Built on the Blackwell GPU architecture paired with a Grace ARM CPU, Thor delivers 800+ TOPS in a module form factor suitable for humanoid robots, advanced manufacturing cells, and L4 autonomous mobile platforms. Thor's most significant architectural innovation is its support for multi-domain safety isolation, enabling a single module to run safety-critical perception (ASIL-D rated), general autonomy, and infotainment workloads in hardware-isolated partitions. For robotics integrators, this eliminates the need for separate safety and compute boards, reducing BOM cost and system complexity.</p>
+
+            <h2 id="edge-hardware">5. Edge Hardware Ecosystem</h2>
+            <h3>5.1 Intel Edge Platforms</h3>
+            <p>Intel's edge computing portfolio for robotics centers on two product lines: the Movidius VPU (now integrated as the Intel AI Boost NPU in Core Ultra processors) and the industrial-grade NUC/Edge Controller platforms. The Intel NUC 13 Pro, combined with an Arc A-series discrete GPU or OpenVINO-optimized models on the integrated NPU, provides a competitive alternative for robotics workloads where CUDA dependency is undesirable.</p>
+            <p>Intel's primary strength lies in its OpenVINO optimization ecosystem, which provides seamless model conversion from PyTorch, TensorFlow, and ONNX formats with automatic hardware-specific optimization. For enterprises already invested in Intel infrastructure, the x86 compatibility simplifies deployment of existing perception software without the ARM porting effort required by Jetson.</p>
+
+            <h3>5.2 Google Coral Edge TPU</h3>
+            <p>The Google Coral platform, powered by the Edge TPU ASIC, targets the cost-sensitive and ultra-low-power segment of the robotics edge market. The Coral M.2 Accelerator delivers 4 TOPS of INT8 inference at just 2W, making it ideal for battery-powered robots, agricultural drones, and distributed sensor nodes where power budget is the primary constraint. The Coral Dev Board (with NXP i.MX 8M SoC + Edge TPU) offers a complete Linux-based development platform at under $150.</p>
+            <p>Limitations include the Edge TPU's fixed INT8 quantization requirement and limited operator support -- complex models with custom layers may require significant modification to compile for the Edge TPU. Best suited for well-defined, single-model inference tasks rather than multi-model perception pipelines.</p>
+
+            <h3>5.3 Hailo-8 AI Accelerator</h3>
+            <p>The Hailo-8 processor has emerged as a compelling alternative for embedded robotics, delivering 26 TOPS at 2.5W in an M.2 module form factor. Its unique dataflow architecture avoids the memory bandwidth bottleneck that limits conventional neural network accelerators, achieving near-theoretical throughput utilization on architectures including ResNet, YOLO, SSD, and EfficientNet. Hailo-8 is deployed in production by leading AMR manufacturers including MiR (Mobile Industrial Robots) and Locus Robotics for real-time obstacle classification.</p>
+            <p>The Hailo-15 vision processor, released in late 2025, integrates the AI accelerator with ISP, video encoder, and ARM CPU into a single SoC -- eliminating the need for a separate host processor for simpler robotic applications. At under $50 in volume, Hailo-15 is positioned to disrupt the cost structure of intelligent robotic peripherals like smart grippers and vision-guided end effectors.</p>
+
+            <h3>5.4 Qualcomm RB5 / RB6</h3>
+            <p>Qualcomm's Robotics RB5 platform, based on the QCS8250 SoC, offers 15 TOPS AI performance combined with native 5G modem integration -- a unique advantage for mobile robots operating in outdoor or multi-site environments. The heterogeneous compute architecture (Kryo CPU + Adreno GPU + Hexagon DSP + Spectra ISP) enables efficient workload distribution across purpose-built processing units.</p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Feature</th><th>Jetson Orin NX</th><th>Intel NUC 13 + Arc</th><th>Google Coral</th><th>Hailo-8 M.2</th><th>Qualcomm RB5</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>AI Performance</td><td>100 TOPS</td><td>~35 TOPS</td><td>4 TOPS</td><td>26 TOPS</td><td>15 TOPS</td></tr>
+                    <tr><td>Power</td><td>10-25W</td><td>28-65W</td><td>2W (TPU only)</td><td>2.5W</td><td>7-15W</td></tr>
+                    <tr><td>TOPS/Watt</td><td>4.0-10.0</td><td>0.5-1.2</td><td>2.0</td><td>10.4</td><td>1.0-2.1</td></tr>
+                    <tr><td>Framework</td><td>TensorRT, CUDA</td><td>OpenVINO, oneAPI</td><td>TFLite, Coral SDK</td><td>Hailo SDK</td><td>Qualcomm AI Engine</td></tr>
+                    <tr><td>Memory</td><td>16GB unified</td><td>Up to 64GB DDR5</td><td>1-4GB</td><td>Host-dependent</td><td>8GB LPDDR5</td></tr>
+                    <tr><td>5G Native</td><td>No (USB dongle)</td><td>No (M.2 modem)</td><td>No</td><td>No</td><td>Yes (integrated)</td></tr>
+                    <tr><td>Camera Inputs</td><td>Up to 6 CSI</td><td>USB3 only</td><td>1 CSI</td><td>Host-dependent</td><td>Up to 7 CSI</td></tr>
+                    <tr><td>ROS 2 Support</td><td>Excellent</td><td>Excellent</td><td>Community</td><td>Community</td><td>Official SDK</td></tr>
+                    <tr><td>Module Price</td><td>$399-$599</td><td>$700-$1,200</td><td>$25-$150</td><td>$70-$120</td><td>$400-$600</td></tr>
+                    <tr><td>Ideal Use</td><td>General robotics</td><td>Industrial inspection</td><td>Low-power sensors</td><td>Cost-optimized AMR</td><td>5G mobile robots</td></tr>
+                </tbody>
+            </table>
+
+            <h2 id="inference-frameworks">6. Edge AI Inference Frameworks</h2>
+            <h3>6.1 NVIDIA TensorRT</h3>
+            <p>TensorRT is the gold standard for optimized inference on NVIDIA hardware. The TensorRT 10.x release introduces several robotics-critical features: dynamic shape support for variable-resolution camera inputs, INT8 calibration with minimal accuracy loss (typically &lt;0.5% mAP degradation), and the TensorRT-LLM extension enabling on-device language model inference for robot instruction understanding. TensorRT achieves 2-5x inference speedup over native PyTorch on identical Jetson hardware through operator fusion, precision calibration, and memory-efficient kernel selection.</p>
+
+            <div class="code-block">
+# TensorRT Optimization Pipeline for YOLOv8 on Jetson Orin NX
+import tensorrt as trt
+import numpy as np
+
+def build_engine(onnx_path, engine_path, precision="fp16"):
+    """Build optimized TensorRT engine from ONNX model"""
+    logger = trt.Logger(trt.Logger.WARNING)
+    builder = trt.Builder(logger)
+    network = builder.create_network(
+        1 &lt;&lt; int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH)
+    )
+    parser = trt.OnnxParser(network, logger)
+
+    # Parse ONNX model
+    with open(onnx_path, 'rb') as f:
+        if not parser.parse(f.read()):
+            for error in range(parser.num_errors):
+                print(parser.get_error(error))
+            raise RuntimeError("ONNX parse failed")
+
+    # Configure builder
+    config = builder.create_builder_config()
+    config.set_memory_pool_limit(trt.MemoryPoolType.WORKSPACE, 1 &lt;&lt; 30)  # 1GB
+
+    if precision == "fp16":
+        config.set_flag(trt.BuilderFlag.FP16)
+    elif precision == "int8":
+        config.set_flag(trt.BuilderFlag.INT8)
+        config.int8_calibrator = RoboticsCalibrator(
+            calibration_images="/data/calibration/",
+            batch_size=16,
+            num_batches=50
+        )
+
+    # Enable DLA for dual-inference (GPU + DLA simultaneously)
+    config.default_device_type = trt.DeviceType.DLA
+    config.DLA_core = 0  # Use DLA core 0
+    config.set_flag(trt.BuilderFlag.GPU_FALLBACK)
+
+    # Build and serialize engine
+    engine = builder.build_serialized_network(network, config)
+    with open(engine_path, 'wb') as f:
+        f.write(engine)
+
+    print(f"Engine saved: {engine_path}")
+    return engine
+
+# Benchmark results on Jetson Orin NX (25W mode):
+# YOLOv8n  FP16: 2.1ms | INT8: 1.4ms  (480x640)
+# YOLOv8s  FP16: 4.8ms | INT8: 3.1ms  (480x640)
+# YOLOv8m  FP16: 9.2ms | INT8: 5.7ms  (480x640)
+# YOLOv8l  FP16: 16.1ms | INT8: 9.8ms (480x640)
+            </div>
+
+            <h3>6.2 ONNX Runtime</h3>
+            <p>ONNX Runtime provides a vendor-agnostic inference engine that supports deployment across Jetson (CUDA/TensorRT EP), Intel (OpenVINO EP), Qualcomm (QNN EP), and CPU-only platforms from a single model artifact. For robotics teams deploying heterogeneous fleets with mixed hardware, ONNX Runtime eliminates the need for platform-specific model optimization pipelines. The ONNX Runtime 1.18+ release includes a dedicated Robotics Execution Provider with optimized memory allocation patterns for streaming inference on sequential sensor data.</p>
+
+            <h3>6.3 Intel OpenVINO</h3>
+            <p>OpenVINO (Open Visual Inference and Neural Network Optimization) is Intel's inference toolkit, optimized for Intel CPUs, integrated GPUs, VPUs, and FPGAs. Its Model Optimizer converts models from PyTorch, TensorFlow, and ONNX formats into an Intermediate Representation (IR) with automatic layer fusion, constant folding, and precision optimization. OpenVINO's Neural Network Compression Framework (NNCF) provides post-training quantization and quantization-aware training with minimal accuracy degradation.</p>
+
+            <div class="code-block">
+# OpenVINO Inference Pipeline for Intel-based Robot Controller
+from openvino.runtime import Core, AsyncInferQueue
+import cv2, numpy as np
+
+class EdgePerceptionPipeline:
+    def __init__(self, model_path, device="GPU", num_streams=4):
+        self.core = Core()
+
+        # Read and compile model with performance hints
+        model = self.core.read_model(model_path)
+        self.compiled = self.core.compile_model(model, device, {
+            "PERFORMANCE_HINT": "LATENCY",
+            "NUM_STREAMS": str(num_streams),
+            "INFERENCE_PRECISION_HINT": "f16"
+        })
+
+        # Async inference queue for pipelined execution
+        self.infer_queue = AsyncInferQueue(self.compiled, num_streams)
+        self.infer_queue.set_callback(self._on_result)
+        self.latest_detections = []
+
+    def _on_result(self, request, userdata):
+        """Callback when async inference completes"""
+        output = request.get_output_tensor(0).data
+        frame_id = userdata
+        self.latest_detections = self._postprocess(output)
+
+    def submit_frame(self, frame, frame_id):
+        """Submit frame for async inference (non-blocking)"""
+        input_tensor = self._preprocess(frame)
+        self.infer_queue.start_async({0: input_tensor}, frame_id)
+
+    def _preprocess(self, frame):
+        resized = cv2.resize(frame, (640, 480))
+        blob = cv2.dnn.blobFromImage(resized, 1.0/255.0)
+        return blob
+
+    def _postprocess(self, output, conf_thresh=0.5):
+        # NMS and detection filtering
+        detections = []
+        for det in output[0]:
+            if det[4] > conf_thresh:
+                detections.append({
+                    'bbox': det[:4].tolist(),
+                    'confidence': float(det[4]),
+                    'class_id': int(det[5])
+                })
+        return detections
+            </div>
+
+            <h2 id="fog-architecture">7. Fog Computing Architecture</h2>
+            <h3>7.1 Three-Tier Compute Architecture</h3>
+            <p>Fog computing introduces an intermediate processing layer between on-robot edge devices and the centralized cloud, creating a three-tier architecture that optimally distributes workloads based on latency, compute intensity, and data locality requirements. In a typical robotic deployment, the fog layer consists of facility-local servers (often ruggedized rack-mount or edge micro-datacenter units) that provide 10-100x the compute capacity of individual robot edge modules while maintaining sub-5ms network latency within the facility.</p>
+
+            <div class="code-block">
+# Three-Tier Edge-Fog-Cloud Architecture for Robotic Fleet
+#
+# ┌─────────────────────────────────────────────────────────────────┐
+# │  TIER 1: ON-ROBOT EDGE (Jetson Orin NX per robot)              │
+# │  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐          │
+# │  │ Obstacle  │ │ Local    │ │ Safety   │ │ Sensor   │          │
+# │  │ Detection │ │ Planning │ │ Monitor  │ │ Fusion   │          │
+# │  │ &lt;10ms    │ │ &lt;15ms   │ │ &lt;5ms    │ │ &lt;8ms    │          │
+# │  └────┬─────┘ └────┬─────┘ └────┬─────┘ └────┬─────┘          │
+# │       └────────────┬┴───────────┬┘            │                │
+# │              Wi-Fi 6E / 5G (1-5ms RTT)        │                │
+# ├─────────────────────┼─────────────────────────┼────────────────┤
+# │  TIER 2: FOG LAYER  │ (Facility Edge Server)  │                │
+# │  ┌──────────────────┴────────────┐  ┌─────────┴──────────┐    │
+# │  │ Fleet Path Coordination       │  │ HD Map Server       │    │
+# │  │ Multi-robot collision avoid.  │  │ Real-time SLAM merge│    │
+# │  │ Task allocation optimizer     │  │ Environmental model │    │
+# │  │ Latency: 5-20ms              │  │ Latency: 10-30ms   │    │
+# │  └──────────────────┬────────────┘  └─────────┬──────────┘    │
+# │  ┌──────────────────┴────────────┐  ┌─────────┴──────────┐    │
+# │  │ Video Analytics Aggregation   │  │ Local Model Cache   │    │
+# │  │ Multi-cam tracking & re-ID    │  │ A/B model serving   │    │
+# │  │ Anomaly detection             │  │ OTA staging         │    │
+# │  └──────────────────┬────────────┘  └─────────┬──────────┘    │
+# │              VPN / Dedicated Link (20-80ms RTT)│                │
+# ├─────────────────────┼─────────────────────────┼────────────────┤
+# │  TIER 3: CLOUD      │                         │                │
+# │  ┌──────────────────┴──────────┐  ┌───────────┴────────────┐  │
+# │  │ Model Training Pipeline     │  │ Fleet Analytics        │  │
+# │  │ Large-scale simulation      │  │ Predictive maintenance │  │
+# │  │ Data lake & long-term store │  │ Business intelligence  │  │
+# │  │ Global fleet management     │  │ Model registry         │  │
+# │  └─────────────────────────────┘  └────────────────────────┘  │
+# └─────────────────────────────────────────────────────────────────┘
+            </div>
+
+            <h3>7.2 Fog Node Hardware Specification</h3>
+            <p>A production fog node for supporting 20-50 robots typically requires the following hardware profile:</p>
+            <ul>
+                <li><strong>Compute:</strong> Dual NVIDIA A2 or L4 GPUs (or single A30) providing 40-140 TOPS aggregate inference capacity for fleet-level analytics, multi-camera tracking, and model serving</li>
+                <li><strong>CPU:</strong> AMD EPYC 7003 or Intel Xeon Scalable 4th Gen with 16-32 cores for ROS 2 fleet orchestration, database operations, and network processing</li>
+                <li><strong>Memory:</strong> 128-256GB DDR5 ECC RAM for maintaining fleet state, HD map caches, and concurrent model versions</li>
+                <li><strong>Storage:</strong> 2TB NVMe SSD (RAID-1) for model artifacts, map databases, and telemetry buffering; 20TB HDD for video recording retention</li>
+                <li><strong>Network:</strong> Dual 10GbE or 25GbE for robot fleet connectivity; dedicated management port for remote administration</li>
+                <li><strong>Form factor:</strong> Ruggedized rack-mount (IP52+) or edge micro-datacenter (Schneider Electric, Rittal) with integrated cooling for facility deployment</li>
+            </ul>
+
+            <h2 id="edge-cloud">8. Edge-Cloud Hybrid Patterns</h2>
+            <h3>8.1 Split Inference Architecture</h3>
+            <p>Split inference partitions a neural network between edge and cloud execution points, with early layers running on-device and deeper layers executed remotely. The split point is chosen to minimize the intermediate feature tensor size (the "bottleneck" layer), reducing bandwidth requirements by 10-100x compared to transmitting raw input data. This pattern is particularly effective for large vision transformers where the full model exceeds on-device memory but the early feature extraction fits comfortably.</p>
+            <p>In practice, split inference is most applicable to non-safety-critical perception tasks like scene understanding, activity recognition, and semantic mapping, where the 20-50ms additional latency from the cloud portion is acceptable. Safety-critical inference (obstacle detection, emergency stop) always remains fully on-device.</p>
+
+            <h3>8.2 Edge Training with Federated Learning</h3>
+            <p>Federated learning enables model improvement using data distributed across a fleet of robots without centralizing raw sensor data. Each robot performs local training updates (gradient computation) on its edge hardware, sending only model weight deltas to the cloud aggregation server. This approach provides three critical benefits for robotics: compliance with data sovereignty regulations (raw camera feeds never leave the facility), bandwidth efficiency (weight updates are 1000x smaller than training data), and continuous model improvement from fleet-wide operational experience.</p>
+
+            <div class="callout">
+                <div class="callout-title">Edge-Cloud Decision Framework</div>
+                <p><strong>Run on Edge (On-Robot):</strong> Safety-critical perception, obstacle avoidance, motor control, sensor fusion, local SLAM, emergency stop -- any function where failure due to network interruption is unacceptable.<br><br>
+                <strong>Run on Fog (Facility):</strong> Fleet coordination, multi-robot path planning, HD map merging, cross-camera tracking, local model serving, OTA update staging, video analytics aggregation.<br><br>
+                <strong>Run on Cloud:</strong> Model training and retraining, fleet-wide analytics, simulation, long-term data storage, global fleet management, business intelligence, large language model inference for natural language robot commands.</p>
+            </div>
+
+            <h2 id="containerized-deployment">9. Containerized Edge Deployment</h2>
+            <h3>9.1 Docker on Jetson: Production Patterns</h3>
+            <p>Containerization has become the standard deployment methodology for edge robotics software stacks, providing reproducible builds, isolated dependencies, and streamlined OTA updates. NVIDIA provides official L4T (Linux for Tegra) base containers with pre-configured CUDA, cuDNN, and TensorRT libraries optimized for each Jetson module. Production deployments typically layer application containers on top of these base images, with Docker Compose orchestrating the multi-container robot software stack.</p>
+
+            <div class="code-block">
+# Dockerfile for Production Robot Perception Container
+# Optimized for Jetson Orin NX with TensorRT 10
+FROM nvcr.io/nvidia/l4t-tensorrt:r36.4.0-runtime
+
+# Install ROS 2 Humble (minimal)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ros-humble-ros-base \
+    ros-humble-cv-bridge \
+    ros-humble-image-transport \
+    python3-colcon-common-extensions \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python inference dependencies
+COPY requirements.txt /tmp/
+RUN pip3 install --no-cache-dir -r /tmp/requirements.txt
+
+# Copy optimized TensorRT engine files
+COPY models/yolov8s_orin_nx_fp16.engine /opt/models/detector.engine
+COPY models/segformer_b2_fp16.engine /opt/models/segmentation.engine
+COPY models/depth_anything_v2_fp16.engine /opt/models/depth.engine
+
+# Copy application code
+COPY perception_node/ /opt/ros_ws/src/perception_node/
+WORKDIR /opt/ros_ws
+RUN . /opt/ros/humble/setup.sh && colcon build --packages-select perception_node
+
+# Health check for fleet monitoring
+HEALTHCHECK --interval=10s --timeout=3s \
+    CMD ros2 topic echo /perception/status --once --timeout 2 || exit 1
+
+ENTRYPOINT ["/opt/ros_ws/entrypoint.sh"]
+CMD ["ros2", "launch", "perception_node", "perception.launch.py"]
+            </div>
+
+            <h3>9.2 K3s: Lightweight Kubernetes for Robot Fleets</h3>
+            <p>K3s, Rancher's lightweight Kubernetes distribution, has become the orchestration platform of choice for managing containerized workloads across robot fleets and fog nodes. At under 100MB binary size and 512MB RAM overhead, K3s runs comfortably on Jetson modules while providing the full Kubernetes API for deployment management, service discovery, secrets management, and rolling updates.</p>
+            <p>A typical K3s topology for robotic deployment uses the fog node as the K3s server (control plane) with each robot running a K3s agent. This enables centralized deployment management -- updating a perception model across 50 robots requires a single kubectl command to update the DaemonSet, with K3s handling rolling updates, health checks, and automatic rollback on failure.</p>
+
+            <div class="code-block">
+# K3s DaemonSet for Fleet-Wide Perception Deployment
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: robot-perception
+  namespace: fleet
+  labels:
+    app: perception
+    version: v2.4.1
+spec:
+  selector:
+    matchLabels:
+      app: perception
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 3  # Update 3 robots at a time
+  template:
+    metadata:
+      labels:
+        app: perception
+        version: v2.4.1
+    spec:
+      nodeSelector:
+        robot-type: amr
+        compute: jetson-orin-nx
+      tolerations:
+        - key: "edge-node"
+          operator: "Exists"
+          effect: "NoSchedule"
+      containers:
+        - name: perception
+          image: registry.seraphim.vn/robot-perception:2.4.1
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+              memory: "8Gi"
+            requests:
+              memory: "4Gi"
+          volumeMounts:
+            - name: camera-devices
+              mountPath: /dev/video0
+            - name: model-cache
+              mountPath: /opt/models
+          env:
+            - name: ROBOT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: TRT_ENGINE_CACHE
+              value: "/opt/models/cache"
+          livenessProbe:
+            exec:
+              command: ["ros2", "topic", "echo", "/perception/heartbeat", "--once", "--timeout", "3"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 45
+            periodSeconds: 5
+      volumes:
+        - name: camera-devices
+          hostPath:
+            path: /dev/video0
+        - name: model-cache
+          hostPath:
+            path: /var/lib/robot/models
+            type: DirectoryOrCreate
+            </div>
+
+            <h2 id="ota-updates">10. OTA Model Updates & Lifecycle Management</h2>
+            <h3>10.1 Model Versioning & Registry</h3>
+            <p>Over-the-air (OTA) model updates are essential for maintaining and improving robot perception performance without physical access to deployed units. A production OTA pipeline must handle three distinct artifact types: TensorRT engine files (hardware-specific, must be compiled per Jetson variant), ONNX model files (portable, compiled to TensorRT on-device), and configuration files (inference parameters, class mappings, confidence thresholds).</p>
+            <p>We recommend using an OCI-compliant container registry (Harbor, AWS ECR, or NVIDIA NGC Private Registry) as the model artifact store, with model versions embedded in container image tags. This approach leverages existing container pull infrastructure for model distribution and enables atomic updates -- the entire perception stack (model + inference code + configuration) is updated as a single versioned unit.</p>
+
+            <h3>10.2 Safe Rollout Strategy</h3>
+            <p>Model updates in safety-critical robotic systems require a staged rollout with automated validation gates:</p>
+            <ol>
+                <li><strong>Shadow mode (24-48h):</strong> New model runs alongside production model on 2-3 canary robots. Both models process identical inputs; only production model drives behavior. Outputs are compared for accuracy regression detection.</li>
+                <li><strong>Canary deployment (48-72h):</strong> New model takes over primary inference on canary robots. Fleet monitoring tracks detection accuracy, latency P99, false positive rate, and safety stop frequency against baseline thresholds.</li>
+                <li><strong>Progressive rollout:</strong> If canary metrics pass validation gates, K3s DaemonSet rolls the update to fleet segments (10% -> 25% -> 50% -> 100%) with automatic rollback if any segment degrades below threshold.</li>
+                <li><strong>Full deployment + holdback:</strong> Previous model version retained on all robots as fallback. Automatic revert triggered if fleet-aggregate anomaly detection fires within 7-day observation window.</li>
+            </ol>
+
+            <h2 id="5g-edge">11. 5G + Edge for Mobile Robots</h2>
+            <h3>11.1 5G Capabilities for Robotics</h3>
+            <p>5G networks -- particularly private 5G deployments in industrial facilities -- provide the connectivity foundation for a new class of edge-cloud hybrid robotic architectures. The three key 5G capabilities relevant to robotics are:</p>
+            <ul>
+                <li><strong>Ultra-Reliable Low-Latency Communication (URLLC):</strong> Sub-5ms air interface latency with 99.999% reliability, enabling real-time fog-to-robot command distribution for coordinated multi-robot operations</li>
+                <li><strong>Enhanced Mobile Broadband (eMBB):</strong> 1-10 Gbps throughput supporting HD video offload from robots to fog nodes for fleet-level video analytics and remote monitoring</li>
+                <li><strong>Massive Machine-Type Communication (mMTC):</strong> Support for 1M+ devices per km2, enabling dense IoT sensor networks that augment robot perception with facility-wide environmental awareness</li>
+            </ul>
+
+            <h3>11.2 Multi-Access Edge Computing (MEC)</h3>
+            <p>5G Multi-Access Edge Computing (MEC) places compute resources at the cellular base station or aggregation point, providing 1-5ms network latency to connected robots. For outdoor mobile robots (delivery, agriculture, security patrol), MEC eliminates the need for facility-local fog infrastructure by co-locating inference resources with the 5G radio network. Major APAC telecoms including Viettel (Vietnam), AIS (Thailand), and Singtel (Singapore) now offer MEC services with NVIDIA GPU instances at the network edge.</p>
+
+            <div class="stat-grid">
+                <div class="stat-card"><div class="stat-value">&lt;5ms</div><div class="stat-label">5G URLLC Air Interface Latency</div></div>
+                <div class="stat-card"><div class="stat-value">10 Gbps</div><div class="stat-label">5G eMBB Peak Throughput</div></div>
+                <div class="stat-card"><div class="stat-value">99.999%</div><div class="stat-label">5G URLLC Reliability Target</div></div>
+                <div class="stat-card"><div class="stat-value">1M+</div><div class="stat-label">Devices per km2 (mMTC)</div></div>
+            </div>
+
+            <h2 id="security-power">12. Edge Security & Power Optimization</h2>
+            <h3>12.1 Edge Security Architecture</h3>
+            <p>Edge devices in robotic systems face a unique threat landscape: they operate in physically accessible environments (factory floors, public spaces), process safety-critical data, and connect to both local networks and cloud services. A defense-in-depth security architecture for edge robotics must address hardware root of trust, secure boot, encrypted model storage, network segmentation, and runtime integrity monitoring.</p>
+            <ul>
+                <li><strong>Hardware root of trust:</strong> Jetson Orin's Secure Boot chain uses fused cryptographic keys to verify every firmware and software component before execution. Combined with Trusted Platform Module (TPM 2.0), this prevents unauthorized firmware modification even with physical device access.</li>
+                <li><strong>Model encryption:</strong> TensorRT engines contain proprietary IP and are vulnerable to extraction. Encrypt model files at rest using hardware-bound keys (Jetson Security Engine) and decrypt only into protected memory during inference.</li>
+                <li><strong>Network segmentation:</strong> Robot fleet traffic should be isolated on dedicated VLANs with firewall rules restricting communication to fog nodes and fleet management endpoints. Zero-trust networking (WireGuard VPN mesh) for robot-to-fog communication.</li>
+                <li><strong>Runtime attestation:</strong> Continuous integrity monitoring using dm-verity (read-only rootfs verification) and IMA (Integrity Measurement Architecture) to detect runtime tampering. Alert fleet management on any integrity violation.</li>
+                <li><strong>OTA security:</strong> All OTA updates signed with Ed25519 keys; update packages verified against organization-specific certificate chain before installation. Dual-partition (A/B) boot scheme ensures recovery from failed or compromised updates.</li>
+            </ul>
+
+            <h3>12.2 Power Consumption Optimization</h3>
+            <p>For battery-powered robots, edge compute power consumption directly impacts mission duration and fleet economics. A warehouse AMR with a 48V/30Ah LiFePO4 battery pack (1.44 kWh) dedicating 25W to its Jetson Orin NX edge computer loses 17% of total battery capacity to compute alone. Optimizing power consumption extends mission time, reduces fleet size requirements, and lowers charging infrastructure costs.</p>
+
+            <div class="code-block">
+# Jetson Orin NX Power Mode Management for Adaptive Workloads
+# /etc/nvpmodel/robot_power_profiles.conf
+
+# Profile: CRUISE (navigation only, no active perception)
+# Power: 10W | AI: 20 TOPS | CPU: 4-core @ 1.5GHz
+sudo nvpmodel -m 2
+sudo jetson_clocks --store /tmp/cruise_clocks
+
+# Profile: ACTIVE (full perception + navigation)
+# Power: 20W | AI: 70 TOPS | CPU: 8-core @ 2.0GHz
+sudo nvpmodel -m 1
+sudo jetson_clocks --store /tmp/active_clocks
+
+# Profile: MAX (complex scene, multi-model inference)
+# Power: 25W | AI: 100 TOPS | CPU: 8-core @ 2.2GHz
+sudo nvpmodel -m 0
+sudo jetson_clocks
+
+# Adaptive power management daemon
+class PowerManager:
+    def __init__(self):
+        self.current_mode = "CRUISE"
+        self.battery_pct = 100
+        self.scene_complexity = 0.0
+
+    def update(self, detections_count, battery_pct, velocity):
+        self.battery_pct = battery_pct
+
+        # Low battery override: force minimum power mode
+        if battery_pct &lt; 15:
+            self.set_mode("CRUISE")
+            return
+
+        # Adaptive mode selection based on scene complexity
+        if detections_count > 10 or velocity > 1.0:
+            self.set_mode("MAX")
+        elif detections_count > 3:
+            self.set_mode("ACTIVE")
+        else:
+            self.set_mode("CRUISE")
+
+    def set_mode(self, mode):
+        if mode != self.current_mode:
+            # Transition takes ~200ms; buffer in control loop
+            os.system(f"nvpmodel -m {MODE_MAP[mode]}")
+            self.current_mode = mode
+            log.info(f"Power mode: {mode} | Battery: {self.battery_pct}%")
+            </div>
+
+            <p>Additional power optimization techniques for edge robotics include:</p>
+            <ul>
+                <li><strong>DLA offloading:</strong> NVIDIA's Deep Learning Accelerator cores provide 2-3x better TOPS/watt than GPU execution for supported layers. Run primary detection models on DLA, reserving GPU for complex operations like transformer attention and custom CUDA kernels.</li>
+                <li><strong>Dynamic resolution scaling:</strong> Reduce camera input resolution during low-complexity scenes (empty corridors) and increase to full resolution in high-density areas (pick stations, intersections). A 50% resolution reduction yields approximately 4x inference speedup.</li>
+                <li><strong>Inference scheduling:</strong> Run perception models at reduced frequency (5 Hz instead of 30 Hz) when the robot is stationary or moving slowly. Scale inference frequency with velocity using a linear or sigmoid mapping.</li>
+                <li><strong>Peripheral power gating:</strong> Disable unused CSI camera interfaces, USB ports, and PCIe lanes when not in active use. Jetson's power rail management allows per-peripheral shutdown.</li>
+            </ul>
+
+            <h2 id="apac-infrastructure">13. APAC Edge Infrastructure</h2>
+            <h3>13.1 Vietnam Edge Deployment Landscape</h3>
+            <p>Vietnam's rapidly expanding industrial sector presents both opportunities and challenges for edge computing in robotics. The country's manufacturing-oriented FDI growth (particularly in electronics assembly around Bac Ninh, Thai Nguyen, and Hai Phong) is creating demand for automated quality inspection systems that require on-premises edge AI processing to meet production line cycle times of 2-5 seconds per unit.</p>
+            <ul>
+                <li><strong>Network infrastructure:</strong> Vietnam's 5G rollout, led by Viettel and VNPT, covers major industrial zones in Hanoi, Ho Chi Minh City, and Da Nang. Private 5G spectrum allocation for industrial use is available under VNPT's enterprise 5G program, enabling facility-dedicated networks with guaranteed SLAs.</li>
+                <li><strong>Power reliability:</strong> Industrial parks in Tier 1 zones (VSIP, Amata, Long Hau) provide 99.9%+ power availability. Edge deployments in Tier 2/3 zones should include UPS (minimum 30-minute runtime) and graceful degradation firmware that transitions robots to safe-stop mode during power events.</li>
+                <li><strong>Environmental conditions:</strong> Ambient temperatures of 35-42C in non-air-conditioned factory areas require active cooling for fog servers and thermal-aware workload scheduling for Jetson modules. Conformal coating is recommended for robot edge hardware exposed to humidity above 80%.</li>
+                <li><strong>Local talent:</strong> Vietnamese universities (HUST, VNU, FPT University) produce strong embedded systems and AI engineering graduates. Seraphim Vietnam partners with these institutions for edge robotics training programs.</li>
+            </ul>
+
+            <h3>13.2 Regional Edge Infrastructure Comparison</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Factor</th><th>Vietnam</th><th>Singapore</th><th>Thailand</th><th>South Korea</th><th>Japan</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>5G Coverage (Industrial)</td><td>65% major zones</td><td>95%+ nationwide</td><td>70% EEC zones</td><td>98% nationwide</td><td>95% urban</td></tr>
+                    <tr><td>Private 5G Available</td><td>Yes (Viettel)</td><td>Yes (Singtel, M1)</td><td>Yes (AIS, True)</td><td>Yes (SKT, KT)</td><td>Yes (local 5G)</td></tr>
+                    <tr><td>Edge DC Providers</td><td>Viettel IDC, FPT</td><td>Equinix, ST Telemedia</td><td>TRUE IDC, CAT</td><td>KT, Samsung SDS</td><td>NTT, KDDI</td></tr>
+                    <tr><td>Avg Power Cost</td><td>$0.07-0.09/kWh</td><td>$0.15-0.20/kWh</td><td>$0.10-0.13/kWh</td><td>$0.10-0.14/kWh</td><td>$0.18-0.25/kWh</td></tr>
+                    <tr><td>GPU HW Availability</td><td>Import (2-4 weeks)</td><td>Local stock</td><td>Import (1-2 weeks)</td><td>Local stock</td><td>Local stock</td></tr>
+                    <tr><td>Data Sovereignty</td><td>PDPD (strict)</td><td>PDPA (moderate)</td><td>PDPA (moderate)</td><td>PIPA (strict)</td><td>APPI (moderate)</td></tr>
+                    <tr><td>Edge Talent Pool</td><td>Growing rapidly</td><td>Strong</td><td>Moderate</td><td>Strong</td><td>Excellent</td></tr>
+                    <tr><td>Govt Incentives</td><td>High-tech FDI tax</td><td>EDG up to 50%</td><td>BOI tax holiday</td><td>K-Robot incentive</td><td>Robot tax credit</td></tr>
+                </tbody>
+            </table>
+
+            <h3>13.3 Singapore as APAC Edge Hub</h3>
+            <p>Singapore's position as the APAC technology hub makes it the ideal location for edge computing centers of excellence serving regional robotic deployments. Equinix's SG-series facilities and AWS Local Zones in Singapore provide sub-2ms latency to edge devices within the city-state and sub-20ms to major APAC industrial zones via submarine cable connectivity. For multi-country robotic fleet operators, Singapore serves as the centralized model training and fleet analytics hub with fog nodes deployed at each operational facility.</p>
+
+            <h2 id="implementation">14. Implementation Roadmap</h2>
+            <h3>14.1 Phased Edge Deployment Strategy</h3>
+            <p>Deploying edge computing infrastructure for robotic fleets requires a structured approach that balances technical validation with operational readiness. We recommend a four-phase implementation methodology:</p>
+            <ol>
+                <li><strong>Phase 1 -- Assessment & Prototyping (Weeks 1-6):</strong> Evaluate workload latency requirements, sensor data volumes, and connectivity constraints. Build proof-of-concept on Jetson development kits with representative models. Benchmark inference latency, power consumption, and thermal behavior under sustained load. Deliverable: hardware selection report and reference architecture.</li>
+                <li><strong>Phase 2 -- Platform Engineering (Weeks 7-14):</strong> Build containerized software stack (Docker + K3s), establish CI/CD pipeline for model compilation and deployment, configure fog node infrastructure, and implement OTA update mechanism. Establish security baseline with secure boot, model encryption, and network segmentation. Deliverable: production-ready platform with 3 pilot robots.</li>
+                <li><strong>Phase 3 -- Fleet Deployment (Weeks 15-22):</strong> Roll out edge compute modules across full robot fleet using K3s DaemonSets. Deploy fog nodes at each facility. Implement fleet monitoring dashboards (Grafana + Prometheus) with alerts for inference latency degradation, thermal throttling, and model accuracy drift. Deliverable: fully operational fleet with edge AI.</li>
+                <li><strong>Phase 4 -- Optimization & Scale (Ongoing):</strong> Continuous model optimization via quantization refinement and architecture search. Implement federated learning for fleet-wide model improvement. Expand edge capabilities with new model types (language understanding, anomaly detection). Evaluate next-generation hardware (Jetson Thor, Hailo-15) for fleet refresh cycles. Deliverable: quarterly performance improvement reports.</li>
+            </ol>
+
+            <h3>14.2 Edge Computing TCO Model</h3>
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Cost Component</th><th>Cloud-Only (50 robots)</th><th>Edge + Fog Hybrid</th><th>Savings</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Compute Hardware</td><td>$0 (cloud instances)</td><td>$35,000 (Jetson modules + fog server)</td><td>-$35,000</td></tr>
+                    <tr><td>Cloud GPU Instances (Annual)</td><td>$180,000 (50x inference endpoints)</td><td>$24,000 (training + analytics only)</td><td>+$156,000</td></tr>
+                    <tr><td>Network Bandwidth (Annual)</td><td>$96,000 (20Gbps sustained)</td><td>$4,800 (telemetry only)</td><td>+$91,200</td></tr>
+                    <tr><td>Network Infrastructure</td><td>$25,000 (high-BW switches)</td><td>$8,000 (standard switches)</td><td>+$17,000</td></tr>
+                    <tr><td>Maintenance (Annual)</td><td>$0 (cloud-managed)</td><td>$12,000 (edge HW + fog)</td><td>-$12,000</td></tr>
+                    <tr><td><strong>Year 1 Total</strong></td><td><strong>$301,000</strong></td><td><strong>$83,800</strong></td><td><strong>+$217,200 (72%)</strong></td></tr>
+                    <tr><td><strong>Year 2 Total</strong></td><td><strong>$301,000</strong></td><td><strong>$40,800</strong></td><td><strong>+$260,200 (86%)</strong></td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout">
+                <div class="callout-title">Ready to Deploy Edge AI for Your Robotic Fleet?</div>
+                <p>Seraphim Vietnam provides end-to-end edge computing consulting for robotics -- from hardware platform selection and inference optimization through fog architecture design, K3s deployment, and OTA pipeline engineering. Our team has deployed 35+ edge-enabled robotic systems across Vietnam, Singapore, and Thailand. <a href="../contact.html" style="color: var(--terminal-green);">Schedule a consultation</a> to discuss your edge computing strategy.</p>
+            </div>
+        </article>
+
+        
+    <section class="related-articles" style="max-width:900px;margin:60px auto;padding:0 20px 80px;">
+        <h3 style="font-family:'Syne',sans-serif;font-weight:600;text-transform:uppercase;font-size:1.75rem;color:#fff;margin-bottom:30px;letter-spacing:-0.01em;">Related Articles</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+        <a href="ros2-development-guide.html" style="display:block;padding:20px;background:rgba(15,20,30,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;transition:all 0.3s;text-decoration:none;">
+            <span style="font-size:0.65rem;letter-spacing:0.2em;color:#00ff88;text-transform:uppercase;">Technology</span>
+            <h4 style="font-size:1rem;color:#fff;margin:8px 0 6px;">ROS 2 Development Guide</h4>
+            <p style="font-size:0.85rem;color:#788090;line-height:1.5;">Robot Operating System 2 architecture, DDS middleware, navigation stack, and MoveIt for manipulation.</p>
+        </a>
+        <a href="computer-vision-robotics.html" style="display:block;padding:20px;background:rgba(15,20,30,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;transition:all 0.3s;text-decoration:none;">
+            <span style="font-size:0.65rem;letter-spacing:0.2em;color:#00ff88;text-transform:uppercase;">Technology</span>
+            <h4 style="font-size:1rem;color:#fff;margin:8px 0 6px;">Computer Vision for Robotics</h4>
+            <p style="font-size:0.85rem;color:#788090;line-height:1.5;">Machine vision systems, 3D perception, deep learning object detection, and visual servoing for robots.</p>
+        </a>
+        <a href="ai-reinforcement-learning-robotics.html" style="display:block;padding:20px;background:rgba(15,20,30,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;transition:all 0.3s;text-decoration:none;">
+            <span style="font-size:0.65rem;letter-spacing:0.2em;color:#00ff88;text-transform:uppercase;">Technology</span>
+            <h4 style="font-size:1rem;color:#fff;margin:8px 0 6px;">AI & Reinforcement Learning in Robotics</h4>
+            <p style="font-size:0.85rem;color:#788090;line-height:1.5;">Deep RL for robot manipulation, sim-to-real transfer, foundation models, and autonomous skill learning.</p>
+        </a>
+        <a href="collaborative-robots-cobots-guide.html" style="display:block;padding:20px;background:rgba(15,20,30,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;transition:all 0.3s;text-decoration:none;">
+            <span style="font-size:0.65rem;letter-spacing:0.2em;color:#00ff88;text-transform:uppercase;">Robot Types</span>
+            <h4 style="font-size:1rem;color:#fff;margin:8px 0 6px;">Collaborative Robots (Cobots) Guide</h4>
+            <p style="font-size:0.85rem;color:#788090;line-height:1.5;">Complete guide to cobots from Universal Robots, FANUC, ABB and more for safe human-robot collaboration.</p>
+        </a>
+        <a href="pick-and-place-automation.html" style="display:block;padding:20px;background:rgba(15,20,30,0.6);border:1px solid rgba(255,255,255,0.06);border-radius:12px;transition:all 0.3s;text-decoration:none;">
+            <span style="font-size:0.65rem;letter-spacing:0.2em;color:#00ff88;text-transform:uppercase;">Applications</span>
+            <h4 style="font-size:1rem;color:#fff;margin:8px 0 6px;">Pick & Place Automation</h4>
+            <p style="font-size:0.85rem;color:#788090;line-height:1.5;">Delta, SCARA, and 6-axis solutions for high-speed pick and place in food, electronics, and pharma.</p>
+        </a>
+        </div>
+        <div style="text-align:center;margin-top:30px;">
+            <a href="../robotics-hub.html" style="display:inline-block;padding:14px 28px;border:1px solid rgba(0,255,136,0.3);color:#00ff88;font-size:0.75rem;letter-spacing:0.1em;text-decoration:none;transition:all 0.3s;">Browse All 50+ Robotics Guides &rarr;</a>
+        </div>
+    </section>
+
+        <section class="mini-lead-section">
+            <div class="container">
+                <div class="mini-lead-form">
+                    <h3 class="form-title">Get the Edge Computing for Robotics Assessment</h3>
+                    <p class="form-subtitle">Receive a customized edge architecture report including hardware recommendations, inference benchmarks, TCO analysis, and deployment roadmap for your robotic fleet.</p>
+                    <form action="https://formspree.io/f/maqoobvb" method="POST">
+                        <input type="hidden" name="_language" value="en">
+                        <input type="hidden" name="_source" value="robotics-edge-computing">
+                        <div class="form-row">
+                            <div class="form-group"><input type="text" name="name" class="form-input" placeholder="Your Name *" required></div>
+                            <div class="form-group"><input type="email" name="email" class="form-input" placeholder="Work Email *" required></div>
+                        </div>
+                        <div class="form-group"><input type="text" name="company" class="form-input" placeholder="Company Name"></div>
+                        <button type="submit" class="form-submit">Request Assessment</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER_START -->
+<footer class="footer">
+    <div class="footer-top-accent"></div>
+    <div class="footer-main">
+        <div class="footer-grid">
+            <!-- Column 1: Brand -->
+            <div class="footer-brand">
+                <span data-domain="vn" style=";display:none!important"><img src="../../assets/logo.png" alt="Seraphim Vietnam Logo" width="600" height="337" loading="lazy"></span>
+                <span data-domain="intl"><img src="../../assets/logo.png" alt="Seraphim Logo" width="600" height="337" loading="lazy"></span>
+                <p class="footer-desc"><span data-domain="vn" style=";display:none!important">Enterprise technology partner for APAC and beyond. Cloud architecture, AI systems, cybersecurity, and digital transformation.</span><span data-domain="intl">Global enterprise technology partner. Cloud architecture, AI systems, humanoid robotics, cybersecurity, and digital transformation.</span></p>
+                <div class="footer-social-links">
+                    <a href="https://wa.me/447880922330" class="footer-social-link whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                    <a href="https://zalo.me/0366553592" class="footer-social-link zalo" target="_blank" rel="noopener noreferrer" data-domain="vn" style=";display:none!important">Zalo</a>
+                </div>
+                <a href="/cdn-cgi/l/email-protection#543d3a323b1427312635243c3d397a223a" class="footer-email" data-domain="vn" style=";display:none!important"><span class="email-icon">&#9993;</span> <span class="__cf_email__" data-cfemail="5e373038311e2d3b2c3f2e363733702830">[email&#160;protected]</span></a>
+                <a href="/cdn-cgi/l/email-protection#d5bda0b8b4bb95a6a7a5bdb8fbb4bc" class="footer-email" data-domain="intl"><span class="email-icon">&#9993;</span> <span class="__cf_email__" data-cfemail="fa928f979b94ba89888a9297d49b93">[email&#160;protected]</span></a>
+            </div>
+
+            <!-- Column 2: Solutions -->
+            <div class="footer-col">
+                <h4>SOLUTIONS</h4>
+                <a href="../../pages/cloud-solutions.html">Cloud Architecture</a>
+                <a href="../../pages/ai-solutions.html">AI & Machine Learning</a>
+                <a href="../../pages/cybersecurity.html">Cybersecurity</a>
+                <a href="../../pages/ui-design.html">UI/UX Design</a>
+                <a href="../../pages/shopify.html">E-Commerce</a>
+                <a href="../../pages/robotics.html">Robotics & Automation</a>
+                <a href="../../pages/outsourcing.html">IT Outsourcing</a>
+            </div>
+
+            <!-- Column 3: Tools & Generators -->
+            <div class="footer-col">
+                <h4>TOOLS & GENERATORS</h4>
+                <a href="../../pages/mewtwo-security-scanner.html">Security Scanner</a>
+                <a href="../../pages/compliance-gap-analyzer.html">Compliance Gap Analyzer</a>
+                <a href="../../pages/ai-consultant.html">Ghost Consultant</a>
+                <a href="../../pages/meeting-summarizer.html">Meeting Summarizer</a>
+                <a href="../../pages/brand-sentiment-analyzer.html">Brand Sentiment Analyzer</a>
+                <a href="../../pages/board-deck-generator.html">Board Deck Generator</a>
+                <a href="../../pages/cloud-cost-calculator.html">Cloud Cost Calculator</a>
+                <a href="../../pages/tech-stack-builder.html">Tech Stack Builder</a>
+                <a href="../../pages/vendor-selection-matrix.html">Vendor Selection Matrix</a>
+                <a href="../../pages/speed-audit.html">Speed Audit</a>
+                <a href="../../pages/seo-keyword-value-calculator.html">SEO Keyword Calculator</a>
+                <a href="../../pages/threat-intelligence-dashboard.html">Threat Intelligence Dashboard</a>
+                <a href="../../pages/ai-readiness-assessment.html">AI Readiness Assessment</a>
+                <h4 style="margin-top: 16px;">CONTRACTS</h4>
+                <a href="../../pages/singapore-employment-contract-generator-v3.html">Singapore</a>
+                <a href="../../pages/hongkong-employment-contract-generator-v2.html">Hong Kong</a>
+                <a href="../../pages/vietnam-employment-contract-generator-v2.html">Vietnam</a>
+                <a href="../../pages/malaysia-employment-contract-generator-v2.html">Malaysia</a>
+                <h4 style="margin-top: 16px;">PRIVACY POLICIES</h4>
+                <a href="../../pages/singapore-pdpa-privacy-policy-generator.html">Singapore PDPA</a>
+                <a href="../../pages/malaysia-pdpa-privacy-policy-generator.html">Malaysia PDPA</a>
+                <h4 style="margin-top: 16px;">DOCUMENT GENERATORS</h4>
+                <a href="../../pages/nda-generator.html">NDA Generator</a>
+                <a href="../../pages/saas-agreement-generator.html">SaaS Agreement Generator</a>
+                <a href="../../pages/freelancer-contract-generator.html">Freelancer Contract Generator</a>
+                <a href="../../pages/privacy-policy-generator.html">Privacy Policy Generator</a>
+            </div>
+
+            <!-- Column 4: Compliance -->
+            <div class="footer-col">
+                <h4>COMPLIANCE</h4>
+                <a href="../../pages/gdpr-compliance.html">GDPR</a>
+                <a href="../../pages/hipaa-compliance.html">HIPAA</a>
+                <a href="../../pages/soc2-compliance.html">SOC 2</a>
+                <a href="../../pages/iso27001-compliance.html">ISO 27001</a>
+                <a href="../../pages/pci-dss-compliance.html">PCI DSS</a>
+                <a href="../../pages/pdpa-compliance.html">PDPA</a>
+                <a href="../../pages/vietnam-pdpd-compliance.html">PDPD</a>
+                <a href="../../pages/ccpa-compliance.html">CCPA</a>
+                <a href="../../pages/brazil-lgpd-compliance.html">LGPD</a>
+                <a href="../../pages/china-pipl-compliance.html">PIPL</a>
+                <a href="../../pages/japan-appi-compliance.html">APPI</a>
+                <a href="../../pages/korea-pipa-compliance.html">PIPA</a>
+                <a href="../../pages/asean-data-compliance-framework.html">ASEAN Framework</a>
+            </div>
+
+            <!-- Column 5: Resources & Insights -->
+            <div class="footer-col">
+                <h4>RESOURCES & INSIGHTS</h4>
+                <a href="../../pages/robotics-hub.html">Robotics Hub</a>
+                <a href="../../pages/data-analytics-hub.html">Analytics Hub</a>
+                <a href="../../pages/singapore-cloud-ai-guide.html">Singapore Guide</a>
+                <a href="../../pages/digital-transformation-vietnam.html" data-domain="vn" style=";display:none!important">Vietnam Guide</a>
+                <a href="../../pages/singapore-ai-implementation.html">SG AI Implementation</a>
+                <a href="../../pages/vietnam-ai-development.html" data-domain="vn" style=";display:none!important">VN AI Development</a>
+                <a href="../../pages/vietnam-cloud-services.html" data-domain="vn" style=";display:none!important">VN Cloud Services</a>
+                <a href="../../pages/aws-vs-azure-vs-gcp-vietnam.html">Cloud Comparison</a>
+                <a href="../../pages/ai-use-cases-roi.html">AI Use Cases & ROI</a>
+                <a href="../../pages/data-privacy-story.html">Data Privacy Story</a>
+                <a href="../../pages/insights/robotics-implementation-apac.html">Robotics in APAC</a>
+            </div>
+
+            <!-- Column 6: Company -->
+            <div class="footer-col">
+                <h4>COMPANY</h4>
+                <a href="../../pages/about.html">About Us</a>
+                <a href="../../pages/careers.html">Careers</a>
+                <a href="../../pages/contact.html">Contact</a>
+                <a href="../../pages/faq.html">FAQ</a>
+                <a href="../../pages/privacy-global.html">Privacy Policy</a>
+                <a href="../../pages/terms-global.html">Terms of Service</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-stats">
+        <div class="footer-stats-row">
+            <div class="footer-stat"><span>500+</span> Deployments</div>
+            <div class="footer-stat"><span>99.9%</span> SLA Uptime</div>
+            <div class="footer-stat"><span>24/7</span> Support</div>
+            <div class="footer-stat"><span>4</span> Offices</div>
+        </div>
+    </div>
+    <div class="footer-quote-cta">
+        <a href="../../pages/ai-consultant.html" class="footer-quote-btn" style="text-decoration:none;display:inline-block;"><span>&#10022;</span> Engage Ghost <span>&#10022;</span></a>
+        <p class="footer-ghost-desc" style="font-size:0.7rem;opacity:0.5;margin-top:0.25rem;">Consult our agent, available 24/7</p>
+    </div>
+    <div class="footer-tagline-epic">
+        <div class="footer-tagline-particles"></div>
+        <p class="footer-tagline-text">The Network Is Alive.<br>The Future Runs Through Us.</p>
+        <p class="footer-tagline-sub">Deploying Tomorrow's Infrastructure. Today.</p>
+    </div>
+    <div class="footer-bottom">
+        <div class="footer-particles">
+            <div class="footer-particle"></div>
+            <div class="footer-particle"></div>
+            <div class="footer-particle"></div>
+            <div class="footer-particle"></div>
+            <div class="footer-particle"></div>
+            <div class="footer-particle"></div>
+        </div>
+        <div class="footer-bottom-inner">
+            <p data-domain="vn" style=";display:none!important">&copy; 2026 Seraphim Vietnam Co., Ltd.</p>
+            <p data-domain="intl">&copy; 2026 Seraphim, a QNTM Venture</p>
+            <p data-domain="intl" class="qi-badge">A Quantum Industries Product</p>
+</div>
+    </div>
+    <div class="live-presence-badge" style="display:none">
+        <span class="presence-dot"></span>
+        <span class="presence-text">connecting...</span>
+    </div>
+</footer>
+
+<!-- FOOTER_END -->
+    <div style="text-align:center;padding:20px;margin-top:40px;border-top:1px solid rgba(255,255,255,0.1);">
+        <p style="font-size:0.75rem;color:rgba(255,255,255,0.4);margin:0;">&copy; 2026 Seraphim Co., Ltd.</p>
+    </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    (function(){if(window.__noJS)return;function l(s){var e=document.createElement('script');e.src=s;document.body.appendChild(e)}
+    var b='../../assets/';
+    if('requestIdleCallback' in window){requestIdleCallback(function(){l(b+'scifi-fx.js')})}
+    else{window.addEventListener('load',function(){setTimeout(function(){l(b+'scifi-fx.js')},1000)})}})();
+    </script>
+<script>if(!window.__noJS){var d=document,h=d.head,c=function(s){var e=d.createElement('script');e.src=s;h.appendChild(e)};c('../../assets/weather.js?v=528');c('../../assets/scripts.js?v=529')}</script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"e873e2558d8248bbb20f6c0c89aae03e","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,1000 @@
+Why ONNX Still Matters in 2026
+ONNX isn't the new kid on the block anymore, but it's still the backbone of a surprising amount of production AI. The landscape has shifted since 2024, with more frameworks adding native ONNX support and hardware vendors optimizing for it. Here's where it fits in today's ecosystem.
+PyTorch and TensorFlow both improved their ONNX exporters in 2025.
+PyTorch's TorchScript-to-ONNX pipeline got a major overhaul, reducing export failures by 40% according to their internal benchmarks. TensorFlow's tf2onnx now handles dynamic shapes better, which was a major pain point for models with variable-length inputs. Even JAX added experimental ONNX support in late 2024, though it's still rough around the edges.
+Where ONNX Wins
+Cross-framework compatibility remains ONNX's killer feature. Need to train in PyTorch but deploy on a system that only supports TensorFlow Serving? ONNX bridges that gap. The format's stability means you're not locked into a specific framework version - a model exported in 2024 still runs fine in 2026 without re-exporting.
+Hardware support has expanded too.
+NVIDIA's TensorRT added full ONNX support for their latest GPUs, including the RTX 5000 series. AMD's ROCm platform now includes ONNX Runtime as a first-class citizen. Even Intel's oneAPI supports ONNX through their neural network compiler. On the edge, Qualcomm's AI Engine Direct and Apple's Core ML both accept ONNX models with minimal conversion.
+What's Changed Since 2024
+The biggest shift is how ONNX handles large language models. In 2024, exporting a 7B parameter model to ONNX was a nightmare. Today, the ONNX opset 20 (released in 2025) includes better support for attention mechanisms and dynamic control flow.
+The new DynamicQuantizeLinear operator makes it easier to quantize models without losing accuracy.
+Cloud providers have standardized on ONNX too. AWS SageMaker's Triton Inference Server added native ONNX support in 2025, joining Azure ML and Google Vertex AI. This means you can deploy the same ONNX model across all three major clouds without modification.
+When to Reach for ONNX
+ONNX makes sense when:
+- You need to deploy across multiple frameworks or hardware platforms
+- Your model has a long lifespan (years, not months)
+- You're targeting edge devices with limited runtime options
+- You want to leverage hardware-specific optimizations without rewriting your model
+It's less ideal when:
+- You're working with bleeding-edge model architectures that haven't been standardized yet
+- Your model uses framework-specific features that don't export cleanly
+- You need to frequently update the model and can't afford the export step
+The State of the Ecosystem
+The ONNX Runtime hit version 1.18 in early 2026, adding support for AMD's CDNA 3 architecture and Intel's Gaudi 3 accelerators. The runtime now includes a new execution provider for Apple's M-series chips that leverages their neural engine more efficiently.
+Microsoft's contributions have slowed since 2024, but the open-source community picked up the slack. The Linux Foundation took over governance of the ONNX standard in 2025, which stabilized development and improved documentation. The new onnx-simplifier tool (released in 2025) automatically optimizes graph structures, reducing model size by 15-30% with no accuracy loss.
+What Actually Slows Down Your ONNX Models
+Most optimization guides focus on the obvious - batch size, precision, and operator fusion. But the real performance killers are often hiding in plain sight. Here's what's actually making your model crawl.
+Memory Access Patterns
+ONNX models don't run in isolation - they're at the mercy of how your hardware moves data around. The biggest culprit? Poor memory locality.
+When your model's weights and activations are scattered across memory, the CPU or GPU spends more time waiting for data than actually computing.
+Consider a simple convolution layer. If the input tensor isn't contiguous in memory, the GPU might need to make multiple memory accesses to gather all the data it needs. This is especially bad on newer GPUs with large L2 caches - they're designed to handle contiguous memory accesses efficiently, but non-contiguous data forces them to fall back to slower global memory.
+You can check for this with NVIDIA's Nsight Compute or AMD's ROCProfiler. Look for high "memory replay" or "memory dependency" metrics. If you see these, your model is spending more time waiting for data than computing.
+Operator Inefficiency
+Not all ONNX operators are created equal. Some are hardware-optimized, while others run on the CPU fallback. The Gather operator is a common offender - it's often used for embedding lookups, but many implementations don't leverage GPU memory coalescing.
+Here's a real-world example: replacing Gather with GatherElements in a recommendation model reduced inference time by 22% on NVIDIA A100 GPUs. The newer operator better utilizes the GPU's memory hierarchy.
+Another trap is using Reshape when you could use Flatten or Squeeze. Reshape operations often trigger memory copies, while the more specific operators can sometimes be optimized away entirely.
+Graph Structure Bloat
+Every node in your ONNX graph adds overhead. The runtime needs to schedule the operation, allocate memory for inputs and outputs, and manage dependencies. A model with 10,000 nodes will almost always be slower than an equivalent model with 1,000 nodes, even if they perform the same computation.
+Common sources of bloat:
+- Unnecessary identity operations (from framework exports)
+- Redundant type conversions
+- Dead code that never executes
+- Overly granular operations that could be fused
+In 2025, Meta published a case study showing how they reduced their recommendation model's graph size by 40% through operator fusion and dead code elimination. The result? 18% faster inference with no accuracy loss.
+Hardware Mismatch
+ONNX Runtime supports multiple execution providers, but using the wrong one can tank performance. For example, running a model on CUDA when you're actually using an AMD GPU means falling back to CPU execution. Even worse, some providers have hidden overhead - the TensorRT provider might add 5-10ms of initialization time, which matters if you're doing single-batch inference.
+The execution provider landscape in 2026:
+Provider
+Best For
+Overhead
+Notes
+CUDA
+NVIDIA GPUs
+Low
+Best for most NVIDIA hardware
+TensorRT
+NVIDIA GPUs (production)
+Medium
+Adds 5-10ms init time but better optimization
+ROCm
+AMD GPUs
+Low
+Improved significantly in 2025
+CoreML
+Apple Silicon
+Low
+Best for iOS/macOS deployment
+DirectML
+Windows (DirectX)
+Medium
+Good for mixed CPU/GPU workloads
+CPU
+Everything else
+None
+Fallback option, often slowest
+Precision Pitfalls
+Quantization is a double-edged sword. While reducing precision from FP32 to INT8 can give you 2-4x speedup, it's not always a free lunch. The performance gain depends heavily on your hardware:
+- NVIDIA GPUs: INT8 is 2-4x faster than FP32 on Ampere and newer architectures
+- AMD GPUs: INT8 is about 2x faster on CDNA 2/3
+- Intel CPUs: INT8 is 2-3x faster on Xeon Scalable processors
+- Apple Silicon: INT8 is only 1.5x faster than FP16 on M-series chips
+But here's the catch: not all operations benefit equally from quantization. Matrix multiplications see the biggest gains, while element-wise operations often see little to no improvement. In some cases, quantizing everything can actually make your model slower because the runtime needs to constantly convert between precisions.
+Batch Size Gotchas
+Most guides tell you to increase batch size for better throughput. That's true up to a point, but there are diminishing returns. The optimal batch size depends on:
+- Your GPU's memory capacity
+- The size of your model
+- Your latency requirements
+- Whether you're using dynamic batching
+For example, on an NVIDIA A100 with 40GB of memory, a ResNet-50 model hits peak throughput at batch size 64. Beyond that, the performance gains are minimal (less than 5% improvement from 64 to 128), but memory usage keeps increasing linearly.
+Dynamic batching (where you process multiple requests of different sizes together) adds another layer of complexity. ONNX Runtime's dynamic batching support improved in 2025, but it still has overhead. The runtime needs to pad inputs to the same size, which wastes computation on the padded values.
+Tools That Actually Work for Optimization in 2026
+The optimization tool landscape has changed dramatically since 2024. Some tools that were essential back then are now obsolete, while others have emerged as clear winners. Here's what's worth your time in 2026.
+ONNX Runtime 1.18
+The latest version of ONNX Runtime (released in January 2026) includes several performance improvements:
+- Better memory management for large models
+- Improved operator fusion for transformer architectures
+- Enhanced support for AMD GPUs via ROCm 6.0
+- New execution provider for Intel's Gaudi 3 accelerators
+The most significant change is the new "graph partitioning" feature.
+This automatically splits your model into subgraphs that can be executed on different hardware. For example, it might run the attention layers on GPU while keeping the embedding lookup on CPU. In benchmarks, this improved performance by 12-25% for mixed workloads.
+Here's how to enable it:
+import onnxruntime as ort
+options = ort.SessionOptions()
+options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+options.execution_mode = ort.ExecutionMode.ORT_PARALLEL
+options.add_session_config_entry('session.graph_partitioning', '1')
+session = ort.InferenceSession('model.onnx', options)
+TensorRT 10.0
+NVIDIA's TensorRT hit version 10.0 in late 2025, adding full support for ONNX opset 20. The biggest improvements:
+- Better optimization for transformer models (up to 2x speedup for some architectures)
+- Improved INT4 quantization support
+- Enhanced dynamic shape handling
+- New "sparsity" mode that leverages structured sparsity in weights
+The sparsity feature is particularly interesting. Many modern models (especially LLMs) have weights that can be pruned without accuracy loss. TensorRT 10.0 can detect this sparsity pattern and optimize the computation accordingly. In NVIDIA's benchmarks, this gave a 15-30% speedup for sparse models with no accuracy loss.
+Here's how to use TensorRT with ONNX:
+import tensorrt as trt
+logger = trt.Logger(trt.Logger.WARNING)
+builder = trt.Builder(logger)
+network = builder.create_network(1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH))
+parser = trt.OnnxParser(network, logger)
+with open('model.onnx', 'rb') as model:
+    if not parser.parse(model.read()):
+        for error in range(parser.num_errors):
+            print(parser.get_error(error))
+config = builder.create_builder_config()
+config.set_memory_pool_limit(trt.MemoryPoolType.WORKSPACE, 1 << 30)  # 1GB
+serialized_engine = builder.build_serialized_network(network, config)
+ONNX-TensorRT
+While TensorRT supports ONNX natively, the onnx-tensorrt package (maintained by NVIDIA) provides better integration and additional optimizations. It includes:
+- Automatic operator fusion
+- Layer merging for common patterns
+- Better handling of dynamic shapes
+- Support for custom plugins
+The package also includes a new "profile-guided optimization" feature. This analyzes your model's runtime behavior and optimizes the execution plan accordingly. In one case study, this improved performance by 18% for a computer vision model.
+AMD's ROCm Tools
+AMD's ROCm platform has matured significantly since 2024. The latest version (ROCm 6.1) includes:
+- Full ONNX Runtime support
+- Improved operator coverage
+- Better memory management
+- Support for mixed precision
+The most interesting tool is rocONNX, which provides AMD-specific optimizations for ONNX models. It includes:
+- Automatic kernel selection for AMD GPUs
+- Memory layout optimizations
+- Support for AMD's CDNA 3 architecture
+Here's how to use it:
+import roconnx
+# Load ONNX model
+model = roconnx.load('model.onnx')
+# Apply AMD-specific optimizations
+model = roconnx.optimize(model, target='gfx940')  # MI300X
+# Save optimized model
+model.save('model_optimized.onnx')
+Intel's Neural Compressor
+Intel's Neural Compressor (now at version 3.0) is one of the best tools for quantization. It supports:
+- Static and dynamic quantization
+- Mixed precision (FP32/FP16/INT8/INT4)
+- Calibration for accuracy preservation
+- Hardware-aware optimization
+The most useful feature is the "accuracy-aware" quantization. This automatically finds the optimal precision for each layer while maintaining model accuracy. In Intel's benchmarks, this reduced model size by 75% with less than 1% accuracy loss.
+Here's a basic quantization example:
+from neural_compressor import quantization
+# Load model
+model = quantization.Quantization('model.onnx')
+# Configure quantization
+quant_config = {
+    'approach': 'post_training_static_quant',
+    'calibration': {
+        'sampling_size': 100,
+        'dataloader': calibration_data_loader
+    },
+    'accuracy_criterion': {
+        'relative': 0.01  # 1% accuracy loss tolerance
+    }
+}
+# Quantize model
+quantized_model = model.fit(quant_config)
+# Save quantized model
+quantized_model.save('model_quantized.onnx')
+Under-the-Radar Tools
+These tools don't get as much attention but can make a big difference:
+- onnx-simplifier: Automatically optimizes graph structure (removes dead code, fuses operations, etc.)
+- onnxruntime-tools: Includes utilities for model analysis and optimization
+- onnx-tensorrt-tools: Additional TensorRT-specific optimizations
+- onnx-pytorch: Helps debug export issues between PyTorch and ONNX
+- onnx-graphsurgeon: Low-level graph manipulation (useful for custom optimizations)
+One particularly useful tool is onnxruntime-benchmark, which measures model performance across different execution providers and hardware configurations. It's great for identifying performance bottlenecks.
+Real-World Benchmarks
+Here are some recent benchmark results from NVIDIA and AWS:
+Model
+Hardware
+Optimization
+Latency (ms)
+Throughput (req/s)
+Accuracy Loss
+ResNet-50
+A100
+None
+12.4
+806
+0%
+ResNet-50
+A100
+TensorRT + INT8
+3.1
+3225
+0.2%
+BERT-Base
+A100
+None
+28.7
+348
+0%
+BERT-Base
+A100
+TensorRT + FP16
+8.2
+1219
+0.1%
+BERT-Base
+A100
+TensorRT + INT8
+5.6
+1785
+0.5%
+LLaMA-7B
+H100
+None
+1245.3
+0.8
+0%
+LLaMA-7B
+H100
+TensorRT + FP8
+187.2
+5.3
+0.3%
+ResNet-50
+Graviton3
+None
+45.2
+221
+0%
+ResNet-50
+Graviton3
+ONNX Runtime + INT8
+12.8
+781
+0.1%
+Key takeaways from these benchmarks:
+- TensorRT provides the best performance for NVIDIA GPUs, especially with mixed precision
+- INT8 quantization gives the best speedup with minimal accuracy loss
+- FP8 (new in 2025) is promising for large models but requires hardware support
+- AWS Graviton processors benefit significantly from ONNX Runtime optimizations
+How to Shrink Your Model Without Breaking It
+Quantization is the most effective way to reduce model size and improve performance, but it's not as simple as flipping a switch. Here's how to do it right in 2026.
+Understanding Precision
+Modern hardware supports several numeric precisions:
+Precision
+Size (bits)
+Range
+Hardware Support
+Use Case
+FP32
+32
+±3.4e38
+All GPUs/CPUs
+Training, high-accuracy inference
+FP16
+16
+±65504
+Most GPUs
+Mixed precision training, inference
+BF16
+16
+±3.4e38
+Newer GPUs/CPUs
+Training (better range than FP16)
+FP8
+8
+±448
+H100, B100, MI300
+Inference (emerging standard)
+INT8
+8
+-128 to 127
+All GPUs/CPUs
+Quantized inference
+INT4
+4
+-8 to 7
+H100, B100, MI300
+Extreme quantization
+FP8 is the new kid on the block. Introduced in NVIDIA's H100 and AMD's MI300, it offers a good balance between size and accuracy. The format uses 1 sign bit, 5 exponent bits, and 2 mantissa bits, giving it a range of ±448. This is enough for most inference tasks while cutting memory usage in half compared to FP16.
+When to Use Each Precision
+Here's a practical guide to choosing precision:
+- FP32: Use when accuracy is critical and you have no performance constraints. Also use for the first and last layers of quantized models (these are often sensitive to precision).
+- FP16/BF16: Good for mixed precision training and inference on GPUs that support it. BF16 is better for training because it has the same range as FP32.
+- FP8: Best for inference on supported hardware (H100, B100, MI300).
+Offers similar accuracy to FP16 with better performance.
+- INT8: The sweet spot for most inference tasks. Works on all hardware and gives 2-4x speedup over FP32.
+- INT4: Use only when you need extreme compression (e.g., edge devices). Expect some accuracy loss.
+Quantization Techniques
+There are several ways to quantize a model:
+1. Post-Training Quantization (PTQ)
+This is the simplest approach - you take a trained FP32 model and convert it to lower precision. The process:
+- Export your model to ONNX
+- Run calibration on a representative dataset
+- Apply quantization
+- Validate accuracy
+PTQ works well for most models, but it can cause accuracy loss for sensitive architectures. The key is using a good calibration dataset - it should be representative of your production data.
+Here's how to do PTQ with ONNX Runtime:
+import onnxruntime as ort
+from onnxruntime.quantization import quantize_dynamic, QuantType
+# Load model
+model_path = 'model.onnx'
+quantized_model_path = 'model_quantized.onnx'
+# Quantize to INT8
+quantize_dynamic(
+    model_path,
+    quantized_model_path,
+    weight_type=QuantType.QUInt8
+)
+# Verify
+session = ort.InferenceSession(quantized_model_path)
+2. Quantization-Aware Training (QAT)
+QAT simulates quantization during training, which helps the model adapt to lower precision. This typically gives better accuracy than PTQ but requires retraining.
+PyTorch's QAT support improved significantly in 2025. Here's a basic example:
+import torch
+import torch.quantization
+# Define model
+model = ...\n\n# Prepare for QAT
+model.qconfig = torch.quantization.get_default_qat_qconfig('fbgemm')
+model = torch.quantization.prepare_qat(model)
+# Train with simulated quantization
+train_model(model)
+# Convert to quantized model
+model = torch.quantization.convert(model)
+# Export to ONNX
+torch.onnx.export(model, ...)
+3.
+Mixed Precision
+Not all layers need the same precision. Mixed precision quantization assigns different precisions to different parts of the model. For example:
+- FP32 for the first and last layers
+- FP16 for attention layers
+- INT8 for feed-forward layers
+This gives you most of the performance benefit of full quantization with less accuracy loss. ONNX Runtime 1.18 added better support for mixed precision models.
+Here's how to specify mixed precision in ONNX:
+<!-- In your ONNX model -->
+<quantizeLinear opset="20">
+    <input>input_tensor</input>
+    <output>quantized_tensor</output>
+    <axis>1</axis>
+    <quant_type>INT8</quant_type>
+</quantizeLinear>
+Handling Quantization Challenges
+Quantization isn't always smooth sailing. Here are common issues and how to fix them:
+1. Accuracy Loss
+If your quantized model loses too much accuracy:
+- Try QAT instead of PTQ
+- Use a larger calibration dataset
+- Keep sensitive layers in FP32
+- Adjust the quantization range (some tools let you specify min/max values)
+2. Unsupported Operations
+Some operations don't quantize well. Common offenders:
+- Softmax with large input ranges
+- LayerNorm with small epsilon values
+- Custom operations
+Solutions:
+- Replace problematic operations with quantized equivalents
+- Implement custom quantization for unsupported ops
+- Keep problematic ops in FP32
+3. Dynamic Range Issues
+Some models have activations with very large or very small ranges. This can cause problems with fixed-point quantization.
+Solutions:
+- Use per-channel quantization instead of per-tensor
+- Apply range clipping before quantization
+- Use FP8 instead of INT8 (if hardware supports it)
+Advanced Techniques
+For when basic quantization isn't enough:
+1. Sparse Quantization
+Many models have weights that can be pruned without accuracy loss. Sparse quantization combines pruning with quantization to get even better compression.
+TensorRT 10.0 added support for structured sparsity patterns. Here's how to enable it:
+import tensorrt as trt
+config = builder.create_builder_config()
+config.set_flag(trt.BuilderFlag.SPARSE_WEIGHTS)
+2. Quantization with Knowledge Distillation
+Train a smaller, quantized model to mimic a larger FP32 model. This can give you better accuracy than direct quantization.
+Example workflow:
+- Train a large FP32 teacher model
+- Create a smaller student model architecture
+- Train the student with both the original loss and a distillation loss
+- Quantize the student model
+3. Learned Quantization
+Instead of using fixed quantization parameters, learn them during training. This can give better accuracy than static quantization.
+PyTorch's learnable_quantize module (added in 2025) makes this easier:
+from torch.quantization import learnable_quantize
+# During model definition
+self.quant = learnable_quantize.LearnedQuantize(
+    num_bits=8,
+    per_channel=True
+)
+# In forward pass
+x = self.quant(x)
+Quantization in Practice
+# Step 1: Export to ONNX
+import torch
+model = ...  # Your PyTorch model
+dummy_input = torch.randn(1, 3, 224, 224)  # Example input
+torch.onnx.export(
+    model,
+    dummy_input,
+    "model.onnx",
+    opset_version=20,
+    do_constant_folding=True,
+    input_names=["input"],
+    output_names=["output"],
+    dynamic_axes={
+        "input": {0: "batch_size"},
+        "output": {0: "batch_size"}
+    }
+)
+# Step 2: Quantize with ONNX Runtime
+import onnxruntime as ort
+from onnxruntime.quantization import quantize_dynamic, QuantType
+quantize_dynamic(
+    "model.onnx",
+    "model_quant.onnx",
+    weight_type=QuantType.QUInt8
+)
+# Step 3: Optimize with TensorRT
+import tensorrt as trt
+logger = trt.Logger(trt.Logger.WARNING)
+builder = trt.Builder(logger)
+network = builder.create_network(1 << int(trt.NetworkDefinitionCreationFlag.EXPLICIT_BATCH))
+parser = trt.OnnxParser(network, logger)
+with open("model_quant.onnx", "rb") as model:
+    if not parser.parse(model.read()):
+        for error in range(parser.num_errors):
+            print(parser.get_error(error))
+config = builder.create_builder_config()
+config.set_memory_pool_limit(trt.MemoryPoolType.WORKSPACE, 1 << 30)  # 1GB
+config.set_flag(trt.BuilderFlag.FP16)
+config.set_flag(trt.BuilderFlag.INT8)
+serialized_engine = builder.build_serialized_network(network, config)
+with open("model.engine", "wb") as f:
+    f.write(serialized_engine)
+Graph Surgery That Doesn't Require a PhD
+You don't need to be a compiler expert to optimize your ONNX graph. Here are simple but effective techniques that give you most of the benefit with minimal effort.
+Operator Fusion
+Operator fusion combines multiple operations into a single kernel, reducing memory access and kernel launch overhead. Common fusion patterns:
+- Conv + BatchNorm + ReLU → ConvBnRelu
+- MatMul + Add → Gemm
+- Concat + Slice → optimized memory access
+- Reduce + Reshape → single operation
+ONNX Runtime automatically fuses many common patterns, but you can help it by structuring your model appropriately. For example, if you're using PyTorch, export with torch.onnx.export(..., do_constant_folding=True) to enable constant folding during export.
+Here's how to check what fusions ONNX Runtime applied:
+import onnxruntime as ort
+options = ort.SessionOptions()
+options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
+options.log_severity_level = 0  # Enable logging
+session = ort.InferenceSession('model.onnx', options)
+The logs will show which operators were fused.
+Dead Code Elimination
+Many models contain operations that never execute or don't affect the output. Common examples:
+- Unused branches in control flow
+- Operations that only affect intermediate values
+- Duplicate operations
+- Identity operations (e.g., Add(0, x))
+The onnx-simplifier tool automatically removes dead code. Here's how to use it:
+python -m onnxsim model.onnx model_simplified.onnx
+In one case study, this reduced a model's node count from 1,243 to 876 (30% reduction) with no accuracy loss.
+Constant Folding
+Constant folding evaluates constant expressions at optimization time rather than runtime. For example:
+# Before
+x = 2 * 3  # Computed at runtime
+# After
+x = 6      # Computed at optimization time
+This is especially useful for:
+- Model hyperparameters
+- Normalization constants
+- Static embeddings
+- Shape calculations
+ONNX Runtime performs constant folding automatically when you set graph_optimization_level=ORT_ENABLE_ALL. You can also do it manually with onnxruntime-tools:
+python -m onnxruntime.tools.net_drawer --input model.onnx --output model_folded.onnx --fold_const
+Memory Optimization
+ONNX models can waste memory by keeping intermediate tensors alive longer than necessary. Here are ways to optimize memory usage:
+1. In-Place Operations
+Some operations can modify their input tensor in-place rather than allocating a new output tensor.
+Common in-place operations:
+- Add (when output is same as one input)
+- Mul
+- Sub
+- Div
+To enable in-place operations in ONNX Runtime:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.inplace_ops', '1')
+2. Memory Reuse
+ONNX Runtime can reuse memory buffers for tensors with compatible shapes. This is especially useful for models with dynamic shapes.
+To enable memory reuse:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.memory_reuse', '1')
+3. Output Reuse
+If your model has multiple outputs that aren't all needed, you can tell ONNX Runtime to only compute the ones you want:
+session = ort.InferenceSession('model.onnx')
+outputs = session.run(['output1'], {'input': input_data})  # Only compute output1
+Before and After Examples
+Here are some real-world examples of graph optimizations and their impact:
+Example 1: ResNet-50
+Before:
+- Node count: 1,243
+- Inference time: 12.4ms
+- Memory usage: 102MB
+After (optimized):
+- Node count: 876 (30% reduction)
+- Inference time: 8.7ms (30% faster)
+- Memory usage: 78MB (24% reduction)
+Optimizations applied:
+- Operator fusion (Conv+Bn+ReLU)
+- Dead code elimination
+- Constant folding
+- Memory reuse
+Example 2: BERT-Base
+Before:
+- Node count: 3,452
+- Inference time: 28.7ms
+- Memory usage: 512MB
+After (optimized):
+- Node count: 2,187 (37% reduction)
+- Inference time: 18.2ms (37% faster)
+- Memory usage: 384MB (25% reduction)
+Optimizations applied:
+- Operator fusion (MatMul+Add)
+- Dead code elimination
+- Quantization (FP32→FP16)
+- Memory reuse
+Example 3: Custom Vision Model
+Before:
+- Node count: 8,421
+- Inference time: 45.3ms
+- Memory usage: 248MB
+After (optimized):
+- Node count: 3,145 (63% reduction)
+- Inference time: 18.7ms (59% faster)
+- Memory usage: 124MB (50% reduction)
+Optimizations applied:
+- Operator fusion (multiple patterns)
+- Dead code elimination (removed unused branches)
+- Constant folding (static embeddings)
+- Quantization (FP32→INT8)
+- Memory reuse
+Tools for Graph Surgery
+Here are some tools to help with graph optimization:
+- onnx-simplifier: Automatic graph simplification
+- onnxruntime-tools: Includes graph analysis and optimization tools
+- onnx-graphsurgeon: Low-level graph manipulation
+- Netron: Visualize ONNX graphs to identify optimization opportunities
+- onnxoptimizer: Additional graph optimizations
+Here's how to use onnx-graphsurgeon to manually fuse operations:
+import onnx_graphsurgeon as gs import onnx
+Load model
+graph = gs.import_onnx(onnx.load("model.onnx"))
+Find Conv+Bn+ReLU patterns
+for node in graph.nodes: if node.op == "Relu": input_node = node.inputs[0].inputs[0] if input_node.op == "BatchNormalization": conv_node = input_node.inputs[0].inputs[0] if conv_node.op == "Conv": # Create fused node fused = gs.Node( op="ConvBnRelu", inputs=conv_node.inputs, outputs=node.outputs, attrs={ conv_node.attrs, input_node.attrs } ) graph.nodes.append(fused) # Remove old nodes graph.nodes.remove(node) graph.nodes.remove(input_node) graph.nodes.remove(conv_node)
+Save optimized model
+onnx.save(gs.export_onnx(graph), "model_fused.onnx")
+Hardware-Specific Tweaks That Make a Difference
+Generic optimizations get you most of the way there, but squeezing out the last bit of performance requires hardware-specific tuning. Here's how to optimize for different platforms in 2026.
+NVIDIA GPUs
+NVIDIA's GPUs are the most common target for ONNX models. Here's how to optimize for them:
+1. TensorRT Execution Provider
+TensorRT is NVIDIA's high-performance inference library. It provides:
+- Layer fusion
+- Precision calibration
+- Kernel auto-tuning
+- Dynamic tensor memory management
+To use TensorRT with ONNX Runtime:
+import onnxruntime as ort
+providers = [
+    ('TensorrtExecutionProvider', {
+        'device_id': 0,
+        'trt_max_workspace_size': 2147483648,  # 2GB
+        'trt_fp16_enable': True,
+        'trt_int8_enable': True,
+        'trt_int8_calibration_table_name': 'calibration.cache',
+        'trt_engine_cache_enable': True,
+        'trt_engine_cache_path': './trt_cache'
+    }),
+    'CUDAExecutionProvider',
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+Key TensorRT options:
+- trt_max_workspace_size: Increase for larger models (default is 1GB)
+- trt_fp16_enable: Enable FP16 precision
+- trt_int8_enable: Enable INT8 quantization
+- trt_engine_cache_enable: Cache compiled engines to avoid recompilation
+2. CUDA Graphs
+CUDA graphs reduce CPU overhead by capturing a sequence of CUDA operations and replaying them. This is especially useful for small models where kernel launch overhead is significant.
+To enable CUDA graphs in ONNX Runtime:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.cuda_graph_enable', '1')
+Note: CUDA graphs require:
+- Static input shapes
+- No dynamic control flow
+- NVIDIA GPU with CUDA 11.0 or later
+3. Multi-Stream Execution
+For high-throughput scenarios, you can use multiple CUDA streams to overlap computation and data transfer.
+To enable multi-stream execution:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.cuda_stream_count', '4')  # Use 4 streams
+4. Tensor Cores
+NVIDIA's Tensor Cores provide mixed-precision acceleration. To leverage them:
+- Use FP16 or BF16 precision
+- Ensure your model uses operations that Tensor Cores support (matrix multiplies, convolutions)
+- Use TensorRT with trt_fp16_enable=True
+5. Memory Management
+NVIDIA GPUs have several memory pools. Here's how to optimize memory usage:
+- Use cudaMallocAsync for faster memory allocation (requires CUDA 11.2+)
+- Enable memory reuse in ONNX Runtime
+- For large models, use trt_max_workspace_size to limit memory usage
+- Consider using unified memory for models that don't fit in GPU memory
+Example memory configuration:
+providers = [
+    ('TensorrtExecutionProvider', {
+        'device_id': 0,
+        'trt_max_workspace_size': 4294967296,  # 4GB
+        'trt_max_partition_iterations': 1000,
+        'trt_min_subgraph_size': 5,
+        'trt_memory_management': 'default'
+    })
+]
+AMD GPUs
+AMD's ROCm platform has matured significantly since 2024. Here's how to optimize for AMD GPUs:
+1. ROCm Execution Provider
+ONNX Runtime's ROCm execution provider supports AMD GPUs. To use it:
+import onnxruntime as ort
+providers = [
+    ('ROCMExecutionProvider', {
+        'device_id': 0,
+        'miopen_conv_exhaustive_search': True,
+        'gpu_mem_limit': 4294967296,  # 4GB
+        'arena_extend_strategy': 'kSameAsRequested'
+    }),
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+Key ROCm options:
+- miopen_conv_exhaustive_search: Enable exhaustive search for convolution algorithms (slower startup but better performance)
+- gpu_mem_limit: Limit GPU memory usage
+- arena_extend_strategy: Memory allocation strategy
+2. Kernel Selection
+AMD's MIOpen library (ROCm's equivalent of cuDNN) supports multiple convolution algorithms. You can force a specific algorithm:
+options = ort.SessionOptions()
+options.add_session_config_entry('rocm.miopen_conv_algorithm', 'direct')
+Common algorithms:
+- direct: Direct convolution
+- gemm: Convert to GEMM operation
+- fft: Fast Fourier Transform
+- winograd: Winograd minimal filtering
+3. Memory Management
+AMD GPUs have different memory characteristics than NVIDIA GPUs. Here's how to optimize:
+- Use HIP_VISIBLE_DEVICES to control which GPUs are visible
+- Enable memory reuse in ONNX Runtime
+- For large models, use gpu_mem_limit to prevent out-of-memory errors
+- Consider using unified memory for models that don't fit in GPU memory
+4. Mixed Precision
+AMD GPUs support mixed precision training and inference. To enable it:
+options = ort.SessionOptions()
+options.add_session_config_entry('rocm.precision', 'fp16')
+Supported precisions:
+- fp32: Full precision (default)
+- fp16: Half precision
+- bf16: BFloat16 (on supported hardware)
+- int8: 8-bit integer
+Intel CPUs and GPUs
+Intel's hardware has unique characteristics that require specific optimizations.
+1. oneDNN Execution Provider
+Intel's oneDNN (formerly MKL-DNN) provides optimized primitives for Intel CPUs and GPUs. To use it:
+import onnxruntime as ort
+providers = [
+    ('DnnlExecutionProvider', {
+        'device_id': 0,
+        'enable_mem_pattern': True,
+        'enable_bf16': True,
+        'arena_extend_strategy': 'kSameAsRequested'
+    }),
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+Key oneDNN options:
+- enable_mem_pattern: Enable memory pattern optimization
+- enable_bf16: Enable BFloat16 precision (on supported hardware)
+- arena_extend_strategy: Memory allocation strategy
+2. AVX-512 Optimization
+Intel CPUs with AVX-512 support can process more data per clock cycle. To enable AVX-512:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.intel_cpu.enable_avx512', '1')
+3. Threading
+Intel CPUs benefit from careful thread management.
+Here's how to optimize:
+- Set the number of threads to match your CPU cores
+- Use OMP_NUM_THREADS environment variable
+- Enable thread pooling in ONNX Runtime
+Example:
+import os
+os.environ['OMP_NUM_THREADS'] = '16'  # Use 16 threads
+options = ort.SessionOptions()
+options.intra_op_num_threads = 16
+options.inter_op_num_threads = 16
+4. Memory Management
+Intel CPUs have large last-level caches. Here's how to optimize memory usage:
+- Enable memory reuse in ONNX Runtime
+- Use arena_extend_strategy=kSameAsRequested to minimize memory waste
+- For large models, consider using mkl_enable_memory_pool=1
+AWS Graviton
+AWS Graviton processors are ARM-based and have different optimization requirements.
+1. ARM NEON Optimization
+Graviton processors support ARM NEON SIMD instructions. To enable them:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.arm.enable_neon', '1')
+2. Threading
+Graviton processors have many cores but lower clock speeds. Here's how to optimize:
+- Use more threads than you would on x86
+- Set OMP_NUM_THREADS to match your instance size
+- Enable thread pooling in ONNX Runtime
+Example for a c7g.16xlarge instance (64 vCPUs):
+import os
+os.environ['OMP_NUM_THREADS'] = '64'
+options = ort.SessionOptions()
+options.intra_op_num_threads = 64
+options.inter_op_num_threads = 64
+3. Memory Management
+Graviton processors have different memory characteristics than x86. Here's how to optimize:
+- Enable memory reuse in ONNX Runtime
+- Use arena_extend_strategy=kSameAsRequested
+- For large models, consider using graviton_enable_memory_pool=1
+Apple Silicon
+Apple's M-series chips have unique characteristics that require specific optimizations.
+1. Core ML Execution Provider
+Apple's Core ML provides optimized execution for M-series chips. To use it:
+import onnxruntime as ort
+providers = [
+    ('CoreMLExecutionProvider', {
+        'coreml_flags': ['--fp16'],
+        'coreml_device': 'gpu'  # or 'cpu' or 'ane' (Apple Neural Engine)
+    }),
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+Key Core ML options:
+- coreml_flags: Additional flags for Core ML converter
+- coreml_device: Which hardware to use (CPU, GPU, or ANE)
+2. Apple Neural Engine (ANE)
+The ANE is Apple's dedicated neural network accelerator. To use it:
+- Set coreml_device='ane'
+- Ensure your model uses operations supported by ANE
+- Use FP16 precision for best performance
+Note: Not all operations are supported by ANE. Check Apple's documentation for the latest list.
+3. Memory Management
+Apple Silicon has unified memory architecture. Here's how to optimize:
+- Enable memory reuse in ONNX Runtime
+- Use arena_extend_strategy=kSameAsRequested
+- For large models, consider using coreml_enable_memory_pool=1
+Edge Devices
+Optimizing for edge devices (like Raspberry Pi, Jetson, or mobile devices) requires special consideration for limited resources.
+1. TensorRT for Jetson
+NVIDIA's Jetson platform uses TensorRT for optimized inference. Here's how to use it:
+import onnxruntime as ort
+providers = [
+    ('TensorrtExecutionProvider', {
+        'device_id': 0,
+        'trt_max_workspace_size': 1073741824,  # 1GB
+        'trt_fp16_enable': True,
+        'trt_int8_enable': True,
+        'trt_engine_cache_enable': True,
+        'trt_engine_cache_path': './trt_cache'
+    }),
+    'CUDAExecutionProvider',
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+2. ARM NEON for Raspberry Pi
+Raspberry Pi supports ARM NEON SIMD instructions. To enable them:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.arm.enable_neon', '1')
+3. Quantization for Edge
+Edge devices benefit greatly from quantization.
+Here's how to optimize:
+- Use INT8 quantization for best performance
+- Consider INT4 for extreme compression (if accuracy allows)
+- Use per-channel quantization for better accuracy
+- Keep sensitive layers in FP32
+4. Memory Management
+Edge devices have limited memory. Here's how to optimize:
+- Enable memory reuse in ONNX Runtime
+- Use arena_extend_strategy=kSameAsRequested
+- Limit batch size to 1 for minimal memory usage
+- Use memory-mapped files for large models
+Cross-Platform Considerations
+If you need to support multiple hardware platforms, here are some strategies:
+1. Dynamic Execution Providers
+ONNX Runtime can automatically select the best execution provider based on available hardware:
+import onnxruntime as ort
+providers = [
+    'TensorrtExecutionProvider',
+    'CUDAExecutionProvider',
+    'ROCMExecutionProvider',
+    'DnnlExecutionProvider',
+    'CoreMLExecutionProvider',
+    'CPUExecutionProvider'
+]
+session = ort.InferenceSession('model.onnx', providers=providers)
+2. Multiple Model Versions
+For maximum performance, consider maintaining separate model versions for different hardware:
+- FP32 model for general use
+- FP16 model for GPUs
+- INT8 model for edge devices
+- Hardware-specific models (e.g., TensorRT engine for NVIDIA GPUs)
+3. Fallback Strategy
+Implement a fallback strategy for when the optimal hardware isn't available:
+def create_session(model_path):
+    try:
+        # Try TensorRT first
+        providers = ['TensorrtExecutionProvider', 'CUDAExecutionProvider', 'CPUExecutionProvider']
+        return ort.InferenceSession(model_path, providers=providers)
+    except:
+        try:
+            # Fall back to CUDA
+            providers = ['CUDAExecutionProvider', 'CPUExecutionProvider']
+            return ort.InferenceSession(model_path, providers=providers)
+        except:
+            # Fall back to CPU
+            return ort.InferenceSession(model_path)
+When Optimization Goes Wrong (And How to Fix It)
+Optimization isn't always a straight path to better performance. Sometimes, your "optimized" model runs slower than the original. Here's why it happens and how to fix it.
+Over-Optimizing for Specific Hardware
+Hardware-specific optimizations can backfire when the model runs on different hardware. Common issues:
+- TensorRT optimizations that don't work on AMD GPUs
+- AVX-512 instructions that crash on older Intel CPUs
+- FP16 models that run slowly on hardware without FP16 support
+How to fix it:
+- Maintain multiple model versions for different hardware
+- Use ONNX Runtime's dynamic execution provider selection
+- Implement fallback strategies
+- Test on all target hardware
+Example fallback strategy:
+def get_execution_providers():
+    providers = []
+    # Check for NVIDIA GPU
+    try:
+        import pynvml
+        pynvml.nvmlInit()
+        device_count = pynvml.nvmlDeviceGetCount()
+        if device_count > 0:
+            providers.append('TensorrtExecutionProvider')
+            providers.append('CUDAExecutionProvider')
+    except:
+        pass
+    # Check for AMD GPU
+    try:
+        import pyamdgpuinfo
+        if pyamdgpuinfo.detect_gpus():
+            providers.append('ROCMExecutionProvider')
+    except:
+        pass
+    # Check for Intel CPU
+    try:
+        import cpuinfo
+        if 'intel' in cpuinfo.get_cpu_info()['brand_raw'].lower():
+            providers.append('DnnlExecutionProvider')
+    except:
+        pass
+    # Fall back to CPU
+    providers.append('CPUExecutionProvider')
+    return providers
+Ignoring Memory Bandwidth
+Many optimizations focus on compute performance but ignore memory bandwidth. This can lead to:
+- Models that are compute-bound on paper but memory-bound in practice
+- Quantized models that run slower because of memory access patterns
+- Large batch sizes that saturate memory bandwidth
+How to fix it:
+- Profile memory bandwidth usage (use NVIDIA Nsight, AMD ROCProfiler, or Intel VTune)
+- Optimize memory access patterns (make tensors contiguous, use memory reuse)
+- Reduce model size (quantization, pruning)
+- Adjust batch size to match memory bandwidth
+Example memory bandwidth analysis with NVIDIA Nsight:
+ncu --set full --metrics dram__bytes.sum, sm__throughput.avg.pct_of_peak_sustained_elapsed ./your_inference_script
+If dram__bytes.sum is high and sm__throughput.avg.pct_of_peak_sustained_elapsed is low, your model is memory-bound.
+Overhead from Dynamic Shapes
+Dynamic shapes add flexibility but can introduce significant overhead:
+- Runtime shape inference
+- Memory reallocation for different input sizes
+- Kernel recompilation for different shapes
+How to fix it:
+- Use static shapes when possible
+- For dynamic shapes, specify a limited set of possible shapes
+- Use ONNX Runtime's shape inference optimization
+- Consider maintaining separate models for different shape ranges
+Example of specifying dynamic shapes in ONNX:
+# When exporting from PyTorch
+torch.onnx.export(
+    model,
+    dummy_input,
+    "model.onnx",
+    dynamic_axes={
+        'input': {0: 'batch_size', 2: 'height', 3: 'width'},  # Only these axes are dynamic
+        'output': {0: 'batch_size'}
+    }
+)
+Quantization Gone Wrong
+Quantization can cause accuracy loss or even performance degradation if not done carefully:
+- Models with large dynamic ranges that don't fit in INT8
+- Operations that don't benefit from quantization (e.g., element-wise ops)
+- Quantization that forces precision conversions at runtime
+How to fix it:
+- Use per-channel quantization instead of per-tensor
+- Keep sensitive layers in FP32
+- Use mixed precision quantization
+- Validate accuracy after quantization
+- Profile to ensure quantization actually improves performance
+Example of mixed precision quantization:
+from onnxruntime.quantization import quantize_dynamic, QuantType
+# Quantize most layers to INT8 but keep first and last layers in FP32
+quantize_dynamic(
+    "model.onnx",
+    "model_quant.onnx",
+    weight_type=QuantType.QUInt8,
+    nodes_to_exclude=['/model/first_layer', '/model/last_layer']  # Keep these in FP32
+)
+Operator Fusion Pitfalls
+Operator fusion can sometimes make things worse:
+- Fused kernels that are less efficient than individual operations
+- Fusion that prevents other optimizations
+- Fusion that increases memory usage
+How to fix it:
+- Profile with and without fusion
+- Use ONNX Runtime's fusion control options
+- Manually specify which operations to fuse
+Example of controlling fusion in ONNX Runtime:
+options = ort.SessionOptions()
+options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
+options.add_session_config_entry('session.disable_fusion', 'Add, Sub, Mul')  # Disable fusion for these ops
+Threading Issues
+Too many threads can hurt performance due to:
+- Thread creation overhead
+- Cache contention
+- False sharing
+- Load imbalance
+How to fix it:
+- Set thread count to match your CPU cores
+- Use thread pooling instead of creating new threads for each request
+- Profile with different thread counts
+- Consider using ONNX Runtime's intra/inter-op parallelism settings
+Example of setting thread counts:
+options = ort.SessionOptions()
+options.intra_op_num_threads = 4  # Number of threads for single operation
+options.inter_op_num_threads = 2  # Number of threads for parallel operations
+Memory Management Mistakes
+Poor memory management can lead to:
+- Memory leaks
+- High memory usage
+- Frequent memory allocation/deallocation
+- Memory fragmentation
+How to fix it:
+- Enable memory reuse in ONNX Runtime
+- Use memory pools
+- Limit batch size to control memory usage
+- Profile memory usage with tools like Valgrind or Heaptrack
+Example memory configuration:
+options = ort.SessionOptions()
+options.add_session_config_entry('session.memory_reuse', '1')
+options.add_session_config_entry('session.arena_extend_strategy', 'kSameAsRequested')
+Debugging Slow Optimized Models
+When your optimized model runs slower than the original, follow this debugging process:
+- Verify the optimization was applied: Check the model with Netron to see if the optimizations are actually present.
+- Profile the original and optimized models: Use NVIDIA Nsight, AMD ROCProfiler, or Intel VTune to compare performance characteristics.
+- Check for precision conversions: Quantized models might be converting between precisions at runtime.
+- Examine memory usage: The optimized model might be using more memory, causing swapping or cache misses.
+- Test with different batch sizes: Some optimizations only help at specific batch sizes.
+- Try different execution providers: The optimization might be specific to a particular provider.
+- Check for kernel launch overhead: Small models might suffer from too many small kernel launches.
+Example profiling with NVIDIA Nsight:
+# Profile original model
+ncu --set full --metrics sm__cycles_elapsed.avg, sm__inst_executed.sum ./original_model
+# Profile optimized model
+ncu --set full --metrics sm__cycles_elapsed.avg, sm__inst_executed.sum ./optimized_model
+Common Optimization Anti-Patterns
+Avoid these common mistakes:
+- Optimizing without profiling: Always profile before and after optimization to verify improvements.
+- Over-quantizing: Not all operations benefit from quantization. Keep sensitive layers in higher precision.
+- Ignoring memory bandwidth: A compute-optimized model might still be memory-bound.
+- Using dynamic shapes unnecessarily: Static shapes are always faster when possible.
+- Not testing on target hardware: Optimizations that work on your development machine might not work in production.
+- Chasing marginal gains: Focus on optimizations that give significant improvements, not 1-2% speedups.
+- Ignoring framework overhead: Sometimes the bottleneck is in the framework, not the model.
+How to Test If Your Optimizations Actually Worked
+Measuring performance improvements isn't as simple as running the model a few times. Here's how to properly benchmark your optimizations.
+What to Measure
+Don't just measure latency. Consider these metrics:
+Metric What It Measures How to Measure Why It Matters Latency Time to process one input Average of many runs Critical for real-time applications Throughput Inputs processed per second Total time for many inputs Critical for batch processing Memory Usage Peak memory consumption Profiling tools Affects scalability CPU Usage CPU utilization System monitoring tools Important for edge devices GPU Utilization GPU compute/memory usage NVIDIA Nsight, AMD ROCProfiler Identifies bottlenecks

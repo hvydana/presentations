@@ -1,0 +1,143 @@
+Quick Answer: Need one pipeline across NVIDIA, AMD, Intel, and CPU? Start with ONNX Runtime — it's the most hardware-portable option and keeps your existing ONNX export step. Serving open-weight LLMs? Start with vLLM instead — its PagedAttention memory manager is built for high-concurrency serving, a workload TensorRT's engine format doesn't target. Stay on TensorRT if you're single-vendor NVIDIA with a stable trtexec pipeline and peak per-GPU throughput matters more than portability.
+The Counterargument
+Most teams researching "TensorRT alternatives" don't actually need to switch:
+- 100% NVIDIA fleet, staying that way — TensorRT's NVIDIA-specific kernel fusion is hard to beat on raw per-GPU throughput; that's the whole reason it exists.
+- trtexec build already automated in CI — the "build time is painful" complaint mostly disappears once it's a one-time-per-version CI step, not a per-request cost.
+- You're on NVIDIA's newest GPU generation — TensorRT typically gets day-one kernel support; community runtimes catch up over weeks or months.
+- Compliance already blessed TensorRT as part of an NVIDIA AI Enterprise or Triton deployment — re-approving a new runtime is its own project.
+- Small models — the engine-build tax is trivial, so the portability argument is mostly theoretical.
+If none of those describe you, keep reading.
+TL;DR
+- Top pick for heterogeneous hardware: ONNX Runtime — broadest execution-provider coverage (CUDA, ROCm, OpenVINO, CPU, DirectML) in one API.
+- Top pick for LLM serving: vLLM — OpenAI-compatible server with continuous batching and PagedAttention KV-cache management.
+- Runner-up for Intel-heavy fleets: OpenVINO — first-party Intel CPU/iGPU/NPU support.
+- Stay with TensorRT if: single-vendor NVIDIA, throughput-critical, and your build pipeline is already stable.
+Scope & verification
+This guide is for platform engineers, ML infra leads, and staff engineers evaluating a move off TensorRT for production inference, as of August 2026. We reviewed current official documentation for TensorRT, ONNX Runtime, vLLM, OpenVINO, PyTorch's torch.compile (Inductor backend), and LiteRT (the runtime formerly named TensorFlow Lite) for supported hardware, installation paths, and API surface.
+What we did not do: run a fresh head-to-head latency/throughput benchmark across all tools. Cross-tool benchmarks are extremely sensitive to GPU model, driver version, batch size, precision, and architecture — a number from one lab config is often misleading in another. Rather than publish unverified throughput percentages, each deep dive below gives a minimal verification step to run the comparison yourself, in under a day per candidate.
+Why teams look for TensorRT alternatives
+TensorRT is closed-source and NVIDIA-specific by design — that's the trade-off for its kernel optimizations. Recurring reasons teams evaluate alternatives:
+- Hardware lock-in. An engine file is compiled for a specific GPU architecture and TensorRT version; moving to AMD, Intel, or even a newer NVIDIA generation means re-running the build and sometimes hitting operator gaps.
+- Build-step friction. Each new model variant needs a fresh trtexec build validated against accuracy tolerances before shipping — a step runtimes that execute ONNX or PyTorch graphs directly don't have in the same form.
+- LLM serving fit. TensorRT targets fixed-shape, single-request-style graphs; serving many concurrent, variable-length LLM requests is a different problem that engines like vLLM address through paged KV-cache management.
+- Procurement overhead. Closed-source binaries in regulated environments can mean license and security-review cycles open-source alternatives skip.
+Every alternative below trades some NVIDIA-specific peak performance for portability, licensing simplicity, or an LLM-native serving model.
+Quick Comparison Table
+| Tool | License / hosting | Maturity | Migration difficulty from TensorRT | Best for | 
+|---|---|---|---|---|
+| TensorRT | Closed source, NVIDIA-only, self-hosted | Mature, NVIDIA first-party | — | Single-vendor NVIDIA, throughput-critical CV/serving | 
+| ONNX Runtime | MIT, self-hosted | Mature, Microsoft-maintained | Low — same ONNX export step | Multi-vendor GPU/CPU fleets | 
+| vLLM | Apache 2.0, self-hosted | Mature for LLM serving, fast-moving | Medium — new serving layer | Open-weight LLM serving at concurrency | 
+| OpenVINO | Apache 2.0, self-hosted | Mature, Intel first-party | Medium — Intel-specific IR format | Intel CPU/iGPU/NPU and edge | 
+| torch.compile (Inductor) | BSD, self-hosted | Mature, part of PyTorch core | Low — no export step, same model object | Teams staying inside the PyTorch runtime | 
+| LiteRT (formerly TensorFlow Lite) | Apache 2.0, self-hosted | Mature, actively developed under new name | Medium — separate conversion + quantization step | Mobile, embedded, edge TPU | 
+All six are free to use; "cost" for the self-hosted options is compute you already provision plus engineering time, not a license fee.
+Alternative deep dives
+ONNX Runtime — best for cross-vendor deployment
+Who it's for: Teams that already export models to ONNX and need one pipeline across NVIDIA, AMD, Intel, or CPU without separate engine builds per vendor.
+Hard limits: Execution-provider maturity varies — CUDA is most mature; ROCm and OpenVINO providers can lag on newer op support. You're also dependent on clean ONNX opset coverage; custom ops sometimes need manual registration.
+How it differs from TensorRT: it picks an execution provider (CUDA, ROCm, OpenVINO, CPU, DirectML) at session-creation time instead of compiling a hardware-locked engine file, so the same .onnx file runs on different vendor hardware with a different providers=[...] argument.
+import onnxruntime as ort
+sess = ort.InferenceSession(
+    "model.onnx",
+    providers=["CUDAExecutionProvider", "CPUExecutionProvider"],
+)
+outputs = sess.run(None, {"input": input_numpy})
+Minimal verification step: Export your current model to ONNX, run it through InferenceSession with CUDAExecutionProvider on the same GPU you use for TensorRT today, and compare p50/p95 latency on 100 warmed-up requests against your existing TensorRT numbers. This takes under an hour and tells you your real gap, on your model, not a generic benchmark.
+Choose if: your fleet spans more than one GPU vendor or you regularly move workloads between cloud providers.
+vLLM — best for LLM serving
+Who it's for: Teams serving open-weight LLMs (Llama, Mistral, Qwen) at meaningful request concurrency, where memory efficiency under load matters more than single-request latency.
+Hard limits: AMD (ROCm) support needs ROCm 6.3+ and is still maturing relative to the CUDA path; Intel GPU support is basic/early per the project's own docs. It's purpose-built for autoregressive generation, not a general CV replacement for TensorRT.
+How it differs from TensorRT: it runs an OpenAI-compatible HTTP server with continuous batching and PagedAttention, which manages the KV cache in non-contiguous blocks the way an OS pages virtual memory — letting it serve many concurrent variable-length requests without pre-allocating worst-case memory per request.
+pip install vllm
+python -m vllm.entrypoints.openai.api_server \
+    --model meta-llama/Llama-2-7b-chat-hf \
+    --max-model-len 4096
+Minimal verification step: Stand up vLLM against your target model on a single GPU in staging, hit it with your real traffic's concurrency pattern (not a single-request loop), and watch GPU memory headroom versus your current TensorRT-LLM deployment under the same load.
+Choose if: you serve open-source LLMs and need to fit more concurrent requests per GPU than your current engine allows.
+OpenVINO — best for Intel hardware and edge
+Who it's for: Teams whose production or edge hardware is Intel — Xeon, Core, integrated Arc graphics, or the NPU on Core Ultra systems.
+Hard limits: the NPU backend requires static input/output shapes; models with dynamic sequence lengths (common in LLMs) generally can't run there without reshaping, and there's no official generic conversion path today. GPU support also needs drivers not bundled with the OpenVINO package.
+How it differs from TensorRT: it converts models into its own Intermediate Representation (IR) via a Model Optimizer step, targeting CPU, integrated/discrete Intel GPU, and NPU — the Intel-equivalent of TensorRT, plus an AUTO mode that splits work across CPU and GPU automatically.
+pip install openvino
+ovc model.onnx --output_model ir_model
+Minimal verification step: Convert one representative model to OpenVINO IR and run it on the actual Intel CPU/GPU your edge or server fleet uses, not a laptop — Intel's own docs note GPU driver requirements vary by SKU, so a mismatch here is the most common "why is it slow" surprise.
+Choose if: your production or edge hardware is Intel-based and you want first-party support for it.
+torch.compile (TorchInductor) — best for staying inside PyTorch
+Who it's for: Teams already serving models directly from PyTorch that want a speedup without an export or conversion step.
+Hard limits: tied to the PyTorch runtime — no framework-agnostic artifact the way ONNX gives you. Graph breaks in control-flow-heavy models can silently fall back to slower eager execution, easy to miss without profiling.
+How it differs from TensorRT: it traces and fuses your existing nn.Module in place using TorchDynamo plus the Inductor backend (which generates Triton kernels on NVIDIA/AMD/Intel GPUs), instead of exporting to an intermediate format and compiling a separate engine artifact.
+model = MyModel().eval().cuda()
+compiled_model = torch.compile(model, mode="reduce-overhead")
+with torch.no_grad():
+    output = compiled_model(input_tensor)
+Minimal verification step: Wrap your existing model call in torch.compile(), run your standard eval/benchmark script unchanged, and check torch.compiler logs for graph breaks — a high graph-break count means you're not getting the speedup the compiled path promises.
+Choose if: you're already fully inside PyTorch and want a lower-effort optimization path than a full export-and-rebuild workflow.
+LiteRT (formerly TensorFlow Lite) — best for mobile and edge
+Who it's for: Teams deploying to phones, embedded devices, or edge TPUs where model size and power draw matter as much as latency.
+Hard limits: aggressive quantization (INT8, dynamic range) can measurably reduce accuracy depending on architecture — validate against your task's accuracy floor, not just latency. Google renamed TensorFlow Lite to LiteRT in 2024 and moved it to production status in TensorFlow 2.21 (March 2026); older "TFLite" tutorials still work, but new docs live under the LiteRT name.
+How it differs from TensorRT: it targets on-device CPUs, mobile GPUs, and edge NPUs with a conversion-and-quantization pipeline aimed at small binary size and low power draw, rather than maximizing data-center GPU throughput.
+converter = tf.lite.TFLiteConverter.from_saved_model("./saved_model")
+converter.optimizations = [tf.lite.Optimize.DEFAULT]
+litert_model = converter.convert()
+Minimal verification step: Convert your model with default INT8 optimization, then run your accuracy eval suite against the quantized output before you trust any latency win — quantization is a real accuracy trade-off, not a free speedup.
+Choose if: your deployment target is mobile, embedded, or an edge accelerator, not a server GPU.
+Chart summary: These are editorial scores (0–5) based on vendor documentation and architecture, not a lab benchmark — see Scope above. TensorRT still leads on peak NVIDIA-only throughput; the alternatives trade some of that for portability or an LLM-native serving model.
+Migration guide: TensorRT → ONNX Runtime
+ONNX Runtime is the most common first move because most TensorRT pipelines already export to ONNX as an intermediate step.
+Layers you're actually changing:
+- Build/config — drop trtexec ; ONNX Runtime loads.onnx directly at session start.
+- Data contract — none, if the TensorRT engine already came from an ONNX export; otherwise re-export and re-validate op coverage.
+- Client call — replace the engine + context + bindings API with ort.InferenceSession(...).run(...) ; the session handles batching and dynamic shapes.
+- Ops — pin the ONNX Runtime version and CUDA/cuDNN combo in your container image; version mismatches are the top cause of silent perf regressions.
+Checklist:
+- Export the current production model to ONNX (opset matching your ONNX Runtime version).
+- Validate numeric parity against the existing TensorRT engine on the same test inputs.
+- Run the Minimal verification step above on real hardware before setting a rollout date.
+- Deploy alongside TensorRT in a canary/shadow-traffic setup — don't cut over 100% on day one.
+- Dual-run for at least one full traffic cycle, including peak load, monitoring latency, errors, and GPU memory.
+- Rollback point: keep the TensorRT path deployable via a feature flag until the canary period ends clean.
+- Once confident, decommission the TensorRT build step from CI and remove unused engine artifacts from the model registry.
+When to stick with TensorRT vs switch
+| Situation | Recommendation | 
+|---|---|
+| Single-vendor NVIDIA, throughput-critical, stable build pipeline | Stay with TensorRT | 
+| Fleet spans NVIDIA + AMD + Intel + CPU | Switch to ONNX Runtime | 
+| Serving open-weight LLMs at concurrency | Switch to vLLM | 
+| Intel-based server or edge hardware | Switch to OpenVINO | 
+| Already fully inside PyTorch, want lower-effort speedup | Try torch.compile before a full migration | 
+| Mobile / embedded / edge accelerator target | Switch to LiteRT | 
+Who Should Actually Use Which
+| Role | Recommended starting point | Notes | 
+|---|---|---|
+| Platform lead, multi-cloud GPU fleet | ONNX Runtime | One export pipeline, provider chosen per environment | 
+| ML infra engineer serving LLMs | vLLM | Budget time for the ROCm/Intel paths if not on NVIDIA | 
+| Edge/embedded team on Intel silicon | OpenVINO | Validate NPU static-shape constraints early | 
+| Small team, PyTorch-only stack | torch.compile | Lowest migration effort of the group | 
+| Mobile app team | LiteRT | Note the 2024–2026 TFLite → LiteRT rename when reading older tutorials | 
+| Regulated/enterprise environment | Not verified — check your own infra controls | All six tools are self-hosted OSS or NVIDIA-licensed software, not managed SaaS — there's no vendor DPA or SOC 2 report to inherit. Compliance posture (residency, encryption at rest, audit logging) is a function of the infrastructure you run them on, not the inference engine. | 
+Security and exposure surface: TensorRT, ONNX Runtime, OpenVINO, and torch.compile are embedded libraries — they don't open a network port by themselves; your serving layer (Triton, FastAPI, gRPC) defines the real attack surface. vLLM is the exception: its api_server mode stands up an HTTP endpoint directly, so adopting it means taking on a new network-facing service that needs its own authentication, rate limiting, and network policy — a materially different exposure profile worth its own security review line item.
+Failure Modes
+| Failure | Symptom | Cause | Mitigation | 
+|---|---|---|---|
+| Wrong alternative for the workload | Latency regression post-launch | ONNX Runtime picked for LLM serving instead of vLLM, or vice versa for CV | Match tool to workload in the Quick Comparison Table before piloting | 
+| Half-finished migration | Inconsistent behavior across traffic | Cutover skipped canary/shadow-traffic stage | Follow the dual-run checklist; don't retire the old path until one clean cycle | 
+| Double infrastructure bill | Unexpected GPU cost spike | TensorRT and new engine run in parallel with no decommission date | Set an explicit dual-run end date and rollback trigger up front | 
+| Silent schema/op drift | Model behaves differently after re-export | Custom or newer ops not covered by the ONNX opset used | Run the numeric-parity check against real inputs, not a smoke test | 
+| Compliance docs not updated | Audit finds engine missing from architecture docs | Migration shipped without updating data-flow diagrams | Add "update architecture docs" to the migration ticket, not an afterthought | 
+Trade-offs
+| Benefit | Cost | When worth it | 
+|---|---|---|
+| Hardware portability (ONNX Runtime, OpenVINO) | Some loss of peak NVIDIA throughput | You run more than one GPU vendor or move workloads across clouds | 
+| LLM-native serving efficiency (vLLM) | New network-facing service to secure and operate | Serving open-weight LLMs at real concurrency, not single-request batch jobs | 
+| No export step (torch.compile) | Tied to PyTorch, less portable than ONNX-based options | Whole stack is already PyTorch and migration effort is the main constraint | 
+| No licensing/audit overhead (all alternatives) | You own operational burden TensorRT's ecosystem partly absorbs today | Procurement/security review on closed-source binaries is a real blocker | 
+Frequently Asked Questions
+Can I use TensorRT alternatives on AMD GPUs? Yes, with caveats. ONNX Runtime's ROCm provider and vLLM (ROCm 6.3+) both target AMD GPUs per their own docs, but both describe their AMD paths as less mature than CUDA — budget extra validation time.
+Does OpenVINO work well for LLM inference, not just computer vision? It supports LLM inference on CPU and GPU, and Intel has expanded NPU support for smaller models — but NPU execution requires static input/output shapes, a real constraint for autoregressive generation with variable sequence lengths.
+Is TensorFlow Lite still maintained, or should I use LiteRT instead?
+Use LiteRT. Google renamed TensorFlow Lite to LiteRT, and as of TensorFlow 2.21 (March 2026) LiteRT is the primary on-device runtime; .tflite files and old TFLite APIs still work, but new features ship under the LiteRT name.
+Do I need to give up TensorRT entirely, or can I run it alongside an alternative? No. A common pattern is TensorRT for your highest-volume, NVIDIA-only path, and ONNX Runtime or vLLM for whatever needs mixed hardware or LLM serving — the migration checklist works the same for a permanent partial split as a full switch.
+How do I actually compare throughput between TensorRT and an alternative for my model? Don't trust published benchmark percentages from any source, including this one — GPU model, driver, batch size, and precision all change the answer. Run the Minimal verification step for your target alternative on your own model and hardware; it's a same-day task with a number you can trust.
+Bottom Line
+Default action: if your hardware is mixed-vendor, pilot ONNX Runtime; if you're serving LLMs, pilot vLLM instead — both preserve most of your existing pipeline and can run in shadow traffic first. Don't switch at all if you're single-vendor NVIDIA with a stable TensorRT pipeline and throughput is your binding constraint — the alternatives above solve a problem you don't have.

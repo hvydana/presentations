@@ -1,0 +1,65 @@
+SaaSHub helps you find the best software and product alternatives
+Learn more →
+ROCm Alternatives
+Similar projects and alternatives to ROCm
+- 
+- 
+SaaSHubSaaSHub - Software Alternatives and Reviews. SaaSHub helps you find the best software and product alternatives
+- 
+- 
+- 
+distroboxUse any linux distribution inside your terminal. Enable both backward and forward compatibility with software and freedom to use whatever distribution you’re more comfortable with. Mirror available at: https://gitlab.com/89luca89/distrobox
+- 
+- 
+AMD-SHARK-StudioAMD-SHARK Studio -- Web UI for SHARK+IREE High Performance Machine Learning Distribution
+- 
+exllamaA more memory-efficient rewrite of the HF transformers implementation of Llama for use with quantized weights.
+- 
+- 
+- 
+- 
+tensorflow_macosDiscontinued TensorFlow for macOS 11.0+ accelerated using Apple's ML Compute framework.
+- 
+- 
+- 
+- 
+- 
+- 
+HIPIFYDiscontinued HIPIFY: Convert CUDA to Portable C++ Code [Moved to: https://github.com/ROCm/HIPIFY] (by ROCm-Developer-Tools)
+- 
+- 
+- 
+ROCm discussion
+ROCm reviews and mentions
+- 
+AMD May Get Across the CUDA Moat
+Yep, did exactly that. IMO he threw a fit, even though AMD was working with him squashing bugs. https://github.com/RadeonOpenCompute/ROCm/issues/2198#issuec...
+- ROCm 5.7.0 Release
+- 
+ROCm Is AMD's #1 Priority, Executive Says
+Ok, I wonder what's wrong. maybe it's this? https://stackoverflow.com/questions/4959621/error-1001-in-cl... Nope. Anything about this on the arch wiki? Nope This bug report[2] from 2021? Maybe I need to update my groups. [2]: https://github.com/RadeonOpenCompute/ROCm/issues/1411     $ ls -la /dev/kfd
+- 
+Simplifying GPU Application Development with HMM
+HMM is, I believe, a Linux feature. AMD added HMM support in ROCm 5.0 according to this: https://github.com/RadeonOpenCompute/ROCm/blob/develop/CHANG...
+- 
+AMD Ryzen APU turned into a 16GB VRAM GPU and it can run Stable Diffusion
+Woot AMD now supports APU? I sold my notebook as i hit a wall when trying rocm [1] Is there a list oft Wirkung apu's ? [1] https://github.com/RadeonOpenCompute/ROCm/issues/1587
+- 
+Nvidia's CUDA Monopoly
+Last I heard he's abandoned working with AMD products. https://github.com/RadeonOpenCompute/ROCm/issues/2198#issuec...
+- 
+Nvidia H100 GPUs: Supply and Demand
+They're talking about the meltdown he had on stream [1] (in front of the mentioned pirate flag), that ended with him saying he'd stop using AMD hardware [2]. He recanted this two weeks after talking with AMD [3]. Maybe he'll succeed, but this definitely doesn't scream stability to me. I'd be wary of investing money into his ventures (but then I'm not a VC, so what do I know). [1] https://www.youtube.com/watch?v=Mr0rWJhv9jU [2] https://github.com/RadeonOpenCompute/ROCm/issues/2198#issuec... [3] https://twitter.com/realGeorgeHotz/status/166980346408248934...
+- 
+Open or closed source Nvidia driver?
+As for rocm support on consumer devices, AMD wont even clarify what devices are supported. https://github.com/RadeonOpenCompute/ROCm/pull/1738
+- Why Nvidia Keeps Winning: The Rise of an AI Giant
+- 
+Disable "SetTensor/CopyTensor" console logging.
+I tried to train another model using InceptionResNetV2 and the same issues happens. Also, this happens even using the model.predict() method if using the GPU. Probably this is an issue related to the AMD Radeon RX 6700 XT or some mine misconfiguration. System Inormation: ArchLinux 6.1.32-1-lts - AMD Radeon RX 6700 XT - gfx1031 Opened issues: - https://github.com/RadeonOpenCompute/ROCm/issues/2250 - https://github.com/ROCmSoftwarePlatform/tensorflow-upstream/issues/2125
+- 
+A note from our sponsor - SaaSHub
+www.saashub.com | 13 Aug 2026SaaSHub helps you find the best software and product alternatives Learn more →
+Stats
+RadeonOpenCompute/ROCm is an open source project licensed under MIT License which is an OSI approved license.
+The primary programming language of ROCm is Python.

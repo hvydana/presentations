@@ -1,0 +1,151 @@
+Make inference measurable. This is a load generator wired into a Prometheus and Grafana stack that turns a single vLLM server into a latency-versus-load curve and a goodput number.
+You build a harness that drives rising load at a vLLM server and reads what it
+reports. It has four parts: a load client wrapping GuideLLM that sweeps
+concurrency in one command, a metrics reader that pulls the eight signals off the
+live /metrics endpoint and Prometheus, a goodput computation scored against an
+SLO you set first, and a curve assembler that finds the saturation concurrency
+the harness calls C. The whole serving stack (vLLM, Prometheus, Grafana, the
+harness) comes up from one docker compose up. The graded artifact is the sweep
+report the harness writes on your own hardware.
+The deliverable is the sweep report your harness produces:
+results/sweep_<stamp>.json and its rendered page, written by
+python -m harness report. The target is to find C for your run, the load where
+goodput stops rising while throughput keeps climbing, against the TTFT-p95 and
+TPOT-p95 targets in slo/slo.yaml. You are done when:
+- You set a TTFT-p95 and TPOT-p95 target in slo/slo.yaml before load-testing.
+- python -m harness smoke passes: the harness reaches/metrics , the expected
+metric names are present, and the goodput math runs.
+- A full sweep has written results/sweep_<stamp>.json and a rendered report.
+- The report names C for your run and shows goodput saturating while throughput keeps climbing.
+- You recorded requirements.lock.txt and theGPU_PROFILE so the curve is
+reproducible.
+Every number you report is one you measured with the harness; cited references carry their source URL; nothing is fabricated.
+You cannot improve what you cannot see. A server can post a bigger tokens-per-second number while serving a worse experience, because raw throughput counts every completed request and says nothing about whether each one met its latency target. Goodput does. This harness drives load at a vLLM server, reads its metrics, and reports both, so you can see the point where they part ways.
+This project runs on your GPU, not ours. We did not run production infrastructure while writing it, so this repo ships no measured latency, throughput, or goodput numbers. The deliverable is the harness that produces those numbers, and you run it.
+Two kinds of number appear in this repo. A cited published reference carries its source URL (model sizes, GPU bandwidths, the DistServe goodput result). A "you will measure" quantity is written as a metric name plus the exact command that produces it, never as a value. The results table below keeps the two kinds in separate sections so they are never confused. A number that is neither cited nor labelled "measure with the harness" would be a fabrication, and this project does not ship one. The qualitative claim it does make is safe to state: as concurrent load rises, raw throughput keeps climbing while goodput saturates at a concurrency the harness calls C and then flattens or falls.
+Eight signals, defined once in FACTS.md and read from the live server.
+| Signal | What it tells you | 
+|---|---|
+| TTFT (time to first token) | Latency from submission to the first output token: queueing, prefill, KV allocation, first decode step. | 
+| TPOT (time per output token) | Average time per token after the first, over the decode phase. | 
+| ITL (inter-token latency) | The per-step gap between two output tokens; its mean is TPOT. | 
+| Throughput | Completed output tokens per second and requests per second, regardless of SLO. | 
+| Goodput | The request rate served within both the TTFT and TPOT targets. | 
+| Queue depth | Requests waiting to be scheduled. Rises before latency does. | 
+| Batch size | Requests running concurrently in the current decode step. | 
+| KV-cache utilization | Fraction of the paged KV-cache in use, 0 to 1. Climbing toward 1 is the memory-bound early warning. | 
+Goodput is the one signal the harness computes rather than reads. vLLM does not
+export it. Over a run window, it is the fraction of completed requests whose TTFT
+and TPOT both met the SLO, multiplied by the completed-request rate. The SLO
+thresholds live in slo/slo.yaml and are inputs you choose, not measurements.
+   GuideLLM  ──drives load──▶  vLLM (OpenAI API + /metrics)
+   (rate sweep)                     │
+        │                           │ exposes
+        │ per-request               ▼
+        │ TTFT / TPOT          Prometheus  ──renders──▶  Grafana
+        │                      (scrapes /metrics)        (live panels)
+        ▼
+   the harness  ──reads both──▶  goodput per stage  ──▶  the curve + C  ──▶  report
+GuideLLM generates the load. vLLM serves the model and exposes Prometheus metrics
+at /metrics. Prometheus scrapes vLLM on a short interval. Grafana renders the
+live panels. The harness ties it together: it runs a stage at each load level,
+reads the per-request latencies from GuideLLM and the live gauges from vLLM,
+computes goodput against the SLO, assembles the curve, finds C, and writes a
+report. The pieces:
+- harness/load/ drives GuideLLM (sweep, constant, Poisson, concurrency) and
+parses its JSON.
+- harness/metrics/ scrapes and parses vLLM's/metrics , queries Prometheus,
+turns histograms into percentiles and counters into rates, and computes goodput.
+- harness/report/ builds the curve, finds C, renders the figures and the
+per-run report, and holds the results table.
+- harness/cli.py is the single entry point:smoke ,run ,sweep ,report .
+Working through this repo, you build and run:
+- A serving stack: vLLM with metrics on, Prometheus scraping it, Grafana on top,
+all from one docker compose up .
+- A load client that sweeps concurrency and traces the whole latency-versus-load curve in one command, wrapping GuideLLM.
+- A metrics reader that pulls the eight signals from the live server and from Prometheus, handling the vLLM metric renames by detecting which name is present.
+- A goodput computation that evaluates each request against an SLO you set first.
+- A curve assembler that finds C, the load where goodput stops rising while throughput keeps climbing.
+- A report that states your numbers, on your hardware, next to the cited references, with the two kept apart.
+- Set the SLO. Open slo/slo.yaml and choose the TTFT-p95 and TPOT-p95
+targets your product is willing to ship. Goodput is defined entirely against
+these, so set them before you load-test, not after.
+- Bring up the stack. make up (ordocker compose up -d --build ) starts
+vLLM, Prometheus, Grafana, and the harness container.
+- Prove the wiring. make smoke runs a 30-second single-rate stage. It
+validates that the harness can reach/metrics , that the metric names it
+expects are present, and that the goodput math runs. If this fails, fix it
+before going further.
+- Sweep. make sweep runs a stage at each concurrency level inCONCURRENCY_LEVELS , computes goodput at each, and writes a results JSON plus
+a rendered report.
+- Watch it live. Open Grafana at http://localhost:3000 while the sweep runs. The panels show TTFT and TPOT climbing, KV-cache utilization rising toward 1, and the queue filling as load passes what the server can serve within SLO.
+- Read the curve. The report names C for your run and shows the goodput and throughput curves. Past C, throughput is still rising while goodput is not. Report goodput, not throughput, as your capacity number.
+The commands are real. The numbers they print are yours.
+# 1. Configure. Copy the example env and set your model, GPU profile, and SLO.
+cp .env.example .env
+$EDITOR .env slo/slo.yaml
+# 2. Bring up vLLM + Prometheus + Grafana + the harness.
+docker compose up -d --build
+# 3. Prove the wiring end to end (30 seconds).
+docker compose run --rm harness python -m harness smoke
+# 4. Run the full concurrency sweep and write the report.
+docker compose run --rm harness python -m harness sweep
+# 5. Re-render a report later from its results JSON.
+docker compose run --rm harness python -m harness report results/sweep_<stamp>.json
+The load generator underneath, in the shape the harness wraps:
+guidellm benchmark \
+  --target "http://localhost:8000" \
+  --rate-type sweep \
+  --max-seconds 30 \
+  --data "prompt_tokens=512,output_tokens=256"
+Grafana is at http://localhost:3000, Prometheus at http://localhost:9090, and
+vLLM's OpenAI-compatible API at http://localhost:8000. On a bare GPU host without
+Docker, serve vLLM directly with bash scripts/serve_vllm.sh and point
+VLLM_ENDPOINT at it.
+To run the harness on a host instead of in the container:
+pip install -e ".[dev]"
+make test          # the goodput math, the derivations, the C detection
+python -m harness smoke
+After installing, capture the exact versions as the citation for your run:
+pip freeze > requirements.lock.txt
+That lock file, together with the GPU_PROFILE recorded in the report, is what
+makes a given curve reproducible. The report also records the vLLM and GuideLLM
+versions it saw, because a percentile only means something next to the software
+and the hardware that produced it.
+There are two kinds of row here, and they are kept apart on purpose. The first kind is a cited external result. The second kind is a number you measure by running the harness; in place of a value, it carries the command.
+| Metric | Value | Source | 
+|---|---|---|
+| DistServe goodput gain (their setup) | serves 7.4x more requests or 12.6x tighter SLO within latency for >90% of requests | https://arxiv.org/abs/2401.09670 | 
+| Llama 3.1 8B Instruct size | 8.03B parameters; roughly 14.96 GB weights at BF16/FP16 | https://huggingface.co/blog/llama31 | 
+| Qwen2.5-7B-Instruct size | 7.61B parameters total; 6.53B non-embedding | https://huggingface.co/Qwen/Qwen2.5-7B-Instruct | 
+| H100 SXM memory bandwidth | about 3.35 TB/s (HBM3) | https://www.megware.com/fileadmin/user_upload/LandingPage%20NVIDIA/nvidia-h100-datasheet.pdf | 
+| A100 SXM memory bandwidth | 2,039 GB/s (HBM2e) | https://www.nvidia.com/en-us/data-center/a100/ | 
+| L40S memory bandwidth | 864 GB/s (GDDR6 with ECC) | https://www.nvidia.com/en-us/data-center/l40s/ | 
+The DistServe figures are DistServe's disaggregation result on their setup. They are here to motivate why goodput is the right metric, not as this harness's output.
+| Metric | How to measure it | 
+|---|---|
+| Saturation concurrency C | python -m harness sweep && python -m harness report (the load where goodput stops rising while throughput keeps climbing) | 
+| TTFT p95 at load | python -m harness sweep (read from the curve or the Grafana TTFT panel per stage) | 
+| TPOT p95 at load | python -m harness sweep | 
+| KV-cache utilization at the knee | the Grafana KV panel near C; a fraction 0 to 1, shown as a percentage | 
+| Output-token throughput and goodput at C | python -m harness report | 
+Decode is bandwidth-bound, so tokens per second tend to scale with HBM bandwidth more than with peak FLOPS. That is the intuition the KV-cache panel makes visible. Whether it holds for your model and batch size is, again, something you measure with the harness rather than read from a table here.
+harness/          the package: load/, metrics/, report/, cli.py
+slo/slo.yaml      the TTFT-p95 and TPOT-p95 targets (inputs, not results)
+prometheus/       scrape config and recording rules + one SLO-burn alert
+grafana/          provisioned datasource and the dashboard JSON
+scripts/          serve_vllm.sh, smoke.sh, run_sweep.sh
+deploy/k8s/       the same stack for a GPU cluster
+tests/            goodput math, derivations, saturation detection
+docker-compose.yml, Dockerfile, Makefile, requirements.txt, pyproject.toml
+FACTS.md          pinned truth: metrics, tools, models, hardware
+CITATIONS.md      every source URL
+- Zhong et al., DistServe: Disaggregating Prefill and Decoding for Goodput-optimized Large Language Model Serving, OSDI 2024. https://arxiv.org/abs/2401.09670 · https://www.usenix.org/conference/osdi24/presentation/zhong-yinmin
+- vLLM metrics design: https://docs.vllm.ai/en/stable/design/metrics/ · Prometheus + Grafana example: https://github.com/vllm-project/vllm/tree/main/examples/observability/prometheus_grafana
+- GuideLLM (Red Hat / Neural Magic): https://developers.redhat.com/articles/2025/06/20/guidellm-evaluate-llm-deployments-real-world-inference · https://github.com/vllm-project/guidellm
+- Prometheus: https://prometheus.io/docs/ · Grafana: https://grafana.com/docs/
+- Llama 3.1: https://ai.meta.com/blog/meta-llama-3/ · https://huggingface.co/blog/llama31
+- Qwen2.5-7B-Instruct: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
+- NVIDIA H100 / A100 / L40S datasheets: https://www.megware.com/fileadmin/user_upload/LandingPage%20NVIDIA/nvidia-h100-datasheet.pdf · https://www.nvidia.com/en-us/data-center/a100/ · https://www.nvidia.com/en-us/data-center/l40s/
+The full list, with the BibTeX for DistServe, is in CITATIONS.md.
+MIT. See LICENSE.

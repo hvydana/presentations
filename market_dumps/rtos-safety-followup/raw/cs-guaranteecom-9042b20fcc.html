@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html>
+<head><script>if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.match(/Trident\/7\..*?rv:11/i)){var href=document.location.href;if(!href.match(/[?&]nowprocket/)){if(href.indexOf("?")==-1){if(href.indexOf("#")==-1){document.location.href=href+"?nowprocket=1"}else{document.location.href=href.replace("#","?nowprocket=1#")}}else{if(href.indexOf("#")==-1){document.location.href=href+"&nowprocket=1"}else{document.location.href=href.replace("#","&nowprocket=1#")}}}}</script><script>class RocketLazyLoadScripts{constructor(e){this.triggerEvents=e,this.eventOptions={passive:!0},this.userEventListener=this.triggerListener.bind(this),this.delayedScripts={normal:[],async:[],defer:[]},this.allJQueries=[]}_addUserInteractionListener(e){this.triggerEvents.forEach((t=>window.addEventListener(t,e.userEventListener,e.eventOptions)))}_removeUserInteractionListener(e){this.triggerEvents.forEach((t=>window.removeEventListener(t,e.userEventListener,e.eventOptions)))}triggerListener(){this._removeUserInteractionListener(this),"loading"===document.readyState?document.addEventListener("DOMContentLoaded",this._loadEverythingNow.bind(this)):this._loadEverythingNow()}async _loadEverythingNow(){this._delayEventListeners(),this._delayJQueryReady(this),this._handleDocumentWrite(),this._registerAllDelayedScripts(),this._preloadAllScripts(),await this._loadScriptsFromList(this.delayedScripts.normal),await this._loadScriptsFromList(this.delayedScripts.defer),await this._loadScriptsFromList(this.delayedScripts.async),await this._triggerDOMContentLoaded(),await this._triggerWindowLoad(),window.dispatchEvent(new Event("rocket-allScriptsLoaded"))}_registerAllDelayedScripts(){document.querySelectorAll("script[type=rocketlazyloadscript]").forEach((e=>{e.hasAttribute("src")?e.hasAttribute("async")&&!1!==e.async?this.delayedScripts.async.push(e):e.hasAttribute("defer")&&!1!==e.defer||"module"===e.getAttribute("data-rocket-type")?this.delayedScripts.defer.push(e):this.delayedScripts.normal.push(e):this.delayedScripts.normal.push(e)}))}async _transformScript(e){return await this._requestAnimFrame(),new Promise((t=>{const n=document.createElement("script");let i;[...e.attributes].forEach((e=>{let t=e.nodeName;"type"!==t&&("data-rocket-type"===t&&(t="type",i=e.nodeValue),n.setAttribute(t,e.nodeValue))})),e.hasAttribute("src")&&this._isValidScriptType(i)?(n.addEventListener("load",t),n.addEventListener("error",t)):(n.text=e.text,t()),e.parentNode.replaceChild(n,e)}))}_isValidScriptType(e){return!e||""===e||"string"==typeof e&&["text/javascript","text/x-javascript","text/ecmascript","text/jscript","application/javascript","application/x-javascript","application/ecmascript","application/jscript","module"].includes(e.toLowerCase())}async _loadScriptsFromList(e){const t=e.shift();return t?(await this._transformScript(t),this._loadScriptsFromList(e)):Promise.resolve()}_preloadAllScripts(){var e=document.createDocumentFragment();[...this.delayedScripts.normal,...this.delayedScripts.defer,...this.delayedScripts.async].forEach((t=>{const n=t.getAttribute("src");if(n){const t=document.createElement("link");t.href=n,t.rel="preload",t.as="script",e.appendChild(t)}})),document.head.appendChild(e)}_delayEventListeners(){let e={};function t(t,n){!function(t){function n(n){return e[t].eventsToRewrite.indexOf(n)>=0?"rocket-"+n:n}e[t]||(e[t]={originalFunctions:{add:t.addEventListener,remove:t.removeEventListener},eventsToRewrite:[]},t.addEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.add.apply(t,arguments)},t.removeEventListener=function(){arguments[0]=n(arguments[0]),e[t].originalFunctions.remove.apply(t,arguments)})}(t),e[t].eventsToRewrite.push(n)}function n(e,t){const n=e[t];Object.defineProperty(e,t,{get:n||function(){},set:n=>{e["rocket"+t]=n}})}t(document,"DOMContentLoaded"),t(window,"DOMContentLoaded"),t(window,"load"),t(window,"pageshow"),t(document,"readystatechange"),n(document,"onreadystatechange"),n(window,"onload"),n(window,"onpageshow")}_delayJQueryReady(e){let t=window.jQuery;Object.defineProperty(window,"jQuery",{get:()=>t,set(n){if(n&&n.fn&&!e.allJQueries.includes(n)){n.fn.ready=n.fn.init.prototype.ready=function(t){e.domReadyFired?t.bind(document)(n):document.addEventListener("rocket-DOMContentLoaded",(()=>t.bind(document)(n)))};const t=n.fn.on;n.fn.on=n.fn.init.prototype.on=function(){if(this[0]===window){function e(e){return e.split(" ").map((e=>"load"===e||0===e.indexOf("load.")?"rocket-jquery-load":e)).join(" ")}"string"==typeof arguments[0]||arguments[0]instanceof String?arguments[0]=e(arguments[0]):"object"==typeof arguments[0]&&Object.keys(arguments[0]).forEach((t=>{delete Object.assign(arguments[0],{[e(t)]:arguments[0][t]})[t]}))}return t.apply(this,arguments),this},e.allJQueries.push(n)}t=n}})}async _triggerDOMContentLoaded(){this.domReadyFired=!0,await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-DOMContentLoaded")),await this._requestAnimFrame(),document.dispatchEvent(new Event("rocket-readystatechange")),await this._requestAnimFrame(),document.rocketonreadystatechange&&document.rocketonreadystatechange()}async _triggerWindowLoad(){await this._requestAnimFrame(),window.dispatchEvent(new Event("rocket-load")),await this._requestAnimFrame(),window.rocketonload&&window.rocketonload(),await this._requestAnimFrame(),this.allJQueries.forEach((e=>e(window).trigger("rocket-jquery-load"))),window.dispatchEvent(new Event("rocket-pageshow")),await this._requestAnimFrame(),window.rocketonpageshow&&window.rocketonpageshow()}_handleDocumentWrite(){const e=new Map;document.write=document.writeln=function(t){const n=document.currentScript,i=document.createRange(),r=n.parentElement;let a=e.get(n);void 0===a&&(a=n.nextSibling,e.set(n,a));const o=document.createDocumentFragment();i.setStart(o,0),o.appendChild(i.createContextualFragment(t)),r.insertBefore(o,a)}}async _requestAnimFrame(){return new Promise((e=>requestAnimationFrame(e)))}static run(){const e=new RocketLazyLoadScripts(["keydown","mousemove","touchmove","touchstart","touchend","touchcancel","touchforcechange","wheel"]);e._addUserInteractionListener(e)}}RocketLazyLoadScripts.run();
+</script>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="cleartype" content="on">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="theme-color" content="#ffffff">
+  <title>Уровни сертификатов SIL: различия между SIL 1, SIL 2, SIL 3 и SIL 4</title>
+  <link rel="icon" type="image/x-icon" href="https://cs-guarantee.com/wp-content/themes/sertificat/layout/build/frontend/images/favicon.ico">
+  <link rel="shortcut icon" type="image/png" href="https://cs-guarantee.com/wp-content/themes/sertificat/layout/build/frontend/images/favicon.png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="https://cs-guarantee.com/wp-content/themes/sertificat/layout/build/frontend/css/base.css">
+  <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v23.9 - https://yoast.com/wordpress/plugins/seo/ -->
+	<meta name="description" content="Перед проектированием системы важно определить, какой SIL 2 сертификат, или сертификат SIL 3 требуется — и на этом основании строить архитектуру безопасности." />
+	<link rel="canonical" href="https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/" />
+	<meta property="og:locale" content="ru_RU" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Уровни сертификатов SIL: различия между SIL 1, SIL 2, SIL 3 и SIL 4" />
+	<meta property="og:description" content="Перед проектированием системы важно определить, какой SIL 2 сертификат, или сертификат SIL 3 требуется — и на этом основании строить архитектуру безопасности." />
+	<meta property="og:url" content="https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/" />
+	<meta property="article:modified_time" content="2025-12-23T17:23:58+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Примерное время для чтения" />
+	<meta name="twitter:data1" content="2 минуты" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/","url":"https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/","name":"Уровни сертификатов SIL: различия между SIL 1, SIL 2, SIL 3 и SIL 4","isPartOf":{"@id":"https://cs-guarantee.com/#website"},"datePublished":"2025-05-05T20:41:48+00:00","dateModified":"2025-12-23T17:23:58+00:00","description":"Перед проектированием системы важно определить, какой SIL 2 сертификат, или сертификат SIL 3 требуется — и на этом основании строить архитектуру безопасности.","breadcrumb":{"@id":"https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/#breadcrumb"},"inLanguage":"ru-RU","potentialAction":[{"@type":"ReadAction","target":["https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/"]}]},{"@type":"BreadcrumbList","@id":"https://cs-guarantee.com/blog/urovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная страница","item":"https://cs-guarantee.com/"},{"@type":"ListItem","position":2,"name":"Блог","item":"https://cs-guarantee.com/blog/"},{"@type":"ListItem","position":3,"name":"Уровни SIL: различия между SIL 1, SIL 2, SIL 3 и SIL 4"}]},{"@type":"WebSite","@id":"https://cs-guarantee.com/#website","url":"https://cs-guarantee.com/","name":"Гарантия ЦС","description":"Ещё один сайт на WordPress","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://cs-guarantee.com/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"ru-RU"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://cs-guarantee.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcs-guarantee.com%2Fblog%2Furovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://cs-guarantee.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fcs-guarantee.com%2Fblog%2Furovni-sil-razlichiya-mezhdu-sil-1-sil-2-sil-3-i-sil-4-garantiya-czs%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="wp-block-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the block styles printed at wp_footer." }
+/*# sourceURL=wp-block-styles-placeholder-inline-css */
+</style>
+<link rel='stylesheet' id='jet-engine-frontend-css' href='https://cs-guarantee.com/wp-content/plugins/jet-engine/assets/css/frontend.css?ver=3.2.1' media='all' />
+<style id="wp-global-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer." }
+/*# sourceURL=wp-global-styles-placeholder-inline-css */
+</style>
+<link rel='stylesheet' id='elementor-frontend-css' href='https://cs-guarantee.com/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=3.35.8' media='all' />
+<link rel='stylesheet' id='elementor-post-736-css' href='https://cs-guarantee.com/wp-content/uploads/elementor/css/post-736.css?ver=1786590623' media='all' />
+<link rel='stylesheet' id='elementor-pro-css' href='https://cs-guarantee.com/wp-content/plugins/elementor-pro/assets/css/frontend.min.css?ver=3.20.1' media='all' />
+<link rel='stylesheet' id='elementor-post-768-css' href='https://cs-guarantee.com/wp-content/uploads/elementor/css/post-768.css?ver=1786590623' media='all' />
+<link rel="https://api.w.org/" href="https://cs-guarantee.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://cs-guarantee.com/wp-json/wp/v2/blog/1011" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://cs-guarantee.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0.4" />
+<link rel='shortlink' href='https://cs-guarantee.com/?p=1011' />
+<meta name="generator" content="Elementor 3.35.8; features: e_font_icon_svg, additional_custom_breakpoints; settings: css_print_method-external, google_font-enabled, font_display-swap">
+			<style>
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+					background-image: none !important;
+				}
+				@media screen and (max-height: 1024px) {
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+				@media screen and (max-height: 640px) {
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+					.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+						background-image: none !important;
+					}
+				}
+			</style>
+			<style id="wp-custom-css">
+table {
+    margin-bottom: 20px;
+}
+
+td {
+    border: 1px solid #a3a3a3;
+    padding: 10px;
+}
+
+</style>
+</head>
+<body class="wp-singular blog-template-default single single-blog postid-1011 wp-theme-sertificat elementor-default elementor-template-full-width elementor-kit-736 elementor-page-768">
+    <svg class="hide">
+  <symbol id="icoAddress" viewbox="0 0 20 23">
+    <path d="M7.85345 3.81332C7.09792 3.81332 6.35937 4.03736 5.73117 4.45711C5.10298 4.87686 4.61336 5.47346 4.32423 6.17147C4.0351 6.86949 3.95945 7.63756 4.10685 8.37857C4.25424 9.11958 4.61806 9.80024 5.1523 10.3345C5.68654 10.8687 6.3672 11.2325 7.1082 11.3799C7.84921 11.5273 8.61729 11.4517 9.3153 11.1625C10.0133 10.8734 10.6099 10.3838 11.0297 9.7556C11.4494 9.12741 11.6734 8.38885 11.6734 7.63332C11.6734 6.6202 11.271 5.64857 10.5546 4.93218C9.83821 4.21579 8.86658 3.81332 7.85345 3.81332ZM7.85345 10.12C7.36163 10.12 6.88086 9.97415 6.47193 9.70091C6.063 9.42767 5.74428 9.03931 5.55607 8.58493C5.36786 8.13055 5.31861 7.63057 5.41456 7.1482C5.51051 6.66583 5.74734 6.22275 6.09511 5.87499C6.44288 5.52722 6.88596 5.29039 7.36832 5.19444C7.85069 5.09849 8.35068 5.14773 8.80506 5.33594C9.25944 5.52415 9.6478 5.84288 9.92104 6.25181C10.1943 6.66074 10.3401 7.14151 10.3401 7.63332C10.3384 8.29167 10.0756 8.92246 9.60944 9.38735C9.14329 9.85225 8.5118 10.1133 7.85345 10.1133V10.12Z"
+    fill="white"></path>
+    <path d="M15.7001 8.32665C15.2477 8.31407 14.7992 8.24006 14.3668 8.10665V8.48665C14.3668 11.1933 12.7534 13.6 11.5734 15.36L11.3334 15.7133C10.1868 17.4333 8.66677 19.36 7.84677 20.3133C7.0601 19.36 5.50677 17.4333 4.3601 15.7133L4.13343 15.3333C2.95343 13.5733 1.33343 11.1666 1.33343 8.45998C1.33748 7.33899 1.63077 6.23801 2.18495 5.26357C2.73912 4.28913 3.53542 3.47421 4.49679 2.89765C5.45816 2.3211 6.55206 2.00243 7.67266 1.97247C8.79326 1.94251 9.90263 2.20228 10.8934 2.72665C10.9465 2.26826 11.0632 1.8195 11.2401 1.39332C10.0429 0.815109 8.71827 0.551122 7.39089 0.626215C6.06351 0.701308 4.77708 1.11301 3.65275 1.82255C2.52842 2.5321 1.60318 3.51613 0.964165 4.68199C0.325147 5.84785 -0.00662213 7.15717 0.000100157 8.48665C0.000100157 11.6 1.74677 14.2066 3.02677 16.1066L3.2601 16.4533C4.53362 18.2991 5.89981 20.0791 7.35343 21.7866L7.8601 22.38L8.36677 21.7866C9.8202 20.079 11.1864 18.2989 12.4601 16.4533L12.6934 16.1C13.9668 14.2 15.7134 11.6 15.7134 8.48665C15.7068 8.43332 15.7001 8.37998 15.7001 8.32665Z"
+    fill="white"></path>
+    <path d="M15.8534 6.66667C17.6944 6.66667 19.1867 5.17428 19.1867 3.33333C19.1867 1.49238 17.6944 0 15.8534 0C14.0125 0 12.5201 1.49238 12.5201 3.33333C12.5201 5.17428 14.0125 6.66667 15.8534 6.66667Z" fill="white"></path>
+  </symbol>
+  <symbol id="icoArrow" viewbox="0 0 20 24">
+    <path d="M19.0607 13.0607C19.6464 12.4749 19.6464 11.5251 19.0607 10.9393L9.51472 1.3934C8.92893 0.807611 7.97918 0.807611 7.3934 1.3934C6.80761 1.97919 6.80761 2.92893 7.3934 3.51472L15.8787 12L7.3934 20.4853C6.80761 21.0711 6.80761 22.0208 7.3934 22.6066C7.97918 23.1924 8.92893 23.1924 9.51472 22.6066L19.0607 13.0607ZM0 13.5H18V10.5H0V13.5Z"></path>
+  </symbol>
+  <symbol id="icoCart" viewbox="0 0 30 25">
+    <path d="M7.69673 17.4283C7.78427 17.4283 7.86507 17.4151 7.93914 17.3822C7.95261 17.3822 7.97281 17.3822 7.98628 17.3822L26.3426 15.9205C26.6254 15.9007 26.8678 15.7032 26.9419 15.4333L29.7028 5.11589C29.7566 4.91836 29.7095 4.70767 29.5816 4.54965C29.4536 4.38505 29.2583 4.29287 29.0496 4.29287H5.21869L4.17495 0.487227C4.09415 0.197525 3.83153 0 3.52177 0H0.673379C0.303021 0 0 0.296287 0 0.658415C0 1.02054 0.303021 1.31683 0.673379 1.31683H3.01001L7.09742 16.1838C5.97287 16.4538 5.13788 17.4414 5.13788 18.6266C5.13788 20.0092 6.28936 21.1351 7.70346 21.1351H28.1809C28.5513 21.1351 28.8543 20.8388 28.8543 20.4767C28.8543 20.1146 28.5513 19.8183 28.1809 19.8183H7.69673C7.02335 19.8183 6.47791 19.285 6.47791 18.6266C6.47791 17.9682 7.02335 17.4283 7.69673 17.4283ZM25.7635 14.6432L8.44418 16.0258L7.14455 11.2128H26.6793L25.7635 14.6432ZM28.1809 5.60311L27.0362 9.89598H6.78766L5.62945 5.60311H28.1809Z"
+    fill="white"></path>
+    <path d="M11.71 25C12.491 25 13.1241 24.381 13.1241 23.6173C13.1241 22.8537 12.491 22.2346 11.71 22.2346C10.929 22.2346 10.2959 22.8537 10.2959 23.6173C10.2959 24.381 10.929 25 11.71 25Z" fill="white"></path>
+    <path d="M22.8073 25C23.5883 25 24.2214 24.381 24.2214 23.6173C24.2214 22.8537 23.5883 22.2346 22.8073 22.2346C22.0263 22.2346 21.3932 22.8537 21.3932 23.6173C21.3932 24.381 22.0263 25 22.8073 25Z" fill="white"></path>
+  </symbol>
+  <symbol id="icoLike" viewbox="0 0 29 25">
+    <path d="M27.0414 8.06393C27.0414 8.28071 27.0325 8.49447 27.0146 8.71125C27.0057 8.80458 27.0116 8.93103 26.9818 9.02135C27.0265 8.88888 26.9789 9.03039 26.9729 9.07555C26.964 9.13877 26.9521 9.202 26.9401 9.26522C26.8627 9.69275 26.7495 10.1112 26.6005 10.5177C26.5796 10.5719 26.5618 10.6231 26.5409 10.6773C26.523 10.7224 26.4873 10.8097 26.529 10.7134C26.4813 10.8248 26.4307 10.9362 26.38 11.0446C26.2847 11.2433 26.1804 11.436 26.0672 11.6256C25.954 11.8183 25.8318 12.002 25.7007 12.1826C25.6769 12.2158 25.5905 12.3302 25.659 12.2398C25.6292 12.279 25.5964 12.3181 25.5666 12.3573C25.4862 12.4566 25.4058 12.5499 25.3223 12.6463C24.929 13.0889 24.497 13.4953 24.0799 13.9168C23.7343 14.2661 23.3917 14.6123 23.0461 14.9616C22.4234 15.5908 21.8007 16.2201 21.178 16.8493C20.4242 17.611 19.6704 18.3727 18.9196 19.1314C18.1897 19.8691 17.4627 20.6037 16.7327 21.3413C16.1845 21.8953 15.6334 22.4523 15.0851 23.0063C14.8617 23.2321 14.6442 23.4609 14.4178 23.6807C14.4029 23.6957 14.385 23.7108 14.3701 23.7258C14.3165 23.7861 14.4595 23.6716 14.3909 23.7108C14.3731 23.7198 14.3552 23.7349 14.3373 23.7439C14.3194 23.7529 14.2986 23.762 14.2837 23.774C14.2181 23.8192 14.388 23.7409 14.3135 23.762C14.2688 23.777 14.2241 23.7891 14.1764 23.8011C14.0722 23.8282 14.2926 23.7981 14.1556 23.8041C14.1139 23.8071 14.0751 23.8011 14.0364 23.8011C13.956 23.8011 14.1526 23.8282 14.0751 23.8071C14.0573 23.8011 14.0364 23.7981 14.0155 23.7951C13.9947 23.7891 13.9768 23.783 13.956 23.777C13.944 23.774 13.9291 23.768 13.9172 23.765C13.8755 23.7499 13.8904 23.7559 13.9649 23.7861C13.9589 23.768 13.8755 23.7349 13.8576 23.7228C13.8427 23.7138 13.7891 23.6686 13.8487 23.7198C13.9142 23.774 13.8427 23.7108 13.8278 23.6957C13.8219 23.6897 13.8159 23.6837 13.81 23.6777C13.804 23.6716 13.7951 23.6626 13.7891 23.6566C13.6908 23.5572 13.5925 23.4579 13.4971 23.3615C13.0383 22.8979 12.5825 22.4372 12.1236 21.9736C11.4354 21.2781 10.7501 20.5856 10.0619 19.8902C9.30215 19.1224 8.54539 18.3577 7.78564 17.5899C7.10038 16.8975 6.4181 16.208 5.73284 15.5155C5.27998 15.0579 4.82711 14.6003 4.37424 14.1426C4.09716 13.8626 3.8171 13.5796 3.54001 13.2996C3.41786 13.1762 3.2957 13.0527 3.17057 12.9263C3.04245 12.7968 2.91732 12.6613 2.79814 12.5229C2.73856 12.4506 2.67599 12.3783 2.61938 12.3061C2.60746 12.288 2.59257 12.273 2.58065 12.2549C2.53 12.1887 2.64322 12.3422 2.59555 12.273C2.56575 12.2338 2.53596 12.1917 2.50616 12.1525C2.27973 11.8364 2.07713 11.5022 1.90135 11.153C1.85964 11.0717 1.8209 10.9904 1.78217 10.9061C1.76132 10.8609 1.74344 10.8158 1.72259 10.7706C1.71365 10.7525 1.70769 10.7315 1.69875 10.7134C1.71663 10.7465 1.74046 10.8127 1.71067 10.7405C1.63916 10.5598 1.57362 10.3762 1.51403 10.1895C1.40081 9.83425 1.31739 9.46694 1.2578 9.09963C1.24886 9.05146 1.2429 9.00329 1.23694 8.95512C1.22801 8.88587 1.24588 9.01232 1.24588 9.01232C1.24588 8.99125 1.23992 8.97017 1.23992 8.95211C1.22801 8.84974 1.21907 8.74737 1.21013 8.642C1.19523 8.45533 1.18927 8.27168 1.18927 8.08501C1.18927 7.89834 1.19523 7.71168 1.20715 7.52802C1.21311 7.4377 1.22205 7.35039 1.23099 7.26007C1.23694 7.21189 1.24588 7.16372 1.24886 7.11555C1.24886 7.11555 1.23099 7.242 1.23992 7.17275C1.24588 7.13964 1.24886 7.10351 1.25482 7.07039C1.31143 6.70007 1.39485 6.33577 1.50509 5.97749C1.5617 5.79082 1.62724 5.60717 1.69875 5.42652C1.72556 5.36329 1.74642 5.33018 1.70173 5.41448C1.72556 5.37233 1.74046 5.32416 1.76132 5.27899C1.80005 5.18867 1.84176 5.10136 1.88645 5.01405C2.05926 4.6648 2.25888 4.33061 2.48233 4.01147C2.50616 3.97534 2.53298 3.94222 2.55681 3.90609C2.56873 3.88803 2.58363 3.87297 2.59555 3.85491C2.64322 3.78867 2.53 3.93921 2.58065 3.87297C2.64322 3.7947 2.70578 3.71341 2.77133 3.63814C2.89944 3.4876 3.03054 3.34308 3.17057 3.20158C3.33741 3.03298 3.51022 2.87341 3.69196 2.72287C3.73069 2.68975 3.76943 2.65964 3.80816 2.62653C3.81412 2.6205 3.88264 2.56932 3.82603 2.61147C3.76645 2.65663 3.84987 2.59341 3.86477 2.58437C3.95713 2.51513 4.04949 2.44889 4.14781 2.38265C4.51725 2.12975 4.91053 1.91599 5.31871 1.73534C5.42597 1.68717 5.2472 1.76244 5.35446 1.72029C5.40511 1.69922 5.45874 1.67814 5.51237 1.66008C5.61665 1.62094 5.72093 1.5818 5.82818 1.54868C6.03376 1.48244 6.23934 1.42223 6.4479 1.37405C6.5492 1.34997 6.65049 1.32889 6.75179 1.31083C6.86203 1.28975 6.99015 1.25061 7.10336 1.25362C7.10038 1.25362 6.99312 1.26567 7.06165 1.25965C7.08549 1.25664 7.10932 1.25362 7.13316 1.25061C7.18679 1.24459 7.24339 1.23857 7.29702 1.23255C7.40726 1.22352 7.5175 1.21448 7.62773 1.20846C7.84225 1.19943 8.05379 1.19642 8.2683 1.20545C8.3696 1.20846 8.47388 1.21448 8.57518 1.22352C8.68244 1.23255 8.82843 1.22352 8.92973 1.25965C8.92675 1.25965 8.81949 1.24459 8.88802 1.25362C8.91185 1.25664 8.93569 1.25965 8.95952 1.26266C9.01315 1.27169 9.06976 1.28072 9.12339 1.28975C9.23363 1.30782 9.34088 1.3319 9.45112 1.35599C9.65968 1.40416 9.86824 1.45836 10.0738 1.52459C10.1721 1.5547 10.2705 1.59083 10.3688 1.62696C10.4224 1.64502 10.4731 1.6661 10.5267 1.68717C10.5505 1.6962 10.5714 1.70524 10.5922 1.71427C10.6041 1.72029 10.7025 1.75943 10.631 1.72932C10.5595 1.69922 10.6518 1.73836 10.6697 1.74739C10.6905 1.75642 10.7144 1.76846 10.7352 1.77749C10.7859 1.80158 10.8365 1.82567 10.8872 1.84975C10.9885 1.89792 11.0898 1.94911 11.1881 2.0033C11.3818 2.10868 11.5695 2.22309 11.7542 2.34352C11.8436 2.40373 11.93 2.46394 12.0164 2.52717C12.064 2.56029 12.1087 2.59642 12.1564 2.63255C12.064 2.5633 12.1802 2.65362 12.213 2.67771C12.4454 2.86738 12.6629 3.07212 12.8744 3.28588C13.1485 3.56287 13.4226 3.83986 13.6968 4.11685C13.9232 4.34566 14.3105 4.34867 14.5399 4.11685C14.7723 3.88201 15.0047 3.64717 15.2401 3.40932C15.3295 3.319 15.4159 3.22867 15.5052 3.14136C15.6095 3.039 15.7168 2.93964 15.824 2.8433C15.8896 2.78609 15.9551 2.72889 16.0237 2.6747C16.0445 2.65663 16.0683 2.63857 16.0922 2.6205C16.1428 2.58136 16.1369 2.58437 16.0743 2.63556C16.0981 2.61749 16.119 2.59943 16.1428 2.58437C16.3931 2.39771 16.6523 2.2261 16.9234 2.07255C17.0575 1.99728 17.1946 1.92502 17.3316 1.85878C17.3942 1.82868 17.4567 1.79857 17.5193 1.77147C17.558 1.75341 17.5938 1.73534 17.6325 1.72029C17.5461 1.7504 17.5729 1.74438 17.6444 1.71728C17.9245 1.60287 18.2135 1.50653 18.5055 1.42825C18.6515 1.38911 18.7975 1.35599 18.9464 1.32588C19.0865 1.29879 19.2474 1.2476 19.3904 1.25061C19.2295 1.2476 19.3487 1.25664 19.3933 1.25061C19.4351 1.24459 19.4738 1.24158 19.5155 1.23857C19.584 1.23255 19.6525 1.22653 19.7181 1.22051C19.876 1.20846 20.0309 1.20244 20.1888 1.20244C20.4957 1.19943 20.8026 1.2175 21.1095 1.25061C21.1363 1.25362 21.1631 1.25965 21.1899 1.25965C21.0201 1.25061 21.1571 1.25362 21.1929 1.25965C21.2614 1.26868 21.327 1.28072 21.3955 1.29276C21.5564 1.32287 21.7173 1.35599 21.8782 1.39513C22.1731 1.46739 22.4621 1.56072 22.7452 1.66911C22.8077 1.69319 22.8822 1.71427 22.9388 1.74739C22.8047 1.66911 22.915 1.73835 22.9507 1.75341C22.9835 1.76846 23.0133 1.78051 23.0461 1.79556C23.1921 1.8618 23.3351 1.93405 23.4751 2.01233C23.7462 2.15986 24.0114 2.32545 24.2617 2.50911C24.3183 2.55126 24.3808 2.5904 24.4345 2.63857C24.3213 2.53319 24.4255 2.63255 24.4494 2.65061C24.4821 2.67771 24.5149 2.7048 24.5507 2.7319C24.6728 2.83427 24.792 2.93964 24.9082 3.05104C25.1704 3.30093 25.4087 3.56889 25.6322 3.84889C25.7365 3.97835 25.5637 3.74953 25.659 3.88502C25.6977 3.93921 25.7365 3.9934 25.7752 4.0476C25.8318 4.12889 25.8884 4.21018 25.942 4.29448C26.0493 4.46007 26.1476 4.62867 26.24 4.8033C26.3353 4.98093 26.4247 5.16459 26.5051 5.35125C26.5171 5.38136 26.5588 5.48674 26.5111 5.36329C26.5349 5.42351 26.5588 5.48372 26.5826 5.54394C26.6154 5.63426 26.6482 5.72458 26.6809 5.81792C26.809 6.19727 26.9044 6.58867 26.9699 6.98609C26.9759 7.01619 26.9789 7.04931 26.9848 7.07942C26.9908 7.11254 26.9938 7.14265 26.9997 7.17576C26.9878 7.09447 26.9878 7.08845 26.9967 7.1577C27.0057 7.25404 27.0176 7.34738 27.0265 7.44372C27.0325 7.64845 27.0414 7.85619 27.0414 8.06393C27.0414 8.38006 27.3155 8.68114 27.6373 8.66608C27.9591 8.65103 28.2332 8.40114 28.2332 8.06393C28.2272 6.50738 27.7863 4.94781 26.9372 3.64416C26.1387 2.41878 25.0155 1.40416 23.6986 0.780937C21.2435 -0.3782 18.2939 -0.242717 15.9909 1.22653C15.1179 1.78352 14.4178 2.53018 13.6938 3.26179C13.9738 3.26179 14.2569 3.26179 14.5369 3.26179C14.2509 2.97276 13.9649 2.68373 13.6819 2.39771C13.1009 1.81061 12.4365 1.29879 11.7065 0.916421C10.0261 0.0342719 8.07464 -0.218631 6.22444 0.190831C4.3802 0.600292 2.75345 1.69018 1.60937 3.19556C0.620211 4.49921 0.0720035 6.11598 0.00645698 7.75082C-0.0590896 9.37361 0.375901 11.0295 1.2429 12.3994C1.79111 13.2665 2.52404 13.965 3.23909 14.6876C3.49234 14.9435 3.74857 15.2024 4.00182 15.4583C4.58578 16.0484 5.16974 16.6385 5.7537 17.2286C6.50153 17.9843 7.24935 18.74 8.00016 19.4988C8.7599 20.2665 9.51667 21.0312 10.2764 21.799C10.8812 22.4101 11.486 23.0213 12.0909 23.6325C12.3799 23.9246 12.6659 24.2166 12.9549 24.5056C13.4793 25.0295 14.2986 25.165 14.9421 24.7766C15.1179 24.6712 15.2579 24.5297 15.398 24.3882C15.7913 23.9908 16.1845 23.5934 16.5748 23.199C17.2392 22.5276 17.9036 21.8562 18.5651 21.1878C19.3338 20.411 20.1054 19.6312 20.8741 18.8545C21.5951 18.1259 22.3161 17.3973 23.0401 16.6656C23.5496 16.1508 24.0561 15.639 24.5656 15.1241C24.795 14.8923 25.0214 14.6635 25.2508 14.4317C25.6292 14.0493 26.0195 13.679 26.3621 13.2635C26.9878 12.5018 27.4705 11.6527 27.7952 10.7194C28.0902 9.87038 28.2362 8.96114 28.2362 8.06092C28.2362 7.7448 27.9621 7.44372 27.6403 7.45877C27.3126 7.47684 27.0414 7.72673 27.0414 8.06393Z"
+    fill="white"></path>
+  </symbol>
+  <symbol id="icoPhone" viewbox="0 0 15 23">
+    <path d="M13.1429 0H1.64286C1.20714 0 0.789277 0.173086 0.481182 0.481182C0.173087 0.789277 0 1.20714 0 1.64286V21.3571C0 21.7929 0.173087 22.2107 0.481182 22.5188C0.789277 22.8269 1.20714 23 1.64286 23H13.1429C13.5786 23 13.9964 22.8269 14.3045 22.5188C14.6126 22.2107 14.7857 21.7929 14.7857 21.3571V1.64286C14.7857 1.20714 14.6126 0.789277 14.3045 0.481182C13.9964 0.173086 13.5786 0 13.1429 0ZM1.64286 1.64286H13.1429V16.4286H1.64286V1.64286ZM1.64286 21.3571V18.0714H13.1429V21.3571H1.64286Z"
+    fill="white"></path>
+    <path d="M6.57141 18.8929H8.21427V20.5357H6.57141V18.8929Z" fill="white"></path>
+  </symbol>
+  <symbol id="icoSearch" viewbox="0 0 25 25">
+    <path d="M23.9967 23.0463C24.2592 23.3087 24.2592 23.7343 23.9967 23.9967C23.7343 24.2592 23.3087 24.2592 23.0463 23.9967L15.8097 16.7601C15.677 16.6274 15.4516 16.6173 15.3101 16.7328C15.3101 16.7328 15.2 16.828 15.0066 16.9714C13.4422 18.1312 11.5055 18.8172 9.4086 18.8172C4.21237 18.8172 0 14.6048 0 9.4086C0 4.21237 4.21237 0 9.4086 0C14.6048 0 18.8172 4.21237 18.8172 9.4086C18.8172 11.4578 18.1621 13.3539 17.0499 14.8991C16.8833 15.1306 16.7329 15.308 16.7329 15.308C16.6152 15.4524 16.6255 15.6751 16.7601 15.8097L23.9967 23.0463ZM9.4086 17.4731C13.8625 17.4731 17.4731 13.8625 17.4731 9.4086C17.4731 4.95469 13.8625 1.34409 9.4086 1.34409C4.95469 1.34409 1.34409 4.95469 1.34409 9.4086C1.34409 13.8625 4.95469 17.4731 9.4086 17.4731Z"
+    fill="white"></path>
+  </symbol>
+  <symbol id="icoUser" viewbox="0 0 26 25">
+    <path d="M25.9308 24.2184C24.8988 22.4203 23.5125 20.8561 21.8579 19.6228C20.2034 18.3894 18.3159 17.5133 16.3127 17.0487C18.1898 16.2721 19.7421 14.8599 20.7041 13.0537C21.6661 11.2474 21.9782 9.1592 21.587 7.14595C21.1958 5.13271 20.1256 3.31942 18.5593 2.01601C16.993 0.712604 15.0279 0 12.9999 0C10.9718 0 9.00672 0.712604 7.44045 2.01601C5.87418 3.31942 4.80399 5.13271 4.41279 7.14595C4.02158 9.1592 4.33366 11.2474 5.29568 13.0537C6.2577 14.8599 7.80994 16.2721 9.68707 17.0487C7.68394 17.5133 5.79655 18.3894 4.14206 19.6226C2.48756 20.8559 1.10127 22.4201 0.0692221 24.218C0.0353613 24.2772 0.0133582 24.3426 0.00446914 24.4104C-0.00441989 24.4782 -2.07596e-05 24.5471 0.0174153 24.6132C0.0348514 24.6793 0.0649828 24.7412 0.10609 24.7955C0.147196 24.8498 0.198473 24.8954 0.256992 24.9297C0.315512 24.9639 0.380127 24.9862 0.44715 24.9952C0.514172 25.0042 0.582289 24.9997 0.647612 24.9821C0.712935 24.9644 0.774183 24.934 0.827861 24.8924C0.881539 24.8508 0.926594 24.7989 0.960455 24.7397C2.18106 22.6021 3.93619 20.8272 6.04954 19.5932C8.16288 18.3592 10.56 17.7095 13.0001 17.7096C15.4402 17.7096 17.8373 18.3593 19.9506 19.5933C22.0639 20.8274 23.819 22.6024 25.0396 24.74C25.1079 24.8595 25.2205 24.9467 25.3524 24.9824C25.4843 25.018 25.6248 24.9992 25.743 24.93C25.8612 24.8608 25.9473 24.747 25.9826 24.6135C26.0178 24.4801 25.9992 24.3379 25.9308 24.2184ZM5.27801 8.85572C5.27801 7.31061 5.73089 5.80021 6.57938 4.5155C7.42787 3.23079 8.63386 2.22949 10.0449 1.6382C11.4558 1.04691 13.0085 0.892207 14.5063 1.19364C16.0042 1.49508 17.3802 2.23912 18.4601 3.33167C19.54 4.42422 20.2754 5.81622 20.5734 7.33163C20.8713 8.84705 20.7184 10.4178 20.134 11.8453C19.5495 13.2728 18.5598 14.4929 17.2899 15.3513C16.0201 16.2097 14.5271 16.6679 12.9999 16.6679C10.9526 16.6656 8.98989 15.8417 7.54225 14.3772C6.09462 12.9126 5.28033 10.9269 5.27801 8.85572V8.85572Z"
+    fill="white"></path>
+  </symbol>
+  <symbol id="icoCross" viewbox="0 0 13 13">
+    <path d="M8.02602 6.49908L12.6799 1.8554C12.8837 1.65158 12.9982 1.37513 12.9982 1.08687C12.9982 0.798614 12.8837 0.522165 12.6799 0.318337C12.4761 0.114509 12.1997 0 11.9114 0C11.6232 0 11.3468 0.114509 11.143 0.318337L6.5 4.97283L1.85699 0.318337C1.65319 0.114509 1.37678 -2.14767e-09 1.08856 0C0.800348 2.14767e-09 0.523938 0.114509 0.320139 0.318337C0.11634 0.522165 0.00184703 0.798614 0.00184703 1.08687C0.00184703 1.37513 0.11634 1.65158 0.320139 1.8554L4.97397 6.49908L0.320139 11.1428C0.218698 11.2434 0.138182 11.3631 0.0832357 11.495C0.0282894 11.6269 0 11.7684 0 11.9113C0 12.0542 0.0282894 12.1957 0.0832357 12.3276C0.138182 12.4595 0.218698 12.5792 0.320139 12.6798C0.420751 12.7813 0.540453 12.8618 0.67234 12.9168C0.804227 12.9717 0.945688 13 1.08856 13C1.23144 13 1.3729 12.9717 1.50479 12.9168C1.63667 12.8618 1.75637 12.7813 1.85699 12.6798L6.5 8.02532L11.143 12.6798C11.2436 12.7813 11.3633 12.8618 11.4952 12.9168C11.6271 12.9717 11.7686 13 11.9114 13C12.0543 13 12.1958 12.9717 12.3277 12.9168C12.4595 12.8618 12.5792 12.7813 12.6799 12.6798C12.7813 12.5792 12.8618 12.4595 12.9168 12.3276C12.9717 12.1957 13 12.0542 13 11.9113C13 11.7684 12.9717 11.6269 12.9168 11.495C12.8618 11.3631 12.7813 11.2434 12.6799 11.1428L8.02602 6.49908Z"></path>
+  </symbol>
+  <symbol id="icoLoader" viewbox="0 0 44 44">
+    <g fill="none" fill-rule="evenodd" stroke-width="2">
+      <circle cx="22" cy="22" r="1">
+        <animate attributeName="r" begin="0s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate>
+        <animate attributeName="stroke-opacity" begin="0s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate>
+      </circle>
+      <circle cx="22" cy="22" r="1">
+        <animate attributeName="r" begin="-0.9s" dur="1.8s" values="1; 20" calcMode="spline" keyTimes="0; 1" keySplines="0.165, 0.84, 0.44, 1" repeatCount="indefinite"></animate>
+        <animate attributeName="stroke-opacity" begin="-0.9s" dur="1.8s" values="1; 0" calcMode="spline" keyTimes="0; 1" keySplines="0.3, 0.61, 0.355, 1" repeatCount="indefinite"></animate>
+      </circle>
+    </g>
+  </symbol>
+</svg>  <noscript class="noscript">Чтобы посмотреть сайт включите JavaScript на&nbsp;своём устройстве.</noscript>
+    <a class="callBtn" data-fancybox data-src="#popup" href="javascript:;" href="#"></a>
+  
+  <div class="popup" id="popup2">
+    <div class="form__wrap">
+      <div class="form__box">
+        <form class="form popup__form jsForm" action="/" name="sign" method="POST">
+          <div class="form__title">Вопросы по сертификации?</div>
+          <p class="form__subtitle">Оставьте свой номер, и мы перезвоним вам.</p>
+          <input class="form__input hide" type="text" name="text" value="">
+          <input class="form__input hide" type="text" name="title" value="Вопросы по сертификации">
+          <input class="popup__input form__input jsRequirePhone" type="text" name="phone" value="" placeholder="Ваш номер телефона" minlength="10" tabindex="2">
+                    <div class="form__accept"><p>Отправляя информацию через форму я соглашаюсь на передачу персональных данных и с <a href="/privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a>.</p>
+</div>
+                    <button class="btn form__submit form__submit disabled" type="submit" disabled="disabled" tabindex="3">Жду звонка</button>
+        </form>
+      </div>
+      <div class="form__loader hide jsFormLoader">
+        <svg class="imgLoader">
+          <use xlink:href="#icoLoader"></use>
+        </svg>
+      </div>
+      <div class="form__answerSend hide jsFormSend">
+        <div class="form__title">
+          <p>Спасибо, заявка отправлена!</p>
+        </div>
+      </div>
+      <div class="form__answerError hide jsFormError">
+        <div class="form__title">
+          <p>Что-то пошло не так, попробуйте снова!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="popup" id="popup">
+    <div class="form__wrap">
+      <div class="form__box">
+        <form class="form popup__form jsForm" action="/" name="sign" method="POST">
+                    <div class="form__title">Заявка</div>
+                    <input class="form__input hide" type="text" name="text" value="">
+          <input class="form__input hide" type="text" name="title" value="">
+          <input class="popup__input form__input jsRequireText" type="text" name="name" value="" placeholder="Имя" minlength="2" tabindex="1">
+          <input class="popup__input form__input jsRequirePhone" type="text" name="phone" value="" placeholder="Телефон" minlength="10" tabindex="2">
+          <input class="popup__input form__input" type="email" name="mail" value="" placeholder="Email" minlength="6" tabindex="3">
+          <div class="form__boxFile">
+            <input class="form__file jsFile" type="file" name="file" tabindex="4" max-file-size="5" placeholder="Прикрепить документ">
+            <div class="form__fileText jsFileText">Прикрепить документ</div>
+          </div>
+          <textarea class="popup__textarea form__textarea" name="msg" placeholder="Комментарий или вопрос"></textarea>
+                    <div class="form__accept"><p>Отправляя информацию через форму я соглашаюсь на передачу персональных данных и с <a href="/privacy/" target="_blank" rel="noopener">политикой конфиденциальности</a>.</p>
+</div>
+                    <button class="btn form__submit form__submit disabled" type="submit" disabled="disabled" tabindex="3">Отправить</button>
+        </form>
+      </div>
+      <div class="form__loader hide jsFormLoader">
+        <svg class="imgLoader">
+          <use xlink:href="#icoLoader"></use>
+        </svg>
+      </div>
+      <div class="form__answerSend hide jsFormSend">
+        <div class="form__title">
+          <p>Спасибо, заявка отправлена!</p>
+        </div>
+      </div>
+      <div class="form__answerError hide jsFormError">
+        <div class="form__title">
+          <p>Что-то пошло не так, попробуйте снова!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="header">
+    <div class="header__box box">
+      <div class="header__logo">
+                <a class="logo" href="/">
+          <img src="https://cs-guarantee.com/wp-content/uploads/2021/11/logo.png">
+        </a>
+              </div>
+      <div class="header__nav jsNavBox"><nav class='nav'><div class='nav__item'><a class='nav__link' href='/#services'>Услуги</a></div><div class='nav__item'><a class='nav__link' href='/#benefits'>Преимущества</a></div><div class='nav__item'><a class='nav__link' href='/#screens'>Аттестаты</a></div><div class='nav__item'><a class='nav__link' href='/blog/'>Блог</a></div><div class='nav__item'><a class='nav__link' href='/#contacts'>Контакты</a></div></nav></div>
+      <div class="header__linkToggle jsHeaderToggle"><span></span></div>
+      <div class="header__phone">
+                <div class="phone">
+          <a class="phone__num" href="tel:+74952310378">+7 (495) 231-03-78</a>
+          <div class="phone__time">с 9:00 до 18:00</div>
+        </div>
+              </div>
+      <a class="header__order btn" data-fancybox data-src="#popup" href="javascript:;" href="#">Заявка</a>
+    </div>
+  </header>		<div data-elementor-type="single-post" data-elementor-id="768" class="elementor elementor-768 elementor-location-single post-1011 blog type-blog status-publish hentry" data-elementor-post-type="elementor_library">
+			<div class="elementor-element elementor-element-c07adc2 e-flex e-con-boxed e-con e-parent" data-id="c07adc2" data-element_type="container" data-e-type="container">
+					<div class="e-con-inner">
+		<div class="elementor-element elementor-element-eb0c432 e-con-full e-flex e-con e-child" data-id="eb0c432" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-41b6875 elementor-widget elementor-widget-heading" data-id="41b6875" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+				<div class="elementor-widget-container">
+					<div class="elementor-heading-title elementor-size-default">Другие статьи</div>				</div>
+				</div>
+				<div class="elementor-element elementor-element-22df4d5 elementor-grid-1 elementor-grid-tablet-2 elementor-grid-mobile-1 elementor-posts--thumbnail-top elementor-widget elementor-widget-posts" data-id="22df4d5" data-element_type="widget" data-e-type="widget" data-settings="{&quot;classic_columns&quot;:&quot;1&quot;,&quot;classic_row_gap&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]},&quot;classic_columns_tablet&quot;:&quot;2&quot;,&quot;classic_columns_mobile&quot;:&quot;1&quot;,&quot;classic_row_gap_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;classic_row_gap_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}}" data-widget_type="posts.classic">
+				<div class="elementor-widget-container">
+							<div class="elementor-posts-container elementor-posts elementor-posts--skin-classic elementor-grid">
+				<article class="elementor-post elementor-grid-item post-1184 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/chto-budet-esli-prodavat-tovar-bez-sertifikata/" >
+				Что будет, если продавать товар без сертификата			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1182 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/kak-prohodit-sertifikacziya-tovara-po-shagam/" >
+				Как проходит сертификация товара по шагам			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1180 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/sertifikat-ili-deklaracziya-chto-nuzhno-oformlyat/" >
+				Сертификат или декларация: что нужно оформлять			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1176 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/kak-proverit-dejstvitelnost-sertifikata-ili-deklaraczii-pered-prodazhej-tovara/" >
+				Как проверить действительность сертификата или декларации перед продажей товара			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1174 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/sertifikat-ili-deklaracziya-sootvetstviya-chto-oformlyat-v-2026-godu-i-kak-ne-oshibitsya/" >
+				Сертификат или декларация соответствия: что оформлять в 2026 году и как не ошибиться			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1171 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/sistema-markirovki-chestnyj-znak-zachem-nuzhno-povyshenie-kvalifikaczii/" >
+				Система маркировки «Честный знак»: зачем нужно повышение квалификации			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1167 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/sertifikacziya-i-deklarirovanie-produkczii-i-uslug-v-chem-raznicza-i-chto-vybrat-biznesu/" >
+				Сертификация и декларирование продукции и услуг: в чем разница и что выбрать бизнесу			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1165 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/deklaracziya-sootvetstviya-gost-r-chto-eto-takoe-i-v-kakih-sluchayah-ona-trebuetsya/" >
+				Декларация соответствия ГОСТ Р: что это такое и в каких случаях она требуется			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1163 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/kak-vybrat-speczialista-po-markirovke-chestnyj-znak-na-chto-obratit-vnimanie-predprinimatelyu/" >
+				Как выбрать специалиста по маркировке «Честный знак»: на что обратить внимание предпринимателю			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1132 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/stoimost-i-sroki-sertifikaczii-orientiry-faktory-vliyayushhie-na-czenu-i-vremya/" >
+				Стоимость и сроки сертификации: ориентиры, факторы, влияющие на цену и время			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1130 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/obyazatelnaya-ili-dobrovolnaya-sertifikacziya-otlichiya-kogda-neobhodima-obyazatelnaya-kogda-dobrovolnaya/" >
+				Обязательная или добровольная сертификация: отличия, когда необходима обязательная, когда добровольная			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1127 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/chto-takoe-sertifikacziya-produkczii-i-uslug-v-rossii-vidy-zadachi-znachenie-dlya-biznesa/" >
+				Что такое сертификация продукции и услуг в России: виды, задачи, значение для бизнеса			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1112 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/sertifikat-gost-r-chto-eto-takoe-zachem-on-nuzhen-i-chem-otlichaetsya-ot-drugih-dokumentov/" >
+				Сертификат ГОСТ Р — что это такое, зачем он нужен и чем отличается от других документов			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1110 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/kak-zaregistrirovatsya-i-nachat-rabotu-s-chestnym-znakom/" >
+				Как зарегистрироваться и начать работу с Честным ЗНАКОМ			</a>
+		</h3>
+				</div>
+				</article>
+				<article class="elementor-post elementor-grid-item post-1108 blog type-blog status-publish hentry">
+				<div class="elementor-post__text">
+				<h3 class="elementor-post__title">
+			<a href="https://cs-guarantee.com/blog/markirovka-chestnyj-znak-chto-eto-takoe-i-zachem-ona-nuzhna-biznesu/" >
+				Маркировка Честный ЗНАК — что это такое и зачем она нужна бизнесу			</a>
+		</h3>
+				</div>
+				</article>
+				</div>
+		
+						</div>
+				</div>
+				</div>
+		<div class="elementor-element elementor-element-1ef68e9 e-con-full e-flex e-con e-child" data-id="1ef68e9" data-element_type="container" data-e-type="container">
+				<div class="elementor-element elementor-element-523c94d elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="523c94d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
+				<div class="elementor-widget-container">
+					<h1 class="elementor-heading-title elementor-size-default">Уровни SIL: различия между SIL 1, SIL 2, SIL 3 и SIL 4</h1>				</div>
+				</div>
+				<div class="elementor-element elementor-element-6107e3d elementor-widget elementor-widget-theme-post-content" data-id="6107e3d" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-content.default">
+				<div class="elementor-widget-container">
+					<p>Уровень полноты безопасности SIL (упб SIL) — важный показатель, определяющий надежность систем функциональной безопасности в промышленности. Правильное понимание уровней SIL (SIL 1, SIL 2, SIL 3, SIL 4) необходимо для выбора подходящего уровня защиты в зависимости от рисков, связанных с оборудованием и процессами.</p>
+<h2>Что такое SIL и зачем он нужен</h2>
+<p>SIL (Safety Integrity Level) — это мера надежности систем, предотвращающих аварийные ситуации. Стандарт IEC 61508 устанавливает четыре уровня SIL, от SIL 1 (наименьший) до SIL 4 (наивысший). Чем выше уровень, тем более критична функция безопасности, которую выполняет система.</p>
+<h2>Различия между SIL 1, SIL 2, SIL 3 и SIL 4</h2>
+<table class="cke_show_border">
+<thead>
+<tr>
+<td>Уровень SIL</td>
+<td>Вероятность отказа (PFD)</td>
+<td>Типовые области применения</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIL 1</td>
+<td>10⁻² – 10⁻¹</td>
+<td>Вентиляция, вспомогательные системы</td>
+</tr>
+<tr>
+<td>SIL 2</td>
+<td>10⁻³ – 10⁻²</td>
+<td>Контроль давления, нагрева, утечек</td>
+</tr>
+<tr>
+<td>SIL 3</td>
+<td>10⁻⁴ – 10⁻³</td>
+<td>Критичные процессы в химии, энергетике</td>
+</tr>
+<tr>
+<td>SIL 4</td>
+<td>10⁻⁵ – 10⁻⁴</td>
+<td>Ядерная энергетика, военная техника</td>
+</tr>
+</tbody>
+</table>
+<h2>SIL 2 и SIL 3 в промышленности</h2>
+<ul>
+<li>SIL2 и <strong><a href="https://cs-guarantee.com/services/serficate_sil/" data-cke-saved-href="https://cs-guarantee.com/services/serficate_sil/">сертификат SIL2</a></strong> чаще всего требуются в химической, нефтегазовой и пищевой отраслях. Например, SIL2-сертифицированная система может контролировать температуру в реакторе или отключать насос при утечке.</li>
+<li>SIL3 (или сил3) — это уровень, предназначенный для особо ответственных процессов. Сертификат SIL 3 подтверждает, что система способна минимизировать риски в условиях высокой опасности.<br />
+Например, SIL3 уровень безопасности обязателен для систем аварийного отключения в газораспределении.</li>
+</ul>
+<h2>А что такое SIL 14?</h2>
+<p>Иногда встречается обозначение SIL14, но это ошибка или некорректная интерпретация. Согласно стандарту IEC 61508, существует только четыре уровня SIL: от SIL 1 до SIL 4. Упоминание sil14 может быть результатом опечатки (например, объединение sil1 и sil4), и не имеет технической основы.</p>
+<h2>Как получить сертификат SIL 2 или SIL 3</h2>
+<p>Для получения сертификата SIL2 , необходимо пройти процесс оценки по стандарту IEC 61508. Это включает:</p>
+<ul>
+<li>Анализ рисков</li>
+<li>Разработку архитектуры системы с учетом требований к уровню упб SIL</li>
+<li>Проведение тестов и проверок</li>
+<li>Документирование всего жизненного цикла системы</li>
+</ul>
+<p>Выбор уровня полноты безопасности SIL зависит от потенциального риска отказа.</p>
+<ul>
+<li>Для базовых задач подходит SIL 1.</li>
+<li>SIL 2 — уже промышленный стандарт с умеренными требованиями.</li>
+<li>SIL 3 (sil3) — это высокая степень защиты.</li>
+<li>SIL 4 используется редко, только в критических системах.</li>
+</ul>
+<p>Перед проектированием системы важно определить, какой SIL 2 сертификат, или сертификат SIL 3 требуется — и на этом основании строить архитектуру безопасности.</p>
+				</div>
+				</div>
+				</div>
+					</div>
+				</div>
+				</div>
+		  <footer class="footer">
+    <div class="footer__box box">
+      <section class="contacts" id="contacts">
+        <div class="contacts__column">
+        <h2 class="contacts__title title">Контакты</h2>
+          <div class="contacts__text">
+                        <a class="contacts__phone" href="tel:+74952310378">+7 (495) 231-03-78</a>
+                                    <br><a class="contacts__email" href="mailto:info@cs-guarantee.com">info@cs-guarantee.com</a>
+                                    <br><address>127474, Москва,<br />
+Дмитровское шоссе, д.60, помещение V, офис 313</address>
+                                    <div class="contacts__time">Время работы Пн—Пт — с 9:00 до 18:00<br />
+Сб, Вс — выходные</div>
+                      </div>
+          <div class="contacts__btnWrap"><a class="contacts__btn btn jsBtnOrder" data-fancybox data-text="" data-src="#popup" href="javascript:;" href="#">Оформить заявку</a></div>
+        </div>
+        <div class="contacts__column">
+                    <iframe class="contacts__map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A78fdfd9bb086df71e2f892d773ec964f6cf9d2858dbeb71cafa7df24572ddae8&amp;amp;source=constructor" width="550" height="350" frameborder="0"></iframe>                  </div>
+      </section>
+    </div>
+  </footer>
+  <script type="rocketlazyloadscript" data-rocket-type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/sertificat/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+			<script type="rocketlazyloadscript">
+				const lazyloadRunObserver = () => {
+					const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+					const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+						entries.forEach( ( entry ) => {
+							if ( entry.isIntersecting ) {
+								let lazyloadBackground = entry.target;
+								if( lazyloadBackground ) {
+									lazyloadBackground.classList.add( 'e-lazyloaded' );
+								}
+								lazyloadBackgroundObserver.unobserve( entry.target );
+							}
+						});
+					}, { rootMargin: '200px 0px 200px 0px' } );
+					lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+						lazyloadBackgroundObserver.observe( lazyloadBackground );
+					} );
+				};
+				const events = [
+					'DOMContentLoaded',
+					'elementor/lazyload/observe',
+				];
+				events.forEach( ( event ) => {
+					document.addEventListener( event, lazyloadRunObserver );
+				} );
+			</script>
+			<link rel='stylesheet' id='widget-heading-css' href='https://cs-guarantee.com/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=3.35.8' media='all' />
+<link rel='stylesheet' id='widget-image-css' href='https://cs-guarantee.com/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=3.35.8' media='all' />
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<script type="rocketlazyloadscript" id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+//# sourceURL=rocket-browser-checker-js-after
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"/(.+/)?feed/?.+/?|/(?:.+/)?embed/|/(index\\.php/)?wp\\-json(/.*|$)|/wp-admin/|/logout/|/wp-login.php","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|php|pdf|html|htm","siteUrl":"https://cs-guarantee.com","onHoverDelay":"100","rateThrottle":"3"};
+//# sourceURL=rocket-preload-links-js-extra
+</script>
+<script type="rocketlazyloadscript" id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+
+//# sourceURL=rocket-preload-links-js-after
+</script>
+<script type="rocketlazyloadscript" id="elementor-webpack-runtime-js" src="https://cs-guarantee.com/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=3.35.8"></script>
+<script type="rocketlazyloadscript" id="jquery-core-js" src="https://cs-guarantee.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script type="rocketlazyloadscript" id="jquery-migrate-js" src="https://cs-guarantee.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<script type="rocketlazyloadscript" id="elementor-frontend-modules-js" src="https://cs-guarantee.com/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=3.35.8"></script>
+<script type="rocketlazyloadscript" id="jquery-ui-core-js" src="https://cs-guarantee.com/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3"></script>
+<script type="rocketlazyloadscript" id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0432 Facebook","shareOnTwitter":"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f \u0432 Twitter","pinIt":"\u0417\u0430\u043f\u0438\u043d\u0438\u0442\u044c","download":"\u0421\u043a\u0430\u0447\u0430\u0442\u044c","downloadImage":"\u0421\u043a\u0430\u0447\u0430\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u0435","fullscreen":"\u0412\u043e \u0432\u0435\u0441\u044c \u044d\u043a\u0440\u0430\u043d","zoom":"\u0423\u0432\u0435\u043b\u0438\u0447\u0435\u043d\u0438\u0435","share":"\u041f\u043e\u0434\u0435\u043b\u0438\u0442\u044c\u0441\u044f","playVideo":"\u041f\u0440\u043e\u0438\u0433\u0440\u0430\u0442\u044c \u0432\u0438\u0434\u0435\u043e","previous":"\u041d\u0430\u0437\u0430\u0434","next":"\u0414\u0430\u043b\u0435\u0435","close":"\u0417\u0430\u043a\u0440\u044b\u0442\u044c","a11yCarouselPrevSlideMessage":"\u041f\u0440\u0435\u0434\u044b\u0434\u0443\u0449\u0438\u0439 \u0441\u043b\u0430\u0439\u0434","a11yCarouselNextSlideMessage":"\u0421\u043b\u0435\u0434\u0443\u044e\u0449\u0438\u0439 \u0441\u043b\u0430\u0439\u0434","a11yCarouselFirstSlideMessage":"\u042d\u0442\u043e \u043f\u0435\u0440\u0432\u044b\u0439 \u0441\u043b\u0430\u0439\u0434","a11yCarouselLastSlideMessage":"\u042d\u0442\u043e \u043f\u043e\u0441\u043b\u0435\u0434\u043d\u0438\u0439 \u0441\u043b\u0430\u0439\u0434","a11yCarouselPaginationBulletMessage":"\u041f\u0435\u0440\u0435\u0439\u0442\u0438 \u043a \u0441\u043b\u0430\u0439\u0434\u0443"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0439 - \u043a\u043d\u0438\u0436\u043d\u0430\u044f \u043e\u0440\u0438\u0435\u043d\u0442\u0430\u0446\u0438\u044f","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"\u041c\u043e\u0431\u0438\u043b\u044c\u043d\u044b\u0439 - \u0430\u043b\u044c\u0431\u043e\u043c\u043d\u0430\u044f \u043e\u0440\u0438\u0435\u043d\u0442\u0430\u0446\u0438\u044f","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"\u041f\u043b\u0430\u043d\u0448\u0435\u0442 - \u043a\u043d\u0438\u0436\u043d\u0430\u044f \u043e\u0440\u0438\u0435\u043d\u0442\u0430\u0446\u0438\u044f","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"\u041f\u043b\u0430\u043d\u0448\u0435\u0442 - \u0430\u043b\u044c\u0431\u043e\u043c\u043d\u0430\u044f \u043e\u0440\u0438\u0435\u043d\u0442\u0430\u0446\u0438\u044f","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"\u041d\u043e\u0443\u0442\u0431\u0443\u043a","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"\u0428\u0438\u0440\u043e\u043a\u043e\u0444\u043e\u0440\u043c\u0430\u0442\u043d\u044b\u0435","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"3.35.8","is_static":false,"experimentalFeatures":{"e_font_icon_svg":true,"additional_custom_breakpoints":true,"container":true,"theme_builder_v2":true,"nested-elements":true,"home_screen":true,"global_classes_should_enforce_capabilities":true,"e_variables":true,"cloud-library":true,"e_opt_in_v4_page":true,"e_components":true,"e_interactions":true,"e_editor_one":true,"import-export-customization":true,"notes":true,"display-conditions":true,"form-submissions":true,"taxonomy-filter":true},"urls":{"assets":"https:\/\/cs-guarantee.com\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/cs-guarantee.com\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/cs-guarantee.com\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"74553a1bc4"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":1011,"title":"%D0%A3%D1%80%D0%BE%D0%B2%D0%BD%D0%B8%20%D1%81%D0%B5%D1%80%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%82%D0%BE%D0%B2%20SIL%3A%20%D1%80%D0%B0%D0%B7%D0%BB%D0%B8%D1%87%D0%B8%D1%8F%20%D0%BC%D0%B5%D0%B6%D0%B4%D1%83%20SIL%201%2C%20SIL%202%2C%20SIL%203%20%D0%B8%20SIL%204","excerpt":"","featuredImage":false}};
+//# sourceURL=elementor-frontend-js-before
+</script>
+<script type="rocketlazyloadscript" id="elementor-frontend-js" src="https://cs-guarantee.com/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=3.35.8"></script>
+<script type="rocketlazyloadscript" id="imagesloaded-js" src="https://cs-guarantee.com/wp-includes/js/imagesloaded.min.js?ver=5.0.0"></script>
+<script type="rocketlazyloadscript" id="elementor-pro-webpack-runtime-js" src="https://cs-guarantee.com/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=3.20.1"></script>
+<script type="rocketlazyloadscript" id="wp-hooks-js" src="https://cs-guarantee.com/wp-includes/js/dist/hooks.min.js?ver=7496969728ca0f95732d"></script>
+<script type="rocketlazyloadscript" id="wp-i18n-js" src="https://cs-guarantee.com/wp-includes/js/dist/i18n.min.js?ver=781d11515ad3d91786ec"></script>
+<script type="rocketlazyloadscript" id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script type="rocketlazyloadscript" id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/cs-guarantee.com\/wp-admin\/admin-ajax.php","nonce":"72aaa69fe5","urls":{"assets":"https:\/\/cs-guarantee.com\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/cs-guarantee.com\/wp-json\/"},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"}},"facebook_sdk":{"lang":"ru_RU","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/cs-guarantee.com\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+//# sourceURL=elementor-pro-frontend-js-before
+</script>
+<script type="rocketlazyloadscript" id="elementor-pro-frontend-js" src="https://cs-guarantee.com/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=3.20.1"></script>
+<script type="rocketlazyloadscript" id="pro-preloaded-elements-handlers-js" src="https://cs-guarantee.com/wp-content/plugins/elementor-pro/assets/js/preloaded-elements-handlers.min.js?ver=3.20.1"></script>
+  <script type="rocketlazyloadscript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="rocketlazyloadscript" src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script type="rocketlazyloadscript" src="https://cs-guarantee.com/wp-content/themes/sertificat/layout/build/frontend/js/swiper.min.js"></script>
+  <script type="rocketlazyloadscript" src="https://cs-guarantee.com/wp-content/themes/sertificat/layout/build/frontend/js/main.js"></script>
+  <script type="rocketlazyloadscript" src="https://cs-guarantee.com/wp-content/themes/sertificat/yandex_stat_60s.js"></script>
+
+<!-- Yandex.Metrika counter -->
+<script type="rocketlazyloadscript" data-rocket-type="text/javascript" >
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+  ym(84561775, "init", {
+    clickmap:true,
+    trackLinks:true,
+    accurateTrackBounce:true,
+    webvisor:true
+  });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/84561775" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+</body>
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me - Debug: cached@1786598047 -->

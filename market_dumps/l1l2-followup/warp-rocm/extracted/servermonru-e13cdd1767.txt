@@ -1,0 +1,91 @@
+Подробный гайд: Установка и настройка драйверов AMD в ALT Linux
+Важно:
+- В большинстве случаев драйверы AMD уже встроены в ядро Linux и работают «из коробки» в ALT Linux. Ручная установка требуется редко.
+1. Определение модели видеокарты
+Перед установкой определите, какая у вас видеокарта:
+lspci | grep -i vga
+Пример вывода:
+08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 [Radeon RX 6600/6600 XT/6600M] (rev c1)
+2. Какой драйвер использовать?
+| Поколение карт | Рекомендуемый драйвер | Пакеты в ALT Linux | 
+|---|---|---|
+| Radeon HD 2000–7000, R7/R9 (до 2015) | radeon (открытый) | xorg-drv-radeon, xorg-dri-radeon | 
+| GCN 1.2+, RX 400/500, Vega, Navi (RX 6000/7000) | amdgpu (открытый) | xorg-drv-amdgpu, xorg-dri-amdgpu | 
+| Профессиональные задачи (ROCm, OpenCL) | AMDGPU-PRO (проприетарный) | amdgpu-rock, vulkan-amdgpu | 
+amdgpu — opensource-драйвер под лицензией MIT, разработанный AMD для поддержки линейки видеокарт Radeon. Был анонсирован в 2014 году как преемник драйвера radeon.
+3. Установка через репозитории ALT Linux (рекомендуемый способ)
+Базовая установка открытого драйвера
+# Обновление системы
+sudo apt-get update && sudo apt-get upgrade
+# Установка драйверов для современных карт (amdgpu)
+sudo apt-get install xorg-drv-amdgpu xorg-dri-amdgpu mesa-dri-drivers
+# Для старых карт (radeon)
+sudo apt-get install xorg-drv-radeon xorg-dri-radeon
+# Модули ядра (обычно уже установлены)
+sudo apt-get install kernel-modules-drm-std-def
+Для RX 6600 XT и новее обязательно нужен пакет xorg-drv-amdgpu.
+Установка Vulkan-поддержки
+# RADV (Mesa) — рекомендуется для большинства пользователей
+sudo apt-get install vulkan-tools mesa-vulkan-drivers
+# AMDVLK (официальный от AMD) — для специфических задач
+sudo apt-get install vulkan-amdgpu
+Начиная с amdvlk 2021.Q3.x убрана поддержка карт до Polaris — для них оставайтесь на RADV.
+Установка firmware (микрокод)
+# Микрокод для процессоров и видеокарт AMD
+sudo apt-get install firmware-amd-ucode firmware-amd-real-ucode
+4. Обновление ядра (при необходимости)
+Для поддержки новейших видеокарт может потребоваться более свежее ядро:
+# Просмотр доступных ядер
+apt-cache search kernel-image
+# Установка ядра un-def (более новая ветка)
+sudo /usr/sbin/update-kernel -t un-def
+# Перезагрузка
+sudo reboot
+Если update-kernel зависает, попробуйте:
+ sudo rpmdb --rebuild
+ sudo rpm -e kernel-image-un-def  # если есть конфликты
+ sudo /usr/sbin/update-kernel -t un-def
+5. Очистка конфигурации Xorg (если драйвер не применяется)
+Иногда старый xorg.conf мешает автоопределению драйвера:
+# Удаление ручной конфигурации
+sudo rm -f /etc/X11/xorg.conf
+sudo rm -rf /etc/X11/xorg.conf.d/10-monitor.conf
+# Перезапуск графической сессии
+# (или просто перезагрузите систему)
+После этого система автоматически подберёт правильный драйвер при наличии поддержки в ядре.
+6. Проверка работы драйвера
+Какой драйвер загружен:
+lspci -k | grep -A 3 -i vga
+Ожидаемый вывод для amdgpu:
+Kernel driver in use: amdgpu
+Kernel modules: amdgpu
+Версия Mesa и поддержка OpenGL:
+glxinfo | grep "OpenGL version"
+Проверка Vulkan:
+vulkaninfo --summary
+# или
+glxinfo | grep Vulkan
+7. Установка AMDGPU-PRO (проприетарный драйвер, опционально)
+Требуется только для специфических задач: ROCm, профессиональный рендеринг, некоторые CUDA-аналоги. Для игр и повседневного использования открытый стек предпочтительнее.
+# 1. Скачайте драйвер с официального сайта
+wget https://drivers.amd.com/drivers/linux/amdgpu-pro-XX.X-XXXXXX.tar.xz
+# 2. Распакуйте
+tar -Jxvf amdgpu-pro-*.tar.xz
+cd amdgpu-pro-*
+# 3. Запустите установку (только графический стек, без замены ядра)
+# ВАЖНО: используйте --opencl=legacy или --opencl=rocm при необходимости
+sudo ./amdgpu-pro-install -y --usecase=graphics
+# 4. Перезагрузка
+sudo reboot
+Проприетарный драйвер может конфликтовать с обновлениями ядра. Используйте только если открытые драйверы не решают вашу задачу.
+8. Устранение частых проблем
+| Проблема | Решение | 
+|---|---|
+| Чёрный экран после установки | Загрузитесь в recovery-режим, удалите xorg.conf, проверьте dmesg \| grep -i amdgpu | 
+| Низкая производительность в играх | Убедитесь, что используется amdgpu, а не vesa или llvmpipe. Проверьте glxinfo \| grep "OpenGL renderer" | 
+| Отсутствует поддержка Vulkan | Установите vulkan-tools и mesa-vulkan-drivers. Проверьте vulkaninfo | 
+| Артефакты/мерцание | Обновите ядро и linux-firmware. Добавьте параметр ядра amdgpu.dc=1 в /etc/default/grub | 
+| Не определяется видеокарта | Убедитесь, что установлен firmware-amd-ucode и модуль amdgpu загружен (lsmod \| grep amdgpu) | 
+Совет:
+- В 95% случаев достаточно просто обновить систему (apt-get update && apt-get upgrade) и перезагрузиться — открытый стек AMD (amdgpu + Mesa + RADV) работает в ALT Linux стабильно и не требует ручной настройки.
+Информация предоставлена в ознакомительных целях. Применение описанных настроек в системах, должно осуществляться только после согласования с ответственными за информационную безопасность и в соответствии с требованиями ФСТЭК, ФСБ и иных уполномоченных органов.

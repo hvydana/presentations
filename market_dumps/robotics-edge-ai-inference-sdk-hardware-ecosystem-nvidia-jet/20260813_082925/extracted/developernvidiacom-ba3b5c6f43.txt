@@ -1,0 +1,63 @@
+NVIDIA is introducing the NVIDIA Jetson T4000, bringing high-performance AI and real-time reasoning to a wider range of robotics and edge AI applications. Optimized for tighter power and thermal envelopes, T4000 delivers up to 1200 FP4 TFLOPs of AI compute and 64 GB of memory, providing an ideal balance of performance, efficiency, and scalability. With its energy-efficient design and production-ready form factor, T4000 makes advanced AI accessible for the next generation of intelligent machines, from autonomous robots to smart infrastructure and industrial automation.
+The module includes 1× NVENC and 1× NVDEC hardware video codec engines, enabling real-time 4K video encoding and decoding. This balanced design is built for platforms that combine advanced vision processing and I/O capabilities with power and thermal efficiency.
+| Features | NVIDIA Jetson T4000 | NVIDIA Jetson T5000 | 
+| AI performance | 1,200 FP4 Sparse TFLOPs | 2,070 FP4 Sparse TFLOPs | 
+| GPU | 1,536-core NVIDIA Blackwell architecture GPU with fifth-generation Tensor cores Multi-Instance GPU with 6 TPCs | 2,650-core NVIDIA Blackwell architecture GPU with fifth-generation Tensor cores Multi-Instance GPU with 10 TPCs | 
+| Memory | 64 GB 256-bit LPDDR5x \| 273 GBps | 128 GB 256-bit LPDDR5x \| 273 GBps | 
+| CPU | 12-core Arm Neoverse-V3AE 64-bit CPU | 14-core Arm Neoverse-V3AE 64-bit CPU | 
+| Video encode | 1x NVENC | 2x NVENC | 
+| Video decode | 1x NVDEC | 2x NVDEC | 
+| Networking | 3x 25GbE | 4x 25GbE | 
+| I/Os | Up to 8 lanes of PCIe Gen55x I2S \| 1x Audio Hub (AHUB) \| 2X DMIs \| 4x UART \| 3x SPI \| 13x I2C \| 6x PWM outputs. | Up to 8 lanes of PCIe Gen55x I2S/2x Audio Hub (AHUB), 2x DMIs, 4x UART, 4x CAN, 3x SPI, 13x I2C, 6x PWM outputs | 
+| Power | 40W-70W | 40W-130W | 
+The Jetson T4000 module shares the same form factor and pin compatibility with the NVIDIA Jetson T5000 module. Developers can design common carrier boards for both T4000 and T5000, while accounting for differences in thermal and other inherent module features.
+NVIDIA Jetson T4000 and T5000 benchmarks
+Jetson T4000 and T5000 modules deliver strong performance for a number of large language models (LLMs), text-to-speech (TTS), and vision-language-action (VLA) models. Jetson T4000 delivers up to 2x performance gains over the previous generation NVIDIA Jetson AGX Orin platform. The following table shows performance numbers of T4000 and T5000 over popular LLMs, TTS, and VLAs.
+| Model family | Model | Jetson T4000 (tokens/sec) | Jetson T5000 (tokens/sec) | T4000 vs T5000 | 
+| QWEN | Qwen3-30B-A3B | 218 | 258 | 0.84 | 
+| QWEN | Qwen 3 32B | 68 | 83 | 0.82 | 
+| Nemotron | Nemotron 12B | 40 | 61 | 0.66 | 
+| DeepSeek | DeepSeek R1 Distill Qwen 32B | 64 | 82 | 0.78 | 
+| Mistral | Mistral 3 14B | 100 | 109 | 0.92 | 
+| Kokoro TTS | Kokoro 82M | 1,100 | 900 | 0.82 | 
+| GR00T | GR00T N1.5 | 376 | 410 | 0.92 | 
+NVIDIA JetPack 7.1: An advanced software stack for next‑gen edge AI
+NVIDIA JetPack 7 is the most advanced software for Jetson, enabling the deployment of generative AI and humanoid robotics at the edge. The new Jetson T4000 module is powered by the JetPack 7.1 and introduces several new software features that enhance AI and video codec capabilities.
+NVIDIA TensorRT Edge-LLM: Efficient inferencing for robotics and edge systems
+With JetPack 7.1, we’re introducing support for NVIDIA TensorRT Edge-LLM on the Jetson Thor platform.
+The TensorRT Edge‑LLM SDK is an open-source C++ SDK for running LLMs and vision language models (VLMs) efficiently on edge platforms like Jetson. It targets robotics and other real‑time systems that need the intelligence of modern LLMs without the data center-scale compute, memory, or power.
+Most popular LLM stacks are designed with cloud GPUs in mind. They have plenty of memory, loose latency constraints, Python services everywhere, and elastic scaling as a safety net. Robots and other edge devices live under different constraints, where every millisecond, watt, and runtime can impact physical behavior. The TensorRT Edge‑LLM SDK addresses this gap by bringing a production‑oriented LLM runtime to devices like Jetson Thor-class embedded GPUs.
+For robotics workloads, the goal is not just to “run an LLM,” but to do it alongside perception, control, and planning stacks that are already saturating the GPU and CPU. An edge‑first design means the LLM runtime integrates cleanly with existing C++ codebases, respects tight memory budgets, and delivers predictable latency under load.
+TensorRT Edge‑LLM SDK focuses on fast and efficient inference of LLMs and VLMs at the edge, starting with familiar training ecosystems like PyTorch. The typical workflow is straightforward. Export a trained model to ONNX, run it through TensorRT for optimization, and then deploy an engine that the SDK drives end‑to‑end on the device.
+A defining characteristic is its implementation as a lightweight C++ toolkit, originally tuned for in‑vehicle systems in the NVIDIA DriveOS LLM SDK. Instead of a tall dependency tower of Python packages, web servers, and background services, you link against a focused C++ runtime that speaks to TensorRT and NVIDIA CUDA.
+Compared with Python‑centric LLM frameworks, this has several practical benefits for robotics, including:
+- Lower overhead: C++ binaries avoid Python interpreter startup costs, garbage collection pauses, and GIL‑related contention, helping meet strict latency targets.
+- Easier real‑time integration: C++ gives more direct control over threads, memory pools, and scheduling, which fits naturally with real‑time or near‑real‑time robotics stacks.
+- Smaller footprint: Fewer dependencies simplify deployment on Jetson, reduce container images, and make over‑the‑air updates less fragile.
+Quantization is one of the most important levers. The SDK supports multiple reduced precisions such as FP8, NVFP4, and INT4, shrinking both model weights and KV‑cache usage with modest accuracy loss when tuned correctly.
+Video Codec SDK: Powering real‑time perception and media processing on Jetson Thor
+With JetPack 7.1, the NVIDIA Video Codec SDK is now supported on Jetson Thor.
+The Video Codec SDK is a comprehensive suite of APIs, high-performance tools, sample applications, reusable code, and documentation enabling hardware-accelerated video encoding and decoding on the Jetson Thor platform. At its core, the NVENCODE and NVDECODE APIs provide C-style interfaces for high-performance access to NVENC and NVDEC HW accelerators, revealing most hardware capabilities along with a wide range of commonly used and advanced codec features.
+To simplify integration, the SDK also includes reusable C++ classes built on top of these APIs, allowing applications to easily adopt the full breadth of functionality offered by the underlying NVENCODE/NVDECODE interfaces.
+Figure 1 shows the architecture of the Video Codec SDK and its drivers in the JetPack 7.1 BSP, along with the associated sample applications and documentation.
+The Video Codec SDK brings the following key benefits to multimedia developers.
+A unified experience across NVIDIA GPUs
+With the Video Codec SDK, developers gain a consistent and streamlined development experience across the NVIDIA GPU portfolio. This unification eliminates the need for separate code bases or tuning strategies for different GPU classes, reducing engineering overhead.
+Developers building on GPUs can extend or port their applications using Video SDK APIs to Jetson Thor’s integrated GPUs without re-architecting their video pipeline. Teams working on embedded platforms benefit from the same mature APIs, tools, and performance optimizations available on workstations and servers. This consistency not only accelerates development and validation but also simplifies long-term maintenance, scalability, and cross-platform feature parity.
+Fine-grained control of next-gen robot perception and multimedia applications
+The Video Codec SDK exposes APIs for developers to pair presets with tuning modes to precisely control quality, latency, and throughput, unlocking flexible application-specific encoding.
+Through APIs for reconstructed frame access and iterative encoding, the SDK enables CABR workflows that automatically find the minimum bitrate for perceptual quality, cutting bandwidth while maintaining quality. SDK-exposed controls for Spatial/Temporal Adaptive Quantization (AQ) and lookahead enable fine-grained perceptual optimization, allocating bits where they matter most and delivering cleaner, more stable video without raising bitrate.
+The Video Codec SDK consists of two major component groups.
+- Video user-mode drivers provide access to the on-chip hardware encoders and decoders through the NVENCODE and NVDECODE APIs
+- Video Codec SDK 13.0 with sample code, header files, and documentation can be installed through the NVIDIA Video Codec SDK webpage, using APT (see instructions), or through the NVIDIA SDK Manager.
+PyNvVideoCodec is the NVIDIA Python-based video codec library that provides simple yet powerful Python APIs for hardware-accelerated video encode and decode on NVIDIA GPUs.
+The PyNvVideoCodec library internally uses core C/C++ video encode and decode APIs of Video Codec SDK with easy-to-use Python APIs. The library offers encode and decode performance close to the Video Codec SDK.
+Getting started
+NVIDIA Jetson T4000 is backed by a mature ecosystem of production‑ready systems from established hardware partners, making it easier to move from prototype to deployment quickly. Developers can start by selecting a prevalidated edge system that already integrates the module, power, thermal design, and I/O needed for robotics and other physical AI workloads. Many of the partner systems are built to utilize the module’s advanced camera pipeline, with support for MIPI CSI and GMSL to handle demanding multi‑camera, real‑time vision workloads. With 16 lanes of MIPI CSI on Jetson T4000, partners can deliver platforms that ingest streams from multiple cameras concurrently, enabling sophisticated robotics, industrial inspection, and autonomous machines.
+These systems are engineered to support the JetPack SDK, CUDA, and broader NVIDIA AI software stack. Existing applications and models can usually be brought up with minimal changes. Many partners also offer lifecycle support, regional certifications, and optional customization services, which help teams de‑risk supply chain and compliance concerns as they scale from pilot to fleet deployments. To explore available systems and find the right fit for your application, visit the NVIDIA Ecosystem page.
+Summary
+With Jetson T4000 powered by JetPack 7.1, NVIDIA extends Blackwell-class AI, real-time reasoning, and advanced multimedia capabilities to a broader set of edge and robotics applications. From strong gains in LLM, speech, and VLA workloads to the introduction of TensorRT Edge-LLM and a unified Video Codec SDK, T4000 delivers a balance of performance, efficiency, and software maturity. Jetson T4000 enables developers to scale intelligently across performance tiers while building next-generation autonomous machines, perception systems, and physical AI solutions at the edge.
+Get started with the Jetson AGX Thor Developer Kit, and download the latest JetPack 7.1. Jetson T4000 modules are available.
+Comprehensive documentation, support resources, and tools are available through the Jetson Download Center and ecosystem partners.
+Have questions or need guidance? Connect with experts and other developers in the NVIDIA Developer Forum.
+Watch NVIDIA CEO Jensen Huang at CES 2026 and check out our sessions.

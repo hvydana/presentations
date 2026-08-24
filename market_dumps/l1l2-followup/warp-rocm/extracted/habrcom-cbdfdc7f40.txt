@@ -1,0 +1,47 @@
+Ryzen AI 9 HX 370 - это чип с NPU на 50 TOPS и Ollama его не видит - из-за своей архитектуры. Собственно, сама Ollama работает поверх llama.cpp, llama.cpp поддерживает GPU через CUDA, Metal, Vulkan и ROCm. А вот AMD GPU Ollama запускает - через ROCm и Vulkan. Но AMD NPU на базе архитектуры XDNA туда, к сожалению, не входит. Ryzen AI 300, Ryzen 8040, Ryzen 7040 - у всех этих чипов есть нейронный процессор, который при запуске Ollama простаивает.
+И вот Lemonade Server появился именно для этого сегмента.
+Что за Lemonade
+Для начала - это не корпоративный продукт AMD. Они финансируют разработку и предоставляют инженеров, но это не официальный продукт с корпоративным релизным циклом.
+Lemonade - это управляющий слой поверх нескольких специализированных движков. Каждый движок обслуживает свою задачу.
+Для текстовых моделей - llama.cpp с поддержкой Vulkan и отдельная ROCm-сборка llama.cpp для AMD GPU. Для NPU - FastFlowLM (FLM) на чипах с архитектурой XDNA - это Ryzen AI 300 (Strix Point), Ryzen 8040 (Hawk Point) и Ryzen 7040 (Phoenix). Для распознавания речи - whisper.cpp. Для синтеза речи - Kokoro. Для генерации изображений - sd-cpp.
+Всё это управляется фоновым процессом lemond на порту 13305.
+При старте Lemonade определяет доступное железо и выбирает движок. На APU с Ryzen AI - FastFlowLM. На GPU с ROCm - специальная llamacpp-rocm сборка. На NVIDIA или без GPU - Vulkan или CPU-режим. Ручная настройка не требуется.
+Ollama использует один бэкенд - llama.cpp. TTS, STT и генерация изображений в нём не реализованы. Это разные инструменты, не встроенные в сервер.
+Пять API-стандартов одновременно
+Lemonade поднимает пять API-протоколов. Три основных - OpenAI, Ollama и Anthropic. Плюс llama.cpp-специализированные эндпоинты и собственный Lemonade API для управления сервером.
+Клиент, написанный под OpenAI API, подключается к Lemonade заменой одной строки:
+base_url = "http://localhost:13305/api/v1"
+api_key = "lemonade"  # параметр обязателен, но не проверяется
+Из официально задокументированных интеграций - Continue, Open WebUI, AnythingLLM, Claude Code, CodeGPT, OpenHands, Mindcraft. Порт у Lemonade - 13305, а не 11434 от Ollama. Клиенты, захардкоженные на 11434, потребуют перенастройки.
+Lemonade vs Ollama
+| Параметр | Lemonade Server | Ollama | 
+|---|---|---|
+| Лицензия | Apache 2.0 | MIT | 
+| Движок (текст) | llama.cpp + FLM | llama.cpp | 
+| GPU NVIDIA | Vulkan | CUDA | 
+| GPU AMD | ROCm (отдельная сборка) | ROCm (не все GPU) | 
+| AMD NPU (XDNA) | FLM нативно | не поддерживается | 
+| TTS | Kokoro встроено | нет | 
+| STT | whisper.cpp встроено | нет | 
+| Генерация изображений | sd-cpp встроено | нет | 
+| API OpenAI | да | да | 
+| API Ollama | да | да | 
+| API Anthropic | да | да | 
+| GUI | Десктопное приложение + браузерный UI (Windows, macOS beta) | Системный трей (macOS, Windows) | 
+| Встраиваемый режим | portable build lemond | нет | 
+NPU-движок FLM бесплатен только для некоммерческого использования. Сам Lemonade Server - Apache 2.0 без ограничений. Коммерческое применение FLM требует отдельной лицензии.
+Быстрый старт
+На Windows - MSI-инсталлятор.
+После установки запускается Lemonade App - десктопное приложение с менеджером моделей и встроенным LLM-чатом.
+Через CLI - скачать и запустить модель:
+lemonade pull Llama-3.2-1B-Instruct-Hybrid
+lemonade run Llama-3.2-1B-Instruct-Hybrid  # загружает модель и открывает вебаппу в браузере
+Проверяем, поднялся ли сервер:
+lemonade status
+Для Linux - пакеты тут (snap, RPM, Debian, Docker).
+Llama-3.2-1B-Instruct-GGUF - одна из наименее требовательных моделей в каталоге. Запускается в CPU-режиме без GPU. Модели с суффиксом Hybrid - только для XDNA NPU, на обычных машинах в каталоге не появляются.
+Нужен ли вам Lemonade
+NVIDIA + Ollama работает - переходить незачем. Ollama использует CUDA нативно. Lemonade на NVIDIA работает через Vulkan, что медленнее.
+AMD-десктоп или ноутбук с Ryzen AI - Lemonade под это, собственно, и собран. ROCm-сборка llama.cpp, нативная поддержка XDNA NPU через FLM.
+В версии 10.3 десктопное приложение перешло с Electron на Tauri - размер уменьшился в 10 раз. MLX-поддержка для Mac в разработке. macOS beta уже завершена. Полной поддержки NVIDIA через CUDA пока нет.
+Lemonade имеет смысл, если нужен AMD NPU, встроенный голос или генерация изображений. Если ваш стек в них не попадает - остаёмся с Ollama.

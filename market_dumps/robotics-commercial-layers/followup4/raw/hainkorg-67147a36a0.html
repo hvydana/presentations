@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-CC67Q4TNKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag("js",new Date());gtag("config","G-CC67Q4TNKK");</script>
+<!-- GA4: отслеживание заявок (форма + клики по email/телефону) -->
+<script>
+(function () {
+  function lead(method, extra) {
+    if (typeof gtag !== 'function') return;
+    gtag('event', 'generate_lead', Object.assign({ method: method }, extra || {}));
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="mailto:"], a[href^="tel:"]');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (href.indexOf('mailto:') === 0) lead('email', { address: href.replace('mailto:', '').split('?')[0] });
+    else lead('phone', { number: href.replace('tel:', '') });
+  });
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.tagName === 'FORM')
+      lead('form', { form_id: e.target.id || e.target.getAttribute('name') || 'contact' });
+  });
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sim-to-Real: How Robots Learn in Simulation | Haink</title>
+<meta name="description" content="Sim-to-real explained: why robots are trained in simulation, the sim-to-real gap, domain randomization, the workflow, and the GPU and edge hardware it needs.">
+<meta name="keywords" content="sim-to-real, robot training simulation, domain randomization, Isaac Sim, robot learning, synthetic data robotics">
+<link rel="canonical" href="https://haink.org/knowledge/physical-ai/sim-to-real-robot-training">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Haink"><meta property="og:title" content="Sim-to-Real: How Robots Learn in Simulation"><meta property="og:description" content="Sim-to-real explained: why robots are trained in simulation, the sim-to-real gap, domain randomization, the workflow, and the GPU and edge hardware it needs."><meta property="og:url" content="https://haink.org/knowledge/physical-ai/sim-to-real-robot-training"><meta property="og:image" content="https://haink.org/og-image.jpg"><meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "image": "https://haink.org/og-image.jpg", "headline": "Sim-to-Real: How Robots Learn in Simulation", "description": "Sim-to-real explained: why robots are trained in simulation, the sim-to-real gap, domain randomization, the workflow, and the GPU and edge hardware it needs.", "mainEntityOfPage": {"@type": "WebPage", "@id": "https://haink.org/knowledge/physical-ai/sim-to-real-robot-training"}, "author": {"@type": "Organization", "name": "Haink", "url": "https://haink.org"}, "publisher": {"@type": "Organization", "name": "Haink", "url": "https://haink.org"}, "datePublished": "2026-06-14", "dateModified": "2026-06-15", "inLanguage": "en"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is sim-to-real in robotics?", "acceptedAnswer": {"@type": "Answer", "text": "Sim-to-real is training a robot's perception or control models in simulation and then transferring them to the physical robot, using simulated data to train cheaply and safely at scale."}}, {"@type": "Question", "name": "What is the sim-to-real gap?", "acceptedAnswer": {"@type": "Answer", "text": "The performance drop when a model trained in simulation meets the real world, caused by differences in lighting, friction, sensor noise and timing that the simulator doesn't perfectly capture."}}, {"@type": "Question", "name": "How is the sim-to-real gap closed?", "acceptedAnswer": {"@type": "Answer", "text": "Mainly through domain randomization \u2014 varying textures, lighting, physics and sensor noise in simulation so the model becomes robust \u2014 often combined with limited real-world fine-tuning."}}, {"@type": "Question", "name": "What software is used for robot simulation?", "acceptedAnswer": {"@type": "Answer", "text": "Platforms such as NVIDIA Isaac Sim are commonly used to build scenes, simulate physics and sensors, and generate synthetic training data."}}, {"@type": "Question", "name": "What hardware do you need for sim-to-real?", "acceptedAnswer": {"@type": "Answer", "text": "GPU workstations or clusters for simulation and training (e.g. RTX 6000 Ada-class and up), and edge platforms such as Jetson AGX Thor or AGX Orin for deployment on the robot."}}, {"@type": "Question", "name": "How much does robot training data cost?", "acceptedAnswer": {"@type": "Answer", "text": "High-quality teleoperation data fell from about $340/hour in 2024 to roughly $118/hour in 2026, and simulation plus synthetic data lowers it further. A typical enterprise pilot budgets around $50K-$150K for the data and training stage."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://haink.org/"}, {"@type": "ListItem", "position": 2, "name": "Knowledge", "item": "https://haink.org/knowledge/"}, {"@type": "ListItem", "position": 3, "name": "Physical AI", "item": "https://haink.org/knowledge/physical-ai/"}, {"@type": "ListItem", "position": 4, "name": "Sim-to-Real: How Robots Learn in Simulation", "item": "https://haink.org/knowledge/physical-ai/sim-to-real-robot-training"}]}</script>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"/><link rel="apple-touch-icon" href="/apple-touch-icon.png"/><link rel="stylesheet" href="/custom.css?v=2"/><style id="hk-chrome">
+.hknav{background:rgba(15,23,42,.96);position:sticky;top:0;z-index:100}
+.hknav .in{max-width:1180px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:26px;height:60px}
+.hknav a{color:#CBD5E1;text-decoration:none;font-size:15px;font-weight:500}
+.hknav a:hover{color:#fff}
+.hknav .cta{margin-left:auto;background:linear-gradient(120deg,#0EA5E9,#6366F1);color:#fff;padding:9px 18px;border-radius:10px;font-weight:600}
+.hknav .lg{display:flex;align-items:center}
+.hkfoot{background:#0F172A;color:#CBD5E1;margin-top:64px;padding:48px 0 32px;font-size:15px}
+.hkfoot .in{max-width:1180px;margin:0 auto;padding:0 24px}
+.hkfoot .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:30px}
+.hkfoot p{color:#fff;font-weight:600;margin:0 0 10px;font-size:15px}
+.hkfoot a{display:block;color:#CBD5E1;text-decoration:none;padding:3px 0}
+.hkfoot a:hover{color:#fff}
+.hkfoot .bot{border-top:1px solid #1E293B;margin-top:36px;padding-top:22px;font-size:13.5px;color:#94A3B8;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 20px}
+.hkfoot .bot a{display:inline;padding:0}
+.hkham{display:none}@media(max-width:760px){.hknav .links{display:none!important}.hkham{display:flex;flex-direction:column;justify-content:center;gap:5px;width:42px;height:42px;background:transparent;border:0;cursor:pointer;padding:0;margin-left:auto}.hkham span{display:block;height:2px;width:22px;margin:0 auto;background:#fff;border-radius:2px;transition:transform .25s,opacity .2s}.hkham[aria-expanded=true] span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hkham[aria-expanded=true] span:nth-child(2){opacity:0}.hkham[aria-expanded=true] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}.hknav .links.mopen{display:flex!important;flex-direction:column;gap:0;position:fixed;top:60px;left:0;right:0;bottom:0;background:#0F172A;padding:12px 22px 48px;overflow-y:auto;z-index:200}.hknav .links.mopen>a,.hknav .links.mopen .dd>a{display:block;width:100%;padding:13px 0;font-size:16px;border-bottom:1px solid #1E293B;color:#fff}.hknav .links.mopen .dd{position:static}.hknav .links.mopen .dd>a::after{content:""}.hknav .links.mopen .ddm{position:static;display:block;padding:2px 0 10px 14px;min-width:0;box-shadow:none}.hknav .links.mopen .ddm-in{background:transparent;border:0;box-shadow:none;padding:0}.hknav .links.mopen .ddm-in a{padding:9px 0;font-size:14.5px;color:#94A3B8;border:0}}
+
+.hkbrand{display:flex;justify-content:space-between;align-items:center;gap:32px;flex-wrap:wrap;border-top:1px solid #1E293B;margin-top:32px;padding-top:32px}
+.hkbrand-c{display:flex;gap:14px;flex-direction:column;align-items:flex-end;text-align:right}
+.hkbrand-c a{color:#CBD5E1;text-decoration:none;font-size:14.5px}
+.hkbrand-c p{color:#CBD5E1;font-size:14.5px;line-height:1.7;margin:0}
+@media(max-width:600px){.hkbrand{flex-direction:column;align-items:flex-start}.hkbrand-c{align-items:flex-start;text-align:left}}
+</style>
+<style id="hk-dd">
+.dd{position:relative}
+.dd>a::after{content:" ▾";font-size:11px;opacity:.7}
+.ddm{position:absolute;top:100%;left:-14px;padding-top:12px;display:none;min-width:240px;z-index:200}
+.dd:hover .ddm,.dd:focus-within .ddm{display:block}
+.ddm-in{background:#0F172A;border:1px solid #1E293B;border-radius:14px;padding:8px;box-shadow:0 20px 50px rgba(2,6,23,.55)}
+.ddm-in a{display:block;padding:9px 14px;border-radius:9px;color:#CBD5E1;font-size:14.5px;font-weight:500}
+.ddm-in a:hover{background:#1E293B;color:#fff}
+</style><style id="menu-v2">.ddm-hd{border-top:1px solid #1E293B;margin:6px 6px 4px;padding:8px 0 0 8px;font-size:11.5px;color:#64748B;letter-spacing:.06em;font-weight:600}.ddm-hd.f{border-top:0;margin-top:2px;padding-top:2px}.ddm-mega{left:50%;transform:translateX(-50%)}.ddm-mega .ddm-in{display:flex;gap:8px;align-items:flex-start}.ddm-mega .ddm-col{min-width:206px}.nav-links.mopen .ddm-mega,.hknav .links.mopen .ddm-mega{transform:none;left:0}.nav-links.mopen .ddm-mega .ddm-in,.hknav .links.mopen .ddm-mega .ddm-in{display:block}</style>
+</head>
+<body>
+<div class="hknav"><div class="in">
+<a class="lg" href="/"><img src="/logo-wordmark-dark.png" alt="Haink" style="height:28px"/></a>
+<span class="links" style="display:flex;gap:22px">
+<div class="dd"><a href="/decisions/">Decisions</a><div class="ddm"><div class="ddm-in"><div class="ddm-hd f">AI ADOPTION DECISION</div><a href="/decisions/ai-readiness-score">AI Readiness Score</a><a href="/decisions/ai-adoption-assessment">AI Adoption Assessment</a><a href="/decisions/ai-adoption-program">AI Adoption Program</a><a href="/decisions/ai-solution-blueprint">AI Solution Blueprint</a><div class="ddm-hd">AI COMPUTE DECISION</div><a href="/infrastructure-audit">Infrastructure Audit</a><a href="/cloud-exit-assessment">Cloud Exit</a><a href="/decisions/investment-review">Investment Review</a><a href="/decisions/sovereign-stack">Sovereign Stack</a></div></div></div><div class="dd"><a href="/solutions">Build</a><div class="ddm ddm-mega"><div class="ddm-in"><div class="ddm-col"><div class="ddm-hd f">PRIVATE AI</div><a href="/private-ai-infrastructure">Overview</a><a href="/ai-inference-infrastructure">Inference Infrastructure</a><a href="/ai-training-infrastructure">Training Infrastructure</a><a href="/gpu-cluster-deployment">GPU Cluster Deployment</a><a href="/reference-architectures">Reference Architectures</a><div class="ddm-hd">BY REGION</div><a href="/ai-infrastructure-dubai">Dubai</a><a href="/ai-infrastructure-uae">UAE</a><a href="/ai-infrastructure-hong-kong">Hong Kong</a><a href="/ai-infrastructure-singapore">Singapore</a></div><div class="ddm-col"><div class="ddm-hd f">PHYSICAL AI</div><a href="/physical-ai/">Overview</a><a href="/physical-ai/edge-inference">Edge AI Inference</a><a href="/physical-ai/training">Robotics Training</a><a href="/physical-ai/digital-twin">Digital Twin</a><a href="/physical-ai/integration">Robotics Integration</a><a href="/physical-ai/reference-architectures">Reference Architectures</a></div><div class="ddm-col"><div class="ddm-hd f">SOFTWARE &amp; AI</div><a href="/software/">Overview</a><a href="/software/llm-applications">LLM Applications &amp; RAG</a><a href="/software/document-intelligence">Document Intelligence</a><a href="/software/ai-machine-learning">AI &amp; Machine Learning</a><a href="/software/ai-integration">Enterprise Integrations</a><a href="/software/data-analytics">Data &amp; Analytics</a><a href="/software/devops-platform">DevOps &amp; Platform</a><a href="/software/security-compliance">Security &amp; Compliance</a></div></div></div></div><div class="dd"><a href="/hardware">Supply</a><div class="ddm ddm-mega"><div class="ddm-in"><div class="ddm-col"><div class="ddm-hd f">HARDWARE</div><a href="/servers">Servers</a><a href="/storage-systems">Storage Systems</a><a href="/networking">Networking</a><a href="/hardware-components">Components</a><a href="/optic-modules">Optics &amp; Cables</a><a href="/data-center-infrastructure">DC Infrastructure</a><a href="/robotics-physical-ai">Robotics &amp; Physical AI</a><a href="/hardware">All hardware →</a><div class="ddm-hd">BY REGION</div><a href="/gpu-servers-dubai">GPU Servers Dubai</a><a href="/gpu-servers-hong-kong">GPU Servers Hong Kong</a></div><div class="ddm-col"><div class="ddm-hd f">BRANDS</div><a href="/brands/hpe">HPE</a><a href="/brands/dell">Dell Technologies</a><a href="/brands/lenovo">Lenovo</a><a href="/brands/cisco">Cisco</a><a href="/brands/huawei">Huawei</a><a href="/brands/nvidia">NVIDIA</a><a href="/brands/supermicro">Supermicro</a><a href="/brands/xfusion">xFusion</a><a href="/brands/juniper">Juniper</a><a href="/brands/fortinet">Fortinet</a><a href="/brands/aruba">Aruba</a><a href="/brands/netapp">NetApp</a><a href="/brands">All brands →</a></div></div></div></div><a href="/knowledge/">Knowledge</a><a href="/case-studies/">Case Studies</a><a href="/about-us">About</a>
+</span>
+<button class="hkham" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button><a class="cta" style="margin-left:0" href="/contact">Contact sales</a>
+</div></div>
+<main class="kb-wrap">
+<div class="hkcrumb" style="margin:0 0 20px;font-size:13.5px;color:#94A3B8"><a href="/" style="color:#64748B">Home</a> <span style="color:#CBD5E1">/</span> <a href="/knowledge/" style="color:#64748B">Knowledge</a> <span style="color:#CBD5E1">/</span> <a href="/knowledge/physical-ai/" style="color:#64748B">Physical AI</a> <span style="color:#CBD5E1">/</span> <span aria-current="page">Sim-to-Real: How Robots Learn in Simulation</span></div>
+
+
+<p style="font-size:13px;color:#64748B;margin-bottom:8px"><a href="/knowledge/" style="color:#64748B">Knowledge</a> / <a href="/knowledge/physical-ai/" style="color:#64748B">Physical AI</a></p>
+<h1>Sim-to-Real: How Robots Learn in Simulation</h1>
+
+<p>Sim-to-real is the practice of <b>training a robot's models in simulation, then transferring them to the physical machine</b>. Simulation generates vast amounts of training data cheaply and safely — millions of trials without wear, risk or cost — and the trained policy is then deployed to real hardware.</p>
+
+<div style="border:1px solid #e2e8f0;border-left:3px solid #6366F1;border-radius:10px;padding:16px 20px 6px;margin:0 0 1.4em;background:#f8fafc"><p style="font-weight:600;margin:0 0 8px">Key takeaways</p><ul>
+<li>Sim-to-real trains models in simulation, then transfers them to real robots.</li>
+<li>Simulation gives cheap, safe, perfectly-labeled training data at scale.</li>
+<li>The sim-to-real gap comes from mismatches between sim and reality.</li>
+<li>Domain randomization — varying the sim — is the main way to close the gap.</li>
+<li>Synthetic data now rivals real: 2026 studies showed policies trained on 40% synthetic data matching 100%-real on held-out tasks.</li>
+<li>It is far cheaper than teleoperation, where data costs fell from ~$340/hour (2024) to ~$118/hour (2026).</li>
+<li>Simulation/training needs GPU compute; deployment runs on the edge.</li>
+</ul></div>
+
+<h2>Why train in simulation</h2>
+<p>Collecting real-world robot data is slow, expensive and sometimes dangerous. The highest-quality alternative — physical teleoperation, where a human drives the robot while joint states and camera streams are recorded — is costly, though it has fallen from about $340/hour in 2024 to roughly $118/hour in 2026. Simulation sidesteps that: a robot can attempt a task millions of times in parallel at near-zero marginal cost, explore failure cases safely, and generate perfectly labeled data. By 2026, teams at CMU and Stanford reported policies trained on 40% synthetic data matching policies trained on 100% real data on held-out tasks — which is why most enterprises now blend simulation, synthetic data and a smaller teleoperation set.</p>
+
+<h2>The sim-to-real gap</h2>
+<p>Models trained only in simulation often fail in reality because the simulator never perfectly matches the real world — differences in lighting, friction, sensor noise and timing. Closing this “sim-to-real gap” is the central challenge of the approach.</p>
+
+<h2>Domain randomization</h2>
+<p>The main technique for closing the gap is domain randomization: deliberately varying the simulation — textures, lighting, physics parameters, sensor noise — so the model learns to be robust to variation. A policy that works across thousands of randomized simulated worlds is far more likely to work in the one real world.</p>
+
+<h2>The sim-to-real workflow</h2>
+<p>A typical flow: build or import a scene in a simulator (such as NVIDIA Isaac Sim, Isaac Lab or MuJoCo), define the task and reward, train a perception, control or vision-language-action (VLA) policy with randomization on GPU compute, validate in sim, then deploy to the edge device on the robot and fine-tune with limited real-world data. Monitoring in the field feeds back into the next training cycle.</p>
+<table>
+<thead><tr><th>Stage</th><th>What happens</th><th>Typical tool</th></tr></thead>
+<tbody>
+<tr><td>1. Build the scene</td><td>Replicate the robot, sensors and task</td><td>Isaac Sim / Isaac Lab / MuJoCo</td></tr>
+<tr><td>2. Generate data</td><td>Millions of episodes with domain randomization</td><td>Simulation + synthetic data</td></tr>
+<tr><td>3. Train</td><td>Train the perception / control / VLA policy</td><td>GPU workstation or cluster</td></tr>
+<tr><td>4. Validate in sim</td><td>Check behaviour before touching hardware</td><td>Simulator</td></tr>
+<tr><td>5. Transfer to real</td><td>Deploy to the edge + limited real fine-tuning</td><td>Jetson AGX Thor / Orin</td></tr>
+</tbody>
+</table>
+
+<h2>What hardware sim-to-real needs</h2>
+<p>Simulation and training run on GPU workstations or clusters — RTX 6000 Ada-class workstations for development, larger GPU systems for scale — while the trained model is deployed to edge platforms like Jetson AGX Thor or AGX Orin on the robot. A typical enterprise pilot now budgets roughly $50K–$150K for the data and training stage before scaling. Haink supplies both ends and builds the pipeline between them; see <a href="/physical-ai/">Physical AI solutions</a> and <a href="/robotics-physical-ai">robotics hardware</a>.</p>
+
+
+<h2>Frequently asked questions</h2>
+<h3>What is sim-to-real in robotics?</h3>
+<p>Sim-to-real is training a robot's perception or control models in simulation and then transferring them to the physical robot, using simulated data to train cheaply and safely at scale.</p>
+<h3>What is the sim-to-real gap?</h3>
+<p>The performance drop when a model trained in simulation meets the real world, caused by differences in lighting, friction, sensor noise and timing that the simulator doesn't perfectly capture.</p>
+<h3>How is the sim-to-real gap closed?</h3>
+<p>Mainly through domain randomization — varying textures, lighting, physics and sensor noise in simulation so the model becomes robust — often combined with limited real-world fine-tuning.</p>
+<h3>What software is used for robot simulation?</h3>
+<p>Platforms such as NVIDIA Isaac Sim are commonly used to build scenes, simulate physics and sensors, and generate synthetic training data.</p>
+<h3>What hardware do you need for sim-to-real?</h3>
+<p>GPU workstations or clusters for simulation and training (e.g. RTX 6000 Ada-class and up), and edge platforms such as Jetson AGX Thor or AGX Orin for deployment on the robot.</p>
+<h3>How much does robot training data cost?</h3>
+<p>High-quality teleoperation data fell from about $340/hour in 2024 to roughly $118/hour in 2026, and simulation plus synthetic data lowers it further. A typical enterprise pilot budgets around $50K–$150K for the data and training stage.</p>
+
+<!--guide-cta-->
+<section class="kb-cta" style="margin:2.5rem 0 0;padding-top:1.5rem;border-top:1px solid rgba(128,128,128,.25)">
+<h2>Deploying edge or robotics AI?</h2>
+<p>Jetson, IGX and edge inference hardware from stock — get firm pricing and lead times.</p>
+<p><a class="cta" href="/contact">Get firm pricing</a> &nbsp; <a href="mailto:sales@haink.org?subject=Physical%20AI%20inquiry">Prefer email? sales@haink.org</a></p>
+</section>
+</main>
+<div class="hkfoot"><div class="in">
+<div class="cols">
+<div><p>Decisions</p><a href="/decisions/ai-readiness-score">AI Readiness Score</a><a href="/decisions/ai-adoption-assessment">AI Adoption Assessment</a><a href="/decisions/ai-adoption-program">AI Adoption Program</a><a href="/decisions/ai-solution-blueprint">AI Solution Blueprint</a><a href="/infrastructure-audit">Infrastructure Audit</a><a href="/cloud-exit-assessment">Cloud Exit</a><a href="/decisions/investment-review">Investment Review</a><a href="/decisions/sovereign-stack">Sovereign Stack</a></div>
+<div><p>Build · Private AI</p><a href="/private-ai-infrastructure">Overview</a><a href="/ai-inference-infrastructure">Inference</a><a href="/ai-training-infrastructure">Training</a><a href="/gpu-cluster-deployment">GPU Clusters</a><a href="/reference-architectures">Reference Architectures</a></div>
+<div><p>Build · Physical AI</p><a href="/physical-ai/">Overview</a><a href="/physical-ai/edge-inference">Edge AI Inference</a><a href="/physical-ai/training">Robotics Training</a><a href="/physical-ai/digital-twin">Digital Twin</a><a href="/physical-ai/integration">Robotics Integration</a><a href="/physical-ai/reference-architectures">Reference Architectures</a></div>
+<div><p>Build · Software &amp; AI</p><a href="/software/">Overview</a><a href="/software/llm-applications">LLM Applications &amp; RAG</a><a href="/software/document-intelligence">Document Intelligence</a><a href="/software/ai-machine-learning">AI &amp; Machine Learning</a><a href="/software/ai-integration">Enterprise Integrations</a><a href="/software/data-analytics">Data &amp; Analytics</a><a href="/software/devops-platform">DevOps &amp; Platform</a><a href="/software/security-compliance">Security &amp; Compliance</a></div>
+<div><p>Supply · Hardware</p><a href="/hardware">All Hardware</a><a href="/servers">Servers</a><a href="/storage-systems">Storage Systems</a><a href="/networking">Networking</a><a href="/hardware-components">Components</a><a href="/optic-modules">Optics &amp; Cables</a><a href="/data-center-infrastructure">DC Infrastructure</a><a href="/robotics-physical-ai">Robotics &amp; Physical AI</a></div>
+<div><p>Supply · Brands</p><a href="/brands">All Brands</a><a href="/brands/hpe">HPE</a><a href="/brands/dell">Dell Technologies</a><a href="/brands/lenovo">Lenovo</a><a href="/brands/cisco">Cisco</a><a href="/brands/huawei">Huawei</a><a href="/brands/nvidia">NVIDIA</a><a href="/brands/supermicro">Supermicro</a><a href="/brands/xfusion">xFusion</a><a href="/brands/juniper">Juniper</a><a href="/brands/fortinet">Fortinet</a><a href="/brands/aruba">Aruba</a><a href="/brands/netapp">NetApp</a></div>
+<div><p>Knowledge Base</p><a href="/knowledge/">Knowledge Hub</a><a href="/knowledge/stock/">In-Stock Hardware</a><a href="/knowledge/compare/">Comparisons</a><a href="/knowledge/brands/">Brand Portfolios</a><a href="/knowledge/technology/">Technology Explainers</a><a href="/knowledge/physical-ai/">Physical AI &amp; Robotics</a><a href="/knowledge/software/">Software &amp; AI Development</a><a href="/knowledge/solutions/">Solutions &amp; Procurement</a><a href="/knowledge/channel/">IT Channel</a><a href="/knowledge/region/">Supply Hubs</a></div>
+<div><p>Case Studies</p><a href="/case-studies/">All Case Studies</a><a href="/case-studies/sovereign-ai-gpu-cluster">Gulf Sovereign AI Cluster</a><a href="/case-studies/ai-inference-tech-startup">H200 Inference — 9 Days</a><a href="/case-studies/fintech-network-infrastructure">Gulf Fintech Network</a><a href="/case-studies/life-sciences-ai-workstations">Pharma R&amp;D AI</a><a href="/case-studies/sovereign-cloud-infrastructure">Sovereign Cloud</a><a href="/case-studies/research-institution-network">Research Network</a><a href="/case-studies/telecom-data-hall">Telecom Data Hall</a><a href="/case-studies/aviation-mro-document-ai">Aviation MRO Document AI</a></div>
+<div><p>Company</p><a href="/about-us">About Us</a><a href="/solutions">Solutions</a><a href="/contact">Contact</a></div>
+</div>
+<div class="hkbrand"><img src="/logo-wordmark-dark.png" alt="Haink" style="height:120px;display:block"/><div class="hkbrand-c"><a href="mailto:info@haink.org">info@haink.org</a><p>Winning House<br/>72&#8211;76 Wing Lok Street<br/>Sheung Wan, Hong Kong</p></div></div>
+<div class="bot"><span>&#169; 2026 Haink. All rights reserved. &nbsp;&#183;&nbsp; <a href="/privacy-policy" style="color:#94A3B8">Privacy Policy</a> &nbsp;&#183;&nbsp; <a href="/terms" style="color:#94A3B8">Terms</a></span><span><a href="/knowledge/region/hong-kong" style="color:#94A3B8">Hong Kong</a> &#183; <a href="/knowledge/region/dubai" style="color:#94A3B8">Dubai</a> &#183; <a href="/knowledge/region/singapore" style="color:#94A3B8">Singapore</a> &#183; <a href="/knowledge/region/mainland-china" style="color:#94A3B8">Mainland China</a> &#183; Delaware (USA)</span></div>
+</div></div>
+<script>(function(){var t=document.querySelector(".hkham"),n=document.querySelector(".hknav .links");if(!t||!n)return;t.addEventListener("click",function(){var o=n.classList.toggle("mopen");t.setAttribute("aria-expanded",o?"true":"false");document.body.style.overflow=o?"hidden":"";});n.addEventListener("click",function(e){if(e.target.closest("a")){n.classList.remove("mopen");t.setAttribute("aria-expanded","false");document.body.style.overflow="";}});})();</script>
+<script src="/cta.js" defer></script>
+</body>
+</html>

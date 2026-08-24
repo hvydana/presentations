@@ -1,0 +1,84 @@
+VLA Models Demystified: How Robots Learned to See, Listen, and Act
+Serendeep Rudraraju
+What happens when you take a language model and give it a body?
+It's not a thought experiment anymore. In 2025, a new architecture called VLA moved from academic papers into actual humanoid robots folding origami, sorting warehouse shelves, and working alongside humans at BMW factories. The answer to "can AI control physical things?" went from "theoretically, maybe" to "yes, and here's the API."
+I've spent the last few months watching this field explode. Eight survey papers on arXiv in a single year. NVIDIA, Google, and a startup called Physical Intelligence all releasing competing models within months of each other. An open-source 450-million parameter model that runs on a MacBook and somehow keeps up with the billion-parameter behemoths.
+What are VLA models?
+VLA stands for Vision-Language-Action. The concept is simple enough: give a model an image of what the robot sees, a text instruction like "pick up the red cup," and have it output the actual motor commands to make that happen.
+Input:
+  - Camera feed of a table with objects
+  - "Pick up the red cup and place it on the blue plate"
+Output:
+  - Joint positions, gripper commands
+  - Continuous action sequences at 50Hz
+Before VLAs, building a robot that could follow natural language meant stitching together separate systems. One model for vision. Another for language understanding. A third for motion planning. A fourth for low-level control. They'd pass information back and forth like a bad game of telephone, and things broke constantly.
+VLAs collapse all of that into one model that learns the whole pipeline end-to-end. Show it enough examples of "instruction + camera image → successful action," and it figures out how to generalize.
+The really interesting part isn't that it works. It's that the same model can work across different robots. Train on a robot arm, a wheeled robot, and a humanoid, and the model learns something transferable between them. OpenVLA was trained on 22 different robot types and 970,000 episodes. SmolVLA used data from 487 different community datasets.
+Cross-embodiment transfer sounds like marketing speak until you realize it means not having to start from scratch every time someone builds a new robot.
+The architecture that won: dual systems
+If you look at the major 2025 VLA models (Helix from Figure AI, NVIDIA's GR00T N1, Google's Gemini Robotics) they all landed on the same basic structure. Two systems working together.
+System 2 is the "thinking" part. It's a vision-language model, the same kind of thing that powers image understanding in ChatGPT or Gemini. It looks at the camera feed, reads the instruction, and builds an internal representation of "here's what I'm looking at, here's what I need to do." This runs slow, maybe 7-9 times per second. That's fine because thinking doesn't need to be fast.
+System 1 is the "doing" part. It takes whatever representation S2 produced and translates it into actual motor commands. This needs to run fast. Helix outputs actions at 200Hz, meaning 200 control signals per second. You need that speed for smooth, precise movement. Try catching a ball at 7Hz and you'll see why.
+This split borrows from cognitive psychology. Daniel Kahneman's "Thinking, Fast and Slow" describes human cognition as two systems: one slow and deliberate, one fast and automatic. VLA researchers took that literally.
+The insight is that you don't need the full reasoning power of a language model to move a gripper two centimeters to the left. You need a fast, specialized controller that knows what "two centimeters left" means in the context S2 has established. So you train both systems end-to-end, and they learn to communicate efficiently.
+Figure AI's S1 model is only 80 million parameters. That's tiny. The reason it works is that S2 does the heavy lifting of understanding, and S1 just needs to execute.
+The 2025 model landscape
+The field went from "a few research demos" to "multiple production-ready options" in about eighteen months.
+The closed-source heavyweights
+Gemini Robotics (Google DeepMind) builds on Gemini 2.0. The demos are impressive: robots folding origami, manipulating playing cards, doing tasks that require genuine dexterity. In June 2025, they released an on-device version optimized to run locally on the robot with low latency. That matters because you don't want your robot waiting for a cloud API response when it's about to drop something.
+Helix (Figure AI) was the first VLA to control a full humanoid upper body: arms, hands, torso, head, individual fingers, all at high frequency. They also demonstrated something I haven't seen elsewhere: two robots collaborating on a shared task, controlled by the same model. Figure cut ties with OpenAI in favor of Helix, which tells you something about how confident they are.
+π0 (Physical Intelligence) uses a technique called flow-matching instead of the standard autoregressive approach. The result is smoother action generation at 50Hz. They trained on eight different robot types, and the cross-embodiment results are impressive. Physical Intelligence is now valued at $2.4 billion, which seems like a lot until you consider they might be building the operating system for physical AI.
+GR00T N1 (NVIDIA) followed Helix's dual-system architecture but trained on a mix of real robot data, human videos, and synthetic data generated in simulation. The weights are available, which puts it somewhere between "open" and "closed."
+The open-source options
+This is where things get interesting for people who actually want to experiment.
+OpenVLA came out of Stanford and collaborators in June 2024. Seven billion parameters, trained on 970,000 episodes across 22 robot embodiments. It outperforms Google's RT-2 (which has 55 billion parameters) by 16.5% on manipulation tasks. Apache 2.0 license. You can run it on a single GPU with 16GB+ VRAM.
+from transformers import AutoModelForVision2Seq, AutoProcessorprocessor = AutoProcessor.from_pretrained("openvla/openvla-7b")model = AutoModelForVision2Seq.from_pretrained("openvla/openvla-7b")inputs = processor(    images=observation_image,    text="Pick up the red cube and place it on the blue plate",    return_tensors="pt")action = model.generate(**inputs)
+SmolVLA (Hugging Face) is the one that surprised me. 450 million parameters, about 15x smaller than OpenVLA, and it matches or beats larger models on both simulation and real-world tasks. It runs on a MacBook. It was trained entirely on community-contributed datasets through LeRobot.
+The fact that a model this small keeps up with the giants suggests we're nowhere near the efficiency ceiling. There's probably a lot of unnecessary complexity in the bigger models.
+| Model | Parameters | GPU Memory | Inference Speed | License | 
+|---|---|---|---|---|
+| SmolVLA | 450M | 4GB | Real-time | Open | 
+| OpenVLA | 7B | 16GB+ | 2-5Hz | Apache 2.0 | 
+| GR00T N1 | 2B | ~24GB | Variable | Weights available | 
+| π0 | Undisclosed | 48GB+ | 50Hz | Partial | 
+What VLAs still can't do well
+I'd be doing you a disservice if I didn't talk about the limitations, because there are real ones.
+Spatial reasoning is shaky. VLMs are trained on 2D images with text. They never learned to think in 3D. When a VLA needs to reason about depth, occlusion, or the physical relationship between objects in space, it often gets things wrong. There's active research on adding depth awareness, but it's not solved.
+Memory is basically nonexistent. Each action decision is reactive to the current camera frame. The model doesn't really maintain a spatial history of "I already looked over there and it wasn't there." Some hierarchical approaches are starting to address this, but most VLAs are surprisingly forgetful.
+Variable environments still trip them up. Change the lighting in a scene, add clutter, or introduce objects the model hasn't seen, and performance drops. Warehouses and labs work well because they're controlled. Your messy kitchen is a different story.
+There's no standard benchmark. Different papers evaluate on different tasks with different metrics. LIBERO exists as a simulation benchmark with 130+ tasks, but comparing results across papers is frustrating. This is a problem the field needs to solve.
+The sim-to-real gap persists. You can train in simulation cheaply and at scale, but what works in MuJoCo or Isaac Sim doesn't always transfer to physical robots. The gap is narrowing but it's not gone.
+The connection to computer-use agents
+Something I keep thinking about: VLA models and GUI agents like Anthropic's Computer Use or OpenAI's Operator are architecturally cousins.
+Both take visual input (camera feed or screenshot), combine it with a language instruction, and output actions (robot commands or mouse clicks). Both use vision-language models as their reasoning backbone. Both benefit from chain-of-thought prompting to handle multi-step tasks.
+The VLA researchers are solving "how do you go from seeing and understanding to physically doing" in the robot domain. The GUI agent researchers are solving the same problem for digital interfaces. They're reading each other's papers, and the techniques transfer.
+If you're interested in autonomous agents generally, not just robots, the VLA literature is worth following. The "see, understand, act" paradigm is the same whether you're picking up a cup or clicking a button.
+Getting started
+If you want to experiment:
+Start with SmolVLA. It's small enough to run on modest hardware, well-documented, and integrated with Hugging Face's LeRobot library. The barrier to entry is low.
+Try simulation first. MuJoCo is free. Isaac Sim has a free tier. Running a real robot is expensive and things break. Get your bearings in simulation.
+Use LeRobot. Hugging Face built this library specifically to make VLA research accessible. It handles data loading, training, and evaluation. There's a free tutorial if you want the basics.
+Join the community. The LeRobot Discord and OpenVLA GitHub are where people are actually building things and sharing what works.
+| Your situation | Where to start | 
+|---|---|
+| Curious, no robot | SmolVLA + simulation | 
+| Have a robot arm | OpenVLA fine-tuning | 
+| Serious research | LeRobot + LIBERO benchmark | 
+| Just want to understand | Read the Wikipedia page and Helix blog post | 
+What this means
+Language models gave us machines that could talk. Vision models gave us machines that could see. VLA models are giving us machines that can touch and manipulate the physical world.
+Google's robot can fold origami. Figure's humanoid can sort items alongside warehouse workers. BMW deployed VLA-powered robots in manufacturing in January 2025, not as a pilot, but permanently.
+The question used to be whether AI could control physical things. Now the question is what we want it to control, and under what constraints.
+I keep coming back to those robots working through the night at the BMW factory. There's something both exciting and unsettling about machines that can see a problem, understand what needs to be done, and just... do it. No human in the loop. The technology has crossed a line, and I'm not sure we've fully processed what that means.
+But that's probably a topic for another post.
+Sources
+- Wikipedia: Vision-language-action model - Comprehensive overview and history
+- Figure AI: Helix announcement - Dual-system architecture details
+- Hugging Face: SmolVLA - Open-source compact VLA
+- OpenVLA - Open-source 7B VLA model
+- arXiv: VLA Survey - Comprehensive review of 102 models
+- Google DeepMind: RT-2 - Original VLA breakthrough
+- LeRobot GitHub - Open-source robotics library
+- arXiv: Gemini Robotics - Google's 2025 VLA
+Enjoyed this post? Consider supporting the blog.
+Buy me a coffee

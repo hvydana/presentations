@@ -1,0 +1,18 @@
+cuRobo: CUDA Accelerated Robot Library¶
+[API] [GTC Talk] [Code] [Paper]
+cuRobo is a CUDA-accelerated library for robot motion generation, built on PyTorch, CUDA, and Warp. It provides GPU-parallel algorithms for forward/inverse kinematics, collision checking, trajectory optimization, geometric planning, GPU-native perception, and whole-body motion generation, scaling from single-arm manipulators to high-DoF humanoids.
+Updates¶
+- July 9, 2026: Add visibility-tested textured mapper outputs, independent RGB and neural-feature resolutions, and faster TSDF mesh extraction for real-time visualization.
+- June 15, 2026: Add LiDAR TSDF, RGB, and feature fusion, compact mapper block checkpointing, and live RealSense RGB-D mapping with MPC.
+- April 27, 2026: Add feature channel integration in TSDF mapper, improve TSDF mapper performance (1.5ms to 0.5ms).
+- April 2026 (v0.8.0): cuRoboV2, complete rewrite of cuRobo with new features and improvements.
+- 2024 (v0.7.x): Sub-millimetre IK precision, mimic joints, ESDF voxel collision checker, Grasp API planning, trajectory re-timing.
+- Oct 2023 (v0.6.0): Initial release with Technical Report.
+See CHANGELOG for details.
+Documentation¶
+- Getting Started: Step-by-step tutorials covering installation, robot setup, kinematics, IK, MPC, motion planning, and volumetric mapping.
+- Guides: Writing custom optimization problems, cost terms, and optimizers.
+- Concepts: How cuRobo’s rollouts, optimization solvers, and geometric planner work.
+- Reference: API, style guide, runtime configuration, benchmarks, sphere fitting, and self-collision.
+Research¶
+Read the cuRobo technical reports for algorithm details and benchmarks.

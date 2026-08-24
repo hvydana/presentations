@@ -1,0 +1,31 @@
+Real fleet data.Closed-loop training.
+Avala is the Data Engine for the embodied economy — closed-loop training-data infrastructure delivered as a service. Bring your fleet data, train and continuously improve your VLA, driving, and robotics models on our managed cloud. Avala Cloud, your cloud, or on-prem.
+python
+$ pip install avala
+from avala import Client
+client = Client()
+# List your datasets
+for ds in client.datasets.list():
+  print(ds.name)
+Backed by
+Build with Avala
+Python SDK, REST API, and CLI. Manage datasets, trigger annotations, and export results programmatically.
+Mission Control
+See what a connected data engine looks like
+SOC 2
+GDPR & EU Data Privacy
+ISO 27001
+TISAX
+- Annotations per day
+- >B
+- On-demand labelers
+- >
+- First-Pass-Yield
+- >%
+Why Engineering Teams Choose Avala
+Latest from Avala
+Ready to Ship?
+For Developers
+Start building with the Avala SDK in minutes. Access datasets, trigger annotations, and export results programmatically.
+For Teams
+See how Avala can accelerate your annotation workflows with a personalized demo.

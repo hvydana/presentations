@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="defaultLanguage" content="en">
+    <meta name="availableLanguages"
+          content="en, es, fr, ja, pt_BR, uk, el, de, zh_Hans, zh_Hant, ru, he, eo, ko">
+    <title>tensorrt-dispatch · PyPI</title>
+    <meta name="description"
+          content="TensorRT Metapackage">
+    <link rel="stylesheet"
+          href="/static/css/warehouse-ltr.ed752148.css">
+    <link rel="stylesheet"
+          href="/static/css/fontawesome.94176253.css">
+    <link rel="stylesheet"
+          href="/static/css/fonts.3b5d1a1c.css">
+    <noscript>
+      <link rel="stylesheet"
+            href="/static/css/noscript.0673c9ea.css">
+    </noscript>
+    <link rel="icon"
+          href="/static/images/favicon.35549fe8.ico"
+          type="image/x-icon">
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="RSS: 40 latest updates"
+          href="/rss/updates.xml">
+    <link rel="alternate"
+          type="application/rss+xml"
+          title="RSS: 40 newest packages"
+          href="/rss/packages.xml">
+<link rel="alternate"
+        type="application/rss+xml"
+        title="RSS: latest releases for tensorrt-dispatch"
+        href="/rss/project/tensorrt-dispatch/releases.xml">      <link rel="canonical" href="https://pypi.org/project/tensorrt-dispatch/">
+    <meta property="og:url"
+          content="https://pypi.org/project/tensorrt-dispatch/">
+    <meta property="og:site_name" content="PyPI">
+    <meta property="og:type" content="website">
+    <meta property="og:image"
+          content="https://pypi.org/static/images/twitter.abaf4b19.webp">
+    <meta property="og:title"
+          content="tensorrt-dispatch">
+    <meta property="og:description" content="TensorRT Metapackage">
+<meta name="source-commit" content="83e36c7420399914d3d8a7064b68ee45a22587e6">    <link rel="search"
+          type="application/opensearchdescription+xml"
+          title="PyPI"
+          href="/opensearch.xml">
+    <script defer src="/static/js/warehouse.efdbdec3.js">
+    </script>
+  <script src="/static/js/utils/mathjax-config.e569c56a.js"></script>
+  <script async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"
+          integrity="sha256-1CldwzdEg2k1wTmf7s5RWVd7NMXI/7nxxjJM2C4DqII="
+          crossorigin="anonymous"></script>
+      <script src="/static/js/utils/plausible-init.f60de74f.js"></script>
+      <script async
+              src="https://analytics.python.org/js/pa-Z-QYGvOKHwfKWak0xljXn.js"></script>
+    <script async
+            src="https://media.ethicalads.io/media/client/v1.4.0/ethicalads.min.js"
+            integrity="sha256-U3hKDidudIaxBDEzwGJApJgPEf2mWk6cfMWghrAa6i0= sha384-UcmsCqcNRSLW/dV3Lo1oCi2/VaurXbib6p4HyUEOeIa/4OpsrnucrugAefzVZJfI sha512-q4t1L4xEjGV2R4hzqCa41P8jrgFUS8xTb8rdNv4FGvw7FpydVj/kkxBJHOiaoxHa8olCcx1Slk9K+3sNbsM4ug=="
+            crossorigin="anonymous"></script>
+  </head>
+  <body data-controller="viewport-toggle">
+      <!-- Accessibility: this link should always be the first piece of content inside the body-->
+      <a href="#content" class="skip-to-content">Skip to main content</a>
+      <button type="button"
+              class="button button--primary button--switch-to-mobile hidden"
+              data-viewport-toggle-target="switchToMobile"
+              data-action="viewport-toggle#switchToMobile">Switch to mobile version</button>
+      <div id="sticky-notifications" class="stick-to-top js-stick-to-top">
+        <!-- Add browser warning. Will show for ie9 and below -->
+        <!--[if IE]>
+      <div class="notification-bar notification-bar--warning" role="status">
+        <div class="notification-bar__container">
+          <span class="notification-bar__icon">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <span class="sr-only">Warning</span>
+          </span>
+          <span class="notification-bar__message">You are using an unsupported browser, upgrade to a newer version.</span>
+        </div>
+      </div>
+      <![endif]-->
+        <noscript>
+          <div class="notification-bar notification-bar--warning" role="status">
+            <div class="notification-bar__container">
+              <span class="notification-bar__icon">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                <span class="sr-only">Warning</span>
+              </span>
+              <span class="notification-bar__message">Some features may not work without JavaScript. Please try enabling it if you encounter problems.</span>
+            </div>
+          </div>
+        </noscript>
+<div data-html-include="/_includes/unauthed/notification-banners/"></div>    </div>
+<div data-html-include="/_includes/unauthed/flash-messages/"></div><div data-html-include="/_includes/authed/session-notifications/"></div><header class="site-header ">
+  <div class="site-container">
+    <div class="split-layout">
+        <div class="split-layout">
+          <div>
+            <a class="site-header__logo" href="/">
+              <img alt="PyPI"
+                   src="/static/images/logo-small.0e0855d0.svg">
+            </a>
+          </div>
+          <form class="search-form search-form--primary"
+                action="/search/"
+                role="search">
+            <label for="search" class="sr-only">Search PyPI</label>
+            <input id="search"
+                   class="search-form__search"
+                   type="text"
+                   name="q"
+                   placeholder="Type '/' to search projects"
+                   value=""
+                   autocomplete="off"
+                   autocapitalize="off"
+                   spellcheck="false"
+                   data-controller="search-focus"
+                   data-action="keydown@window->search-focus#focusSearchField"
+                   data-search-focus-target="searchField">
+            <button type="submit" class="search-form__button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+              <span class="sr-only">Search</span>
+            </button>
+          </form>
+        </div>
+<div data-html-include="/_includes/authed/current-user-indicator/">        <div id="user-indicator"
+       class="horizontal-menu horizontal-menu--light horizontal-menu--tall">
+    <nav class="horizontal-menu horizontal-menu--light horizontal-menu--tall hide-on-tablet"
+         aria-label="Main navigation">
+      <ul>
+        <li class="horizontal-menu__item">
+          <a href="/help/" class="horizontal-menu__link">Help</a>
+        </li>
+        <li class="horizontal-menu__item">
+          <a href="https://docs.pypi.org/" class="horizontal-menu__link">Docs</a>
+        </li>
+        <li class="horizontal-menu__item">
+          <a href="/sponsors/"
+             class="horizontal-menu__link">Sponsors</a>
+        </li>
+        <li class="horizontal-menu__item">
+          <a href="/account/login/?next=https%3A%2F%2Fpypi.org%2Fproject%2Ftensorrt-dispatch%2F" class="horizontal-menu__link">Log in</a>
+        </li>
+        <li class="horizontal-menu__item">
+          <a href="/account/register/"
+             class="horizontal-menu__link">Register</a>
+        </li>
+      </ul>
+    </nav>
+    <nav class="dropdown dropdown--on-menu hidden show-on-tablet"
+         aria-label="Main navigation">
+      <button type="button"
+              class="horizontal-menu__link dropdown__trigger"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="View menu">
+Menu<span class="dropdown__trigger-caret"><i class="fa fa-caret-down" aria-hidden="true"></i></span>      </button>
+      <ul class="dropdown__content"
+          aria-hidden="true"
+          aria-label="Main menu">
+        <li>
+          <a class="dropdown__link" href="/help/">Help</a>
+        </li>
+        <li>
+          <a class="dropdown__link" href="https://docs.pypi.org/">Docs</a>
+        </li>
+        <li>
+          <a class="dropdown__link" href="/sponsors/">Sponsors</a>
+        </li>
+        <li>
+          <a class="dropdown__link" href="/account/login/?next=https%3A%2F%2Fpypi.org%2Fproject%2Ftensorrt-dispatch%2F">Log in</a>
+        </li>
+        <li>
+          <a class="dropdown__link"
+             href="/account/register/">Register</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>  </div>
+</div>
+</header>
+  <div class="mobile-search">
+    <form class="search-form search-form--fullwidth"
+          action="/search/"
+          role="search">
+      <label for="mobile-search" class="sr-only">Search PyPI</label>
+      <input id="mobile-search"
+             class="search-form__search"
+             type="text"
+             name="q"
+             placeholder="Search projects"
+             value=""
+             autocomplete="off"
+             autocapitalize="off"
+             spellcheck="false">
+      
+      <button type="submit" class="search-form__button">
+        <i class="fa fa-search" aria-hidden="true"></i>
+        <span class="sr-only">Search</span>
+      </button>
+    </form>
+  </div>
+<main id="content">
+<div class="banner  banner--project">
+  <div class="project-header">
+    <h1 class="project-header__name">tensorrt-dispatch 11.2.1.2</h1>
+      <p class="project-header__summary">TensorRT Metapackage</p>
+      <div data-controller="clipboard"
+           data-clipboard-plausible-event-value="Copy Project Install Command">
+        <p class="project-header__pip-instructions">
+          <span id="pip-command" data-clipboard-target="source">pip install tensorrt-dispatch</span>
+          <button type="button"
+                  class="copy-tooltip copy-tooltip-n"
+                  data-action="clipboard#copy"
+                  data-clipboard-target="tooltip"
+                  data-clipboard-tooltip-value="Copy to clipboard">
+            <i class="fa fa-copy" aria-hidden="true"></i>
+            <span class="sr-only">Copy PIP instructions</span>
+          </button>
+        </p>
+      </div>
+  </div>
+</div><div data-html-include="/_includes/authed/administer-project-include/tensorrt-dispatch"></div>  <div data-controller="project-tabs" class="project-tabs">
+<div class="horizontal-section horizontal-section--grey horizontal-section--no-padding">
+  <div class="site-container">
+    <nav class="project-tabs__tabs"
+         aria-label="Navigation for tensorrt-dispatch">
+      <ul class="project-tabs__list" role="tablist">
+        <li role="presentation">
+          <a id="description-tab"
+             href="#description"
+             role="tab"
+             class="project-tabs__tab project-tabs__tab--is-active"
+             aria-selected="true"
+             aria-controls="description"
+             tabindex="0"
+             data-project-tabs-target="tab"
+             data-action="project-tabs#tabClick keydown->project-tabs#tabKeydown"
+             aria-label="Project description. Focus will be moved to the description.">
+            <span>
+              <i class="fa-regular fa-rectangle-list" aria-hidden="true"></i>
+Description            </span>
+          </a>
+        </li>
+          <li role="presentation">
+            <a id="files-tab"
+               href="#files"
+               role="tab"
+               class="project-tabs__tab"
+               aria-selected="false"
+               aria-controls="files"
+               tabindex="-1"
+               data-project-tabs-target="tab"
+               data-action="project-tabs#tabClick keydown->project-tabs#tabKeydown"
+               aria-label="Files. Focus will be moved to the project files.">
+              <span>
+                <i class="fa-regular fa-circle-down" aria-hidden="true"></i>
+Download files              </span>
+            </a>
+          </li>
+        <li role="presentation">
+          <a id="history-tab"
+             href="#history"
+             role="tab"
+             class="project-tabs__tab"
+             aria-selected="false"
+             aria-controls="history"
+             tabindex="-1"
+             data-project-tabs-target="tab"
+             data-action="project-tabs#tabClick keydown->project-tabs#tabKeydown"
+             aria-label="Release history. Focus will be moved to the release history panel.">
+            <span>
+              <i class="fa fa-history" aria-hidden="true"></i>
+Release history            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</div>    <div class="site-container">
+      <div class="project-tabs__panel">
+<div id="description"
+     data-project-tabs-target="content"
+     role="tabpanel"
+     aria-labelledby="description-tab"
+     tabindex="-1">
+  <div class="project-description">
+    <div class="project-description__main">
+        <div class="project-description__content"><p>NVIDIA TensorRT is an SDK that facilitates high-performance machine learning inference. It is designed to work in a complementary fashion with training frameworks such as PyTorch. It focuses specifically on running an already-trained network quickly and efficiently on NVIDIA hardware.</p>
+</div>
+    </div>
+    <div class="project-description__sidebar">
+<div data-html-include="/_includes/authed/edit-project-button/tensorrt-dispatch"></div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Project links</h2>
+    <div class="sidebar-section__data-block">
+      <ul class="sidebar-links">
+            <li>
+              <a class="sidebar-links__link" href="https://developer.nvidia.com/tensorrt" rel="nofollow">  <i class="fas fa-cloud-download-alt" aria-hidden="true"></i>Download</a>
+            </li>
+            <li>
+              <a class="sidebar-links__link" href="https://github.com/nvidia/tensorrt" rel="nofollow">  <i class="fas fa-home" aria-hidden="true"></i>Homepage</a>
+            </li>
+      </ul>
+    </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Key dates</h2>
+  <div class="sidebar-section__content sidebar-section__content--pypi">
+    <details class="sidebar-section__data-source">
+      <summary class="sidebar-section__data-source-label"
+               title="PyPI data">PyPI data</summary>
+      <div class="sidebar-section__data-source-description">Data sourced directly from PyPI's database.</div>
+    </details>
+    <div class="sidebar-section__data-block">
+      <ul class="unstyled">
+          <li>
+              <strong>Released:</strong> <time datetime="2026-07-30T19:10:51+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 30, 2026
+  </time>
+          </li>
+      </ul>
+          <span class="badge badge--key-dates badge--success">Latest release</span>
+    </div>
+  </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">
+1 maintainer  </h2>
+  <div class="sidebar-section__content sidebar-section__content--pypi">
+    <details class="sidebar-section__data-source">
+      <summary class="sidebar-section__data-source-label"
+               title="PyPI data">PyPI data</summary>
+      <div class="sidebar-section__data-source-description">Data sourced directly from PyPI's database.</div>
+    </details>
+    <div class="sidebar-section__data-block">
+          <a class="sidebar-section__maintainer"
+     href="/user/nvidia/"
+     aria-label="nvidia">
+    <img src="https://pypi-camo.freetls.fastly.net/5cf67070891a2881c3030cd428e8e49cf802fdde/68747470733a2f2f7365637572652e67726176617461722e636f6d2f6176617461722f34363530616639633431323233613336383639383963613537363164346466643f73697a653d3335"
+         height="35"
+         width="35"
+         alt="Avatar for nvidia from gravatar.com"
+         title="Avatar for nvidia from gravatar.com">
+    <span>nvidia</span>
+  </a>
+
+    </div>
+  </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Credits</h2>
+      <div class="sidebar-section__data-block">
+          <p>
+            <strong>
+Author:            </strong> NVIDIA Corporation
+          </p>
+      </div>
+</div><div class="sidebar-section">
+    <h2 class="sidebar-section__title">License</h2>
+    <div class="sidebar-section__data-block">
+      <p>Other/Proprietary License (Proprietary)</p>
+    </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Requires</h2>
+  <div class="sidebar-section__data-block">
+    <p><strong>Python</strong> &gt;=3.8</p>
+  </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Tags</h2>
+  <div class="sidebar-section__data-block">
+    <p class="tags">
+        <code>nvidia</code>
+        <code>tensorrt</code>
+        <code>deeplearning</code>
+        <code>inference</code>
+    </p>
+  </div>
+</div><div class="sidebar-section">
+  <h2 class="sidebar-section__title">Classifiers</h2>
+  <div class="sidebar-section__data-block">
+    <ul class="sidebar-section__classifiers">
+        <li>
+          Intended Audience
+          <ul>
+              <li>
+                <a href="/search/?c=Intended+Audience+%3A%3A+Developers">
+                  Developers
+                </a>
+              </li>
+          </ul>
+        </li>
+        <li>
+          License
+          <ul>
+              <li>
+                <a href="/search/?c=License+%3A%3A+Other%2FProprietary+License">
+                  Other/Proprietary License
+                </a>
+              </li>
+          </ul>
+        </li>
+        <li>
+          Programming Language
+          <ul>
+              <li>
+                <a href="/search/?c=Programming+Language+%3A%3A+Python+%3A%3A+3">
+                  Python :: 3
+                </a>
+              </li>
+          </ul>
+        </li>
+    </ul>
+  </div>
+</div><div class="sidebar-section">
+  <div class="sidebar-section"
+       data-ea-publisher="psf"
+       data-ea-type="psf"
+       data-ea-keywords="pypi-sidebar"></div>
+</div>
+<div class="sidebar-section">
+  <a class="button button--full-width button--warning"
+     href="https://pypi.org/project/tensorrt-dispatch/submit-malware-report/"
+     rel="nofollow"
+     role="button">Report project as malware</a>
+</div>    </div>
+  </div>
+</div><div id="files"
+     data-project-tabs-target="content"
+     role="tabpanel"
+     aria-labelledby="files-tab"
+     tabindex="-1"
+     data-controller="filter-list">
+  <h2 class="page-title">Download files</h2>
+  <p>
+Download the file for your platform. If you're not sure which to choose, learn more about <a href="https://packaging.python.org/tutorials/installing-packages/" title="External link" target="_blank" rel="noopener">installing packages</a>.  </p>
+  <h3>
+Source Distribution</h3>
+      <div class="file"
+>
+      <div class="file__graphic">
+        <i class="far fa-file" aria-hidden="true"></i>
+      </div>
+      <div class="card file__card">
+        <a href="https://files.pythonhosted.org/packages/29/bd/8fed7e9fb2810270444d7e32bbccd45c86e3bea0dcf74a6f42285c70595e/tensorrt_dispatch-11.2.1.2.tar.gz">tensorrt_dispatch-11.2.1.2.tar.gz</a>
+        (16.7 kB
+        <a href="#tensorrt_dispatch-11.2.1.2.tar.gz"
+           data-project-tabs-target="tab"
+           data-action="project-tabs#tabClick">view details</a>)
+        <p class="file__meta">
+Uploaded <time datetime="2026-07-30T19:10:51+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 30, 2026
+  </time><code>Source</code>        </p>
+      </div>
+    </div>
+
+</div>
+<div id="tensorrt_dispatch-11.2.1.2.tar.gz"
+     data-project-tabs-target="content"
+     class="vertical-tabs__content"
+     role="tabpanel"
+     aria-labelledby="file-tab mobile-file-tab"
+     tabindex="-1">
+  <h2 class="page-title">File details</h2>
+  <p>
+    Details for the file <code>tensorrt_dispatch-11.2.1.2.tar.gz</code>.
+  </p>
+  <h3>File metadata</h3>
+  <div>
+    <ul>
+      <li>
+        Download URL: <a href="https://files.pythonhosted.org/packages/29/bd/8fed7e9fb2810270444d7e32bbccd45c86e3bea0dcf74a6f42285c70595e/tensorrt_dispatch-11.2.1.2.tar.gz">tensorrt_dispatch-11.2.1.2.tar.gz</a>
+      </li>
+      <li>Upload date: <time datetime="2026-07-30T19:10:51+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 30, 2026
+  </time></li>
+      <li>
+Size: 16.7 kB      </li>
+      <li>Tags: Source</li>
+      <li>
+Uploaded using Trusted Publishing? No    </li>
+      <li>Uploaded via: twine/6.2.0 CPython/3.14.6</li>
+  </ul>
+</div>
+<h3>File hashes</h3>
+<div>
+  <table class="table table--hashes">
+    <caption class="sr-only">Hashes for tensorrt_dispatch-11.2.1.2.tar.gz</caption>
+    <thead>
+      <tr>
+        <th scope="col">Algorithm</th>
+        <th scope="col">Hash digest</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-controller="clipboard">
+        <th scope="row">SHA256</th>
+        <td>
+          <code data-clipboard-target="source">6652dc2e0408b5a546fdad37cad1541b855b31deac750cb70874c59b72476c34</code>
+        </td>
+        <td class="table__align-right">
+          <button type="button"
+                  class="button button--small copy-tooltip copy-tooltip-w"
+                  data-action="clipboard#copy"
+                  data-clipboard-target="tooltip"
+                  data-clipboard-tooltip-value="Copy to clipboard">
+Copy          </button>
+        </td>
+      </tr>
+      <tr data-controller="clipboard">
+        <th scope="row">MD5</th>
+        <td>
+          <code data-clipboard-target="source">7ee5be290a0dae0435f9f5f2abce3a21</code>
+        </td>
+        <td class="table__align-right">
+          <button type="button"
+                  class="button button--small copy-tooltip copy-tooltip-w"
+                  data-action="clipboard#copy"
+                  data-clipboard-target="tooltip"
+                  data-clipboard-tooltip-value="Copy to clipboard">
+Copy          </button>
+        </td>
+      </tr>
+      <tr data-controller="clipboard">
+        <th scope="row">BLAKE2b-256</th>
+        <td>
+          <code data-clipboard-target="source">29bd8fed7e9fb2810270444d7e32bbccd45c86e3bea0dcf74a6f42285c70595e</code>
+        </td>
+        <td class="table__align-right">
+          <button type="button"
+                  class="button button--small copy-tooltip copy-tooltip-w"
+                  data-action="clipboard#copy"
+                  data-clipboard-target="tooltip"
+                  data-clipboard-tooltip-value="Copy to clipboard">
+Copy          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>
+<a href="https://pip.pypa.io/en/stable/topics/secure-installs/#hash-checking-mode" title="External link" target="_blank" rel="noopener">See more details on using hashes here.</a></p>
+</div>
+</div><div id="history"
+     data-project-tabs-target="content"
+     role="tabpanel"
+     aria-labelledby="history-tab"
+     tabindex="-1">
+  <h2 class="page-title split-layout">
+    <span>Release history</span>
+    <span class="reset-text margin-top">
+      <a href="/help/#project-release-notifications">Release notifications</a> |
+      <a href="/rss/project/tensorrt-dispatch/releases.xml">RSS feed <i class="fa fa-rss" aria-hidden="true"></i></a>
+    </span>
+  </h2>
+  <div class="release-timeline">
+      <div class="release release--latest release--current">
+        <div class="release__meta">
+            <span class="badge">This release</span>
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/blue-cube.572a5bfb.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/11.2.1.2/">
+          <p class="release__version">
+            11.2.1.2
+          </p>
+          <p class="release__version-date"><time datetime="2026-07-30T19:10:51+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 30, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/11.1.0.106/">
+          <p class="release__version">
+            11.1.0.106
+          </p>
+          <p class="release__version-date"><time datetime="2026-06-16T17:26:42+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jun 16, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/11.0.0.114/">
+          <p class="release__version">
+            11.0.0.114
+          </p>
+          <p class="release__version-date"><time datetime="2026-05-27T18:08:20+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    May 27, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.16.1.11/">
+          <p class="release__version">
+            10.16.1.11
+          </p>
+          <p class="release__version-date"><time datetime="2026-04-07T19:37:13+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Apr 7, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.16.0.72/">
+          <p class="release__version">
+            10.16.0.72
+          </p>
+          <p class="release__version-date"><time datetime="2026-03-18T18:29:40+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Mar 18, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.15.1.29/">
+          <p class="release__version">
+            10.15.1.29
+          </p>
+          <p class="release__version-date"><time datetime="2026-01-30T07:40:32+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 30, 2026
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.14.1.48.post1/">
+          <p class="release__version">
+            10.14.1.48.post1
+          </p>
+          <p class="release__version-date"><time datetime="2025-11-07T17:19:24+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 7, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.14.1.48/">
+          <p class="release__version">
+            10.14.1.48
+          </p>
+          <p class="release__version-date"><time datetime="2025-11-04T20:39:19+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 4, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.13.3.9.post1/">
+          <p class="release__version">
+            10.13.3.9.post1
+          </p>
+          <p class="release__version-date"><time datetime="2025-11-07T17:51:48+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 7, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.13.3.9/">
+          <p class="release__version">
+            10.13.3.9
+          </p>
+          <p class="release__version-date"><time datetime="2025-09-05T18:50:28+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Sep 5, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.13.2.6/">
+          <p class="release__version">
+            10.13.2.6
+          </p>
+          <p class="release__version-date"><time datetime="2025-08-05T19:34:22+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Aug 5, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.12.0.36/">
+          <p class="release__version">
+            10.12.0.36
+          </p>
+          <p class="release__version-date"><time datetime="2025-06-12T21:56:43+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jun 12, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.11.0.33/">
+          <p class="release__version">
+            10.11.0.33
+          </p>
+          <p class="release__version-date"><time datetime="2025-05-14T20:36:04+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    May 14, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.10.0.31/">
+          <p class="release__version">
+            10.10.0.31
+          </p>
+          <p class="release__version-date"><time datetime="2025-05-01T18:40:33+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    May 1, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.9.0.34/">
+          <p class="release__version">
+            10.9.0.34
+          </p>
+          <p class="release__version-date"><time datetime="2025-03-05T22:28:13+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Mar 5, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.8.0.43/">
+          <p class="release__version">
+            10.8.0.43
+          </p>
+          <p class="release__version-date"><time datetime="2025-01-24T00:57:46+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 24, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.7.0.post1/">
+          <p class="release__version">
+            10.7.0.post1
+          </p>
+          <p class="release__version-date"><time datetime="2025-01-23T21:18:54+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 23, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.7.0/">
+          <p class="release__version">
+            10.7.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-12-03T07:56:20+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Dec 3, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.6.0.post2/">
+          <p class="release__version">
+            10.6.0.post2
+          </p>
+          <p class="release__version-date"><time datetime="2025-01-23T21:35:17+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 23, 2025
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.6.0.post1/">
+          <p class="release__version">
+            10.6.0.post1
+          </p>
+          <p class="release__version-date"><time datetime="2024-11-21T18:35:21+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 21, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.6.0/">
+          <p class="release__version">
+            10.6.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-11-02T00:28:42+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 2, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.5.0/">
+          <p class="release__version">
+            10.5.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-09-30T21:22:03+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Sep 30, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.4.0/">
+          <p class="release__version">
+            10.4.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-09-06T21:26:23+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Sep 6, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.3.0/">
+          <p class="release__version">
+            10.3.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-08-07T01:57:23+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Aug 7, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.2.0.post1/">
+          <p class="release__version">
+            10.2.0.post1
+          </p>
+          <p class="release__version-date"><time datetime="2024-07-08T21:53:11+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 8, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.2.0/">
+          <p class="release__version">
+            10.2.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-07-04T00:18:28+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jul 4, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.1.0/">
+          <p class="release__version">
+            10.1.0
+          </p>
+          <p class="release__version-date"><time datetime="2024-06-14T21:27:10+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jun 14, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.0.1/">
+          <p class="release__version">
+            10.0.1
+          </p>
+          <p class="release__version-date"><time datetime="2024-04-24T19:34:32+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Apr 24, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/10.0.0b6/">
+          <p class="release__version">
+            10.0.0b6
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2024-03-26T22:26:14+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Mar 26, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.3.0.post12.dev1/">
+          <p class="release__version">
+            9.3.0.post12.dev1
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2024-01-31T22:35:06+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 31, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.3.0.post11.dev1/">
+          <p class="release__version">
+            9.3.0.post11.dev1
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2024-01-31T22:16:05+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Jan 31, 2024
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.2.0.post12.dev5/">
+          <p class="release__version">
+            9.2.0.post12.dev5
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-11-28T01:02:11+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 28, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.2.0.post11.dev5/">
+          <p class="release__version">
+            9.2.0.post11.dev5
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-11-28T00:40:34+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Nov 28, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.1.0.post12.dev4/">
+          <p class="release__version">
+            9.1.0.post12.dev4
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-10-18T04:14:25+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Oct 18, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.1.0.post11.dev4/">
+          <p class="release__version">
+            9.1.0.post11.dev4
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-10-18T03:56:17+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Oct 18, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.0.1.post12.dev4/">
+          <p class="release__version">
+            9.0.1.post12.dev4
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-09-02T00:45:32+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Sep 2, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.0.1.post11.dev4/">
+          <p class="release__version">
+            9.0.1.post11.dev4
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-09-02T00:21:43+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Sep 2, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.0.0.post12.dev1/">
+          <p class="release__version">
+            9.0.0.post12.dev1
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-08-03T20:59:33+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Aug 3, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/9.0.0.post11.dev1/">
+          <p class="release__version">
+            9.0.0.post11.dev1
+              <span class="badge badge--light">pre-release</span>
+          </p>
+          <p class="release__version-date"><time datetime="2023-08-03T21:24:17+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Aug 3, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/8.6.1.post1/">
+          <p class="release__version">
+            8.6.1.post1
+          </p>
+          <p class="release__version-date"><time datetime="2023-08-24T01:28:44+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Aug 24, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/8.6.1/">
+          <p class="release__version">
+            8.6.1
+          </p>
+          <p class="release__version-date"><time datetime="2023-05-03T00:11:01+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    May 3, 2023
+  </time></p>
+        </a>
+      </div>
+      <div class="release release--oldest">
+        <div class="release__meta">
+        </div>
+        <div class="release__graphic">
+            <div class="release__line"></div>
+            <img class="release__node" alt="" src="https://pypi.org/static/images/white-cube.2351a86c.svg">
+        </div>
+        <a class="card release__card"
+           href="/project/tensorrt-dispatch/8.6.0/">
+          <p class="release__version">
+            8.6.0
+          </p>
+          <p class="release__version-date"><time datetime="2023-03-14T19:13:57+0000"
+        data-controller="localized-time"
+        data-localized-time-relative="true"
+        data-localized-time-show-time="false">
+    Mar 14, 2023
+  </time></p>
+        </a>
+      </div>
+  </div>
+</div>      </div>
+    </div>
+  </div>
+</main>
+<footer class="footer">
+  <div class="footer__logo">
+    <img src="/static/images/white-cube.2351a86c.svg"
+         alt=""
+         class="-js-white-cube">
+  </div>
+  <div class="footer__menus">
+    <div class="footer__menu">
+      <h2>Help</h2>
+      <nav aria-label="Help navigation">
+        <ul>
+          <li>
+            <a href="https://packaging.python.org/tutorials/installing-packages/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Installing packages</a>
+          </li>
+          <li>
+            <a href="https://packaging.python.org/tutorials/packaging-projects/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Uploading packages</a>
+          </li>
+          <li>
+            <a href="https://packaging.python.org/"
+               title="External link"
+               target="_blank"
+               rel="noopener">User guide</a>
+          </li>
+          <li>
+            <a href="https://www.python.org/dev/peps/pep-0541/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Project name retention</a>
+          </li>
+          <li>
+            <a href="/help/">FAQs</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__menu">
+      <h2>About PyPI</h2>
+      <nav aria-label="About PyPI navigation">
+        <ul>
+          <li>
+            <a href="https://blog.pypi.org"
+               title="External link"
+               target="_blank"
+               rel="noopener">PyPI Blog</a>
+          </li>
+          <li>
+            <a href="https://dtdg.co/pypi"
+               title="External link"
+               target="_blank"
+               rel="noopener">Infrastructure dashboard</a>
+          </li>
+          <li>
+            <a href="/stats/">Statistics</a>
+          </li>
+          <li>
+            <a href="/trademarks/">Logos & trademarks</a>
+          </li>
+          <li>
+            <a href="/sponsors/">Our sponsors</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__menu">
+      <h2>Contributing to PyPI</h2>
+      <nav aria-label="How to contribute navigation">
+        <ul>
+          <li>
+            <a href="/help/#feedback">Bugs and feedback</a>
+          </li>
+          <li>
+            <a href="https://github.com/pypi/warehouse"
+               title="External link"
+               target="_blank"
+               rel="noopener">Contribute on GitHub</a>
+          </li>
+          <li>
+            <a href="https://hosted.weblate.org/projects/pypa/warehouse/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Translate PyPI</a>
+          </li>
+          <li>
+            <a href="/sponsors/">Sponsor PyPI</a>
+          </li>
+          <li>
+            <a href="https://github.com/pypi/warehouse/graphs/contributors"
+               title="External link"
+               target="_blank"
+               rel="noopener">Development credits</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__menu">
+      <h2>Using PyPI</h2>
+      <nav aria-label="Using PyPI navigation">
+        <ul>
+          <li>
+            <a href="https://policies.python.org/pypi.org/Terms-of-Service/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Terms of Service</a>
+          </li>
+          <li>
+            <a href="/security/">Report security issue</a>
+          </li>
+          <li>
+            <a href="https://policies.python.org/python.org/code-of-conduct/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Code of conduct</a>
+          </li>
+          <li>
+            <a href="https://policies.python.org/pypi.org/Privacy-Notice/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Privacy Notice</a>
+          </li>
+          <li>
+            <a href="https://policies.python.org/pypi.org/Acceptable-Use-Policy/"
+               title="External link"
+               target="_blank"
+               rel="noopener">Acceptable Use Policy</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <hr class="footer__divider">
+  <div class="footer__text">
+      <p>
+Status:<a href="https://status.python.org/"
+   title="External link"
+   target="_blank"
+   rel="noopener">
+        <span data-statuspage-domain="https://2p66nmmycsj3.statuspage.io">all systems operational</span></a>
+    </p>
+  <p>
+Developed and maintained by the Python community, for the Python community.    <br>
+    <a href="https://donate.pypi.org">Donate today!</a>
+  </p>
+  <p>
+    "PyPI", "Python Package Index", and the blocks logos are registered <a href="/trademarks/">trademarks</a> of the <a href="https://www.python.org/psf-landing" target="_blank" rel="noopener">Python Software Foundation</a>.
+    <br>
+  </p>
+  <p>
+    © 2026 <a href="https://www.python.org/psf-landing/"
+    title="External link"
+    target="_blank"
+    rel="noopener">Python Software Foundation</a>
+    <br>
+    <a href="/sitemap/">Site map</a>
+  </p>
+    <p>
+Deployed from <a href="https://github.com/pypi/warehouse/commit/83e36c7420399914d3d8a7064b68ee45a22587e6" title="External link" target="_blank" rel="noopener"><code>83e36c7</code></a>    </p>
+</div>
+<div class="centered hide-on-desktop">
+  <button type="button"
+          class="button button--switch-to-desktop hidden"
+          data-viewport-toggle-target="switchToDesktop"
+          data-action="viewport-toggle#switchToDesktop">Switch to desktop version</button>
+</div>
+</footer>
+<div class="language-switcher">
+  <form action="/locale/">
+    <ul>
+        <li>
+          <button class="language-switcher__selected"                  name="locale_id"
+                  value="en"
+                  type="submit">English</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="es"
+                  type="submit">español</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="fr"
+                  type="submit">français</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="ja"
+                  type="submit">日本語</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="pt_BR"
+                  type="submit">português (Brasil)</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="uk"
+                  type="submit">українська</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="el"
+                  type="submit">Ελληνικά</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="de"
+                  type="submit">Deutsch</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="zh_Hans"
+                  type="submit">中文 (简体)</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="zh_Hant"
+                  type="submit">中文 (繁體)</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="ru"
+                  type="submit">русский</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="he"
+                  type="submit">עברית</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="eo"
+                  type="submit">Esperanto</button>
+        </li>
+        <li>
+          <button                   name="locale_id"
+                  value="ko"
+                  type="submit">한국어</button>
+        </li>
+    </ul>
+  </form>
+</div>
+<div class="sponsors">
+  <p class="sponsors__title">Supported by</p>
+  <div class="sponsors__divider"></div>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://aws.amazon.com/">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/ed7074cadad1a06f56bc520ad9bd3e00d0704c5b/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f6177732d77686974652d6c6f676f2d7443615473387a432e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">AWS</span>
+          <span class="sponsors__service">
+              Cloud computing and Security Sponsor
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://www.datadoghq.com/">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/8855f7c063a3bdb5b0ce8d91bfc50cf851cc5c51/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f64617461646f672d77686974652d6c6f676f2d6668644c4e666c6f2e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">Datadog</span>
+          <span class="sponsors__service">
+              Monitoring
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://depot.dev">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/60f709d24f3e4d469f9adc77c65e2f5291a3d165/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f6465706f742d77686974652d6c6f676f2d7038506f476831302e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">Depot</span>
+          <span class="sponsors__service">
+              Continuous Integration
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://www.fastly.com/">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/df6fe8829cbff2d7f668d98571df1fd011f36192/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f666173746c792d77686974652d6c6f676f2d65684d3077735f6f2e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">Fastly</span>
+          <span class="sponsors__service">
+              CDN
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://careers.google.com/">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/420cc8cf360bac879e24c923b2f50ba7d1314fb0/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f676f6f676c652d77686974652d6c6f676f2d616734424e3774332e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">Google</span>
+          <span class="sponsors__service">
+              Download Analytics
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://sentry.io/for/python/?utm_source=pypi&amp;utm_medium=paid-community&amp;utm_campaign=python-na-evergreen&amp;utm_content=static-ad-pypi-sponsor-learnmore">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/67af7117035e2345bacb5a82e9aa8b5b3e70701d/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f73656e7472792d77686974652d6c6f676f2d4a2d6b64742d706e2e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">Sentry</span>
+          <span class="sponsors__service">
+              Error logging
+          </span>
+        </a>
+        <a class="sponsors__sponsor"
+           target="_blank"
+           rel="noopener"
+           href="https://statuspage.io">
+          <img class=sponsors__image src="https://pypi-camo.freetls.fastly.net/b611884ff90435a0575dbab7d9b0d3e60f136466/68747470733a2f2f73746f726167652e676f6f676c65617069732e636f6d2f707970692d6173736574732f73706f6e736f726c6f676f732f737461747573706167652d77686974652d6c6f676f2d5467476c6a4a2d502e706e67" alt="" loading=lazy>
+          <span class="sponsors__name">StatusPage</span>
+          <span class="sponsors__service">
+              Status page
+          </span>
+        </a>
+</div></body>
+</html>

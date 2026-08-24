@@ -1,0 +1,20 @@
+GXF is a framework from NVIDIA that provides a component-based architecture designed for developing hardware accelerated compute graphs. The framework is at the foundation of other high-performance SDKs such as NVIDIA Holoscan, DeepStream, and Isaac ROS. For example, NITROS (NVIDIA Isaac Transport for ROS) leverages GXF compute graphs embedded within ROS 2 nodes with optimized transport between them to achieve highly efficient ROS application graphs.
+The isaac_ros_gxf package is located in Isaac ROS NITROS repository that holds the GXF framework binaries and headers. This GXF repository contains the buildable source code for the GXF framework and its deployment for Isaac ROS NITROS. Developers could use the scripts here to build the GXF source and install the updated binaries and headers for all supported platforms in the isaac_ros_gxf package locally.
+The build environment can be setup on an x86_64 system running Ubuntu 22.04+ using the Isaac ROS Dev) base containers.
+- 
+Set up your development environment by following the instructions here.
+- 
+Clone the following repositories and its dependencies under ~/workspaces/isaac_ros-dev/src .mkdir -p ~/workspaces/isaac_ros-dev/src && cd ~/workspaces/isaac_ros-dev/src git clone https://github.com/NVIDIA-ISAAC-ROS/gxf git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nitros
+- 
+Add a config file to update the environment image key with 'gxf' and add the directory to the Dockerfile search paths: echo "CONFIG_IMAGE_KEY=ros2_humble.user.gxf" >> ~/workspaces/isaac_ros-dev/src/isaac_ros_common/scripts/.isaac_ros_common-config && \ echo "CONFIG_DOCKER_SEARCH_DIRS=(../../gxf/docker)" >> ~/workspaces/isaac_ros-dev/src/isaac_ros_common/scripts/.isaac_ros_common-config
+- 
+Launch the Docker container using the run_dev.sh script:cd ~/workspaces/isaac_ros-dev/src/isaac_ros_common && \ ./scripts/run_dev.sh
+- 
+Inside the container, build and install GXF to isaac_ros_gxf package:cd /workspaces/isaac_ros-dev/src/gxf && \ ./build_install_gxf_release.sh -i /workspaces/isaac_ros-dev/src/isaac_ros_nitros/isaac_ros_gxf
+- 
+Once succeed, you will see the following results: Removing existing GXF framework files in /workspaces/isaac_ros-dev/src/gxf/../../../src/isaac_ros_nitros isaac_ros_gxf/gxf/core Installing GXF framework files in /workspaces/isaac_ros-dev/src/gxf/../../../src/isaac_ros_nitros/isaac_ros_gxf/gxf/core Patching SONAME into GXF shared libraires Done patching SONAME into GXF shared libraires Completed. Installed rebuilt GXF framework to /workspaces/isaac_ros-dev/src/gxf/../../../src/isaac_ros_nitros/isaac_ros_gxf/gxf/core
+This work is published under the NVIDIA ISAAC ROS software license.
+| Date | Changes | 
+|---|---|
+| 2024-11-05 | Update to GXF 4.1 | 
+| 2023-10-18 | Initial release |

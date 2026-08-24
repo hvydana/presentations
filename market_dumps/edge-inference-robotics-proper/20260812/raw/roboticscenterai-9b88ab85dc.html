@@ -1,0 +1,148 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta property="og:site_name" content="Robotics Center of Silicon Valley">
+  <meta name="application-name" content="Robotics Center of Silicon Valley">
+  <script>!function(){try{var t=localStorage.getItem('svrc_theme_mode');var p=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var m=t==='dark'?'dark':t==='light'?'light':p;document.documentElement.setAttribute('data-theme',m);document.documentElement.setAttribute('data-theme-mode',t||'system');document.documentElement.style.colorScheme=m;var c=m==='light'?'#f5f7fb':'#08090b';var g=document.querySelector('meta[name="theme-color"]');if(!g){g=document.createElement('meta');g.setAttribute('name','theme-color');document.head.appendChild(g);}g.setAttribute('content',c);}catch(e){}}();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Physical AI Infrastructure Stack: Data Collection, Training &amp; Deployment Layers | SVRC</title>
+  <meta name="description" content="The five-layer infrastructure stack being built for physical AI — collection pipelines, model training, simulation, deployment, emerging standards, and the companies building each layer. Investment analysis for 2025-2026.">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/analytics-config.js"></script>
+  <script src="/analytics.js"></script>
+  <meta property="og:title" content="Physical AI Infrastructure Stack: Data Collection, Training &amp; Deployment Layers | SVRC">
+  <meta property="og:description" content="The five-layer infrastructure stack being built for physical AI — collection pipelines, model training, simulation, deployment, emerging standards, and the companies building each layer.">
+  <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.roboticscenter.ai/research/physical-ai-infrastructure-layer-2025">
+  <meta property="og:image" content="https://www.roboticscenter.ai/assets/images/stock/stock-0e0683099f66.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/png">
+  <meta name="twitter:image" content="https://www.roboticscenter.ai/assets/images/stock/stock-0e0683099f66.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Physical AI Infrastructure Stack: Data Collection, Training &amp; Deployment Layers | SVRC">
+  <meta name="twitter:description" content="The five-layer infrastructure stack being built for physical AI — collection pipelines, model training, simulation, deployment, emerging standards, and the companies building each layer.">
+    <meta property="og:locale" content="en_US">
+    <meta name="svrc-locale" content="en">
+
+
+
+
+
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Physical AI Infrastructure Stack: Data Collection, Training & Deployment Layers", "description": "The five-layer infrastructure stack being built for physical AI — collection pipelines, model training, simulation, deployment, emerging standards, and the companies building each layer. Investment analysis for 2025-2026.", "datePublished": "2026-04-07T12:00:00.000Z", "dateModified": "2026-07-12T00:00:00.000Z", "author": {"@type": "Person", "name": "Jerry Huang"}, "publisher": {"@type": "Organization", "name": "Robotics Center of Silicon Valley", "url": "https://www.roboticscenter.ai", "logo":{"@type":"ImageObject","url":"https://www.roboticscenter.ai/assets/images/logo.png"}}, "mainEntityOfPage": "https://www.roboticscenter.ai/research/physical-ai-infrastructure-layer-2025", "url": "https://www.roboticscenter.ai/research/physical-ai-infrastructure-layer-2025"}</script>
+  <link rel="canonical" href="https://www.roboticscenter.ai/research/physical-ai-infrastructure-layer-2025">
+  <link rel="alternate" hreflang="x-default" href="https://www.roboticscenter.ai/research/physical-ai-infrastructure-layer-2025">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav">
+      <a href="/" class="logo">Robotics Center</a>
+      <ul class="nav-links">
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Robots</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="../store" class="nav-priority-link">Store</a><a href="../platform">Data Platform</a><a href="../hardware">Hardware Catalog</a><a href="../leasing">Leasing</a><a href="../compare">Compare</a></div></div></li>
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Data &amp; Dev</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="../eval">Eval</a><a href="../datasets" class="nav-priority-link">Datasets</a><a href="../data-services">Data Services</a><a href="../datakit">DataKit</a><a href="../teleop">Teleoperation</a><a href="../vla-models">AI Models</a><a href="../benchmarks">Benchmarks</a><a href="../rl-environments">RL Environments</a><a href="../tools">Tools &amp; SDKs</a><a href="../marketplace">Data Marketplace</a><a href="../marketplace/sell">Start Selling</a><a href="../supplier">Supplier Portal</a></div></div></li>
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Learn</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="../learn" class="nav-priority-link">Academy</a><a href="../wiki/sdk-quickstart">Developer Docs</a><a href="../glossary">Glossary</a><a href="../forum">Forum</a><a href="../research">Research &amp; Papers</a><a href="../people">People</a><a href="../institutions">Institutions</a><a href="../reports">Reports</a><a href="../markets">Markets</a><a href="../applications">Applications</a><a href="../blog">Blog</a></div></div></li>
+      </ul>
+      <div class="nav-cta"><a href="/contact" class="btn btn-primary">Contact</a></div>
+      <button class="nav-toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <p><a href="/research" style="color:var(--color-text-muted);text-decoration:none;">← Research</a></p>
+      <h1>Physical AI Infrastructure Stack: Data Collection, Training &amp; Deployment Layers</h1>
+      <p>$2.4B flowed into humanoid hardware in 2024. The infrastructure layer enabling those robots to actually learn is still being built. <strong>New to physical AI?</strong> Start with <a href="/guides/what-is-physical-ai">What Is Physical AI? — the complete definition and getting-started guide</a>.</p>
+    </section>
+
+    <section class="section">
+      <div class="container" style="max-width:720px;">
+        <article class="article-body">
+
+        <h2>What Physical AI Actually Requires</h2>
+        <p>Physical AI — AI systems that perceive and act in the physical world through robotic bodies — has different infrastructure requirements than software AI. A large language model needs data, compute, and serving infrastructure. A robot policy needs all of that plus: real-world data collection at scale, realistic simulation environments, hardware compatibility layers, edge deployment infrastructure, and safety systems that don't exist in the software world.</p>
+        <p>The gap between "we have a robot" and "the robot can reliably do useful work" is almost entirely an infrastructure problem. The algorithms exist. The hardware is commoditizing. The bottleneck is the operational infrastructure connecting them.</p>
+
+        <h2>The Physical AI Stack</h2>
+        <p>The emerging physical AI stack has five layers, each with distinct infrastructure requirements and a different set of companies building them:</p>
+        <ul>
+          <li><strong>Layer 1 — Hardware:</strong> Robot arms, humanoid bodies, sensors (RGB-D cameras, force-torque sensors, tactile arrays), and actuators. This layer is commoditizing rapidly. A capable 6-DOF arm (UR3e, Franka Research 3, Lebai LM3) costs $15K–$30K in 2025, down 40% from 2022. Humanoid hardware (Unitree G1, Agility Digit, Figure 01) is still expensive ($50K–$200K) but falling. Key builders: Unitree, Universal Robots, Franka, Figure, Agility, Boston Dynamics.</li>
+          <li><strong>Layer 2 — Collection Infrastructure:</strong> The systems that produce training data. Teleoperation rigs, data pipelines, quality control, human review queues, episode storage, and annotation tooling. This is the most under-built layer relative to hardware investment. Key builders: SVRC, Lerobot (HuggingFace), Physical Intelligence (π).</li>
+          <li><strong>Layer 3 — Training Infrastructure:</strong> GPU clusters, training frameworks optimized for robot learning (Isaac Lab, LeRobot training stack, ACT/Diffusion Policy implementations), and experiment tracking. The hardware side is handled by cloud providers; the robot-specific software stack is being built now. Key builders: NVIDIA (Isaac Lab, Jetson), HuggingFace (LeRobot), Google DeepMind (RT-2, Aloha).</li>
+          <li><strong>Layer 4 — Foundation Models:</strong> Pretrained vision-language-action models that provide general robot capabilities fine-tunable to specific tasks. RT-2, OpenVLA, Octo, π0, and RoboFlamingo are the leading open checkpoints. A handful of organizations have a meaningful lead here. Key builders: Physical Intelligence, Google DeepMind, UC Berkeley, Stanford.</li>
+          <li><strong>Layer 5 — Deployment Infrastructure:</strong> Edge inference on Jetson or similar hardware, OTA model update systems, fleet management dashboards, uptime monitoring, and safety watchdog systems. This layer barely exists as a product today — most teams build it custom for each deployment. Key builders: SVRC (fleet management), early-stage startups.</li>
+        </ul>
+
+        <h2>Infrastructure Gaps Today</h2>
+        <p>Four critical gaps in the current physical AI infrastructure stack create friction for every organization deploying robot learning:</p>
+        <table class="wiki-spec-table" style="width:100%;border-collapse:collapse;margin:1.5rem 0;">
+          <thead><tr><th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid var(--color-border,#334155);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Gap</th><th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid var(--color-border,#334155);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Current State</th><th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid var(--color-border,#334155);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Impact</th><th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid var(--color-border,#334155);font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;">Likely Solution Timeline</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Universal robot API standard</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">No standard; each arm has proprietary SDK</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Code rewritten for each robot type</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">2026–2027 (ROS2 + hardware abstraction)</td></tr>
+            <tr><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Universal data format</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">RLDS, HDF5, proprietary — incompatible</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Data not portable across orgs or training stacks</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">2025–2026 (Open X-Embodiment + LeRobot Hub)</td></tr>
+            <tr><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Standardized evaluation benchmarks</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">LIBERO, SimplerEnv, RT-2 evals — not unified</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">No apples-to-apples model comparison</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">2026–2027</td></tr>
+            <tr><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Managed inference for robot models</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Self-hosted only; no robot model serving APIs</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">Each deployment requires full MLOps stack</td><td style="padding:0.5rem 0.75rem;border-bottom:1px solid var(--color-border,#334155);font-size:0.9rem;">2025–2026</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Emerging Standards</h2>
+        <p>Three emerging standards are converging to address the data format and portability gap:</p>
+        <ul>
+          <li><strong>Open X-Embodiment (OXE) format:</strong> A standardized episode format used across the 22-institution Open X-Embodiment dataset. Stores observation, action, reward, and metadata in a consistent schema. Increasingly adopted as the de facto standard for multi-robot datasets.</li>
+          <li><strong>LeRobot Hub:</strong> HuggingFace's robot dataset repository, using the Parquet-based LeRobot dataset format. Growing fast — over 200 datasets as of early 2025. The GitHub model hub analogy applied to robot demonstration data.</li>
+          <li><strong>RLDS (Reinforcement Learning Datasets):</strong> Google's TensorFlow-based episode format. Widely used in academic robot learning but losing ground to LeRobot Hub for new datasets due to PyTorch ecosystem dominance.</li>
+        </ul>
+
+        <h2>The Investment Imbalance</h2>
+        <p>In 2024, approximately $2.4 billion flowed into humanoid robot hardware companies globally (Figure AI, Physical Intelligence, Agility, 1X, Apptronik, and others). Infrastructure companies — the picks-and-shovels layer enabling those robots to actually learn — attracted a fraction of that investment.</p>
+        <p>This imbalance is temporary but creates a meaningful opportunity. The hardware is being built. The infrastructure to make it work is not. Organizations that build infrastructure competency now — data collection pipelines, training infrastructure, deployment systems — will have structural advantages as hardware costs continue to fall and hardware options multiply.</p>
+        <p>SVRC's investment thesis is that the collection and deployment infrastructure layers are the highest-leverage points in the current physical AI stack. Our <a href="/platform">Fearless Platform</a> addresses Layer 2 (collection) and Layer 5 (deployment). Our <a href="/data-services">data services</a> provide the human operator workforce that makes collection infrastructure productive.</p>
+
+        <h2>SVRC's Role in the Infrastructure Layer</h2>
+        <p>SVRC operates at the intersection of collection infrastructure and deployment infrastructure — the two most under-built layers in the 2025 physical AI stack. The Robotics Center of Silicon Valley provides:</p>
+        <ul>
+          <li><strong>Collection infrastructure:</strong> Teleoperation rigs, data pipelines, quality control systems, and a trained operator workforce. Hardware-agnostic — works with any robot arm that exposes joint control.</li>
+          <li><strong>Deployment infrastructure:</strong> Fleet management dashboard, edge inference integration, OTA model update tooling, and uptime monitoring. Designed for organizations running 5–500 deployed robots.</li>
+          <li><strong>Cross-embodiment data:</strong> SVRC's demonstration library includes data from 12+ arm types, enabling cross-embodiment fine-tuning that reduces per-task collection requirements by 30–60% for supported robot types.</li>
+        </ul>
+
+        </article>
+      </div>
+    </section>
+
+    <section class="section action-bar" style="background:var(--color-surface-2,#0f172a);text-align:center;padding:4rem 1.5rem;">
+      <div class="container">
+        <h2 style="margin-bottom:1rem;">Access Physical AI Infrastructure</h2>
+        <p style="margin-bottom:2rem;max-width:600px;margin-left:auto;margin-right:auto;">SVRC provides collection and deployment infrastructure for organizations building production robot learning programs.</p>
+        <a href="platform" class="btn btn-primary">Explore the Platform</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">Robotics Center</div>
+        <p>West Coast: 90 Welsh St, San Francisco, CA 94107 · East Coast: 125 Western Ave, Allston, MA 02134 · contact@roboticscenter.ai</p>
+      </div>
+    </div>
+  </footer>
+  <script src="/script.js" defer></script><script>window.SVRC_API_URL = 'https://fearless-backend-533466225971.us-central1.run.app';</script>
+  <script>
+  (function() {
+    var loaded = false;
+    function loadDeferred() {
+      if (loaded) return; loaded = true;
+      ['/rc-advisor.js', '/messaging-widget.js'].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src; s.defer = true;
+        document.body.appendChild(s);
+      });
+    }
+    ['scroll','mousemove','keypress','touchstart'].forEach(function(ev) {
+      window.addEventListener(ev, loadDeferred, { once: true, passive: true });
+    });
+    setTimeout(loadDeferred, 6000);
+  })();
+  </script>
+</body></html>

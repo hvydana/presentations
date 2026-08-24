@@ -1,0 +1,47 @@
+AI Safety: Applying IEC 61508 / ISO 26262 to LLM Deployments
+A wrong answer from an LLM in a chatbot is annoying. A wrong answer from an LLM suggesting medication doses can hurt someone. A wrong answer from an LLM driving a car can kill someone. The model is not the difference between these three cases. The difference is what happens when it fails. For fifty years, engineers have built a whole field around exactly this problem: making sure that when a system fails, it does not kill or injure people. That field is called functional safety. It runs on published standards: IEC 61508 (general use), ISO 26262 (cars), DO-178C (aircraft), IEC 62304 (medical software).
+Almost no one in the AI industry follows these standards. So we now have LLMs in hospitals, law firms, drones, and factories, and the engineering checks that would catch predictable failures are missing. These systems look fine in demos. Then they fail in real use in exactly the ways the standards would have caught.
+The Three Pillars of Functional Safety Analysis
+Three artifacts dominate functional-safety practice, and they are exactly what the free AI Safety Hazard Analyzer produces:
+1. Hazard Analysis (HA)
+A hazard analysis lists every way the system could hurt users, operators, bystanders, or the environment. ISO 26262 uses three numbers to describe each hazard:
+- Severity (S1-S4): how badly could someone be hurt?
+- Exposure (E1-E4): how often does the system end up in a place where this harm could happen?
+- Controllability (C1-C3): how easily can the person in charge steer away from harm if the system misbehaves?
+These three numbers combine into one score called the ASIL rating (Automotive Safety Integrity Level). ASIL-A is the lowest risk. ASIL-D is the highest. For systems outside cars, IEC 61508 uses a similar score called SIL-1 to SIL-4. A higher score means the engineers must do more rigorous work: add backups, do formal proofs, get outside reviewers, and document every test.
+2. Failure Mode and Effects Analysis (FMEA)
+For each part of the system, engineers ask: how can this part break? What happens to the whole system when it breaks? What causes the break? How do we notice it? What stops it? The FMEA table is the checklist engineers use when adding backups and monitors. For an LLM system, the common failure modes are:
+- Made-up output (cause: the model was not trained on this situation; fix: check with a second model)
+- The model refuses a perfectly fine request (cause: safety filters set too strict; fix: route to a backup model)
+- The output gets cut off in the middle (cause: the prompt used too many tokens; fix: set a clear max_tokens limit)
+- The provider goes offline (cause: external API failure; fix: serve cached backup responses)
+- The response slows to a crawl (cause: the provider is congested; fix: switch to a faster model when time matters)
+3. Fault Tree Analysis (FTA)
+Start with the worst thing that could happen, for example "the AI recommends the wrong medication dose and a patient is harmed." Then work backward and list every combination of smaller events that could lead there. Each branch uses an AND gate (all events must happen at once) or an OR gate (any one event is enough). The FTA shows which single failure can bring down the whole system, which paths an attacker could use, and how reliable each part needs to be.
+The SIL/ASIL Recommendation
+The Analyzer reads your description and returns a recommended SIL or ASIL level. That level tells you exactly how much engineering rigor your system needs:
+- SIL-1 / ASIL-A: Low risk. Normal development practices and good documentation are enough. Fine for internal LLM tools.
+- SIL-2 / ASIL-B: Medium risk. Needs structured testing, clearly defined safety functions, and basic backups. Fine for public-facing LLMs when a human reviews the output.
+- SIL-3 / ASIL-C: High risk. Needs formal proofs or very thorough integration tests, redundant safety functions, and independent review. Required for medical decision support, financial trading, and industrial control.
+- SIL-4 / ASIL-D: Highest risk. Needs formal proof that the system is correct, multiple fully independent backup channels, and third-party certification. Required for any autonomous system where a failure can kill.
+Say you describe a chatbot that suggests medication doses to nurses on a tablet. The Analyzer should return SIL-3 or higher. It will then list specific safeguards: a human must approve any change that cannot be undone, a second system must check every dose, all actions must be logged, and the AI output must stay within the approved drug list.
+The Deploy Verdict
+The Analyzer also gives one of three verdicts:
+- DEPLOY_OK: low-stakes use case, current AI tools are good enough
+- DEPLOY_WITH_GUARDS: medium-stakes; specific safeguards must be built in before you deploy
+- DO_NOT_DEPLOY: stakes too high for current AI reliability; use a non-AI fallback or keep humans in full control
+The verdict is conservative on purpose. When lives or professional licenses are on the line, it is better to get a DO_NOT_DEPLOY warning and fix the problem than to ship and cause harm. That is the posture the safety standards require. Hope is not a strategy. Provable safeguards are.
+From the wiki synthesis on direct AI application: "Reinforcement learning, cyber-physical systems architecture, AI in real-time systems, systems integration methodology — these transfer directly without analogy. CPS thinking applied to LLM deployment IS the safety engineering layer."
+Why This Is Underbuilt Right Now
+People who know functional safety work mainly in industries where the standards have been required for decades: cars, aircraft, medical devices, and industrial machines. People who know AI work mainly at software companies that never needed safety standards until they started deploying AI in those same regulated industries. The group that understands both is very small.
+This tool exists because that gap is exactly where AI deployments will get blocked, sued, or recalled. Run your AI use case through the Analyzer before you ship. Catching a SIL-3 hazard during design takes a few hours. Catching it in production can cost everything.
+From Audit to Production
+The free Analyzer gives you the diagnosis. Actually building a system that meets the safeguards it recommends, including formal proofs, independent backups, certified inference paths, and predictable latency, is real engineering work. For medical, automotive, aerospace, or industrial deployments where the standards are not optional, see the paid service. The standards exist for a reason. AI does not get an exception.
+Run a Functional Safety Audit
+Describe an AI use case. Returns IEC 61508 / ISO 26262 hazard analysis: enumerated hazards, FMEA failure modes, fault-tree, SIL/ASIL recommendation, required safeguards, deploy verdict.
+Safety-Certified AI for Cyber-Physical Systems — Service #34
+Production AI systems that meet IEC 61508 / ISO 26262 / DO-178C — formal verification, certified inference paths, deterministic latency, deployable in regulated environments.
+// Production AI Engineering
+Build AI systems that hold up in production.
+sinc-LLM designs, audits, and stabilises production AI infrastructure: from vendor evaluation and cost accountability to incident controls and MCP architecture.
+See what we do →

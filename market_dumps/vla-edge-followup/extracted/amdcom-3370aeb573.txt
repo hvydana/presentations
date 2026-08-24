@@ -1,0 +1,46 @@
+Run Meta's Muse Glimmer 30B on AMD Ryzen™ AI Max+ Agentic PCs and Radeon™ GPUs
+Aug 10, 2026
+Agentic AI requires large context, persistent memory, tool use, privacy, and low operating costs. Most cloud-first approaches introduce latency, privacy concerns, and recurring token expenses. AMD enables these workloads to run locally on the Agentic PC.
+Muse Glimmer is a new 30B dense open-weights model released by Meta Superintelligence Labs. Released under Apache 2.0, it is designed for local agentic use cases where capability and developer choice matter.
+On AMD, Meta's Muse Glimmer 30B runs performantly on a system powered by an AMD Ryzen™ AI Max+ processor or a workstation with a single AMD Radeon™ AI PRO R9700 graphics card using open frameworks like llama.cpp. That puts a model designed for serious agentic work directly on a user’s desk allowing them to save on token bills all the while keeping their workloads local.
+Early performance testing shows strong local performance for Muse Glimmer 30B on AMD hardware, reaching up to 24 tokens per second on an AMD Ryzen™ AI Max+ 395 processor and up to 53 tokens per second on a single AMD Radeon™ AI PRO R9700 graphics card with dFlash enabled. These preliminary results were measured on Windows using the popular llama.cpp project with the Vulkan backend and dFlash speculative decoding. With further software and model optimizations already underway, performance is expected to continue improving as the ecosystem matures.
+30 Billion Parametrs, Open, Agentic-focused and Apache 2.0
+An agent must keep context, navigate a series of decisions, call tools, inspect results, adapt, and continue. Muse Glimmer 30B is designed for this longer arc of work, including complex workflows that span multiple steps and sessions. It can manage memory, recover from failures, and continue across restarts, helping developers move beyond one-shot interactions toward agents that can take ownership of meaningful work.
+Agentic systems can touch far more of a user’s working context than a traditional chatbot. They may need to work with local files, messages, credentials, and content from outside sources. That makes privacy and resilience fundamental to the experience. Meta's Muse Glimmer 30B is designed with safety at the forefront. It's trained to minimize oversharing, resist prompt injection from untrusted content, and respect information boundaries. Running locally gives developers greater control over where their data is processed and how the model connects to the rest of their workflow.
+The Apache 2.0 license means developers can use Muse Glimmer 30B commercially, modify it, redistribute it, and build it with the tools and open-source scaffolds they already use
+Run with LM Studio
+LM Studio gives consumers a direct and easy path to experience Meta's Muse Glimmer locally. On supported AMD systems with more than 32GB VRAM or Variable Graphics Memory (VGM), they can discover, download, run, and begin using the model in just a few minutes. AMD Ryzen™ AI Max+ processor-based systems and the AMD Radeon™ AI PRO R9700 32 GB graphics cards are both recommended hardware for running LM Studio with Muse Glimmer 30B out of the box.
+Note: dFlash must be enabled with the correct number of draft tokens for optimal performance.
+For power users, the model can then be served over LAN through the LM Studio server and the OpenAI or Anthropic compatible endpoint can be used to connect to popular agents like Hermes Agent or Open Claw (or any other application compatible with an OpenAI or Anthropic endpoints). This makes it easy to move from reading about agentic AI to testing it against real workflows without building an application first.
+Integrate it in your app with Lemonade
+Running Meta's Muse Glimmer 30B is one thing. Shipping it as part of your application is another.
+Lemonade provides a path for bringing Muse Glimmer 30B into an application through a local, OpenAI-compatible API delivered through an embeddable binary. Developers can connect existing applications and tools using familiar patterns, while the model and its working data remain on the machine.
+Lemonade makes this extremely simple to do with an approximately 4 MB embeddable binary that developers can package directly with their software. Launch it as a private local service, connect through familiar OpenAI-compatible APIs, and Lemonade handles the complexity underneath, from hardware detection and backend selection to optimized inference across AMD Ryzen™ AI processors and AMD Radeon™ graphics. End users stay inside the application, with no separate Lemonade installation or inference stack to configure.
+Lemonade can turn Muse Glimmer 30B from an agent you run into an application feature. That opens the door to local coding assistants, research tools, workflow automation, and private applications built around a model designed to act, not simply answer.
+The Next Phase of the Agentic PC
+The Agentic PC is evolving from a device that accelerates individual AI features into a platform that can host persistent intelligence.
+AMD Ryzen™ AI Max+ Agentic PCs and Radeon™ AI PRO R9700 graphics cards provide users with two recommended paths to bring that future to the desk. Llama.cpp provides the foundation, LM Studio makes the model accessible, and Lemonade makes it easy to integrate inside applications. Together, they make it easy for you to turn powerful and local agentic capability from a promising idea to practical application.
+			
+				
+					
+						Footnotes 
+		
+		
+			
+				
+					
+						
+SHO-77: Testing as of August 2026 by AMD using a preliminary version of Meta Muse Glimmer 30B in llama.cpp on Windows with the Vulkan backend, dflash enabled, and --spec-draft-n-max=4. Performance measured as average token generation throughput over three or more runs. System configuration: GMKtec EVO X2 AI Mini PC with AMD Ryzen™ AI Max+ 395 processor with 128GB system memory (VGM set to 64GB), Windows 11 Pro version 25H2, AMD Software: Adrenalin Edition 26.7.1, AMD Chipset Drivers 8.05.04.516. All values up to.
+Performance may vary. SHO-77
+RPW-537: Testing as of August 2026 by AMD using a preliminary version of Meta Muse Glimmer 30B in llama.cpp on Windows with the Vulkan backend, dflash enabled, and --spec-draft-n-max=2. Performance measured as average token generation throughput over three or more runs. System configuration: AMD Radeon™ AI PRO R9700 system with AMD Ryzen 9 9950X 16-Core Processor, 64GB system memory, Windows 11 Pro version 25H2, AMD Software: Adrenalin Edition 26.7.1, AMD Chipset Drivers 8.05.04.516. All values up to. Performance may vary. RPW-537
+					
+				
+			
+		
+	
+    
+    
+        
+SHO-77: Testing as of August 2026 by AMD using a preliminary version of Meta Muse Glimmer 30B in llama.cpp on Windows with the Vulkan backend, dflash enabled, and --spec-draft-n-max=4. Performance measured as average token generation throughput over three or more runs. System configuration: GMKtec EVO X2 AI Mini PC with AMD Ryzen™ AI Max+ 395 processor with 128GB system memory (VGM set to 64GB), Windows 11 Pro version 25H2, AMD Software: Adrenalin Edition 26.7.1, AMD Chipset Drivers 8.05.04.516. All values up to.
+Performance may vary. SHO-77
+RPW-537: Testing as of August 2026 by AMD using a preliminary version of Meta Muse Glimmer 30B in llama.cpp on Windows with the Vulkan backend, dflash enabled, and --spec-draft-n-max=2. Performance measured as average token generation throughput over three or more runs. System configuration: AMD Radeon™ AI PRO R9700 system with AMD Ryzen 9 9950X 16-Core Processor, 64GB system memory, Windows 11 Pro version 25H2, AMD Software: Adrenalin Edition 26.7.1, AMD Chipset Drivers 8.05.04.516. All values up to. Performance may vary. RPW-537

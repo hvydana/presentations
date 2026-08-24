@@ -1,0 +1,38 @@
+AMD's Full-Stack Play for Physical AI
+At its Advancing AI 2026 event, AMD made a definitive entry into the robotics compute platform market with the launch of AMD Kria AI Solutions. The portfolio represents AMD's most ambitious robotics push to date, combining its legacy in FPGAs and adaptive computing with its rapidly expanding AI accelerator portfolio.
+The centerpiece is the AMD Kria AI Robotics Developer Platform — billed as the industry's first open, fully integrated turnkey platform for autonomous robotics. It brings AI perception, reasoning, agentic decision-making, and real-time control together on a single platform.
+Ryzen AI Embedded X100: The Robot Brain
+Powering the Kria AI SOM (system-on-module) is the new Ryzen AI Embedded X100 Series processor, featuring:
+- Up to 16 "Zen 5" CPU cores for real-time control
+- AMD RDNA 3.5 integrated GPU for immersive graphics and parallel compute
+- Power-efficient NPU for low-latency AI inference
+- Unified memory architecture across CPU, GPU, and NPU — minimizing data copies
+The X100 is designed to handle both "firm" real-time (via Linux + BIOS optimizations targeting <7μs interrupt latency at six-nines reliability) and "hard" real-time use cases via virtualization with the Zen hypervisor and FreeRTOS VM isolation.
+Performance Claims vs. NVIDIA Jetson T5000
+AMD has positioned the Kria platform as a direct competitor to NVIDIA's Jetson lineup, with some striking performance claims:
+| Metric | Advantage over NVIDIA Jetson T5000 | 
+|---|---|
+| Real-time control reliability | 3.4x better on-time control | 
+| Spare compute capacity | 1.6x more free CPU cores | 
+| Concurrent agents | 2.3x more agentic AI capacity | 
+| Control decisions | 8,000+ per second (125μs loop) | 
+| VLA reasoning latency | sub-100ms (based on Pi0.5 VLA model) | 
+These benchmarks were commissioned by AMD and run on a GMKtec EVO-X2 mini PC configured to represent X199 specifications, so real-world robot performance will depend on specific implementation details. Still, they signal AMD's intent to challenge NVIDIA's dominance in edge robotics compute.
+Open Ecosystem: No Vendor Lock-In
+A key differentiator AMD is emphasizing is openness — both in hardware and software:
+- COM-HPC form factor — an open standard rather than a proprietary module, allowing third-party ODMs to build compatible hardware
+- ROCm software stack — open-source AI acceleration from cloud to edge
+- ROS 2 / Nav2 / MoveIt — full support for standard robotics frameworks
+- PyTorch, ONNX compatibility — seamless integration with ML workflows
+- CUDA-to-ROCm migration — AMD claims 75% average CUDA code preservation when converting to HIP
+This open approach directly targets developers frustrated by NVIDIA's closed ecosystem and vendor lock-in. For robot builders who want flexibility in model selection and deployment targets, AMD's platform offers an alternative path.
+Robotics Partner Network and Early Customers
+AMD also announced the AMD Robotics Partner Network, an ecosystem program bringing together ODMs, ISVs, simulation providers, sensor companies, and system integrators. The program is free to join with no licensing fees, and partners progress through tiers by publishing validated AMD-platform solutions.
+Early customers include Castec International (semiconductor fab AMRs) and humanoid developer Foundation Robotics, which is migrating from Intel and NVIDIA to AMD X100 plus future FPGA-based hand control.
+Availability and Timeline
+- Kria AI SOMs — available from ODM partners starting Q4 2026
+- Kria AI Robotics Developer Platform — currently sampling with early access customers, general availability in Q4 2026
+- CUDA-to-ROCm migration tools — available now through AMD ROCm ecosystem
+What This Means for the Robotics Industry
+AMD's entry into robotics compute is significant for several reasons. First, it introduces genuine competition to NVIDIA's near-monopoly in edge AI for robotics, which should drive innovation and put downward pressure on pricing. Second, AMD's FPGA heritage — unique among the major AI chip players — gives it a natural advantage in real-time control and sensor integration, critical for physical AI.
+Perhaps most importantly, the unified CPU+GPU+NPU+FPGA architecture represents what next-generation robot brains will look like: not just AI accelerators, but complete heterogeneous compute platforms that handle everything from low-level motor control to high-level VLA reasoning — all on one module.

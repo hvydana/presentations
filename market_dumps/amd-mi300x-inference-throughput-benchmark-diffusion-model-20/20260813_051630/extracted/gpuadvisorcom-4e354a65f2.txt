@@ -1,0 +1,42 @@
+MLPerf Inference v4.1 Results: What the Public Benchmarks Actually Tell You
+A plain-English analysis of the MLPerf Inference v4.1 public results — what H100, A100, L40S, and MI300X actually scored, what the numbers mean for real workloads, and where the gaps are.
+MLPerf is the closest thing the AI hardware industry has to a standardized benchmark. Run by MLCommons, it defines specific workloads, datasets, and measurement rules, then publishes results from participating organizations. Unlike vendor-provided numbers, MLPerf results are reproducible and comparable across hardware.
+The problem: the results are published in a format that requires significant effort to parse. This post translates the MLPerf Inference v4.1 data center results (public, available at mlcommons.org) into plain-English takeaways for infrastructure decision-makers.
+What MLPerf Measures
+MLPerf Inference v4.1 covers eight workloads across two scenarios (Offline and Server). The workloads relevant to most AI teams in 2026:
+- Llama 2 70B: LLM text generation — the most relevant workload for teams running large language models. Measures tokens per second in offline (throughput) and server (latency-constrained) modes.
+- Stable Diffusion XL: Image generation — samples per second.
+- ResNet-50: Classic image classification — less relevant for modern AI but useful for understanding raw inference throughput.
+- BERT-99: NLP question answering — relevant for text understanding workloads.
+- GPT-J 6B: Smaller LLM generation — relevant for teams not yet running 70B+ models.
+H100 SXM5 Results: What It Actually Delivers
+The NVIDIA H100 SXM5 submissions from multiple organizations (NVIDIA, Dell, HPE) show consistent performance on the Llama 2 70B Offline scenario: approximately 750–820 tokens/second per GPU at FP8 precision, and approximately 420–480 tokens/second at FP16.
+To put this in context: serving a Llama 2 70B model to 100 concurrent users at an average generation speed of 30 tokens/second requires about 4 H100 SXM5 GPUs. At CoreWeave's rate of $4.76/GPU/hr, that is $19.04/hr to serve 100 users continuously — or approximately $0.19 per user-hour, excluding the model weight overhead.
+The H100 PCIe variant scores 580–640 tokens/second on the same workload — about 20% lower than SXM5, consistent with the lower memory bandwidth (2,000 GB/s vs 3,350 GB/s). For inference-only workloads where you do not need NVLink, PCIe variants offer better $/throughput at some providers.
+AMD MI300X: The Strong Showing You May Have Missed
+AMD submitted MI300X results for the first time in a major MLPerf Inference round in 2024, and the numbers were a wake-up call for anyone still dismissing AMD as a training-only play.
+On Llama 2 70B Offline, the MI300X scored 890–940 tokens/second — outperforming the H100 SXM5 by 8–15%. The reason is simple: the MI300X has 192GB of HBM3 versus H100's 80GB, enabling the entire 70B model to fit in a single GPU's memory without any model parallelism overhead. The H100 at 80GB requires careful KV cache management and quantization to serve large models efficiently; the MI300X removes that constraint entirely.
+This is a genuine, reproducible advantage for large-model inference. If your primary workload is serving 70B+ parameter models, the MI300X deserves serious evaluation — even if your training stack runs on CUDA.
+L40S: The Inference Specialist
+The L40S (Ada Lovelace, 48GB GDDR6) shows up well in the MLPerf results for smaller models. On GPT-J 6B, the L40S scores 640–700 tokens/second — roughly equal to an A100 SXM4 despite being a lower-power (350W vs 400W) card. On Stable Diffusion XL, the L40S leads all submissions not running on B200/H200 hardware.
+The L40S case: if you are running models that fit comfortably within 48GB, the L40S offers better $/throughput than H100 for inference-only workloads. CoreWeave's L40S at $1.50/GPU/hr versus H100 at $4.76/GPU/hr — the H100 needs to deliver 3.2× the throughput to justify the price difference. On GPT-J 6B, it does not.
+A100: Still Relevant in 2026?
+A100 SXM4 results on MLPerf Inference v4.1 show approximately 400–440 tokens/second on Llama 2 70B Offline — about half the H100 SXM5 throughput, at roughly half the price on most providers ($1.79–2.21/GPU/hr versus $4.76/GPU/hr). The ratio is close enough that for cost-sensitive inference workloads, A100 remains a reasonable choice.
+The cases where A100 falls short: any workload that benefits from FP8 precision (A100 does not support FP8 natively), and any workload requiring more than 80GB per GPU.
+What MLPerf Does Not Measure
+MLPerf is a best-case benchmark. Submissions represent the optimal configuration of a specific system, often with custom software tuning that takes weeks to develop. Real-world deployments typically see 60–80% of MLPerf throughput due to:
+- Batch size constraints from latency requirements
+- Dynamic request patterns (real traffic is bursty, not steady-state)
+- Software stack overhead (Triton, Ray Serve, vLLM all add latency)
+- Multi-tenant environments where GPU memory is shared
+MLPerf numbers are useful for relative comparisons and directional guidance. They are not what your production system will achieve on day one.
+The Practical Takeaways
+For teams making GPU decisions based on MLPerf v4.1:
+- For 70B+ parameter inference: MI300X and H100 are close, with MI300X having a meaningful advantage due to memory capacity. Test both.
+- For models under 48B parameters: L40S offers the best $/throughput if you can fit within 48GB. For larger models, H100 or MI300X.
+- For training + inference on the same hardware: H100/H200 remain the most versatile choice — strong on both MLPerf training and inference, mature software stack.
+- A100 is not dead: At current cloud pricing, A100 still offers competitive $/throughput for medium-sized models.
+Use the GPU Comparator to run spec comparisons across any of these systems, or see our cloud pricing table for current $/hr across providers to build your own $/throughput model.
+Full MLPerf Inference v4.1 results are publicly available at mlcommons.org.
+Try Our GPU Tools
+Compare GPUs, calculate TCO, and get AI-powered recommendations.

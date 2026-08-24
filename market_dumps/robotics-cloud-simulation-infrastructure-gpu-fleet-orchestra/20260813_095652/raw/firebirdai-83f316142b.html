@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-6TWXW1FJZ9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-6TWXW1FJZ9');
+  </script>
+  <title>Firebird — Infrastructure Built for AI at Scale</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=202607251500" />
+</head>
+<body class="dc">
+
+  <!-- Announcement bar (Figma: Alert Banners) — full-bleed gradient strip above the header -->
+  <div class="alert-banner" id="alertBanner">
+    <div class="alert-banner-inner">
+      <p class="alert-banner-text">DC-1 opening in August 2026</p>
+      <a class="alert-banner-btn" href="data-centers.html#fleet">Learn More</a>
+    </div>
+  </div>
+
+  <!-- Floating header: light on landing, black once scrolled -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <div class="header-left">
+        <a class="logo" href="index.html"><img src="assets/logo-header.svg" alt="Firebird" /></a>
+        <nav class="nav-menu">
+          <div class="nav-item">
+            <a class="nav-link" href="#">Infrastructure <img class="chev" src="assets/icon-chevron-down.svg" alt="" /></a>
+            <div class="dropdown dropdown-mega">
+              <div class="dropdown-panel mega-panel">
+                <div class="mega-list">
+              <a class="mega-item active" data-preview="dc" href="data-centers.html">
+                <span class="mega-label">Data Centers</span>
+                <span class="mega-desc">AI factories, built for the frontier.</span>
+              </a>
+              <a class="mega-item" data-preview="gpu" href="gpu-fleet.html">
+                <span class="mega-label">GPU Fleet</span>
+                <span class="mega-desc">NVIDIA reference architecture.</span>
+              </a>
+                </div>
+                <div class="mega-preview">
+              <div class="preview-pane active" data-pane="dc">
+                <div class="dc-grid">
+                  <div class="dc-block b1"><img src="assets/mega-dc-1.jpg?v=202607241030" alt="DC-1 · Hrazdan" /></div>
+                  <div class="dc-block b2"><img src="assets/mega-dc-2.png" alt="DC-2" /></div>
+                  <div class="dc-block b3"><img src="assets/mega-dc-3.png" alt="DC-3" /></div>
+                </div>
+              </div>
+              <div class="preview-pane" data-pane="gpu">
+                <div class="gpu-chip">
+                  <div class="gpu-die"><span class="gpu-core-grid" aria-hidden="true"></span></div>
+                </div>
+              </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">Products <img class="chev" src="assets/icon-chevron-down.svg" alt="" /></a>
+            <div class="dropdown dropdown-mega">
+              <div class="dropdown-panel mega-panel">
+                <div class="mega-list">
+              <a class="mega-item active" data-preview="prov" href="provisioning-api.html">
+                <span class="mega-label">Control Plane API</span>
+                <span class="mega-desc">Provisioning, fabric, and observability. One API.</span>
+              </a>
+              <a class="mega-item" data-preview="cloud" href="firebird-cloud.html">
+                <span class="mega-label">Firebird Cloud</span>
+                <span class="mega-desc">Multi-tenant GPU cloud.</span>
+              </a>
+                </div>
+                <div class="mega-preview">
+              <div class="preview-pane active" data-pane="prov">
+                <div class="mock-terminal terminal-anim">
+                  <div class="mock-dots"><i></i><i></i><i></i></div>
+                  <pre><span class="tline" style="--i:0"><span class="tk">$</span> curl -X POST /v1/instances \</span>
+<span class="tline" style="--i:1">  -d '{ <span class="ts">"gpu":"B200"</span>, <span class="ts">"count":8</span> }'</span>
+<span class="tline" style="--i:2"> </span>
+<span class="tline" style="--i:3"><span class="tg">✓</span> <span class="ts">201 Created</span></span>
+<span class="tline" style="--i:4"><span class="tc">instance: fb-b200-8x-0a3f</span></span>
+<span class="tline" style="--i:5"><span class="tc">provisioned in 42s</span></span></pre>
+                  <span class="terminal-cursor"></span>
+                </div>
+              </div>
+              <div class="preview-pane" data-pane="cloud"><img class="cover" src="assets/hero-wave.png" alt="" /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="nav-item">
+            <a class="nav-link" href="#">Company <img class="chev" src="assets/icon-chevron-down.svg" alt="" /></a>
+            <div class="dropdown dropdown-company">
+              <div class="dropdown-panel">
+                <div class="dropdown-columns">
+                  <div class="dropdown-col wide">
+                    <a class="menu-item" href="about.html"><span class="menu-text"><span class="menu-label">About</span></span></a>
+                    <a class="menu-item" href="compliance.html"><span class="menu-text"><span class="menu-label">Compliance &amp; Export</span></span></a>
+                    <a class="menu-item" href="careers.html"><span class="menu-text"><span class="menu-label">Careers</span></span></a>
+                    <a class="menu-item" href="contact-press.html"><span class="menu-text"><span class="menu-label">Contact &amp; Press</span></span></a>
+                  </div>
+                  <div class="dropdown-sep"></div>
+                  <div class="dropdown-col">
+                    <p class="dropdown-caption">Programs</p>
+                    <a class="menu-item" href="firebird-labs.html"><span class="menu-text"><span class="menu-label">Firebird Labs</span></span></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="header-right">
+        <div class="nav-item">
+          <a class="nav-link" href="#">Resources <img class="chev" src="assets/icon-chevron-down.svg" alt="" /></a>
+          <div class="dropdown dropdown-resources">
+            <div class="dropdown-panel">
+              <div class="dropdown-columns">
+                <div class="dropdown-col">
+                  <a class="menu-item" href="newsroom.html"><span class="menu-text"><span class="menu-label">Newsroom</span></span></a>
+                  <a class="menu-item" href="legal/privacy-policy/"><span class="menu-text"><span class="menu-label">Documentation</span></span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="btn btn-sm btn-primary" href="contact-press.html">Contact Sales</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Landing screen: hero + specs fill the first viewport; specs pinned to the bottom -->
+    <div class="landing">
+    <!-- ============ HERO ============ -->
+    <section class="hero hero-light">
+      <div class="hero-light-inner">
+        <h1 class="hero-title">
+          <span class="hero-line"><span>Infrastructure Built</span></span>
+          <span class="hero-line"><span>for <span class="accent word-rotator" id="wordRotator"><span class="word">AI at Scale.</span><span class="word">Training.</span><span class="word">Inference.</span></span></span></span>
+        </h1>
+        <div class="hero-lower">
+          <p class="hero-sub">Our infrastructure strategy is anchored in clean, reliable power, including Armenia&rsquo;s hydro and nuclear generation, building solar capacity and storage technology, and a transition toward sustainable and renewable energy sources as we expand across other frontier markets.</p>
+          <div class="hero-actions-center" data-reveal data-reveal-delay="260">
+            <a class="pill pill-dark" href="contact-press.html#request">Request Bare Metal</a>
+            <a class="pill pill-outline" href="firebird-cloud.html#waitlist">Join Cloud Waitlist</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BY THE NUMBERS ============ -->
+    <section class="dc-specs">
+      <div class="dc-spec" data-reveal>
+        <p class="dc-spec-value"><span class="num" data-count="3" data-count-dur="1800" data-count-delay="0">3</span><span class="unit">X</span></p>
+        <p class="dc-spec-label">Purpose-built DCs</p>
+      </div>
+      <div class="dc-spec" data-reveal data-reveal-delay="90">
+        <p class="dc-spec-value"><span class="num" data-count="150" data-suffix="K" data-count-dur="2000" data-count-delay="120">150K</span><span class="unit">GPUs</span></p>
+        <p class="dc-spec-label">NVIDIA reference architecture</p>
+      </div>
+      <div class="dc-spec" data-reveal data-reveal-delay="180">
+        <p class="dc-spec-value"><span class="num" data-count="400" data-count-dur="2200" data-count-delay="240">400</span><span class="unit">MW</span></p>
+        <p class="dc-spec-label">Total Capacity</p>
+      </div>
+      <div class="dc-spec" data-reveal data-reveal-delay="270">
+        <p class="dc-spec-value"><span class="num" data-count="5" data-count-dur="1800" data-count-delay="360">5</span><span class="unit">TiB/s+</span></p>
+        <p class="dc-spec-label">Interconnect bandwidth</p>
+      </div>
+    </section>
+    </div><!-- /.landing -->
+
+    <!-- ============ FLAGSHIP — intro copy, then clean takeover ============ -->
+    <section class="dc-flagship-intro" id="fleet">
+      <div class="container dc-statement-wrap">
+        <p class="caption dc-statement-eyebrow"><span class="dc-eyebrow-dot" aria-hidden="true"></span>Meet the Flagship AI Factory</p>
+        <p class="dc-statement" id="dcStatement">Firebird's first AI Factory in Armenia anchors a global platform built to scale across emerging markets. It connects AI ecosystems worldwide with low-latency, high-bandwidth access, engineered for extreme power density, full redundancy, and fault tolerance.</p>
+      </div>
+    </section>
+    <section class="dc-flagship">
+      <div class="dc-flagship-sticky">
+        <div class="dc-flagship-frame">
+          <img class="dc-flagship-video" src="assets/dc-flagship-wide.jpg" alt="Firebird AI factory in the Armenian highlands" />
+          <div class="dc-flagship-mask" aria-hidden="true">
+            <img class="dc-flagship-maskimg" src="assets/dc-flagship-wide.jpg" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PARTNERS ============ -->
+
+    <!-- ============ THE PLATFORM ============ -->
+    <section class="careers-legal section">
+      <div class="container careers-legal-grid">
+        <div class="careers-legal-head" data-reveal>
+          <p class="caption">The Platform</p>
+          <h2>Where the future of AI takes flight</h2>
+          <p class="careers-legal-sub">A globally connected AI platform, pairing latest-generation NVIDIA compute with resilient facilities and low-latency links to major AI hubs, built to scale across emerging markets.</p>
+        </div>
+        <div class="accordion" data-reveal data-reveal-delay="120">
+          <div class="accordion-item open" data-accordion>
+            <button class="accordion-head" type="button">
+              <span class="accordion-title">Latest-Generation NVIDIA Architecture</span>
+              <img class="accordion-icon" src="assets/icon-plus.svg" alt="" />
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Every Firebird site deploys the newest NVIDIA platforms, from Blackwell today to Rubin and beyond, so customers in every market build on current-generation compute.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" data-accordion>
+            <button class="accordion-head" type="button">
+              <span class="accordion-title">Resilient Facility Design</span>
+              <img class="accordion-icon" src="assets/icon-plus.svg" alt="" />
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>Purpose-built facilities engineered for resilience: redundant power, high-density liquid cooling, and 24/7 operations designed for continuous AI workloads.</p>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item" data-accordion>
+            <button class="accordion-head" type="button">
+              <span class="accordion-title">Global AI Connectivity</span>
+              <img class="accordion-icon" src="assets/icon-plus.svg" alt="" />
+            </button>
+            <div class="accordion-body">
+              <div class="accordion-body-inner">
+                <p>A low-latency global network connecting Firebird facilities to major AI hubs, enabling seamless access for customers anywhere in the world.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="dc-foundation section">
+      <div class="container dc-foundation-inner">
+        <div class="dc-foundation-head" data-reveal>
+          <p class="caption">Partners and Vendors</p>
+          <h2>Built on a proven foundation</h2>
+          <p class="dc-foundation-sub">Firebird is built with the same vendors that power the world's largest AI deployments.</p>
+        </div>
+        <div class="partners-logos" data-reveal data-reveal-delay="120">
+          <img src="assets/partner-nvidia.svg" alt="NVIDIA" style="width:146px" />
+          <img src="assets/partner-dell.svg" alt="Dell Technologies" style="width:78px" />
+          <img src="assets/partner-schneider.svg" alt="Schneider Electric" style="width:200px" />
+          <img src="assets/partner-vertiv.svg" alt="Vertiv" style="width:199px" />
+        </div>
+      </div>
+      <div class="partners-glow"></div>
+    </section>
+
+    <!-- ============ MORE THAN INFRASTRUCTURE (tabs) ============ -->
+    <section class="infra section">
+      <div class="headlines" data-reveal>
+        <p class="caption">Ecosystem</p>
+        <h2>More than infrastructure</h2>
+        <p>Ecosystem to accelerate your path from research to production</p>
+      </div>
+      <div class="infra-stage" data-reveal>
+        <div class="infra-scene" id="infraScene"></div>
+        <!-- Layer dots: one discrete hover/click target per layer (from Figma).
+             The isometric regions overlap, so these markers give each layer a
+             clean activation point. Positioned in the scene's coordinate space. -->
+        <div class="infra-dots" id="infraDots">
+          <!-- Leader lines (Figma): double-headed connector through each dot to its layer; shown for the active layer only -->
+          <span class="infra-dot-line" data-line="ai-services" aria-hidden="true"></span>
+          <span class="infra-dot-line" data-line="platform-services" aria-hidden="true"></span>
+          <span class="infra-dot-line" data-line="core-infrastructure" aria-hidden="true"></span>
+          <span class="infra-dot-line" data-line="data-centers" aria-hidden="true"></span>
+          <span class="infra-dot-line" data-line="fleet-operations" aria-hidden="true"></span>
+          <button type="button" class="infra-dot" data-dot="ai-services" aria-label="Highlight AI Services layer"></button>
+          <button type="button" class="infra-dot" data-dot="platform-services" aria-label="Highlight Platform Services layer"></button>
+          <button type="button" class="infra-dot" data-dot="core-infrastructure" aria-label="Highlight Core Infrastructure layer"></button>
+          <button type="button" class="infra-dot" data-dot="data-centers" aria-label="Highlight Data Centers layer"></button>
+          <button type="button" class="infra-dot" data-dot="fleet-operations" aria-label="Highlight Control Plane layer"></button>
+        </div>
+        <!-- Section data. Desktop (>=1440px): absolutely positioned callouts that
+             fade in on dot hover. Tablet/mobile (<1440px): this becomes a
+             horizontal scroll-snap strip below the illustration (see .infra-scroller
+             in styles.css); the centered card highlights its layer in the scene. -->
+        <div class="infra-scroller" id="infraScroller">
+        <div class="infra-callout" data-callout="fleet-operations" data-side="left">
+          <img class="infra-callout-arrow" src="assets/infra-callout-arrow.svg" alt="" />
+          <div class="infra-callout-head">
+            <h5>Control Plane</h5>
+            <p>Manage the full bare-metal lifecycle, from first provision to automated remediation, through one API built for GPU fleets.</p>
+          </div>
+          <div class="infra-callout-list">
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Provisioning API</p>
+              <p class="infra-acc-body">Create, scale, and power-manage bare-metal instances over one API.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Network Fabric API</p>
+              <p class="infra-acc-body">Automated network fabric orchestration with declarative, hardware-isolated multi-tenant L2/L3 networking, private networks, and movable IPs.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Observability</p>
+              <p class="infra-acc-body">Fleet-wide observability from silicon to service mesh, with unified telemetry, metrics, and automated breakfix.</p>
+            </div>
+          </div>
+        </div>
+        <div class="infra-callout" data-callout="data-centers" data-side="right">
+          <img class="infra-callout-arrow" src="assets/infra-callout-arrow.svg" alt="" />
+          <div class="infra-callout-head">
+            <h5>Data Centers</h5>
+            <p>A growing network of purpose-built, liquid-cooled AI factories, scaling to 150,000 GPUs for large-scale AI training and inference.</p>
+          </div>
+          <div class="infra-callout-list">
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />DC-1</p>
+              <p class="infra-acc-body">Our flagship AI factory in Armenia, powered by 6,144 NVIDIA B200 GPUs across 15 MW.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />DC-2</p>
+              <p class="infra-acc-body">Phase 2 expansion in Armenia: 75,000 NVIDIA VR200 GPUs across 125 MW.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />DC-3</p>
+              <p class="infra-acc-body">A planned 75,000-GPU NVIDIA VR200 site across 125 MW.</p>
+            </div>
+          </div>
+        </div>
+        <div class="infra-callout" data-callout="core-infrastructure" data-side="left">
+          <img class="infra-callout-arrow" src="assets/infra-callout-arrow.svg" alt="" />
+          <div class="infra-callout-head">
+            <h5>Core Infrastructure</h5>
+            <p>A high-throughput, low-latency backbone purpose-built for AI and High Performance Computing workloads. Bare-metal performance with cloud-grade manageability.</p>
+          </div>
+          <div class="infra-callout-list">
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Compute</p>
+              <p class="infra-acc-body">A liquid-cooled fleet of NVIDIA B200 GPUs today, with next-generation VR200 next &mdash; built on the NVIDIA reference architecture for large-scale AI and HPC.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Storage</p>
+              <p class="infra-acc-body">High-performance parallel storage &mdash; block, NFS, and shared file systems tuned to keep thousands of GPUs saturated.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Networking</p>
+              <p class="infra-acc-body">A non-blocking fabric &mdash; InfiniBand east-west, Ethernet north-south &mdash; programmable through an SDN API for intent-based L2/L3 orchestration, with a BlueField-3 DPU on every node for line-rate isolation.</p>
+            </div>
+          </div>
+        </div>
+        <div class="infra-callout" data-callout="platform-services" data-side="right">
+          <img class="infra-callout-arrow" src="assets/infra-callout-arrow.svg" alt="" />
+          <div class="infra-callout-head">
+            <h5>Platform Services</h5>
+            <p>Flexible workload orchestration with Kubernetes, Slurm, and managed inference endpoints.</p>
+          </div>
+          <div class="infra-callout-list">
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Kubernetes</p>
+              <p class="infra-acc-body">Managed Kubernetes for containerized AI workloads with GPU-aware scheduling and autoscaling for production-ready clusters.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Slurm</p>
+              <p class="infra-acc-body">Batch scheduling for large-scale AI training with multi-node job orchestration across thousands of GPUs using familiar HPC workflows.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Inference</p>
+              <p class="infra-acc-body">Managed inference endpoints for open-weight and foundation models with high-throughput, low-latency serving on shared or dedicated compute.</p>
+            </div>
+          </div>
+        </div>
+        <div class="infra-callout" data-callout="ai-services" data-side="left">
+          <img class="infra-callout-arrow" src="assets/infra-callout-arrow.svg" alt="" />
+          <div class="infra-callout-head">
+            <h5>AI Services</h5>
+            <p>Managed cloud and inference on sovereign infrastructure, from private and public cloud environments to high-throughput model endpoints.</p>
+          </div>
+          <div class="infra-callout-list">
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Firebird Cloud</p>
+              <p class="infra-acc-body">Multi-tenant GPU cloud powered by Firebird AI factories with on-demand NVIDIA Blackwell GPUs.</p>
+            </div>
+            <div class="infra-acc">
+              <p class="infra-acc-head"><img src="assets/icon-chevron-right.svg" alt="" />Managed Inference</p>
+              <p class="infra-acc-body">Managed inference endpoints for leading open-weight and foundation models with high-throughput APIs and no infrastructure to manage.</p>
+            </div>
+          </div>
+        </div>
+        </div><!-- /.infra-scroller -->
+      </div>
+    </section>
+
+    <!-- ============ MILESTONES ============ -->
+    <section class="milestones section">
+      <div class="headlines" data-reveal>
+        <p class="caption">Newsroom</p>
+        <h2>Explore the latest</h2>
+        <p>Track our progress as we build Armenia's 15 MW AI infrastructure</p>
+      </div>
+      <div class="cards-track" id="cardsTrack" data-reveal>
+        <!-- ADMIN:NEWS_CAROUSEL:START -->
+        <article class="news-card">
+          <div class="news-media"><img src="assets/uploads/hyk-1643-jpg-1786184807869-1786547900322.jpg" alt="" /></div>
+          <h6 class="news-headline">Firebird Opens the Region’s Largest AI Factory and Announces Global Expansion</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-firebird-small.svg" alt="Firebird" style="width:97px;height:20px" />
+            <a class="link-read" href="news-firebird-grand-opening.html">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/site-tour-facility-1.jpg" alt="" /></div>
+          <h6 class="news-headline">Firebird’s AI Megaproject Enters Final Stage of Phase One Construction</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-firebird-small.svg" alt="Firebird" style="width:97px;height:20px" />
+            <a class="link-read" href="news-megaproject.html">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/openai.jpg" alt="" /></div>
+          <h6 class="news-headline">Firebird, OpenAI, and Armenia’s Ministry of Education Partner to Bring AI Access to 50,000 Students and Launch Firebird Labs</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-openai.svg" alt="OpenAI" style="width:51px;height:18px" />
+            <a class="link-read" href="news-openai.html">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-usgov.jpg" alt="" /></div>
+          <h6 class="news-headline">Firebird and U.S. Government Announce Phase 2 of Armenia AI Megaproject, Scaling it to $4 Billion and 50,000 GPU in 2026</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-firebird-small.svg" alt="Firebird" style="width:97px;height:20px" />
+            <a class="link-read" href="news-phase2.html">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-bloomberg.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">AI Startup Firebird Gets US Approval to Use Nvidia Chips in Armenian Data Center</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-bloomberg.svg" alt="Bloomberg" style="width:107px;height:22px" />
+            <a class="link-read" href="https://www.bloomberg.com/news/articles/2025-11-19/ai-startup-firebird-gets-us-approval-to-use-nvidia-chips-in-armenian-data-center" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/dc-flagship-wide.jpg" alt="" /></div>
+          <h6 class="news-headline">Firebird Secures U.S. Export License and Announces Dell as a Partner, Setting Major Milestones in Armenia’s AI Future</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/AP-Logo.png" alt="AP News" style="width:50px;height:20px" />
+            <a class="link-read" href="https://apnews.com/press-release/ein-presswire-newsmatics/firebird-secures-u-s-export-license-and-announces-dell-as-a-partner-setting-major-milestones-in-armenias-ai-future-65532fb8da343cba2262d17ea9821cdd" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-dell-card.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">Firebird, Inc. Secures U.S. Export License and Announces Dell Technologies as a Partner, Marking Major Milestones in Armenia’s AI Future</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-firebird-small.svg" alt="Firebird" style="width:97px;height:20px" />
+            <a class="link-read" href="news-dell.html">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-gtc-paris.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">Firebird Announces Strategic Collaboration with the Government of Armenia and NVIDIA to Build a Next-Generation AI Cloud to Ignite Regional Innovation</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-prnewswire.svg" alt="PR Newswire" style="width:152px;height:18px" />
+            <a class="link-read" href="https://www.prnewswire.com/news-releases/firebird-announces-strategic-collaboration-with-the-government-of-armenia-and-nvidia-to-build-a-next-generation-ai-cloud-to-ignite-regional-innovation-302479313.html" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-cnbc-europe.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">Nvidia makes big play for Europe with infrastructure deals</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-cnbc.svg" alt="CNBC" style="width:55px;height:18px" />
+            <a class="link-read" href="https://www.cnbc.com/2025/06/11/nvidia-gtc-paris-2025-ai-giant-makes-big-play-for-europe.html" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-dgx-lepton.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">NVIDIA DGX Cloud Lepton Connects Europe’s Developers to Global NVIDIA Compute Ecosystem</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-nvidia.svg" alt="NVIDIA" style="width:93px;height:18px" />
+            <a class="link-read" href="https://nvidianews.nvidia.com/news/nvidia-dgx-cloud-lepton-connects-europes-developers-to-global-nvidia-compute-ecosystem" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-media"><img src="assets/news-x-quote.jpg?v=202607232345" alt="" /></div>
+          <h6 class="news-headline">“AI factories are the infrastructure of the 21st century. Our collaboration with Armenia will help build foundational AI capacity and unlock new opportunities for innovation and economic growth across the region.”</h6>
+          <div class="news-footer">
+            <img class="news-source" src="assets/logo-x-nvidia.svg" alt="NVIDIA Newsroom on X" style="width:98px;height:18px" />
+            <a class="link-read" href="https://x.com/nvidianewsroom/status/1932834758238539840" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+        <!-- ADMIN:NEWS_CAROUSEL:END -->
+      </div>
+      <div class="milestones-bar container" data-reveal>
+        <div class="stay-loop">
+          <h6>Stay in the Loop</h6>
+          <div class="socials">
+            <a href="https://x.com/FirebirdCloudAI" target="_blank" rel="noopener" aria-label="Firebird on X"><img src="assets/icon-x.svg" alt="X" /></a>
+            <a href="https://www.linkedin.com/company/fire-bird-ai" target="_blank" rel="noopener" aria-label="Firebird on LinkedIn"><img src="assets/icon-linkedin.svg" alt="LinkedIn" /></a>
+          </div>
+        </div>
+        <div class="carousel-nav">
+          <button class="nav-arrow prev" id="carouselPrev" aria-label="Previous"></button>
+          <button class="nav-arrow next" id="carouselNext" aria-label="Next"></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECURE YOUR SPOT ============ -->
+    <section class="secure section">
+      <div class="headlines dark-headlines" data-reveal>
+        <h2>Secure Your Spot</h2>
+        <p>Secure early access to on-demand GPU compute or dedicated servers designed to scale.</p>
+      </div>
+      <div class="secure-cards" data-reveal>
+        <div class="secure-card">
+          <div class="secure-card-top">
+            <h4>On-Demand Compute for AI Workloads</h4>
+            <p>Elastic, high-performance cloud GPU platform</p>
+          </div>
+          <div class="secure-card-line"></div>
+          <div class="secure-card-bottom">
+            <p>Access NVIDIA AI-accelerated GPU resources through a consumption-based model. Train and deploy your models without the burden of managing your own NVIDIA GPUs and associated infrastructure costs.</p>
+            <a class="btn btn-lg btn-white" href="firebird-cloud.html#waitlist">Join Cloud Waitlist</a>
+          </div>
+        </div>
+        <div class="secure-card">
+          <div class="secure-card-top">
+            <h4>Dedicated GPU Servers for Maximum Performance</h4>
+            <p>Reserve early access to physical GPU infrastructure.</p>
+          </div>
+          <div class="secure-card-line"></div>
+          <div class="secure-card-bottom">
+            <p>Get full control over your compute with single-tenant bare metal deployments. Ideal for high-throughput AI, inference at scale, or latency-sensitive enterprise workloads.</p>
+            <a class="btn btn-lg btn-white" href="contact-press.html#request">Request Bare Metal</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ GLOBALLY CONNECTED ============ -->
+    <section class="global section about-global">
+      <div class="container global-grid">
+        <div class="global-left" data-reveal>
+          <img class="global-glyph" src="assets/glyph-gradient.svg" alt="" />
+          <h2>Globally<br />Connected</h2>
+          <p>Next-generation infrastructure with global connectivity</p>
+        </div>
+        <div class="global-right">
+          <div class="global-block" data-reveal>
+            <h4>Starting in Armenia</h4>
+            <p>AI vehicle for Armenia to serve its domestic AI compute demand, and open up 90% of the compute to US companies in the region.</p>
+          </div>
+          <div class="global-block" data-reveal data-reveal-delay="120">
+            <h4>To the region</h4>
+            <ul>
+              <li>Lead the Caucasus in GPU compute (Phase 1)</li>
+              <li>One of largest AI supercomputer in Europe (Phase 2)</li>
+              <li>Become preferred compute partner for regional labs</li>
+            </ul>
+          </div>
+          <div class="global-block" data-reveal data-reveal-delay="240">
+            <h4>To the world</h4>
+            <ul>
+              <li>Bring AI compute to emerging markets globally</li>
+              <li>Compete with hyperscalers on performance</li>
+              <li>Develop proprietary IP by and for emerging markets</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      <div class="footer-top">
+        <form class="subscribe" id="subscribeForm">
+          <p class="subscribe-title">Subscribe to News</p>
+          <div class="field">
+            <label for="subName">Full name</label>
+            <input id="subName" type="text" placeholder="Enter full name" />
+          </div>
+          <div class="field">
+            <label for="subEmail">Email</label>
+            <input id="subEmail" type="email" placeholder="Enter email" />
+          </div>
+          <label class="consent">
+            <input type="checkbox" id="subConsent" />
+            <span>You agree to receive marketing communications from Firebird, subject to the <a href="legal/privacy-policy/">Privacy Policy.</a></span>
+          </label>
+          <button class="btn btn-sm btn-primary" type="submit" id="subscribeBtn" disabled>Subscribe</button>
+        </form>
+        <div class="footer-cols">
+          <div class="footer-col">
+            <p class="footer-col-title">Infrastructure</p>
+            <a href="data-centers.html">Data Centers</a>
+            <a href="gpu-fleet.html">GPU Fleet</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Product</p>
+            <a href="provisioning-api.html">Control Plane API</a>
+            <a href="firebird-cloud.html">Firebird Cloud</a>
+            <a href="#">Managed Inference</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Company</p>
+            <a href="about.html">About</a>
+            <a href="compliance.html">Compliance &amp; Export Authorization</a>
+            <a href="careers.html">Careers</a>
+            <a href="contact-press.html">Contact &amp; Press</a>
+            <a href="firebird-labs.html">Firebird Labs</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Resources</p>
+            <a href="newsroom.html">Newsroom</a>
+            <a href="legal/privacy-policy/">Documentation</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-meta">
+        <div class="footer-meta-left">
+          <div class="meta-block">
+            <p class="meta-label">Head Offices</p>
+            <p class="meta-value">Yerevan, Armenia and San Francisco, USA</p>
+          </div>
+          <div class="meta-block">
+            <p class="meta-label">Contact</p>
+            <p class="meta-value"><a class="meta-link" href="/cdn-cgi/l/email-protection#b8d0ddd4d4d7f8ded1cadddad1cadc96d9d1"><span class="__cf_email__" data-cfemail="3d55585151527d5b544f585f544f59135c54">[email&#160;protected]</span></a></p>
+          </div>
+          <div class="socials small">
+            <a href="https://x.com/FirebirdCloudAI" target="_blank" rel="noopener" aria-label="Firebird on X"><img src="assets/icon-x.svg" alt="X" /></a>
+            <a href="https://www.linkedin.com/company/fire-bird-ai" target="_blank" rel="noopener" aria-label="Firebird on LinkedIn"><img src="assets/icon-linkedin.svg" alt="LinkedIn" /></a>
+          </div>
+        </div>
+        <p class="copyright">Firebird.ai © 2026. All rights reserved.</p>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-wordmark" data-reveal>
+        <img src="assets/footer-wordmark-hq.png" alt="Firebird" />
+      </div>
+    </footer>
+  </main>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="script.js?v=202607251500"></script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"8bc016c655154203acbae60a4221bfc0","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

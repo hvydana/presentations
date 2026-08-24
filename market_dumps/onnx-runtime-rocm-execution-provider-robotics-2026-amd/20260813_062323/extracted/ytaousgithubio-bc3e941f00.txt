@@ -1,0 +1,33 @@
+ROCm Execution Provider
+The ROCm Execution Provider enables hardware accelerated computation on AMD ROCm-enabled GPUs.
+Contents
+Install
+Pre-built binaries of ONNX Runtime with ROCm EP are published for most language bindings. Please reference Install ORT.
+Requirements
+| ONNX Runtime | ROCm | 
+|---|---|
+| main | 5.2.3 | 
+| 1.12 | 5.2.3 | 
+| 1.12 | 5.2 | 
+Build
+For build instructions, please see the BUILD page.
+Usage
+C/C++
+Ort::Env env = Ort::Env{ORT_LOGGING_LEVEL_ERROR, "Default"};
+Ort::SessionOptions so;
+int device_id = 0;
+Ort::ThrowOnError(OrtSessionOptionsAppendExecutionProvider_ROCm(so, device_id));
+The C API details are here.
+Python
+Python APIs details are here.
+Performance Tuning
+For performance tuning, please see guidance on this page: ONNX Runtime Perf Tuning
+Samples
+Python
+import onnxruntime as ort
+model_path = '<path to model>'
+providers = [
+    'ROCmExecutionProvider',
+    'CPUExecutionProvider',
+]
+session = ort.InferenceSession(model_path, providers=providers)

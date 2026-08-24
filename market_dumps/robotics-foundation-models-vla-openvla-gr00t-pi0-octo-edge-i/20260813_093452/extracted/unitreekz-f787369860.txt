@@ -1,0 +1,56 @@
+Embodied AI — Why 2026 Became the Year of Humanoid Robots
+What Embodied AI is, why 2026 became a turning point for robotics, and how Unitree G1, H1, H2 fit into this shift. The connection between LLMs, VLA models, and physical robots.
+In short: Embodied AI is AI that lives not in a chat but in a physical body and interacts with the real world through sensors and motors. Just as ChatGPT "learned" language from billions of texts, new VLA (vision-language-action) models learn "to be in a body" from millions of recordings of real movements. 2026 is the turning point because three conditions converged: cheap enough hardware (Unitree G1), ready large models (OpenVLA, RT-2, Pi-zero, π0.5), and accessible datasets (Open X-Embodiment, RoboMIND).
+This article is for anyone who wants to understand why big money is flowing into robotics right now, what makes Embodied AI different from classical robotics, and where Kazakhstan stands in this trend.
+What Embodied AI is
+Embodied AI = AI + body + sensors + action. Unlike a chatbot whose input is text and output is text, Embodied AI takes multimodal input (image + audio + sensors) and outputs physical action (joint movement, locomotion, manipulation). This changes everything: the training task, the architecture, the data requirements.
+The core analogy: LLMs (ChatGPT) learned to speak by reading billions of pages. VLA models learn to "move" from millions of recordings of real robot actions. Scaling data + hardware + models drives fast progress — and we're watching that phase from 2023–2026.
+Three conditions that converged in 2026
+1. Affordable hardware
+Until 2024 humanoid robots were priced many times above the mass market (Boston Dynamics, Honda ASIMO, Pal Robotics). With the Unitree G1, the baseline became accessible for research teams worldwide. This created mass adoption, dataset volume, experiment velocity.
+2. Large VLA models
+OpenVLA, RT-2 from Google, Pi-zero and π0.5 from Physical Intelligence, GR00T from NVIDIA — all shipped in 2024–2025. These models generate robot actions directly from visual input and a text prompt ("pick up the cup and place it on the table"). Before this, every task required a custom program; now — a single prompt.
+3. Large datasets
+Open X-Embodiment (1M+ recordings from real robots), RoboMIND, the DROID project. These are the "books" for VLA models. More recordings, better generalization to new tasks. G1-D with VR teleoperation and Z1 are the main generators of new recordings in research labs.
+Where Unitree fits
+Unitree is the largest mass supplier of hardware for Embodied AI research in the world. G1, H1, H2 + Z1 + Dex5 = a full kit: humanoid with dexterous hands + data-collection platform + cobot. This gives a research team the "full Embodied AI stack" — from hardware to VR training. Alternatives (Tesla, Figure) are not yet openly accessible.
+Embodied AI use cases in 2026
+- Humanoid assembler at a car factory (Tesla, Figure × BMW).
+- Helper robot in the office and home (1X, Apptronik).
+- Humanoid promoter and showman (Unitree G1 in retail and events).
+- Researcher robot in a STEM lab (Unitree G1 EDU + Dex + Z1).
+- Reconnaissance humanoid in emergencies (Unitree B2 / A2 as a mobile base).
+- Robot for medical rehabilitation and care (early R&D).
+What this means for Kazakhstan
+Embodied AI in KZ is still at the pilot stage: STEM labs with G1, demo cases in HoReCa and industry, R&D in universities. The main opportunity now is to enter the learning curve early: gather competencies, in-house datasets, integration experience. In 2–3 years the cost of entry will rise, and the teams that started in 2026 will be first.
+humanoid
+Unitree G1
+Гуманоидный AI-аватар
+Baseline platform to enter Embodied AI: open SDK, VLA model support, MuJoCo / Isaac Sim.
+humanoid
+Unitree G1-D
+End-to-End платформа для гуманоидных роботов
+VR teleoperation data-collection platform — for training in-house VLA models.
+humanoid
+Unitree H1
+Первый универсальный гуманоид
+Flagship for serious R&D in Embodied AI: 360 N·m, up to 3× Jetson Orin NX.
+FAQ
+How is a VLA model different from a normal neural network?
+VLA (vision-language-action) takes multimodal input (image + text prompt) and outputs actions for the robot. It's a fusion of Vision Transformers, LLM, and motor controller in one model. Architecturally — a large Transformer with multiple "heads" for different modalities.
+Can OpenVLA run on Unitree G1?
+Yes. The community has published ready recipes for running OpenVLA and Pi-zero on G1 EDU via NVIDIA Jetson Orin. This is the standard path for research teams in 2026.
+How much data is needed to train a custom VLA?
+For a baseline task (e.g., specific manipulation) — 1,000–10,000 VR-teleop recordings. For a generalised model — millions. In practice teams start by fine-tuning open-source models (OpenVLA, Pi-zero) on their own 1,000–10,000 recordings.
+Is it hype or a real revolution?
+Real — but, like LLMs, overrated in the short term and underrated in the long term. Right now (2026) Embodied AI solves narrow tasks in controlled environments; a general universal home robot is the 2030+ horizon. But the base bet is placed.
+Where should a Kazakhstan team start?
+1) Buy G1 EDU + Dex3 or Dex5 + ideally Z1. 2) Set up the stack: ROS2 + MuJoCo + Isaac Sim. 3) Reproduce an open-source baseline (OpenVLA). 4) Start collecting in-house datasets for the target task. 5) Publish at IROS / ICRA / CoRL. This is the standard path of a modern Embodied AI lab.
+Источники
+- OpenVLA — open-source VLA — OpenVLA
+- Physical Intelligence (Pi-zero, π0.5) — Physical Intelligence
+- Open X-Embodiment — Google DeepMind
+- Unitree G1 — official — Unitree Robotics
+- Custom LLM solutions — Unitree.kz
+Получите расчёт под вашу задачу
+Цена зависит от конфигурации и комплектации. Инженер Alashed соберёт КП и предложит подходящую модель Unitree за 30 минут.

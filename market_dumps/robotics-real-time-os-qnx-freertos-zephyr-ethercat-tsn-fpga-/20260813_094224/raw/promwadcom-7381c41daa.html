@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="dns-prefetch" href="//code.jquery.com" />
+  <link rel="preconnect" href="//code.jquery.com" />
+  <link rel="dns-prefetch" href="//www.google-analytics.com" />
+  <link rel="preconnect" href="//www.google-analytics.com" />
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//stats.g.doubleclick.net" />
+  <link rel="preconnect" href="//stats.g.doubleclick.net" />
+  <link rel="dns-prefetch" href="//connect.facebook.net" />
+  <link rel="preconnect" href="//connect.facebook.net" />
+  <link rel="preconnect" href="https://widget.docsbot.ai">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="-L5AC_QN5fIxf4UGiP_Y0_8Q09_OJm_RsBEVVopvnp0" />
+  <meta name="msvalidate.01" content="E4440144B1C51C5DEE14BE203CCDBBCF" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="https://promwad.com/sites/default/files/favicon_0_0.ico" type="image/vnd.microsoft.icon" />
+<meta name="description" content="Find out how to choose the right real-time operating system (RTOS) for your embedded device. Compare FreeRTOS, Zephyr, ThreadX, and more on features, licensing, support, and performance" />
+<meta name="generator" content="Drupal 7 (https://www.drupal.org)" />
+<link rel="canonical" href="https://promwad.com/news/choosing-rtos-freertos-zephyr-threadx-comparison" />
+<meta property="og:site_name" content="Promwad" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://promwad.com/news/choosing-rtos-freertos-zephyr-threadx-comparison" />
+<meta property="og:title" content="Choosing an RTOS for Your Device: Comparing FreeRTOS, Zephyr, ThreadX, and More" />
+  <title>Choosing an RTOS for Your Device: FreeRTOS vs Zephyr vs ThreadX</title>
+  <link rel="preload" href="/sites/all/themes/promwad2021/fonts/museosanscyrl-webfont.woff2" as="font" type="font/woff2" crossorigin/>
+  <link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_lQaZfjVpwP_oGNqdtWCSpJT1EMqXdMiU84ekLLxQnc4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_5K9aVH2rjG9EjX9cO4eH-Og_CxMDDeGEqDjNodEfc3g.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_uoXzKhW06CSwBN6YwHwmWnUmRc-ALcLcI-esnNahmMk.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_wcG9ctCpaiTbMkB4Y4rx24zc7vFdfBbS6WDmwFZ88qU.css" media="all" />
+  <script>!function(e){"function"==typeof define&&define.amd?define(e):e()}(function(){var e,t=["scroll","wheel","touchstart","touchmove","touchenter","touchend","touchleave","mouseout","mouseleave","mouseup","mousedown","mousemove","mouseenter","mousewheel","mouseover"];if(function(){var e=!1;try{var t=Object.defineProperty({},"passive",{get:function(){e=!0}});window.addEventListener("test",null,t),window.removeEventListener("test",null,t)}catch(e){}return e}()){var n=EventTarget.prototype.addEventListener;e=n,EventTarget.prototype.addEventListener=function(n,o,r){var i,s="object"==typeof r&&null!==r,u=s?r.capture:r;(r=s?function(e){var t=Object.getOwnPropertyDescriptor(e,"passive");return t&&!0!==t.writable&&void 0===t.set?Object.assign({},e):e}(r):{}).passive=void 0!==(i=r.passive)?i:-1!==t.indexOf(n)&&!0,r.capture=void 0!==u&&u,e.call(this,n,o,r)},EventTarget.prototype.addEventListener._original=e}});</script>
+  <!-- HTML5 element support for IE6-8 -->
+  <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<!-- Google Tag Manager -->
+<script defer="defer">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TF6PJ2C');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-1806 node-type-news">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF6PJ2C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <header id="navbar" class="navbar navbar-fixed-top">
+  <div class="container-max">
+      <a class="logo" href="/" title="Home">
+      <img loading="lazy" src="/sites/all/themes/promwad2021/images/promwad_logo.svg" alt="promwad logo" width="263" height="127" />
+    </a>
+        <nav id="main-menu">
+      <ul class="menu"><li class="first expanded"><span class="nolink" tabindex="0">Services <span class="arrow-down"></span></span><ul class="menu"><li class="first leaf"><a href="/services">Overview &amp; Product Design</a></li>
+<li class="expanded"><a href="/services/hardware">Hardware Design <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/hardware">Hardware Design</a></div><ul class="menu"><li class="first leaf"><a href="/services/hardware/pcb-design">PCB Layout &amp; Schematic Design </a></li>
+<li class="leaf"><a href="/services/hardware/pcb-design/high-speed-pcb">High-Speed PCB Design</a></li>
+<li class="leaf"><a href="/services/hardware/pcb-design/simulation">SI / PI / Thermal Analysis </a></li>
+<li class="leaf"><a href="/services/industrial-design">Enclosures: Industrial &amp; Mechanical Design</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/embedded/fpga-design">FPGA & SoC Design  <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/embedded/fpga-design">FPGA &amp; SoC Design </a></div><ul class="menu"><li class="first leaf"><a href="/services/embedded/fpga-design/soc-mpsoc">FPGA &amp; SoC Projects Review</a></li>
+<li class="leaf"><a href="/industries/industrial/industrial-fpga-design">FPGA for Industrial &amp; Robotics</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/ai">FPGA for AI Applications</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/custom-frame-grabber-solutions">FPGA for Industrial Video Processing</a></li>
+<li class="last collapsed"><a href="/services/embedded/asic-frontend-development">ASIC Verification &amp; Prototyping</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/embedded">Embedded Software Development <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/embedded">Embedded Software Development</a></div><ul class="menu"><li class="first expanded"><a href="/services/embedded/firmware/mcu">MCU Firmware: RTOS & Bare-Metal <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/services/embedded/zephyr-rtos">Zephyr RTOS-Based Firmware</a></li>
+</ul></li>
+<li class="leaf"><a href="/services/embedded/kernel-system-design">Linux &amp; Android Kernel Engineering</a></li>
+<li class="leaf"><a href="/vendors/qt-software-development">Cross-Platform &amp; Embedded Apps</a></li>
+<li class="last leaf"><a href="/services/embedded/ai-on-edge">Edge AI Engineering</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/software">Custom Software Development <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/software">Custom Software Development</a></div><ul class="menu"><li class="first leaf"><a href="/vendors/qt-software-development">Cross-Platform Software Development</a></li>
+<li class="leaf"><a href="/services/software/backend">Backend &amp; Cloud Software</a></li>
+<li class="leaf"><a href="/services/software/web-development">Web Frontend Development</a></li>
+<li class="leaf"><a href="/services/software/mobile-app-development">Mobile Apps Development</a></li>
+<li class="leaf"><a href="/services/software/qa">QA &amp; Test Automation  </a></li>
+<li class="last leaf"><a href="/services/software/ui-ux">UI/UX Design</a></li>
+</ul></div></li>
+<li class="leaf"><a href="/services/embedded/security-hardening">Embedded Security Engineering</a></li>
+<li class="expanded"><a href="/services/industrial-design/manufacturing">Manufacturing Support <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/industrial-design/manufacturing">Manufacturing Support</a></div><ul class="menu"><li class="first leaf"><a href="/services/industrial-design/manufacturing/prototyping">Prototyping: PCB &amp; Enclosures</a></li>
+<li class="leaf"><a href="/services/industrial-design/enclosures/production-launch">Enclosure Mass Production</a></li>
+<li class="last leaf"><a href="/services/industrial-design/manufacturing/in-production-testing">In-Production Testing</a></li>
+</ul></div></li>
+<li class="last leaf"><a href="/services/software/dedicated-team">Dedicated Engineering Teams</a></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="expanded"><span class="nolink" tabindex="0">Expertise <span class="arrow-down"></span></span><ul class="menu"><li class="top text"><div class="bold" style="font-size:16px;">Embedded Systems Engineering</div></li><li class="first expanded"><a href="https://promwad.com/industries/video-streaming">Broadcasting & Media <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="https://promwad.com/industries/video-streaming">Broadcasting &amp; Media</a></div><ul class="menu"><li class="first expanded"><a href="/industries/video-streaming/broadcast-technology-solutions">Broadcasting Equipment Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/services/opengear-module-design">OpenGear Hardware &amp; Firmware</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/fpga-based-video-audio-processing">FPGA-Based Video/Audio Processing</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/ai-video-analytics">AI-Powered Content Processing</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/st-2110-nmos-integration">ST 2110 / NMOS Integration</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/mxl-sdk-integration">MXL SDK Integration</a></li>
+<li class="leaf"><a href="/services/bcp-003-pep-encryption-st2110-ipmx">BCP-003 / PEP Encryption</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/ndi-integration">NDI Support</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/camera-control-systems">Camera Control Software Development</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/low-latency-ip-transport">Low-Latency IP Transport</a></li>
+<li class="last leaf"><a href="/broadcasting-equipment/broadcasting-proav-equipment-testing-qa">Broadcast &amp; ProAV Equipment Testing</a></li>
+</ul></li>
+<li class="expanded"><a href="/industries/video-streaming/stb-software-development">CTV & STB Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/services/android-tv-aosp-development">Android TV &amp; AOSP Development</a></li>
+<li class="leaf"><a href="/services/android-tv-stb-custom-middleware-development">Custom Middleware Development</a></li>
+<li class="leaf"><a href="/industries/video-streaming/smart-tv">Smart TV Apps Development</a></li>
+<li class="leaf"><a href="/industries/video-streaming/drm-content-protection">Content Protection (DRM)</a></li>
+<li class="last leaf"><a href="/industries/video-streaming/stb-software-development/stb-app-development">STB Apps Development</a></li>
+</ul></li>
+<li class="expanded"><a href="/proav-engineering-services">ProAV Solutions Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/ipmx-based-video-distribution">IPMX-Based Video Distribution</a></li>
+<li class="leaf"><a href="/industries/video-streaming/digital-signage-software-development">Digital Signage Systems Development</a></li>
+<li class="leaf"><a href="/digital-audio-mixers-development">Digital Audio Mixers Design</a></li>
+<li class="leaf"><a href="/proav-engineering-services/ai-powered-analytics">AI-Powered Audience Analytics</a></li>
+<li class="leaf"><a href="/proav-engineering-services/crestron-control-systems-development">Crestron Control Systems Integration</a></li>
+<li class="leaf"><a href="/proav-engineering-services/hybrid-sdi-ip-workflows">Hybrid SDI/IP Workflows</a></li>
+<li class="last leaf"><a href="/cross-platform-av-applications-development">Cross-Platform AV App Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/ux-design-av-ott-devices">UI/UX for AV &amp; OTT Devices</a></li>
+<li class="last expanded"><a href="/ott-platforms-development-services">OTT Platforms Development <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/content-delivery-platform">Content Delivery Platform Development</a></li>
+<li class="leaf"><a href="/ai-ml-recommendations">AI/ML Recommendations &amp; Personalization</a></li>
+<li class="leaf"><a href="/ott-platforms/ad-insertion-monetization">Ad Insertion &amp; Monetization</a></li>
+<li class="leaf"><a href="/industries/video-streaming/ott-app-development">OTT App Development</a></li>
+<li class="last leaf"><a href="/industries/video-streaming/real-time-streaming-solutions">Real-Time Streaming</a></li>
+</ul></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/automotive">Automotive & Transportation <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/automotive">Automotive &amp; Transportation</a></div><ul class="menu"><li class="first leaf"><a href="/industries/automotive/aspice-software-engineering">ASPICE Software &amp; Hardware Development</a></li>
+<li class="leaf"><a href="/industries/automotive/software-defined-vehicle">SDV Solution Development</a></li>
+<li class="leaf"><a href="/industries/automotive/ecu-development">ECU &amp; Embedded Platform Design</a></li>
+<li class="leaf"><a href="/services/public-transport-HMI-design">HMI Design for Public Transport</a></li>
+<li class="leaf"><a href="/services/automotive-ivi-design">Digital Cockpit &amp; IVI Engineering</a></li>
+<li class="leaf"><a href="/industries/automotive/connectivity">Automotive Connectivity Solutions</a></li>
+<li class="leaf"><a href="/industries/automotive/custom-gps">GNSS &amp; Tracking Solutions</a></li>
+<li class="expanded"><a href="/industries/automotive/cameras-vision-systems">Vision Systems & ADAS Sensors <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/adas-development-services">ADAS Development</a></li>
+<li class="leaf"><a href="/industries/automotive/dash-cam">Dashboard Camera Design</a></li>
+<li class="leaf"><a href="/industries/automotive/digital-mirror-for-car">Digital Mirror Design</a></li>
+<li class="last leaf"><a href="/industries/automotive/adas-development-services/dms">Driver Monitoring System Development</a></li>
+</ul></li>
+<li class="expanded"><a href="/industries/automotive/ev-charging-solutions">EV Сharging Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/ev-charging-solutions/bms">BMS Development  </a></li>
+<li class="leaf"><a href="/industries/automotive/ev-charging-solutions/charging">EV Charger Design</a></li>
+<li class="last leaf"><a href="/predictive-maintenance/ev-chargers">Predictive Maintenance for EV Chargers</a></li>
+</ul></li>
+<li class="last leaf"><a href="/industries/industrial/hydrogen-electronics-solutions">Hydrogen Electronics Development</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/industrial/industrial-solutions">Industrial Automation <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/industrial/industrial-solutions">Industrial Automation</a></div><ul class="menu"><li class="first leaf"><a href="/industries/industrial/sensor-development">Sensor Development</a></li>
+<li class="leaf"><a href="/industries/industrial/custom-controller-development">Controller Development</a></li>
+<li class="expanded"><a href="/industries/industrial/power-electronics-design-services">Power Electronics Design <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/motor-control-solutions">Motor Control Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/power-monitoring-solutions">Power Metering &amp; Quality Solutions</a></li>
+<li class="last leaf"><a href="/services/energy-storage-and-power-electronics">BESS Engineering</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/industrial-machine-vision-solutions">Machine Vision Engineering</a></li>
+<li class="expanded"><a href="/industries/industrial/industrial-software-development">Industrial Software Development <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/industries/industrial/qt-industrial-automation">HMI &amp; SCADA Software Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/industrial-networks-design">Industrial Network Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/iec-61508-safety-software">Functional Safety IEC 61508</a></li>
+<li class="leaf"><a href="/industries/industrial/smart-grid-protocols">Smart Grid Protocol Integration</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/industrial/robotics-engineering">Drones & Robotics <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/industrial/robotics-engineering">Drones &amp; Robotics</a></div><ul class="menu"><li class="first leaf"><a href="/industries/industrial/motor-control-solutions">Motor Control Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/industrial-machine-vision-solutions">Machine Vision Engineering</a></li>
+<li class="leaf"><a href="/industries/automotive/ev-charging-solutions/bms">BMS Development</a></li>
+<li class="expanded"><a href="/industries/industrial/robotics-engineering/nvidia-robotics-development-services">NVIDIA-Powered Robotics <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></li>
+<li class="last leaf"><a href="/industries/industrial/robotics-engineering/drone-design-uav-engineering">Drone Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/telecom">Telecommunications & Networking <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/telecom">Telecommunications &amp; Networking</a></div><ul class="menu"><li class="first expanded"><a href="/industries/telecom/network-equipment">Network Infrastructure Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/telecom/network-switches">Network Switch Design</a></li>
+<li class="last leaf"><a href="/industries/telecom/media-converters">Media Converter Design</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/telecom/security-operations">Cybersecurity</a></li>
+<li class="last expanded"><a href="/services/network-perfomance-control">Network Performance & Control <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/telecom/network-management-software">Network Management Software Development</a></li>
+<li class="leaf"><a href="/cloud-dashboard-for-network-device-management">Cloud Dashboard Development</a></li>
+<li class="leaf"><a href="/industries/telecom/spdk-dpdk-solutions">SPDK &amp; DPDK Engineering</a></li>
+<li class="leaf"><a href="/industries/telecom/dpi-software-development">DPI Development</a></li>
+<li class="last leaf"><a href="/industries/telecom/openwrt-for-wireless-routers">OpenWRT/prplOS based Solutions</a></li>
+</ul></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries">Other Industries <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries">Other Industries</a></div><ul class="menu"><li class="first expanded"><a href="/industries/industrial/design-services-power-engineering">Green Energy & Power Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/industries/industrial/hydrogen-electronics-solutions">Hydrogen Electronics Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/digital-oil-gas-solutions">Oil &amp; Gas / Mining Engineering</a></li>
+<li class="expanded"><a href="/industries/industrial/building-automation-systems">Smart Home & Building Automation Development <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/building-automation-systems/hvac-electronics-design">HVAC Electronics Design</a></li>
+<li class="leaf"><a href="/industries/industrial/building-automation-networks">Building Automation Networks</a></li>
+<li class="last leaf"><a href="/hems">HEMS Development</a></li>
+</ul></li>
+<li class="last expanded"><a href="/services/off-road-industrial-vehicles">Off-Road & Industrial Vehicle Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/agricultural-machinery-design">Agricultural Machinery Design</a></li>
+<li class="leaf"><a href="/industries/automotive/construction-vehicle-embedded-systems">Construction Electronics</a></li>
+<li class="last leaf"><a href="/industries/forestry-machinery-electronics">Forestry Electronics</a></li>
+</ul></li>
+</ul></div></li>
+<li class="top text"></br><div class="bold" style="font-size:16px;">Platforms</div></li><li class="leaf"><a href="https://promwad.com/platforms">Platform-Based Product Design</a></li>
+<li class="top text"></br><div class="bold" style="font-size:16px;">Partners</div></li><li class="last expanded"><a href="/company/partners">Tech Vendors <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/company/partners">Tech Vendors</a></div><ul class="menu"><li class="first leaf"><a href="/vendors/qualcomm-design-solutions">Qualcomm Technologies</a></li>
+<li class="leaf"><a href="/vendors/infineon-partners">Infineon</a></li>
+<li class="expanded"><a href="/vendors/nvidia">NVIDIA <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/robotics-engineering/nvidia-robotics-development-services">NVIDIA-Powered Robotics</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></li>
+<li class="expanded"><a href="/vendors/lattice-semiconductor">Lattice Semiconductor <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/services/embedded/fpga-design/lattice">Lattice FPGA Use Cases</a></li>
+</ul></li>
+<li class="leaf"><a href="/vendors/nxp-semiconductors">NXP Semiconductors</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/altera">Altera</a></li>
+<li class="leaf"><a href="/vendors/hilscher">Hilscher</a></li>
+<li class="leaf"><a href="/vendors/qt-software-development">Qt Group</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/microchip">Microchip</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/amd-kria">Kria SoM by AMD</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/ultrascale">Zynq FPGA by AMD</a></li>
+<li class="last leaf"><a href="/vendors/telit-cinterion-solutions">Telit Cinterion</a></li>
+</ul></div></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="leaf"><a href="/case-studies">Case Studies</a></li>
+<li class="expanded"><span class="nolink" tabindex="0">About  <span class="arrow-down"></span></span><ul class="menu"><li class="first leaf"><a href="/company">About Promwad</a></li>
+<li class="leaf"><a href="/company/testimonials-clients">What Our Clients Say</a></li>
+<li class="leaf"><a href="https://promwad.com/blog">Blog: Industry Insights</a></li>
+<li class="leaf"><a href="https://promwad.com/news">Company News</a></li>
+<li class="leaf"><a href="/company/press-kit">Media about Us</a></li>
+<li class="leaf"><a href="/company/partners">Our Partners</a></li>
+<li class="expanded"><a href="/company/careers">Careers <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/company/careers">Careers</a></div><ul class="menu"><li class="first leaf"><a href="/company/careers/hr-manager">HR Manager</a></li>
+<li class="leaf"><a href="/company/careers/c-linux-engineer-network">C/C++ Linux Engineer (Network)</a></li>
+<li class="leaf"><a href="/company/careers/fpga-engineer">FPGA Engineer</a></li>
+<li class="leaf"><a href="/company/careers/firmware-engineer-power-electronic">Firmware Engineer (Power Electronics)</a></li>
+<li class="leaf"><a href="/company/careers/hardware-design-engineer">Hardware Design Engineer</a></li>
+<li class="last leaf"><a href="/careers/lead-embedded-software-engineer">Senior/ Lead Embedded Software Engineer</a></li>
+</ul></div></li>
+<li class="last leaf"><a href="/contacts">Locations / Contacts</a></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="leaf"><a href="/news">News</a></li>
+<li class="last leaf"><a href="/contacts">Contact Us</a></li>
+</ul>    </nav>
+    <div id="search-top">
+    <form class="form-search content-search" action="/news/choosing-rtos-freertos-zephyr-threadx-comparison" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="input-group"><input title="Enter the terms you wish to search for." placeholder="Search" class="form-control form-text" type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" /><span class="input-group-btn"><button type="submit" class="btn btn-primary">Search</button></span></div><div class="form-actions form-wrapper form-group" id="edit-actions"><button class="element-invisible btn btn-primary form-submit" type="submit" id="edit-submit" name="op" value="Search">Search</button>
+</div><input type="hidden" name="form_build_id" value="form-tC9-iqYxdWCzIf5ziA3UPMFxILZUGwnthnD3rf2gc6A" />
+<input type="hidden" name="form_id" value="search_block_form" />
+
+</div></form>  </div>
+          <div class="languages">
+    <div class="inner">
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 28.0005C14.3485 28.0005 12.7929 27.6849 11.3333 27.0538C9.87379 26.4218 8.60267 25.564 7.52001 24.4805C6.43734 23.3969 5.57956 22.1258 4.94667 20.6672C4.31379 19.2085 3.99823 17.6529 4.00001 16.0005C4.00001 14.3436 4.31556 12.7867 4.94667 11.3298C5.57867 9.87204 6.43645 8.60227 7.52001 7.52049C8.60356 6.43871 9.87467 5.58093 11.3333 4.94716C12.7929 4.31604 14.3485 4.00049 16 4.00049C17.6569 4.00049 19.2138 4.31604 20.6707 4.94716C22.1285 5.57916 23.3987 6.43693 24.4813 7.52049C25.564 8.60404 26.4213 9.87382 27.0533 11.3298C27.6845 12.7876 28 14.3445 28 16.0005C28 17.652 27.6845 19.2076 27.0533 20.6672C26.4213 22.1267 25.5636 23.3978 24.48 24.4805C23.3965 25.5632 22.1267 26.4209 20.6707 27.0538C19.2147 27.6867 17.6578 28.0023 16 28.0005ZM16 26.6778C16.7822 25.6725 17.4276 24.6854 17.936 23.7165C18.4436 22.7476 18.8565 21.6632 19.1747 20.4632H12.8253C13.1782 21.7307 13.5996 22.8489 14.0893 23.8178C14.58 24.7867 15.2169 25.74 16 26.6778ZM14.3027 26.4778C13.6805 25.7445 13.1125 24.8378 12.5987 23.7578C12.0849 22.6787 11.7027 21.58 11.452 20.4618H6.33867C7.10312 22.1196 8.18623 23.4796 9.58801 24.5418C10.9907 25.6032 12.5622 26.2485 14.3027 26.4778ZM17.6973 26.4778C19.4378 26.2485 21.0093 25.6032 22.412 24.5418C23.8138 23.4796 24.8969 22.1196 25.6613 20.4618H20.5493C20.2116 21.5969 19.7862 22.704 19.2733 23.7832C18.7596 24.8632 18.2342 25.7623 17.6973 26.4778ZM5.79467 19.1298H11.1747C11.0733 18.5823 11.0022 18.0489 10.9613 17.5298C10.9187 17.0116 10.8973 16.5018 10.8973 16.0005C10.8973 15.4992 10.9182 14.9894 10.96 14.4712C11.0018 13.9529 11.0729 13.4196 11.1733 12.8712H5.79601C5.65112 13.3334 5.53779 13.8369 5.45601 14.3818C5.37423 14.9258 5.33334 15.4654 5.33334 16.0005C5.33334 16.5356 5.37379 17.0756 5.45467 17.6205C5.53556 18.1654 5.6489 18.668 5.79467 19.1285M12.508 19.1285H19.492C19.5933 18.5818 19.6645 18.0574 19.7053 17.5552C19.748 17.0538 19.7693 16.5356 19.7693 16.0005C19.7693 15.4654 19.7485 14.9472 19.7067 14.4458C19.6649 13.9445 19.5938 13.42 19.4933 12.8725H12.5067C12.4062 13.4192 12.3351 13.9436 12.2933 14.4458C12.2516 14.9472 12.2307 15.4654 12.2307 16.0005C12.2307 16.5356 12.2516 17.0538 12.2933 17.5552C12.3351 18.0565 12.4076 18.5809 12.508 19.1285ZM20.8267 19.1285H26.2053C26.3502 18.6672 26.4636 18.1645 26.5453 17.6205C26.6262 17.0756 26.6667 16.5356 26.6667 16.0005C26.6667 15.4654 26.6262 14.9254 26.5453 14.3805C26.4645 13.8356 26.3511 13.3329 26.2053 12.8725H20.8253C20.9267 13.4192 20.9978 13.952 21.0387 14.4712C21.0813 14.9903 21.1027 15.5 21.1027 16.0005C21.1027 16.5009 21.0818 17.0107 21.04 17.5298C20.9982 18.0489 20.9271 18.5823 20.8267 19.1298M20.5493 11.5392H25.6613C24.88 9.84671 23.8098 8.48671 22.4507 7.45916C21.0916 6.4316 19.5071 5.77782 17.6973 5.49782C18.3196 6.31649 18.8791 7.25293 19.376 8.30716C19.8729 9.36049 20.264 10.4378 20.5493 11.5392ZM12.8253 11.5392H19.1747C18.8227 10.2876 18.3885 9.15604 17.872 8.14449C17.3556 7.13293 16.7316 6.19249 16 5.32316C15.2685 6.1916 14.6445 7.13204 14.128 8.14449C13.6116 9.15693 13.1765 10.2885 12.8253 11.5392ZM6.34001 11.5392H11.452C11.7373 10.4387 12.1285 9.36138 12.6253 8.30716C13.1222 7.25293 13.6818 6.31649 14.304 5.49782C12.4782 5.77871 10.8898 6.43649 9.53867 7.47116C8.18756 8.5076 7.1209 9.86316 6.33867 11.5378" fill="white"/>
+<path d="M5.79467 19.1298H11.1747C11.0733 18.5823 11.0022 18.0489 10.9613 17.5298C10.9187 17.0116 10.8973 16.5018 10.8973 16.0005C10.8973 15.4992 10.9182 14.9894 10.96 14.4712C11.0018 13.9529 11.0729 13.4196 11.1733 12.8712H5.79601C5.65112 13.3334 5.53779 13.8369 5.45601 14.3818C5.37423 14.9258 5.33334 15.4654 5.33334 16.0005C5.33334 16.5356 5.37379 17.0756 5.45467 17.6205C5.53556 18.1654 5.6489 18.668 5.79467 19.1285M20.8267 19.1285H26.2053C26.3502 18.6672 26.4636 18.1645 26.5453 17.6205C26.6262 17.0756 26.6667 16.5356 26.6667 16.0005C26.6667 15.4654 26.6262 14.9254 26.5453 14.3805C26.4645 13.8356 26.3511 13.3329 26.2053 12.8725H20.8253C20.9267 13.4192 20.9978 13.952 21.0387 14.4712C21.0813 14.9903 21.1027 15.5 21.1027 16.0005C21.1027 16.5009 21.0818 17.0107 21.04 17.5298C20.9982 18.0489 20.9271 18.5823 20.8267 19.1298M6.34001 11.5392H11.452C11.7373 10.4387 12.1285 9.36138 12.6253 8.30716C13.1222 7.25293 13.6818 6.31649 14.304 5.49782C12.4782 5.77871 10.8898 6.43649 9.53867 7.47116C8.18756 8.5076 7.1209 9.86316 6.33867 11.5378M16 28.0005C14.3485 28.0005 12.7929 27.6849 11.3333 27.0538C9.87379 26.4218 8.60267 25.564 7.52001 24.4805C6.43734 23.3969 5.57956 22.1258 4.94667 20.6672C4.31379 19.2085 3.99823 17.6529 4.00001 16.0005C4.00001 14.3436 4.31556 12.7867 4.94667 11.3298C5.57867 9.87204 6.43645 8.60227 7.52001 7.52049C8.60356 6.43871 9.87468 5.58093 11.3333 4.94716C12.7929 4.31604 14.3485 4.00049 16 4.00049C17.6569 4.00049 19.2138 4.31604 20.6707 4.94716C22.1285 5.57916 23.3987 6.43693 24.4813 7.52049C25.564 8.60404 26.4213 9.87382 27.0533 11.3298C27.6845 12.7876 28 14.3445 28 16.0005C28 17.652 27.6845 19.2076 27.0533 20.6672C26.4213 22.1267 25.5636 23.3978 24.48 24.4805C23.3965 25.5632 22.1267 26.4209 20.6707 27.0538C19.2147 27.6867 17.6578 28.0023 16 28.0005ZM16 26.6778C16.7822 25.6725 17.4276 24.6854 17.936 23.7165C18.4436 22.7476 18.8565 21.6632 19.1747 20.4632H12.8253C13.1782 21.7307 13.5996 22.8489 14.0893 23.8178C14.58 24.7867 15.2169 25.74 16 26.6778ZM14.3027 26.4778C13.6805 25.7445 13.1125 24.8378 12.5987 23.7578C12.0849 22.6787 11.7027 21.58 11.452 20.4618H6.33867C7.10312 22.1196 8.18623 23.4796 9.58801 24.5418C10.9907 25.6032 12.5622 26.2485 14.3027 26.4778ZM17.6973 26.4778C19.4378 26.2485 21.0093 25.6032 22.412 24.5418C23.8138 23.4796 24.8969 22.1196 25.6613 20.4618H20.5493C20.2116 21.5969 19.7862 22.704 19.2733 23.7832C18.7596 24.8632 18.2342 25.7623 17.6973 26.4778ZM12.508 19.1285H19.492C19.5933 18.5818 19.6645 18.0574 19.7053 17.5552C19.748 17.0538 19.7693 16.5356 19.7693 16.0005C19.7693 15.4654 19.7485 14.9472 19.7067 14.4458C19.6649 13.9445 19.5938 13.42 19.4933 12.8725H12.5067C12.4062 13.4192 12.3351 13.9436 12.2933 14.4458C12.2516 14.9472 12.2307 15.4654 12.2307 16.0005C12.2307 16.5356 12.2516 17.0538 12.2933 17.5552C12.3351 18.0565 12.4076 18.5809 12.508 19.1285ZM20.5493 11.5392H25.6613C24.88 9.84671 23.8098 8.48671 22.4507 7.45916C21.0916 6.4316 19.5071 5.77782 17.6973 5.49782C18.3196 6.31649 18.8791 7.25293 19.376 8.30716C19.8729 9.36049 20.264 10.4378 20.5493 11.5392ZM12.8253 11.5392H19.1747C18.8227 10.2876 18.3885 9.15604 17.872 8.14449C17.3556 7.13293 16.7316 6.19249 16 5.32316C15.2685 6.1916 14.6445 7.13204 14.128 8.14449C13.6116 9.15693 13.1765 10.2885 12.8253 11.5392Z" stroke="white" stroke-width="0.5"/>
+</svg>
+      <a href="https://promwad.de" rel="nofollow">DE</a>
+      <a class="active" href="/">EN</a>
+    </div>
+    <div class="language-trio"></div>
+  </div>
+  
+  <div id="search-icon">
+    <div class="inner"><svg><use xlink:href="/sites/all/themes/promwad/images/sprites/sprite.svg#icon-search"></use></svg></div>
+  </div>  
+  
+  <div class="networks">
+    <a class="center-vertical" rel="nofollow" href="https://www.linkedin.com/company/promwad/"><img loading="lazy" src="/sites/all/themes/promwad2021/images/networks/li.png" alt="linkedin icon" width="16" height="16" /></a>
+    <a class="center-vertical" rel="nofollow" href="https://www.facebook.com/promwad.electronics"><img loading="lazy" src="/sites/all/themes/promwad2021/images/networks/fb.png" alt="facebook icon" width="16" height="16" /></a>
+  </div>
+    <div class="mobile-menu">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </div>
+  </div>
+</header>
+<div class="main-container container-fluid container-constructor">
+
+  <header role="banner" id="page-header">
+      </header> <!-- /#page-header -->
+    <div class="row">
+
+    
+    <section class="col-md-12">
+      
+      <a id="main-content"></a>
+                                                                <div class="region region-content">
+    <section id="block-system-main" class="block block-system clearfix">
+
+      
+  <article id="node-1806" class="node node-news clearfix" about="/news/choosing-rtos-freertos-zephyr-threadx-comparison" typeof="sioc:Item foaf:Document">
+    <header>
+            <span property="dc:title" content="Choosing an RTOS for Your Device: Comparing FreeRTOS, Zephyr, ThreadX, and More" class="rdf-meta element-hidden"></span>      </header>
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><div  class = 'container-fluid '>
+<div  class = 'row '>
+</div>
+</div>
+<div  class = 'container-fluid '>
+<div  class = 'container-1170 '>
+<div  class = 'row '>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+<div  class = 'col-md-8 col-lg-8 '>
+
+    <section ><div class="row">
+         <div class="col-md-12">
+            <div class="mod-breadcrumbs font-alt align-left">
+              <div class="breadcrumb"><a href="/">Home</a> / <a href="/news">News</a> / Choosing an RTOS for Your Device: Comparing FreeRTOS, Zephyr, ThreadX, and More</div><div class="breadcrumb news-date">17 April 2025</div>
+            </div>
+          </div>
+            
+      </div>
+    </section>
+<div class="content-title-outer"><div class="content-title "><h1  class = 'text-left     c-font-bold '>Choosing an RTOS for Your Device: Comparing FreeRTOS, Zephyr, ThreadX, and More
+</h1></div></div>
+<span  style = 'padding-bottom: 50px; '><img loading="lazy"  style="" typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/rtos-banner.jpg" width="1250" height="833" alt="Choosing an RTOS for Your Device" title="" /></span>
+<div  style = 'margin-top: 40px; '><p>&nbsp;</p><h2>	<strong>Getting Started: Why RTOS Selection Is a Game Changer</strong></h2><p>Selecting an RTOS (real-time operating system) is one of the most strategic decisions in embedded product development. It determines how reliably your device handles tasks, responds to events, and scales across platforms. With the growing diversity of connected devices—from low-power wearables to complex IoT gateways—the RTOS landscape in 2025 is more competitive than ever.</p><p>This article provides a side-by-side comparison of FreeRTOS, Zephyr, ThreadX, and Mbed OS to help you identify the most suitable RTOS for your product goals.</p><p>In this article, we compare four popular RTOS platforms—FreeRTOS, Zephyr, ThreadX (Azure RTOS), and Mbed OS—to help you make the best choice based on your device requirements.<br>	&nbsp;</p><h2>	<strong>Why RTOS Selection Matters</strong></h2><p>An RTOS provides predictable task scheduling and low-latency response for embedded applications such as wearables, medical devices, and industrial automation. The wrong choice can lead to performance bottlenecks, porting issues, or licensing conflicts.</p><p>Key evaluation criteria include:</p><ul class = "list">	<li>		Real-time performance</li>	<li>		Licensing model</li>	<li>		Community and commercial support</li>	<li>		Ecosystem compatibility</li>	<li>		Memory footprint and scalability<br>		&nbsp;</li></ul><h2>	<strong>RTOS Comparison Table</strong></h2><table class = "table table-bordered table-striped">	<tbody>		<tr>			<td>				<p><strong>Feature/RTOS</strong></p>			</td>			<td>				<p><strong>FreeRTOS</strong></p>			</td>			<td>				<p><strong>Zephyr RTOS</strong></p>			</td>			<td>				<p><strong>ThreadX (Azure RTOS)</strong></p>			</td>			<td>				<p><strong>Mbed OS</strong></p>			</td>		</tr>		<tr>			<td>				<p>License</p>			</td>			<td>				<p>MIT</p>			</td>			<td>				<p>Apache 2.0</p>			</td>			<td>				<p>Proprietary/MIT</p>			</td>			<td>				<p>Apache 2.0</p>			</td>		</tr>		<tr>			<td>				<p>Vendor</p>			</td>			<td>				<p>AWS</p>			</td>			<td>				<p>Linux Foundation</p>			</td>			<td>				<p>Microsoft</p>			</td>			<td>				<p>Arm</p>			</td>		</tr>		<tr>			<td>				<p>Real-Time Capable</p>			</td>			<td>				<p>Yes</p>			</td>			<td>				<p>Yes</p>			</td>			<td>				<p>Yes</p>			</td>			<td>				<p>Limited</p>			</td>		</tr>		<tr>			<td>				<p>SMP Support</p>			</td>			<td>				<p>No</p>			</td>			<td>				<p>Yes</p>			</td>			<td>				<p>Yes</p>			</td>			<td>				<p>No</p>			</td>		</tr>		<tr>			<td>				<p>Memory Footprint</p>			</td>			<td>				<p>Very Low</p>			</td>			<td>				<p>Low</p>			</td>			<td>				<p>Moderate</p>			</td>			<td>				<p>High</p>			</td>		</tr>		<tr>			<td>				<p>Device Support</p>			</td>			<td>				<p>Excellent</p>			</td>			<td>				<p>Broad (600+ boards)</p>			</td>			<td>				<p>Moderate</p>			</td>			<td>				<p>Limited</p>			</td>		</tr>		<tr>			<td>				<p>Community</p>			</td>			<td>				<p>Large</p>			</td>			<td>				<p>Growing</p>			</td>			<td>				<p>Moderate</p>			</td>			<td>				<p>Shrinking</p>			</td>		</tr>		<tr>			<td>				<p>Commercial Support</p>			</td>			<td>				<p>Via Partners</p>			</td>			<td>				<p>Multiple Vendors</p>			</td>			<td>				<p>Microsoft</p>			</td>			<td>				<p>Deprecated in favor of CMSIS</p>			</td>		</tr>	</tbody></table><p>&nbsp;</p><h2>	<strong>Detailed Overview</strong></h2><h3>	<strong>FreeRTOS</strong></h3><p>FreeRTOS is one of the most widely adopted RTOSes globally, known for its simplicity and small footprint. Developed by Real Time Engineers Ltd. and maintained by AWS, it is MIT-licensed and free for commercial use.</p><ul class = "list">	<li>		<strong>Best for:</strong> Simple microcontroller-based applications with constrained resources.</li>	<li>		<strong>Notable users:</strong> STMicroelectronics, Espressif (ESP32), Microchip.</li>	<li>		<strong>Key strengths:</strong> Low memory usage, massive documentation, and cloud integration via Amazon FreeRTOS.</li></ul><h3>	<strong>Zephyr RTOS</strong></h3><p>Zephyr is a scalable, open-source RTOS managed by the Linux Foundation. It supports multiple architectures including ARM, x86, RISC-V, and ARC.</p><ul class = "list">	<li>		<strong>Best for:</strong> IoT devices requiring advanced networking, modularity, and security.</li>	<li>		<strong>Notable users:</strong> Intel, Nordic Semiconductor, NXP.</li>	<li>		<strong>Key strengths:</strong> Built-in device drivers, Bluetooth stack, and security features like Trusted Execution.</li></ul><h3>	<strong>ThreadX (Azure RTOS)</strong></h3><p>ThreadX, now part of Microsoft's Azure RTOS suite, is known for its deterministic performance and solid commercial-grade features. It’s available under a permissive license with optional commercial support.</p><ul class = "list">	<li>		<strong>Best for:</strong> Medical, consumer electronics, and devices requiring Microsoft Azure integration.</li>	<li>		<strong>Notable users:</strong> NASA (Orion capsule), Hewlett Packard.</li>	<li>		<strong>Key strengths:</strong> Low latency, priority inheritance, and trace analysis tools.</li></ul><h3>	<strong>Mbed OS</strong></h3><p>Mbed OS was developed by Arm to support Cortex-M devices and IoT applications. While popular in academia and prototyping, its active development is slowing in favor of CMSIS and direct RTOS usage.</p><ul class = "list">	<li>		<strong>Best for:</strong> Educational or early-stage IoT projects.</li>	<li>		<strong>Notable users:</strong> Arm-based academic labs and startups.</li>	<li>		<strong>Key strengths:</strong> Cloud connectivity, TLS stack, and out-of-the-box support for Arm boards.</li></ul></div>
+</div>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+</div>
+</div>
+</div>
+<div  class = 'container-fluid '>
+<div  class = 'container-1170 '>
+<div  class = 'row '>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+<div  class = 'col-md-8 col-lg-8 '>
+<p>&nbsp;</p><h2>	<strong>Upcoming Trends in RTOS Development</strong></h2><ul class = "list">	<li>		<strong>Security-first RTOSes:</strong> Increased focus on secure boot, runtime protection, and OTA updates.</li>	<li>		<strong>AI/ML Integration:</strong> RTOSes are evolving to support lightweight ML inference at the edge.</li>	<li>		<strong>Cloud-Native RTOS Stacks:</strong> More vendors are integrating RTOS with cloud services (e.g., AWS, Azure).</li>	<li>		<strong>RISC-V Support:</strong> Zephyr and FreeRTOS are rapidly expanding their support for RISC-V.<br>		&nbsp;</li></ul><h2>	<strong>Expert Insight</strong></h2><p>To gain a deeper understanding of RTOS selection, we spoke with <strong>Dr. Lena Weiss</strong>, Senior Embedded Systems Architect at EmbeddedNext, with over 15 years of experience in medical, automotive, and IoT applications:</p><p>"Choosing an RTOS today is not just about real-time guarantees or memory footprint. It's also about how well the RTOS integrates with your toolchain, cloud services, and long-term support strategy. For safety-critical environments, ThreadX and QNX often win due to certification support. For startups or agile development, Zephyr offers the fastest ramp-up thanks to its open ecosystem. FreeRTOS, while minimalistic, remains unbeatable in simplicity and community adoption."</p><p>Dr. Weiss emphasizes the importance of:</p><ul class = "list">	<li>		Aligning the RTOS with your product lifecycle — especially if regulatory certification is required.</li>	<li>		Avoiding vendor lock-in by evaluating open-source vs proprietary ecosystems.</li>	<li>		Testing performance early using vendor SDKs and profiling tools before full integration.<br>		&nbsp;</li></ul>
+<span  style = 'margin-bottom: 40px; margin-top: 40px; '><img loading="lazy"  style="" typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/choosing-rtos.jpg" width="1250" height="833" alt="RTOS selection" title="" /></span>
+</div>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+</div>
+</div>
+</div>
+<div  class = 'container-fluid '>
+<div  class = 'container-1170 '>
+<div  class = 'row '>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+<div  class = 'col-md-8 col-lg-8 '>
+<p>Many of these emerging trends become far more pronounced when viewed from a 2026 perspective. As embedded systems move deeper into regulated and safety-critical domains, RTOS selection is increasingly shaped by security architecture, functional safety certification readiness, and alignment with coding standards such as MISRA — not just footprint or ecosystem maturity.</p><p>This evolution is explored in more depth in <a href="https://promwad.com/news/rtos-landscape-2026-security-functional-safety-misra">an overview of the RTOS landscape in 2026</a>, which examines how platforms like FreeRTOS, Zephyr, ThreadX, and QNX are adapting to stricter security expectations, long-term maintenance requirements, and certification-driven development workflows. Seen in this context, today’s RTOS comparisons represent the starting point of a much more disciplined, risk-aware selection process.</p><h2>	<strong>Final Thoughts: Making the Right RTOS Choice</strong></h2><p>Choosing the right RTOS is about balancing technical requirements with long-term vision. FreeRTOS continues to dominate in simple, resource-constrained environments. Zephyr is evolving into a full-featured, community-driven alternative with great RISC-V and networking support. ThreadX offers maturity, commercial stability, and deterministic performance, especially in regulated sectors. Mbed OS, while still used for education and prototyping, is seeing reduced momentum in production environments.</p><p>Use your project’s performance goals, certification needs, and ecosystem integrations as a checklist for RTOS evaluation. And remember — testing in context with real workloads is still the best way to make an informed choice.</p>
+<div bis_skin_checked="1">	<p>&nbsp;</p>	<p class="rtecenter"><a class="btn-blue" href="https://promwad.com/contacts" target="_blank">Contact us</a></p></div><p>&nbsp;</p>
+<p class="rtecenter">&nbsp;</p><h2 class="gray c-font-bold" style="box-sizing: border-box; margin: 29px 0px; font-family: MuseoSansCyrl; line-height: 54px; ">	Our Case Studies in Firmware Development</h2><p>&nbsp;</p>
+</div>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+</div>
+<section id="block-views-some-cases-block-53" class="block block-views clearfix">
+
+      
+  <div class="view view-some-cases view-id-some_cases view-display-id-block_53 view-dom-id-92cd6dc3044afad72580b85c61afaf62">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/direct-drive-turntable-embedded-verification"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/studio-grade_turntable-mini.jpg?itok=-mQRMVH7" width="337" height="346" alt="" title="Studio-Grade Turntable Built to Verify Itself" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/direct-drive-turntable-embedded-verification">Turnkey Design for a Studio-Grade Direct-Drive Turntable
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/industrial-automation">Industrial Automation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/motor-control">Motor Control</a></div>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/do-160-pharma-telemetry-gateway-architecture"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/telematics_solutions_for_aviation_cargo_industry_mini_0.jpg?itok=RH51Hb_Z" width="337" height="346" alt="" title="Aviation IoT Gateway Architecture" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/do-160-pharma-telemetry-gateway-architecture">Aviation IoT Gateway Architecture
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/medtech">MedTech</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/software-development">Software Development</a>, <a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/c-and-c-plus-plus">C / C++</a>, <a href="/case-studies/linux">Linux Kernel</a></div>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/mmwave-radar-module-video-surveillance"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/video_surveillance_radar-promwad_mini.jpg?itok=PMk-JBKK" width="337" height="346" alt="" title="Cutting Video Surveillance" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/mmwave-radar-module-video-surveillance">Compact mmWave Radar Module for Video Surveillance
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/safety-systems">Safety Systems</a>, <a href="/case-studies/video-surveillance">Video Surveillance</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/ai">AI</a>, <a href="/sensors">Sensors</a></div>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/automotive-fragrance-electronics-nfc-lin"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/incar_aroma_device_mini.jpg?itok=gMCFcbc2" width="337" height="346" alt="" title="Automotive Fragrance Systems" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/automotive-fragrance-electronics-nfc-lin">Architecture for Automotive Fragrance Systems
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/automotive">Automotive &amp; Transportation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd views-row-last">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/railway-bmu-dual-mcu-sil2-architecture"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/railway_bmu_architecture.jpg?itok=WRhsraSE" width="337" height="346" alt="" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/railway-bmu-dual-mcu-sil2-architecture">Dual-MCU Railway BMU Architecture
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/automotive">Automotive &amp; Transportation</a>, <a href="/case-studies/industrial-automation">Industrial Automation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+</section>
+
+</div>
+</div>
+<div class="content-title-outer"><div class="content-title "><h2  class = 'text-left     c-font-bold '>
+</h2></div></div>
+ </div></div></div>    </article>
+
+</section>
+  </div>
+    </section>
+
+    
+  </div>
+</div>
+
+  <footer class="footer container">
+      <div class="region region-footer">
+    <section id="block-block-22" class="block block-block clearfix">
+
+      
+  <div class="row footer-black">
+  <div class="max-width-1200px">  
+    <div class="col-sm-4 col-md-3 col-lg-2">
+      <div class="footer-phones-inner">
+      <a class="footer-logo" href="/"><img loading="lazy" src="/sites/all/themes/promwad2021/images/footer/promwad_logo.svg" alt="Promwad white logo" width="175" height="84"/></a>
+<p><a href="https://promwad.com/company/testimonials-clients"><img loading="lazy" src="https://promwad.com/sites/default/files/clutch-reviews.jpg" alt="Clutch with reviews icon"width="160" height="46" /></a></p>
+      <div class="footer-phones">
+        <div><a href="tel:+4920148790148">DE: +4920148790148</a></div> 
+       <div><a href="tel:+37052141244">LT: +37052141244</a></div>
+        <div class="footer-email"><a href="mailto:info@promwad.com">info@promwad.com</a></div>
+        <div class="footer-get"><a href="/contacts">GET IN TOUCH</a></div>
+      </div>
+      </div>
+    </div>
+    <div class="footer-links col-sm-8 col-md-9 col-lg-10">
+      <div class="row">
+        <div class="col-sm-6 col-md-3 padding-left-40">
+          <div><b><a href="/services">Services</a></b></div>
+          <div><a href="/services/hardware">Hardware Development</a></div>
+         <div><a href="/services/embedded/fpga-design">FPGA &amp; SoC Design</a></div>
+         <div><a href="/services/embedded">Embedded Software</a></div>
+          <div><a href="/services/software">Custom Software</a></div>
+          <div><a href="/services/embedded/security-hardening">Embedded Security</a></div>
+          <div><a href="/services/industrial-design/manufacturing">Manufacturing Support</a></div>
+           <div><a href="/services/software/dedicated-team">Dedicated Dev Teams</a></div>
+ 
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div><b><a href="/industries">Industries</a></b></div>
+          <div><a href="/industries/video-streaming">Broadcasting &amp; Media</a></div>
+          <div><a href="/industries/automotive">Automotive &amp; Transportation</a></div>
+          <div><a href="/industries/industrial/industrial-solutions">Industrial Automation</a></div>
+          <div><a href="/industries/industrial/robotics-engineering">Drones &amp; Robotics</a></div>
+          <div><a href="/industries/telecom">Telecom &amp; Networking</a></div>
+          <div><b><a href="/platforms">Platform-Based Design</a></b></div>
+          <div><b><a href="/company/partners">Our Tech Vendors</a></b></div>
+        </div>    
+        <div class="col-sm-6 col-md-3">
+        <div style="font-weight:bold;color: #7F7F7F; margin-bottom: 6px;">Featured Expertise</div>
+          <div><a href="/proav-engineering-services">ProAV &amp; AV-over-IP</a></div>
+          <div><a href="/industries/video-streaming/stb-software-development">CTV &amp; STB Solutions</a></div>
+          <div><a href="/ott-platforms-development-services">OTT Platform Development</a></div>
+          <div><a href="/industries/industrial/power-electronics-design-services">Power Electronics</a></div>
+          <div><a href="/industries/automotive/cameras-vision-systems">Vision Systems &amp; ADAS</a></div>
+          <div><a href="/industries/telecom/network-equipment">Network Infrastructure</a></div>
+          <div><a href="/services/embedded/ai-on-edge">Edge AI Engineering</a></div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div><b><a href="/company">About Promwad</a></b></div>
+          <div><a href="/case-studies">Case Studies</a></div>
+          <div><a href="/news">News &amp; Insights</a></div>
+          <div><a href="/company/partners">Partners</a></div>
+          <div><a href="/company/testimonials-clients">Client Reviews</a></div>
+          <div><a href="/company/careers">Careers</a></div>
+          <div><a href="/company/press-kit">Press Kit</a></div>
+          <div><a href="/contacts">Contacts</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row grey">
+  <div class="max-width-1200px">
+    <div class="col-md-3 col-lg-3 footer-social-links">
+      <a href="https://www.linkedin.com/company/promwad/"><img loading="lazy" alt="Linkedin SVG icon" src="/sites/all/themes/promwad2021/images/footer/linkedin.svg"  width="150" height="150"/></a>
+      <a href="https://www.facebook.com/promwad.electronics"><img loading="lazy" alt="Facebook SVG icon" src="/sites/all/themes/promwad2021/images/footer/facebook.svg"  width="150" height="150"/></a>
+    </div>
+    <div class="col-md-9 col-lg-9 footer-logos">
+      <div class="footer-logos-inner">
+      <img loading="lazy" alt="Sertika ISO 9001" src="/sites/all/themes/promwad2021/images/footer/iso-9001-sertika.png"  width="150" height="78"/>
+      <img loading="lazy" alt="Microchip partner program icon" src="/sites/all/themes/promwad2021/images/footer/microchip-partner-icon.png"  width="264" height="252"/>    
+      <img loading="lazy" alt="FPGA partner program icon" src="/sites/all/themes/promwad2021/images/footer/fpga-partner-icon.png"  width="406" height="312"/>
+      <img loading="lazy" alt="NXP partner program icon" src="/sites/all/themes/promwad2021/images/footer/nxp-partner-icon.png"  width="152" height="67"/>
+      <img loading="lazy" alt="AMD partner program icon" src="/sites/default/files/amd_embedded.png"  width="140" height="36"/>
+      <img loading="lazy" alt="Lattice partner program icon" src="/sites/all/themes/promwad2021/images/footer/lattice.png"  width="240" height="149"/>
+     <img loading="lazy" alt="Infineon partner program icon" src="/sites/all/themes/promwad2021/images/footer/infineon-logo.png"  width="240" height="131"/>
+     <img loading="lazy" alt="Altera partner program icon" src="/sites/all/themes/promwad2021/images/footer/altera-logo.png"  width="240" height="135"/>
+     <img loading="lazy" alt="Hilscher partner program icon" src="/sites/all/themes/promwad2021/images/footer/hilscher-logo.png"  width="240" height="135"/>
+     <img loading="lazy" alt="Qualcomm partner program icon" src="/sites/all/themes/promwad2021/images/footer/Qualcomm-Logo 1.png"  width="240" height="105" />
+    </div>
+    </div>
+  </div>
+</div>
+<div class="row copyright">
+  <div class="max-width-1200px">
+    <div class="col-md-6">© Promwad — Software and Hardware Product Development, 2004 — 2026</div>
+    <div class="col-md-6 policy">By using our website you agree to our <a href="https://promwad.com/privacy-policy">Privacy and Cookies Policy</a></div>
+  </div>
+</div>
+</section>
+  </div>
+  </footer>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+<script src="https://promwad.com/sites/default/files/js/js_Hfha9RCTNm8mqMDLXriIsKGMaghzs4ZaqJPLj2esi7s.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_RulCPHj8aUtatsXPqRSFtJIhBjBSAzFXZzADEVD4CHY.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_1kaE6aRlZSHSnzRT9hpBdgsoA0AF4wvjtBeioxwbQUs.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_8RylhjbeTS2wmW3ooc-bJq3k_THW1iGE3EVny9a-R34.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_FcMNZP_mZ_yyumpEZAcsOXIGoWjDdREOhHaLMLbYkeI.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","setHasJsCookie":0,"ajaxPageState":{"theme":"promwad2021","theme_token":"sNe_XwDxWnK2Q4Pa0iIbI5j2v9mg6ZBwETEYBFFoP_8","js":{"0":1,"sites\/all\/modules\/eu_cookie_compliance\/js\/eu_cookie_compliance.min.js":1,"sites\/all\/themes\/bootstrap\/js\/bootstrap.js":1,"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"1":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery-html-prefilter-3.5.0-backport.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/eu_cookie_compliance\/js\/jquery.cookie-1.4.1.min.js":1,"misc\/form-single-submit.js":1,"sites\/all\/modules\/ckeditor_tabber\/semantic-tabs.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/bootstrap.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/slick.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/masonry.pkgd.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/isotope.pkgd.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/tabs.js":1,"sites\/all\/themes\/promwad2021\/js\/slider.js":1,"sites\/all\/themes\/promwad2021\/js\/main.js":1,"sites\/all\/themes\/promwad2021\/js\/inner.js":1},"css":{"modules\/system\/system.base.css":1,"sites\/all\/modules\/ckeditor_tabber\/ckeditor_tabber.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/eu_cookie_compliance\/css\/eu_cookie_compliance.css":1,"public:\/\/ctools\/css\/e82ed354f85f0fa82dc711e8329b00f1.css":1,"sites\/all\/themes\/promwad2021\/css\/bootstrap.min.css":1,"sites\/all\/themes\/promwad2021\/css\/drupal-bootstrap.css":1,"sites\/all\/themes\/promwad2021\/css\/slick.css":1,"sites\/all\/themes\/promwad2021\/css\/slick-theme.css":1,"sites\/all\/themes\/promwad2021\/css\/style.css":1,"sites\/all\/themes\/promwad2021\/css\/components.css":1,"sites\/all\/themes\/promwad2021\/css\/front.css":1}},"eu_cookie_compliance":{"cookie_policy_version":"1.0.0","popup_enabled":1,"popup_agreed_enabled":0,"popup_hide_agreed":0,"popup_clicking_confirmation":0,"popup_scrolling_confirmation":0,"popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies to ensure you get the best experience. By using our website you agree to our\u00a0\u003Ca class=\u0022eu-cookie-compliance-more-button\u0022 href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAccept\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button agree-button eu-cookie-compliance-default-button\u0022\u003EReject\u003C\/button\u003E\n                \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","use_mobile_message":false,"mobile_popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies on our website to analyze, improve its functionality and improve the usability of the website. By continuing to browse this website, you agree that we may place cookies on your device. If you want, you can change the cookie settings at any time. For more information, please read our \u003Ca href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAccept\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button agree-button eu-cookie-compliance-default-button\u0022\u003EReject\u003C\/button\u003E\n                \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","mobile_breakpoint":"768","popup_html_agreed":"\u003Cdiv\u003E\n  \u003Cdiv class=\u0022popup-content agreed\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Ch2\u003EThank you for accepting cookies\u003C\/h2\u003E\u003Cp\u003EYou can now hide this message or find out more about cookies.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022hide-popup-button eu-cookie-compliance-hide-button\u0022\u003EHide\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button-thank-you\u0022 \u003EMore info\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","popup_use_bare_css":false,"popup_height":"auto","popup_width":"100%","popup_delay":1000,"popup_link":"\/privacy-policy","popup_link_new_window":1,"popup_position":null,"fixed_top_position":1,"popup_language":"en","store_consent":false,"better_support_for_screen_readers":0,"reload_page":0,"domain":"","domain_all_sites":0,"popup_eu_only_js":0,"cookie_lifetime":"100","cookie_session":false,"disagree_do_not_show_popup":0,"method":"default","allowed_cookies":"","withdraw_markup":"\u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-tab\u0022\u003EPrivacy settings\u003C\/button\u003E\n\u003Cdiv class=\u0022eu-cookie-withdraw-banner\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies to ensure you get the best experience. By using our website you agree to our \u003Ca class=\u0022eu-cookie-compliance-more-button\u0022 href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-button\u0022\u003EWithdraw consent\u003C\/button\u003E\n    \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","withdraw_enabled":false,"withdraw_button_on_info_popup":0,"cookie_categories":[],"cookie_categories_details":[],"enable_save_preferences_button":1,"cookie_name":"Clarity","cookie_value_disagreed":"0","cookie_value_agreed_show_thank_you":"1","cookie_value_agreed":"2","containing_element":"body","automatic_cookies_removal":1,"close_button_action":"close_banner"},"ckeditor_tabber":{"elements":"dl.ckeditor-tabber"},"urlIsAjaxTrusted":{"\/news\/choosing-rtos-freertos-zephyr-threadx-comparison":true},"bootstrap":{"anchorsFix":"0","anchorsSmoothScrolling":"0","formHasError":1,"popoverEnabled":0,"popoverOptions":{"animation":1,"html":0,"placement":"right","selector":"","trigger":"click","triggerAutoclose":1,"title":"","content":"","delay":0,"container":"body"},"tooltipEnabled":0,"tooltipOptions":{"animation":1,"html":0,"placement":"auto left","selector":"","trigger":"hover focus","delay":0,"container":"body"}}});</script>
+  <script>window.eu_cookie_compliance_cookie_name = "Clarity";</script>
+<script src="https://promwad.com/sites/default/files/js/js_R0Kkh6Dl-rxYpVGDPqv4qCK9smRGUo-lO9XBfNa4Gw8.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_MRdvkC2u4oGsp5wVxBG1pGV5NrCPW3mssHxIn6G9tGE.js"></script>
+
+  
+  <script defer="defer">
+  document.addEventListener('DOMContentLoaded', () => {
+    window.DocsBotAI = window.DocsBotAI || {};
+    DocsBotAI.init = function(config) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://widget.docsbot.ai/chat.js';
+        script.async = true;
+        script.onload = async () => {
+          try {
+            await window.DocsBotAI.mount(Object.assign({}, config));
+            await waitForElement('#docsbotai-root');
+            resolve();
+          } catch (err) { reject(err); }
+        };
+        script.onerror = (err) => reject(err.message);
+        document.head.appendChild(script);
+      });
+    };
+
+    function waitForElement(selector) {
+      return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+          resolve(document.querySelector(selector));
+          return;
+        }
+        const observer = new MutationObserver(() => {
+          if (document.querySelector(selector)) {
+            resolve(document.querySelector(selector));
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    }
+
+    DocsBotAI.init({ id: "L1tYD2bocQ5cgDKo8Ht4/QpuhM1o3ACHxsIf23VHa" });
+  });
+  </script>
+
+  <script defer="defer" src="https://connect.facebook.net/en_US/fbevents.js"></script>
+  
+  <script defer="defer">
+    setTimeout(function(){
+      (function(w,d,u){
+        var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+        var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+      })(window,document,'https://bitrix.promwad.com/upload/crm/tag/call.tracker.js');
+    }, 4000);
+  </script>
+  
+</body>
+</html>

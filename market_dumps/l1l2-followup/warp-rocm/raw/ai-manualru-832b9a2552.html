@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="ru" itemscope itemtype="https://schema.org/WebSite">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="zen-verification" content="446gbhkeT1iHBGPegshT91MtnhVepeEueNB7cz0u6erJl1XsrDensigYUFBZ0TDq">
+    <meta name="yandex-verification" content="959b8f28c413b54a">
+    <meta name="yandex-verification" content="gm2ygsjl0z06p8vt">
+
+    <title>RTX 5060 Ti vs RX 9060 XT для AI-PC: Выбор GPU для локальных LLM | AiManual</title>
+    <meta name="title" content="RTX 5060 Ti vs RX 9060 XT для AI-PC: Выбор GPU для локальных LLM">
+    <meta name="description" content="Полное сравнение RTX 5060 Ti и RX 9060 XT для локальных языковых моделей. Выбор видеокарты для сборки AI-PC: поддержка CUDA и ROCm, производительность, цена и э">
+    <meta name="keywords" content="RTX 5060 Ti, RX 9060 XT, локальные LLM, AI-PC, выбор видеокарты, NVIDIA, AMD, CUDA, ROCm, сборка ПК для AI">
+    <meta name="author" content="Самозанятый Баган Н.В.">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0d0d12">
+
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://ai-manual.ru/article/rtx-5060-ti-vs-rx-9060-xt-dlya-lokalnyih-llm-gajd-po-vyiboru-gpu-dlya-pervogo-ai-pc/">
+    <meta property="og:title" content="RTX 5060 Ti vs RX 9060 XT для AI-PC: Выбор GPU для локальных LLM">
+    <meta property="og:description" content="Полное сравнение RTX 5060 Ti и RX 9060 XT для локальных языковых моделей. Выбор видеокарты для сборки AI-PC: поддержка CUDA и ROCm, производительность, цена и э">
+    <meta property="og:image" content="https://ai-manual.ru/static/branding/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="RTX 5060 Ti vs RX 9060 XT для локальных LLM: гайд по выбору GPU для первого AI-PC">
+    <meta property="og:site_name" content="AiManual">
+    <meta property="og:locale" content="ru_RU">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RTX 5060 Ti vs RX 9060 XT для AI-PC: Выбор GPU для локальных LLM">
+    <meta name="twitter:description" content="Полное сравнение RTX 5060 Ti и RX 9060 XT для локальных языковых моделей. Выбор видеокарты для сборки AI-PC: поддержка CUDA и ROCm, производительность, цена и э">
+    <meta name="twitter:image" content="https://ai-manual.ru/static/branding/og-image.png">
+
+    <link rel="canonical" href="https://ai-manual.ru/article/rtx-5060-ti-vs-rx-9060-xt-dlya-lokalnyih-llm-gajd-po-vyiboru-gpu-dlya-pervogo-ai-pc/">
+    <link rel="icon" href="/favicon.ico?v=20260715" sizes="any">
+    <link rel="icon" href="/static/branding/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/static/branding/apple-touch-icon.png">
+    <link rel="manifest" href="/static/branding/site.webmanifest">
+    <link rel="mask-icon" href="/static/branding/safari-pinned-tab.svg" color="#A3FF0F">
+    <meta name="msapplication-TileColor" content="#0D0D12">
+    <meta name="msapplication-config" content="/static/branding/browserconfig.xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;family=Unbounded:wght@400..800&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/fonts/fonts.css">
+    <link rel="stylesheet" href="/static/css/prism/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="/static/admin_theme/css/admin-theme.css?v=11">
+
+    
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "headline": "RTX 5060 Ti vs RX 9060 XT для локальных LLM: гайд по выбору GPU для первого AI\u002DPC",
+  "description": "Полное сравнение RTX 5060 Ti и RX 9060 XT для локальных языковых моделей. Выбор видеокарты для сборки AI\u002DPC: поддержка CUDA и ROCm, производительность, цена и э",
+  "datePublished": "2026-01-03T20:02:24.718344+00:00",
+  "dateModified": "2026-01-03T20:02:24.718358+00:00",
+  "inLanguage": "ru-RU",
+  "author": {"@type": "Organization", "name": "AiManual", "url": "https://ai-manual.ru/"},
+  "publisher": {"@type": "Organization", "name": "AiManual", "url": "https://ai-manual.ru/"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://ai-manual.ru/article/rtx-5060-ti-vs-rx-9060-xt-dlya-lokalnyih-llm-gajd-po-vyiboru-gpu-dlya-pervogo-ai-pc/"},
+  "articleBody": "Зачем вообще это читать? Потому что вы собрались потратить деньги Вы решили собрать свой первый компьютер для локального ИИ. Бюджет ограничен, но хочется мощности. На горизонте две карты: новая, но не топовая NVIDIA и свежая AMD. Интернет пестрит противоречивыми советами. Один говорит: \u0022Бери NVIDIA, иначе ничего не запустишь\u0022. Другой кричит: \u0022AMD дешевле, а ROCm уже догнал CUDA\u0022. Кому верить? Правда в деталях. И в том, что для локальных LLM видеокарта — не просто \u0022железка для игр\u0022. Это специализированный вычислительный ускоритель, и выбор здесь определяет не только FPS в играх, а то, какие модели вы вообще сможете запустить, с какой скоростью …",
+  "keywords": "RTX 5060 Ti, RX 9060 XT, локальные LLM, AI\u002DPC, выбор видеокарты, NVIDIA, AMD, CUDA, ROCm, сборка ПК для AI"
+}
+</script>
+
+    
+
+    <script src="https://yandex.ru/ads/system/context.js" async></script>
+    <script data-page-id="19532376" src="https://yandex.ru/ads/system/ap-loader.js" async></script>
+    
+    <script>
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+            k=e.createElement(t);a=e.getElementsByTagName(t)[0];k.async=1;k.src=r;a.parentNode.insertBefore(k,a);
+        })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=106057167','ym');
+        ym(106057167,'init',{ssr:true,webvisor:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});
+    </script>
+    
+</head>
+
+<body class="am-body " data-admin-theme="true" data-page-type="article">
+    
+    <noscript><div><img src="https://mc.yandex.ru/watch/106057167" class="am-metrika-pixel" alt=""></div></noscript>
+    
+    <a class="am-skip-link" href="#main-content">Перейти к содержанию</a>
+
+    <header class="am-header" data-site-header>
+        <div class="am-header__inner">
+            <a class="am-brand" href="/" aria-label="AiManual, на главную">
+                <img class="am-brand__logo" src="/static/branding/logo.svg" alt="AiManual" width="120" height="30">
+            </a>
+
+            <nav class="am-nav" aria-label="Основная навигация" data-main-nav>
+                <a href="/">Главная</a>
+                <a href="/#latest">Свежие материалы</a>
+                <a href="/articles/">Архив</a>
+                <a href="/about/">О проекте</a>
+                <a class="am-nav__channel" href="https://telegram.me/+zGRXd6tqfcwzMGIy" target="_blank" rel="noopener noreferrer" data-messenger="telegram" data-placement="navigation">
+                    <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21 3-7.5 18-4.2-7.3L3 10.8 21 3Z"></path><path d="m9.3 13.7 5.4-4.5"></path></svg>
+                    <span>Telegram</span>
+                </a>
+                <a class="am-nav__channel" href="https://max.ru/channel_aimanual" target="_blank" rel="noopener noreferrer" data-messenger="max" data-placement="navigation">
+                    <img class="am-channel-icon" src="/static/branding/max.svg" alt="" aria-hidden="true" width="18" height="18">
+                    <span>MAX</span>
+                    
+                </a>
+            </nav>
+
+            <div class="am-search" data-search-shell>
+                <svg class="am-icon am-search__icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+                <input
+                    class="am-search__input"
+                    type="search"
+                    name="q"
+                    placeholder="Найти материал"
+                    aria-label="Поиск по AiManual"
+                    autocomplete="off"
+                    hx-get="/search/"
+                    hx-trigger="keyup changed delay:350ms, search"
+                    hx-target="#admin-search-results"
+                    hx-indicator="#admin-search-progress"
+                    data-search-input
+                    data-search-surface="header">
+                <kbd class="am-search__key">Ctrl K</kbd>
+                <span id="admin-search-progress" class="am-search__progress htmx-indicator" aria-hidden="true"></span>
+                <div id="admin-search-results" class="am-search-results" aria-live="polite"></div>
+            </div>
+
+            <div class="am-header__channels" role="group" aria-label="Каналы AiManual">
+                <a class="am-header-channel" href="https://telegram.me/+zGRXd6tqfcwzMGIy" target="_blank" rel="noopener noreferrer" data-messenger="telegram" data-placement="header">
+                    <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21 3-7.5 18-4.2-7.3L3 10.8 21 3Z"></path><path d="m9.3 13.7 5.4-4.5"></path></svg>
+                    <span>Telegram</span>
+                </a>
+                <a class="am-header-channel" href="https://max.ru/channel_aimanual" target="_blank" rel="noopener noreferrer" data-messenger="max" data-placement="header">
+                    <img class="am-channel-icon" src="/static/branding/max.svg" alt="" aria-hidden="true" width="18" height="18">
+                    <span>MAX</span>
+                </a>
+            </div>
+
+            <button class="am-icon-button am-menu-button" type="button" aria-label="Открыть меню" aria-expanded="false" data-menu-button>
+                <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 8h16M4 16h16"></path></svg>
+            </button>
+        </div>
+        
+    </header>
+
+    <main id="main-content" class="am-main">
+        
+<div class="am-reading-progress" data-reading-progress aria-hidden="true"></div>
+
+<article class="am-shell" data-article-page data-read-minutes="8" data-article-id="648" data-article-slug="rtx-5060-ti-vs-rx-9060-xt-dlya-lokalnyih-llm-gajd-po-vyiboru-gpu-dlya-pervogo-ai-pc">
+    <header class="am-article-header">
+        <nav class="am-breadcrumbs" aria-label="Хлебные крошки">
+            <a href="/">Главная</a>
+            <span aria-hidden="true">›</span>
+            <a href="/articles/">Архив</a>
+        </nav>
+
+        <span class="am-article-kicker">Публикация AiManual</span>
+        <h1>RTX 5060 Ti vs RX 9060 XT для локальных LLM: гайд по выбору GPU для первого AI-PC</h1>
+        <p class="am-article-header__description">Полное сравнение RTX 5060 Ti и RX 9060 XT для локальных языковых моделей. Выбор видеокарты для сборки AI-PC: поддержка CUDA и ROCm, производительность, цена и э</p>
+
+        <div class="am-article-meta">
+            <span>
+                <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+                8 мин чтения
+            </span>
+            <span>
+                <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="5" width="16" height="15" rx="2"></rect><path d="M8 3v4M16 3v4M4 10h16"></path></svg>
+                <time datetime="2026-01-03T20:02:24.718344+00:00">03.01.2026</time>
+            </span>
+            <button class="am-button am-button--secondary" type="button" data-share-button>
+                <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="18" cy="5" r="2"></circle><circle cx="6" cy="12" r="2"></circle><circle cx="18" cy="19" r="2"></circle><path d="m8 11 8-5M8 13l8 5"></path></svg>
+                <span>Поделиться</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="am-mobile-toc" aria-label="Разделы статьи">
+        <div class="am-mobile-toc__status">
+            <strong data-current-section>Введение</strong>
+            <span><span data-reading-percent>0%</span> · <span data-reading-remaining>Осталось 8 мин</span></span>
+        </div>
+        <div class="am-mobile-toc__links" data-mobile-toc></div>
+    </nav>
+
+    <div class="am-article-layout">
+        <aside class="am-toc" aria-label="Содержание статьи">
+            <div class="am-toc__heading">
+                <h2>Содержание</h2>
+                <button class="am-toc__toggle" type="button" aria-label="Свернуть содержание" aria-expanded="true" title="Свернуть содержание" data-toc-toggle>
+                    <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m9 18 6-6-6-6"></path></svg>
+                </button>
+            </div>
+            <div class="am-toc__reading">
+                <span><strong data-reading-percent>0%</strong><span data-reading-remaining>Осталось 8 мин</span></span>
+                <small data-current-section>Введение</small>
+            </div>
+            <nav class="am-toc__list" data-toc-list></nav>
+        </aside>
+
+        <div class="am-article-column">
+            
+            <section class="am-article-summary" aria-labelledby="article-summary-title">
+                <div class="am-article-summary__heading">
+                    <span>Коротко</span>
+                    <h2 id="article-summary-title">Что будет в материале</h2>
+                </div>
+                <ol>
+                    
+                    <li><span>01</span><p>Зачем вообще это читать? Потому что вы собрались потратить деньги</p></li>
+                    
+                    <li><span>02</span><p>Что у них под капотом? Цифры против реальности</p></li>
+                    
+                    <li><span>03</span><p>Экосистема: CUDA против ROCm. Война, где у NVIDIA пока нет конкурентов</p></li>
+                    
+                    <li><span>04</span><p>Производительность в реальных задачах: 16 ГБ — это много или мало?</p></li>
+                    
+                </ol>
+            </section>
+            
+
+            <div class="am-article-content" data-article-content>
+                <h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Зачем вообще это читать? Потому что вы собрались потратить деньги</h2>
+<p class="text-slate-800 mb-4">Вы решили собрать свой первый компьютер для локального ИИ. Бюджет ограничен, но хочется мощности. На горизонте две карты: новая, но не топовая NVIDIA и свежая AMD. Интернет пестрит противоречивыми советами. Один говорит: "Бери NVIDIA, иначе ничего не запустишь". Другой кричит: "AMD дешевле, а ROCm уже догнал CUDA". Кому верить?</p>
+<p class="text-slate-800 mb-6">Правда в деталях. И в том, что для локальных LLM видеокарта — не просто "железка для игр". Это специализированный вычислительный ускоритель, и выбор здесь определяет не только FPS в играх, а то, какие модели вы вообще сможете запустить, с какой скоростью и сколько нервов потратите на настройку.</p>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-6">
+<p class="text-yellow-800"><strong>Главный нюанс, который все упускают:</strong> Локальные LLM — это не только инференс (генерация ответов). Это загрузка моделей весом в десятки гигабайт, квантование, тонкая настройка. И здесь экосистема решает все. Покупая видеокарту, вы покупаете доступ к этой экосистеме.</p>
+</div>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Что у них под капотом? Цифры против реальности</h2>
+<p class="text-slate-800 mb-4">Сравнивать TFLOPS для LLM — всё равно что мерить скорость автомобиля по диаметру колёс. Бесполезно. Важны три вещи: объём видеопамяти (VRAM), пропускная способность памяти и поддержка конкретных инструкций фреймворками.</p>
+
+<div class="overflow-x-auto mb-6">
+<table class="min-w-full border border-slate-200 rounded-lg">
+<thead class="bg-slate-50">
+<tr>
+<th class="px-4 py-2 text-left border-b font-semibold text-slate-700">Характеристика</th>
+<th class="px-4 py-2 text-left border-b font-semibold text-slate-700">NVIDIA RTX 5060 Ti (прогноз)</th>
+<th class="px-4 py-2 text-left border-b font-semibold text-slate-700">AMD RX 9060 XT (прогноз)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="px-4 py-2 border-b text-slate-700">Видеопамять (VRAM)</td>
+<td class="px-4 py-2 border-b text-slate-700">16 ГБ GDDR7</td>
+<td class="px-4 py-2 border-b text-slate-700">16 ГБ GDDR7</td>
+</tr>
+<tr class="bg-slate-50">
+<td class="px-4 py-2 border-b text-slate-700">Шина памяти</td>
+<td class="px-4 py-2 border-b text-slate-700">128-bit</td>
+<td class="px-4 py-2 border-b text-slate-700">128-bit</td>
+</tr>
+<tr>
+<td class="px-4 py-2 border-b text-slate-700">Пропускная способность</td>
+<td class="px-4 py-2 border-b text-slate-700">~576 ГБ/с</td>
+<td class="px-4 py-2 border-b text-slate-700">~576 ГБ/с</td>
+</tr>
+<tr class="bg-slate-50">
+<td class="px-4 py-2 border-b text-slate-700">Архитектура</td>
+<td class="px-4 py-2 border-b text-slate-700">Blackwell (?)</td>
+<td class="px-4 py-2 border-b text-slate-700">RDNA 4</td>
+</tr>
+<tr>
+<td class="px-4 py-2 border-b text-slate-700">TDP</td>
+<td class="px-4 py-2 border-b text-slate-700">~160-180 Вт</td>
+<td class="px-4 py-2 border-b text-slate-700">~150-170 Вт</td>
+</tr>
+<tr class="bg-slate-50">
+<td class="px-4 py-2 border-b text-slate-700">Ключевая технология</td>
+<td class="px-4 py-2 border-b text-slate-700">CUDA, Tensor Cores</td>
+<td class="px-4 py-2 border-b text-slate-700">ROCm, Матричные ядра</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p class="text-slate-800 mb-6">На бумаге — паритет. Одинаковый объём памяти, похожая пропускная. Значит, выбор сводится к софту? Не совсем. Шина 128-bit — это слабое место для LLM. Загрузка весов модели в память будет узким местом. Но об этом позже.</p>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Экосистема: CUDA против ROCm. Война, где у NVIDIA пока нет конкурентов</h2>
+<p class="text-slate-800 mb-4">Вот где собака зарыта. NVIDIA CUDA — это де-факто стандарт для машинного обучения. Подавляющее большинство фреймворков (PyTorch, TensorFlow) и библиотек для LLM (vLLM, llama.cpp с CUDA-бэкендом, ExLlamaV2) заточены под CUDA и используют Tensor Cores для ускорения матричных умножений.</p>
+
+<div class="flex items-start gap-4 p-4 my-6 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg shadow-sm">
+<div class="text-2xl">💡</div>
+<div class="text-slate-700 text-sm leading-relaxed">ROCm от AMD — это попытка создать открытую альтернативу. И она стала значительно лучше за последние годы. Но. Поддержка в популярных инструментах часто запаздывает, требует дополнительных танцев с бубном (сборка из исходников, патчи) и может сломаться после обновления драйверов. Если вы не готовы копаться в консоли и читать issues на GitHub — готовьтесь к боли.</div>
+</div>
+
+<p class="text-slate-800 mb-4">Практический пример: вы хотите запустить свежую версию <a href="/article/luchshie-lokalnyie-llm-dlya-rtx-5080-obzor-modelej-s-tul-kollingom-i-kontekstom-32k/" class="text-indigo-600 hover:underline">Qwen2.5-Coder-32B</a> через vLLM для максимальной скорости. На RTX 5060 Ti это будет <code class="bg-slate-100 px-1 py-0.5 rounded text-sm">pip install vllm</code> и запуск. На RX 9060 XT вам, возможно, придётся ждать несколько недель, пока vLLM выпустит стабильную поддержку новой архитектуры RDNA 4, или собирать всё самому.</p>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">1</span>
+Что запускается без проблем на NVIDIA?</h3>
+<ul class="list-disc pl-6 space-y-2 mb-6">
+<li class="text-slate-700"><strong>Любая модель в llama.cpp</strong> с бэкендом CUDA. Поддержка всех форматов квантования (Q4_K_M, Q8_0 и т.д.).</li>
+<li class="text-slate-700"><strong>vLLM</strong> — самый быстрый инференс-движок для больших батчей.</li>
+<li class="text-slate-700"><strong>ExLlamaV2</strong> — идеально для 4-битных моделей, сумасшедшая скорость на Tensor Cores.</li>
+<li class="text-slate-700"><strong>TensorRT-LLM</strong> — если хотите выжать из карты всё, но потратить день на компиляцию графа.</li>
+<li class="text-slate-700"><strong>Automatic1111 (Stable Diffusion)</strong> — да, для генерации изображений тоже.</li>
+</ul>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">2</span>
+Что запускается на AMD (с оговорками)?</h3>
+<ul class="list-disc pl-6 space-y-2 mb-6">
+<li class="text-slate-700"><strong>llama.cpp с бэкендом ROCm</strong>. Работает, но скорость может быть ниже, особенно на новых архитектурах.</li>
+<li class="text-slate-700"><strong>PyTorch с поддержкой ROCm</strong>. Требует установки специальных сборок.</li>
+<li class="text-slate-700"><strong>Text Generation WebUI</strong> с плагином для ROCm. Нужна правильная версия драйверов.</li>
+<li class="text-slate-700"><strong>Прямая трансляция ваших нервных клеток в issues на GitHub</strong>. Шутка. Но в каждой шутке...</li>
+</ul>
+
+<p class="text-slate-800 mb-6">Если ваша цель — не изучение внутренностей фреймворков, а работа с моделями, NVIDIA даст вам <strong>меньше головной боли</strong>. Это факт, подтверждённый горьким опытом сообщества. Почитайте наш разбор <a href="/article/amd-vs-nvidia-dlya-lokalnogo-ii-v-2025-nakonets-to-paritet-ili-vsyo-eschyo-ad/" class="text-indigo-600 hover:underline">AMD vs NVIDIA для локального ИИ в 2025</a>, там всё разложено по полочкам.</p>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Производительность в реальных задачах: 16 ГБ — это много или мало?</h2>
+<p class="text-slate-800 mb-4">Обе карты имеют 16 ГБ. Этого достаточно для:</p>
+<ul class="list-disc pl-6 space-y-2 mb-6">
+<li class="text-slate-700">Моделей 7B-13B параметров в 8-битном или даже 16-битном формате (без квантования).</li>
+<li class="text-slate-700">Моделей 34B параметров в 4-битном квантовании (Q4_K_M).</li>
+<li class="text-slate-700">Моделей 70B параметров только в сильном квантовании (Q3_K_S, Q2_K), что ощутимо бьёт по качеству.</li>
+</ul>
+
+<div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-6">
+<p class="text-blue-800"><strong>Запомните:</strong> 16 ГБ — это комфортный минимум для 2025 года, но не более. Если вы планируете работать с моделями размером 70B и выше, вам нужно смотреть на карты с 24 ГБ+ (как <a href="/article/rtx-pro-6000-vs-rtx-4090-dlya-lokalnyih-llm-ischerpyivayuschee-sravnenie-na-2025-god/" class="text-indigo-600 hover:underline">RTX 4090 или RTX Pro 6000</a>) или сразу планировать сборку на нескольких картах.</p>
+</div>
+
+<p class="text-slate-800 mb-4">Скорость генерации (токенов в секунду) будет зависеть от оптимизации драйверов и фреймворков. На старте продаж RX 9060 XT может отставать от RTX 5060 Ti просто потому, что разработчики llama.cpp и vLLM ещё не успели всё настроить. Через полгода ситуация может выровняться.</p>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Цена, энергопотребление и будущее</h2>
+<p class="text-slate-800 mb-4">AMD традиционно предлагает более агрессивные цены. RX 9060 XT может быть на 15-25% дешевле аналогичной RTX 5060 Ti. Вопрос: стоит ли эта скидка потенциальных проблем с совместимостью?</p>
+<p class="text-slate-800 mb-4">Энергопотребление у обеих карт будет скромным (около 160 Вт). Это важно для сборки в компактном корпусе без топовой системы охлаждения.</p>
+<p class="text-slate-800 mb-6">А что насчёт будущего? NVIDIA продолжит доминировать в экосистеме. AMD будет пытаться догнать. Если вы покупаете карту на 2-3 года, RTX 5060 Ti — более безопасная ставка с точки зрения долгосрочной поддержки ПО.</p>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Пошаговый план: как принять решение без паники</h2>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">1</span>
+Определите свой уровень толерантности к боли</h3>
+<p class="text-slate-800 mb-4">Вы готовы часами сидеть в терминале, править Makefile-ы и читать документацию ROCm? Если да — AMD может сэкономить деньги. Если слово "драйвер" вызывает у вас нервный тик — берите NVIDIA.</p>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">2</span>
+Проверьте свои планы на модели</h3>
+<p class="text-slate-800 mb-4">Собираетесь в основном запускать 7B-13B модели для чата и кодинга? Обе карты справятся. Хотите <a href="/article/luchshie-razblokirovannyie-lokalnyie-llm-dlya-moschnyih-videokart-test-na-rtx-5090/" class="text-indigo-600 hover:underline">потрогать 70B+ модели</a>? Задумайтесь о карте с большим объёмом VRAM или о конфигурации с двумя картами (и тут <a href="/article/nvlink-dlya-dvuh-rtx-3090-stoit-li-igra-svech-v-lokalnyih-ai-sborkah/" class="text-indigo-600 hover:underline">NVLink может быть важен</a>).</p>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">3</span>
+Изучите конкретные инструменты</h3>
+<p class="text-slate-800 mb-4">Зайдите на GitHub llama.cpp, vLLM, Text Generation WebUI. Посмотрите открытые issues по запросу "ROCm" или "RDNA 4". Много багов? Поддержка помечена как experimental? Это красный флаг.</p>
+
+<h3 class="text-xl font-bold text-slate-900 mt-8 mb-4 flex items-center gap-2">
+<span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600 text-white text-sm">4</span>
+Не забудьте про остальные компоненты</h3>
+<p class="text-slate-800 mb-6">Мощная видеокарта упирается в слабый процессор и медленную оперативку. Для LLM важна скорость ОЗУ (DDR5) и быстрый NVMe SSD для загрузки моделей. <a href="/article/sobiraem-pk-dlya-lokalnyih-llm-za-kopejki-3-rtx-3090-i-egpu-na-96-gb-vram/" class="text-indigo-600 hover:underline">Сборка бюджетного AI-PC</a> — здесь есть полезные советы по балансу компонентов.</p>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Где вы точно обожжётесь: 3 фатальные ошибки новичка</h2>
+<ol class="list-decimal pl-6 space-y-4 mb-6">
+<li class="text-slate-700">
+<strong>Купить AMD, а потом пытаться установить CUDA-версии библиотек.</strong> Это не сработает. ROCm и CUDA — это разные вселенные. Устанавливайте только ROCm-совместимые сборки PyTorch и других библиотек.
+</li>
+<li class="text-slate-700">
+<strong>Не проверить физические размеры карты.</strong> Современные GPU — огромные. Убедитесь, что выбранная карта влезет в ваш корпус и не перекроет слоты для оперативной памяти или другие разъёмы.
+</li>
+<li class="text-slate-700">
+<strong>Сэкономить на блоке питания.</strong> Возьмите БП с запасом по мощности (минимум на 200-300 Вт больше общего TDP системы) и от проверенного производителя. Нестабильное питание — причина случайных падений и ошибок при загрузке больших моделей.
+</li>
+</ol>
+
+<h2 class="text-2xl font-bold text-slate-900 mt-6 mb-4">Итог: что же брать?</h2>
+<p class="text-slate-800 mb-4">Если коротко: для первого AI-PC я бы рекомендовал <strong>RTX 5060 Ti</strong>. Да, дороже. Но вы платите не за гигабайты памяти, а за время, которое не потратите на борьбу с настройкой ПО. Ваш первый опыт должен вдохновлять, а не отталкивать.</p>
+<p class="text-slate-800 mb-6">RX 9060 XT — выбор для энтузиастов, которые уже <a href="/article/razgon-6700xt-pod-rocm-polnyij-gajd-po-sborke-steka-dlya-lokalnyih-llm/" class="text-indigo-600 hover:underline">имели дело с ROCm</a>, хотят сэкономить и готовы к приключениям. Или для тех, кто принципиально поддерживает открытые платформы.</p>
+
+<div class="bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded-r-lg mb-6">
+<p class="text-yellow-800"><strong>Последний неочевидный совет:</strong> Не гонитесь за абсолютной новизной. Иногда выгоднее купить прошлогоднюю флагманскую карту (например, RTX 4080 Super с 16 ГБ) по скидке, чем новую mid-range модель. У флагманов шире шина памяти и больше вычислительных блоков, что для LLM часто важнее, чем архитектурные улучшения нового поколения.</p>
+</div>
+<p class="text-slate-800 mb-4">Собирайте систему под свои задачи. И помните, что лучшая видеокарта — та, на которой вы сможете запустить нужную модель сегодня, а не через полгода после выхода драйверов.</p>
+            </div>
+
+            <footer class="am-article-end">
+                
+                <section class="am-article-continuation" aria-labelledby="article-continuation-title" data-recommendations>
+                    <div class="am-article-continuation__heading">
+                        <span>Следующий шаг</span>
+                        <h2 id="article-continuation-title">Продолжить чтение</h2>
+                    </div>
+                
+                <a class="am-next-read" href="/article/neosoznannyij-vajb-koding-kogda-slepaya-vera-v-ii-generatsiyu-koda-rabotaet-i-kogda-net/" data-next-article data-position="1" data-placement="article_end" data-target-article-id="647">
+                    <span>Следующая публикация</span>
+                    <strong>Неосознанный вайб-кодинг: когда слепая вера в ИИ-генерацию кода работает (и когда нет)</strong>
+                    <small>7 мин чтения</small>
+                    <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+                
+
+                
+                <section class="am-related" aria-labelledby="related-title">
+                    <h2 id="related-title">Связанные материалы</h2>
+                    <div class="am-related__list">
+                        
+                        <a class="am-related__item" href="/article/optimizatsiya-inferensa-qwen-36-35b-a3b-na-radeon-rx-7600-21-tokens-s-llamacpp-i-rocm-7/" data-related-article data-position="1" data-placement="article_end" data-target-article-id="8559">
+                            <span>01</span>
+                            <strong>Оптимизация инференса Qwen 3.6 35B A3B на Radeon RX 7600: 21 токен/с с llama.cpp и ROCm 7</strong>
+                            <small>5 мин</small>
+                        </a>
+                        
+                        <a class="am-related__item" href="/article/twitch-po-umolchaniyu-peredayot-kontent-strimerov-dlya-obucheniya-ii-amazon-kak-otklyuchit-i-chto-eto-znachit-dlya-sozdatelej/" data-related-article data-position="2" data-placement="article_end" data-target-article-id="8558">
+                            <span>02</span>
+                            <strong>Twitch по умолчанию передаёт контент стримеров для обучения ИИ Amazon: как отключить и что это значит для создателей</strong>
+                            <small>5 мин</small>
+                        </a>
+                        
+                        <a class="am-related__item" href="/article/managed-agentyi-novyij-standart-prodakshn-razrabotki-ai-agentov/" data-related-article data-position="3" data-placement="article_end" data-target-article-id="8557">
+                            <span>03</span>
+                            <strong>Managed-агенты: новый стандарт продакшн-разработки AI-агентов</strong>
+                            <small>11 мин</small>
+                        </a>
+                        
+                    </div>
+                </section>
+                
+                </section>
+                
+
+                <nav class="am-article-neighbors" aria-label="Другие статьи">
+                    
+                    <a href="/article/simulyatsiya-realnosti-kak-qwen-long-nazval-mir-fejkom-i-chto-eto-govorit-o-proverke-faktov/" data-related-article data-position="1" data-placement="neighbor_newer" data-target-article-id="649"><small>Более свежая публикация</small><strong>Симуляция реальности: как Qwen Long назвал мир фейком и что это говорит о проверке ф…</strong></a>
+                    
+                    <a href="/articles/"><small>Архив AiManual</small><strong>Посмотреть все материалы</strong></a>
+                </nav>
+
+                <section class="am-article-channels" aria-labelledby="article-channels-title">
+                    <h2 id="article-channels-title">Продолжайте разбираться в ИИ вместе с нами</h2>
+                    <p>Новые материалы, короткие разборы и важные наблюдения публикуем в Telegram и MAX.</p>
+                    <div class="am-article-channel-actions" role="group" aria-label="Выбрать канал AiManual">
+                        <a class="am-button am-button--light" href="https://telegram.me/+zGRXd6tqfcwzMGIy" target="_blank" rel="noopener noreferrer" data-messenger="telegram" data-placement="article_end">
+                            <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21 3-7.5 18-4.2-7.3L3 10.8 21 3Z"></path><path d="m9.3 13.7 5.4-4.5"></path></svg>
+                            Telegram
+                        </a>
+                        <a class="am-button am-button--light" href="https://max.ru/channel_aimanual" target="_blank" rel="noopener noreferrer" data-messenger="max" data-placement="article_end">
+                            <img class="am-channel-icon" src="/static/branding/max.svg" alt="" aria-hidden="true" width="18" height="18">
+                            MAX
+                        </a>
+                    </div>
+                </section>
+
+            </footer>
+        </div>
+
+        <aside class="am-article-rail" aria-label="Дополнительные материалы">
+            
+            <section class="am-rail-related">
+                <h2>Ещё по теме</h2>
+                
+                <a href="/article/optimizatsiya-inferensa-qwen-36-35b-a3b-na-radeon-rx-7600-21-tokens-s-llamacpp-i-rocm-7/" data-related-article data-position="1" data-placement="article_rail" data-target-article-id="8559">
+                    <span>01</span>
+                    <strong>Оптимизация инференса Qwen 3.6 35B A3B на Radeon RX 7600: 21 токен/с с llama.cpp …</strong>
+                    <small>5 мин</small>
+                </a>
+                
+                <a href="/article/twitch-po-umolchaniyu-peredayot-kontent-strimerov-dlya-obucheniya-ii-amazon-kak-otklyuchit-i-chto-eto-znachit-dlya-sozdatelej/" data-related-article data-position="2" data-placement="article_rail" data-target-article-id="8558">
+                    <span>02</span>
+                    <strong>Twitch по умолчанию передаёт контент стримеров для обучения ИИ Amazon: как отключ…</strong>
+                    <small>5 мин</small>
+                </a>
+                
+                <a href="/article/managed-agentyi-novyij-standart-prodakshn-razrabotki-ai-agentov/" data-related-article data-position="3" data-placement="article_rail" data-target-article-id="8557">
+                    <span>03</span>
+                    <strong>Managed-агенты: новый стандарт продакшн-разработки AI-агентов</strong>
+                    <small>11 мин</small>
+                </a>
+                
+            </section>
+            
+
+            <section class="am-rail-channels">
+                <span>AiManual в мессенджерах</span>
+                <h2>Главное об ИИ без лишнего шума</h2>
+                <p>Анонсы статей, короткие наблюдения и полезные находки.</p>
+                <div class="am-rail-channel-actions" role="group" aria-label="Выбрать канал AiManual">
+                    <a href="https://telegram.me/+zGRXd6tqfcwzMGIy" target="_blank" rel="noopener noreferrer" data-messenger="telegram" data-placement="article_rail">
+                        <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21 3-7.5 18-4.2-7.3L3 10.8 21 3Z"></path><path d="m9.3 13.7 5.4-4.5"></path></svg>
+                        Telegram
+                    </a>
+                    <a href="https://max.ru/channel_aimanual" target="_blank" rel="noopener noreferrer" data-messenger="max" data-placement="article_rail">
+                        <img class="am-channel-icon" src="/static/branding/max.svg" alt="" aria-hidden="true" width="18" height="18">
+                        MAX
+                    </a>
+                </div>
+            </section>
+        </aside>
+    </div>
+</article>
+
+    </main>
+
+    <footer class="am-footer">
+        <div class="am-shell am-footer__grid">
+            <div class="am-footer__brand">
+                <a class="am-brand am-brand--footer" href="/">
+                    <img class="am-brand__logo" src="/static/branding/logo.svg" alt="AiManual" width="140" height="35">
+                </a>
+                <p>Практические знания об искусственном интеллекте без лишнего шума.</p>
+                <span>© 2026 AiManual</span>
+            </div>
+            <div>
+                <h2>Навигация</h2>
+                <a href="/">Главная</a>
+                <a href="/#latest">Свежие материалы</a>
+                <a href="/articles/">Архив публикаций</a>
+                <a href="/about/">О проекте</a>
+            </div>
+            <div>
+                <h2>Информация</h2>
+                <a href="/privacy/">Конфиденциальность</a>
+                <a href="mailto:ads.bagan@yandex.ru">Связаться с редакцией</a>
+            </div>
+            <div class="am-footer__channels">
+                <h2>Каналы AiManual</h2>
+                <p>Анонсы публикаций, короткие наблюдения и полезные находки — в привычном мессенджере.</p>
+                <div class="am-footer__channel-actions" role="group" aria-label="Выбрать канал AiManual">
+                    <a class="am-button am-button--light" href="https://telegram.me/+zGRXd6tqfcwzMGIy" target="_blank" rel="noopener noreferrer" data-messenger="telegram" data-placement="footer">
+                        <svg class="am-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21 3-7.5 18-4.2-7.3L3 10.8 21 3Z"></path><path d="m9.3 13.7 5.4-4.5"></path></svg>
+                        <span>Telegram</span>
+                    </a>
+                    <a class="am-button am-button--light" href="https://max.ru/channel_aimanual" target="_blank" rel="noopener noreferrer" data-messenger="max" data-placement="footer">
+                        <img class="am-channel-icon" src="/static/branding/max.svg" alt="" aria-hidden="true" width="18" height="18">
+                        <span>MAX</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/htmx.min.js" defer></script>
+    
+<script>window.Prism = window.Prism || {}; window.Prism.manual = true;</script>
+<script src="/static/js/prism/prism-aimanual.min.js?v=1" defer></script>
+
+    
+    <script id="aimanual-analytics-config" type="application/json">{"enabled": true, "counterId": 106057167, "schemaVersion": 1, "sendVisitParamsFallback": true, "goals": {"homepage_article_click": "homepage_article_click", "search_submit": "search_submit", "search_result": "search_result", "search_result_click": "search_result_click", "search_no_results": "search_no_results", "article_active_30": "article_active_30", "article_active_60": "article_active_60", "article_scroll_25": "article_scroll_25", "article_scroll_50": "article_scroll_50", "article_scroll_75": "article_scroll_75", "article_scroll_90": "article_scroll_90", "next_article_click": "next_article_click", "related_article_click": "related_article_click", "recommendations_view": "recommendations_view", "toc_click": "toc_click", "messenger_click": "messenger_click"}}</script>
+    <script src="/static/admin_theme/js/analytics.js?v=1" defer></script>
+    
+    <script src="/static/admin_theme/js/admin-theme.js?v=8" defer></script>
+    
+</body>
+</html>

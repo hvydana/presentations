@@ -1,0 +1,94 @@
+meta-models/Muse-Glimmer-30B
+Dense 29.6B vision-language model with a ViT-G/14 perception encoder and 128K context, distilled from Muse Spark for local agentic use. Emits channel-scoped reasoning and XML-style ATEM tool calls rather than JSON, so it needs the dedicated `muse_glimmer` tool-call and reasoning parsers.
+Guide
+Overview
+Muse Glimmer 30B is a dense vision-language model built for agentic work on consumer hardware: a 52-layer text decoder (hidden 6656) plus a ~1.8B ViT-G/14 perception encoder, 128K trained context, BF16. Apache 2.0, knowledge cutoff January 4 2026, trained on 100+ languages.
+What makes it unlike most recipes here is its output format. It does not emit
+JSON tool calls and it does not wrap reasoning in <think> tags. Every turn is
+written as a sequence of channel-scoped messages:
+to=self<|message|>...chain of thought...<|eom|>
+<|start|>assistant to=<tool><|message|><atem:function_calls>
+<atem:invoke name="<tool>">
+<atem:parameter name="<arg>">value</atem:parameter>
+</atem:invoke>
+</atem:function_calls><|eom|>
+<|start|>assistant to=user<|message|>...final answer...<|eot|>
+Both --tool-call-parser muse_glimmer and --reasoning-parser muse_glimmer key off that
+framing, so run them together. The reasoning parser also forces
+skip_special_tokens=False — without it the markers are stripped before
+parsing and both channels collapse into content.
+Prerequisites
+- Hardware: DGX Spark. FP4 weights might also run on 5090.
+- Image: vllm/vllm-openai:muse-glimmer , code will be released soon.
+Checkpoints
+| variant | repo | size | notes | 
+|---|---|---|---|
+| BF16 | meta-models/Muse-Glimmer-30B | 59.58 GB | reference precision | 
+| FP8 | RedHatAI/Muse-Glimmer-30B-FP8-block | 32.78 GB | FP8 block-scaled weights, dynamic activations (vision tower + embeddings BF16) | 
+| NVFP4 | Inferact/Muse-Glimmer-30B-NVFP4-W4A4 | 25.42 GB | ModelOpt NVFP4, W4A4, group size 16 | 
+| draft | meta-models/Muse-Glimmer-30B-assistant | 5.11 GB | DFlash draft head for speculative decoding | 
+The NVFP4 build quantizes both weights and activations to 4 bits across 364
+language-model projections (52 layers x 7); embeddings, lm_head and the vision
+tower stay unquantized, which is why it is 25 GB rather than the ~15 GB a
+uniform 4-bit quant would give. vLLM detects it from config.json
+(quant_method: modelopt, quant_algo: NVFP4) and selects modelopt_fp4 with
+fused activation quantization — no extra flags, the launch command below is
+unchanged apart from the model path. NVFP4 kernels are Blackwell-only.
+Launching the Server
+vllm serve /model \
+  --served-model-name muse-glimmer \
+  --tensor-parallel-size 4 \
+  --gpu-memory-utilization 0.92 \
+  --max-model-len 131072 \
+  --max-num-seqs 64 \
+  --enable-auto-tool-choice --tool-call-parser muse_glimmer \
+  --reasoning-parser muse_glimmer \
+  --generation-config auto
+At TP=4 on GB300 this reports a 26.8M-token KV pool and ~204x max concurrency at the full 128K context.
+Running on DGX Spark (GB10)
+Muse Glimmer was built for local deployment and runs on a DGX Spark as an ordinary single-card deployment — no special configuration. GB10 is aarch64 like GB300 so the same image applies, and the launch command above is unchanged apart from having one GPU to run on:
+vllm serve /model \
+  --served-model-name muse-glimmer \
+  --tensor-parallel-size 1 \
+  --enable-auto-tool-choice --tool-call-parser muse_glimmer \
+  --reasoning-parser muse_glimmer \
+  --generation-config auto
+There is no tensor parallelism to configure: GB10 is a single GPU, so TP is 1. BF16 weights are ~55 GiB against 128 GB of unified memory, leaving the rest for the KV cache and the perception encoder. The NVFP4 checkpoint is 25.42 GB, which leaves considerably more of that shared pool for KV and the host — the better fit of the two on this hardware.
+Running on MI300X/MI325X/MI355X
+As of now, please install the code from https://github.com/vllm-project/vllm/pull/51655
+if it hasn't been merged yet. After the PR is merged use vllm/vllm-openai-rocm:nightly image.
+export VLLM_ROCM_USE_AITER=1
+vllm serve /model \
+  --served-model-name muse-glimmer \
+  --tensor-parallel-size 4 \
+  --max-model-len 131072 \
+  --enable-auto-tool-choice \
+  --tool-call-parser muse_glimmer \
+  --reasoning-parser muse_glimmer \
+  --generation-config auto \
+  --attention-backend ROCM_AITER_FA
+At TP=1 on MI300X this reports an 6.66M-token KV pool and ~50.82x max concurrency at the full 128K context.
+At TP=4 on MI300X this reports an 17.79M-token KV pool and ~135.73x max concurrency at the full 128K context.
+At TP=1 on MI355X this reports an 11.64M-token KV pool and ~88.86x max concurrency at the full 128K context.
+At TP=4 on MI355X this reports an 27.68M-token KV pool and ~211.22x max concurrency at the full 128K context.
+Sampling
+Use the published settings:
+temperature = 1.0
+top_p       = 0.95
+top_k       = 64
+Do not run it greedy — it is a reasoning model, and greedy is not reproducible
+here either: identical requests at temperature: 0 with a fixed seed returned
+70, 80, and 86 completion tokens across runs.
+Reasoning strength. Effort is set with a Reasoning strength: <value> line
+in the system prompt, one of low / medium / high / xhigh. Use high or
+xhigh for coding and agentic tasks.
+Speculative decoding
+Muse Glimmer ships a DFlash block-diffusion draft head. Rather than proposing one token at a time, it predicts a whole block in a single forward — the slots attend to each other bidirectionally — and the target verifies them in parallel.
+--speculative-config '{"method": "dflash", "model": "meta-models/Muse-Glimmer-30B-assistant", "num_speculative_tokens": 15}'
+num_speculative_tokens: 15 is fixed, not tuned. The head has
+block_size: 16 and slot 0 re-presents the last accepted token, so 15 slots
+remain to predict.
+The head is 5 layers / 5.11 GB, reads the target's residual stream at layers
+[1, 13, 25, 37, 49], and ties its embedding and output projection to the
+target — so it stores neither and is useless on its own. It must be paired with
+the specific target it was distilled against, not merely a compatible one.

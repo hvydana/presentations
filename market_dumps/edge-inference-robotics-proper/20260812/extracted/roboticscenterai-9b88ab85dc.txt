@@ -1,0 +1,32 @@
+What Physical AI Actually Requires
+Physical AI — AI systems that perceive and act in the physical world through robotic bodies — has different infrastructure requirements than software AI. A large language model needs data, compute, and serving infrastructure. A robot policy needs all of that plus: real-world data collection at scale, realistic simulation environments, hardware compatibility layers, edge deployment infrastructure, and safety systems that don't exist in the software world.
+The gap between "we have a robot" and "the robot can reliably do useful work" is almost entirely an infrastructure problem. The algorithms exist. The hardware is commoditizing. The bottleneck is the operational infrastructure connecting them.
+The Physical AI Stack
+The emerging physical AI stack has five layers, each with distinct infrastructure requirements and a different set of companies building them:
+- Layer 1 — Hardware: Robot arms, humanoid bodies, sensors (RGB-D cameras, force-torque sensors, tactile arrays), and actuators. This layer is commoditizing rapidly. A capable 6-DOF arm (UR3e, Franka Research 3, Lebai LM3) costs $15K–$30K in 2025, down 40% from 2022. Humanoid hardware (Unitree G1, Agility Digit, Figure 01) is still expensive ($50K–$200K) but falling. Key builders: Unitree, Universal Robots, Franka, Figure, Agility, Boston Dynamics.
+- Layer 2 — Collection Infrastructure: The systems that produce training data. Teleoperation rigs, data pipelines, quality control, human review queues, episode storage, and annotation tooling. This is the most under-built layer relative to hardware investment. Key builders: SVRC, Lerobot (HuggingFace), Physical Intelligence (π).
+- Layer 3 — Training Infrastructure: GPU clusters, training frameworks optimized for robot learning (Isaac Lab, LeRobot training stack, ACT/Diffusion Policy implementations), and experiment tracking. The hardware side is handled by cloud providers; the robot-specific software stack is being built now. Key builders: NVIDIA (Isaac Lab, Jetson), HuggingFace (LeRobot), Google DeepMind (RT-2, Aloha).
+- Layer 4 — Foundation Models: Pretrained vision-language-action models that provide general robot capabilities fine-tunable to specific tasks. RT-2, OpenVLA, Octo, π0, and RoboFlamingo are the leading open checkpoints. A handful of organizations have a meaningful lead here. Key builders: Physical Intelligence, Google DeepMind, UC Berkeley, Stanford.
+- Layer 5 — Deployment Infrastructure: Edge inference on Jetson or similar hardware, OTA model update systems, fleet management dashboards, uptime monitoring, and safety watchdog systems. This layer barely exists as a product today — most teams build it custom for each deployment. Key builders: SVRC (fleet management), early-stage startups.
+Infrastructure Gaps Today
+Four critical gaps in the current physical AI infrastructure stack create friction for every organization deploying robot learning:
+| Gap | Current State | Impact | Likely Solution Timeline | 
+|---|---|---|---|
+| Universal robot API standard | No standard; each arm has proprietary SDK | Code rewritten for each robot type | 2026–2027 (ROS2 + hardware abstraction) | 
+| Universal data format | RLDS, HDF5, proprietary — incompatible | Data not portable across orgs or training stacks | 2025–2026 (Open X-Embodiment + LeRobot Hub) | 
+| Standardized evaluation benchmarks | LIBERO, SimplerEnv, RT-2 evals — not unified | No apples-to-apples model comparison | 2026–2027 | 
+| Managed inference for robot models | Self-hosted only; no robot model serving APIs | Each deployment requires full MLOps stack | 2025–2026 | 
+Emerging Standards
+Three emerging standards are converging to address the data format and portability gap:
+- Open X-Embodiment (OXE) format: A standardized episode format used across the 22-institution Open X-Embodiment dataset. Stores observation, action, reward, and metadata in a consistent schema. Increasingly adopted as the de facto standard for multi-robot datasets.
+- LeRobot Hub: HuggingFace's robot dataset repository, using the Parquet-based LeRobot dataset format. Growing fast — over 200 datasets as of early 2025. The GitHub model hub analogy applied to robot demonstration data.
+- RLDS (Reinforcement Learning Datasets): Google's TensorFlow-based episode format. Widely used in academic robot learning but losing ground to LeRobot Hub for new datasets due to PyTorch ecosystem dominance.
+The Investment Imbalance
+In 2024, approximately $2.4 billion flowed into humanoid robot hardware companies globally (Figure AI, Physical Intelligence, Agility, 1X, Apptronik, and others). Infrastructure companies — the picks-and-shovels layer enabling those robots to actually learn — attracted a fraction of that investment.
+This imbalance is temporary but creates a meaningful opportunity. The hardware is being built. The infrastructure to make it work is not. Organizations that build infrastructure competency now — data collection pipelines, training infrastructure, deployment systems — will have structural advantages as hardware costs continue to fall and hardware options multiply.
+SVRC's investment thesis is that the collection and deployment infrastructure layers are the highest-leverage points in the current physical AI stack. Our Fearless Platform addresses Layer 2 (collection) and Layer 5 (deployment). Our data services provide the human operator workforce that makes collection infrastructure productive.
+SVRC's Role in the Infrastructure Layer
+SVRC operates at the intersection of collection infrastructure and deployment infrastructure — the two most under-built layers in the 2025 physical AI stack. The Robotics Center of Silicon Valley provides:
+- Collection infrastructure: Teleoperation rigs, data pipelines, quality control systems, and a trained operator workforce. Hardware-agnostic — works with any robot arm that exposes joint control.
+- Deployment infrastructure: Fleet management dashboard, edge inference integration, OTA model update tooling, and uptime monitoring. Designed for organizations running 5–500 deployed robots.
+- Cross-embodiment data: SVRC's demonstration library includes data from 12+ arm types, enabling cross-embodiment fine-tuning that reduces per-task collection requirements by 30–60% for supported robot types.

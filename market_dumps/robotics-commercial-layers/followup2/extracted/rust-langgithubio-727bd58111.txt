@@ -1,0 +1,52 @@
+Safety-Critical Rust
+| Metadata |  | 
+|---|---|
+| Short title | Safety-Critical Rust | 
+| What and why | MC/DC coverage, a specification that tracks stable releases, and unsafe documentation — the evidence safety assessors need | 
+| Point of contact | Pete LeVasseur | 
+| Task owners | Pete LeVasseur | 
+Summary
+Make Rust viable for certified safety-critical systems by delivering coverage, specification, linting, and unsafe documentation foundations.
+Motivation
+The status quo
+Engineers building software under functional safety standards need auditable evidence and predictable tooling. The major standards families include:
+| Domain | Standards | 
+|---|---|
+| Automotive | ISO 26262 | 
+| Aerospace | DO-178C, DO-333 (formal methods) | 
+| Industrial | IEC 61508, IEC 61511 (process), IEC 62061 (machinery) | 
+| Medical devices | IEC 62304 | 
+| Railway | EN 50128, EN 50716 | 
+| Nuclear | IEC 60880, IEC 61513 | 
+| Space | ECSS-E-ST-40C, ECSS-Q-ST-80C | 
+| Agriculture/Forestry | ISO 25119 | 
+This includes OEMs, suppliers, integrators, and toolchain vendors. Safety cases must reference a specification for the language being used, and the toolchain must produce evidence that assessors accept.
+What these teams need most:
+- Coverage tooling. MC/DC reports that assessors accept.
+- A specification that tracks stable releases. So safety cases can reference current language features via the FLS.
+- Continued progress on unsafe documentation. The Reference, Rustonomicon, and standard library docs have improved substantially over the years, but gaps remain for common patterns.
+- Stable foundations. Product lifetimes of 10-20 years require confidence in toolchain support and MSRV conventions.
+Teams at SIL 2 and ASIL B are shipping Rust today. These deliverables reduce the workarounds they need and create a path to higher integrity levels — enabling certification evidence, qualified toolchains, mixed-language integration with well-defined unsafe contracts, and long-lived products with stable MSRV and documentation baselines.
+Design axioms
+- Evidence first. Prioritize deliverables that produce audit-ready evidence.
+- Use standard tooling. Improve rustc, Clippy, and core docs rather than forks.
+- Ship a ladder. Foundations first, with an explicit path to higher integrity levels.
+- Document safety contracts. unsafe patterns must have normative, citable guidance.
+What we are shooting for
+A capability ladder that unlocks Rust at increasing safety-integrity levels — from ASIL A/B and SIL 1/2 today, through intermediate levels, to the highest integrity certifications.
+How we get there
+| Goal | Timespan | What and why | 
+|---|---|---|
+| Establish a Spot for Safety-Critical Lints in Clippy | 2026 | A sustainable home in Clippy for safety-critical coding standard lints from the Consortium | 
+| Implement and Maintain MC/DC Coverage Support | 2026 | MC/DC and decision coverage in rustc, required by DO-178C, ISO 26262, and IEC 61508 for safety certification | 
+| Normative Documentation for Sound unsafe Rust | 2026 | Normative documentation for common unsafe patterns so safety-critical developers have authoritative guidance | 
+| Stabilize FLS Release Cadence | 2026 | Predictable FLS releases within six weeks of each Rust stable release, so safety assessors have a current spec | 
+The goals form a coherent evidence chain across three tiers. The foundation tier (ASIL A/B, SIL 1/2, DO-178C Level C) delivers stable branch/DC coverage baselines and predictable FLS releases, plus initial safety-critical linting to enforce Safety-Critical Rust Consortium coding standards. The intermediate tier (ASIL C, SIL 3, DO-178C Level B) adds normative unsafe pattern documentation and expanded lint coverage, with coordination for mixed-language interop and async runtime patterns. The highest integrity tier (ASIL D, SIL 4, DO-178C Level A) targets MC/DC coverage in rustc and formal-methods coordination toward contracts, semantics documentation, and verified tooling.
+Funding
+|  | Goal | Cost | Funding contact | Sponsor(s) | 
+|---|---|---|---|---|
+Frequently asked questions
+Does this certify Rust for safety-critical use?
+No. Certification is per product and toolchain. These goals deliver the foundations that make qualification and certification feasible without bespoke tooling.
+Why focus on foundations in 2026?
+Teams at lower integrity levels are already shipping Rust and need practical improvements now. The foundation work also makes the higher-integrity goals achievable later.

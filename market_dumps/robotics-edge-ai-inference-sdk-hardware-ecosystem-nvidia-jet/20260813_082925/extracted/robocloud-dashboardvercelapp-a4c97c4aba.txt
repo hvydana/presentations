@@ -1,0 +1,61 @@
+The Cloud is too slow. In 2026, the brain is in the robot. With the explosion of RISC-V and dedicated NPUs (Neural Processing Units), robots are running multi-billion parameter foundation models locally, on battery power. For the full breakdown of what compute to actually buy (Jetson boards, gaming laptops, or cloud GPUs) see our robotics compute guide.
+Fig 1. The 2026 Compute Stack: Custom silicon optimized for inference, not graphics.
+RISC-V & The Custom Silicon Era
+The rigid architectures of x86 and ARM are being challenged by the open standard of RISC-V.
+In 2026, robotics companies are printing their own chips. Startups don't buy generic CPUs; they license a RISC-V core and add custom Vector Extensions (RVV) tailored for their specific motion planning algorithms.
+Chips like the MIPS S8200 are changing the game. This RISC-V is designed specifically for transformer-based "Agentic" workloads, allowing a $50 drone to run a small Language-Action Model locally without killing its battery.
+Fig 2. The Synaptic Core: Neuromorphic chips process data physically like a brain, ignoring "zero" values to save 90% power.
+Neuromorphic Architectures: Spiking Neural Networks
+Traditional CPUs process frames 60 times a second, even if nothing moves. Neuromorphic chips like the Intel Loihi 3 use Spiking Neural Networks (SNNs). They only fire when a pixel changes.
+This "Event-Based" processing allows robots to catch a flying ball with microsecond latency, consuming milliwatts of power. It is the perfect marriage of hardware and biology.
+Hybrid Edge-Cloud Architectures
+We've reached a balance. The "Reflex Loop" (obstacle avoidance, stability) runs on the edge NPU at 1kHz. The "Reasoning Loop" (Where should I explore next?) offloads to the cloud via 5G/6G. This hybrid approach gives robots the reflexes of an insect and the brain of a supercomputer.
+TOPS per Watt
+It doesn't matter how smart your robot is if its battery dies in 20 minutes.
+The metric that matters now is TOPS/W (Trillions of Operations Per Second per Watt). New "Neuromorphic-inspired" accelerators are achieving 100 TOPS/W by only switching transistors when data changes (event-based processing), mirroring the human brain's efficiency.
+NVIDIA Jetson Thor
+The standard for humanoid robotics. Built on the Blackwell architecture, Thor delivers 800 TFLOPS of 8-bit floating point performance. It is specifically designed to run , NVIDIA's for humanoid robots, allowing for simultaneous vision, language, and motor control in a single package.
+The Death of the "Cloud Brain"
+5G is great, but it's not reliable enough for safety. You can't wait 100ms for the cloud to tell you "Stop!" when a child runs in front of you.
+Edge AI means Local Inference. Privacy is key here too, your Roomba shouldn't be streaming video of your bedroom to a central server. In 2026, data stays on the device, processed by secure enclaves.
+Quick recap
+Edge AI hardware comparison for robotics 2026: Jetson Orin NX vs Hailo-8L vs Coral TPU vs Raspberry Pi 5, benchmarks for YOLOv8, power draw, ROS 2.
+Hardware Selection Checklist for Robots
+Choosing edge AI hardware for robotics is different from choosing a workstation GPU. A robot has heat, weight, battery, safety, and real-time constraints.
+Ask before buying
+- What FPS and latency does perception need?
+- How many cameras, lidars, or event sensors are attached?
+- Does the model fit in memory after ?
+- Can the enclosure remove heat at peak load?
+Good robotics signs
+- Stable Linux and support
+- Camera drivers, , CAN, and Ethernet support
+- INT8/FP8 acceleration for transformer inference
+- Power modes that can be locked and monitored
+2026 Chip Comparison: Jetson Orin vs Coral vs Hailo vs Raspberry Pi 5
+Here is how the most popular edge AI boards compare for robotics in 2026. Power figures are at sustained load with a typical robot perception workload.
+| Board | AI Perf | Power (W) | ROS 2 | Best For | 
+|---|---|---|---|---|
+| Jetson AGX Orin | 275 TOPS | 15–60 | Native | Humanoids, GR00T, multi-camera | 
+| Jetson Orin NX 16GB | 100 TOPS | 10–25 | Native | AMRs, manipulation, inference | 
+| Hailo-8L (M.2) | 13 TOPS | 1.5–3 | Via host | YOLOv8 on RPi 5, battery drones | 
+| RPi 5 + Hailo-8L | 13 TOPS NPU | 5–8 total | Supported | Budget AMRs, edu robots | 
+| Google Coral TPU | 4 TOPS | 2–4 | Via host | Tiny classifiers, MCU pairing | 
+Bottom line: The Jetson Orin NX hits the sweet spot for mobile manipulation robots: enough TOPS to run a quantized 7B VLA at 6 FPS while still running and object detection in parallel.
+Real Inference Benchmarks: YOLOv8 and OpenVLA on Edge Hardware
+Spec-sheet TOPS numbers don't tell you how fast YOLOv8 or a 7B VLA actually runs on your robot. Here are measured inference speeds for common robotics models.
+| Board | YOLOv8n (FPS) | YOLOv8x (FPS) | DepthAnything V2 | -7B (INT8) |  | 
+|---|---|---|---|---|---|
+| Jetson AGX Orin 64GB | 280 FPS | 55 FPS | 45 FPS | 8–10 FPS | Real-time | 
+| Jetson Orin NX 16GB | 180 FPS | 28 FPS | 22 FPS | 5–6 FPS | Real-time | 
+| Jetson Orin Nano 8GB | 95 FPS | 12 FPS | 10 FPS | Too slow (2–3 FPS) | Real-time | 
+| RPi 5 + Hailo-8L | 120 FPS | 15 FPS | 5 FPS | Not supported | Marginal | 
+| Google Coral USB TPU | 45 FPS | 2 FPS | Not supported | Not supported | Not supported | 
+FPS at 640×640 input, INT8 on Jetson, HAILOTOOLS on Hailo. OpenVLA-7B uses bfloat16 quantized . Results are approximate and model-version dependent.
+ROS 2 Setup for Jetson Orin NX (TensorRT + Isaac ROS)
+This runs YOLOv8n at ~180 FPS on Orin NX. Use isaac_ros_visual_slam for simultaneous SLAM + detection pipelines.
+Memory Wall Breakthroughs
+The bottleneck for AI isn't compute; it's memory bandwidth. Moving weights from RAM to the CPU costs 100x more energy than doing the math.
+Compute-In-Memory (CIM) chips are solving this. By performing calculations directly inside the memory arrays (using analog electronics), we eliminate the data movement entirely, unlocking 1000x efficiency gains for specific workloads.
+Silicon is Strategy
+In 2026, you cannot be a leading robotics company without a hardware strategy. Off-the-shelf CPUs are for prototypes. Winners build on specialized silicon.

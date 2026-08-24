@@ -1,0 +1,33 @@
+At AWS re:Invent, NVIDIA announced the availability of Isaac Sim on Amazon Elastic Cloud Compute (EC2) G6e instances, powered by NVIDIA L40S GPUs and supported by NVIDIA OSMO, a cloud-native orchestration platform. This powerful combination allows developers to seamlessly manage and scale complex robotics workflows across AWS computing infrastructure, bringing state-of-the-art simulation and training capabilities to the cloud.
+This collaboration marks a significant step in advancing physical AI, enabling teams of all sizes to innovate in autonomous machines and robotics, such as self-driving cars, industrial robots, humanoids, and automated factory systems. By leveraging NVIDIA’s accelerated hardware and software ecosystem, developers can scale their physical AI workflows with unprecedented speed and efficiency.
+Physical AI with NVIDIA Isaac Sim and L40S GPUs
+Scaling Robotics Development in the Cloud
+Physical AI requires a robust infrastructure to train, simulate, and deploy autonomous systems capable of interacting with the physical world. However, developing real-world datasets and testing robotics systems in physical environments is costly and often impractical. Simulation provides a cost-effective and scalable alternative for developing AI-driven robotics systems.
+- Amazon EC2 G6e Instances Powered by NVIDIA L40S GPUs: These cloud-based instances deliver 2x performance gains over previous architectures, enabling high-speed training for computer vision models that power AI-driven robots. The flexibility of L40S GPUs supports tasks ranging from data generation to model training and simulation. This scalability is particularly beneficial for addressing increasingly complex robotics environments.
+- NVIDIA OSMO: NVIDIA OSMO provides developers with a platform to orchestrate robotics workflows across distributed computing environments. Whether on-premises or in the AWS cloud, OSMO simplifies complex processes, enabling collaborative development and faster time-to-market for robotics applications.
+Synthetic Data Generation and Model Training with Isaac Sim
+Together with NVIDIA Omniverse Replicator, Isaac Sim facilitates synthetic data generation for perception model training. Using generative AI tools, developers can create custom datasets for robotics simulations without the manual overhead of traditional approaches. Key features include:
+- Omniverse Replicator Extensions
+- USD Code NIM: Automates Python USD code generation and handles OpenUSD queries.
+- USD Search NIM: Enables natural language or image-based searches for OpenUSD assets.
+- Edify Microservices: Generates 360-degree HDRi maps and editable 3D assets from text or image prompts, streamlining asset creation and augmentation.
+This suite of tools, integrated with the Rendered.ai synthetic data platform, supports industries such as security, manufacturing, and agriculture in creating high-quality datasets for computer vision models.
+Industry Applications and Use Cases
+NVIDIA Isaac Sim and its integrated platforms are driving innovation across diverse industries. Key examples include:
+- 
+  - Tata Consultancy Services: Builds custom synthetic data pipelines for automotive and autonomous use cases, enabling defect detection and hazard avoidance through real-world scenario simulation.
+  - SoftServe and Pfeifer & Langen: SoftServe employs Isaac Sim to validate robots in vertical farming scenarios, enhancing efficiency for one of Europe’s leading food producers.
+  - Rendered.ai: Partners with Omniverse Replicator to develop synthetic data for applications ranging from manufacturing to agricultural automation.
+Real-World Deployments
+Robotics developers leverage NVIDIA Isaac Sim to simulate, validate, and optimize autonomous systems. Success stories include:
+- Aescape: Fine-tunes sensor integration for robots that deliver precision-tailored massages.
+- Cobot: Uses Isaac Sim to optimize the logistics performance of its AI-powered cobot, Proxie, across warehouses and hospitals.
+- Field AI: Evaluates foundation model performance in unstructured environments, serving industries like construction, mining, and oil and gas.
+- Swiss Mile: Advances wheeled quadruped robots to autonomously perform tasks more efficiently in factories and warehouses.
+- Vention: Develops and tests robotic cell capabilities for small to medium-sized manufacturers using Isaac Sim.
+Enhancing Robotics Learning with Isaac Lab
+Isaac Lab, an open-source framework, complements Isaac Sim by providing a “virtual playground” for developing robot policies. When paired with AWS Batch, developers can run repeatable simulations to test and troubleshoot robotics systems. This reduces validation cycles and accelerates deployment timelines.
+Transforming Robotics with NVIDIA Isaac on AWS
+Dion Harris, Global Lead for Simulation and AI at NVIDIA, the impact of these technologies:
+“By combining the power of NVIDIA L40S GPUs, Isaac Sim, and OSMO, developers now have the tools to build scalable, efficient, and innovative robotics solutions in the cloud. This marks a new era in physical AI, enabling seamless integration between simulation and real-world applications.”
+NVIDIA’s advancements in cloud-based simulation and robotics workflows equip developers to address complex challenges in robotics and AI. By leveraging AWS infrastructure, L40S GPUs, and Isaac Sim’s capabilities, organizations can achieve breakthroughs in physical AI development, setting the stage for transformative growth in autonomous systems and their applications.

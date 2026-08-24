@@ -1,0 +1,49 @@
+VLA & VLM Robot Model Directory
+Side-by-side comparison of 50+ open-source vision-language-action (VLA) and vision-language (VLM) models for robotics — OpenVLA, Octo, RT-X, Diffusion Policy, LeRobot, and more — with benchmarks, licenses, hardware requirements, and paper links.
+Foundation VLA Models
+Large-scale action models trained with multi-robot, multi-task data.
+Collection
+Model Comparison Track
+Models commonly used for benchmark-style side-by-side evaluation.
+Collection
+Policy Learning Models
+Architectures optimized for practical IL/RL policy training loops.
+Our team has deployed OpenVLA, Octo, and RT-X on OpenArm, Unitree G1, and Mobile ALOHA rigs. Tell us your robot and task and we will recommend a model and a dataset.
+Get a Model Recommendation
+Popular Categories
+Popular Tags
+VLA & VLM Models for Robotics
+OpenVLA
+7B-parameter VLA. Llama 2 + DINOv2/SigLIP. 970K demos from Open X-Embodiment. Outperforms RT-2-X with 7× fewer params. MIT, Hugging Face.
+View model → 2024
+Octo
+Transformer diffusion policy. 27M/93M params. 800K trajectories. Multi-robot, language/goal conditioning. MIT, Hugging Face.
+View model → Google DeepMind
+RT-X / RT-1-X
+Open X-Embodiment models. JAX & TensorFlow checkpoints. Multi-robot, language-conditioned. Apache 2.0.
+View model → Shanghai AI Lab
+InternVLA-M1
+Spatially guided VLA. Two-stage: grounding + action. 71–81% on Google Robot, 95.9% LIBERO. MIT, Hugging Face.
+View model → ByteDance / Tsinghua
+RoboFlamingo
+OpenFlamingo-based VLM for robot control. Policy head + imitation learning. Strong on CALVIN. MIT, Hugging Face.
+View model → NeurIPS 2025
+BridgeVLA
+3D VLA with input-output alignment. 88.2% RLBench, 64% COLOSSEUM. Heatmap pre-training + point cloud fine-tuning.
+View model → Columbia
+Diffusion Policy
+Visuomotor policy as denoising diffusion. +46.9% over prior methods. Receding horizon, time-series transformer. Open source.
+View model → Hugging Face
+LeRobot
+Framework + ACT, SmolVLA (450M). End-to-end IL/RL. Datasets, training, deployment. PyTorch, Hugging Face Hub.
+View model →
+Datasets & Tools to Pair
+Practical Model Selection
+Compare architectures by task fit, data need, and deployment complexity.
+Data-Model Alignment
+Model choices are connected to compatible dataset and format stacks.
+Experiment Velocity
+Open-source links and implementation-ready pointers reduce setup friction.
+Scale to Production
+From evaluation to deployment with support for tuning and integration.
+Every VLA here can be fine-tuned on your own demonstrations.

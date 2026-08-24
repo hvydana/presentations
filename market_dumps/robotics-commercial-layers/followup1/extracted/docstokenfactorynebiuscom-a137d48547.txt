@@ -1,0 +1,46 @@
+Observability Metrics are only accessible for Dedicated Endpoints inference
+What you can do with Observability
+Inference Observability is designed to help you answer practical engineering questions - debug, optimise and operate:
+- When and why did latency increase?
+- Are errors coming from my requests or infrastructure?
+- Compare performance across endpoints
+- Understand token throughput and response times
+- Monitor scaling behavior and capacity
+Metrics available
+Traffic
+These metrics describe how much load your endpoint is handling and understand traffic spikes, prompt size trends, throughput limits
+Latency
+Latency metrics describe how long requests take at different stages. This helps identify model warmup effects, queueing or scaling delays, slow generation behavior. Latency charts display percentiles:p50, p90, p99
+TTFT (Time to First Token) metric is measured across streaming requests only
+Autoscaling and Capacity
+These metrics help explain why latency increases under load and whether scaling is working as expected, as well as if replicas are well utilized with the workload. Some capacity metrics may be hidden depending on your pricing model.
+Errors and success rate
+Typical error classes:
+- 4xx — invalid requests or limits
+- 429 — rate limiting or capacity limits
+- 5xx — internal errors
+- Whether failures come from traffic patterns
+- Whether rate limits are reached
+- Whether infrastructure issues occurred
+Looking for an incident history or having a down time? You can also check Token Factory section at Nebius Cloud status page
+Filters and dimensions
+You can filter metrics to narrow down specific traffic patterns. This makes it possible to compare regions, projects and benchmark endpoints. Filters apply to all charts simultaneously.
+Exporting metrics and API access
+The Monitoring service provides metrics in Nebius Token Factory in two forms:
+- Preconfigured dashboards in the web UI show key metrics for each resource.
+- The API to metrics is available via Prometheus and Grafana® integrations. You can filter and visualize the metrics the way you want with API integration.
+Observability API integrations
+Go to Observability API access to learn more how to integrate with Prometheus and Grafana
+How metrics are calculated
+Metrics are aggregated in short windows and refreshed continuously. The aggregation window depends on the timeline choosen. Typical characteristics:
+- Near-real-time updates (usually within tens of seconds)
+- Percentile-based latency statistics
+- Rolling aggregation windows depending on the time scale choosen
+Observability dashboards are intended for operational debugging and performance analysis, not billing reconciliation.
+Access control
+Observability is a project-nested entity and follows project permissions.
+FAQ
+Data retention and deletion
+Observability data is tied to the project lifecycle. When a project is deleted associated observability data is automatically removed.
+Regions and data locality
+Projects may contain endpoints in multiple regions. Metrics are collected in the region where inference runs, but eventually stored ateu-northregion. Filters allow you to compare endpoints data in different regions

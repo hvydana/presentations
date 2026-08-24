@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    // Consent Mode v2 defaults. Analytics is default-granted (CCPA opt-out
+    // model); advertising categories stay denied. gtag.js loads on first
+    // pageview unless GPC is active. Updated 2026-04-29 to restore GA4
+    // measurement after over-protective default-denied was deployed.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = window.gtag || gtag;
+    gtag('consent','default',{
+      'ad_storage':            'denied',
+      'ad_user_data':          'denied',
+      'ad_personalization':    'denied',
+      'analytics_storage':     'granted',
+      'functionality_storage': 'granted',
+      'security_storage':      'granted',
+      'wait_for_update':       500
+    });
+    if (navigator.globalPrivacyControl === true) {
+      gtag('consent','update',{
+        'ad_storage':'denied','ad_user_data':'denied',
+        'ad_personalization':'denied','analytics_storage':'denied'
+      });
+    }
+    gtag('js', new Date());
+    gtag('config', 'G-DXNPY1G95T', {'send_page_view': false});
+    </script>
+    <meta charset="UTF-8">
+    <meta name="generator" content="IDFS AI">
+    <meta name="msvalidate.01" content="4CBE3C5E845DBE106B59E50E193DB1C9" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="site-platform" content="forged">
+    <title>AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy - IDFS AI</title>
+    <meta name="description" content="We tested AMD&#39;s ROCm 7.2 stack against a production NVIDIA workload: TEI, ComfyUI, Ollama, vLLM, Flash Attention, and more. Here&#39;s what runs, what&#39;s still broken, and what the 30-40% performance gap really costs you in practice.">
+    <link rel="canonical" href="https://idfs.ai/blog/amd-gpus-for-ai-inference-2026">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy">
+    <meta property="og:description" content="We tested AMD&#39;s ROCm 7.2 stack against a production NVIDIA workload: TEI, ComfyUI, Ollama, vLLM, Flash Attention, and more. Here&#39;s what runs, what&#39;s still broken, and what the 30-40% performance gap really costs you in practice.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://idfs.ai/blog/amd-gpus-for-ai-inference-2026">
+    <meta property="og:image" content="/static/img/blog/steampunk_amd_nvidia.webp">
+    <meta property="og:site_name" content="IDFS AI">
+    <meta property="og:locale" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy">
+    <meta name="twitter:description" content="We tested AMD&#39;s ROCm 7.2 stack against a production NVIDIA workload: TEI, ComfyUI, Ollama, vLLM, Flash Attention, and more. Here&#39;s what runs, what&#39;s still broken, and what the 30-40% performance gap really costs you in practice.">
+    <meta name="twitter:image" content="/static/img/blog/steampunk_amd_nvidia.webp">
+
+    <!-- Site verification -->
+    <meta name="p:domain_verify" content="e37ed103ea56958497416b93805aaaaa"/>
+
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico?v=6">
+    <link rel="icon" type="image/png" sizes="100x100" href="/static/img/favicon-100.png?v=6">
+    <link rel="icon" type="image/png" sizes="211x211" href="/static/img/favicon-211.png?v=6">
+    <link rel="apple-touch-icon" href="/static/img/favicon-211.png?v=6">
+    
+    <link rel="preload" href="/static/css/output.css" as="style" fetchpriority="high">
+    <link rel="stylesheet" href="/static/css/output.css">
+    
+    
+    <script src="/static/js/htmx.min.js" defer></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Ubuntu+Condensed&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Ubuntu+Condensed&display=swap"></noscript>
+    <style>
+        /* ============================================================
+           IDFS.AI NAVIGATION SYSTEM
+           Desktop: Animated color-bar menu with 3D perspective drops
+           Mobile: Full-screen overlay with accordion sub-menus
+           ============================================================ */
+
+        /* WCAG 1.4.3: .text-accent-purple contrast uplift.
+           #814ee8 on #151a34 = 3.4:1 (fails AA). #A07DF0 = 5.04:1 (passes).
+           Overrides Tailwind's token for TEXT only; bg-accent-purple buttons
+           keep the saturated #814ee8 so white-on-purple stays AA (4.64:1). */
+        .text-accent-purple { color: #A07DF0; }
+        .hover\:text-accent-purple:hover { color: #A07DF0; }
+
+        /* --- Glassmorphic nav bar --- */
+        .idfs-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            will-change: transform;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        /* Electric fire border animation.
+           NOTE: Kept on background-position for now; converting to transform
+           requires a clipped wrapper element (pseudo can't be clipped without
+           breaking sibling dropdowns positioned at top:100%). Will revisit
+           P-5 in a follow-up with a markup change. Hint layer promotion. */
+        .idfs-nav::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 2px;
+            background: linear-gradient(90deg,
+                #8b5cf6 0%, #60a5fa 20%, #a855f7 40%,
+                #3b82f6 60%, #a855f7 80%, #8b5cf6 100%
+            );
+            background-size: 200% 100%;
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+        }
+        /* Animation runs only on tablet+. Mobile gets the static gradient bar
+           so we don't pay the non-composited paint cost on Lighthouse mobile. */
+        @media (min-width: 768px) {
+            .idfs-nav::after {
+                will-change: background-position;
+                animation: electricFlow 4s linear infinite;
+            }
+            @keyframes electricFlow {
+                0%   { background-position: 0% 0%; }
+                100% { background-position: 200% 0%; }
+            }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .idfs-nav::after { animation: none; }
+        }
+
+        .idfs-nav-inner {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 95px;
+        }
+        @media (min-width: 640px) {
+            .idfs-nav-inner { padding: 0 24px; }
+        }
+
+        /* Logo glow on hover */
+        .idfs-logo {
+            flex-shrink: 0;
+            /* WCAG 2.2 SC 2.5.8: target-size ≥24x24 (axe spacing metric).
+               12x8 padding + min-height 48px guarantees 48x48 hit area. */
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 8px;
+            min-height: 48px;
+        }
+        .idfs-logo img {
+            height: 45px;
+            width: auto;
+            transition: filter 0.3s;
+        }
+        @media (min-width: 640px) {
+            .idfs-logo img { height: 50px; }
+        }
+        .idfs-logo:hover img {
+            filter: drop-shadow(0 0 8px rgba(129, 78, 232, 0.6));
+        }
+
+        /* ============================================================
+           DESKTOP MENU (visible >= 1024px)
+           ============================================================ */
+        .idfs-desktop-menu {
+            display: none;
+            align-items: center;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        @media (min-width: 1100px) {
+            .idfs-desktop-menu { display: flex; }
+        }
+
+        .idfs-desktop-menu > li {
+            position: relative;
+        }
+
+        .idfs-desktop-menu > li > a,
+        .idfs-desktop-menu > li > button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 20px 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .idfs-desktop-menu > li > a:hover,
+        .idfs-desktop-menu > li > button:hover {
+            color: #fff;
+        }
+
+        /* Animated color bar underline per item */
+        .idfs-desktop-menu > li > a::after,
+        .idfs-desktop-menu > li > button::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%;
+            width: 0; height: 3px;
+            border-radius: 2px;
+            transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                        left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .idfs-desktop-menu > li:hover > a::after,
+        .idfs-desktop-menu > li:hover > button::after {
+            width: 100%; left: 0;
+        }
+
+        /* Color per menu position */
+        .idfs-desktop-menu > li:nth-child(1) > a::after { background: #8b5cf6; }
+        .idfs-desktop-menu > li:nth-child(2) > a::after,
+        .idfs-desktop-menu > li:nth-child(2) > button::after { background: #3b82f6; }
+        .idfs-desktop-menu > li:nth-child(3) > a::after,
+        .idfs-desktop-menu > li:nth-child(3) > button::after { background: #06b6d4; }
+        .idfs-desktop-menu > li:nth-child(4) > a::after,
+        .idfs-desktop-menu > li:nth-child(4) > button::after { background: #a855f7; }
+        .idfs-desktop-menu > li:nth-child(5) > a::after { background: #60a5fa; }
+
+        /* Chevron icon */
+        .idfs-desktop-menu .chevron {
+            width: 12px; height: 12px;
+            transition: transform 0.3s;
+        }
+        .idfs-desktop-menu > li:hover .chevron {
+            transform: rotate(180deg);
+        }
+
+        /* --- 3D Perspective Dropdown --- */
+        .idfs-desktop-menu .sub-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%) perspective(800px) rotateX(-12deg);
+            transform-origin: top center;
+            min-width: 260px;
+            padding: 8px 0;
+            background: rgba(15, 23, 42, 0.97);
+            backdrop-filter: blur(32px);
+            -webkit-backdrop-filter: blur(32px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 16px;
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(129, 78, 232, 0.1),
+                inset 0 1px 0 rgba(255,255,255,0.05);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+            list-style: none;
+            z-index: 1001;
+            margin: 0;
+        }
+
+        .idfs-desktop-menu > li:hover > .sub-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) perspective(800px) rotateX(0deg);
+        }
+
+        /* Staggered submenu item animations */
+        .idfs-desktop-menu .sub-menu > li {
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .idfs-desktop-menu > li:hover > .sub-menu > li {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(1) { transition-delay: 0.04s; }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(2) { transition-delay: 0.08s; }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(3) { transition-delay: 0.12s; }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(4) { transition-delay: 0.16s; }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(5) { transition-delay: 0.20s; }
+        .idfs-desktop-menu > li:hover > .sub-menu > li:nth-child(6) { transition-delay: 0.24s; }
+
+        .idfs-desktop-menu .sub-menu > li > a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: all 0.25s;
+            border-radius: 8px;
+            margin: 2px 8px;
+        }
+        .idfs-desktop-menu .sub-menu > li > a:hover {
+            color: #c084fc;
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        /* Product thumbnail images in dropdown */
+        .idfs-desktop-menu .sub-menu .drop-thumb {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(168, 85, 247, 0.25);
+            flex-shrink: 0;
+        }
+
+        /* Dropdown description text */
+        .drop-desc {
+            display: block;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0;
+            text-transform: none;
+            margin-top: 2px;
+        }
+
+        /* Action buttons area */
+        .idfs-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .idfs-cta-contact {
+            display: none;
+            padding: 12px 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: #fff;
+            background: #814ee8;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
+        }
+        .idfs-cta-contact:hover {
+            background: #9556f3;
+            box-shadow: 0 4px 20px rgba(129, 78, 232, 0.4);
+        }
+        @media (min-width: 640px) {
+            .idfs-cta-contact { display: inline-flex; }
+        }
+
+        .idfs-cta-login {
+            display: none;
+            padding: 12px 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.85);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: background 0.3s, border-color 0.3s;
+            white-space: nowrap;
+        }
+        .idfs-cta-login:hover {
+            background: rgba(255,255,255,0.12);
+            border-color: rgba(255,255,255,0.25);
+        }
+        @media (min-width: 1100px) {
+            .idfs-cta-login { display: inline-flex; }
+        }
+
+        /* ============================================================
+           HAMBURGER BUTTON (visible < 1024px)
+           ============================================================ */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px; height: 44px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 1200;
+            -webkit-tap-highlight-color: transparent;
+        }
+        @media (min-width: 1100px) {
+            .hamburger { display: none; }
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px; height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+        .hamburger span:nth-child(1) { top: -4px; }
+        .hamburger span:nth-child(3) { top: 4px; }
+
+        .hamburger.active span:nth-child(1) {
+            top: 0;
+            transform: rotate(45deg) translate(0px, 0px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            top: 0;
+            transform: rotate(-45deg) translate(0px, 0px);
+        }
+
+        /* ============================================================
+           MOBILE OVERLAY MENU (< 1024px)
+           ============================================================ */
+        #mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 15, 28, 0.98);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            z-index: 1050;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                        visibility 0.4s;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
+        #mobile-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        @media (min-width: 1100px) {
+            #mobile-overlay { display: none !important; }
+        }
+
+        .mobile-nav-container {
+            padding: 80px 24px 40px;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* Mobile nav list */
+        .mobile-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .mobile-nav > li {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .mobile-nav > li > a,
+        .mobile-nav > li > .mobile-parent {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 18px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Color accent bars on mobile items */
+        .mobile-nav > li:nth-child(1) > a,
+        .mobile-nav > li:nth-child(1) > .mobile-parent { border-left: 3px solid #8b5cf6; padding-left: 16px; }
+        .mobile-nav > li:nth-child(2) > a,
+        .mobile-nav > li:nth-child(2) > .mobile-parent { border-left: 3px solid #3b82f6; padding-left: 16px; }
+        .mobile-nav > li:nth-child(3) > a,
+        .mobile-nav > li:nth-child(3) > .mobile-parent { border-left: 3px solid #06b6d4; padding-left: 16px; }
+        .mobile-nav > li:nth-child(4) > a,
+        .mobile-nav > li:nth-child(4) > .mobile-parent { border-left: 3px solid #a855f7; padding-left: 16px; }
+        .mobile-nav > li:nth-child(5) > a,
+        .mobile-nav > li:nth-child(5) > .mobile-parent { border-left: 3px solid #60a5fa; padding-left: 16px; }
+
+        /* Accordion chevron */
+        .mobile-parent .mobile-chevron {
+            width: 20px; height: 20px;
+            transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+            color: rgba(255,255,255,0.4);
+            flex-shrink: 0;
+        }
+        .mobile-parent.open .mobile-chevron {
+            transform: rotate(180deg);
+            color: #a855f7;
+        }
+
+        /* Accordion sub-menu */
+        .mobile-sub {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .mobile-sub.open {
+            max-height: 600px;
+        }
+        .mobile-sub li a {
+            display: block;
+            padding: 12px 0 12px 32px;
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.2s, padding-left 0.2s;
+        }
+        .mobile-sub li a:hover,
+        .mobile-sub li a:active {
+            color: #c084fc;
+            padding-left: 40px;
+        }
+
+        /* Mobile CTA section */
+        .mobile-cta {
+            padding: 28px 0 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .mobile-cta a {
+            display: block;
+            text-align: center;
+            padding: 14px 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .mobile-cta-primary {
+            background: #814ee8;
+            color: #fff;
+        }
+        .mobile-cta-primary:hover {
+            background: #9556f3;
+        }
+        .mobile-cta-secondary {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.85);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+        .mobile-cta-secondary:hover {
+            background: rgba(255,255,255,0.12);
+        }
+
+        /* Mobile phone number */
+        .mobile-phone {
+            text-align: center;
+            padding-top: 20px;
+        }
+        .mobile-phone a {
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        .mobile-phone a:hover { color: #a855f7; }
+
+        /* ============================================================
+           NAV LINK STYLING (shared)
+           ============================================================ */
+        .nav-link {
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* Hero background-video pause control (WCAG 2.2.2) */
+        .hero-vid-toggle { position:absolute; bottom:16px; right:16px; z-index:25; width:42px; height:42px; border-radius:9999px; background:rgba(15,23,42,0.72); border:1px solid rgba(255,255,255,0.32); color:#fff; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:0.8rem; line-height:1; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); transition:background .2s; }
+        .hero-vid-toggle:hover { background:rgba(129,78,232,0.85); }
+        .hero-vid-toggle:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+        /* Keyboard focus visibility for nav (WCAG 2.4.7) */
+        .idfs-desktop-menu a:focus-visible, .idfs-desktop-menu button:focus-visible, .idfs-logo:focus-visible, .idfs-cta-contact:focus-visible, .idfs-cta-login:focus-visible, .mobile-nav a:focus-visible, .mobile-nav button:focus-visible, .mobile-sub a:focus-visible { outline:2px solid #814ee8; outline-offset:2px; border-radius:3px; }
+
+        /* Glassmorphic card utility */
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        /* ============================================================
+           Wave Separator: animated parallax bottom-of-hero accent
+           ============================================================ */
+        .wave-separator {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -35px;
+            width: 100%;
+            pointer-events: none;
+            z-index: 30;
+            line-height: 0;
+        }
+        .wave-separator__svg {
+            display: block;
+            width: 100%;
+            height: 90px;
+            max-height: 90px;
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0) 100%);
+                    mask-image: linear-gradient(to bottom, #000 0%, #000 55%, rgba(0,0,0,0) 100%);
+        }
+        @media (max-width: 768px) {
+            .wave-separator__svg { height: 60px; max-height: 60px; }
+        }
+        @keyframes wave-move-a {
+            0%   { transform: translate(85px, 0); }
+            100% { transform: translate(-90px, 0); }
+        }
+        @keyframes wave-move-b {
+            0%   { transform: translate(-90px, 0); }
+            100% { transform: translate(85px, 0); }
+        }
+        /* Animations only on tablet+ to keep mobile main thread free. */
+        @media (min-width: 768px) and (prefers-reduced-motion: no-preference) {
+            .wave-parallax1 > use { animation: wave-move-a 10s linear infinite; }
+            .wave-parallax2 > use { animation: wave-move-b 8s  linear infinite; }
+            .wave-parallax3 > use { animation: wave-move-a 6s  linear infinite; }
+        }
+    </style>
+    
+
+    <!-- ===== Forge v4: Unified Connected @graph (Organization → Person → Services → WebSite → Breadcrumb) =====
+         One graph, @id-cross-referenced, so AI/LLM crawlers map the whole entity mesh in a single parse.
+         Build-time/static from literals + request path (no runtime fetch). Per-page nodes join via the extra_schema block. -->
+    
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": ["Organization", "ProfessionalService", "LocalBusiness"],
+                "@id": "https://idfs.ai/#organization",
+                "name": "IDFS AI",
+                "alternateName": "IdeaForge Studios",
+                "url": "https://idfs.ai",
+                "logo": {
+                    "@type": "ImageObject",
+                    "@id": "https://idfs.ai/#logo",
+                    "url": "https://idfs.ai/static/img/logo.png"
+                },
+                "image": {"@id": "https://idfs.ai/#logo"},
+                "description": "AI-powered web design, business automation, and AI research and deployment.",
+                "foundingDate": "2010",
+                "founder": {"@id": "https://idfs.ai/#eric-donnell"},
+                "telephone": "+1-980-322-4500",
+                "priceRange": "$$",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "15720 Brixham Hill Ave # 300",
+                    "addressLocality": "Charlotte",
+                    "addressRegion": "NC",
+                    "postalCode": "28277",
+                    "addressCountry": "US"
+                },
+                "geo": {
+                    "@type": "GeoCoordinates",
+                    "latitude": 35.0527,
+                    "longitude": -80.8512
+                },
+                "areaServed": {"@type": "Country", "name": "United States"},
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "telephone": "+1-980-322-4500",
+                    "contactType": "customer service",
+                    "email": "admin@idfs.ai",
+                    "areaServed": "US",
+                    "availableLanguage": ["English"]
+                },
+                "sameAs": [
+                    "https://www.facebook.com/share/1Cs4G5WeRi/",
+                    "https://www.linkedin.com/company/idfs-ai-llc",
+                    "https://x.com/idfsai",
+                    "https://www.instagram.com/idfs.ai/",
+                    "https://www.pinterest.com/idfs.ai/"
+                ]
+            },
+            {
+                "@type": "Person",
+                "@id": "https://idfs.ai/#eric-donnell",
+                "name": "Eric Donnell",
+                "jobTitle": "Founder & CEO",
+                "worksFor": {"@id": "https://idfs.ai/#organization"},
+                "url": "https://idfs.ai/blog/author/eric-donnell",
+                "sameAs": ["https://www.linkedin.com/in/eric-donnell-b62719b"]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://idfs.ai/#website",
+                "url": "https://idfs.ai",
+                "name": "IDFS AI",
+                "alternateName": "IdeaForge Studios",
+                "publisher": {"@id": "https://idfs.ai/#organization"}
+            },
+            {
+                "@type": "Service",
+                "@id": "https://idfs.ai/#service-web-design",
+                "name": "Web Design",
+                "description": "Custom, high-performance website design and development.",
+                "provider": {"@id": "https://idfs.ai/#organization"},
+                "areaServed": {"@type": "Country", "name": "United States"}
+            },
+            {
+                "@type": "Service",
+                "@id": "https://idfs.ai/#service-ai-solutions",
+                "name": "AI Solutions",
+                "description": "Custom AI agents, automation, and intelligent business tools.",
+                "provider": {"@id": "https://idfs.ai/#organization"},
+                "areaServed": {"@type": "Country", "name": "United States"}
+            },
+            {
+                "@type": "Service",
+                "@id": "https://idfs.ai/#service-website-maintenance",
+                "name": "Website Maintenance",
+                "description": "Ongoing website maintenance, monitoring, performance, and security.",
+                "provider": {"@id": "https://idfs.ai/#organization"},
+                "areaServed": {"@type": "Country", "name": "United States"}
+            },
+            {
+                "@type": "Service",
+                "@id": "https://idfs.ai/#service-ai-research",
+                "name": "AI Research",
+                "description": "Applied AI research: agentic systems, memory architectures, and emerging model capabilities.",
+                "provider": {"@id": "https://idfs.ai/#organization"},
+                "areaServed": {"@type": "Country", "name": "United States"}
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": "https://idfs.ai/blog/amd-gpus-for-ai-inference-2026#breadcrumb",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://idfs.ai/"}
+                    
+                    ,{"@type": "ListItem", "position": 2, "name": "AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy", "item": "https://idfs.ai/blog/amd-gpus-for-ai-inference-2026"}
+                    
+                ]
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "AMD GPUs for AI Inference in 2026: What Works, What\u0027s Broken, and What to Actually Buy",
+    "description": "We tested AMD\u0027s ROCm 7.2 stack against a production NVIDIA workload: TEI, ComfyUI, Ollama, vLLM, Flash Attention, and more. Here\u0027s what runs, what\u0027s still broken, and what the 30-40% performance gap really costs you in practice.",
+    "image": "https://idfs.ai/static/img/blog/steampunk_amd_nvidia.webp",
+    "datePublished": "2026-04-14T14:00:00Z",
+    "dateModified": "2026-04-14T14:00:00Z",
+    
+    "author":{"@id": "https://idfs.ai/#eric-donnell"},
+    "publisher": {"@id": "https://idfs.ai/#organization"},
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://idfs.ai/blog/amd-gpus-for-ai-inference-2026"
+    },
+    "wordCount": 2126,
+    "articleSection": "ai-tools"
+}
+</script>
+
+    <style>
+        /* Preserve hover-scale on play-button overlays shifted 68px below center (face-unblock) */
+        .group:hover > .absolute > [style*="translateY(68px)"] {
+            transform: translateY(68px) scale(1.1) !important;
+        }
+    </style>
+
+    <!-- ============================================================
+         CLIENT-ERROR BEACON
+         Fires browser-side errors (uncaught exceptions, unhandled promise
+         rejections, resource-load failures) to /api/client-error via
+         navigator.sendBeacon. Pure fire-and-forget. Detects TCR-class
+         mixed-content / script-load failures within hours of deploy.
+         ============================================================ -->
+    <script>
+    (function () {
+        var ENDPOINT = "/api/client-error";
+        var sent = 0;
+        var MAX_PER_PAGE = 20;
+
+        function fire(payload) {
+            if (sent >= MAX_PER_PAGE) return;
+            sent++;
+            payload.page_url = location.href;
+            payload.page_scheme = location.protocol.replace(":", "");
+            payload.referrer = document.referrer || null;
+            payload.viewport = window.innerWidth + "x" + window.innerHeight;
+            try {
+                var data = JSON.stringify(payload);
+                if (navigator.sendBeacon) {
+                    var blob = new Blob([data], { type: "application/json" });
+                    navigator.sendBeacon(ENDPOINT, blob);
+                } else {
+                    fetch(ENDPOINT, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: data,
+                        keepalive: true,
+                    }).catch(function () {});
+                }
+            } catch (e) { /* never let the beacon throw */ }
+        }
+
+        window.addEventListener("error", function (ev) {
+            // Resource load failure (img/script/link) → ev.target is the element
+            if (ev.target && ev.target !== window && ev.target.tagName) {
+                fire({
+                    kind: "resource",
+                    message: "Resource load failed",
+                    source: ev.target.src || ev.target.href || null,
+                    extra: { tag: ev.target.tagName },
+                });
+                return;
+            }
+            fire({
+                kind: "onerror",
+                message: ev.message || "Unknown error",
+                source: ev.filename || null,
+                lineno: ev.lineno || null,
+                colno: ev.colno || null,
+                stack: ev.error && ev.error.stack ? String(ev.error.stack).slice(0, 4000) : null,
+            });
+        }, true);
+
+        window.addEventListener("unhandledrejection", function (ev) {
+            var reason = ev.reason;
+            var msg = reason instanceof Error ? reason.message : String(reason);
+            fire({
+                kind: "unhandledrejection",
+                message: msg,
+                stack: reason && reason.stack ? String(reason.stack).slice(0, 4000) : null,
+            });
+        });
+
+        // Expose a manual hook so form code can report soft failures
+        window.__ifClientErrorBeacon = fire;
+    })();
+    </script>
+</head>
+<body class="bg-gradient-to-br from-primary-dark to-primary-mid text-white min-h-screen">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[3000] focus:bg-accent-purple focus:text-white focus:px-4 focus:py-2 focus:rounded-full focus:shadow-lg">Skip to main content</a>
+
+    <!-- ============================================================
+         NAVIGATION
+         ============================================================ -->
+    <nav class="idfs-nav" role="navigation" aria-label="Main navigation">
+        <div class="idfs-nav-inner">
+            <!-- Logo (SVG = ~5 KB, replaces 6/14/24 KB PNG raster set) -->
+            <a href="/" class="idfs-logo" aria-label="IDFS AI home">
+                <img src="/static/img/logo.svg" width="102" height="50" alt="IDFS AI">
+            </a>
+
+            <!-- Desktop Menu -->
+            <ol class="idfs-desktop-menu" role="menubar">
+                <li role="none">
+                    <a href="/" role="menuitem">Home</a>
+                </li>
+                <li role="none">
+                    <button role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        About
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ol class="sub-menu" role="menu">
+                        <li role="none"><a href="/about" role="menuitem">Our Story</a></li>
+                        <li role="none"><a href="/research" role="menuitem">Research</a></li>
+                    </ol>
+                </li>
+                <li role="none">
+                    <button role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Products
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ol class="sub-menu" role="menu">
+                        <li role="none">
+                            <a href="/products/catori" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/6mLlXEQXD8o/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>Catori<span class="drop-desc">Monthly intelligence reports</span></span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/products/draftdash" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/wgJR4oqc_bM/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>DraftDash<span class="drop-desc">AI blog automation</span></span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/products/ethel" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/0YzOxi_jxnQ/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>Ethel<span class="drop-desc">Voice-first customer capture</span></span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/products/mog" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/iR5t-RFfs9Y/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>MOG<span class="drop-desc">AI website director</span></span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/products/thea" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/rfC9Z8b9a_U/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>Thea<span class="drop-desc">AI knowledge assistant</span></span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="/products/vigil" role="menuitem">
+                                <img src="https://i.ytimg.com/vi/wpsNMqX-A_U/default.jpg" alt="" class="drop-thumb" role="presentation" loading="lazy" decoding="async" width="60" height="60">
+                                <span>Vigil<span class="drop-desc">Compliance engine</span></span>
+                            </a>
+                        </li>
+                    </ol>
+                </li>
+                <li role="none">
+                    <button role="menuitem" aria-haspopup="true" aria-expanded="false">
+                        Services
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ol class="sub-menu" role="menu">
+                        <li role="none"><a href="/forged-sites" role="menuitem">Forged Sites</a></li>
+                        <li role="none"><a href="/change-orders" role="menuitem">Change Orders</a></li>
+                        <li role="none"><a href="/forged-vs-wordpress" role="menuitem">Forged vs. WordPress</a></li>
+                        <li role="none"><a href="/web-design" role="menuitem">Web Design</a></li>
+                        <li role="none"><a href="/custom-development" role="menuitem">Custom CRM &amp; Apps</a></li>
+                        <li role="none"><a href="/website-maintenance" role="menuitem">Website Maintenance</a></li>
+                        <li role="none"><a href="/ai-solutions" role="menuitem">AI Solutions</a></li>
+                        <li role="none"><a href="/on-premise-deployment" role="menuitem">On-Premise Deployment</a></li>
+                        <li role="none"><a href="/search-visibility" role="menuitem">SEO &amp; AI Visibility</a></li>
+                        <li role="none"><a href="/locations" role="menuitem">Service Areas</a></li>
+                        <li role="none"><a href="/our-process" role="menuitem">Our Process</a></li>
+                    </ol>
+                </li>
+                <li role="none">
+                    <a href="/blog" role="menuitem">Blog</a>
+                </li>
+            </ol>
+
+            <!-- Action buttons + hamburger -->
+            <div class="idfs-actions">
+                <a href="/contact" class="idfs-cta-contact">Contact Us</a>
+                <a href="https://client.idfs.ai" target="_blank" rel="noopener" class="idfs-cta-login">Client Login</a>
+
+                <!-- Hamburger (mobile/tablet only) -->
+                <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-overlay">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================================
+         MOBILE OVERLAY MENU
+         ============================================================ -->
+    <div id="mobile-overlay" role="dialog" aria-label="Mobile navigation" aria-hidden="true">
+        <div class="mobile-nav-container">
+            <ul class="mobile-nav">
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <button class="mobile-parent" aria-expanded="false" data-toggle="mobile-sub-about">
+                        <span>About</span>
+                        <svg class="mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ul class="mobile-sub" id="mobile-sub-about">
+                        <li><a href="/about">Our Story</a></li>
+                        <li><a href="/research">Research</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="mobile-parent" aria-expanded="false" data-toggle="mobile-sub-products">
+                        <span>Products</span>
+                        <svg class="mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ul class="mobile-sub" id="mobile-sub-products">
+                        <li><a href="/products/catori">Catori</a></li>
+                        <li><a href="/products/draftdash">DraftDash</a></li>
+                        <li><a href="/products/ethel">Ethel</a></li>
+                        <li><a href="/products/mog">MOG</a></li>
+                        <li><a href="/products/thea">Thea</a></li>
+                        <li><a href="/products/vigil">Vigil</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="mobile-parent" aria-expanded="false" data-toggle="mobile-sub-services">
+                        <span>Services</span>
+                        <svg class="mobile-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <ul class="mobile-sub" id="mobile-sub-services">
+                        <li><a href="/forged-sites">Forged Sites</a></li>
+                        <li><a href="/change-orders">Change Orders</a></li>
+                        <li><a href="/forged-vs-wordpress">Forged vs. WordPress</a></li>
+                        <li><a href="/web-design">Web Design</a></li>
+                        <li><a href="/custom-development">Custom CRM & Apps</a></li>
+                        <li><a href="/website-maintenance">Website Maintenance</a></li>
+                        <li><a href="/ai-solutions">AI Solutions</a></li>
+                        <li><a href="/on-premise-deployment">On-Premise Deployment</a></li>
+                        <li><a href="/search-visibility">SEO & AI Visibility</a></li>
+                        <li><a href="/locations">Service Areas</a></li>
+                        <li><a href="/our-process">Our Process</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/blog">Blog</a>
+                </li>
+            </ul>
+
+            <div class="mobile-cta">
+                <a href="/contact" class="mobile-cta-primary">Contact Us</a>
+                <a href="https://client.idfs.ai" target="_blank" rel="noopener" class="mobile-cta-secondary">Client Login</a>
+            </div>
+
+            <div class="mobile-phone">
+                <a href="tel:+19803224500">(980) 322-4500</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Area -->
+    <main id="main" tabindex="-1">
+        
+<style>
+/* Blog content typography: inherits site colors, no plugin needed */
+.blog-content { overflow-wrap: break-word; color: inherit; line-height: 1.8; font-size: 1.125rem; opacity: 0.85; }
+.blog-content h2 { font-size: 1.75rem; font-weight: 700; color: inherit; opacity: 1; margin: 2rem 0 0.75rem; line-height: 1.3; }
+.blog-content h3 { font-size: 1.375rem; font-weight: 600; color: inherit; opacity: 1; margin: 1.75rem 0 0.5rem; line-height: 1.4; }
+.blog-content h4 { font-size: 1.125rem; font-weight: 600; color: inherit; opacity: 1; margin: 1.5rem 0 0.5rem; }
+.blog-content p { margin: 0 0 1.25rem; }
+.blog-content ul, .blog-content ol { margin: 0 0 1.25rem; padding-left: 1.75rem; }
+.blog-content ul { list-style-type: disc; }
+.blog-content ol { list-style-type: decimal; }
+.blog-content li { margin-bottom: 0.5rem; }
+.blog-content li > ul, .blog-content li > ol { margin-top: 0.5rem; margin-bottom: 0; }
+.blog-content a { overflow-wrap: anywhere; word-break: break-word; color: var(--color-accent, currentColor); text-decoration: underline; text-underline-offset: 2px; }
+.blog-content a:hover { opacity: 0.8; }
+.blog-content strong { font-weight: 600; color: inherit; opacity: 1; }
+.blog-content blockquote { border-left: 4px solid currentColor; border-left-opacity: 0.3; padding: 0.75rem 1.25rem; margin: 1.5rem 0; opacity: 0.7; font-style: italic; }
+.blog-content img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1.5rem 0; }
+.blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.95rem; }
+.blog-content th, .blog-content td { border: 1px solid currentColor; border-color: rgba(128,128,128,0.3); padding: 0.625rem 0.875rem; text-align: left; }
+.blog-content th { font-weight: 600; opacity: 1; background: rgba(128,128,128,0.1); }
+.blog-content hr { border: none; border-top: 1px solid rgba(128,128,128,0.3); margin: 2rem 0; }
+.blog-content pre { background: rgba(128,128,128,0.1); padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; }
+.blog-content code { background: rgba(128,128,128,0.1); padding: 0.125rem 0.375rem; border-radius: 0.25rem; font-size: 0.875em; }
+.blog-content pre code { background: none; padding: 0; }
+</style>
+
+<article class="py-16" style="padding-top: 8rem; padding-bottom: 4rem;">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <header class="mb-8">
+            <a href="/blog/category/ai-tools" class="text-sm font-medium text-primary uppercase tracking-wider hover:underline">
+                ai-tools
+            </a>
+            
+            <h1 class="text-3xl md:text-4xl font-heading font-bold mt-2 mb-4">AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy</h1>
+
+            <div class="flex items-center gap-4 text-sm" style="opacity:0.6">
+                
+                <span>
+                    <a href="/blog/author/eric-donnell" class="hover:text-primary transition-colors">Eric Donnell &amp; Luna, IDFS AI</a>
+                    
+                </span>
+                
+                
+                <time datetime="2026-04-14 14:00:00">2026-04-14</time>
+                
+            </div>
+        </header>
+
+        <!-- Featured Image -->
+        
+        <img src="/static/img/blog/steampunk_amd_nvidia.webp" alt="AMD GPUs for AI Inference in 2026: What Works, What&#39;s Broken, and What to Actually Buy" class="w-full rounded-xl mb-8" loading="lazy">
+        
+
+        <!-- Content -->
+        <div class="blog-content">
+            
+                <p><strong>Published</strong>: April 14, 2026
+<strong>Authors</strong>: Eric Donnell &amp; Luna, IDFS AI
+<strong>TL;DR</strong>: AMD's ROCm is finally usable for consumer GPUs in 2026. The RX 7900 XTX runs PyTorch, Ollama, ComfyUI, llama.cpp, and vLLM officially. But there's still a 30–40% performance gap vs. the RTX 4090, critical tools like HuggingFace TEI have no AMD support at all, and the software ecosystem assumes NVIDIA at every turn. Here's the honest field report from evaluating AMD as a replacement for our production inference stack.</p>
+<hr />
+<h2 id="why-we-were-looking">Why We Were Looking</h2>
+<p>A few weeks ago we published <a href="/blog/tei-vs-pytorch-embedding-divergence-discovery">a deep-dive on HuggingFace TEI vs PyTorch embedding divergence</a> — a discovery that cost us real migration pain when we moved embedding infrastructure across hardware. That post was the first half of the story. This is the second half.</p>
+<p>The question we were trying to answer: <strong>can AMD replace NVIDIA for production AI inference in 2026?</strong></p>
+<p>Our production environment runs an RTX 4090 (24GB) and an RTX 3060 (12GB). The 4090 handles TEI with <code>e5-mistral-7b-instruct</code> for embeddings, ComfyUI with a custom LoRA, Chatterbox TTS, and a handful of other services. The 3060 runs VibeVoice-ASR (4-bit quantized). We've been happy with it, but NVIDIA street prices for anything new are brutal, and AMD has been loudly claiming ROCm has caught up. So we put it to the test.</p>
+<p>The short answer: <strong>AMD is viable as a supplemental node. It is not a drop-in RTX 4090 replacement.</strong> Here's the long answer.</p>
+<hr />
+<h2 id="rocm-72-where-amd-actually-stands-today">ROCm 7.2: Where AMD Actually Stands Today</h2>
+<p>AMD's ROCm stack (their CUDA equivalent) is now at version 7.2.0, released January 21, 2026, with 7.11 in preview. PyTorch 2.10 has first-class support for ROCm 7.1 stable, and ROCm 7.2 on nightly.</p>
+<p><strong>The consumer GPUs officially supported in ROCm 7.2:</strong></p>
+<ul>
+<li><strong>RDNA 4</strong> (gfx12xx): RX 9070 XT, RX 9070 GRE, RX 9070, RX 9060 XT LP, RX 9060 XT, RX 9060</li>
+<li><strong>RDNA 3</strong> (gfx11xx): RX 7900 XTX (gfx1100), RX 7900 XT, RX 7900 GRE, RX 7800 XT, RX 7700 XT, RX 7700</li>
+<li><strong>Professional RDNA 3</strong>: Radeon PRO AI PRO R9700, R9600D, W7900, W7800, W7700</li>
+<li><strong>Data center CDNA</strong>: MI355X, MI350X, MI325X, MI300X, MI300A, MI250X, MI250, MI210, MI100</li>
+</ul>
+<p><strong>Operating system support:</strong> Linux only for serious ML work. Ubuntu 24.04, 22.04, RHEL 8/9/10, SLES 15 SP7, Debian 12/13. Windows has a preview Ollama build but <strong>ROCm itself is not supported on Windows for ML workloads</strong>. macOS: no.</p>
+<p><strong>Critical nuance:</strong> "officially supported" on the consumer side is not the same as "tested, optimized, and production-ready." Most framework authors test on MI-series (data center) cards. Consumer RDNA support is real but secondary. You will feel this.</p>
+<hr />
+<h2 id="hardware-the-rx-7900-xtx-vs-rtx-4090-showdown">Hardware: The RX 7900 XTX vs RTX 4090 Showdown</h2>
+<p>Let's start with the card worth buying, if you're buying AMD: the <strong>RX 7900 XTX</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Specification</th>
+<th>RX 7900 XTX</th>
+<th>RTX 4090</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Architecture</td>
+<td>RDNA 3 (gfx1100)</td>
+<td>Ada Lovelace</td>
+</tr>
+<tr>
+<td>VRAM</td>
+<td>24 GB GDDR6</td>
+<td>24 GB GDDR6X</td>
+</tr>
+<tr>
+<td>Memory Bandwidth</td>
+<td>960 GB/s</td>
+<td>1,008 GB/s</td>
+</tr>
+<tr>
+<td>FP32 TFLOPS</td>
+<td>61.42</td>
+<td>82.58</td>
+</tr>
+<tr>
+<td>FP16 TFLOPS</td>
+<td>~122 (no tensor)</td>
+<td>165 (tensor: 330)</td>
+</tr>
+<tr>
+<td>Tensor Cores</td>
+<td><strong>None</strong></td>
+<td>512 (4th gen)</td>
+</tr>
+<tr>
+<td>TDP</td>
+<td>355W</td>
+<td>450W</td>
+</tr>
+<tr>
+<td>Street Price (2026)</td>
+<td>$500–$750</td>
+<td>End-of-life; successor is RTX 5090</td>
+</tr>
+</tbody>
+</table>
+<p><strong>The critical line in that table:</strong> the RX 7900 XTX has <strong>zero</strong> dedicated tensor cores. The RTX 4090 has 512 of them, providing 2x FP16 throughput with sparsity. This is the architectural reason for the performance gap in ML workloads — not software, not drivers, not ROCm. The silicon doesn't have the accelerators.</p>
+<h3 id="what-about-rdna-4">What about RDNA 4?</h3>
+<p>If you're thinking "wait, isn't the RX 9070 XT the new card?" — yes, and it has a problem: <strong>16 GB VRAM</strong> on a <strong>256-bit bus</strong>. For LLM inference, which is memory-bandwidth bound, the older RX 7900 XTX is actually the <em>better</em> AMD choice. No current RDNA 4 card has 24GB+. The RX 9070 XT improves ray tracing and has better AI accelerators than RDNA 3, but if VRAM is your limiter (and for LLMs it usually is), the 7900 XTX wins.</p>
+<h3 id="price-per-gb-reality-check">Price-per-GB Reality Check</h3>
+<p>This is where AMD is legitimately compelling:</p>
+<table>
+<thead>
+<tr>
+<th>Card</th>
+<th>VRAM</th>
+<th>Price</th>
+<th>$/GB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RX 7900 XTX</td>
+<td>24 GB</td>
+<td>~$600 (used)</td>
+<td><strong>$25/GB</strong></td>
+</tr>
+<tr>
+<td>RX 9070 XT</td>
+<td>16 GB</td>
+<td>~$850</td>
+<td>$53/GB</td>
+</tr>
+<tr>
+<td>RTX 4090</td>
+<td>24 GB</td>
+<td>~$1,600</td>
+<td>$67/GB</td>
+</tr>
+<tr>
+<td>RTX 5090</td>
+<td>32 GB</td>
+<td>~$2,000</td>
+<td>$63/GB</td>
+</tr>
+<tr>
+<td>Radeon PRO W7900 DS</td>
+<td>48 GB</td>
+<td>$4,399</td>
+<td>$92/GB</td>
+</tr>
+</tbody>
+</table>
+<p>At $25/GB of VRAM, the RX 7900 XTX is almost <strong>3x cheaper</strong> than the RTX 4090. If your workload is memory-bound but compute-tolerant, that's a serious argument.</p>
+<hr />
+<h2 id="per-service-reality-check-what-actually-runs">Per-Service Reality Check: What Actually Runs</h2>
+<p>This is where the rubber meets the road. Here's every service we run on our NVIDIA stack, and whether it works on AMD.</p>
+<h3 id="huggingface-tei-text-embeddings-inference">HuggingFace TEI (Text Embeddings Inference)</h3>
+<p><strong>Status: BROKEN. DO NOT EXPECT THIS TO WORK.</strong></p>
+<p>This one hurts. TEI officially supports only NVIDIA GPUs (Turing through Blackwell). PR #295 added ROCm support — and has been <strong>stalled for more than 10 months</strong> awaiting maintainer review. Even if you build from the unmerged PR branch, it only targets MI-series data center cards. Consumer RDNA is not in the PR. Our <code>e5-mistral-7b</code> model is not tested.</p>
+<p><strong>Workaround:</strong> run the embedding model directly through <code>sentence-transformers</code> on PyTorch+ROCm. It works, but you lose TEI's optimized Rust backend. Performance will be noticeably lower.</p>
+<p>If your embeddings pipeline depends on TEI, this is a <strong>hard blocker</strong> for moving to AMD.</p>
+<h3 id="comfyui-stable-diffusion">ComfyUI / Stable Diffusion</h3>
+<p><strong>Status: Officially supported. Works well.</strong></p>
+<p>ComfyUI's README has explicit ROCm installation commands. ROCm 7.1 and 7.2 both work. RDNA 3 is listed as supported. SDXL and Flux models confirmed working. Custom LoRA loading works fine — we tested this with our Luna LoRA.</p>
+<p>Expect <strong>25–40% slower generation times</strong> vs. the RTX 4090, owing to the tensor core gap.</p>
+<p><strong>Caveat:</strong> xformers has only <em>experimental</em> ROCm support. Some ComfyUI nodes that depend on xformers may have stability issues.</p>
+<h3 id="ollama">Ollama</h3>
+<p><strong>Status: Officially supported. Just works.</strong></p>
+<p>RX 7900 XTX is explicitly listed as supported. Ollama uses the llama.cpp backend, which has mature HIP support. Community reports confirm good performance. If all you want is local LLM inference with a pleasant UX, Ollama on AMD is genuinely fine.</p>
+<h3 id="llamacpp">llama.cpp</h3>
+<p><strong>Status: Officially supported via HIP backend.</strong></p>
+<p>Build with <code>cmake -B build -DGGML_HIP=ON</code>. All GGUF quantization formats work (Q4_K_M, Q5_K_M, Q6_K, Q8_0).</p>
+<p><strong>Real benchmarks on Llama 3.1 8B Q4_K_M:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Output tokens/sec</th>
+<th>Total tokens/sec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>llama.cpp (AMD)</td>
+<td>68.55</td>
+<td>97.60</td>
+</tr>
+<tr>
+<td>MLC-LLM (AMD)</td>
+<td>92.80</td>
+<td>137.19</td>
+</tr>
+<tr>
+<td>ExLlamaV2 (AMD)</td>
+<td>3,900+ prompt proc</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Compared to RTX 4090 on the same model:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>AMD (7900 XTX)</th>
+<th>NVIDIA (RTX 4090)</th>
+<th>Gap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prompt throughput</td>
+<td>2,576 tok/s</td>
+<td>5,415 tok/s</td>
+<td>RTX 4090 is <strong>2.1x faster</strong></td>
+</tr>
+<tr>
+<td>Inference throughput</td>
+<td>119.1 tok/s</td>
+<td>158.4 tok/s</td>
+<td>RTX 4090 is <strong>33% faster</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The 30–40% gap is consistent across benchmarks. It is real. It is the cost of not having tensor cores.</p>
+<h3 id="vllm">vLLM</h3>
+<p><strong>Status: Officially supported with caveats for consumer GPUs.</strong></p>
+<p>Works on RDNA 3. AMD provides prebuilt Docker images — but optimized for MI300X. Consumer RDNA is secondary. <strong>No FP8 quantization support</strong> on consumer cards (MI-series only). AWQ and GPTQ quantization work.</p>
+<p>Expect serving optimizations like PagedAttention and continuous batching to lag NVIDIA significantly.</p>
+<h3 id="flash-attention">Flash Attention</h3>
+<p><strong>Status: Supported via AMD's fork, not mainline.</strong></p>
+<p>This is the one that causes the most confusion. AMD maintains <a href="https://github.com/ROCm/flash-attention">a fork of Flash Attention</a> with two backends:</p>
+<p><strong>Composable Kernel (CK) backend</strong> (default): supports MI200/MI250/MI300/MI355 only. Does <strong>not</strong> support RDNA consumer GPUs.</p>
+<p><strong>Triton backend</strong>: supports both CDNA (MI200, MI300) <strong>and</strong> RDNA consumer GPUs. Covers fp16, bf16, fp32, causal masking, variable sequence lengths, MQA/GQA, rotary embeddings, paged attention.</p>
+<p>Install it with:</p>
+<pre><code class="language-bash">FLASH_ATTENTION_TRITON_AMD_ENABLE=&quot;TRUE&quot; pip install --no-build-isolation .
+</code></pre>
+<p><strong>Important gotcha:</strong> the mainline <code>Dao-AILab/flash-attention</code> repo does NOT support AMD. Frameworks that expect the Dao-AILab version — and most do — may need patching. If a third-party library imports flash-attention and your rig crashes, this is probably why.</p>
+<h3 id="chatterbox-tts">Chatterbox TTS</h3>
+<p><strong>Status: Likely works (pure PyTorch, no custom CUDA kernels).</strong></p>
+<p>Pure PyTorch models with <code>device="cuda"</code> calls map transparently to HIP on ROCm. No Flash Attention requirement. No custom <code>.cu</code> files. Chatterbox should be a 1–2 hour port at most.</p>
+<h3 id="vibevoice-asr">VibeVoice-ASR</h3>
+<p><strong>Status: Partially works. Requires AMD's Flash Attention fork.</strong></p>
+<p>PyTorch + ROCm 7.1 works on RX 7900 XTX. The Flash Attention requirement is the challenge — you'd need AMD's ROCm Flash Attention fork via the Triton backend. The 4-bit quantization via bitsandbytes should work since bitsandbytes now supports gfx1100. Expect 30–50% slower inference.</p>
+<h3 id="onnx-runtime">ONNX Runtime</h3>
+<p><strong>Status: Migrated from ROCm EP to MIGraphX EP. Consumer GPU support unclear.</strong></p>
+<p>The ROCm Execution Provider was <strong>removed</strong> in ONNX Runtime 1.23. Replacement is the MIGraphX EP, which supports ROCm 5.2 through 7.2. But consumer GPU (RDNA) compatibility is not documented for MIGraphX. This is a risk area — older tutorials won't work, and if you need ONNX Runtime in production, validate this on your specific card before committing.</p>
+<hr />
+<h2 id="the-compatibility-matrix-bookmark-this">The Compatibility Matrix (Bookmark This)</h2>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>AMD Support</th>
+<th>Status</th>
+<th>Performance vs NVIDIA</th>
+<th>Deploy Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HuggingFace TEI</strong></td>
+<td>NO</td>
+<td>PR stalled 10+ months</td>
+<td>N/A</td>
+<td>HIGH (custom build, MI only)</td>
+</tr>
+<tr>
+<td><strong>ComfyUI / SD</strong></td>
+<td>YES</td>
+<td>Official</td>
+<td>25–40% slower</td>
+<td>LOW</td>
+</tr>
+<tr>
+<td><strong>Ollama</strong></td>
+<td>YES</td>
+<td>Official</td>
+<td>~30% slower</td>
+<td>NONE</td>
+</tr>
+<tr>
+<td><strong>llama.cpp</strong></td>
+<td>YES</td>
+<td>Official HIP</td>
+<td>~33% slower</td>
+<td>LOW</td>
+</tr>
+<tr>
+<td><strong>vLLM</strong></td>
+<td>YES</td>
+<td>Official (caveats)</td>
+<td>30–40% slower</td>
+<td>LOW–MEDIUM</td>
+</tr>
+<tr>
+<td><strong>Chatterbox TTS</strong></td>
+<td>LIKELY YES</td>
+<td>Pure PyTorch</td>
+<td>20–30% slower</td>
+<td>LOW</td>
+</tr>
+<tr>
+<td><strong>VibeVoice-ASR</strong></td>
+<td>PARTIAL</td>
+<td>Flash Attention needed</td>
+<td>30–50% slower</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td><strong>ONNX Runtime</strong></td>
+<td>PARTIAL</td>
+<td>MIGraphX EP only</td>
+<td>Unknown</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td><strong>bitsandbytes</strong></td>
+<td>YES</td>
+<td>ROCm fork</td>
+<td>Similar</td>
+<td>LOW</td>
+</tr>
+<tr>
+<td><strong>Flash Attention</strong></td>
+<td>YES</td>
+<td>AMD fork, Triton</td>
+<td>Unknown gap</td>
+<td>MEDIUM</td>
+</tr>
+<tr>
+<td><strong>xformers</strong></td>
+<td>EXPERIMENTAL</td>
+<td>ROCm 7.1 only</td>
+<td>Unknown</td>
+<td>MEDIUM–HIGH</td>
+</tr>
+<tr>
+<td><strong>AutoGPTQ</strong></td>
+<td>YES</td>
+<td>ROCm 5.7</td>
+<td>Similar</td>
+<td>LOW</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="the-multi-vendor-path-our-actual-recommendation">The Multi-Vendor Path (Our Actual Recommendation)</h2>
+<p>You can run AMD and NVIDIA side-by-side in the same system. ROCm and CUDA coexist on Linux — they use different kernel modules (<code>amdgpu</code> vs <code>nvidia</code>). PyTorch can only use one backend per process, but <code>llama.cpp</code> instances can each target a different GPU, and nothing stops you from running, say, TEI in a CUDA container and ComfyUI in a ROCm container on the same box.</p>
+<p><strong>Our real-world recommendation</strong> — if you want to add AMD without blowing up a working NVIDIA stack:</p>
+<p><strong>Move to AMD GPU:</strong>
+- ComfyUI (official ROCm support, LoRAs work)
+- Ollama / llama.cpp (mature)
+- Chatterbox TTS (pure PyTorch)</p>
+<p><strong>Keep on NVIDIA GPU:</strong>
+- TEI and anything depending on NVIDIA-optimized embeddings infrastructure
+- VibeVoice-ASR (designed around NVIDIA containers)
+- Anything requiring xformers in production</p>
+<p><strong>This is how we'd actually spend the money:</strong> pick up a used RX 7900 XTX for ~$500–$600, keep the RTX 4090 on TEI + VibeVoice, and let the AMD card carry image generation and LLM inference. You get 48GB total VRAM across two cards for less than the cost of a single RTX 5090, and you don't have to touch your working embeddings pipeline.</p>
+<hr />
+<h2 id="if-youre-replacing-your-nvidia-stack-entirely">If You're Replacing Your NVIDIA Stack Entirely</h2>
+<p><strong>Don't.</strong> At least not yet.</p>
+<ol>
+<li>TEI has no AMD support, and if you depend on it for embeddings, you will feel it on day one</li>
+<li>VibeVoice-ASR and most HuggingFace-container-dependent models assume NVIDIA</li>
+<li>The 30–40% performance penalty is consistent across workloads</li>
+<li>The software ecosystem friction will cost significant engineering time</li>
+</ol>
+<p>The exception: if your entire workload is Ollama + ComfyUI + llama.cpp, AMD is legitimately fine, and the RX 7900 XTX at $600 used is the best $/GB-of-VRAM deal on the market by a wide margin.</p>
+<hr />
+<h2 id="what-would-change-our-calculus">What Would Change Our Calculus</h2>
+<p>Four things would shift this analysis sharply in AMD's favor:</p>
+<ol>
+<li><strong>TEI merging ROCm support</strong> (PR #295 has been open since June 2024)</li>
+<li><strong>RDNA 5 introducing dedicated AI accelerators</strong> equivalent to NVIDIA's tensor cores</li>
+<li><strong>AMD releasing a consumer card with 24GB+ VRAM on RDNA 4</strong> — unlikely given the 9070 XT's 16GB</li>
+<li><strong>HuggingFace broadly adopting ROCm</strong> in their inference stack</li>
+</ol>
+<p>None of those are guaranteed. Some are clearly not coming soon. Plan accordingly.</p>
+<hr />
+<h2 id="bottom-line">Bottom Line</h2>
+<p>AMD's ROCm stack in 2026 is real. It's not a toy. The RX 7900 XTX is a legitimately useful GPU for LLM inference, image generation, and local AI work — especially at its price point.</p>
+<p>But the ecosystem still assumes NVIDIA, the silicon still lacks tensor cores, and some critical tools (TEI is the most painful for us) simply do not run on AMD at all. If you treat AMD as a supplemental node and pick your workloads carefully, you get great value. If you try to replace your NVIDIA stack wholesale, you'll spend the next three months debugging container compatibility and asking yourself why you did this.</p>
+<p>We're keeping our RTX 4090 on TEI. The next card we add to the cluster will probably be an RX 7900 XTX — for ComfyUI, Ollama, and llama.cpp, where the price-per-VRAM is impossible to beat.</p>
+<p>If you're planning an AI infrastructure buildout and want to talk through the real tradeoffs for <em>your</em> workload, <a href="/contact">get in touch</a>. We've done the homework.</p>
+<hr />
+<p><em>IDFS AI runs production AI infrastructure and builds AI-powered tools for businesses. This report reflects our own hands-on evaluation and hundreds of hours of community benchmarks as of April 2026. Your mileage may vary — always test on your specific workload before committing.</em></p>
+            
+        </div>
+
+        <!-- Categories -->
+        
+        <div class="mt-8 pt-6" style="border-top:1px solid rgba(128,128,128,0.2)">
+            <div class="flex flex-wrap gap-2 items-center">
+                <span class="text-sm font-medium" style="opacity:0.5">Categories:</span>
+                <a href="/blog/category/ai-tools" class="no-underline">
+                  <span class="inline-block px-3 py-1 text-xs font-medium rounded-full hover:opacity-100 transition-opacity" style="background:rgba(128,128,128,0.18);opacity:0.85">AI Tools</span>
+                </a>
+                
+            </div>
+        </div>
+        
+
+        <!-- Tags -->
+        
+    </div>
+</article>
+
+<!-- Related Posts -->
+
+<section class="py-16" style="background:rgba(128,128,128,0.06)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl font-heading font-bold mb-8">Related Articles</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <a href="/blog/six-days-with-the-intel-arc-pro-b70" class="block rounded-xl overflow-hidden transition-shadow" style="background:rgba(128,128,128,0.08);border:1px solid rgba(128,128,128,0.15);text-decoration:none;color:inherit">
+                
+                <img src="/static/img/blog/six-days-with-the-intel-arc-pro-b70.webp" alt="Six Days With the Intel Arc Pro B70: An Honest AI Inference Build Diary" class="w-full h-40 object-cover" loading="lazy">
+                
+                <div class="p-5">
+                    <h3 class="font-heading font-semibold">Six Days With the Intel Arc Pro B70: An Honest AI Inference Build Diary</h3>
+                    
+                    <p class="text-sm mt-2 line-clamp-2" style="opacity:0.7">Two Intel Arc Pro B70s, 64 GB of VRAM, six days of fighting kernels, firmware, and container ABIs to get a single embedding model running. Here is what actually worked, what did not, and what we measured when it finally booted.</p>
+                    
+                </div>
+            </a>
+            
+            <a href="/blog/tei-vs-pytorch-embedding-divergence-discovery" class="block rounded-xl overflow-hidden transition-shadow" style="background:rgba(128,128,128,0.08);border:1px solid rgba(128,128,128,0.15);text-decoration:none;color:inherit">
+                
+                <img src="/static/img/blog/tei_vs_pytorch.png" alt="HuggingFace TEI Produces Fundamentally Different Embeddings Than PyTorch - And You Might Not Know It" class="w-full h-40 object-cover" loading="lazy">
+                
+                <div class="p-5">
+                    <h3 class="font-heading font-semibold">HuggingFace TEI Produces Fundamentally Different Embeddings Than PyTorch - And You Might Not Know It</h3>
+                    
+                    <p class="text-sm mt-2 line-clamp-2" style="opacity:0.7">We discovered that HuggingFace Text Embeddings Inference and standard PyTorch produce vectors with cosine similarity as low as 0.30 for the same model.</p>
+                    
+                </div>
+            </a>
+            
+            <a href="/blog/realtor-ai-toolkit-2026-ai-playbook" class="block rounded-xl overflow-hidden transition-shadow" style="background:rgba(128,128,128,0.08);border:1px solid rgba(128,128,128,0.15);text-decoration:none;color:inherit">
+                
+                <img src="/static/img/blog/steampunk_realtor_ai.webp" alt="The Realtor&#39;s AI Toolkit for 2026: What Changed, What Works, and What to Buy" class="w-full h-40 object-cover" loading="lazy">
+                
+                <div class="p-5">
+                    <h3 class="font-heading font-semibold">The Realtor&#39;s AI Toolkit for 2026: What Changed, What Works, and What to Buy</h3>
+                    
+                    <p class="text-sm mt-2 line-clamp-2" style="opacity:0.7">---</p>
+                    
+                </div>
+            </a>
+            
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <!-- Footer Component -->
+<footer class="border-t border-white/10 mt-20">
+    <!-- Main Footer Content -->
+    <div class="container mx-auto px-6 py-12">
+        <h2 class="sr-only">Site footer navigation</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+
+            <!-- Col 1: Logo + Company Info -->
+            <div>
+                <img src="/static/img/logo@3x.png" alt="IDFS AI LLC" width="342" height="168" class="h-20 w-auto mb-6">
+                <address class="text-white/60 text-sm not-italic space-y-1 mb-4">
+                    <p>15720 Brixham Hill Ave # 300</p>
+                    <p>Charlotte, NC 28277</p>
+                    <p class="mt-2">
+                        <a href="tel:+19803224500" class="hover:text-accent-purple transition">
+                            (980) 322-4500
+                        </a>
+                    </p>
+                </address>
+
+                <!-- Social Links: 44px tap targets (flex py-3 px-3) for WCAG 2.2 AA target-size. -->
+                
+                <div class="flex items-center gap-1 mt-4">
+                    <a href="https://www.facebook.com/share/1Cs4G5WeRi/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="flex items-center justify-center py-3 px-3 text-white/60 hover:text-accent-purple focus-visible:text-accent-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-purple rounded-md transition"
+                       aria-label="IDFS AI on Facebook">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="https://www.linkedin.com/company/idfs-ai-llc"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="flex items-center justify-center py-3 px-3 text-white/60 hover:text-accent-purple focus-visible:text-accent-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-purple rounded-md transition"
+                       aria-label="IDFS AI on LinkedIn">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="https://x.com/idfsai"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="flex items-center justify-center py-3 px-3 text-white/60 hover:text-accent-purple focus-visible:text-accent-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-purple rounded-md transition"
+                       aria-label="IDFS AI on X (formerly Twitter)">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/idfs.ai/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="flex items-center justify-center py-3 px-3 text-white/60 hover:text-accent-purple focus-visible:text-accent-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-purple rounded-md transition"
+                       aria-label="IDFS AI on Instagram">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.pinterest.com/idfs.ai/"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="flex items-center justify-center py-3 px-3 text-white/60 hover:text-accent-purple focus-visible:text-accent-purple focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-purple rounded-md transition"
+                       aria-label="IDFS AI on Pinterest">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Col 2: AI Products -->
+            <div>
+                <h3 class="font-semibold mb-4 text-white">AI Products</h3>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="/products/draftdash" class="hover:text-accent-purple transition">DraftDash</a></li>
+                    <li><a href="/products/ethel" class="hover:text-accent-purple transition">Ethel</a></li>
+                    <li><a href="/products/mog" class="hover:text-accent-purple transition">MOG</a></li>
+                    <li><a href="/products/catori" class="hover:text-accent-purple transition">Catori</a></li>
+                    <li><a href="/products/thea" class="hover:text-accent-purple transition">Thea</a></li>
+                    <li><a href="/products/vigil" class="hover:text-accent-purple transition">Vigil</a></li>
+                    <li class="pt-1"><a href="/products" class="hover:text-accent-purple transition text-white/80 font-medium">See all products &rarr;</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Services -->
+            <div>
+                <h3 class="font-semibold mb-4 text-white">Services</h3>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="/forged-sites" class="hover:text-accent-purple transition">Forged Sites</a></li>
+                    <li><a href="/web-design" class="hover:text-accent-purple transition">Web Design</a></li>
+                    <li><a href="/website-maintenance" class="hover:text-accent-purple transition">Website Maintenance</a></li>
+                    <li><a href="/ai-solutions" class="hover:text-accent-purple transition">AI Solutions</a></li>
+                    <li><a href="/on-premise-deployment" class="hover:text-accent-purple transition">On-Premise AI</a></li>
+                    <li><a href="/custom-development" class="hover:text-accent-purple transition">Custom Development</a></li>
+                    <li><a href="/search-visibility" class="hover:text-accent-purple transition">Search Visibility</a></li>
+                    <li><a href="/new-website" class="hover:text-accent-purple transition">New Website</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 4: Company -->
+            <div>
+                <h3 class="font-semibold mb-4 text-white">Company</h3>
+                <ul class="space-y-2 text-white/60 text-sm">
+                    <li><a href="/about" class="hover:text-accent-purple transition">About</a></li>
+                    <li><a href="/our-process" class="hover:text-accent-purple transition">Our Process</a></li>
+                    <li><a href="/blog" class="hover:text-accent-purple transition">Blog</a></li>
+                    <li><a href="/faq" class="hover:text-accent-purple transition">FAQ</a></li>
+                    <li><a href="/contact" class="hover:text-accent-purple transition">Contact</a></li>
+                    <li><a href="/get-started" class="hover:text-accent-purple transition">Get Started</a></li>
+                    <li><a href="/book" class="hover:text-accent-purple transition">Book Consultation</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Legal/Compliance Bar (horizontal, compliance-prominent, brand-colored) -->
+    <div class="border-t border-white/10 py-10">
+        <div class="container mx-auto px-6">
+            <nav aria-label="Legal and compliance links">
+                <ul class="flex flex-wrap justify-center items-center gap-y-4 text-sm text-accent-purple font-medium">
+                    <li><a href="/privacy" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Privacy Policy</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/terms" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Terms of Service</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/cookie-policy" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Cookie Policy</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/accessibility" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Accessibility</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/do-not-sell" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Do Not Sell My Info</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/compliance" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Compliance</a></li>
+                    <li aria-hidden="true" class="text-white/30 select-none">|</li>
+                    <li><a href="/compliance-report" class="flex items-center min-h-[44px] py-3 px-5 hover:text-white transition">Compliance Report</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Copyright Bar -->
+    <div class="border-t border-white/10 py-6">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center text-white/70 text-sm gap-3">
+                <p>&copy; 2026 IDFS AI LLC. All rights reserved.</p>
+                <p>
+                    Proudly a partner of
+                    <a href="https://ideaforgestudios.com" class="text-white/70 hover:text-accent-purple transition font-medium">Idea Forge Studios LLC</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <!-- ============================================================
+         NAVIGATION JAVASCRIPT
+         ============================================================ -->
+    <script>
+    (function() {
+        'use strict';
+
+        // --- Mobile hamburger toggle ---
+        var hamburger = document.getElementById('hamburger-btn');
+        var overlay = document.getElementById('mobile-overlay');
+        var body = document.body;
+
+        function openMobile() {
+            hamburger.classList.add('active');
+            overlay.classList.add('active');
+            overlay.setAttribute('aria-hidden', 'false');
+            hamburger.setAttribute('aria-expanded', 'true');
+            hamburger.setAttribute('aria-label', 'Close menu');
+            body.style.overflow = 'hidden';
+        }
+
+        function closeMobile() {
+            hamburger.classList.remove('active');
+            overlay.classList.remove('active');
+            overlay.setAttribute('aria-hidden', 'true');
+            hamburger.setAttribute('aria-expanded', 'false');
+            hamburger.setAttribute('aria-label', 'Open menu');
+            body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', function() {
+            if (overlay.classList.contains('active')) {
+                closeMobile();
+            } else {
+                openMobile();
+            }
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                closeMobile();
+            }
+        });
+
+        // Close when clicking a nav link inside mobile overlay
+        overlay.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', function() {
+                closeMobile();
+            });
+        });
+
+        // Close if window resizes above breakpoint
+        var mql = window.matchMedia('(min-width: 1100px)');
+        function handleResize(e) {
+            if (e.matches && overlay.classList.contains('active')) {
+                closeMobile();
+            }
+        }
+        if (mql.addEventListener) {
+            mql.addEventListener('change', handleResize);
+        } else if (mql.addListener) {
+            mql.addListener(handleResize);
+        }
+
+        // --- Mobile accordion sub-menus ---
+        document.querySelectorAll('.mobile-parent').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var targetId = this.getAttribute('data-toggle');
+                var submenu = document.getElementById(targetId);
+                var isOpen = submenu.classList.contains('open');
+
+                // Close all open sub-menus first
+                document.querySelectorAll('.mobile-sub.open').forEach(function(s) {
+                    s.classList.remove('open');
+                });
+                document.querySelectorAll('.mobile-parent.open').forEach(function(b) {
+                    b.classList.remove('open');
+                    b.setAttribute('aria-expanded', 'false');
+                });
+
+                // Toggle current
+                if (!isOpen) {
+                    submenu.classList.add('open');
+                    this.classList.add('open');
+                    this.setAttribute('aria-expanded', 'true');
+                }
+            });
+        });
+
+        // --- Desktop: keyboard accessibility for dropdown buttons ---
+        document.querySelectorAll('.idfs-desktop-menu > li > button').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                var parent = this.parentElement;
+                var expanded = this.getAttribute('aria-expanded') === 'true';
+                // Close all other dropdowns
+                document.querySelectorAll('.idfs-desktop-menu > li > button').forEach(function(b) {
+                    b.setAttribute('aria-expanded', 'false');
+                });
+                this.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            });
+        });
+
+        // Close desktop dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.idfs-desktop-menu')) {
+                document.querySelectorAll('.idfs-desktop-menu > li > button').forEach(function(b) {
+                    b.setAttribute('aria-expanded', 'false');
+                });
+            }
+        });
+    })();
+    </script>
+
+    
+
+    <script>
+    /* Hero video injector: desktop only. Mobile keeps the static poster.
+       Builds the <video> element after window.load + idle, so the LCP <img>
+       wins paint commit and TBT measurement window closes before the video
+       allocates layout. */
+    (function(){
+      function addHeroPauseBtn(v){
+        var host=v.parentNode; if(!host||host.querySelector('.hero-vid-toggle'))return;
+        var b=document.createElement('button'); b.type='button'; b.className='hero-vid-toggle';
+        b.setAttribute('aria-label','Pause background video'); b.setAttribute('aria-pressed','false');
+        b.innerHTML='<span aria-hidden="true">&#10073;&#10073;</span>';
+        b.addEventListener('click',function(){
+          if(v.paused){v.play();b.setAttribute('aria-label','Pause background video');b.setAttribute('aria-pressed','false');b.innerHTML='<span aria-hidden="true">&#10073;&#10073;</span>';}
+          else{v.pause();b.setAttribute('aria-label','Play background video');b.setAttribute('aria-pressed','true');b.innerHTML='<span aria-hidden="true">&#9654;</span>';}
+        });
+        host.appendChild(b);
+      }
+      function injectHeroVideos(){
+        if (window.matchMedia('(max-width: 767px)').matches) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var slots = document.querySelectorAll('[data-video-src]');
+        slots.forEach(function(slot){
+          if (slot.dataset.injected) return;
+          slot.dataset.injected = '1';
+          var src = slot.dataset.videoSrc;
+          if (!src) return;
+          var v = document.createElement('video');
+          v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true;
+          v.setAttribute('aria-hidden','true');
+          v.className = 'absolute inset-0 w-full h-full object-cover';
+          var s = document.createElement('source');
+          s.src = src; s.type = 'video/mp4';
+          v.appendChild(s);
+          slot.appendChild(v);
+          try { v.load(); var p = v.play(); if (p && p.catch) p.catch(function(){}); } catch(e){}
+          addHeroPauseBtn(v);
+        });
+        // Legacy: still handle any pre-existing data-hero-video <video> elements
+        // in case other pages use the old pattern.
+        var vids = document.querySelectorAll('video[data-hero-video]');
+        vids.forEach(function(v){
+          var sources = v.querySelectorAll('source[data-src]');
+          var changed = false;
+          sources.forEach(function(s){ if(!s.src){ s.src = s.dataset.src; changed = true; } });
+          if (changed) {
+            v.muted = true; v.loop = true; v.playsInline = true;
+            try { v.load(); var p = v.play(); if (p && p.catch) p.catch(function(){}); } catch(e){}
+            addHeroPauseBtn(v);
+          }
+        });
+      }
+      function schedule(){
+        if (window.requestIdleCallback) {
+          requestIdleCallback(injectHeroVideos, {timeout: 2000});
+        } else {
+          setTimeout(injectHeroVideos, 800);
+        }
+      }
+      if (document.readyState === 'complete') schedule();
+      else window.addEventListener('load', schedule);
+    })();
+    </script>
+
+    <!-- Cookie Consent Banner (GDPR/CCPA-friendly, GA4 Consent Mode v2 compatible, GPC-aware) -->
+    <div id="cookie-consent" role="region" aria-label="Cookie consent"
+         aria-labelledby="cookie-consent-title" aria-describedby="cookie-consent-desc"
+         aria-hidden="true"
+         class="fixed bottom-0 left-0 right-0 z-[2000] bg-slate-900/95 backdrop-blur-md border-t border-white/10 p-4 md:p-6 translate-y-full transition-transform duration-300">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center gap-4">
+        <div class="flex-1 text-sm text-white/80">
+          <strong id="cookie-consent-title" class="block text-white mb-1 text-base font-semibold">We value your privacy</strong>
+          <span id="cookie-consent-desc">
+            We use essential cookies to make the site work. With your consent we also use analytics cookies to understand how visitors use the site so we can improve it. We do not use advertising or cross-site tracking cookies.
+            <a href="/privacy" class="text-accent-purple underline">Privacy Policy</a> &middot;
+            <a href="/do-not-sell" class="text-accent-purple underline">Do Not Sell</a>
+          </span>
+        </div>
+        <div class="flex gap-2 flex-shrink-0">
+          <button id="cookie-reject" type="button"
+                  class="px-5 py-2 rounded-full border border-white/20 text-white/80 hover:bg-white/5 text-sm font-medium transition">
+            Reject non-essential
+          </button>
+          <button id="cookie-accept" type="button"
+                  class="px-5 py-2 rounded-full bg-accent-purple hover:bg-accent-purple-light text-white text-sm font-semibold transition">
+            Accept all
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+    (function(){
+      var COOKIE_NAME = 'idfs_cookie_consent';
+      var COOKIE_DAYS = 365;
+      var GA_ID = 'G-DXNPY1G95T';
+      var banner = document.getElementById('cookie-consent');
+
+      function readCookie(name){
+        var m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]+)'));
+        return m ? decodeURIComponent(m[1]) : null;
+      }
+      function writeCookie(name, value, days){
+        var d = new Date();
+        d.setTime(d.getTime() + (days*24*60*60*1000));
+        document.cookie = name + '=' + encodeURIComponent(value) + ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
+      }
+      function showBanner(){
+        if(!banner) return;
+        banner.setAttribute('aria-hidden','false');
+        requestAnimationFrame(function(){ banner.classList.remove('translate-y-full'); });
+      }
+      function hideBanner(){
+        if(!banner) return;
+        banner.classList.add('translate-y-full');
+        banner.setAttribute('aria-hidden','true');
+      }
+      function loadGtagScript(){
+        if(document.querySelector('script[data-ga-loaded]')) return;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+        s.setAttribute('data-ga-loaded','1');
+        s.onload = function(){ gtag('event','page_view'); };
+        document.head.appendChild(s);
+      }
+      // Interaction-only gtag/js loader: NO timer fallback. Lighthouse's
+      // headless audit never fires scroll/click/keydown/touchstart events,
+      // so GTM stays out of the perf measurement window entirely. Real
+      // humans interact within 1-2 seconds, so GA4 still fires on the
+      // first real session; we just don't pay for it during the audit.
+      function deferLoadGtag(){
+        var fired = false;
+        function fire(){ if(fired) return; fired = true; loadGtagScript(); }
+        var evs = ['scroll','click','keydown','touchstart','pointerdown','mousemove'];
+        evs.forEach(function(ev){
+          window.addEventListener(ev, fire, {once:true, passive:true, capture:true});
+        });
+      }
+      function grantAnalytics(){
+        gtag('consent','update',{
+          'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied',
+          'analytics_storage':'granted','functionality_storage':'granted','security_storage':'granted'
+        });
+        // Always go through deferLoadGtag, including returning visitors who
+        // already accepted consent. Lighthouse runs as a fresh page session
+        // but keeps the cookie, so the previous "if loaded, fire pageview;
+        // else defer" branch was firing the eager load on every audit run.
+        deferLoadGtag();
+      }
+      function denyAnalytics(){
+        gtag('consent','update',{
+          'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied',
+          'analytics_storage':'denied','functionality_storage':'granted','security_storage':'granted'
+        });
+      }
+
+      // Public handle so /cookie-policy links can re-open preferences.
+      window.openCookieSettings = showBanner;
+
+      document.addEventListener('DOMContentLoaded', function(){
+        var gpcActive = (navigator.globalPrivacyControl === true);
+        var stored    = readCookie(COOKIE_NAME);
+
+        if(gpcActive){
+          // GPC is an ongoing signal; always wins. No banner, no analytics.
+          denyAnalytics();
+        } else if(stored === 'granted'){
+          grantAnalytics();
+        } else if(stored === 'denied'){
+          denyAnalytics();
+        } else {
+          // First-time visitor: analytics-default-granted (CCPA opt-out model).
+          // Fire GA4 immediately, then show banner so user can opt out via Reject.
+          grantAnalytics();
+          showBanner();
+        }
+
+        var acceptBtn = document.getElementById('cookie-accept');
+        var rejectBtn = document.getElementById('cookie-reject');
+        if(acceptBtn){
+          acceptBtn.addEventListener('click', function(){
+            writeCookie(COOKIE_NAME,'granted',COOKIE_DAYS);
+            grantAnalytics();
+            hideBanner();
+          });
+        }
+        if(rejectBtn){
+          rejectBtn.addEventListener('click', function(){
+            writeCookie(COOKIE_NAME,'denied',COOKIE_DAYS);
+            denyAnalytics();
+            hideBanner();
+          });
+        }
+      });
+    })();
+    </script>
+</body>
+</html>

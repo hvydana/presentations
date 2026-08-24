@@ -1,0 +1,42 @@
+Sim-to-Real: How Robots Learn in Simulation
+Sim-to-real is the practice of training a robot's models in simulation, then transferring them to the physical machine. Simulation generates vast amounts of training data cheaply and safely — millions of trials without wear, risk or cost — and the trained policy is then deployed to real hardware.
+Key takeaways
+- Sim-to-real trains models in simulation, then transfers them to real robots.
+- Simulation gives cheap, safe, perfectly-labeled training data at scale.
+- The sim-to-real gap comes from mismatches between sim and reality.
+- Domain randomization — varying the sim — is the main way to close the gap.
+- Synthetic data now rivals real: 2026 studies showed policies trained on 40% synthetic data matching 100%-real on held-out tasks.
+- It is far cheaper than teleoperation, where data costs fell from ~$340/hour (2024) to ~$118/hour (2026).
+- Simulation/training needs GPU compute; deployment runs on the edge.
+Why train in simulation
+Collecting real-world robot data is slow, expensive and sometimes dangerous. The highest-quality alternative — physical teleoperation, where a human drives the robot while joint states and camera streams are recorded — is costly, though it has fallen from about $340/hour in 2024 to roughly $118/hour in 2026. Simulation sidesteps that: a robot can attempt a task millions of times in parallel at near-zero marginal cost, explore failure cases safely, and generate perfectly labeled data. By 2026, teams at CMU and Stanford reported policies trained on 40% synthetic data matching policies trained on 100% real data on held-out tasks — which is why most enterprises now blend simulation, synthetic data and a smaller teleoperation set.
+The sim-to-real gap
+Models trained only in simulation often fail in reality because the simulator never perfectly matches the real world — differences in lighting, friction, sensor noise and timing. Closing this “sim-to-real gap” is the central challenge of the approach.
+Domain randomization
+The main technique for closing the gap is domain randomization: deliberately varying the simulation — textures, lighting, physics parameters, sensor noise — so the model learns to be robust to variation. A policy that works across thousands of randomized simulated worlds is far more likely to work in the one real world.
+The sim-to-real workflow
+A typical flow: build or import a scene in a simulator (such as NVIDIA Isaac Sim, Isaac Lab or MuJoCo), define the task and reward, train a perception, control or vision-language-action (VLA) policy with randomization on GPU compute, validate in sim, then deploy to the edge device on the robot and fine-tune with limited real-world data. Monitoring in the field feeds back into the next training cycle.
+| Stage | What happens | Typical tool | 
+|---|---|---|
+| 1. Build the scene | Replicate the robot, sensors and task | Isaac Sim / Isaac Lab / MuJoCo | 
+| 2. Generate data | Millions of episodes with domain randomization | Simulation + synthetic data | 
+| 3. Train | Train the perception / control / VLA policy | GPU workstation or cluster | 
+| 4. Validate in sim | Check behaviour before touching hardware | Simulator | 
+| 5. Transfer to real | Deploy to the edge + limited real fine-tuning | Jetson AGX Thor / Orin | 
+What hardware sim-to-real needs
+Simulation and training run on GPU workstations or clusters — RTX 6000 Ada-class workstations for development, larger GPU systems for scale — while the trained model is deployed to edge platforms like Jetson AGX Thor or AGX Orin on the robot. A typical enterprise pilot now budgets roughly $50K–$150K for the data and training stage before scaling. Haink supplies both ends and builds the pipeline between them; see Physical AI solutions and robotics hardware.
+Frequently asked questions
+What is sim-to-real in robotics?
+Sim-to-real is training a robot's perception or control models in simulation and then transferring them to the physical robot, using simulated data to train cheaply and safely at scale.
+What is the sim-to-real gap?
+The performance drop when a model trained in simulation meets the real world, caused by differences in lighting, friction, sensor noise and timing that the simulator doesn't perfectly capture.
+How is the sim-to-real gap closed?
+Mainly through domain randomization — varying textures, lighting, physics and sensor noise in simulation so the model becomes robust — often combined with limited real-world fine-tuning.
+What software is used for robot simulation?
+Platforms such as NVIDIA Isaac Sim are commonly used to build scenes, simulate physics and sensors, and generate synthetic training data.
+What hardware do you need for sim-to-real?
+GPU workstations or clusters for simulation and training (e.g. RTX 6000 Ada-class and up), and edge platforms such as Jetson AGX Thor or AGX Orin for deployment on the robot.
+How much does robot training data cost?
+High-quality teleoperation data fell from about $340/hour in 2024 to roughly $118/hour in 2026, and simulation plus synthetic data lowers it further. A typical enterprise pilot budgets around $50K–$150K for the data and training stage.
+Deploying edge or robotics AI?
+Jetson, IGX and edge inference hardware from stock — get firm pricing and lead times.

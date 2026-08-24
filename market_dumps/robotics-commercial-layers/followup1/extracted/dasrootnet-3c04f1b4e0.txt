@@ -1,0 +1,134 @@
+Observability for LLM Inference: Monitoring Latency, Tokens/sec, and Cost
+Observability for LLM inference in 2026 focuses on monitoring latency, tokens per second, and cost to ensure efficient model deployment.
+Effective tracking of these metrics enables identification of performance bottlenecks and cost overruns in real-time. This post examines key observability metrics, available tools and frameworks, and strategies for optimizing inference workloads using collected data. Familiarity with LLM deployment and monitoring systems is assumed.
+Key Metrics for Observability in LLM Inference #
+Observability in large language model (LLM) inference is essential for ensuring performance, reliability, and cost efficiency in production systems. The three most critical metrics for evaluating LLM inference are latency, tokens per second (TPS), and cost. These metrics provide actionable insights into model behavior, infrastructure utilization, and financial impact, enabling teams to optimize their AI workloads effectively.
+Latency: Time to First Token (TTFT) and End-to-End Performance #
+Latency measures the time taken for a model to generate a response, with the most critical sub-metric being Time to First Token (TTFT). In 2026 benchmarks, vLLM demonstrated a TTFT of 120 ms for 50 concurrent requests on an H100 GPU, while TensorRT-LLM achieved 105 ms. These figures highlight the importance of TTFT in determining perceived responsiveness for interactive applications such as chatbots and coding assistants.
+For example, in a deployment using the Llama 3.3 70B model at FP8 precision, vLLM achieved a TTFT of 120 ms for 50 concurrent requests, which is crucial for applications requiring low-latency responses. This is especially important for user-facing systems where even a slight delay can impact user satisfaction and engagement.
+Tokens per Second (TPS): Throughput and Concurrency #
+Tokens per second (TPS) is a key performance indicator that evaluates the throughput of an LLM, indicating how quickly it can process input and generate output. In 2026 benchmarks, vLLM achieved 1,850 TPS for 50 concurrent requests on an H100 GPU, while TensorRT-LLM delivered 2,100 TPS.
+These metrics are essential for applications that require high throughput, such as large-scale chatbot deployments or content generation systems. For instance, vLLM’s throughput of 1,850 TPS for 50 concurrent requests on the Llama 3.3 70B model at FP8 precision shows that it can handle a significant volume of requests efficiently, making it suitable for production environments with high concurrency demands.
+Cost: Financial Impact and Resource Utilization #
+Cost is a critical metric for evaluating the financial impact of LLM inference, often based on compute resources and model complexity. In 2026, the NVIDIA Blackwell platform has been widely adopted by leading inference providers to reduce cost per token by up to 10x.
+For example, the GB300 NVL72 system delivers up to 50x better performance for low-latency workloads compared to the Hopper platform, resulting in 35x lower cost per token. This makes it an ideal choice for applications that require both high performance and cost efficiency, such as agentic coding assistants and interactive AI systems.
+Additionally, the use of FP8 quantization in vLLM and SGLang has been shown to reduce VRAM usage and improve throughput, further optimizing inference costs. For instance, the vLLM 0.18.0 version supports FP8 quantization and has demonstrated significant improvements in both memory efficiency and throughput on H100 GPUs.
+Monitoring and Alerting Configuration #
+To ensure optimal performance and reliability, it is essential to monitor these metrics in real time. Below is a sample monitoring configuration using Prometheus and Grafana:
+# prometheus.yml
+scrape_configs:
+  - job_name: 'vllm'
+    static_configs:
+      - targets: ['localhost:8000']
+// grafana dashboard configuration
+{
+  "panels": [
+    {
+      "title": "TTFT p50",
+      "type": "timeseries",
+      "expr": "vllm_ttft_p50"
+    },
+    {
+      "title": "TPS",
+      "type": "timeseries",
+      "expr": "vllm_tokens_per_second"
+    },
+    {
+      "title": "Cost per Token",
+      "type": "timeseries",
+      "expr": "vllm_cost_per_token"
+    }
+  ]
+}
+Verification Commands #
+To verify that the monitoring setup is working, run the following commands:
+# Check if Prometheus is scraping metrics from vLLM
+curl http://localhost:9090/api/v1/query?query=vllm_ttft_p50
+# Check if Grafana is displaying the dashboard correctly
+grafana-cli dashboard import vllm_dashboard.json
+Sample Alerts #
+Here is an example of a Prometheus alert rule for high TTFT:
+- alert: HighTTFT
+  expr: vllm_ttft_p50 > 200
+  for: 1m
+  labels:
+    severity: warning
+  annotations:
+    summary: High TTFT detected
+    description: "TTFT p50 has exceeded 200 ms for more than 1 minute."
+These metrics provide a comprehensive view of LLM inference performance, helping teams make informed decisions about model selection, infrastructure sizing, and deployment strategies. By monitoring and optimizing these key metrics, organizations can ensure that their AI systems deliver both high-quality results and cost-effective operations.
+Tools and Frameworks for Observability #
+In 2026, the landscape of observability tools and frameworks has evolved significantly, with Prometheus and Grafana leading the way in real-time monitoring and visualization, while OpenTelemetry has become the de facto standard for distributed tracing and logging. These tools are essential for achieving comprehensive observability in large-scale systems, especially in the context of LLM inference where performance and reliability are critical.
+Prometheus and Grafana #
+Prometheus, at version 3.10.0, offers enhanced capabilities for collecting and querying metrics, making it an ideal choice for monitoring the health and performance of LLM inference systems. The latest stable release, 3.10.0, introduces improved query performance, support for new metrics types, and enhanced alerting capabilities. Grafana, in its latest version 12, has introduced several features that improve the visualization of data, including enhanced dashboard capabilities and more intuitive user interfaces. Grafana’s integration with Prometheus allows for the creation of dynamic dashboards that can visualize complex metrics in real-time, helping teams quickly respond to issues as they arise.
+For example, Grafana 12 now supports live dashboards, which provide real-time updates without requiring a page refresh. This feature is particularly useful for monitoring high-throughput systems such as LLM inference pipelines. Additionally, Grafana 12 includes built-in anomaly detection, which can automatically flag unusual patterns in metrics without manual configuration.
+A sample Prometheus configuration for an LLM inference system might look like this:
+# prometheus.yml
+scrape_configs:
+  - job_name: 'llm-inference'
+    static_configs:
+      - targets: ['llm-inference-service:9090']
+To verify the setup, run the following command:
+curl http://localhost:9090/metrics
+For Grafana, a simple dashboard can be created using the following JSON structure:
+{
+  "dashboard": {
+    "panels": [
+      {
+        "type": "timeseries",
+        "title": "LLM Inference Latency",
+        "targets": [
+          {
+            "expr": "llm_inference_latency_seconds{job=\"llm-inference\"}",
+            "refId": "A"
+          }
+        ]
+      }
+    ]
+  }
+}
+OpenTelemetry #
+OpenTelemetry has made significant strides in 2026, with its latest version 1.20.0 supporting a broader range of protocols and languages, including eBPF instrumentation. This allows for zero-code observability, which is particularly beneficial for organizations looking to monitor complex systems without the overhead of manual instrumentation. OpenTelemetry’s support for cloud service SDKs, such as those for Google Cloud, AWS, and Azure, provides visibility into cloud API calls, helping teams understand their applications’ interactions with cloud infrastructure.
+A key enhancement in 2026 is the eBPF instrumentation for OpenTelemetry, which enables capturing telemetry data at the kernel level without modifying application code. This feature is particularly useful for monitoring low-level system behaviors in distributed environments.
+To configure OpenTelemetry with eBPF instrumentation, use the following configuration:
+# openTelemetryConfig.yaml
+otel:
+  traces:
+    sampling:
+      probability: 1.0
+  metrics:
+    enabled: true
+  logs:
+    enabled: true
+  exporter:
+    otlp:
+      endpoint: "http://otel-collector:4318"
+To verify the setup, run the following command:
+otelcol --config=openTelemetryConfig.yaml --help
+Cloud Provider-Specific Tools #
+Cloud providers such as AWS and Azure have also enhanced their observability tools, integrating them with Prometheus and OpenTelemetry for a more comprehensive view of system performance. For example, AWS CloudWatch and Azure Monitor offer features that allow for the collection of metrics and logs from various services, providing insights into the performance of LLM inference systems. These tools are designed to work seamlessly with existing infrastructure, making it easier for teams to monitor and manage their systems.
+AWS CloudWatch now supports automated anomaly detection and real-time alerting for LLM inference workloads. Azure Monitor has introduced predictive analytics, which can forecast potential performance issues based on historical data. These features help teams proactively manage their infrastructure and avoid service disruptions.
+In conclusion, the combination of Prometheus, Grafana, and OpenTelemetry, along with cloud provider-specific tools, provides a robust framework for achieving comprehensive observability in LLM inference systems. These tools enable teams to monitor, analyze, and optimize their systems effectively, ensuring that they can respond to issues quickly and maintain high performance.
+Optimizing LLM Inference with Observability Data #
+Optimizing LLM inference using observability data involves leveraging detailed metrics and insights to identify bottlenecks, implement efficient scaling strategies, and reduce costs. By analyzing latency, token throughput, and cost trends, teams can fine-tune their LLM deployments for performance and affordability.
+Identifying Bottlenecks through Latency Analysis #
+Latency analysis is a critical component of observability, helping teams pinpoint where delays occur in the inference pipeline. Recent studies have shown that optimized quantization and parallelization strategies can significantly improve inference performance. For example, the Qwen3-235B model, deployed on AMD MI300X GPUs, achieved a Time to First Token (TTFT) improvement of 1.67× and a Time Per Output Token (TPOT) improvement of 2.12×. These improvements were made possible through the use of the PTPC (Per Token Activation, Per Channel Weight) quantization method, which aligns better with the compute architecture of modern GPUs.
+Tools like Arize Phoenix and Langfuse provide granular insights into request tracing, allowing developers to identify slow or inefficient components. For instance, misaligned matrix operations or suboptimal attention module configurations can be detected early, enabling teams to focus their optimization efforts on the most impactful areas.
+Scaling Strategies Based on Tokens per Second Metrics #
+Token throughput, measured in tokens per second (TPS), is a key metric for scaling LLM inference. High TPS indicates efficient model execution, while low TPS suggests potential resource constraints or inefficiencies. The PTPC quantization method improved GEMM operations on the AMD ROCm platform by 15–30%, enabling more efficient use of hardware resources and allowing for higher throughput.
+When scaling, teams should monitor TPS across different workloads and adjust the number of parallel GPUs or inference servers accordingly. Tools like Portkey and Helicone provide real-time TPS tracking, helping teams optimize resource allocation and avoid overprovisioning. For example, a deployment using Portkey with 250+ models can achieve 20–40ms overhead, ensuring efficient scaling across multiple inference requests.
+Cost Optimization Techniques #
+Cost optimization is essential for maintaining efficiency in LLM inference. Model quantization is one of the most effective techniques, as demonstrated by the Qwen3.5 9B model, which achieved FP16-level performance at INT4 quantization, with only a 2.3-point drop in AIME-24 score. This approach significantly reduces memory usage, enabling models to run on consumer-grade hardware with minimal performance loss.
+Additionally, efficient resource allocation strategies, such as dynamic scaling based on observed workloads, can further reduce costs. Tools like Confident AI and Braintrust offer cost attribution features, allowing teams to track spending per model, user, or prompt, and enforce budget limits to prevent unexpected overruns.
+For instance, Confident AI allows teams to evaluate production traces with 50+ metrics, alerting on quality regressions and making results accessible to PMs and domain experts. This ensures that teams can identify and address cost inefficiencies before they impact production performance.
+Benchmarking and Performance Evaluation #
+To ensure that optimization strategies are effective, it is important to use benchmarks and performance metrics that reflect real-world conditions. The following table compares the performance of different quantization techniques on the AMD ROCm platform:
+| Quantization Method | TTFT Improvement | TPOT Improvement | Memory Usage Reduction | 
+|---|---|---|---|
+| FP32 | 1.0× | 1.0× | 0% | 
+| FP16 | 1.2× | 1.4× | 50% | 
+| PTPC (FP8) | 1.67× | 2.12× | 70% | 
+| INT4 (ParoQuant) | 1.8× | 2.3× | 85% | 
+These benchmarks were tested on AMD MI300X GPUs with 192 GB HBM3 memory and 5.3 TB/s memory bandwidth, providing a realistic environment for evaluating inference performance. Teams should use these metrics to guide their optimization strategies and ensure that they achieve both performance and cost efficiency in LLM inference.
+Conclusion #
+Observability for LLM inference requires precise monitoring of latency, throughput, and cost to ensure efficient deployment. vLLM and TensorRT-LLM demonstrate TTFT improvements down to 105 ms on H100 GPUs with Llama 3.3 70B at FP8, emphasizing the need for detailed latency tracking. Prometheus 3.10.0 and Grafana 12 enable robust metric collection and visualization for real-time performance analysis. Implement end-to-end observability using Arize Phoenix or Langfuse to trace latency bottlenecks and optimize inference pipelines. Prioritize metrics like TTFT and TPOT, and consider PTPC quantization for significant performance gains on large models like Qwen3-235B.

@@ -1,0 +1,36 @@
+The TF3800 TwinCAT 3 Function is a high-performance execution module (inference engine) for trained, conventional machine learning algorithms.
+Beckhoff offers a machine learning (ML) solution that is seamlessly integrated into TwinCAT 3. This ensures ML applications can also benefit from the familiar advantages of system openness found in PC-based control thanks to the use of established standards. As an added bonus, the machine learning models are executed in real time, providing machine builders with the ideal foundations for improving machine performance.
+The algorithms are trained in a wide variety of established frameworks, such as SciKit-Learn, libSVM, and XGBoots. The AI model created is exported from the learning environment as an ONNX file. ONNX (Open Neural Network Exchange) has asserted itself as an open standard for interoperability in machine learning, ensuring a clear distinction between the learning environment and execution environment of trained models.
+The ONNX file can be read into TwinCAT 3 and supplemented with application-specific meta information, such as the model name, model version, and a brief description. The TwinCAT 3 PLC provides a function block that loads the AI model description file and executes it on a cycle-synchronous basis. These loading and execution processes are implemented as methods of the function block, which ensures the AI model is deeply integrated into the machine application.
+The product supports the execution of a variety of different model types, ranging from k-means, SVM, and PCA through to decision trees and ensemble trees such as Random Forest, XGBoost, and LightGBM.
+The range of applications for conventional machine learning algorithms is broad. They are often used for classification tasks, such as quality control, process monitoring, and anomaly detection.
+Product status:
+regular delivery
+Product information
+| Technical data | TF3800 | 
+|---|---|
+| Required license | TC1000 | 
+| Included in | TF3810, TF7810 | 
+| Operating system | Windows 10, Windows 11 | 
+| CPU architecture | x64 | 
+| Ordering information |  | 
+|---|---|
+| TF3800-0v40 | TwinCAT 3 Machine Learning Inference Engine, platform level 40 (Performance) | 
+| TF3800-0v50 | TwinCAT 3 Machine Learning Inference Engine, platform level 50 (Performance Plus) | 
+| TF3800-0v60 | TwinCAT 3 Machine Learning Inference Engine, platform level 60 (Mid Performance) | 
+| TF3800-0v70 | TwinCAT 3 Machine Learning Inference Engine, platform level 70 (High Performance) | 
+| TF3800-0v80 | TwinCAT 3 Machine Learning Inference Engine, platform level 80 (Very High Performance) | 
+| TF3800-0v81 | TwinCAT 3 Machine Learning Inference Engine, platform level 81 (Very High Performance) | 
+| TF3800-0v82 | TwinCAT 3 Machine Learning Inference Engine, platform level 82 (Very High Performance) | 
+| TF3800-0v83 | TwinCAT 3 Machine Learning Inference Engine, platform level 83 (Very High Performance) | 
+| TF3800-0v84 | TwinCAT 3 Machine Learning Inference Engine, platform level 84 (Very High Performance) | 
+| TF3800-0v90 | TwinCAT 3 Machine Learning Inference Engine, platform level 90 (Other 1…4 Cores) | 
+| TF3800-0v91 | TwinCAT 3 Machine Learning Inference Engine, platform level 91 (Other 5…8 Cores) | 
+| TF3800-0v92 | TwinCAT 3 Machine Learning Inference Engine, platform level 92 (Other 9…16 Cores) | 
+| TF3800-0v93 | TwinCAT 3 Machine Learning Inference Engine, platform level 93 (Other 17…32 Cores) | 
+| TF3800-0v94 | TwinCAT 3 Machine Learning Inference Engine, platform level 94 (Other 33…64 Cores) | 
+We recommend using a TwinCAT 3 license dongle for platform levels 90-94.
+Loading content ...
+Loading content ...
+Loading content ...
+© Beckhoff Automation 2026 - Terms of Use

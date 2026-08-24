@@ -1,0 +1,105 @@
+For a long time, local AI art and video tools were built around NVIDIA CUDA by default. Stable Diffusion, ComfyUI, AnimateDiff, video super-resolution, LLM inference, and many plugins usually supported CUDA first. AMD GPUs often offered good VRAM value, but Windows users had to rely on DirectML, ZLUDA, Linux ROCm, or community patches. Stability and tutorial consistency were weaker than NVIDIA.
+The ROCm 7.2 series changes that picture in a meaningful way. At CES 2026, AMD announced the Ryzen AI 400 series and tied ROCm, Radeon, Ryzen AI, and Windows AI workflows more closely together. AMD documentation shows that ROCm 7.2.1 updates PyTorch support on Windows for AMD Radeon graphics products and AMD Ryzen AI processors. ComfyUI Desktop also added official AMD ROCm support starting with v0.7.0.
+This does not mean AMD has fully caught up with the CUDA ecosystem. It does mean that running ComfyUI on AMD GPUs under Windows is moving from a tinkering-only option to something worth seriously evaluating.
+Quick Answer
+ROCm 7.2 makes AMD local AI more realistic, especially for ComfyUI Desktop users on supported Radeon and Ryzen AI hardware. Start with the official ComfyUI Desktop path on Windows, then test a simple workflow before adding many custom nodes.
+If you need heavy batch generation, training, vLLM, Docker, or multi-GPU services, Linux is still the safer ROCm environment. Treat Windows ROCm as a better desktop entry point, not a full CUDA replacement.
+What ROCm 7.2 Brings
+ROCm is AMD’s open software stack for GPU computing and machine learning. Its role is similar to NVIDIA CUDA. It includes HIP, compilers, math libraries, deep-learning libraries, profilers, PyTorch integration, and low-level runtime components.
+For desktop users, ROCm 7.2 matters in three ways.
+First, Windows support is more official. AMD’s Radeon/Ryzen ROCm documentation states that PyTorch on Windows has been updated to ROCm 7.2.1 for AMD Radeon graphics and AMD Ryzen AI processors. This is important for ComfyUI, Hugging Face Transformers, and local inference tools because most upper-layer tools eventually depend on PyTorch.
+Second, hardware support is clearer. AMD documentation mentions support for Radeon 9000 series, selected Radeon 7000 series, Ryzen AI Max 300, selected Ryzen AI 400, and selected Ryzen AI 300 APUs. In other words, “AMD GPU” does not automatically mean full support. The exact model still needs to be checked against the compatibility matrix.
+Third, ComfyUI now has an official route. In January 2026, the ComfyUI team announced that ComfyUI Desktop for Windows supports AMD ROCm from v0.7.0. For normal users, that matters because it reduces manual environment setup, wheel hunting, and launch-parameter tweaking.
+For people looking for a CUDA alternative, these changes matter more than a single benchmark. Long-term usability depends on whether drivers, frameworks, models, plugins, and the frontend connect reliably.
+Separate the ROCm 7.2 series from the Windows PyTorch baseline
+AMD’s release history lists ROCm 7.2.1, 7.2.2, and 7.2.3, released on March 25, April 14, and May 4, 2026. That does not mean the Windows ComfyUI instructions automatically track the newest patch. The current AMD Windows guide calls for Python 3.12, driver 26.2.2, and a PyTorch package with ROCm 7.2.1 components. Treat 7.2.3 as the newest 7.2-series release record and 7.2.1 as the documented Windows ComfyUI baseline.
+Which Hardware Fits Best
+The AMD route should be viewed in three groups.
+The first is Radeon 9000 series. It is the newest discrete-GPU line that ROCm 7.2 focuses on, and it should have the highest priority if you are buying an AMD GPU now for local AI.
+The second is selected Radeon 7000 series cards. These RDNA 3 GPUs already have some ROCm support, but not every model is equally stable. Before buying, check AMD’s official compatibility matrix and confirm Windows, Linux, PyTorch, and the target tool all support your card.
+The third is Ryzen AI APUs. Ryzen AI 400 and Ryzen AI Max 300 bring CPU, GPU, NPU, and shared memory into laptops, mini PCs, and development devices. They are better for lightweight inference, development tests, mobile work, and small ComfyUI workflows. They should not be planned like high-end discrete GPUs for heavy model throughput.
+If the goal is smooth mainstream AI art, a discrete GPU is still the safer choice. APUs are attractive for integration and shared memory, but they are not ideal for heavy video generation or large-batch image work.
+AMD’s Windows matrix currently specifies Windows 11, Python 3.12, PyTorch 2.9, and ROCm 7.2 components:
+| Architecture | Representative listed hardware | Windows PyTorch | 
+|---|---|---|
+| gfx1201 | RX 9070, RX 9070 XT, Radeon AI PRO R9700 | FP16; FP8 on RDNA 4 | 
+| gfx1200 | RX 9060 XT | FP16; FP8 on RDNA 4 | 
+| gfx1100 | RX 7900 XTX, PRO W7900 | FP16 | 
+| gfx1101 | RX 7700 | FP16 | 
+Do not infer support for an unlisted Radeon merely because it belongs to the same generation.
+Windows provides PyTorch ROCm components, not the full ROCm stack
+AMD explicitly says that PyTorch on Windows includes ROCm 7.2 components while the complete ROCm stack is not supported. Current limits include PyTorch-only framework support, no ML training support, Python 3.12, and batch-size restrictions for some LLM workloads. A working basic ComfyUI graph therefore does not prove that Triton, CUDA-only extensions, training, or server frameworks will work.
+Recommended Windows Path
+For typical Windows users, ComfyUI Desktop should be the first choice. It is the official support path, reduces environment conflicts, and is easier to update with upstream changes.
+The basic flow is:
+- Use Windows 11 and update AMD Software: Adrenalin Edition.
+- Confirm your GPU or APU is in the AMD ROCm Radeon/Ryzen compatibility matrix.
+- Install ComfyUI Desktop v0.7.0 or later.
+- Select or enable the AMD ROCm backend in ComfyUI Desktop.
+- After first launch, check the console for PyTorch/ROCm information.
+- Test a basic SDXL or Flux workflow before installing many plugins.
+If you use manual ComfyUI, the idea is similar: install Python, install the PyTorch build for the ROCm 7.2 series, then launch main.py. AMD’s official ComfyUI guide notes that after launch you should verify the terminal shows the expected ROCm 7.2.1 PyTorch version.
+Low-VRAM devices can try:
+| 1  | python main.py --lowvram --disable-pinned-memory  | 
+These options do not always improve speed, but they can reduce memory and VRAM pressure. On 8GB, 12GB, or shared-memory devices, finishing reliably is more important than maximum speed.
+Linux Is Still Better For Heavy Users
+ROCm on Windows is more usable now, but Linux remains the more mature AMD AI environment. AMD documentation also shows broader Linux support for Radeon across PyTorch, TensorFlow, JAX, ONNX, vLLM, Llama.cpp, and some training workflows.
+If you only want ComfyUI image generation, Windows is worth trying.
+If you need vLLM, LoRA training, batch video generation, multi-GPU, Docker, automation scripts, or long-running services, Linux is still the stronger choice.
+Choose by workload:
+- Windows: desktop users, ComfyUI Desktop, lightweight image generation, local experimentation.
+- Linux: developers, heavy AI users, servers, batch processing, and the fuller ROCm ecosystem.
+- WSL: useful if you want Windows plus Linux tooling, but you must confirm ROCDXG, driver, and hardware support.
+Do not treat Windows ROCm as the answer to every problem. It lowers the entry barrier and improves desktop use, while heavy production still depends more on Linux support.
+Be Careful With ComfyUI Plugins
+ComfyUI’s difficulty is not only the main program. The plugin ecosystem matters. Many nodes assume CUDA, xFormers, Triton, FlashAttention, or specific PyTorch extensions. After switching to AMD ROCm, common problems include:
+- Plugins calling CUDA-only extensions.
+- Acceleration libraries without ROCm wheels.
+- Custom-node install scripts that check for NVIDIA by default.
+- Video nodes depending on codecs or optical-flow libraries without AMD support.
+- New model workflows using NVIDIA-optimized settings by default.
+Do not start by copying an old NVIDIA ComfyUI directory into an AMD setup. A cleaner approach is to install a fresh environment, verify a base model, and add plugins one by one.
+Recommended test order:
+- Basic text-to-image.
+- Image-to-image.
+- LoRA.
+- ControlNet.
+- Upscaling and high-res fix.
+- AnimateDiff or video nodes.
+- Heavier models such as Flux, SD3, Wan, or HunyuanVideo.
+Test after each plugin group. If something breaks, you can identify the likely node or dependency.
+Why AMD GPUs Are Attractive For AI Art
+The biggest attraction of AMD is VRAM and price. Many users choose AMD not because its AI software ecosystem is already easier than CUDA, but because the same budget often buys more memory, which helps local creation and long experiments.
+Large VRAM is practical in ComfyUI:
+- It can fit larger checkpoints.
+- It can raise resolution.
+- It can load more LoRA, ControlNet, and reference-image nodes.
+- It can reduce the speed loss of low-VRAM mode.
+- It makes video generation and batch jobs less likely to run out of memory.
+If ROCm 7.2 keeps PyTorch and ComfyUI stable on Windows, AMD GPUs become a more realistic CUDA alternative, especially for users who do not want cloud services but want more local VRAM.
+Limits You Still Need To Accept
+The AMD route is usable, but it is not a no-brainer CUDA replacement.
+Main limits include:
+- Supported models are limited; older and some lower-end cards may not be listed.
+- Windows framework support is still narrower than Linux.
+- Many AI tutorials still assume NVIDIA.
+- Some ComfyUI plugins have only been tested on CUDA.
+- Community answers are fewer when errors appear.
+- The same model may perform very differently on different backends.
+Before choosing AMD, confirm three things:
+- Your GPU is in the official compatibility matrix.
+- Your main tools explicitly support ROCm.
+- Your key plugins do not depend on CUDA-only extensions.
+If all three are acceptable, AMD can be reliable. Otherwise, the money saved on hardware may be spent on environment debugging.
+Recommended Setup Strategy
+For beginners, use Windows 11 + a supported Radeon 9000/7000 card + ComfyUI Desktop. Follow the official path first and do not install too many third-party nodes immediately.
+For developers, prepare a Linux environment. ROCm has a fuller toolchain on Linux and is better for batch tasks, LLM inference, Docker, and automation.
+For laptop or mini-PC users, Ryzen AI 400 and Ryzen AI Max platforms are suitable for lightweight local AI. They can handle development, preview, simple image generation, and small-model inference, but should not be planned like high-end discrete GPUs for video generation.
+For heavy ComfyUI users, focus on VRAM, driver version, and plugin compatibility. AMD’s memory value is tempting, but if one critical node does not support ROCm, the whole workflow can be affected.
+Summary
+The ROCm 7.2 series is a meaningful step forward for AMD local AI on Windows. Radeon and Ryzen AI PyTorch support is clearer, and ComfyUI Desktop now offers official ROCm support. This brings AMD GPUs closer to a CUDA alternative that ordinary users can actually try.
+But usable does not mean fully compatible. The safer approach is to check the compatibility matrix, use the official install path, test basic ComfyUI first, and then add plugins and complex video workflows gradually. Windows fits lightweight desktop creation; Linux still fits heavy development and production.
+If you want the least friction, CUDA remains the mainstream answer.
+If you are willing to validate the workflow in exchange for larger VRAM and a more open ecosystem, ROCm 7.2 + ComfyUI is now worth serious testing.
+Choose the Lowest-Risk Path First
+For a first ComfyUI setup, validate the driver, ROCm runtime, and one basic workflow before importing a large custom-node collection. Keep the working environment reproducible, because plugin and version mismatches are usually harder to diagnose than raw GPU performance limits.

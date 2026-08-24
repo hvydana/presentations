@@ -1,0 +1,42 @@
+Setting a New Standard for the Robot Brain
+AMD FPGAs and adaptive SoCs have enabled sensing, safety, and control systems in robots for decades. Now AMD Kria™ AI solutions extend these capabilities to the robot brain, combining real-time CPU control, with fast GPU and NPU inference to power agentic robotics and other physical AI applications, and unified memory on a single, production-ready module.
+Deploy Real-World Physical AI Solutions at Scale
+Achieve scalable, low-latency, and production-ready physical AI deployment with deterministic performance, integrated AI acceleration, and modular design.
+Customize Your Solution
+Leverage a customizable, open platform for securely deploying AI with industry-standard frameworks and AMD software.
+Get to Market Faster
+Accelerate time to market with a pre-engineered hardware platform offering out-of-the-box AI development, rapid prototyping, and a secure, future-ready, open-source platform for evolving models.
+Kria AI SOMs
+The AMD Kria AI SOM features the AMD Ryzen™ AI Embedded X100 series device on an industry-standard COM-HPC form-factor board. The SOM, available through the AMD partner ecosystem, features a CPU for agentic orchestration and real-time control, GPU for AI perception and reasoning, NPU for low-power, low latency AI, and unified memory.
+The Kria AI SOM is built for compute-intensive physical AI applications such as robotics and autonomous machines, with the ability to scale up to 234 concurrent1 agents and make up to 8,000 decisions per second.2
+Product Highlights
+vs. NVIDIA Jetson Thor
+Kria ™ AI Robotics Developer Platform
+The AMD Kria™ AI Robotics Developer Platform is the industry’s first open, fully integrated platform for autonomous robotics. It addresses the full robotics pipeline from factory robots and AMRs to mobile manipulators and humanoids. This scalable development platform helps developers take designs from concept to prototype in days.
+It combines an AMD Kria AI SOM with a carrier card featuring an FPGA and a multitude of sensor and communication interfaces. The platform is supported by the AMD Robotics Software Suite built on AMD ROCm™ software and the industry-standard ROS2 framework. Kria AI powers the brains of a system, offering a single, platform for real-time decisions and autonomous action.
+Read blog to see competitive advantages of the AMD Kria AI Robotics Developer Platform.
+Accelerate Robotics Development with an Open Physical AI Software Stack
+Build smarter. Prototype faster. Deploy with confidence.
+The AMD Robotics Software Suite is an open, portable software stack that accelerates robotics development from prototype to production. With optimized ROS 2 libraries, AI SDKs, simulation tools, and reference applications, it simplifies development while maximizing AMD platform performance for autonomous robots, industrial automation, and AI-driven robotics.
+Contact an Embedded Expert
+Ready to learn more? Fill out our form to be contacted by the AMD Embedded team.
+			
+				
+					
+						Footnotes 
+		
+		
+			
+				
+					
+						
+DISCLAIMER: The information contained herein is for informational purposes only and is subject to change without notice. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document, and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability or fitness for particular purposes, with respect to the operation or use of AMD hardware, software or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights is granted by this document. Terms and limitations applicable to the purchase or use of AMD products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions of Sale. GD-18u. 
+- Based on the mimik whitepaper “Architectural Fit for Production-Scale Agentic AI on Heterogeneous SoCs” commissioned by AMD, published by mimik on July 23, 2026, based on a modeled sweep of 455 feasible agentic AI workflows across two device classes (X100, NVIDIA Jetson T5000), checking spare CPU, GPU, and memory. For more information see: https://www.mimik.com/agentix-compute-benchmarking (REX-019)
+- 8,000 Decisions per second (125us) obtained by running Bosch Rexroth controller on AMD X100 Series. Benchmark measures CPU real time control loop latency. Robot reasoning in <100ms benchmarking by embedL targeting GPU VLA inference latency (Based on Pi0.5 VLA ) 
+- Based on the OpenNav Robotics Workload Benchmark commissioned by AMD, published by Open Navigation LLC on July 23, 2026, as measured on the GMKtec EVO-X2 AI Mini PC AMD Ryzen AI Max+ 395 configured to reflect Ryzen AI Embedded X199 specifications (5.1 GHz CPU, 2.9 GHz GPU, 120W TDP, LPDDR5X-7500), vs. the NVIDIA Jetson AGX Thor Developer Kit: https://opennav.org/news/opennav-robotics-workload-benchmark (REX-018)
+- Based on the OpenNav Robotics Workload Benchmark commissioned by AMD, published by Open Navigation LLC on July 23, 2026, as measured on the GMKtec EVO-X2 AI Mini PC AMD Ryzen AI Max+ 395 configured to reflect Ryzen AI Embedded X199 specifications (5.1 GHz CPU, 2.9 GHz GPU, 120W TDP, LPDDR5X-7500), vs. the NVIDIA Jetson AGX Thor Developer Kit: https://opennav.org/news/opennav-robotics-workload-benchmark (REX-016)
+DISCLAIMER: The information contained herein is for informational purposes only and is subject to change without notice. While every precaution has been taken in the preparation of this document, it may contain technical inaccuracies, omissions and typographical errors, and AMD is under no obligation to update or otherwise correct this information. Advanced Micro Devices, Inc. makes no representations or warranties with respect to the accuracy or completeness of the contents of this document, and assumes no liability of any kind, including the implied warranties of noninfringement, merchantability or fitness for particular purposes, with respect to the operation or use of AMD hardware, software or other products described herein. No license, including implied or arising by estoppel, to any intellectual property rights is granted by this document. Terms and limitations applicable to the purchase or use of AMD products are as set forth in a signed agreement between the parties or in AMD's Standard Terms and Conditions of Sale. GD-18u.
+- Based on the mimik whitepaper “Architectural Fit for Production-Scale Agentic AI on Heterogeneous SoCs” commissioned by AMD, published by mimik on July 23, 2026, based on a modeled sweep of 455 feasible agentic AI workflows across two device classes (X100, NVIDIA Jetson T5000), checking spare CPU, GPU, and memory. For more information see: https://www.mimik.com/agentix-compute-benchmarking (REX-019)
+- 8,000 Decisions per second (125us) obtained by running Bosch Rexroth controller on AMD X100 Series. Benchmark measures CPU real time control loop latency. Robot reasoning in <100ms benchmarking by embedL targeting GPU VLA inference latency (Based on Pi0.5 VLA )
+- Based on the OpenNav Robotics Workload Benchmark commissioned by AMD, published by Open Navigation LLC on July 23, 2026, as measured on the GMKtec EVO-X2 AI Mini PC AMD Ryzen AI Max+ 395 configured to reflect Ryzen AI Embedded X199 specifications (5.1 GHz CPU, 2.9 GHz GPU, 120W TDP, LPDDR5X-7500), vs. the NVIDIA Jetson AGX Thor Developer Kit: https://opennav.org/news/opennav-robotics-workload-benchmark (REX-018)
+- Based on the OpenNav Robotics Workload Benchmark commissioned by AMD, published by Open Navigation LLC on July 23, 2026, as measured on the GMKtec EVO-X2 AI Mini PC AMD Ryzen AI Max+ 395 configured to reflect Ryzen AI Embedded X199 specifications (5.1 GHz CPU, 2.9 GHz GPU, 120W TDP, LPDDR5X-7500), vs. the NVIDIA Jetson AGX Thor Developer Kit: https://opennav.org/news/opennav-robotics-workload-benchmark (REX-016)

@@ -1,0 +1,1268 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Alex He, Theresa Shan, Eda Zhou" name="author" />
+<meta content="This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." lang="en" name="description" xml:lang="en" />
+<meta content="robotics, lerobot, vla, rocm, ai" name="keywords" />
+<meta content="AI, Developers" name="vertical" />
+<meta content="Developer Resources" name="amd_category" />
+<meta content="Blog" name="amd_asset_type" />
+<meta content="Applications and Models" name="amd_technical_blog_type" />
+<meta content="Instinct GPUs; Radeon Graphics; Ryzen Processors" name="amd_blog_hardware_platforms" />
+<meta content="ROCm Software; Open-Source Tools" name="amd_blog_development_tools" />
+<meta content="AI Inference; Industrial / Robotics; AI Training" name="amd_blog_applications" />
+<meta content="Software &amp; Ecosystem" name="amd_blog_topic_categories" />
+<meta content="Alex He; Theresa Shan; Eda Zhou" name="amd_blog_authors" />
+<meta content="2026/3/23" name="amd_release_date" />
+<meta content="Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference" property="og:title" />
+<meta content="This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." property="og:description" />
+<meta content="article" property="og:type" />
+<meta content="https://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html" property="og:url" />
+<meta content="ROCm Blogs" property="og:site_name" />
+<meta content="en_US" property="og:locale" />
+<meta content="https://rocm.blogs.amd.com/_images/artificial-intelligence-rocm-blogsblogsartificial-in-images-edge2cloud-thumbnail.webp" property="og:image" />
+<meta content="2026/3/23" property="article:published_time" />
+<meta content="Alex He; Theresa Shan; Eda Zhou" property="article:author" />
+<meta content="robotics, lerobot, vla, rocm, ai" property="article:tag" />
+
+    <title>Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference &#8212; ROCm Blogs</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=bcbbc761" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=643846e8" />
+    <link rel="stylesheet" type="text/css" href="../../_static/rocm_header.css?v=9557e3d1" />
+    <link rel="stylesheet" type="text/css" href="../../_static/rocm_footer.css?v=7095035a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/fonts.css?v=fcff5274" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=bcbbc761" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/asciinema-player.css?v=24f66a74" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/performance.js"></script>
+    <script src="../../_static/js/image-loading.js"></script>
+    <script async="async" src="../../_static/code_word_breaks.js?v=327952c4"></script>
+    <script async="async" src="../../_static/renameVersionLinks.js?v=929fe5e4"></script>
+    <script async="async" src="../../_static/rdcMisc.js?v=01f88d96"></script>
+    <script async="async" src="../../_static/theme_mode_captions.js?v=15f4ec5d"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'artificial-intelligence/rocm-blogsblogsartificial-in/README';</script>
+    <script src="../../_static/js/asciinema-player.min.js?v=91942f35"></script>
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    <script src="../../_static/js/vision-timeline-plotly-minimal.js?v=d30f1b8a"></script>
+    <script src="../../_static/js/giscus_theme.js?v=5a84b2f4"></script>
+    <script async="async" src="https://download.amd.com/js/analytics/analyticsinit.js"></script>
+    <link rel="canonical" href="https://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html" />
+    <link rel="icon" href="https://www.amd.com/content/dam/code/images/favicon/favicon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+    <meta name="google-site-verification" content="vo35SZt_GASsTHAEmdww7AYKPCvZyzLvOXBl8guBME4" />
+ 
+<link
+  rel="alternate"
+  type="application/atom+xml"
+  href="../../blog/atom.xml"
+  title="AMD ROCm Blogs"
+/>
+  
+  <script async type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="advanced-micro-devices-rocm-blogs" /><meta name="readthedocs-version-slug" content="latest" /><meta name="readthedocs-resolver-filename" content="/artificial-intelligence/rocm-blogsblogsartificial-in/README.html" /><meta name="readthedocs-http-status" content="200" /></head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+
+<header class="common-header" >
+    <nav class="navbar navbar-expand-xl">
+        <div class="container-fluid main-nav rocm-header">
+            
+            <button class="navbar-toggler collapsed" id="nav-icon" data-tracking-information="mainMenuToggle" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <div class="header-logo">
+                <a class="navbar-brand" href="https://www.amd.com/">
+                    <img src="../../_static/images/amd-header-logo.svg" alt="AMD Logo" title="AMD Logo" width="90" class="d-inline-block align-text-top hover-opacity"/>
+                </a>
+                <div class="vr vr mx-40 my-25"></div>
+                <a class="klavika-font hover-opacity" href="https://rocm.blogs.amd.com/">ROCm&#8482; Blogs</a>
+                
+            </div>
+            <div class="icon-nav text-center d-flex ms-auto">
+            </div>
+        </div>
+    </nav>
+    
+    <nav class="navbar navbar-expand-xl second-level-nav">
+        <div class="container-fluid main-nav">
+            <div class="navbar-nav-container collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-mega me-auto mb-2 mb-lg-0 col-xl-10">
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/index.html" id="navhome" role="button" aria-expanded="false" >
+                                Home
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/ai.html" id="navai" role="button" aria-expanded="false" >
+                                AI
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/hpc.html" id="navhpc" role="button" aria-expanded="false" >
+                                HPC
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/data-science.html" id="navdata-science" role="button" aria-expanded="false" >
+                                Data Science
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/systems.html" id="navsystems" role="button" aria-expanded="false" >
+                                Systems
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/developers.html" id="navdevelopers" role="button" aria-expanded="false" >
+                                Developers
+                            </a>
+                        </li>
+                    
+                        <li class="nav-item">
+                            <a class="nav-link top-level header-menu-links" href="https://rocm.blogs.amd.com/robotics.html" id="navrobotics" role="button" aria-expanded="false" >
+                                Robotics
+                            </a>
+                        </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+</header>
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+
+<a class="navbar-brand logo" href="https://rocm.blogs.amd.com/">
+    <p>ROCm blogs</p>
+</a></div>
+        
+      </div>
+    
+    
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+
+  <div id="ethical-ad-placement"
+       class="flat"
+       data-ea-publisher="readthedocs"
+       data-ea-type="readthedocs-sidebar"
+       data-ea-manual="true">
+  </div>
+</div>
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-angle-right"></span>
+  </label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstrating-our-edge-to-cloud-robotics-solution-with-a-pick-and-place-task">Demonstrating Our Edge-to-Cloud Robotics Solution with a Pick-and-Place Task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-collection">Dataset Collection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">Fine-Tuning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-guide">Step-by-Step Guide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-assembly">1. Hardware Assembly</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-the-so-101-arms">Connect the SO-101 arms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-the-cameras">Connect the Cameras</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-edge-development-environment">2. Setup the Edge Development Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#target-environment">Target Environment</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-requisites">Pre-requisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-24-04-lts-on-the-amd-ryzen-ai-pc">Install Ubuntu 24.04 LTS on the AMD Ryzen™ AI PC</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-rocm-development-environment-for-the-lerobot">Setup the ROCm Development Environment for the LeRobot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-rocm-6-3-x">Install ROCm 6.3.x</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pytorch-with-rocm">Install PyTorch with ROCm</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-lerobot-development-environment">Setup LeRobot Development Environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-the-so-101-arms">3. Calibrate the SO-101 arms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teleoperate">4. Teleoperate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#record-the-dataset">5. Record the dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training">6. Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-evaluation">7. Inference Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disclaimers">Disclaimers</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                   <!---
+Copyright (c) 2026 Advanced Micro Devices, Inc. (AMD)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+--->
+<section class="tex2jax_ignore mathjax_ignore" id="edge-to-cloud-robotics-with-amd-rocm-from-data-collection-to-real-time-inference">
+<h1>Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference<a class="headerlink" href="#edge-to-cloud-robotics-with-amd-rocm-from-data-collection-to-real-time-inference" title="Link to this heading">#</a></h1>
+<style>
+.author_string {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22.5px;
+    text-transform: none;
+    margin-bottom: 8px;
+    font-family: var(--pst-font-family-base);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.bd-main .bd-content .bd-article-container {
+    max-width: 1750px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+@media (min-width: 1200px) {
+    .bd-main .bd-content .bd-article-container .bd-article {
+        padding-left: 2rem;
+    }
+}
+
+.bd-container {
+    max-width: 1750px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+
+.author_string {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22.5px;
+    text-transform: none;
+    margin-bottom: 8px;
+    font-family: var(--pst-font-family-base);
+    display: inline-block;
+    vertical-align: middle;
+
+}
+
+.author_string_right {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 22.5px;
+    text-transform: none;
+    margin-bottom: 8px;
+    font-family: var(--pst-font-family-base);
+    display: inline-block;
+    vertical-align: middle;
+    flex-direction: row-reverse;
+}
+
+.author_string:last-child {
+    margin-bottom: 0px;
+}
+
+.author_string svg {
+    margin-right: 5px;
+}
+
+.bd-sidebar-primary {
+    display: none;
+}
+
+.sidebar-toggle {
+    display: none;
+}
+
+label.sidebar-toggle.primary-toggle.btn.btn-sm {
+    display: none;
+}
+
+.author_row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    width: 100%;
+    margin-bottom: 3px;
+    padding: 2px;
+}
+
+.author_row_right {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    width: 100%;
+    margin-bottom: 3px;
+    padding: 2px;
+    flex-direction: row-reverse;
+}
+
+.author_right {
+    display: flex;
+    flex-direction: column-reverse; 
+    max-width: 50%;
+    word-wrap: break-word;
+    align-items: right;
+}
+
+.author_left {
+    display: flex;
+    flex-direction: column-reverse; 
+    max-width: 50%;
+    word-wrap: break-word;
+    align-items: left;
+}
+
+</style>
+<style>
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.responsive-image {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    border: 5px solid #333;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .responsive-image {
+        max-height: 400px;
+    }
+}
+
+</style>
+<div class="image-container">
+    <!-- Direct image loading for immediate display -->
+    <img 
+        src="../../_images/artificial-intelligence-rocm-blogsblogsartificial-in-images-edge2cloud-thumbnail.webp" 
+        alt="Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference" 
+        class="responsive-image loaded" 
+        title="Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference"
+    >
+</div>
+<div class="author_row">
+    <div class="author_left">
+        <div class="author_string">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+              <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+            </svg>
+            <span> March 23, 2026 by <a href="https://rocm.blogs.amd.com/authors/alex-he.html">Alex He</a>, Theresa Shan, Eda Zhou.</span>
+        </div>
+        <div class="author_string">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+            </svg>
+            <span>3 min read. | 804 total words.</span>
+        </div>
+    </div>
+    <div class="author_right">
+        <div class="author_string_right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-folder2-open" viewBox="0 0 16 16">
+              <path d="M1 3.5A1.5 1.5 0 0 1 2.5 2h2.764c.958 0 1.76.56 2.311 1.184C7.985 3.648 8.48 4 9 4h4.5A1.5 1.5 0 0 1 15 5.5v.64c.57.265.94.876.856 1.546l-.64 5.124A2.5 2.5 0 0 1 12.733 15H3.266a2.5 2.5 0 0 1-2.481-2.19l-.64-5.124A1.5 1.5 0 0 1 1 6.14zM2 6h12v-.5a.5.5 0 0 0-.5-.5H9c-.964 0-1.71-.629-2.174-1.154C6.374 3.334 5.82 3 5.264 3H2.5a.5.5 0 0 0-.5.5zm-.367 1a.5.5 0 0 0-.496.562l.64 5.124A1.5 1.5 0 0 0 3.266 14h9.468a1.5 1.5 0 0 0 1.489-1.314l.64-5.124A.5.5 0 0 0 14.367 7z"/>
+            </svg>
+            <span><a href="https://rocm.blogs.amd.com/blog/category/applications-models.html">Applications & models</a></span>
+        </div>
+        <div class="author_string_right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags" viewBox="0 0 16 16">
+              <path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/>
+              <path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/>
+            </svg>
+            <span><a href="https://rocm.blogs.amd.com/blog/tag/aiml.html">AI/ML</a>, <a href="https://rocm.blogs.amd.com/blog/tag/fine-tuning.html">Fine-Tuning</a>, <a href="https://rocm.blogs.amd.com/blog/tag/robotics.html">Robotics</a></span>
+        </div>
+        <div class="author_string_right">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop-window" viewBox="0 0 16 16">
+                <path d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.37 2.37 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0M1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5m2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5"/>
+            </svg>
+            <span><a href="https://rocm.blogs.amd.com/ai.html">AI</a>, <a href="https://rocm.blogs.amd.com/developers.html">Developers</a></span>
+        </div>
+    </div>
+</div>  
+<!---
+<div class="author_string">
+    <svg class="svg-inline--fa fa-user fa-fw" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="user" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+        <path fill="currentColor" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z">
+        </path>
+    </svg>
+    <span><a href="https://rocm.blogs.amd.com/authors/alex-he.html">Alex He</a>, Theresa Shan, Eda Zhou</span>
+</div>
+
+<div class="author_string">
+    <svg class="svg-inline--fa fa-language fa-fw" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="language" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" data-fa-i2svg="">
+        <path fill="currentColor" d="M0 128C0 92.7 28.7 64 64 64H256h48 16H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H320 304 256 64c-35.3 0-64-28.7-64-64V128zm320 0V384H576V128H320zM178.3 175.9c-3.2-7.2-10.4-11.9-18.3-11.9s-15.1 4.7-18.3 11.9l-64 144c-4.5 10.1 .1 21.9 10.2 26.4s21.9-.1 26.4-10.2l8.9-20.1h73.6l8.9 20.1c4.5 10.1 16.3 14.6 26.4 10.2s14.6-16.3 10.2-26.4l-64-144zM160 233.2L179 276H141l19-42.8zM448 164c11 0 20 9 20 20v4h44 16c11 0 20 9 20 20s-9 20-20 20h-2l-1.6 4.5c-8.9 24.4-22.4 46.6-39.6 65.4c.9 .6 1.8 1.1 2.7 1.6l18.9 11.3c9.5 5.7 12.5 18 6.9 27.4s-18 12.5-27.4 6.9l-18.9-11.3c-4.5-2.7-8.8-5.5-13.1-8.5c-10.6 7.5-21.9 14-34 19.4l-3.6 1.6c-10.1 4.5-21.9-.1-26.4-10.2s.1-21.9 10.2-26.4l3.6-1.6c6.4-2.9 12.6-6.1 18.5-9.8l-12.2-12.2c-7.8-7.8-7.8-20.5 0-28.3s20.5-7.8 28.3 0l14.6 14.6 .5 .5c12.4-13.1 22.5-28.3 29.8-45H448 376c-11 0-20-9-20-20s9-20 20-20h52v-4c0-11 9-20 20-20z">
+        </path>
+    </svg>
+    English
+</div>
+-->
+<style>
+.icon-bar.fixed,
+.icon-bar.horizontal {
+    display: none;
+}
+
+@media screen and (min-width: 1520px) {
+    .icon-bar.fixed {
+        display: flex;
+        position: fixed;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+        flex-direction: column;
+        z-index: 1000;
+    }
+    .icon-bar.fixed a {
+        display: block;
+        text-align: center;
+        padding: 16px;
+        font-size: 20px;
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+        background-size: 25px 25px;
+    }
+    .icon-bar.fixed a svg {
+        width: 25px;
+        height: 25px;
+    }
+    .icon-bar.fixed a:hover {
+        background-color: #000;
+    }
+}
+
+@media screen and (max-width: 1520px) {
+    .icon-bar.horizontal {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        margin: 20px 0;
+    }
+    .icon-bar.horizontal a {
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: white;
+        margin-left: 8px;
+        transition: background-color 0.3s, color 0.3s;
+        background-size: 30px 30px;
+        padding: 4px;
+    }
+    .icon-bar.horizontal a svg {
+        width: 20px;
+        height: 20px;
+    }
+    .icon-bar.horizontal a:first-child {
+        margin-left: 0;
+    }
+    .icon-bar.horizontal a:hover {
+        background-color: #000;
+    }
+}
+
+.facebook {
+    background: #3B5998;  
+}
+.twitter {
+    background: #55ACEE;
+}
+.reddit {
+    background: #dd4b39;
+}
+.linkedin {
+    background: #007bb5;
+}
+.google {
+    background: #bb0000;
+}
+
+</style>
+<div class="icon-bar fixed">
+    <a href="https://www.linkedin.com/feed/?linkOrigin=LI_BADGE&shareActive=true&shareUrl=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html" class="linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+        </svg>
+    </a>
+    <a href="https://twitter.com/intent/tweet?url=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&amp;text=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+        </svg>
+    </a>
+    <a href="https://www.reddit.com/submit?url=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&amp;title=Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference | ROCm Blogs" class="reddit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reddit" viewBox="0 0 16 16">
+        <path d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"/>
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"/>
+        </svg>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&quote=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+        </svg>
+    </a>
+    <a href="mailto:?subject=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&body=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="google">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-arrow-up" viewBox="0 0 16 16">
+        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4.5a.5.5 0 0 1-1 0V5.383l-7 4.2-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-1.99zm1 7.105 4.708-2.897L1 5.383zM1 4v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1"/>
+        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016"/>
+        </svg>
+    </a>
+</div>
+<div class="icon-bar horizontal">
+    <a href="https://www.linkedin.com/feed/?linkOrigin=LI_BADGE&shareActive=true&shareUrl=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html" class="linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854zm4.943 12.248V6.169H2.542v7.225zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248S2.4 3.226 2.4 3.934c0 .694.521 1.248 1.327 1.248zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016l.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225z"/>
+        </svg>
+    </a>
+    <a href="https://twitter.com/intent/tweet?url=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&amp;text=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+        </svg>
+    </a>
+    <a href="https://www.reddit.com/submit?url=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&amp;title=Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference | ROCm Blogs" class="reddit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-reddit" viewBox="0 0 16 16">
+        <path d="M6.167 8a.83.83 0 0 0-.83.83c0 .459.372.84.83.831a.831.831 0 0 0 0-1.661m1.843 3.647c.315 0 1.403-.038 1.976-.611a.23.23 0 0 0 0-.306.213.213 0 0 0-.306 0c-.353.363-1.126.487-1.67.487-.545 0-1.308-.124-1.671-.487a.213.213 0 0 0-.306 0 .213.213 0 0 0 0 .306c.564.563 1.652.61 1.977.61zm.992-2.807c0 .458.373.83.831.83s.83-.381.83-.83a.831.831 0 0 0-1.66 0z"/>
+        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.828-1.165c-.315 0-.602.124-.812.325-.801-.573-1.9-.945-3.121-.993l.534-2.501 1.738.372a.83.83 0 1 0 .83-.869.83.83 0 0 0-.744.468l-1.938-.41a.2.2 0 0 0-.153.028.2.2 0 0 0-.086.134l-.592 2.788c-1.24.038-2.358.41-3.17.992-.21-.2-.496-.324-.81-.324a1.163 1.163 0 0 0-.478 2.224q-.03.17-.029.353c0 1.795 2.091 3.256 4.669 3.256s4.668-1.451 4.668-3.256c0-.114-.01-.238-.029-.353.401-.181.688-.592.688-1.069 0-.65-.525-1.165-1.165-1.165"/>
+        </svg>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&quote=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="facebook">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+        </svg>
+    </a>
+    <a href="mailto:?subject=http://rocm.blogs.amd.com/artificial-intelligence/rocm-blogsblogsartificial-in/README.html&body=This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework." class="google">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-arrow-up" viewBox="0 0 16 16">
+        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4.5a.5.5 0 0 1-1 0V5.383l-7 4.2-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h5.5a.5.5 0 0 1 0 1H2a2 2 0 0 1-2-1.99zm1 7.105 4.708-2.897L1 5.383zM1 4v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1"/>
+        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.354-5.354 1.25 1.25a.5.5 0 0 1-.708.708L13 12.207V14a.5.5 0 0 1-1 0v-1.717l-.28.305a.5.5 0 0 1-.737-.676l1.149-1.25a.5.5 0 0 1 .722-.016"/>
+        </svg>
+    </a>
+</div>
+<!-- Edge-to-Cloud Robotics with AMD ROCm: From Data Collection to Real-Time Inference | ROCm Blogs -->
+<!-- This blog demonstrates a comprehensive Edge-to-Cloud robotics AI solution powered by the AMD ecosystem and the Hugging Face LeRobot framework. -->
+<p>This blog walks through a full edge-to-cloud robotics AI solution, built entirely on the AMD ecosystem and the <a class="reference external" href="https://github.com/huggingface/lerobot">Hugging Face LeRobot framework</a>. In case you are not familiar, LeRobot is an open source platform from Hugging Face that provides pre-trained models, datasets, and tools for real-world robotics using PyTorch.</p>
+<p>At the core of this edge-to-cloud implementation is <strong>Imitation Learning (IL)</strong> (also known as Learning from Demonstration or Apprenticeship Learning). Instead of hard-coding behaviors or hand-crafting reward functions, IL relies on using an expert to show the robot how to perform a task. This is similar to how humans can learn new skills: rather than following explicit instructions, we can watch an expert, like watching a cooking video instead of just reading a recipe. This approach becomes especially powerful when paired with <strong>Vision-Language-Action (VLA)</strong> models which translate visual observations and language instructions into executable robot actions. VLAs give robots a rich understanding of what they see, while IL provides a fast, efficient way to teach them how to act using just a handful of demonstrations. Together, they dramatically shorten the journey from research to robots doing work in the real world.</p>
+<p>We gather data using IL on AMD Ryzen™ GPU-based PCs and then fine-tune state-of-the-art VLA models such as <a class="reference external" href="https://huggingface.co/docs/lerobot/pi05">Pi0.5</a>, <a class="reference external" href="https://huggingface.co/docs/lerobot/pi0">Pi0</a>, and <a class="reference external" href="https://huggingface.co/docs/lerobot/smolvla">smolVLA</a>, , as well as policies like <a class="reference external" href="https://huggingface.co/docs/lerobot/act">ACT</a>, on high-performance AMD Instinct™ MI300X servers with the AMD ROCm software stack in the cloud. We then deploy these trained models for real-time inference back onto AMD Ryzen™ GPU-based PCs at the edge. The result is an end-to-end pipeline where robotic arms can learn and execute new complex, multi-step actions.</p>
+<p>This workflow has been showcased at <a class="reference external" href="https://amdroboticshackathon.datamonsters.com/">AMD’s 2025 Open Robotics Hackathons</a> around the world, including events in Tokyo, Paris, and San Jose. Participants applied the same edge-to-cloud solution to diverse real-world scenarios—food packaging, childcare, allergy aid, and waste classification—as illustrated in <strong>Figures 1–4</strong> below. Together, AMD hardware and ROCm deliver a scalable, performant foundation for robotics AI and machine learning from desktop data collection to data center training to desktop inference, and enable a fast transition from core ideas to robots solving real problems.</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img alt="Figure 1. Food packaging demo" src="../../_images/food_packaging.jpg" /></p></td>
+<td><p><img alt="Figure 2. Childcare demo" src="../../_images/childcare.jpg" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Figure 1. Food packaging demo</em></p></td>
+<td><p><em>Figure 2. Childcare demo</em></p></td>
+</tr>
+<tr class="row-even"><td><p><img alt="Figure 3. Allergy aid demo" src="../../_images/allergyaid.jpg" /></p></td>
+<td><p><img alt="Figure 4. Waste classification demo" src="../../_images/classification.jpg" /></p></td>
+</tr>
+<tr class="row-odd"><td><p><em>Figure 3. Allergy aid demo</em></p></td>
+<td><p><em>Figure 4. Waste classification demo</em></p></td>
+</tr>
+</tbody>
+</table>
+<p><em>Figure 1</em> shows a food-packaging demo; <em>Figure 2</em>, a childcare application; <em>Figure 3</em>, an allergy-aid use case; and <em>Figure 4</em>, waste classification—all built by hackathon teams on this pipeline.</p>
+<p>A companion blog, <a class="reference internal" href="../rocm-lerobot/README.html"><span class="std std-doc"><em>Fine-tuning Robotics Vision Language Action Models with AMD ROCm and LeRobot</em></span></a>, describes the same LeRobot e2e solution from a system and workflow perspective. In this blog, we provide updated reflections on the broader ecosystem impact: our Open Robotics Hackathon brought together 240 developers and 83 teams in Tokyo, Paris, and San Jose, co-hosted with <a class="reference external" href="https://hackclub.com/">Hack Club</a> in a special session on Education and Physical AI. The hackathon guided participants from first touch to building real solutions with LeRobot and AMD AI—and was highlighted by AMD Chair and CEO Dr. Lisa Su at CES 2026.</p>
+<p>In this blog, we walk you through the pipeline we used at the hackathon: setting up the edge environment on an AMD Ryzen™ AI PC with <a class="reference external" href="https://github.com/TheRobotStudio/SO-ARM100">SO-101 robotic arms</a>, collecting datasets, training Pi0 models on <a class="reference external" href="https://www.amd.com/en/developer/resources/technical-articles/2025/amd-ai-developer-program.html">AMD Dev Cloud</a>, and deploying the trained model back to the PC for real-time inference—a full-stack AMD robotics solution.</p>
+<section id="demonstrating-our-edge-to-cloud-robotics-solution-with-a-pick-and-place-task">
+<h2>Demonstrating Our Edge-to-Cloud Robotics Solution with a Pick-and-Place Task<a class="headerlink" href="#demonstrating-our-edge-to-cloud-robotics-solution-with-a-pick-and-place-task" title="Link to this heading">#</a></h2>
+<p>Our setup captures the dataset on an AMD Ryzen™ AI PC, fine tunes the pre-trained Pi0 model using the LeRobot framework on AMD Instinct™ MI300X GPUs and then deploys it for real-time inference on the PC. The data collection and inference rely on two SO-101 robotic arms in leader and follower configuration. <strong>Figure 5</strong> below shows this hardware setup: the two arms, the cameras for visual feedback, and the AMD Ryzen AI PC.</p>
+<figure class="align-center" id="id1">
+<img alt="Scaling performance" src="../../_images/robot.jpg" />
+<figcaption>
+<p><span class="caption-text">Figure 5. End-to-end demo hardware: two SO-101 arms, two cameras for visual feedback, and an AMD Ryzen AI PC running real-time inference and dataset collection</span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="dataset-collection">
+<h3>Dataset Collection<a class="headerlink" href="#dataset-collection" title="Link to this heading">#</a></h3>
+<p>Our demo demonstrates a simple pick-and-place task: stacking one block on top of another. During data collection, the leader arm performs this task while the two cameras capture visual trajectories synchronized with the arm’s joint positions. We collected at least 50 demonstration episodes for training, the exact number depending on the complexity of the target policy.</p>
+</section>
+<section id="fine-tuning">
+<h3>Fine-Tuning<a class="headerlink" href="#fine-tuning" title="Link to this heading">#</a></h3>
+<p>By leveraging only 50 episodes, we were able to quickly specialize the large pre‑trained model for our pick‑and‑place task. It highlights how data‑efficient these modern foundation models have become: even a modest set of examples is enough to teach them new behaviors. Moreover, the adapted policy now serves as a strong starting point for learning more complex manipulation tasks, such as training downstream models that perform multi‑step skills like stacking two blocks.</p>
+</section>
+</section>
+<section id="step-by-step-guide">
+<h2>Step-by-Step Guide<a class="headerlink" href="#step-by-step-guide" title="Link to this heading">#</a></h2>
+<p>This section provides a step-by-step tutorial for setting up the LeRobot development environment on both the edge device and the Cloud using the AMD ROCm™ platform. <strong>Figure 6</strong> below summarizes the full development and deployment workflow.</p>
+<figure class="align-center" id="id2">
+<img alt="Scaling performance" src="../../_images/workflow.jpg" />
+<figcaption>
+<p><span class="caption-text">Figure 6. LeRobot development and deployment workflow on AMD ROCm platform</span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="hardware-assembly">
+<h3>1. Hardware Assembly<a class="headerlink" href="#hardware-assembly" title="Link to this heading">#</a></h3>
+<p>Here are some key steps and example commands for using the SO-101.</p>
+<p>These examples are based on <a class="reference external" href="https://huggingface.co/docs/lerobot/so101">the LeRobot Tutorial</a> and LeRobot v0.4.1 with some modifications and comments for our setup. <strong>You may need to modify these steps to suit your environment.</strong></p>
+<section id="connect-the-so-101-arms">
+<h4>Connect the SO-101 arms<a class="headerlink" href="#connect-the-so-101-arms" title="Link to this heading">#</a></h4>
+<ol class="arabic simple">
+<li><p>First, connect the leader arm to the PC via USB-UART and it will appear as <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code> on Ubuntu</p></li>
+<li><p>Connect the follower arm with USB UART to the PC and it will appear as <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM1</span></code> on Ubuntu</p></li>
+</ol>
+<p>The order in which the leader and follower arms are connected will result in different device node names. The following steps assume the following names:</p>
+<ul class="simple">
+<li><p>Leader arm: <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code></p></li>
+<li><p>Follower arm: <code class="docutils literal notranslate"><span class="pre">/dev/ttyACM1</span></code></p></li>
+</ul>
+<p>LeRobot provides the command <code class="docutils literal notranslate"><span class="pre">lerobot-find-port</span></code> to help find the UART device node of the SO-101 arms.</p>
+</section>
+<section id="connect-the-cameras">
+<h4>Connect the Cameras<a class="headerlink" href="#connect-the-cameras" title="Link to this heading">#</a></h4>
+<p>Suppose you have two cameras, one named <code class="docutils literal notranslate"><span class="pre">top</span></code> and another named <code class="docutils literal notranslate"><span class="pre">side</span></code>. The <code class="docutils literal notranslate"><span class="pre">top</span></code> camera may be set up to give a bird’s eye view of the arm’s workspace. The <code class="docutils literal notranslate"><span class="pre">side</span></code> camera may be set up to give a side view.</p>
+<p>The order in which the cameras are connected will result in different device node names. The following steps assume the following names:</p>
+<ul class="simple">
+<li><p>Top camera: <code class="docutils literal notranslate"><span class="pre">/dev/video0</span></code></p></li>
+<li><p>Side camera: <code class="docutils literal notranslate"><span class="pre">/dev/video2</span></code></p></li>
+</ul>
+<p>Use the lerobot-find-cameras CLI tool to detect available cameras:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-find-cameras<span class="w"> </span>opencv<span class="w">      </span><span class="c1"># Find OpenCV cameras  </span>
+</pre></div>
+</div>
+<p>You can also use <code class="docutils literal notranslate"><span class="pre">ffplay</span></code> to check the camera angles and which port each camera is connected to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ffplay<span class="w"> </span>/dev/video*<span class="w">    </span><span class="c1"># Fill in with the camera&#39;s index/port</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="setup-the-edge-development-environment">
+<h3>2. Setup the Edge Development Environment<a class="headerlink" href="#setup-the-edge-development-environment" title="Link to this heading">#</a></h3>
+<p>The edge platform is based on an AMD Ryzen™ AI PC, which is used to drive the SO-101 arm for dataset creation and inference. The integrated GPU (iGPU) of the Ryzen AI processor accelerates model inference using ROCm™.</p>
+<section id="target-environment">
+<h4>Target Environment<a class="headerlink" href="#target-environment" title="Link to this heading">#</a></h4>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AMD Ryzen AI 9 HX370 PC
+OS: Ubuntu 24.04
+ROCm v6.3+
+PyTorch v2.7.x
+LeRobot: v0.4.1
+</pre></div>
+</div>
+</section>
+<section id="pre-requisites">
+<h4>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Link to this heading">#</a></h4>
+</section>
+<section id="install-ubuntu-24-04-lts-on-the-amd-ryzen-ai-pc">
+<h4>Install Ubuntu 24.04 LTS on the AMD Ryzen™ AI PC<a class="headerlink" href="#install-ubuntu-24-04-lts-on-the-amd-ryzen-ai-pc" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>alex@SER9:~$<span class="w"> </span>lsb_release<span class="w"> </span>-a
+No<span class="w"> </span>LSB<span class="w"> </span>modules<span class="w"> </span>are<span class="w"> </span>available.
+Distributor<span class="w"> </span>ID:<span class="w"> </span>Ubuntu
+Description:<span class="w">    </span>Ubuntu<span class="w"> </span><span class="m">24</span>.04.3<span class="w"> </span>LTS
+Release:<span class="w">        </span><span class="m">24</span>.04
+Codename:<span class="w">       </span>noble
+alex@SER9:~$<span class="w"> </span>uname<span class="w"> </span>-r
+<span class="m">6</span>.14.0-27-generic
+alex@SER9:~$
+alex@SER9:~$<span class="w"> </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>amdgpu
+amdgpu<span class="w">              </span><span class="m">19714048</span><span class="w">  </span><span class="m">1</span>
+amdxcp<span class="w">                 </span><span class="m">12288</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+drm_panel_backlight_quirks<span class="w">    </span><span class="m">12288</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+drm_buddy<span class="w">              </span><span class="m">24576</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+drm_ttm_helper<span class="w">         </span><span class="m">16384</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+ttm<span class="w">                   </span><span class="m">118784</span><span class="w">  </span><span class="m">2</span><span class="w"> </span>amdgpu,drm_ttm_helper
+drm_exec<span class="w">               </span><span class="m">12288</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+drm_suballoc_helper<span class="w">    </span><span class="m">20480</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+drm_display_helper<span class="w">    </span><span class="m">278528</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+cec<span class="w">                    </span><span class="m">94208</span><span class="w">  </span><span class="m">2</span><span class="w"> </span>drm_display_helper,amdgpu
+i2c_algo_bit<span class="w">           </span><span class="m">16384</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+gpu_sched<span class="w">              </span><span class="m">61440</span><span class="w">  </span><span class="m">2</span><span class="w"> </span>amdxdna,amdgpu
+video<span class="w">                  </span><span class="m">77824</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>amdgpu
+</pre></div>
+</div>
+</section>
+<section id="setup-the-rocm-development-environment-for-the-lerobot">
+<h4>Setup the ROCm Development Environment for the LeRobot<a class="headerlink" href="#setup-the-rocm-development-environment-for-the-lerobot" title="Link to this heading">#</a></h4>
+<p>As of now (2025/11), LeRobot depends on PyTorch version &gt;=2.2.1, &lt;2.8.0 (see <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>).</p>
+<p>We recommend using ROCm 6.3 and PyTorch 2.7 to ensure compatibility with LeRobot.</p>
+</section>
+<section id="install-rocm-6-3-x">
+<h4>Install ROCm 6.3.x<a class="headerlink" href="#install-rocm-6-3-x" title="Link to this heading">#</a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span><span class="s2">&quot;linux-headers-</span><span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="s2">&quot;</span>
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>python3-setuptools<span class="w"> </span>python3-wheel
+sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>render,video<span class="w"> </span><span class="nv">$LOGNAME</span><span class="w"> </span><span class="c1"># Add the current user to the render and video groups</span>
+
+
+wget<span class="w"> </span>https://repo.radeon.com/amdgpu-install/6.3.4/ubuntu/noble/amdgpu-install_6.3.60304-1_all.deb
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>./amdgpu-install_6.3.60304-1_all.deb
+amdgpu-install<span class="w"> </span>-y<span class="w"> </span>--usecase<span class="o">=</span>rocm<span class="w"> </span>--no-dkms
+
+sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+<p><strong>NOTE</strong>: Ensure <code class="docutils literal notranslate"><span class="pre">--no-dkms</span></code> is set so the built-in kernel driver is used.</p>
+<p>For more details, refer to the official documentation: https://rocm.docs.amd.com/projects/radeon-ryzen/en/docs-6.3.4/docs/install/native_linux/install-radeon.html.</p>
+</section>
+<section id="install-pytorch-with-rocm">
+<h4>Install PyTorch with ROCm<a class="headerlink" href="#install-pytorch-with-rocm" title="Link to this heading">#</a></h4>
+<p>Since LeRobot depends on PyTorch version &gt;=2.2.1, &lt;2.8.0 (see <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>) and the latest PyTorch-ROCm version is v2.8.0+, we must install an older ROCm-compatible PyTorch release.</p>
+<p>The LeRobot GitHub repository uses Miniconda for environment management. We can use the same approach with minor modifications for PyTorch-ROCm.</p>
+<p>Set the iGPU on Ryzen AI 300 series to run at gfx1100 compatible mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export HSA_OVERRIDE_GFX_VERSION=11.0.0&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
+<span class="nb">source</span><span class="w"> </span>~/.bashrc
+</pre></div>
+</div>
+<p>Install Miniconda following the official documentation: https://www.anaconda.com/docs/getting-started/miniconda/install.</p>
+<p>Then, you can create a conda environment and install the compatible PyTorch versions.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>create<span class="w"> </span>-n<span class="w"> </span>lerobot<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.10
+conda<span class="w"> </span>activate<span class="w"> </span>lerobot
+
+pip<span class="w"> </span>install<span class="w"> </span><span class="nv">torch</span><span class="o">==</span><span class="m">2</span>.7.1<span class="w"> </span><span class="nv">torchvision</span><span class="o">==</span><span class="m">0</span>.22.1<span class="w"> </span><span class="nv">torchaudio</span><span class="o">==</span><span class="m">2</span>.7.1<span class="w"> </span>--index-url<span class="w"> </span>https://download.pytorch.org/whl/rocm6.3
+
+<span class="c1"># Check the installation</span>
+pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>rocm
+pytorch-triton-rocm<span class="w">    </span><span class="m">3</span>.3.1
+torch<span class="w">                  </span><span class="m">2</span>.7.1+rocm6.3
+torchaudio<span class="w">             </span><span class="m">2</span>.7.1+rocm6.3
+torchvision<span class="w">            </span><span class="m">0</span>.22.1+rocm6.3
+</pre></div>
+</div>
+<p>Now, the Ryzen AI iGPU will appear as a CUDA-compatible device in PyTorch.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import torch; print(torch.cuda.is_available())&#39;</span>
+</pre></div>
+</div>
+<p>This should return <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import torch; print(f&#39;device name [0]:&#39;, torch.cuda.get_device_name(0))&quot;</span>
+</pre></div>
+</div>
+<p>This should output: <code class="docutils literal notranslate"><span class="pre">device</span> <span class="pre">name</span> <span class="pre">[0]:</span> <span class="pre">AMD</span> <span class="pre">Radeon</span> <span class="pre">Graphics</span></code>.</p>
+</section>
+<section id="setup-lerobot-development-environment">
+<h4>Setup LeRobot Development Environment<a class="headerlink" href="#setup-lerobot-development-environment" title="Link to this heading">#</a></h4>
+<p>More installation info can be found at https://github.com/huggingface/lerobot/blob/main/README.md.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span><span class="nv">ffmpeg</span><span class="o">=</span><span class="m">7</span>.1.1<span class="w"> </span>-c<span class="w"> </span>conda-forge
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/huggingface/lerobot.git
+<span class="nb">cd</span><span class="w"> </span>lerobot
+
+<span class="c1"># let’s synchronize using this version</span>
+git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>v0.4.1<span class="w"> </span>v0.4.1
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</pre></div>
+</div>
+<p>Check the Installation</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>list<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>lerobot
+lerobot<span class="w">                </span><span class="m">0</span>.4.1<span class="w">          </span>/home/alex/lerobot
+</pre></div>
+</div>
+<p>Install the feetech-servo-sdk for SO-101 arms.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;lerobot[feetech]&#39;</span><span class="w">      </span><span class="c1"># Feetech motor support</span>
+</pre></div>
+</div>
+<p>The edge development environment is ready.</p>
+</section>
+</section>
+<section id="calibrate-the-so-101-arms">
+<h3>3. Calibrate the SO-101 arms<a class="headerlink" href="#calibrate-the-so-101-arms" title="Link to this heading">#</a></h3>
+<p>Detailed instructions can be found at https://huggingface.co/docs/lerobot/so101 (you should NOT do the motor ID setup).</p>
+<p>Give USB port permissions:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/dev/ttyACM0
+sudo<span class="w"> </span>chmod<span class="w"> </span><span class="m">666</span><span class="w"> </span>/dev/ttyACM1
+</pre></div>
+</div>
+<p>Calibrate the follower:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">robot.port</span></code> is the port of your follower arm, <code class="docutils literal notranslate"><span class="pre">robot.id</span></code> is a unique name for the follower</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-calibrate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.type<span class="o">=</span>so101_follower<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.port<span class="o">=</span>/dev/ttyACM1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.id<span class="o">=</span>my_awesome_follower_arm
+</pre></div>
+</div>
+<blockquote>
+<div><p>If you see a <code class="docutils literal notranslate"><span class="pre">Lock</span></code> error, you may need to unplug and replug the power to the arm.</p>
+</div></blockquote>
+<p>Calibrate the leader:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">teleop.port</span></code> is port of your leader arm, <code class="docutils literal notranslate"><span class="pre">teleop.id</span></code> is a unique name for the leader</p>
+</div></blockquote>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-calibrate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.type<span class="o">=</span>so101_leader<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.port<span class="o">=</span>/dev/ttyACM0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.id<span class="o">=</span>my_awesome_leader_arm
+</pre></div>
+</div>
+<p>Then you can use the SO-101!</p>
+</section>
+<section id="teleoperate">
+<h3>4. Teleoperate<a class="headerlink" href="#teleoperate" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-teleoperate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.type<span class="o">=</span>so101_follower<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.port<span class="o">=</span>/dev/ttyACM1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.id<span class="o">=</span>my_awesome_follower_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.type<span class="o">=</span>so101_leader<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.port<span class="o">=</span>/dev/ttyACM0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.id<span class="o">=</span>my_awesome_leader_arm
+</pre></div>
+</div>
+<p>Teleoperate with cameras</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-teleoperate<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.type<span class="o">=</span>so101_follower<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.port<span class="o">=</span>/dev/ttyACM1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.id<span class="o">=</span>my_awesome_follower_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.cameras<span class="o">=</span><span class="s2">&quot;{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.type<span class="o">=</span>so101_leader<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.port<span class="o">=</span>/dev/ttyACM0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.id<span class="o">=</span>my_awesome_leader_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--display_data<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">top</span></code> camera with index_or_path 0 (/dev/video0)
+<code class="docutils literal notranslate"><span class="pre">side</span></code> camera with index_or_path 2 (/dev/video2)</p>
+</section>
+<section id="record-the-dataset">
+<h3>5. Record the dataset<a class="headerlink" href="#record-the-dataset" title="Link to this heading">#</a></h3>
+<p>We will use the leader arm to teleoperate the follower arm to perform the actions we want to record into the dataset.</p>
+<p>We use the Hugging Face hub features for uploading your dataset. If you haven’t previously used the Hub, make sure you can log in via the CLI using a write-access token, this token can be generated from the Hugging Face settings.</p>
+<p>Add your token to the CLI, and login to Hugging Face by running this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hf<span class="w"> </span>auth<span class="w"> </span>login
+</pre></div>
+</div>
+<p>Then store your Hugging Face repository name in a variable:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">HF_USER</span><span class="o">=</span><span class="k">$(</span>hf<span class="w"> </span>auth<span class="w"> </span>whoami<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-c<span class="w"> </span><span class="m">16</span>-<span class="k">)</span>
+<span class="nb">echo</span><span class="w"> </span><span class="nv">$HF_USER</span>
+</pre></div>
+</div>
+<p>Now you can record a dataset.</p>
+<p>Here’s an example command once you have setup your Hugging Face credentials:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-record<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.type<span class="o">=</span>so101_follower<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.port<span class="o">=</span>/dev/ttyACM1<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.id<span class="o">=</span>my_awesome_follower_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--robot.cameras<span class="o">=</span><span class="s2">&quot;{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.type<span class="o">=</span>so101_leader<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.port<span class="o">=</span>/dev/ttyACM0<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--teleop.id<span class="o">=</span>my_awesome_leader_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--display_data<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.repo_id<span class="o">=</span><span class="si">${</span><span class="nv">HF_USER</span><span class="si">}</span>/record-test<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.num_episodes<span class="o">=</span><span class="m">60</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.episode_time_s<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.reset_time_s<span class="o">=</span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.single_task<span class="o">=</span><span class="s2">&quot;pickup the cube and place it to the bin&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--dataset.root<span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/so101_dataset/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--dataset.num_episodes=60</span></code> means we will record 60 teleoperation sessions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dataset.episode_time_s=20</span></code> means each episode has 20 seconds; this depends on whether this provides enough time for the actions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dataset.reset_time_s=10</span></code> means the reset time between episodes. You may use this time slot to reset your environment, like recovering the position of the cube to the source by hand and waiting to start the next episode recording.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--dataset.root=${HOME}/stack2cube_dataset</span></code> specifies where your dataset will be saved.</p></li>
+</ul>
+<p>The terminal has logs to notify you when new episodes start, reset, and when the dataset is recorded.</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">Ctrl+C</span></code> to stop the recording. Use <code class="docutils literal notranslate"><span class="pre">--resume=true</span></code> in the command to continue the dataset recording with the num_episodes added.</p>
+<p>For more details on recording datasets, see:  <code class="docutils literal notranslate"><span class="pre">https://huggingface.co/docs/lerobot/il_robots#record-a-dataset</span></code></p>
+<p>After the recording is done, you can use the dataset for training.</p>
+</section>
+<section id="training">
+<h3>6. Training<a class="headerlink" href="#training" title="Link to this heading">#</a></h3>
+<p>Refer to the <a class="reference external" href="https://github.com/ROCm/AMD_Hackathon/blob/main/robotics/robotics_2025/training-models-on-rocm.ipynb">training-models-on-rocm.ipynb</a> to do the training with MI300X on AMD Development Cloud and the Hugging Face + LeRobot instructions here: https://huggingface.co/docs/lerobot/il_robots#train-a-policy.</p>
+<p>The checkpoints are generated in <code class="docutils literal notranslate"><span class="pre">./outputs/train/pi0_so101_test/checkpoints/</span></code> and the last one is <code class="docutils literal notranslate"><span class="pre">./outputs/train/pi0_so101_test/checkpoints/last/pretrained_model/</span></code></p>
+<p>The save_freq parameter specifies the number of training iterations between checkpoint saves. A checkpoint is saved every save_freq training iterations and after the last training step.</p>
+<p>e.g.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>lerobot-train<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.repo_id<span class="o">=</span>ichbinblau/so101_stack2cubes_dataset<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.type<span class="o">=</span>pi0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--output_dir<span class="o">=</span>./outputs/train/pi0_so101_test<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--job_name<span class="o">=</span>pi0_training<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.pretrained_path<span class="o">=</span>lerobot/pi0_base<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.repo_id<span class="o">=</span><span class="si">${</span><span class="nv">HF_USER</span><span class="si">}</span>/so101_pi0_stack2cubes<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.compile_model<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.gradient_checkpointing<span class="o">=</span><span class="nb">true</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.dtype<span class="o">=</span>bfloat16<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.freeze_vision_encoder<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.train_expert_only<span class="o">=</span><span class="nb">false</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--steps<span class="o">=</span><span class="m">3000</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.device<span class="o">=</span>cuda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--batch_size<span class="o">=</span><span class="m">32</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--wandb.enable<span class="o">=</span><span class="nb">true</span>
+</pre></div>
+</div>
+</section>
+<section id="inference-evaluation">
+<h3>7. Inference Evaluation<a class="headerlink" href="#inference-evaluation" title="Link to this heading">#</a></h3>
+<p>Copy the <code class="docutils literal notranslate"><span class="pre">pretrained_model</span></code> under <code class="docutils literal notranslate"><span class="pre">./outputs/train/pi0_so101_test/</span></code> from the cloud back to the Edge platform (PC) for inference evaluation.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lerobot-record<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--robot.type<span class="o">=</span>so101_follower<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--robot.port<span class="o">=</span>/dev/ttyACM1<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--robot.id<span class="o">=</span>my_awesome_follower_arm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--robot.cameras<span class="o">=</span><span class="s2">&quot;{top: {type: opencv, index_or_path: 0, width: 640, height: 480, fps: 30}, side: {type: opencv, index_or_path: 2, width: 640, height: 480, fps: 30}}&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.single_task<span class="o">=</span><span class="s2">&quot;Pick cube from source position and stack it on the fixed cube at target position&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.repo_id<span class="o">=</span><span class="si">${</span><span class="nv">HF_USER</span><span class="si">}</span>/eval_pi0_base<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.root<span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/eval_lerobot_dataset/<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.episode_time_s<span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--dataset.num_episodes<span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--policy.path<span class="o">=</span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>/outputs/train/pi0_so101_test/checkpoints/last/pretrained_model/<span class="w"> </span><span class="se">\ </span><span class="c1"># path to the pretrained_model</span>
+<span class="w">  </span>--dataset.push_to_hub<span class="o">=</span><span class="nb">false</span>
+</pre></div>
+</div>
+<p>Now you have finished the full workflow cycle and can continue the next round from <code class="docutils literal notranslate"><span class="pre">record</span> <span class="pre">dataset</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">training</span></code> =&gt; <code class="docutils literal notranslate"><span class="pre">inference</span> <span class="pre">evaluation</span></code></p>
+<p>The robot will now autonomously perform the stacking task using your trained policy!</p>
+</section>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<p>This blog has demonstrated a comprehensive <strong>Edge-to-Cloud</strong> robotics solution, bridging the gap between high-performance data center training and real-time edge execution. By leveraging the synergy between <strong>Vision-Language-Action (VLA)</strong> models like Pi0 and <strong>Imitation Learning</strong>, we showed how advanced robotic behaviors—such as stacking blocks—can be learned from as few as 50 demonstration episodes.</p>
+<p>The integration of <strong>Hugging Face’s LeRobot</strong> with the <strong>AMD ROCm™</strong> platform provides a seamless pipeline: capturing rich datasets on <strong>AMD Ryzen™ AI PCs</strong>, fine-tuning 3-billion-parameter models on <strong>AMD Instinct™ MI300X</strong> accelerators, and deploying them back to the edge for low-latency inference. This workflow not only powers the diverse real-world scenarios showcased at our global hackathons—from childcare to industrial classification—but also democratizes access to state-of-the-art robotics AI for researchers and developers alike.</p>
+<p>We encourage you to explore the <a class="reference external" href="https://github.com/huggingface/lerobot">LeRobot GitHub</a> and start building your own scalable, intelligent robotics systems on the AMD ecosystem today. You may want to subscribe to <a class="reference external" href="https://www.amd.com/en/developer/resources/technical-articles/2025/amd-ai-developer-program.html">the AMD developer program</a> to get free Cloud credit.</p>
+</section>
+<section id="additional-resources">
+<h2>Additional Resources<a class="headerlink" href="#additional-resources" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Hugging Face Lerobot: <a class="reference external" href="https://huggingface.co/docs/lerobot/index">https://huggingface.co/docs/lerobot/index</a></p></li>
+<li><p>AMD Developer Program: <a class="reference external" href="https://www.amd.com/en/developer/resources/technical-articles/2025/amd-ai-developer-program.html">https://www.amd.com/en/developer/resources/technical-articles/2025/amd-ai-developer-program.html</a></p></li>
+<li><p>AMD Lerobot Hackathon: <a class="github reference external" href="https://github.com/ROCm/AMD_Hackathon/blob/main/README.md">ROCm/AMD_Hackathon</a></p></li>
+</ol>
+</section>
+<section id="disclaimers">
+<h2>Disclaimers<a class="headerlink" href="#disclaimers" title="Link to this heading">#</a></h2>
+<p>Third-party content is licensed to you directly by the third party that owns the
+content and is not licensed to you by AMD. ALL LINKED THIRD-PARTY CONTENT IS
+PROVIDED “AS IS” WITHOUT A WARRANTY OF ANY KIND. USE OF SUCH THIRD-PARTY CONTENT
+IS DONE AT YOUR SOLE DISCRETION AND UNDER NO CIRCUMSTANCES WILL AMD BE LIABLE TO
+YOU FOR ANY THIRD-PARTY CONTENT. YOU ASSUME ALL RISK AND ARE SOLELY RESPONSIBLE
+FOR ANY DAMAGES THAT MAY ARISE FROM YOUR USE OF THIRD-PARTY CONTENT.</p>
+<div>
+    <script src="https://giscus.app/client.js"
+        data-repo="ROCm/rocm-blogs"
+        data-repo-id="R_kgDOLJ0omA"
+        data-category="General"
+        data-category-id="DIC_kwDOLJ0omM4Cc_fT"
+        data-mapping="title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="light"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+</section>
+</section>
+
+<div class="section ablog__blog_comments">
+       
+</div>
+
+                </article>
+              
+
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstrating-our-edge-to-cloud-robotics-solution-with-a-pick-and-place-task">Demonstrating Our Edge-to-Cloud Robotics Solution with a Pick-and-Place Task</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dataset-collection">Dataset Collection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fine-tuning">Fine-Tuning</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-by-step-guide">Step-by-Step Guide</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hardware-assembly">1. Hardware Assembly</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-the-so-101-arms">Connect the SO-101 arms</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#connect-the-cameras">Connect the Cameras</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-edge-development-environment">2. Setup the Edge Development Environment</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#target-environment">Target Environment</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-requisites">Pre-requisites</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ubuntu-24-04-lts-on-the-amd-ryzen-ai-pc">Install Ubuntu 24.04 LTS on the AMD Ryzen™ AI PC</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-the-rocm-development-environment-for-the-lerobot">Setup the ROCm Development Environment for the LeRobot</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-rocm-6-3-x">Install ROCm 6.3.x</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#install-pytorch-with-rocm">Install PyTorch with ROCm</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#setup-lerobot-development-environment">Setup LeRobot Development Environment</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrate-the-so-101-arms">3. Calibrate the SO-101 arms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#teleoperate">4. Teleoperate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#record-the-dataset">5. Record the dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#training">6. Training</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inference-evaluation">7. Inference Evaluation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#additional-resources">Additional Resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disclaimers">Disclaimers</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <p>
+  </p>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+<footer class="rocm-footer">
+    <div class="container-lg">
+        <section class="bottom-menu menu py-45">
+            <div class="row d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <ul>
+                        <li><a href="https://www.amd.com/en/corporate/copyright" target="_blank">Terms and Conditions</a></li>
+                        
+                        <li><a href="https://www.amd.com/en/corporate/privacy" target="_blank">Privacy</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/trademarks" target="_blank">Trademarks</a></li>
+                        <li><a href="https://www.amd.com/content/dam/amd/en/documents/corporate/cr/supply-chain-transparency.pdf" target="_blank">Supply Chain Transparency</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/competition" target="_blank">Fair and Open Competition</a></li>
+                        <li><a href="https://www.amd.com/system/files/documents/amd-uk-tax-strategy.pdf" target="_blank">UK Tax Strategy</a></li>
+                        <li><a href="https://www.amd.com/en/corporate/cookies" target="_blank">Cookie Policy</a></li>
+                        <!-- OneTrust Cookies Settings button start -->
+                        <li><a href="#cookie-settings" id="ot-sdk-btn" class="ot-sdk-show-settings">Cookie Settings</a></li>
+                        <!-- OneTrust Cookies Settings button end -->
+                    </ul>
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <div class="col-12 text-center">
+                    <div>
+                        <span class="copyright">© 2025 Advanced Micro Devices, Inc</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
+
+<!-- <div id="rdc-watermark-container">
+    <img id="rdc-watermark" src="../../_static/images/alpha-watermark.svg" alt="DRAFT watermark"/>
+</div> -->
+  </body>
+</html>

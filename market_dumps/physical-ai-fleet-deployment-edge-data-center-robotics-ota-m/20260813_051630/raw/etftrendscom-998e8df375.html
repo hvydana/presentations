@@ -1,0 +1,1286 @@
+
+
+<!DOCTYPE html>
+<html lang="en-US"><head>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Prevent flash while vettafi-footer web component loads -->
+<style>
+  vettafi-footer:not(:defined) {
+    display: block;
+    min-height: 500px;
+    background-color: #2b2b2b;
+  }
+</style>
+
+  <meta name="news_keywords" content="etf, etfs, exchange traded funds, money, stock market, ABBN, AI robotics, AMBA, artificial intelligence Content Hub, automation, ">
+  
+
+<link rel="shortcut icon" href="/wp-content/themes/smart-mag/images/favicon.ico">
+<link rel="icon" type="image/png" href="/wp-content/themes/smart-mag/images/apple-touch-icon-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="/wp-content/themes/smart-mag/images/apple-touch-icon-180x180.png" sizes="180x180">
+<script type="text/javascript" src="https://www.etftrends.com/wp-content/themes/smart-mag/js/piwik.js?ts=1786118150"></script>
+<script async type="text/javascript" src="//ad.wsod.com/pub/9344781a98afc76efc86af58da31ccc3/0.0.async/"></script>
+  <script type="text/javascript" src="https://www.etftrends.com/wp-content/themes/smart-mag/js/double_click.js?ts=1786118150"></script>
+  
+
+<script src="https://www.googletagservices.com/tag/js/gpt.js"></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+
+<script>
+  window.logger = {
+    log: () => {}, info: () => {}, warn: () => {}, error: () => {},
+    logToGroup: () => {}, group: () => {}, setMode: () => {},
+    setSearch: () => {}, scrollTop: () => {}, scrollBottom: () => {},
+    use: () => {}
+  };
+
+  function vfToolsPostOnLoadFunction(event) {
+  }
+</script>
+
+<script>
+  function is_ad_placeholder_active(){
+    if(getCookieValue('placeholders') == 'true') {
+      return true;
+    }
+    return false;
+  }
+
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+          var secure = 'secure;';
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/;"+secure;
+  }
+
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        var value = c.substring(name.length, c.length)
+        if (value == 0) {
+          return 'unknown';
+        } else {
+          return c.substring(name.length, c.length);
+        }
+      }
+    }
+    return "unknown";
+  }
+
+  function ced_cookie_exists() {
+    var ced_name = 'etf_ced';
+    return (getCookie(ced_name) !== 'unknown');
+  }
+
+  function has_shield_responded() {
+    return(typeof $can_enable_dfp !== 'undefined');
+  }
+
+  function handleDFPTargeting() {
+    if(typeof window.handlingDFP != 'undefined') {
+      logger.logToGroup("Handle DFP Targeting", "info", 'Already handling. Nothing to do here.');
+      return;
+    }
+
+    logger.group("Handle DFP Targeting");
+    logger.logToGroup("Handle DFP Targeting", "info", 'Handling DFP Targeting');
+
+    window.handlingDFP = true;
+    
+    var ced_name = 'etf_ced';
+    var param_name = 'etf_ced_params';
+    var ced_expir = 0.25;
+    var ced_timeout = 1000;
+    var ced = getCookie(ced_name);
+    var dfp_enabled = false;
+
+    if (ced_cookie_exists()) {
+      logger.logToGroup("Handle DFP Targeting", "info", 'Cookie Found');
+
+      // Use params from cookie if available
+      if (ced == 'true') {
+        logger.logToGroup("Handle DFP Targeting", "info", 'Enable based on Cookie');
+        $can_enable_dfp = true;
+        enableDfpServices();
+      }
+      return;
+    }
+
+    logger.logToGroup("Handle DFP Targeting", "info", 'No Cookie');
+
+    if (has_shield_responded()) {
+      logger.logToGroup("Handle DFP Targeting", "info", 'Shield Response Received');
+      setCookie(ced_name, $can_enable_dfp, ced_expir);
+      setCookie(param_name, $can_enable_dfp_params.s, ced_expir);
+      if ($can_enable_dfp == true) {
+        logger.logToGroup("Handle DFP Targeting", "info", 'Enable GAM: Based on Response');
+        enableDfpServices();
+      }
+      return;
+    }
+    
+    logger.logToGroup("Handle DFP Targeting", "info", 'No Response Yet From Shield');
+
+    // Wait a bit and give it one last try
+    setTimeout(function(){
+      if (has_shield_responded()) {
+        logger.logToGroup("Handle DFP Targeting", "info", 'Delayed Response Received');
+        logger.logToGroup("Handle DFP Targeting", "info", 'Saving Response to Cookies');
+        setCookie(ced_name, $can_enable_dfp, ced_expir);
+        setCookie(param_name, $can_enable_dfp_params.s, ced_expir);
+
+        if ($can_enable_dfp == true) {
+          logger.logToGroup("Handle DFP Targeting", "info", 'Enable GAM: Response Received');
+          enableDfpServices();
+        }
+        return;
+      }
+
+      // Shield took too long. Just go ahead and enable DFP.
+      logger.logToGroup("Handle DFP Targeting", "warn", 'Enable GAM: Shield timeout');
+      enableDfpServices();
+
+    }, ced_timeout);
+  }
+
+  function enableDfpServices(){
+    var param_name = 'etf_ced_params';
+    var ced_params = getCookie(param_name);
+
+    var targetValue = ced_params || $can_enable_dfp_params.s;
+    googletag.pubads().setTargeting('audiences', targetValue);
+
+    googletag.enableServices();
+    window.dfp_enabled = true;
+  }
+
+  function animateDivHeight(containerId, adHeight){
+    var adElement = document.getElementById(containerId);
+    adElement.style.maxHeight = adHeight + 'px';
+    return true;
+  }
+
+  function animateSlot(event){
+    var enabledSlots = ["div-gpt-ad-leaderboard-sponsorship", "div-gpt-ad-mobile-leaderboard", "div-gpt-ad-mobile-leaderboard-sponsorship", "div-gpt-ad-1473442813261-0"];
+    var slotId = event.slot.getSlotId().getDomId();
+    if (!enabledSlots.includes(slotId)){
+      return false;
+    }
+    if(event.size == null){
+      return false;
+    }
+    var adHeight = event.size[1];
+    if (adHeight > 1){
+      adHeight = adHeight + 40; // 40px for padding around the ad
+    }
+    animateDivHeight('leader_ad_container', adHeight);
+  }
+
+  function getCookieValue(a) {
+    var b = document.cookie.match('(^|[^;]+)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+  }
+
+  function browserWidth() {
+    if (window.innerWidth >= 1855)
+      return '1855-inf';
+    if (window.innerWidth >= 1580)
+      return '1580-1854';
+    if (window.innerWidth >= 1200)
+      return '1200-1579';
+    if (window.innerWidth >= 992)
+      return '992-1199';
+    if (window.innerWidth >= 768)
+      return '768-991';
+    if (window.innerWidth >= 480)
+      return '480-767';
+    return '0-479';
+  }
+
+function safeDisplay(unit, retries = 10, delay = 500) {
+  logger.group("safeDisplay: " + unit);
+
+  if (typeof $can_enable_dfp !== 'undefined') {
+    if (typeof window.dfp_enabled !== 'undefined') {
+      if (window.dfp_enabled === true) {
+        logger.logToGroup("safeDisplay: " + unit, "info", 'DFP is enabled. Calling googletag.display()');
+        googletag.display(unit);
+        return;
+      }
+    }
+  }
+
+  logger.logToGroup("safeDisplay: " + unit, "info", 'Unable to display.', retries, 'retries left.');
+
+  if (retries > 0) {
+    setTimeout(function() {
+      safeDisplay(unit, retries - 1, delay);
+    }, delay);
+  } else {
+    logger.logToGroup("safeDisplay: " + unit, "info", 'Gave up after max retries.');
+  }
+}
+</script>
+<script type='text/javascript'>
+  if(getCookie('etf_ced') == 'unknown') {
+    var imported = document.createElement('script');
+    imported.src = 'https://shield.vettafi.com/dfp-' + Math.random() + '.js' +
+      '?WD=' + btoa(navigator.webdriver) +
+      '&UA=' + btoa(navigator.userAgent) +
+      '&QS=' + btoa(window.location.search) +
+      '&v=1786605551';
+    document.head.appendChild(imported);
+  }
+</script>
+
+<script>
+googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	vfToolsPostOnLoadFunction(event);
+});
+</script>
+<script>
+
+function debounceResizeSiteSkin(func, wait, immediate) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+};
+
+function resizeSiteSkin() {
+  // Disable ad refresh if site skin is used
+  clearInterval(adrefresh_interval);
+
+  if(window.innerWidth < 2000) {
+    overhang = 2000 - window.innerWidth
+    jQuery('#html5_site_skin').css('margin-left', '-' + (overhang / 2) + 'px');
+  } else {
+    jQuery('#html5_site_skin').css('margin-left: 0px');
+  }
+
+  // Sometimes DFP sets the width to < 2,000
+  jQuery(jQuery('#html5_site_skin').find('iframe')[0]).width(2000);
+}
+
+window.addEventListener('resize', debounceResizeSiteSkin(resizeSiteSkin, 250));
+
+googletag.cmd.push(function() {
+
+  
+
+    interstitial = googletag
+      .sizeMapping()
+      .addSize([0, 0], [])
+      .addSize([768, 0], [640, 480])
+      .build();
+
+    interstitialmod = googletag
+      .defineSlot("/1000160/Interstitial_640x480", [640, 480], "interstitialAd")
+      .defineSizeMapping(interstitial)
+      .addService(googletag.pubads());
+
+    googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+      if (event.slot.getSlotId().getDomId() === 'interstitialAd') {
+        if (event.isEmpty) {
+          document.getElementById('ouibounce-modal').className = "disnone";
+        } else {
+          jQuery('#ouibounce-modal .underlay').css('background-color', 'rgba(0, 0, 0, 0.5)');
+          document.getElementById('ouibounce-modal').style.display = "block";
+        }
+      }
+    });
+
+  
+  var mappingrail = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([760, 0], [[300, 600], [300, 250]]).
+    build();
+
+      var mappingdesk1 = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([760, 0], [728, 90]).
+    build();
+
+    var mappingmobile1 = googletag.sizeMapping().
+    addSize([300, 0], [320, 50]).
+    addSize([760, 0], []).
+    build();
+
+    var mappingtabart2 = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([760, 0], [728, 90]).
+    addSize([1020, 0], [[970, 250],[728, 90]]).
+    build();
+      googletag.defineSlot('/1000160/2016_post_scroll_1', [[728, 90]], 'div-gpt-ad-1473442813261-16').defineSizeMapping(mappingtabart2).addService(googletag.pubads());
+      googletag.defineSlot('/1000160/2016_320x50_1', [320, 50], 'div-gpt-ad-1473442813261-6').defineSizeMapping(mappingmobile1).addService(googletag.pubads());
+  
+    var mappingleader = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([760, 0], [728, 90]).
+    addSize([1024, 0], [[970, 250], [728, 90]]).
+    build();
+    googletag.defineSlot('/1000160/2014_leaderboard_728x90_sponsorship', [[970, 250], [728, 90]], 'div-gpt-ad-leaderboard-sponsorship').defineSizeMapping(mappingleader).addService(googletag.pubads());
+
+    var mappingMobileLeader = googletag.sizeMapping().
+    addSize([0, 0], []).
+    addSize([300, 0], [[300, 50], [300, 100], [300, 250], [320, 50]]).
+    addSize([760, 0], []).
+    build();
+    googletag.defineSlot('/1000160/2023_mobile_leaderboard_sponsorship', [[300, 50], [300, 100], [300, 250], [320, 50]], 'div-gpt-ad-mobile-leaderboard-sponsorship').defineSizeMapping(mappingMobileLeader).addService(googletag.pubads());
+      var mobilestick = googletag.sizeMapping().
+      addSize([0, 0], []).
+      addSize([300, 0], [[320, 50],[300, 50]]).
+      addSize([760, 0], []).
+      build();
+
+      mobstickSlotSponsor = googletag.defineSlot('/1000160/2018_320x50_StickyMobile_sponsorship', [[320, 50],[300, 50]], 'mobstickAdSponsorship').defineSizeMapping(mobilestick).addService(googletag.pubads());
+            var mappingrail = googletag.sizeMapping().
+        addSize([0, 0], []).
+        addSize([760, 0], [[300, 600], [300, 250]]).
+        build();
+        googletag.defineSlot('/1000160/2014_sidebar_300x250_1_sponsorship', [[300, 600], [300, 250]], 'div-gpt-ad-sidebar-1-sponsorship').defineSizeMapping(mappingrail).addService(googletag.pubads());
+
+        googletag.defineSlot('/1000160/2014_sidebar_300x250_2_sponsorship', [[300, 600], [300, 250]], 'div-gpt-ad-sidebar-2-sponsorship').defineSizeMapping(mappingrail).addService(googletag.pubads());
+
+        googletag.defineSlot('/1000160/2014_sidebar_300x250_3_sponsorship', [[300, 600], [300, 250]], 'div-gpt-ad-sidebar-3-sponsorship').defineSizeMapping(mappingrail).addService(googletag.pubads());
+        googletag.defineSlot('/1000160/2019_sidebar_300x600_4_sponsorship', [[300, 600], [300, 250]], 'div-gpt-ad-sidebar-4-sponsorship').defineSizeMapping(mappingrail).addService(googletag.pubads());
+    googletag.pubads().setTargeting( "page", "artificial-intelligence-channel" );
+
+		
+					
+	googletag.pubads().setTargeting( "uri", "ub/robotics-update-physical-ai-ecosystem" );
+
+		googletag.pubads().setTargeting( 'width', [browserWidth()] );
+	googletag.pubads().setTargeting( "tags", ["ABBN","AI robotics","AMBA","artificial intelligence Content Hub","automation","CGNX","Global X","Humanoid Robotics","MCHP","NVDA","Rafael Silva","ROBO","ROBO Global Indexes"]);
+	googletag.pubads().setTargeting( "etf_uid", getCookieValue('etf_uid'));
+	googletag.pubads().setTargeting( "server", ["production"] );
+	googletag.pubads().setTargeting( "exchange_etf", getCookieValue('etf_xVv') );
+
+  googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+    if (event.slot.getSlotId().getDomId() === 'html5_site_skin') {
+      if (!event.isEmpty) {
+        // Disable ad refresh if site skin is used
+        clearInterval(adrefresh_interval);
+        resizeSiteSkin();
+      }
+    }
+  });
+
+  ;(function(window, document, undefined) {
+  window._lastTrackedClick = { slotId: null, time: 0 };
+  window._adSlots = window._adSlots || {};
+
+  googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+    const slotElementId = event.slot.getSlotElementId();
+    const lineItemId = event.lineItemId;
+
+    if (lineItemId) {
+      trackAdEvent(lineItemId, 'impression', slotElementId);
+
+      // Register this slot and it's line item in the map
+      window._adSlots[slotElementId] = lineItemId;
+
+      // Always register mouse tracking for this slot
+      var el = document.querySelector('#' + slotElementId);
+
+      if (el && !el._adListenersAttached) {
+        el._adListenersAttached = true;
+
+        // Track which button was pressed
+        el.addEventListener('mousedown', function(e) {
+          // e.button: 0 is Left, 1 is Middle, 2 is Right
+          window._lastMouseButton = e.button;
+        });
+
+        // We need this timeout because a "click" will immediately trigger a "mouseout"
+        // but if the timeout it too long, it can trigger an ad click even if clicking something that's not the ad, like a hyperlink
+        el.addEventListener('mouseout', function() {
+          window._mouseOutTimeout = window.setTimeout(function() {
+            window._mouseOverSlot = null;
+            window._lastMouseButton = null;
+          }, 500);
+        });
+
+        el.addEventListener('mouseover', function() {
+          // Cancel any pending mouseout clear
+          if (window._mouseOutTimeout) {
+            clearTimeout(window._mouseOutTimeout);
+            window._mouseOutTimeout = null;
+          }
+          window._mouseOverSlot = slotElementId;
+        });
+
+      }
+
+      // Only add the listener once
+      if (!window._adTrackingInitialized) {
+        window._adTrackingInitialized = true;
+
+        // Technique 1: blur event for interactive/rich media ads
+        // The setTimeout with 0 is here because when the blur event fires, document.activeElement hasn't updated yet — it still reflects the previously focused element.
+        // Deferring with setTimeout(fn, 0) pushes the check to the end of the current event loop tick, by which point the browser has updated document.activeElement to the newly focused element (the ad iframe).
+        window.addEventListener('blur', function() {
+          window.setTimeout(function() {
+
+            // Iterate through the ad slots to see if one was "active"
+            Object.keys(window._adSlots).forEach(function(slotId) {
+              const isIframeFocused = document.activeElement == document.querySelector('#' + slotId + ' iframe');
+              if (isIframeFocused && window._lastMouseButton !== 2) {
+                trackAdEvent(window._adSlots[slotId], 'click', slotId); // Track a click on the lineitem that's shown in the slot
+
+                // Pull focus back to the main window. This prevents the ad iFrame from "stealing" focus
+                window.focus();
+              }
+            });
+          }, 0)
+        });
+
+        // Technique 2: visibilitychange for troublesome ads
+        // If the page becomes hidden while the mouse is over a slot, it's very likely an ad click
+        document.addEventListener('visibilitychange', function() {
+          if (document.hidden && window._mouseOverSlot) {
+            trackAdEvent(window._adSlots[window._mouseOverSlot], 'click', window._mouseOverSlot);
+            window._mouseOverSlot = null; // clear after use
+          }
+        });
+
+      }
+    }
+  });
+
+  function trackAdEvent(lineItemId, eventType, slotId) {
+    const now = Date.now();
+    const effectiveSlotId = slotId !== undefined ? slotId : window._mouseOverSlot;
+
+    // Prevent duplicate tracking within 1.5 seconds for the same slot
+    if (window._lastTrackedClick.slotId === effectiveSlotId && (now - window._lastTrackedClick.time) < 1500) {
+      return;
+    }
+
+    window._lastTrackedClick = { slotId: effectiveSlotId, time: now };
+
+    window._paq = window._paq || [];
+    window._paq.push(['trackEvent', 'userAdTracking', eventType, '' + lineItemId]);
+  }
+
+}(window, document));
+
+
+function debugAd(event) {
+  const slot = event.slot;
+  console.group("Slot", slot.getSlotElementId(), "finished rendering.");
+
+  // Log details of the rendered ad.
+  console.log(event);
+  console.log("Advertiser ID:", event.advertiserId);
+  console.log("Campaign ID:", event.campaignId);
+  console.log("Company IDs:", event.companyIds);
+  console.log("Creative ID:", event.creativeId);
+  console.log("Creative Template ID:", event.creativeTemplateId);
+  console.log("Is backfill?:", event.isBackfill);
+  console.log("Is empty?:", event.isEmpty);
+  console.log("Label IDs:", event.labelIds);
+  console.log("Line Item ID:", event.lineItemId);
+  console.log("Size:", event.size);
+  console.log("Slot content changed?", event.slotContentChanged);
+  console.log("Source Agnostic Creative ID:", event.sourceAgnosticCreativeId);
+  console.log("Source Agnostic Line Item ID:", event.sourceAgnosticLineItemId);
+  console.log("Yield Group IDs:", event.yieldGroupIds);
+
+  console.log('Slot Details');
+  console.log('slot.getClickUrl', event.slot.getClickUrl());
+  console.log('slot.getCategoryExclusions', event.slot.getCategoryExclusions());
+  console.log('slot.getAttributeKeys', event.slot.getAttributeKeys());
+  console.log('slot.getResponseInformation', event.slot.getResponseInformation());
+  console.log('slot.getTargeting', event.slot.getTargeting());
+  console.log('slot.getTargetingKeys', event.slot.getTargetingKeys());
+  console.log('slot.getTargetingMap', event.slot.getTargetingMap());
+  // console.log('slot.getHtml', event.slot.getHtml());
+
+  console.groupEnd();
+}
+  
+googletag.defineOutOfPageSlot('/1000160/channel_masthead', 'div-gpt-ad-channel-masthead').addService(googletag.pubads());
+googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+	postOnLoadFunction(event);
+});
+
+    googletag.pubads().collapseEmptyDivs();
+    googletag.pubads().enableAsyncRendering();
+        handleDFPTargeting();
+  });
+</script>
+
+<script type='text/javascript'>
+googletag.cmd.push(function() {
+  googletag.pubads().addEventListener('slotRenderEnded', function(event) {
+    animateSlot(event);
+  });
+});
+</script>
+
+
+		<!-- Google Tag Manager -->
+		<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+		new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+		j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+		'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+		})(window,document,'script','dataLayer','GTM-5VVZL6JV');</script>
+		<!-- End Google Tag Manager -->
+    		<!-- Start cookieyes banner --> <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/254522dc140a41ddeea892c4/script.js"></script> <!-- End cookieyes banner -->
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v19.8 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>2026 Robotics Update: The Physical AI Ecosystem</title>
+	<meta name="description" content="We explore the structural evolution of robotics and the specialized hardware powering the next generation of Physical AI." />
+	<link rel="canonical" href="https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="2026 Robotics Update: The Physical AI Ecosystem" />
+	<meta property="og:description" content="We explore the structural evolution of robotics and the specialized hardware powering the next generation of Physical AI." />
+	<meta property="og:url" content="https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/" />
+	<meta property="og:site_name" content="ETF Trends" />
+	<meta property="article:publisher" content="https://www.facebook.com/ETFtrends/" />
+	<meta property="article:published_time" content="2026-05-13T11:00:38+00:00" />
+	<meta property="article:modified_time" content="2026-05-12T23:21:45+00:00" />
+	<meta property="og:image" content="https://www.etftrends.com/wp-content/uploads/2026/05/shutterstock_2702121249-1-e1778622616494.jpg" />
+	<meta property="og:image:width" content="635" />
+	<meta property="og:image:height" content="358" />
+	<meta property="og:image:type" content="image/jpeg" />
+	<meta name="author" content="Rafael Silva" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@ETFtrends" />
+	<meta name="twitter:site" content="@ETFtrends" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="Rafael Silva" />
+	<meta name="twitter:label2" content="Est. reading time" />
+	<meta name="twitter:data2" content="6 minutes" />
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//www.etftrends.com' />
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="ETF Trends &raquo; Feed" href="https://www.etftrends.com/feed/" />
+<link rel='stylesheet' id='thumbnail-styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/thumbnails.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='wp-block-library-css'  href='https://www.etftrends.com/wp-includes/css/dist/block-library/style.min.css?ver=7e07d3992d57d96504f9ad21b9fa470b' type='text/css' media='all' />
+<style id='global-styles-inline-css' type='text/css'>
+body{--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--duotone--dark-grayscale: url('#wp-duotone-dark-grayscale');--wp--preset--duotone--grayscale: url('#wp-duotone-grayscale');--wp--preset--duotone--purple-yellow: url('#wp-duotone-purple-yellow');--wp--preset--duotone--blue-red: url('#wp-duotone-blue-red');--wp--preset--duotone--midnight: url('#wp-duotone-midnight');--wp--preset--duotone--magenta-yellow: url('#wp-duotone-magenta-yellow');--wp--preset--duotone--purple-green: url('#wp-duotone-purple-green');--wp--preset--duotone--blue-orange: url('#wp-duotone-blue-orange');--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+</style>
+<link rel='stylesheet' id='ajax-load-more-css'  href='https://www.etftrends.com/wp-content/plugins/ajax-load-more/build/frontend/ajax-load-more.min.css?ver=7.1.4' type='text/css' media='all' />
+<link rel='stylesheet' id='wcjp-frontend.css-css'  href='https://www.etftrends.com/wp-content/plugins/custom-css-js-php/assets/css/wcjp-frontend.css?ver=7e07d3992d57d96504f9ad21b9fa470b' type='text/css' media='all' />
+<link rel='stylesheet' id='megamenu-css'  href='https://www.etftrends.com/wp-content/uploads/maxmegamenu/style.css?ver=f81946' type='text/css' media='all' />
+<link rel='stylesheet' id='dashicons-css'  href='https://www.etftrends.com/wp-includes/css/dashicons.min.css?ver=7e07d3992d57d96504f9ad21b9fa470b' type='text/css' media='all' />
+<link rel='stylesheet' id='video-js-styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/video-js.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='custom fonts-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/custom-fonts.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='smartmag-core-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/cssnew-12-11.min.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='smartmag-font-awesome-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/fontawesome/css/font-awesome-1126.min.css?ver=7e07d3992d57d96504f9ad21b9fa470b' type='text/css' media='all' />
+<link rel='stylesheet' id='nav-styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/nav.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='Single Article Styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/single.css?ver=7e07d3992d57d96504f9ad21b9fa470b' type='text/css' media='all' />
+<link rel='stylesheet' id='smart-mag-css-dynamic-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/dynamic/smart-mag.css?ver=1786605523' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.etftrends.com/wp-includes/js/jquery/jquery.min.js?ver=3.6.0' id='jquery-core-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.3.2' id='jquery-migrate-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/videojs.7.5.5.min.js?ver=1786118150' id='videojs_core-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/Youtube.min.js?ver=1786118150' id='videojs_youtube_plugin-js'></script>
+<script type="module" type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js_modules/videojs_analytics.js?ver=1786118150' id='videojs_analytics_plugin-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/videojs_5.vast.vpaid.min.js?ver=1786118150' id='videojs_vast_plugin-js'></script>
+<script defer type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/videojs_helper.js?ver=1786118150' id='videojs_youtube_helper-js'></script>
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.etftrends.com/xmlrpc.php?rsd" />
+<link rel='shortlink' href='https://www.etftrends.com/?p=644852' />
+<link rel="alternate" type="application/json+oembed" href="https://www.etftrends.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.etftrends.com%2Fartificial-intelligence-content-hub%2Frobotics-update-physical-ai-ecosystem%2F" />
+
+	<meta property="description" content="We explore the structural evolution of robotics and the specialized hardware powering the next generation of Physical AI." />
+	<meta itemprop="name" content="2026 Robotics Update: The Physical AI Ecosystem"/>
+	<meta itemprop="description" content="We explore the structural evolution of robotics and the specialized hardware powering the next generation of Physical AI."/>
+	<meta itemprop="image" content="https://www.etftrends.com/wp-content/uploads/2026/05/shutterstock_2702121249-1-440x250.jpg" />
+
+	
+
+<!-- This site is optimized with the Schema plugin v1.7.9.6 - https://schema.press -->
+<script type="application/ld+json">{"@context":"https:\/\/schema.org\/","@type":"NewsArticle","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.etftrends.com\/artificial-intelligence-content-hub\/robotics-update-physical-ai-ecosystem\/"},"url":"https:\/\/www.etftrends.com\/artificial-intelligence-content-hub\/robotics-update-physical-ai-ecosystem\/","headline":"2026 Robotics Update: The Physical AI Ecosystem","datePublished":"2026-05-13T04:00:38-07:00","dateModified":"2026-05-12T16:21:45-07:00","publisher":{"@type":"Organization","@id":"https:\/\/www.etftrends.com\/#organization","name":"ETF Trends","logo":{"@type":"ImageObject","url":"https:\/\/www.etftrends.com\/wp-content\/uploads\/2017\/09\/etf-trends-3.jpg","width":600,"height":60}},"image":{"@type":"ImageObject","url":"https:\/\/www.etftrends.com\/wp-content\/uploads\/2026\/05\/shutterstock_2702121249-1-e1778622616494.jpg","width":696,"height":358},"articleSection":"Artificial Intelligence Content Hub","description":"In our first article of the year, we spoke about how robotics was at the cusp of a period of rapid expansion. We’re now almost halfway through 2026 and everything continues to point in that direction. The prevailing narrative has shifted from conceptual prototypes to firm production timelines and","author":{"@type":"Person","name":"Rafael Silva","url":"https:\/\/www.etftrends.com\/author\/rafaelsilva\/","image":{"@type":"ImageObject","url":"https:\/\/secure.gravatar.com\/avatar\/a28737f34c02341c53632b88f16f5869?s=96&d=blank&r=g","height":96,"width":96},"sameAs":["http:\/\/www.vettafi.com"]}}</script>
+
+
+
+<!-- This site is optimized with the Schema plugin v1.7.9.6 - https://schema.press -->
+<script type="application/ld+json">{
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "item": {
+                "@id": "https://www.etftrends.com",
+                "name": "Home"
+            }
+        },
+        {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+                "@id": "https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/",
+                "name": "2026 Robotics Update: The Physical AI Ecosystem",
+                "image": "https://www.etftrends.com/wp-content/uploads/2026/05/shutterstock_2702121249-1-e1778622616494.jpg"
+            }
+        }
+    ]
+}</script>
+
+<link rel="amphtml" href="https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/amp/" />		<style type="text/css" id="wp-custom-css">
+			#mega-menu-wrap-main #mega-menu-main li.mega-menu-megamenu > ul.mega-sub-menu > li.mega-menu-row {
+	float: none !important;
+}
+
+#mega-menu-wrap-main #mega-menu-main[data-effect="fade_up"] li.mega-menu-item.mega-menu-flyout.mega-menu-item-645806 ul.mega-sub-menu {
+	width: 230px;
+}		</style>
+		<style type="text/css">/** Mega Menu CSS: fs **/</style>
+
+<style>
+  #stickyad.stickfix {position:fixed;top: -8px;left: 140px;z-index: 5000000000000;padding: 0 10px 10px 10px;background: rgba(255, 255, 255, .5)} .stickno {display: none;} .stickshow {display: block;}@media only screen and (max-width: 1280px) {#stickyad.stickfix {left: initial;top: 10px;}}@media only screen and (max-width: 799px) {#stickyad.stickfix { left: 0;}}
+</style>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-1506385-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-1506385-1');
+
+    gtag('set', { 'contentGroup1': 'Channel Pages' });
+  </script>
+<script>
+setTimeout("gtag('event', '15_seconds', { 'event_category': '_trackEvent' } )", 15000);
+setTimeout("gtag('event', '30_seconds', { 'event_category': '_trackEvent' } )", 30000);
+setTimeout("gtag('event', '45_seconds', { 'event_category': '_trackEvent' } )", 45000);
+setTimeout("gtag('event', '60_seconds', { 'event_category': '_trackEvent' } )", 60000);
+</script>
+
+  <script type="text/javascript" src="/wp-content/themes/smart-mag/js/interstitial-js.js?ts=1786118150"></script>
+  </head>
+<body class="post-template-default single single-post postid-644852 single-format-standard page-builder mega-menu-main right-sidebar full skin-tech post-layout-cover img-effects has-nav-light-b has-nav-full has-head-tech">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-dark-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0.49803921568627" /><feFuncG type="table" tableValues="0 0.49803921568627" /><feFuncB type="table" tableValues="0 0.49803921568627" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-grayscale"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.54901960784314 0.98823529411765" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.71764705882353 0.25490196078431" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-red"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 1" /><feFuncG type="table" tableValues="0 0.27843137254902" /><feFuncB type="table" tableValues="0.5921568627451 0.27843137254902" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-midnight"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0 0" /><feFuncG type="table" tableValues="0 0.64705882352941" /><feFuncB type="table" tableValues="0 1" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-magenta-yellow"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.78039215686275 1" /><feFuncG type="table" tableValues="0 0.94901960784314" /><feFuncB type="table" tableValues="0.35294117647059 0.47058823529412" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-purple-green"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.65098039215686 0.40392156862745" /><feFuncG type="table" tableValues="0 1" /><feFuncB type="table" tableValues="0.44705882352941 0.4" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 0 0" width="0" height="0" focusable="false" role="none" style="visibility: hidden; position: absolute; left: -9999px; overflow: hidden;" ><defs><filter id="wp-duotone-blue-orange"><feColorMatrix color-interpolation-filters="sRGB" type="matrix" values=" .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 " /><feComponentTransfer color-interpolation-filters="sRGB" ><feFuncR type="table" tableValues="0.098039215686275 1" /><feFuncG type="table" tableValues="0 0.66274509803922" /><feFuncB type="table" tableValues="0.84705882352941 0.41960784313725" /><feFuncA type="table" tableValues="1 1" /></feComponentTransfer><feComposite in2="SourceGraphic" operator="in" /></filter></defs></svg>    <!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VVZL6JV"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!-- End Google Tag Manager (noscript) -->
+    
+  <div id="adBottom" data-dfp-unit="mobstickAdSponsorship" data-dfp-unit-served='{"removeClass":"hidden"}' data-dfp-unit-not-served='{"addClass":"hidden"}' >
+    <div id="mobstickAdSponsorship" class="" >
+  <script>
+    safeDisplay( 'mobstickAdSponsorship' );
+  </script>
+</div>
+  </div>
+  
+<noscript><p><img src="https://beacon.etfflows.com/piwik.php?idsite=12" style="border:0;" alt=""/></p></noscript>
+
+<div id='append_header' data-dfp-unit='append_header' data-dfp-unit-remove-iframe="true">
+	<script>
+		googletag.cmd.push(function(){
+			googletag.defineOutOfPageSlot('/1000160/site_skin','append_header').addService(googletag.pubads());
+      safeDisplay('append_header');
+		});
+	</script>
+</div>
+<div id='append_header_two' data-dfp-unit='append_header_two' data-dfp-unit-remove-iframe="true">
+	<script>
+		googletag.cmd.push(function(){
+      googletag.defineOutOfPageSlot('/1000160/color_scheme','append_header_two').addService(googletag.pubads());
+      safeDisplay('append_header_two');
+		});
+	</script>
+</div>
+
+<!--<nav class="announcement-banner" style="display: flex; justify-content: center; align-items: center; background-color: #fcf8e3; padding-top: 7px; padding-bottom: 7px;">
+  <div class="inside-banner" style="color: #46338A; font-size: 16px;">
+    We've updated our
+    <a href="https://www.vettafi.com/privacy-policy/" class="vettifi-link" style="color:#46338A;">
+        <b>Privacy Policy</b>
+    </a>
+    and
+    <a href="https://www.vettafi.com/terms-of-use/" class="vettifi-link" style="color:#46338A;">
+        <b>Terms of Use</b>
+    </a>
+    to better serve you.
+  </div>
+</nav>-->
+<div class="main-wrap">
+  	<div id="main-head" class="main-head">
+		<div class="wrap">
+					</div>
+		<div class="main-nav">
+  <div class="navigation-wrap cf fixed-nav " >
+    <nav class="navigation cf nav-full has-search nav-light nav-light-b">
+      <div class="wrap">
+        <div class="flex-container">
+          <div class="nav-logo">
+            <style>
+  .logo-stack.etf-trends-logo { margin: 7px 100px 0 0; }
+  @media (max-width: 768px) {
+    .logo-stack.etf-trends-logo { margin: 5px 0 0 0; }
+  }
+</style>
+<a href="/" title="ETF Trends" rel="home">
+  <div class="logo-stack etf-trends-logo">
+    <div class="logo-stack-inner">
+    <svg height="20" viewBox="0 0 127 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: auto; height: 20px;">
+      <path fill="currentColor" d="M121.302 19.2016C117.892 19.2016 115.584 17.3129 115.584 14.8209H119.414C119.414 15.6079 120.201 16.1587 121.302 16.1587C122.273 16.1587 122.981 15.7128 122.981 15.1095C122.981 13.1421 115.794 14.3487 115.794 9.52213C115.794 6.68911 118.181 5.19391 121.119 5.19391C124.319 5.19391 126.575 6.97766 126.575 9.39097H122.771C122.771 8.68271 122.063 8.21054 121.092 8.21054C120.227 8.21054 119.571 8.60402 119.571 9.20735C119.571 11.096 126.785 9.94183 126.785 14.716C126.785 17.3916 124.555 19.2016 121.302 19.2016Z"/>
+      <path fill="currentColor" d="M105.702 19.2015C102.029 19.2015 99.2488 16.1849 99.2488 12.1977C99.2488 8.2105 102.029 5.19386 105.702 5.19386C107.328 5.19386 108.718 5.79719 109.741 6.84645V0H113.571V18.8868H109.741V17.5489C108.718 18.5982 107.328 19.2015 105.702 19.2015ZM106.462 15.5029C108.351 15.5029 109.741 14.0864 109.741 12.1977C109.741 10.309 108.351 8.89252 106.462 8.89252C104.6 8.89252 103.21 10.309 103.21 12.1977C103.21 14.0864 104.6 15.5029 106.462 15.5029Z"/>
+      <path fill="currentColor" d="M84.2856 18.8868V5.50869H88.1155V6.82027C89.1647 5.74477 90.5288 5.19391 92.1814 5.19391C95.2505 5.19391 97.2965 7.21374 97.2965 10.2828V18.8868H93.4667V11.5682C93.4667 9.94183 92.4437 8.89257 90.896 8.89257C89.2434 8.89257 88.1155 9.96806 88.1155 11.6207V18.8868H84.2856Z"/>
+      <path fill="currentColor" d="M75.1703 19.2016C71.0258 19.2016 67.9304 16.185 67.9304 12.1978C67.9304 8.21055 71.0258 5.19391 75.1441 5.19391C79.2362 5.19391 82.3578 8.18431 82.3578 12.2764C82.3578 12.6437 82.3316 13.0896 82.2529 13.4306H72.0225C72.4423 14.9521 73.6751 15.9226 75.2753 15.9226C76.5082 15.9226 77.505 15.398 78.0558 14.6635H82.148C81.1512 17.3654 78.4755 19.2016 75.1703 19.2016ZM75.1441 8.47286C73.6227 8.47286 72.4685 9.4172 72.0488 10.8862H78.2657C77.8722 9.4172 76.6655 8.47286 75.1441 8.47286Z"/>
+      <path fill="currentColor" d="M59.0657 18.8867V5.50862H62.8955V7.37106C63.9185 6.05948 65.3088 5.29877 66.9352 5.29877H67.4598V9.23351H66.9352C64.3382 9.23351 62.8955 10.5713 62.8955 12.6436V18.8867H59.0657Z"/>
+      <path fill="currentColor" d="M49.736 18.8867V4.61668H44.988V0.786865H58.5498V4.61668H53.8019V18.8867H49.736Z"/>
+      <path fill="currentColor" d="M29.843 18.8867V0.786865H41.2275V3.72481H32.9646V8.49896H40.152V11.4369H32.9646V18.8867H29.843Z"/>
+      <path fill="currentColor" d="M18.8942 18.8867V3.72481H13.7266V0.786865H27.1571V3.72481H22.0158V18.8867H18.8942Z"/>
+      <path fill="currentColor" d="M0 18.8867V0.786865H11.778V3.72481H3.12156V8.31534H10.9124V11.2533H3.12156V15.9487H11.9092V18.8867H0Z"/>
+    </svg>
+    </div>
+  </div>
+</a>
+          </div>
+        </div>
+          <div id="mega-menu-wrap-main" class="mega-menu-wrap"><div class="mega-menu-toggle"><div class="mega-toggle-blocks-left"><div class='mega-toggle-block mega-menu-toggle-animated-block mega-toggle-block-1' id='mega-toggle-block-1'><button aria-label="Toggle Menu" class="mega-toggle-animated mega-toggle-animated-slider" type="button" aria-expanded="false">
+                  <span class="mega-toggle-animated-box">
+                    <span class="mega-toggle-animated-inner"></span>
+                  </span>
+                </button></div></div><div class="mega-toggle-blocks-center"></div><div class="mega-toggle-blocks-right"></div></div><ul id="mega-menu-main" class="mega-menu max-mega-menu mega-menu-horizontal mega-no-js" data-event="hover_intent" data-effect="fade_up" data-effect-speed="200" data-effect-mobile="disabled" data-effect-speed-mobile="0" data-mobile-force-width="body" data-second-click="go" data-document-click="collapse" data-vertical-behaviour="standard" data-breakpoint="799" data-unbind="true" data-mobile-state="collapse_all" data-mobile-direction="vertical" data-hover-intent-timeout="300" data-hover-intent-interval="100"><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-align-bottom-left mega-menu-flyout mega-menu-item-333032' id='mega-menu-item-333032'><a class="mega-menu-link" href="/category/expert-insights/" tabindex="0">Expert Insights</a></li><li class='mega-multi-columns mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-menu-megamenu mega-align-bottom-left mega-menu-grid mega-menu-item-315096 multi-columns' id='mega-menu-item-315096'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Content Hubs<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-row' id='mega-menu-315096-0'>
+	<ul class="mega-sub-menu">
+<li class='mega-menu-column mega-menu-columns-12-of-12' id='mega-menu-315096-0-0'>
+		<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-has-icon mega-icon-right mega-2-columns mega-menu-item-522899' id='mega-menu-item-522899'><a class="dashicons-arrow-right-alt2 mega-menu-link">Themes<span class="mega-indicator"></span></a>
+			<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-381782' id='mega-menu-item-381782'><a class="mega-menu-link" href="/active-etf-channel/">Active ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-523814' id='mega-menu-item-523814'><a class="mega-menu-link" href="https://www.etftrends.com/free-cash-flow-channel/">Free Cash Flow</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-563403' id='mega-menu-item-563403'><a class="mega-menu-link" href="/alternatives-channel/">Alternatives</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-621350' id='mega-menu-item-621350'><a class="mega-menu-link" href="/future-etfs-channel/">Future ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-531396' id='mega-menu-item-531396'><a class="mega-menu-link" href="/artificial-intelligence-channel/">Artificial Intelligence</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-328376' id='mega-menu-item-328376'><a class="mega-menu-link" href="/innovative-etfs-channel/">Innovative ETFs</a></li><li class='mega-menu-item mega-menu-item-type-post_type mega-menu-item-object-page mega-menu-item-418712' id='mega-menu-item-418712'><a class="mega-menu-link" href="https://www.etftrends.com/china-insights-content-hub/">China Insights</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-629738' id='mega-menu-item-629738'><a class="mega-menu-link" href="/institutional-income-strategies-content-hub/">Institutional Income Strategies</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-612990' id='mega-menu-item-612990'><a class="mega-menu-link" href="/coinshares-channel/">CoinShares</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315109' id='mega-menu-item-315109'><a class="mega-menu-link" href="/leveraged-inverse-channel/">Leveraged & Inverse</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-418020' id='mega-menu-item-418020'><a class="mega-menu-link" href="/core-strategies-channel/">Core Strategies</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-627138' id='mega-menu-item-627138'><a class="mega-menu-link" href="/market-insights-channel/">Market Insights</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-336512' id='mega-menu-item-336512'><a class="mega-menu-link" href="https://etftrends.com/crypto-channel/">Crypto</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645517' id='mega-menu-item-645517'><a class="mega-menu-link" href="https://www.etftrends.com/market-outlooks-content-hub/">Market Outlooks</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-327231' id='mega-menu-item-327231'><a class="mega-menu-link" href="/disruptive-technology-channel/">Disruptive Technology</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-380057' id='mega-menu-item-380057'><a class="mega-menu-link" href="/model-portfolio-channel/">Modern Alpha</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-431250' id='mega-menu-item-431250'><a class="mega-menu-link" href="/energy-infrastructure-channel/">Energy Infrastructure</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-623845' id='mega-menu-item-623845'><a class="mega-menu-link" href="/nuclear-energy-channel/">Nuclear Energy</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-372710' id='mega-menu-item-372710'><a class="mega-menu-link" href="/etf-building-blocks-channel/">ETF Building Blocks</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-607506' id='mega-menu-item-607506'><a class="mega-menu-link" href="/portfolio-strategies-channel/">Portfolio Strategies</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-536604' id='mega-menu-item-536604'><a class="mega-menu-link" href="https://www.etftrends.com/etf-investing-channel/">ETF Investing</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645157' id='mega-menu-item-645157'><a class="mega-menu-link" href="https://www.etftrends.com/sector-investing-content-hub/">Sector Investing</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-223509' id='mega-menu-item-223509'><a class="mega-menu-link" href="/etf-strategist-channel/">ETF Strategist</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-651956' id='mega-menu-item-651956'><a class="mega-menu-link" href="https://etftrends.com/smart-beta-content-hub/">Smart Beta</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-536605' id='mega-menu-item-536605'><a class="mega-menu-link" href="https://www.etftrends.com/financial-literacy-channel/">Financial Literacy</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-501253' id='mega-menu-item-501253'><a class="mega-menu-link" href="/monthly-income-channel/">Tax Efficient Income</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-524559' id='mega-menu-item-524559'><a class="mega-menu-link" href="https://www.etftrends.com/fixed-income-channel/">Fixed Income</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-621053' id='mega-menu-item-621053'><a class="mega-menu-link" href="/thematic-investing-channel">Thematic Investing</a></li>			</ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-has-icon mega-icon-right mega-2-columns mega-menu-item-522901' id='mega-menu-item-522901'><a class="dashicons-arrow-right-alt2 mega-menu-link">Asset Class<span class="mega-indicator"></span></a>
+			<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-menu-item-522902' id='mega-menu-item-522902'><a class="mega-menu-link" href="https://etftrends.com/equity-etf-channel/" aria-expanded="false">Equity<span class="mega-indicator"></span></a>
+				<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522903' id='mega-menu-item-522903'><a class="mega-menu-link" href="https://etftrends.com/equity-etf-channel/">U.S. Equity</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522904' id='mega-menu-item-522904'><a class="mega-menu-link" href="https://etftrends.com/equity-etf-channel/">Int'l Developed</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522905' id='mega-menu-item-522905'><a class="mega-menu-link" href="https://etfdb.com/etfdb-category/emerging-markets-equities/">Emerging Market Equities</a></li>				</ul>
+</li><li class='mega-menu-item mega-menu-item-type-post_type mega-menu-item-object-page mega-menu-item-has-children mega-menu-item-419772' id='mega-menu-item-419772'><a class="mega-menu-link" href="https://www.etftrends.com/fixed-income-content-hub/" aria-expanded="false">Fixed Income<span class="mega-indicator"></span></a>
+				<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522908' id='mega-menu-item-522908'><a class="mega-menu-link" href="/fixed-income-channel/">High Yield Corporates</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522909' id='mega-menu-item-522909'><a class="mega-menu-link" href="/fixed-income-channel/">Int'l Fixed Income</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522906' id='mega-menu-item-522906'><a class="mega-menu-link" href="/fixed-income-channel/">Investment Grade Corporates</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522907' id='mega-menu-item-522907'><a class="mega-menu-link" href="/us-treasuries-tips-fixed-income-channel/">US Treasuries & TIPS</a></li>				</ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-menu-item-522910' id='mega-menu-item-522910'><a class="mega-menu-link" href="https://www.etftrends.com/alternatives-channel/" aria-expanded="false">Alternatives<span class="mega-indicator"></span></a>
+				<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-401941' id='mega-menu-item-401941'><a class="mega-menu-link" href="https://etftrends.com/gold-silver-investing-content-hub">Gold/Silver/Critical Materials</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-651954' id='mega-menu-item-651954'><a class="mega-menu-link" href="https://etftrends.com/commodities-content-hub/">Commodities</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-595446' id='mega-menu-item-595446'><a class="mega-menu-link" href="https://etftrends.com/crypto-channel/">Cryptocurrency</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522911' id='mega-menu-item-522911'><a class="mega-menu-link" href="https://etfdb.com/etfs/asset-class/currency/">Currency</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-522912' id='mega-menu-item-522912'><a class="mega-menu-link" href="https://etfdb.com/etfs/asset-class/volatility/">Volatility</a></li>				</ul>
+</li>			</ul>
+</li><li class='mega-menu-item mega-menu-item-type-post_type mega-menu-item-object-page mega-menu-item-523916' id='mega-menu-item-523916'><a class="mega-menu-link" href="https://www.etftrends.com/etf-ecosystem/">ETF Ecosystem</a></li><li class='mega-menu-item mega-menu-item-type-post_type mega-menu-item-object-page mega-menu-item-524257' id='mega-menu-item-524257'><a class="mega-menu-link" href="https://www.etftrends.com/etfs-in-canada-content-hub/">ETFs in Canada</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-555757' id='mega-menu-item-555757'><a class="mega-menu-link" href="https://www.etftrends.com/exchange-an-etf-experience/">Exchange</a></li>		</ul>
+</li>	</ul>
+</li><li class='mega-menu-row' id='mega-menu-315096-1'>
+	<ul class="mega-sub-menu">
+<li class='mega-menu-column mega-menu-columns-3-of-12' id='mega-menu-315096-1-0'>
+		<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-632533' id='mega-menu-item-632533'><a class="mega-menu-link" href="https://www.etftrends.com/coinshares-content-hub/">CoinShares</a></li>		</ul>
+</li>	</ul>
+</li></ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-align-bottom-left mega-menu-flyout mega-menu-item-190426' id='mega-menu-item-190426'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/" tabindex="0">Webcasts</a></li><li class='mega-multi-columns mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-align-bottom-left mega-menu-flyout mega-menu-item-315579 multi-columns' id='mega-menu-item-315579'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Popular ETFs<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315580' id='mega-menu-item-315580'><a class="mega-menu-link" href="https://etfdb.com/etf/SPY/?utm_source=etftrends.com">SPY – SPDR S&P 500 ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315581' id='mega-menu-item-315581'><a class="mega-menu-link" href="https://etfdb.com/etf/VOO/?utm_source=etftrends.com">VOO – Vanguard S&P 500 ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315582' id='mega-menu-item-315582'><a class="mega-menu-link" href="https://etfdb.com/etf/QQQ/?utm_source=etftrends.com">QQQ – Invesco QQQ ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315583' id='mega-menu-item-315583'><a class="mega-menu-link" href="https://etfdb.com/etf/GLD/?utm_source=etftrends.com">GLD – SPDR Gold Shares ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315592' id='mega-menu-item-315592'><a class="mega-menu-link" href="https://etfdb.com/etf/IVV/?utm_source=etftrends.com">IVV – iShares Core S&P 500 ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315635' id='mega-menu-item-315635'><a class="mega-menu-link" href="https://etfdb.com/etf/EFA/?utm_source=etftrends.com">EFA - iShares MSCI EAFE ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315590' id='mega-menu-item-315590'><a class="mega-menu-link" href="https://etfdb.com/etf/IEMG/?utm_source=etftrends.com">IEMG – iShares Core MSCI Emerging Markets ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315594' id='mega-menu-item-315594'><a class="mega-menu-link" href="https://etfdb.com/etf/EEM/?utm_source=etftrends.com">EEM – iShares MSCI Emerging Markets ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315591' id='mega-menu-item-315591'><a class="mega-menu-link" href="https://etfdb.com/etf/VTI/?utm_source=etftrends.com">VTI – Vanguard Total Stock Market ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315595' id='mega-menu-item-315595'><a class="mega-menu-link" href="https://etfdb.com/etf/GDX/?utm_source=etftrends.com">GDX - VanEck Vectors Gold Miners ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315636' id='mega-menu-item-315636'><a class="mega-menu-link" href="https://etfdb.com/etf/XLF/?utm_source=etftrends.com">XLF - Financial Select Sector SPDR Fund</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315593' id='mega-menu-item-315593'><a class="mega-menu-link" href="https://etfdb.com/etf/VEA/?utm_source=etftrends.com">VEA – Vanguard FTSE Developed Markets ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315665' id='mega-menu-item-315665'><a class="mega-menu-link" href="https://etfdb.com/etf/VTV/?utm_source=etftrends.com">VTV - Vanguard Value ETF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315666' id='mega-menu-item-315666'><a class="mega-menu-link" href="https://www.etftrends.com/etfs/commodity/gold-etfs">Top Gold ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315667' id='mega-menu-item-315667'><a class="mega-menu-link" href="https://www.etftrends.com/etfs/commodity/oil-etfs">Top Oil ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315668' id='mega-menu-item-315668'><a class="mega-menu-link" href="https://www.etftrends.com/etf/commodity-etfs">Top Commodity ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315669' id='mega-menu-item-315669'><a class="mega-menu-link" href="https://www.etftrends.com/etf/hedge-fund-etfs">Top Hedge Fund ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315670' id='mega-menu-item-315670'><a class="mega-menu-link" href="https://www.etftrends.com/etf/financials-etfs">Top Financials ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315671' id='mega-menu-item-315671'><a class="mega-menu-link" href="https://www.etftrends.com/etf/inverse-equities-etfs">Top Inverse Equities ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315672' id='mega-menu-item-315672'><a class="mega-menu-link" href="https://www.etftrends.com/etf/high-yield-bonds">Top High Yield Bond ETFs</a></li></ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-align-bottom-left mega-menu-flyout mega-menu-item-212521' id='mega-menu-item-212521'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Education & Media<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-209887' id='mega-menu-item-209887'><a class="mega-menu-link" href="/etf-newsletter/">Newsletter</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315123' id='mega-menu-item-315123'><a class="mega-menu-link" href="/category/new-etfs/">New ETFs</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-315578' id='mega-menu-item-315578'><a class="mega-menu-link" href="https://www.etftrends.com/education/education-central/">Education Central</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-212524' id='mega-menu-item-212524'><a class="mega-menu-link" href="/category/video/">Videos</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-434901' id='mega-menu-item-434901'><a class="mega-menu-link" href="https://www.etftrends.com/etf-of-the-week/">ETF of the Week Podcast</a></li><li class='mega-menu-item mega-menu-item-type-post_type mega-menu-item-object-page mega-menu-item-419546' id='mega-menu-item-419546'><a class="mega-menu-link" href="https://www.etftrends.com/etf-prime/">ETF Prime Podcast</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-398984' id='mega-menu-item-398984'><a class="mega-menu-link" href="https://www.etftrends.com/etf-360-channel/">ETF 360 Video Series</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-558451' id='mega-menu-item-558451'><a class="mega-menu-link" href="https://www.advisorperspectives.com/podcasts/gaining-perspective">Gaining Perspective</a></li></ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-align-bottom-left mega-menu-flyout mega-menu-item-645806' id='mega-menu-item-645806'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Sectors<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645807' id='mega-menu-item-645807'><a class="mega-menu-link" href="https://www.etftrends.com/sector-investing-content-hub/">Sector Investing Content Hub</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645808' id='mega-menu-item-645808'><a class="mega-menu-link" href="https://etfdb.com/etfs/sector/">Sector Power Rankings</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645809' id='mega-menu-item-645809'><a class="mega-menu-link" href="https://etfdb.com/etf/XLK/">XLK</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645811' id='mega-menu-item-645811'><a class="mega-menu-link" href="https://etfdb.com/etf/XLE/#etf-ticker-profile">XLE</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645812' id='mega-menu-item-645812'><a class="mega-menu-link" href="https://etfdb.com/etf/XLI/#etf-ticker-profile">XLI</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645813' id='mega-menu-item-645813'><a class="mega-menu-link" href="https://etfdb.com/etf/XLC/#etf-ticker-profile">XLC</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645814' id='mega-menu-item-645814'><a class="mega-menu-link" href="https://etfdb.com/etf/XLU/#etf-ticker-profile">XLU</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645815' id='mega-menu-item-645815'><a class="mega-menu-link" href="https://etfdb.com/etf/XLF/">XLF</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645816' id='mega-menu-item-645816'><a class="mega-menu-link" href="https://etfdb.com/etf/XLY/">XLY</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645817' id='mega-menu-item-645817'><a class="mega-menu-link" href="https://etfdb.com/etf/XLV/">XLV</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645818' id='mega-menu-item-645818'><a class="mega-menu-link" href="https://etfdb.com/etf/XLP/">XLP</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645819' id='mega-menu-item-645819'><a class="mega-menu-link" href="https://etfdb.com/etf/XLB/#etf-ticker-profile">XLB</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-645820' id='mega-menu-item-645820'><a class="mega-menu-link" href="https://etfdb.com/etf/XLRE/">XLRE</a></li></ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-align-bottom-left mega-menu-flyout mega-menu-item-419143' id='mega-menu-item-419143'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Events<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-646546' id='mega-menu-item-646546'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/asset-allocation-summit-10-21-26/?partnerref=trends_nav">Asset Allocation Summit</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-647068' id='mega-menu-item-647068'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/2027-market-outlook-symposium/?partnerref=trends_nav">2027 Market Outlook</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-633984' id='mega-menu-item-633984'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/q2-market-outlook-symposium-2026/?partnerref=trends_nav">Q2 Market Outlook</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-630408' id='mega-menu-item-630408'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/winter-symposium/?partnerref=trends_nav">Winter Symposium</a></li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-640706' id='mega-menu-item-640706'><a class="mega-menu-link" href="https://www.etftrends.com/webcasts/midyear-market-outlook-symposium-2026/?partnerref=website">Midyear Market Outlook</a></li></ul>
+</li><li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-has-children mega-align-bottom-left mega-menu-flyout mega-menu-item-503777' id='mega-menu-item-503777'><a class="mega-menu-link" aria-expanded="false" tabindex="0">Company<span class="mega-indicator"></span></a>
+<ul class="mega-sub-menu">
+<li class='mega-menu-item mega-menu-item-type-custom mega-menu-item-object-custom mega-menu-item-501602' id='mega-menu-item-501602'><a class="mega-menu-link" href="https://vettafi.com/about-us/">About VettaFi</a></li></ul>
+</li></ul></div>        <div class="nav-search nav-light-search">
+            <div class="search-overlay">
+              <a href="#" title="Search" class="search-icon">
+                <i class="fa fa-search"></i>
+              </a>
+              <div class="search">
+                <form role="search" action="/" method="get">
+                  <input type="text" name="s" class="query live-search-query" value="" placeholder="Search Here" autocomplete="off" />
+                  <button class="search-button" type="submit"><i class="fa fa-search"></i></button>
+                </form>
+              </div>
+            </div>
+          </div>
+      </div>
+    </nav>
+  </div>
+</div>    	</div>    <style>
+    div.masthead-container{
+      background: url('https://www.etftrends.com/wp-content/uploads/2025/10/AI_masthead_underlay_1600x121.png') no-repeat;
+      background-size: cover;
+    }
+  </style>
+    <div class="main-featured masthead-container">
+    <div class="wrapmar wrap cf">
+      <a id="channel-masthead-anchor"
+            href="https://www.etftrends.com/artificial-intelligence-channel"
+              rel="sponsored"
+            >
+      <img src="https://www.etftrends.com/wp-content/uploads/2025/10/AI_masthead_overlay_1600x121.png" width="100%" style="max-width: 100% !important;"
+      alt="Artificial Intelligence Channel - ETF Trends" class="image_top"/>
+      </a>
+      <div style = "display: none;">
+              </div>
+    </div>
+  </div>
+  
+<style>
+  @media only screen and (max-width: 600px){ .videojs-wrapper{width:100%;} }
+  @media only screen and (min-width: 601px){ .videojs-wrapper{width:68%;} }
+</style>
+<div class="main wrap cf" id = "main-wrap-two">
+	<div>
+		<header style = "margin: auto; overflow: hidden;" class="tech">
+  <div class="headeresp wrap" id="main-wrap-two" style="display: flex;  align-items: center; justify-content: center;">
+    <div style="display: inline-block;">
+      <div>
+        <div class="headerad" id="leader_ad_container">
+          <div id="div-gpt-ad-leaderboard-sponsorship" class="" >
+  <script>
+    safeDisplay( 'div-gpt-ad-leaderboard-sponsorship' );
+  </script>
+</div>
+<div id="div-gpt-ad-mobile-leaderboard-sponsorship" class="" data-dfp-unit='div-gpt-ad-mobile-leaderboard-sponsorship' data-dfp-unit-served='{"addClass":"spacing-leaderboard"}'>
+  <script>
+    safeDisplay( 'div-gpt-ad-mobile-leaderboard-sponsorship' );
+  </script>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+					
+
+<div class="post-wrap">
+	<div class="post-content">
+		<div id="ajax-load-more" class="ajax-load-more-wrap infinite fading-circles"  data-alm-id="" data-canonical-url="https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/" data-slug="robotics-update-physical-ai-ecosystem" data-post-id="644852"  data-localized="ajax_load_more_vars" data-alm-object="ajax_load_more"><div aria-live="polite" aria-atomic="true" class="alm-listing alm-ajax" data-single-post="true" data-single-post-id="644852" data-single-post-order="previous" data-single-post-taxonomy="category" data-single-post-excluded-terms="81810, 73646, 82825, 91594, 82576, 83762, 90502, 84277, 57231, 82521, 82197, , 86162, 81115, 82586, 83505, 82955, 81937, 58392, 81627, 82225, 87341, 83097, 82605, 5021, 87967, 86778, 90251, 86215, 6406, 84685, 82857, 84757, 82239, 86974, 58393, 83759, 86966, 84819, 86964, 8117, 84302, 85447, 92964, 81753, 79715, 81426, 81754, 85655, 91051, 6119, 83108, 59922, 81371, 85653, 92874, 64330, 85557, 81816, 62131, 86963, 84199, 83809, 82073, 83424, 82401, 5624, 71, 84, 1882, 4988, 4989, 4990, 4991, 5295, 5490, 6201" data-single-post-title-template="{post-title}" data-single-post-site-title="ETF Trends" data-single-post-site-tagline="ETF Trends is a leading source in Exchange Traded Fund news, insights, research, investing, finance strategy and popular ETF topics. Learn more about ETFs today!" data-single-post-scroll="false" data-single-post-scrolltop="30" data-single-post-controls="0" data-single-post-progress-bar="" data-container-type="div" data-loading-style="infinite fading-circles" data-repeater="default" data-post-type="post" data-order="DESC" data-orderby="date" data-offset="0" data-posts-per-page="1" data-scroll-distance="10" data-button-label="Load More"><div class="alm-single-post post-644852" data-url="https://www.etftrends.com/artificial-intelligence-content-hub/robotics-update-physical-ai-ecosystem/" data-title="2026 Robotics Update: The Physical AI Ecosystem" data-id="644852" data-page="0"><article id="post-644852" class="post-644852 post type-post status-publish format-standard has-post-thumbnail category-artificial-intelligence-content-hub tag-abbn tag-ai-robotics tag-amba tag-artificial-intelligence-content-hub tag-automation tag-cgnx tag-global-x tag-humanoid-robotics tag-mchp tag-nvda tag-rafael-silva tag-robo tag-robo-global-indexes">
+<section class="post-cover">
+  <div class="featured">
+        <div class="overlay">
+      <span class="cat-title cat-">
+        <a href="https://www.etftrends.com/category/artificial-intelligence-content-hub/">
+          Artificial Intelligence Content Hub        </a>
+      </span>
+      <h1 class="item fn">2026 Robotics Update: The Physical AI Ecosystem</h1>
+      <div class="post-meta">
+        <span class="posted-by"> 
+          <span class="reviewer"><a href="https://www.etftrends.com/author/rafaelsilva/" title="Posts by Rafael Silva" rel="author">Rafael Silva</a></span>
+        </span>
+        <span class="posted-on">
+          <span class="dtreviewed">
+            <time class="value-title" 
+              datetime="2026-05-13T04:00:38-07:00" 
+              title="2026-05-13"
+              >
+              May 13, 2026            </time>
+          </span>
+        </span>
+      </div>
+      <div class="shareblock">
+        
+      </div>
+    </div>
+  </div>
+</section>		 
+				<div class="post-container cf">
+					<div class="post-content post-dynamic description ">
+																<p><span style="font-weight: 400;">In our </span><a target="_blank" href="https://etfdb.com/disruptive-technology-content-hub/robotics-cambrian-explosion-moment-now/"><span style="font-weight: 400;">first article of the year,</span></a><span style="font-weight: 400;"> we spoke about how robotics was at the cusp of a period of rapid expansion. We’re now almost halfway through 2026 and everything continues to point in that direction. The prevailing narrative has shifted from conceptual prototypes to firm production timelines and commercial deployments. Robotics is now a mass scale industry driven by the convergence of advanced software, specialized hardware, and reshoring capital flows.</span></p>
+<p><span style="font-weight: 400;">A closer look at recent industry data provides a clear picture of this structural shift in action.</span></p>
+<h2><b>The Evolution of Physical AI</b></h2>
+<p><span style="font-weight: 400;">The foundational shift in 2026 is the scaling of Physical AI. While prior years focused on language-based generative AI, the current cycle involves models built for spatial awareness and physical action. These models allow machines to process their 3D surroundings in real time and adapt to unpredictable tasks and novel scenarios. This newfound autonomy is pushing the robotics market far beyond rigid factory floors and into highly dynamic, real-world environments.</span></p>
+<p><span style="font-weight: 400;">Robot foundation models, or AI &#8220;brains&#8221; trained on broad data to handle perception and motor control across varied tasks, are scaling rapidly. For example, NVIDIA (<a target="_blank" href="https://etfdb.com/stock/NVDA/">NVDA</a>*) has already </span><a target="_blank" href="https://nvidianews.nvidia.com/news/nvidia-expands-open-model-families-to-power-the-next-wave-of-agentic-physical-and-healthcare-ai"><span style="font-weight: 400;">announced</span></a><span style="font-weight: 400;"> its next-generation GR00T N2 robotics foundation model, building on the widely used GR00T N1.7, which is expected to appear later this year. We are seeing similar launches from emerging players like Generalist AI with its </span><a target="_blank" href="https://www.youtube.com/watch?v=SY2xyrmV44Y"><span style="font-weight: 400;">GEN-1</span></a><span style="font-weight: 400;"> “brain in a box” platform, while AGIBOT recently unveiled its </span><a target="_blank" href="https://www.agibot.com/article/231/detail/63.html"><span style="font-weight: 400;">Embodied Foundation Model</span></a><span style="font-weight: 400;"> with similar third-party licensing intent.</span></p>
+				<script>
+					googletag.cmd.push(
+						function() {
+							var mappingmobile2 = googletag
+								.sizeMapping()
+								.addSize([0, 0], [])
+								.addSize([320, 0], [300, 250])
+								.addSize([700, 0], [])
+								.build();
+							var mobileisland = googletag
+								.defineSlot("/1000160/2017_MobileContentSidebar_300x250", [300, 250], "div-gpt-ad-1473442813261-960")
+								.defineSizeMapping(mappingmobile2)
+								.addService(googletag.pubads());
+							googletag.pubads().enableAsyncRendering();
+							handleDFPTargeting();
+						}
+					);
+				</script><div id="div-gpt-ad-1473442813261-960" class="" >
+  <script>
+    safeDisplay( 'div-gpt-ad-1473442813261-960' );
+  </script>
+</div>
+
+<p><span style="font-weight: 400;">This model-as-a-service strategy is gaining rapid traction across the broader ecosystem. Skild AI and Physical Intelligence (pi0) are both building foundation models on massive datasets specifically to be licensed to third-party robotics companies. This widespread surge in development validates a critical shift: the intelligence layer of robotics is quickly becoming a highly scalable, competitive market in its own right.</span></p>
+<p class="recommendation__inline"><em>See more: </em><a href="https://www.etftrends.com/artificial-intelligence-content-hub/rise-of-physical-ai-next-phase-of-automation/"><em>The Rise of Physical AI &amp; the Next Phase of Automation</em></a></p>
+<h2><b>Translating AI Into Motion </b></h2>
+<p><span style="font-weight: 400;">However, advanced software requires equally advanced hardware to execute its commands. As AI capabilities accelerate, capital expenditure has increased across the hardware spectrum. This growth is currently reflected in the balance sheets of both the original equipment manufacturers (OEMs) building the robots and the suppliers of their internal components.</span></p>
+<p><span style="font-weight: 400;">Recent earnings data illustrates the scale of this hardware adoption. For example, automation leader Teradyne (<a target="_blank" href="https://etfdb.com/stock/TER/">TER</a>*) reported an 87% year-over-year revenue increase in Q1 2026, reaching $1.28 billion. A primary driver of this surge was the massive demand for AI-related chip testing. This confirms that the critical hardware layer required to run edge AI and autonomous systems is already scaling rapidly.</span></p>
+<p><span style="font-weight: 400;">This architecture relies on specialized suppliers. The intelligence is powered by edge-computing chips from firms like Ambarella (<a target="_blank" href="https://etfdb.com/stock/AMBA/">AMBA</a>*), which process data locally to eliminate cloud latency. The spatial awareness is driven by 3D vision systems from companies like Cognex (<a target="_blank" href="https://etfdb.com/stock/CGNX/">CGNX</a>*) and Keyence (<a target="_blank" href="https://etfdb.com/stock/6861:TKS/">6861</a>*). Finally, the physical execution relies on companies like Harmonic Drive Systems (<a target="_blank" href="https://etfdb.com/stock/6324:JAS/">6324</a>*) and Nabtesco (<a target="_blank" href="https://etfdb.com/stock/6268:TKS/">6268</a>*), whose zero-backlash gears act as the precision joints allowing robots to move with dexterity alongside microcontrollers from companies like Microchip (<a target="_blank" href="https://etfdb.com/stock/MCHP/">MCHP</a>*) to execute physical control actions, acting like a nervous system signalling to muscles. </span></p>
+<h2><b>Macroeconomic Drivers &amp; Industrial Capital Expenditure</b></h2>
+<p><span style="font-weight: 400;">Beyond technological advancements, the robotics industry continues to be boosted by macroeconomic tailwinds. As multinational corporations prioritize supply chain resilience and engage in reshoring initiatives, they are building new facilities in regions with higher labor costs and persistent workforce shortages. To maintain margins, these facilities are being designed from the ground up with automation as a core utility.</span></p>
+<p><span style="font-weight: 400;">The Spring 2026 earnings season provided concrete evidence of this capital flow. Automation giant ABB (<a target="_blank" href="https://etfdb.com/stock/ABBN:SWX/">ABBN</a>) reported record Q1 2026 orders of $11.3 billion, representing a 24% year-over-year increase, alongside an 11% bump in revenues. This is one example of many that demonstrates how global industrial players are executing massive, real-world capital expenditures on automated infrastructure. </span></p>
+<p><span style="font-weight: 400;">The financial impact is equally evident in the logistics and supply chain sectors. Symbotic (<a target="_blank" href="https://etfdb.com/stock/SYN/">SYM</a>), a leader in AI-enabled robotics technology for warehouses, recently reported a 23% year-over-year revenue increase to $676 million for its most recent quarter, noting that its total number of automated systems in deployment had risen to 70. Similarly, industrial robotics leader Fanuc (<a target="_blank" href="https://etfdb.com/stock/6954:TKS/">6954)</a> closed out its fiscal year in April 2026 reporting a nearly 13% improvement in earnings and robust profit margins, reflecting sustained demand for factory automation.</span></p>
+<h2><b>Tracking the Ecosystem</b></h2>
+<p><span style="font-weight: 400;">For the </span><a target="_blank" href="https://www.vettafi.com/indexing/index/robo?__hstc=169852158.f0075fb1b5a4cb15ae17813b45afac4c.1764951795459.1778606212503.1778610474788.40&amp;__hssc=169852158.2.1778610474788&amp;__hsfp=7af1dc7b41275d543a5d995a4143c611"><span style="font-weight: 400;">ROBO Global Robotics and Automation Index (ROBO)</span></a><span style="font-weight: 400;">, the ongoing evolution of Physical AI and hardware is a major tailwind. This convergence expands the total addressable market (TAM) into unserved verticals while multiplying the demand for core components. The ROBO strategy is purpose-built to capitalize on this exact dynamic.</span></p>
+<p><span style="font-weight: 400;">Navigating such a rapidly shifting landscape requires deep domain expertise. Guided by a </span><a target="_blank" href="https://www.vettafi.com/indexing/featured/robotics-ai?__hstc=169852158.f0075fb1b5a4cb15ae17813b45afac4c.1764951795459.1778606212503.1778610474788.40&amp;__hssc=169852158.2.1778610474788&amp;__hsfp=7af1dc7b41275d543a5d995a4143c611#:~:text=View%20more-,Strategic%20advisory%20board,-Index%20construction%20is"><span style="font-weight: 400;">board of world-renowned robotics pioneers</span></a><span style="font-weight: 400;">, ROBO looks beyond recognizable large-cap names to evaluate the entire ecosystem. This specialized insight allows the strategy to actively identify both the developers bringing physical AI to life and the “picks and shovels” component makers. By mapping the full spectrum from internal parts to final end-products, the index positions itself to capture growth. Regardless of whether it&#8217;s factory floor, the warehouse, or humanoid applications to scale first.</span></p>
+<p class="recommendation__inline"><em>See more: <a href="https://www.etftrends.com/disruptive-technology-content-hub/from-factory-floor-6-robotics-stocks-to-know/">From the Factory Floor: 6 Robotics Stocks to Know</a></em></p>
+<h2><b>Looking Ahead</b></h2>
+<p><span style="font-weight: 400;">The Cambrian explosion of the robotics industry is well underway, with 2026 defined by integration. The timeline for broad commercial deployment is accelerating rapidly. Driving the momentum is the convergence of Physical AI, advanced sensory hardware, and precision engineering. All of these factors are meeting a massive macroeconomic demand for automated labor. Recent earnings data prove that this growth has moved past conceptual forecasts and is actively showing up on corporate balance sheets. As the sector scales, both the manufacturers building the systems and the component suppliers providing the building blocks remain positioned at the center of the industry&#8217;s growth.</span></p>
+<p><span style="font-weight: 400;">* Denotes a constituent of the ROBO Global Robotics and Automation Index as of Q1 2026. </span></p>
+<p><i><span style="font-weight: 400;">ROBO is the underlying index for the ROBO Global Robotics &amp; Automation ETF (ROBO), the L&amp;G ROBO Global Robotics and Automation UCITS ETF (ROBO.LN), and the Global X ROBO Global Robotics &amp; Automation ETF (ROBO.AU).</span></i></p>
+<h3><strong>Related Research</strong></h3>
+<p><a target="_blank" href="https://etfdb.com/disruptive-technology-content-hub/robotics-cambrian-explosion-moment-now/">The Cambrian Explosion Moment for Robotics Is Now<span style="font-weight: 400;"><br />
+</span></a><a href="https://www.etftrends.com/artificial-intelligence-content-hub/purpose-built-humanoids-specific-jobs/">Purpose-Built Humanoids for Specific Jobs<span style="font-weight: 400;"><br />
+</span></a><a target="_blank" href="https://etfdb.com/disruptive-technology-content-hub/robots-real-world-champions-ai/">Robots: AI&#8217;s Real-World Champions</a></p>
+<p><em><span style="font-weight: 400;">Looking for regular updates? </span><a target="_blank" href="https://offer.vettafi.com/robo-index-subscribe"><b>Subscribe here for weekly insights on robotics, AI, and healthcare technology, delivered straight to your inbox.</b></a></em></p>
+<p><i><span style="font-weight: 400;">For more news, information, and analysis, visit our </span></i><a target="_blank" href="https://etfdb.com/artificial-intelligence-content-hub/"><b><i>Artificial Intelligence</i></b></a><i><span style="font-weight: 400;"> &amp; </span></i><a target="_blank" href="https://www.etfdb.com/disruptive-technology-content-hub/"><b><i>Disruptive Technology Content Hubs</i></b></a><i><span style="font-weight: 400;">.</span></i></p>
+<p><i><span style="font-weight: 400;">vettafi.com is owned by VettaFi LLC (“VettaFi”). VettaFi is the index provider for the ROBO ETFs, for which it receives an index licensing fee. However, the ROBO ETFs are not issued, sponsored, endorsed, or sold by VettaFi. VettaFi and its affiliates have no obligation or liability in connection with the issuance, administration, marketing, or trading of the ROBO ETFs.</span></i></p>
+								<div class="articletags" itemprop="keywords">
+							<h6 class="tags">RELATED TOPICS</h6><a href="https://www.etftrends.com/tag/abbn/">ABBN</a><a href="https://www.etftrends.com/tag/ai-robotics/">AI robotics</a><a href="https://www.etftrends.com/tag/amba/">AMBA</a><a href="https://www.etftrends.com/tag/artificial-intelligence-content-hub/">artificial intelligence Content Hub</a><a href="https://www.etftrends.com/tag/automation/">automation</a><a href="https://www.etftrends.com/tag/cgnx/">CGNX</a><a href="https://www.etftrends.com/tag/global-x/">Global X</a><a href="https://www.etftrends.com/tag/humanoid-robotics/">Humanoid Robotics</a><a href="https://www.etftrends.com/tag/mchp/">MCHP</a><a href="https://www.etftrends.com/tag/nvda/">NVDA</a>						</div>
+						
+<section class="newsletter-embed"
+    data-form-id="c9d7dd79-4ac4-4ab3-82a1-3156caef716d"
+    data-container-id="hs-embed-c9d7dd79-4ac4-4ab3-82a1-3156caef716d-f74317">
+  <div class="newsletter-embed__image">
+    <img src="https://www.etftrends.com/wp-content/themes/smart-mag/images/newsletter-embeds/newsletter-first.jpg" alt="">
+  </div>
+  <div class="newsletter-embed__content">
+    <h2>Earn <strong>free CE credits</strong> and discover new strategies</h2>
+    <div id="hs-embed-c9d7dd79-4ac4-4ab3-82a1-3156caef716d-f74317"></div>
+    <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
+  </div>
+</section>
+					</div>
+				</div>
+		</article>
+</div></div><div class="alm-btn-wrap" data-rel="ajax-load-more"><button class="alm-load-more-btn more " type="button">Load More</button></div></div>	</div>
+			<aside class="sidebar">
+			        <div class="widget" style="padding-top: 10px;">
+  <div id='div-gpt-ad-sidebar-1-sponsorship'>
+    <script>
+      safeDisplay( 'div-gpt-ad-sidebar-1-sponsorship' );
+    </script>
+  </div>
+</div><div class="widget">
+  <div id="channel_hub" data-dfp-unit="channel_hub" data-dfp-unit-remove-iframe="true"></div>
+</div>
+
+<script>
+  googletag.cmd.push(function(){
+    googletag.defineOutOfPageSlot('/1000160/channel_hub', 'channel_hub').addService(googletag.pubads());
+    safeDisplay('channel_hub');
+  })
+</script>
+      		</aside>
+	
+</div>
+			</div>
+</div>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/22364887.js"></script>
+<!-- End of HubSpot Embed Code -->
+
+
+<div id="ouibounce-modal">
+  <div class="underlay"></div>
+  <div class="modal">
+    <a onclick="document.getElementById('ouibounce-modal').style.display = 'none';" class="btnClose">X</a>
+    <div class="modal-body">
+      <div class="interstitialz">
+        <div id="interstitialAd">
+  <script>
+    googletag.cmd.push(function() {
+      safeDisplay("interstitialAd");
+    });
+  </script>
+</div>      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var _ouibounce = ouibounce(document.getElementById("ouibounce-modal"), {
+    delay: 100,
+    aggressive: true,
+    timer: 0,
+    callback: function() {
+      console.log("ouibounce fired!");
+            googletag.cmd.push(function() {
+        googletag.pubads().refresh([interstitialmod]);
+      });
+    }
+  });
+  jQuery(document).ready(function($) {
+    $("body").on("click", function() {
+      $("#ouibounce-modal").hide();
+    });
+    $("#ouibounce-modal .modal-footer").on("click", function() {
+      $("#ouibounce-modal").hide();
+    });
+    $("#ouibounce-modal .modal").on("click", function(e) {
+      e.stopPropagation();
+    });
+  });
+</script>
+	<footer class="main-footer">
+	<vettafi-footer id="footer"></vettafi-footer>
+<script type="module" src="https://www.etftrends.com/wp-content/themes/smart-mag/js/vettafi-footer.js"></script>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('footer').config = {
+    logo: {
+      type: 'image',
+      src: '/wp-content/themes/smart-mag/images/etf-trends-logo-white.svg',
+      alt: 'ETF Trends',
+      url: '/'
+    },
+    newsletter: {
+      label: 'Sign up for our insights:',
+      placeholder: 'Enter your Email*',
+      buttonText: 'Subscribe',
+      hubspotPortalId: '22364887',
+      hubspotFormId: 'c9d7dd79-4ac4-4ab3-82a1-3156caef716d',
+      recaptchaSiteKey: '6Lef6NgsAAAAAPLOyBcdsMaLkUl_kkgnpGBo4LDx',
+      recaptchaV2SiteKey: '6LeP5dgsAAAAAJd7gNOTfXf0tx73Ugj_fKlGG3L6',
+      recaptchaVerifyUrl: 'https://www.etftrends.com/wp-admin/admin-ajax.php'
+    },
+    contact: {
+      title: 'Contact us',
+      url: '/contact/',
+      address: '225 Liberty St, Suite 2310,\nNew York, NY 10281'
+    },
+    columns: [
+      {
+        title: 'Our Sites',
+        links: [
+          { text: 'VettaFi', url: 'https://www.vettafi.com/', external: true },
+          { text: 'Advisor Perspectives', url: 'https://www.advisorperspectives.com/', external: true },
+          { text: 'ETFdb', url: 'https://www.etfdb.com/', external: true },
+          { text: 'TMX Money', url: 'https://money.tmx.com/', external: true },
+          { text: 'ETF Stream', url: 'https://www.etfstream.com/', external: true }
+        ]
+      },
+      {
+        title: 'Be Sure to Visit',
+        links: [
+          { text: 'Expert Insights', url: '/category/expert-insights/' },
+          { text: 'Popular ETF News', url: '/articles/page/2/?&utm_source=Homepage&utm_medium=latestbutton&utm_campaign=latestbutton' },
+          { text: 'Webcasts', url: '/webcasts/' },
+          { text: 'Glossary', url: '/education/key-definitions/' }
+        ]
+      }
+    ],
+    socials: [
+      { platform: 'linkedin', url: 'https://linkedin.com/company/vettafi/' },
+      { platform: 'twitter', url: 'https://x.com/vetta_fi' },
+      { platform: 'youtube', url: 'https://www.youtube.com/vettafi' }
+    ],
+    legalLinks: [
+      { text: 'Privacy Policy', url: 'https://www.vettafi.com/privacy-policy', external: true }
+    ],
+    copyright: '© 2026 VettaFi LLC. All rights reserved.',
+    showVettaFiBadge: true
+  };
+});
+</script>
+	</footer>
+</div>
+
+<script type="application/ld+json">{"@context":"http:\/\/schema.org","@type":"Article","headline":"2026 Robotics Update: The Physical AI Ecosystem","url":"https:\/\/www.etftrends.com\/artificial-intelligence-content-hub\/robotics-update-physical-ai-ecosystem\/","image":{"@type":"ImageObject","url":"https:\/\/www.etftrends.com\/wp-content\/uploads\/2026\/05\/shutterstock_2702121249-1-e1778622616494.jpg","width":635,"height":358},"datePublished":"2026-05-13T04:00:38-07:00","dateModified":"2026-05-12T16:21:45-07:00","author":{"@type":"Person","name":"Rafael Silva"},"publisher":{"@type":"Organization","name":"ETF Trends","logo":{"@type":"ImageObject","url":"https:\/\/www.etftrends.com\/wp-content\/uploads\/2017\/08\/etf-trends-exchange-traded-funds-logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/www.etftrends.com\/artificial-intelligence-content-hub\/robotics-update-physical-ai-ecosystem\/"}}</script>
+<script type="text/javascript" id="ajax_load_more_vars">var ajax_load_more_vars = {"id":"ajax-load-more","script":"ajax_load_more_vars"}</script><link rel='stylesheet' id='Channel-default-styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/channels/default.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='channel_hub-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/channels/channel_hub.css?ver=1786118150' type='text/css' media='all' />
+<link rel='stylesheet' id='exit-interstitial-styles-css'  href='https://www.etftrends.com/wp-content/themes/smart-mag/css/ad/exit-interstitial.css?ver=1786118150' type='text/css' media='all' />
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/thumbnails.js?ver=1786118150' id='thumbnail-scripts-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/nav.js?ver=1786118150' id='nav-scripts-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/custom-css-js-php/assets/js/wcjp-frontend.js?ver=7e07d3992d57d96504f9ad21b9fa470b' id='wcjp-frontend.js-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/ricg-responsive-images/js/picturefill.min.js?ver=3.0.1' id='picturefill-js'></script>
+<script type='text/javascript' id='recaptcha-v3-js-before'>
+var etfRecaptchaSiteKey = "6Lef6NgsAAAAAPLOyBcdsMaLkUl_kkgnpGBo4LDx"; var etfRecaptchaV2SiteKey = "6LeP5dgsAAAAAJd7gNOTfXf0tx73Ugj_fKlGG3L6";
+</script>
+<script type='text/javascript' src='https://www.google.com/recaptcha/enterprise.js?render=6Lef6NgsAAAAAPLOyBcdsMaLkUl_kkgnpGBo4LDx' id='recaptcha-v3-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/recaptcha.js' id='etft-recaptcha-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/newsletter-embed.js' id='etft-newsletter-embed-js'></script>
+<script type='text/javascript' id='bunyad-theme-js-extra'>
+/* <![CDATA[ */
+var Bunyad = {"ajaxurl":"https:\/\/www.etftrends.com\/wp-admin\/admin-ajax.php"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/themes/smart-mag/js/bunyad-theme9.js?ver=3.1.0' id='bunyad-theme-js'></script>
+<script type='text/javascript' id='BJLL-js-extra'>
+/* <![CDATA[ */
+var BJLL_options = {"threshold":"30"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/bj-lazy-load/js/bj-lazy-load.min.js?ver=2' id='BJLL-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-includes/js/hoverIntent.min.js?ver=1.10.2' id='hoverIntent-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/megamenu/js/maxmegamenu.js?ver=3.4.1' id='megamenu-js'></script>
+<script type='text/javascript' id='ajax-load-more-js-extra'>
+/* <![CDATA[ */
+var alm_localize = {"pluginurl":"https:\/\/www.etftrends.com\/wp-content\/plugins\/ajax-load-more","version":"7.1.4","adminurl":"https:\/\/www.etftrends.com\/wp-admin\/","ajaxurl":"https:\/\/www.etftrends.com\/wp-admin\/admin-ajax.php","alm_nonce":"ccb4444efd","rest_api_url":"","rest_api":"https:\/\/www.etftrends.com\/wp-json\/","rest_nonce":"50843d2223","trailing_slash":"true","is_front_page":"false","retain_querystring":"1","speed":"250","results_text":"Viewing {post_count} of {total_posts} results.","no_results_text":"No results found.","alm_debug":"","a11y_focus":"1","site_title":"ETF Trends","site_tagline":"ETF Trends is a leading source in Exchange Traded Fund news, insights, research, investing, finance strategy and popular ETF topics. Learn more about ETFs today!","button_label":"Load More"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/ajax-load-more/build/frontend/ajax-load-more.min.js?ver=7.1.4' id='ajax-load-more-js'></script>
+<script type='text/javascript' src='https://www.etftrends.com/wp-content/plugins/ajax-load-more-previous-post/dist/js/alm-single-posts.min.js?ver=1.7.1' id='alm-single-posts-js'></script>
+<style type="text/css">:root {--brand-color: #46338a;}.main .widgettitle {  background-color: var(--brand-color);}.post-cover .featured .cat-title a{  color: var(--brand-color);}</style>
+
+	<script>
+	var mobstickclearsponsor = setInterval(function() {
+		googletag.pubads().refresh([mobstickSlotSponsor])
+	},10000)
+	setTimeout(function() {
+		clearInterval(mobstickclearsponsor)
+	}, 21000)
+	</script>
+
+
+<script>
+  jQuery(document).ready(function($){
+          var dir=1;
+      var MIN_TOP=200;
+      var MAX_TOP=300;
+      function autoscroll(){
+        var window_top= $(window).scrollTop()+dir;
+        if(window_top >= MAX_TOP){
+          window_top=MAX_TOP;
+          dir=-1;
+        }
+        else if(window_top <= MIN_TOP){
+          window_top=MIN_TOP;
+          dir=1;
+        }
+        $(window).scrollTop(window_top);
+        window.setTimeout(autoscroll,100)
+      }
+                  var refreshed3 = !1,
+            adAlmostVisibleScrollValue3 =
+          400,
+            listener3 = function() {
+              if (window.scrollY >= adAlmostVisibleScrollValue3 && !refreshed3) {
+                googletag.cmd.push(function() {
+                  googletag.pubads().refresh([sideSlot3]);
+                }),
+                refreshed3 = !0,
+                window.removeEventListener("scroll", listener3);
+              }
+            };
+            window.addEventListener("scroll", listener3);
+
+            var refreshed4 = !1,
+            adAlmostVisibleScrollValue4 =
+            600,
+            listener4 = function() {
+              if (window.scrollY >= adAlmostVisibleScrollValue4 && !refreshed4) {
+                googletag.cmd.push(function() {
+                  googletag.pubads().refresh([sideSlot4]);
+                }),
+                refreshed4 = !0,
+                window.removeEventListener("scroll", listener4);
+              }
+            };
+            window.addEventListener("scroll", listener4);
+            var refreshed5 = !1,
+            adAlmostVisibleScrollValue5 =
+            800,
+            listener5 = function() {
+              if (window.scrollY >= adAlmostVisibleScrollValue5 && !refreshed5) {
+                googletag.cmd.push(function() {
+                  googletag.pubads().refresh([sideSlot5]);
+                }),
+                refreshed5 = !0,
+                window.removeEventListener("scroll", listener5);
+              }
+            };
+            window.addEventListener("scroll", listener5);
+            var refreshed = !1,
+            adAlmostVisibleScrollValue = 2100,
+            listener = function(){
+              if(window.scrollY>=adAlmostVisibleScrollValue&&!refreshed){
+                googletag.cmd.push(function(){
+                  googletag.pubads().refresh([bottomSlot]);
+                }),
+                refreshed=!0,
+                window.removeEventListener("scroll",listener);
+                var e=setInterval(function(){
+                  googletag.pubads().refresh([bottomSlot])
+                },30000);
+                setTimeout(function(){
+                  clearInterval(e)
+                }, 1)
+              }
+            };
+            window.addEventListener("scroll",listener);
+                        });
+</script>
+<script>
+jQuery(document).ready(function(){
+  if (is_ad_placeholder_active()){
+    animateDivHeight('leader_ad_container', '130');
+  }
+});
+</script><script>
+var trackOutboundLink = function(url) {
+  gtag('event', 'outbound', {
+    'action': 'click',
+    'url': url,
+    'transport': 'beacon'
+  });
+}
+</script>
+
+<script>
+var trackUidOutboundLink = function(url, etf_uid) {  gtag('event', 'Click', { 'event_category': 'Channel Resource Click', event_label: url, 'etf_uid': etf_uid, 'transport': 'beacon' });}
+</script>
+
+<script> _linkedin_data_partner_id = "202884"; </script><script> (function(){var s = document.getElementsByTagName("script")[0]; var b = document.createElement("script"); b.type = "text/javascript";b.async = true; b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js"; s.parentNode.insertBefore(b, s);})(); </script> <noscript> <img height="1" width="1" style="display:none;" alt="" src="https://dc.ads.linkedin.com/collect/?pid=202884&fmt=gif" /> </noscript>
+
+<script>
+window.__lo_site_id = 130202;
+(function() {
+var wa = document.createElement('script'); wa.type = 'text/javascript'; wa.async = true;
+wa.src = 'https://d10lpsik1i8c69.cloudfront.net/w.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(wa, s);
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script type="text/javascript" src="https://www.etftrends.com/wp-content/themes/smart-mag/js/pocklington-client.js?ts=1786118150"></script>
+  <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"eea5fef04b5c436583bd21ce931241a5"}' crossorigin="anonymous"></script>
+<script>window.__CF$cv$params={r:'a2a69fe74df739fa',t:'MTc4NjYxMjYyNA==',u:'019ffa692ce97d319f3304b2c894d7cb',ut:'mJsUSFfA9DTpBSpjD4m_tscbli0tARs5YlIQhgTAPFQ-1786612624-1.2.1.1-2fOy6OnsbchY6GQqZUkK5cc52GYRb63DmA7vOuSFYZUZtUuvw_76n_MmMQZQMzrBH4RYaTr4AUQI3YDv9px1XUoIWcJ10hQvb0Z1hDz8Kdw',i:60};(function(){if(!document.body)return;var s=document.createElement('script');s.src='/cdn-cgi/challenge-platform/scripts/precursor/main.js';document.head.appendChild(s);})();</script></body>
+</html>
+
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Object Caching 1508/1580 objects using Memcached
+Page Caching using Memcached 
+Database Caching 12/34 queries in 0.139 seconds using Memcached
+
+Served from: _ @ 2026-08-13 00:19:11 by W3 Total Cache
+-->

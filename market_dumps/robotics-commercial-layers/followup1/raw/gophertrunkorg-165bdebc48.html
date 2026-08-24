@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZL0HGHW303"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-ZL0HGHW303');
+</script>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Observability &amp; monitoring | GopherTrunk</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Observability &amp; monitoring" />
+<meta name="author" content="Matt Cheramie" />
+<meta property="og:locale" content="en" />
+<meta name="description" content="Why you can’t fix what you can’t see — logging every model call, tracing multi-step agent and RAG flows, tracking cost and latency metrics, running online evals, and catching quality drift in production." />
+<meta property="og:description" content="Why you can’t fix what you can’t see — logging every model call, tracing multi-step agent and RAG flows, tracking cost and latency metrics, running online evals, and catching quality drift in production." />
+<link rel="canonical" href="https://gophertrunk.org/learn/building-ai/observability-and-monitoring/" />
+<meta property="og:url" content="https://gophertrunk.org/learn/building-ai/observability-and-monitoring/" />
+<meta property="og:site_name" content="GopherTrunk" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Observability &amp; monitoring" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Matt Cheramie","url":"https://github.com/MattCheramie"},"description":"Why you can’t fix what you can’t see — logging every model call, tracing multi-step agent and RAG flows, tracking cost and latency metrics, running online evals, and catching quality drift in production.","headline":"Observability &amp; monitoring","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://gophertrunk.org/assets/gophertrunk-logo.png"},"name":"Matt Cheramie"},"url":"https://gophertrunk.org/learn/building-ai/observability-and-monitoring/"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link type="application/atom+xml" rel="alternate" href="https://gophertrunk.org/feed.xml" title="GopherTrunk" />
+
+<link rel="icon" type="image/png" href="/assets/gophertrunk-logo.png">
+<link rel="stylesheet" href="/assets/css/style.css"><script defer src="/assets/js/supabase-config.js"></script>
+<script defer src="/assets/js/vendor/supabase.min.js"></script>
+<script defer src="/assets/js/auth.js"></script><script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('gt-theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    } catch (e) {}
+  })();
+</script>
+</head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a><header class="site-nav" role="banner">
+  <div class="site-nav__inner container">
+    <a class="site-nav__brand" href="/" aria-label="GopherTrunk home">
+      <img src="/assets/gophertrunk-logo.png" alt="" width="32" height="32">
+      <span class="site-nav__wordmark">GopherTrunk</span>
+    </a>
+
+    <button class="site-nav__hamburger" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav__menu" id="site-nav-menu" aria-label="Primary">
+      <ul class="site-nav__groups"><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Getting Started
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/getting-started.html">What is GopherTrunk?</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/getting-started-setup.html">Get started</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/guide-basics.html">Basics</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/guide-intermediate.html">Intermediate</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/guide-advanced.html">Advanced</a>
+                  </li></ul>
+          </li><li class="nav-group nav-group--active">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Learn
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/learn/">All learning</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/rf-software-dev/">Path: RF Software Development</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/rf-hardware/">Path: RF Hardware</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/software-engineering/">Path: Software Engineering</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/ai-development/">Path: AI Software Development</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/security/">Path: Cybersecurity</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/paths/trunked-radio/">Path: Digital Trunking & Scanning</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/rf-sdr/">Module: RF & SDR</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/git/">Module: Git & GitHub</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/intro-software-dev/">Module: Intro to Software Dev</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/digital-trunking/">Module: Digital Trunking</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/intro-hardware/">Module: Intro to Hardware</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/programming-go/">Module: Programming in Go</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/dsp/">Module: Digital Signal Processing</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/deployment/">Module: Containers & Deployment</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/databases/">Module: Databases & Data</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/web-dev/">Module: Web Development</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/learn/scanning/">Module: Scanning & Monitoring</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Field Guide
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/reference/">Field Guide overview</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#domain-rf-sdr">RF & SDR</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#rf-fundamentals">RF & signal fundamentals</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#modulation">Modulation</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#sdr-dsp">SDR & DSP</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#algorithms">Algorithms</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#cryptography">Cryptography & cryptanalysis</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#trunked-radio">Trunked radio</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#protocols">Protocols & standards</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#voice-coding">Voice coding</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hardware">Hardware</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#people">People</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#organizations">Organizations</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#domain-software-dev">Software Development</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#programming-languages">Programming languages</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#language-internals">Language internals & execution</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#concurrency-execution">Concurrency & execution models</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#paradigms-design">Paradigms & design patterns</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#principles-quality">Principles & code quality</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#testing-delivery">Testing, tooling & delivery</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#domain-hardware-devices">Hardware (computers & devices)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-foundations">Hardware foundations</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-servers">Servers & hosting</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-personal-computers">Personal computers</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-mobile">Mobile devices</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-sbc">Single-board computers</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-microcontrollers">Microcontrollers</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-networking">Networking & connectivity</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-storage">Storage & memory</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-accelerators">GPUs, FPGAs & accelerators</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-people">People</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-organizations">Organizations & makers</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              About
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/story.html">The Story of GopherTrunk</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Community
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/forum/">Forum</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/account/">Account</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/profile/">Profile</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/moderation/">Moderation</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Blog
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/blog/">All posts</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/category/announcements/">Announcements</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/category/releases/">Releases</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/category/deep-dives/">Deep dives</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/sdr-internals/">Series: SDR Internals</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/rf-front-end/">Series: RF Front End</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/trunking-engine/">Series: Trunking Engine</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/protocol-decoders/">Series: Protocol Decoders</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/voice-coding/">Series: Voice Coding</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/recording-streaming/">Series: Recording, Composition & Streaming</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/the-hunt/">Series: The Hunt</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/operator-cockpit/">Series: The Operator's Cockpit</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/running-it-for-real/">Series: Running It For Real</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/category/tutorials/">Tutorials</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/signal-lab/">Series: Signal Lab</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/rf-scope/">Series: RF Scope</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/series/crypto-lab/">Series: Crypto Lab</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/blog/category/solution-postmortem/">Solution Postmortem</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Hardware
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="presentation" class="nav-group__heading">Start here</li><li role="none">
+                    <a role="menuitem" href="/what-do-i-need-for-gophertrunk/">What hardware do I need?</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/police-scanner-vs-sdr/">Police scanner vs GopherTrunk (SDR)</a>
+                  </li><li role="presentation" class="nav-group__heading">Build lists</li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-build-lists/">All GopherTrunk build lists</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-pc-build/">PC / laptop build</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-sbc-build/">Raspberry Pi / SBC build</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-outdoor-base-build/">Outdoor base station build</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-portable-build/">Portable / field build</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/gophertrunk-multi-dongle-build/">Multi-dongle build</a>
+                  </li><li role="presentation" class="nav-group__heading">Police scanners</li><li role="none">
+                    <a role="menuitem" href="/best-police-scanners/">Best police scanners</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/how-police-scanners-work/">How police scanners work</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/police-scanner-encryption/">Scanner encryption explained</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/police-scanner-legal/">Is a police scanner legal?</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/scanner-frequencies/">Scanner frequencies by service</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/how-to-program-a-police-scanner/">How to program a scanner</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#consumer-scanners">All scanner models (Field Guide)</a>
+                  </li><li role="presentation" class="nav-group__heading">SDRs & receivers</li><li role="none">
+                    <a role="menuitem" href="/best-sdr-for-gophertrunk/">Best SDR for GopherTrunk</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/best-rtl-sdr/">Best RTL-SDR</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/best-hf-sdr/">Best HF SDR</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#sdr-devices">All SDR devices (Field Guide)</a>
+                  </li><li role="presentation" class="nav-group__heading">Antennas & accessories</li><li role="none">
+                    <a role="menuitem" href="/best-scanner-antenna/">Best scanner antennas</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/best-sdr-antenna/">Best SDR antenna</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/sdr-cables-and-connectors/">SDR cables & connectors</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/antenna-mast-and-mounting-guide/">Masts, mounts & mounting hardware</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/best-sdr-lna/">LNAs & filters</a>
+                  </li><li role="presentation" class="nav-group__heading">Computers</li><li role="none">
+                    <a role="menuitem" href="/best-single-board-computer-for-gophertrunk/">Best single-board computer</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/raspberry-pi-sdr-scanner/">Run GopherTrunk on a Raspberry Pi</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/reference/#hw-sbc">All SBCs (Field Guide)</a>
+                  </li><li role="presentation" class="nav-group__heading">Setup</li><li role="none">
+                    <a role="menuitem" href="/hardware.html">SDR hardware setup</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Install
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/downloads.html">Downloads</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/hardware.html">Hardware</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/install-linux.html">Linux install</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/install-macos.html">macOS install</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/install-windows.html">Windows install</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Operate
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/launcher.html">Launcher</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/user-guide-windows.html">Windows user guide</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/tui.html">TUI</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/web.html">Web console</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/live-edits.html">Live edits</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/import.html">Import (PDF / CSV)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/bookmarks.html">Bookmarks</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/cc-activity.html">CC Activity</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/radio-ids.html">Radio IDs</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/plots.html">Plots (signal scopes)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/constellation.html">Constellation</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/symbol-scope.html">Symbol scope</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/eye-diagram.html">Eye diagram</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/tuning.html">Tuning (receiver meters)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/histogram.html">Symbol histogram</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/hunt.html">Hunt (discover systems)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/siglab.html">SigLab (offline workbench)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/rfscope.html">RF Scope (protocol-agnostic scene analysis)</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/rigctld.html">rigctld integration</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/api-events.html">Event API & webhooks</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/hardening.html">Hardening</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Technical docs
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/architecture.html">Architecture</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/vocoders.html">Vocoders</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/voice-calibration.html">Voice calibration</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/dmr-encryption.html">DMR encryption</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/pocsag.html">POCSAG paging</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/aprs.html">APRS / AX.25</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/opt-in-features.html">Opt-in features</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/status.html">Status</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/roadmap.html">Roadmap</a>
+                  </li><li role="none">
+                    <a role="menuitem" href="/release.html">Cutting a release</a>
+                  </li></ul>
+          </li><li class="nav-group">
+            <button type="button" class="nav-group__label" aria-haspopup="true" aria-expanded="false">
+              Support
+              <svg class="nav-group__chevron" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <ul class="nav-group__items" role="menu"><li role="none">
+                    <a role="menuitem" href="/support.html">Support</a>
+                  </li></ul>
+          </li></ul>
+
+      <ul class="site-nav__external">
+        <li class="site-search">
+          <form class="site-search__form" role="search" action="/search/" method="get">
+            <span class="site-search__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+</span>
+            <input class="site-search__input" type="search" name="q" placeholder="Search…" aria-label="Search docs and lessons" autocomplete="off">
+          </form>
+        </li><li>
+            <a href="https://discord.gg/x49Hr62uH" rel="noopener" aria-label="Discord" title="Discord"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.79 19.79 0 0 0 16.558 3.2a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.65 12.65 0 0 0-.617-1.249.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 5.928 4.37a.07.07 0 0 0-.032.027C2.533 9.046 1.62 13.58 2.07 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.25 14.25 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.029ZM8.02 15.331c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.955 2.418-2.157 2.418Zm7.974 0c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+</a>
+          </li><li>
+            <a href="https://www.reddit.com/r/GopherTrunk" rel="noopener" aria-label="Reddit" title="Reddit"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645a2.66 2.66 0 0 0-1.835.731c-1.81-1.297-4.286-2.143-7.03-2.244l1.198-5.633 3.927.832a1.876 1.876 0 0 0 1.875 1.811 1.882 1.882 0 0 0 1.881-1.881A1.882 1.882 0 0 0 19.478 0a1.886 1.886 0 0 0-1.673 1.038l-4.382-.927a.658.658 0 0 0-.775.504l-1.337 6.286c-2.788.082-5.305.928-7.143 2.237a2.656 2.656 0 0 0-1.82-.723C.886 8.415-.293 9.6.011 11.038a2.65 2.65 0 0 0 1.483 2.022.7.7 0 0 0-.026.181c0 3.722 4.323 6.745 9.677 6.745 5.354 0 9.676-3.018 9.676-6.745 0-.057-.005-.118-.014-.176A2.65 2.65 0 0 0 24 11.779Zm-16.5 1.844c0-1.038.84-1.881 1.88-1.881a1.88 1.88 0 0 1 1.88 1.881 1.882 1.882 0 0 1-1.88 1.88 1.886 1.886 0 0 1-1.88-1.88Zm10.522 4.342c-1.298 1.297-3.78 1.397-4.504 1.397-.727 0-3.209-.106-4.504-1.397a.486.486 0 0 1 0-.692.487.487 0 0 1 .69 0c.821.82 2.576 1.117 3.815 1.117 1.238 0 2.997-.299 3.816-1.118a.487.487 0 0 1 .69.001.49.49 0 0 1-.003.691Zm-.319-2.46a1.88 1.88 0 0 1-1.88-1.88 1.88 1.88 0 0 1 1.88-1.882c1.04 0 1.88.842 1.88 1.881a1.881 1.881 0 0 1-1.88 1.882Z"/></svg>
+</a>
+          </li><li>
+            <a href="https://github.com/MattCheramie/GopherTrunk" rel="noopener" aria-label="GitHub" title="GitHub"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.18-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.07.8 2.15 0 1.56-.01 2.81-.01 3.19 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+</a>
+          </li><li>
+            <a href="https://github.com/MattCheramie/GopherTrunk/releases" rel="noopener" aria-label="Releases" title="Releases"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+</a>
+          </li><li>
+            <a href="https://github.com/sponsors/MattCheramie" rel="noopener" aria-label="Sponsor" title="Sponsor"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+</a>
+          </li><li class="site-nav__auth">
+          <a class="nav-auth" href="/account/" data-auth-nav aria-label="Account" title="Account">
+            <span class="nav-auth__icon" aria-hidden="true">
+              <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="3"/><path d="M2.5 13.8a5.6 5.6 0 0 1 11 0"/></svg>
+            </span>
+            <span class="nav-auth__label">Account</span>
+          </a>
+        </li>
+        <li>
+          <button class="dark-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <span class="dark-toggle__sun" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+</span>
+            <span class="dark-toggle__moon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+</span>
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="content" class="page" role="main">
+  <div class="container page__container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/learn/">Learn</a></li>
+        <li><a href="/learn/building-ai/">Building AI Into Software</a></li><li><span class="breadcrumb__group">Unit 6 — Shipping & Operating AI Features</span></li><li><span aria-current="page">Observability & monitoring</span></li>
+      </ol>
+    </nav>
+
+    <article class="prose lesson">
+      <header class="lesson__head">
+        <p class="lesson__meta"><span class="lesson__step">Lesson 27 of 28</span>
+            <span class="lesson__sep" aria-hidden="true">·</span><span class="lesson__badge lesson__badge--advanced">advanced</span>
+            <span class="lesson__sep" aria-hidden="true">·</span><span class="lesson__time">6 min read</span>
+        </p><p class="lesson__prereq"><span class="lesson__prereq-label">Before this:</span><a class="lesson__chip" href="/learn/building-ai/evaluating-ai-features/">Evaluating AI features</a></p></header>
+
+      <div class="lesson__body" data-cta-host>
+        <h1 id="observability--monitoring">Observability &amp; monitoring</h1>
+
+<div class="tldr">
+  <p><span class="tldr__label">Key takeaways</span>
+<strong>Log</strong> every model call, <strong>trace</strong> multi-step flows, watch <strong>metrics</strong>, and hunt
+for <strong>quality drift</strong>. You can’t fix what you can’t see, so instrument every model
+call — inputs, outputs, tokens, latency, cost, and errors. A model’s behaviour isn’t
+visible in your code the way ordinary logic is; the only way to know what it did is to
+record it. This is where <a href="/learn/building-ai/evaluating-ai-features/">evaluating AI features</a>
+continues once the feature is live.</p>
+</div>
+
+<p>Ordinary software is deterministic: read the code and you can reason about what it
+does. An AI feature isn’t like that. The same code produces different outputs depending
+on the input, the prompt, and the exact model version the provider is serving that day.
+You cannot infer what happened from the source — you have to record what actually went
+through the system. Observability is how you turn an opaque box into something you can
+debug, measure, and improve.</p>
+
+<h2 id="log-the-right-things">Log the right things</h2>
+
+<p>The foundation is logging every model call with enough detail to reconstruct it later.
+For each call, capture:</p>
+
+<ul>
+  <li><strong>The prompt and inputs</strong> — the full text or structured input sent to the model.</li>
+  <li><strong>The output</strong> — exactly what came back, before any post-processing.</li>
+  <li><strong>The model and version</strong> — which model answered, including the version string.</li>
+  <li><strong>Token counts</strong> — input and output tokens, the basis of both cost and latency.</li>
+  <li><strong>Latency</strong> — how long the call took, end to end.</li>
+  <li><strong>Cost</strong> — derived from token counts and the model’s pricing.</li>
+  <li><strong>Errors</strong> — timeouts, refusals, rate limits, and malformed output.</li>
+</ul>
+
+<p>Log all of this <strong>while respecting privacy</strong>. Prompts and outputs routinely contain
+personal information, so redact or hash PII before it lands in your logs, and keep
+retention short. What you record about your users is a compliance question as much as a
+technical one — see <a href="/learn/building-ai/privacy-data-and-compliance/">privacy, data &amp; compliance</a>.</p>
+
+<h2 id="trace-multi-step-flows">Trace multi-step flows</h2>
+
+<p>A single log line is enough for a single call. But agents and
+<a href="/learn/building-ai/building-a-rag-pipeline/">RAG</a> systems aren’t single calls — they’re
+chains of them. An <a href="/learn/building-ai/what-is-an-ai-agent/">agent</a> might reason, call a
+tool, read the result, reason again, and call another. A RAG pipeline retrieves context,
+then feeds it to the model.</p>
+
+<p><strong>Tracing</strong> ties those steps together under one request so you can see the whole flow.
+Capture each step, every tool call and its result, and the retrieved context that was
+actually put in front of the model. When an answer comes out wrong, the trace tells you
+<em>why</em> — the model reasoned fine but a tool returned bad data, or the retriever pulled the
+wrong document. Without the trace you only see the bad answer, not the step that caused
+it.</p>
+
+<h2 id="metrics--dashboards">Metrics &amp; dashboards</h2>
+
+<p>Logs and traces explain individual requests; <strong>metrics</strong> show you the system in
+aggregate. Track:</p>
+
+<ul>
+  <li><strong>Latency</strong> — typical and worst-case response time.</li>
+  <li><strong>Cost</strong> — spend per request and total, so a runaway bill can’t surprise you.</li>
+  <li><strong>Throughput</strong> — requests per second the system is handling.</li>
+  <li><strong>Error and refusal rates</strong> — how often calls fail or the model declines.</li>
+  <li><strong>Token usage</strong> — the driver behind both cost and latency.</li>
+</ul>
+
+<p>Put these on a dashboard and watch the <strong>trends</strong>, not just the current number. Set
+<strong>budgets and alerts</strong> so a spike — cost doubling overnight, latency creeping up — reaches
+you before your users feel it.</p>
+
+<h2 id="quality-in-production">Quality in production</h2>
+
+<p>Pre-launch evals give you a snapshot, and a snapshot isn’t enough. Once the feature is
+live, real users send inputs you never imagined, and the model underneath you may change.
+Keep measuring quality after launch:</p>
+
+<ul>
+  <li><strong>Online evals</strong> — run automated quality checks against real production traffic, not
+just your fixed test set.</li>
+  <li><strong>User feedback</strong> — a simple thumbs up/down on each answer is a cheap, honest signal.</li>
+  <li><strong>Human review</strong> — sample a slice of outputs and read them; nothing replaces a person
+spotting a subtly wrong answer.</li>
+  <li><strong>Quality drift</strong> — watch for slow decline as inputs shift and the provider updates the
+model, even when your own code hasn’t changed.</li>
+</ul>
+
+<p>This is <a href="/learn/building-ai/evaluating-ai-features/">evaluation</a> that never stops. The
+feature that scored well the day you shipped it can quietly get worse, and only ongoing
+measurement catches it.</p>
+
+<h2 id="alerting">Alerting</h2>
+
+<p>Metrics you never look at won’t save you. Wire up <strong>alerts</strong> that fire on the things that
+signal trouble: a <strong>cost spike</strong>, a <strong>latency spike</strong>, a jump in <strong>error rates</strong>, or a rash
+of <strong>guardrail hits</strong> where the model tries to do something it shouldn’t. A good alert
+catches a bad deploy or a silent provider-side change within minutes instead of days —
+long before it becomes a support flood or a budget overrun.</p>
+
+<h2 id="close-the-loop">Close the loop</h2>
+
+<p>Observability isn’t just defence. Every production failure is raw material. A wrong answer
+you spot in the logs becomes a <strong>new eval case</strong>; a class of failures becomes a <strong>prompt
+fix</strong> or a guardrail. Feed what you see in production back into your test set and your
+prompts, and the system gets steadily better. Observability is the sensor that drives the
+whole improvement cycle — without it you’re flying blind, and with it every mistake teaches
+you something.</p>
+
+<div class="knowledge-check" data-quiz="" data-correct-msg="Right — pre-launch tests are a snapshot; only ongoing monitoring catches slow drift in the live system.">
+  <p class="knowledge-check__q">Quick check: a shipped feature's answer quality slowly degrades over weeks, though nothing in your code changed. What catches it?</p>
+  <ul class="quiz__options">
+    <li><button type="button" class="quiz__option" data-answer="wrong">A more thorough round of one-time pre-launch testing</button></li>
+    <li><button type="button" class="quiz__option" data-answer="correct">Ongoing monitoring — online evals and user feedback, not one-time pre-launch testing</button></li>
+    <li><button type="button" class="quiz__option" data-answer="wrong">Lowering the model's temperature setting</button></li>
+  </ul>
+  <p class="quiz__feedback" data-quiz-feedback="" hidden=""></p>
+</div>
+
+<h2 id="recap">Recap</h2>
+
+<ul>
+  <li><strong>You can’t fix what you can’t see</strong> — a model’s behaviour isn’t visible in your code, so instrument every call.</li>
+  <li><strong>Log the right things</strong> — prompt, output, model and version, tokens, latency, cost, and errors, with PII redacted.</li>
+  <li><strong>Trace multi-step flows</strong> — capture each step, tool call, and retrieved context so you can debug <em>why</em> an answer went wrong.</li>
+  <li><strong>Watch metrics</strong> — latency, cost, throughput, error/refusal rates, and token usage; alert on spikes and set budgets.</li>
+  <li><strong>Quality doesn’t stop at launch</strong> — run online evals, collect user feedback, sample for human review, and watch for drift.</li>
+  <li><strong>Close the loop</strong> — turn production failures into new eval cases and prompt fixes.</li>
+</ul>
+
+<p>Next up: <a href="/learn/building-ai/shipping-your-first-ai-feature/">shipping your first AI feature</a>.</p>
+<aside class="page-cta page-cta--try" data-cta="try" aria-label="Try GopherTrunk">
+  <h2 class="page-cta__title">Start scanning in minutes</h2>
+  <p class="page-cta__lede">GopherTrunk turns a cheap RTL-SDR dongle into a full digital-trunking scanner — P25, DMR, TETRA, NXDN and more, decoded by one pure-Go static binary with nothing else to install. Download the latest build and follow your first system tonight.</p>
+  <div class="page-cta__actions">
+    <a class="btn btn--primary" href="/downloads.html" data-cta-event="cta_try_download">Download GopherTrunk v0.9.5 &rarr;</a>
+  </div>
+</aside>
+
+<aside class="page-cta page-cta--support" data-cta="support" aria-label="Support GopherTrunk">
+  <h2 class="page-cta__title">Help keep GopherTrunk growing</h2>
+  <p class="page-cta__lede">GopherTrunk is free, open source, and built in spare time. If it's earned a spot in your shack, a small tip funds the next protocol, feature, and guide — and keeps it all free for everyone.</p>
+  <div class="page-cta__actions">
+    <a class="btn btn--primary" href="https://www.buymeacoffee.com/Mrcheramie" rel="noopener" data-cta-event="cta_support_bmc">Buy me a coffee</a>
+    <a class="btn btn--ghost" href="https://github.com/sponsors/MattCheramie" rel="noopener" data-cta-event="cta_support_sponsors">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+
+      <span>GitHub Sponsors</span>
+    </a>
+  </div>
+</aside>
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="Mrcheramie" data-description="Support me on Buy me a coffee!" data-message="Help support more content like this!" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script></div><section class="lesson__faq" aria-label="Frequently asked questions">
+          <h2 id="faq">Frequently asked questions</h2><details class="lesson__faq-item">
+              <summary>What is LLM observability?</summary>
+              <div class="lesson__faq-answer"><p>It’s the practice of instrumenting an AI system so you can see what it actually did in production — the inputs, outputs, model version, token counts, latency, cost, and errors of every model call. Traditional apps are deterministic and easy to reason about; a model’s behaviour shifts with the input, the prompt, and even the provider’s version, so you can’t infer what happened from the code alone. Observability makes that invisible behaviour visible.</p>
+</div>
+            </details><details class="lesson__faq-item">
+              <summary>How is monitoring different from pre-launch evaluation?</summary>
+              <div class="lesson__faq-answer"><p>Pre-launch evals test a fixed set of cases before you ship, giving you a snapshot of quality on that day. Monitoring watches the live system continuously as real inputs and real users flow through it. Both matter — evals gate the release, monitoring catches what the evals couldn’t foresee, including drift and inputs you never thought to test.</p>
+</div>
+            </details><details class="lesson__faq-item">
+              <summary>What is quality drift?</summary>
+              <div class="lesson__faq-answer"><p>Quality drift is a gradual decline in how well a shipped feature performs, even though nothing in your code changed. It happens because the world moves — user inputs shift over time, and the provider may update the model underneath you. A feature that scored well at launch can quietly degrade, which is why online evals and user feedback matter long after release.</p>
+</div>
+            </details></section></article><nav class="path-nav" aria-label="Lessons in this module"><a class="path-nav__link path-nav__link--prev" href="/learn/building-ai/privacy-data-and-compliance/">
+        <span class="path-nav__dir">&larr; Previous</span>
+        <span class="path-nav__title">Privacy, data & compliance</span>
+      </a><a class="path-nav__link path-nav__link--next" href="/learn/building-ai/shipping-your-first-ai-feature/">
+        <span class="path-nav__dir">Next &rarr;</span>
+        <span class="path-nav__title">Shipping your first AI feature</span>
+      </a></nav><footer class="page__edit">
+        <a href="https://github.com/MattCheramie/GopherTrunk/blob/main/learn/building-ai/observability-and-monitoring.md" rel="noopener">
+          Edit this page on GitHub &rarr;
+        </a>
+      </footer></div>
+</main><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Observability & monitoring",
+  "description": "Why you can't fix what you can't see — logging every model call, tracing multi-step agent and RAG flows, tracking cost and latency metrics, running online evals, and catching quality drift in production.",
+  "url": "https://gophertrunk.org/learn/building-ai/observability-and-monitoring/",
+  "image": "https://gophertrunk.org/assets/gophertrunk-logo.png",
+  "inLanguage": "en",
+  "isPartOf": {
+    "@type": "Course",
+    "name": "Building AI Into Your Software — from your first API call to a feature you ship",
+    "url": "https://gophertrunk.org/learn/building-ai/"
+  },"educationalLevel": "advanced","keywords": "LLM observability, monitoring, logging prompts, tracing, cost metrics, latency, quality drift, online evals, user feedback, alerting, production AI","author": {
+    "@type": "Person",
+    "name": "Matt Cheramie",
+    "url": "https://github.com/MattCheramie"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "GopherTrunk",
+    "url": "https://gophertrunk.org",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gophertrunk.org/assets/gophertrunk-logo.png"
+    }
+  },
+  "mainEntityOfPage": { "@type": "WebPage", "@id": "https://gophertrunk.org/learn/building-ai/observability-and-monitoring/" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://gophertrunk.org/" },
+    { "@type": "ListItem", "position": 2, "name": "Learn", "item": "https://gophertrunk.org/learn/" },
+    { "@type": "ListItem", "position": 3, "name": "Building AI Into Software", "item": "https://gophertrunk.org/learn/building-ai/" },
+    { "@type": "ListItem", "position": 4, "name": "Observability & monitoring", "item": "https://gophertrunk.org/learn/building-ai/observability-and-monitoring/" }
+  ]
+}
+</script><script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+      "@type": "Question",
+      "name": "What is LLM observability?",
+      "acceptedAnswer": { "@type": "Answer", "text": "It's the practice of instrumenting an AI system so you can see what it actually did in production — the inputs, outputs, model version, token counts, latency, cost, and errors of every model call. Traditional apps are deterministic and easy to reason about; a model's behaviour shifts with the input, the prompt, and even the provider's version, so you can't infer what happened from the code alone. Observability makes that invisible behaviour visible." }
+    },{
+      "@type": "Question",
+      "name": "How is monitoring different from pre-launch evaluation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Pre-launch evals test a fixed set of cases before you ship, giving you a snapshot of quality on that day. Monitoring watches the live system continuously as real inputs and real users flow through it. Both matter — evals gate the release, monitoring catches what the evals couldn't foresee, including drift and inputs you never thought to test." }
+    },{
+      "@type": "Question",
+      "name": "What is quality drift?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Quality drift is a gradual decline in how well a shipped feature performs, even though nothing in your code changed. It happens because the world moves — user inputs shift over time, and the provider may update the model underneath you. A feature that scored well at launch can quietly degrade, which is why online evals and user feedback matter long after release." }
+    }]
+}
+</script><script defer src="/assets/js/store.js"></script>
+<script defer src="/assets/js/learn.js"></script>
+<section class="join-cta" aria-label="Join the community">
+  <div class="container join-cta__inner">
+    <div class="join-cta__copy">
+      <h2 class="join-cta__title">Join the GopherTrunk community</h2>
+      <p class="join-cta__lede">Stuck on a system, IDing a mystery signal, or have a feature in mind? Ask on the forum or swap notes with other operators on Discord and Reddit — questions get answered fast.</p>
+    </div>
+    <div class="join-cta__actions">
+      <a class="btn btn--forum" href="/forum/" data-cta-event="cta_join_forum">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+
+        <span>Visit the Forum</span>
+      </a>
+      <a class="btn btn--discord" href="https://discord.gg/x49Hr62uH" rel="noopener" data-cta-event="cta_join_discord">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.79 19.79 0 0 0 16.558 3.2a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.249a18.27 18.27 0 0 0-5.487 0 12.65 12.65 0 0 0-.617-1.249.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 5.928 4.37a.07.07 0 0 0-.032.027C2.533 9.046 1.62 13.58 2.07 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.25 14.25 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.1 13.1 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.192.372-.291a.074.074 0 0 1 .077-.01c3.927 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.009c.12.099.246.198.373.292a.077.077 0 0 1-.006.128 12.3 12.3 0 0 1-1.873.891.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.055c.5-5.177-.838-9.674-3.549-13.66a.06.06 0 0 0-.031-.029ZM8.02 15.331c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.955 2.418-2.157 2.418Zm7.974 0c-1.182 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+
+        <span>Join the Discord</span>
+      </a>
+      <a class="btn btn--reddit" href="https://www.reddit.com/r/GopherTrunk" rel="noopener" data-cta-event="cta_join_reddit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 11.779c0-1.459-1.192-2.645-2.657-2.645a2.66 2.66 0 0 0-1.835.731c-1.81-1.297-4.286-2.143-7.03-2.244l1.198-5.633 3.927.832a1.876 1.876 0 0 0 1.875 1.811 1.882 1.882 0 0 0 1.881-1.881A1.882 1.882 0 0 0 19.478 0a1.886 1.886 0 0 0-1.673 1.038l-4.382-.927a.658.658 0 0 0-.775.504l-1.337 6.286c-2.788.082-5.305.928-7.143 2.237a2.656 2.656 0 0 0-1.82-.723C.886 8.415-.293 9.6.011 11.038a2.65 2.65 0 0 0 1.483 2.022.7.7 0 0 0-.026.181c0 3.722 4.323 6.745 9.677 6.745 5.354 0 9.676-3.018 9.676-6.745 0-.057-.005-.118-.014-.176A2.65 2.65 0 0 0 24 11.779Zm-16.5 1.844c0-1.038.84-1.881 1.88-1.881a1.88 1.88 0 0 1 1.88 1.881 1.882 1.882 0 0 1-1.88 1.88 1.886 1.886 0 0 1-1.88-1.88Zm10.522 4.342c-1.298 1.297-3.78 1.397-4.504 1.397-.727 0-3.209-.106-4.504-1.397a.486.486 0 0 1 0-.692.487.487 0 0 1 .69 0c.821.82 2.576 1.117 3.815 1.117 1.238 0 2.997-.299 3.816-1.118a.487.487 0 0 1 .69.001.49.49 0 0 1-.003.691Zm-.319-2.46a1.88 1.88 0 0 1-1.88-1.88 1.88 1.88 0 0 1 1.88-1.882c1.04 0 1.88.842 1.88 1.881a1.881 1.881 0 0 1-1.88 1.882Z"/></svg>
+
+        <span>r/GopherTrunk</span>
+      </a>
+    </div>
+  </div>
+</section><footer class="site-footer" role="contentinfo">
+  <div class="container site-footer__inner">
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Project</h2>
+      <ul>
+        <li><a href="https://github.com/MattCheramie/GopherTrunk#readme">README</a></li>
+        <li><a href="https://github.com/MattCheramie/GopherTrunk/blob/main/LICENSE">License</a></li>
+        <li><a href="https://github.com/MattCheramie/GopherTrunk/blob/main/CHANGELOG.md">Changelog</a></li>
+        <li><a href="https://github.com/MattCheramie/GopherTrunk/blob/main/SECURITY.md">Security</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Community</h2>
+      <ul>
+        <li><a href="https://discord.gg/x49Hr62uH" rel="noopener">Discord</a></li>
+        <li><a href="https://www.reddit.com/r/GopherTrunk" rel="noopener">Reddit — r/GopherTrunk</a></li>
+        <li><a href="https://github.com/sponsors/MattCheramie" rel="noopener">GitHub Sponsors</a></li>
+        <li><a href="https://ko-fi.com/Mrcheramie" rel="noopener">Ko-fi</a></li>
+        <li><a href="https://github.com/MattCheramie/GopherTrunk/issues" rel="noopener">Issues</a></li>
+        <li><a href="/support.html">More ways to help</a></li>
+      </ul>
+    </div>
+
+    <div class="site-footer__col">
+      <h2 class="site-footer__heading">Built with</h2>
+      <ul>
+        <li>Jekyll + GitHub Pages</li>
+        <li>Custom layout, no theme</li>
+        <li>Apache 2.0 licensed</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container site-footer__credit">
+    <span>&copy; 2026 GopherTrunk contributors.</span>
+    <span><a href="/sitemap/">Site map</a> &middot; Page generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+  </div>
+</footer>
+<div class="gt-promo gt-promo--popup" id="gt-promo-star" hidden tabindex="-1"
+     role="dialog" aria-modal="true" aria-labelledby="gt-promo-try-title"
+     aria-describedby="gt-promo-try-body"
+     data-promo="star-repo" data-promo-variant="popup" data-promo-fallback="inline"
+     data-promo-trigger-time="120000" data-promo-trigger-scroll="0.25"
+     data-promo-frequency="once">
+  <div class="gt-promo__backdrop" data-promo-close data-promo-close-method="backdrop"></div>
+  <div class="gt-promo__card" role="document">
+    <button type="button" class="gt-promo__close" aria-label="Close"
+            data-promo-close data-promo-close-method="close_button">&times;</button>
+    <div class="gt-promo__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.18-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.07.8 2.15 0 1.56-.01 2.81-.01 3.19 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+</div><div class="gt-promo__step" data-promo-step="try">
+      <h2 class="gt-promo__title" id="gt-promo-try-title">Have you tried GopherTrunk yet?</h2>
+      <p class="gt-promo__body" id="gt-promo-try-body">
+        GopherTrunk turns a cheap RTL-SDR dongle into a full digital-trunking
+        scanner — P25, DMR, TETRA, NXDN and more, decoded by one pure-Go static
+        binary with nothing else to install. Grab the latest build and follow
+        your first system tonight.
+      </p>
+      <div class="gt-promo__actions">
+        <a class="btn btn--primary" href="/downloads.html"
+           target="_blank" rel="noopener" data-cta-event="cta_try_download">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.18-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.07.8 2.15 0 1.56-.01 2.81-.01 3.19 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+
+          <span>Download GopherTrunk</span>
+        </a>
+      </div>
+      <button type="button" class="gt-promo__later" data-promo-advance="star">
+        I'm already using GopherTrunk
+      </button>
+    </div><div class="gt-promo__step" data-promo-step="star" hidden>
+      <h2 class="gt-promo__title" id="gt-promo-star-title">Enjoying GopherTrunk? Give it a star ⭐</h2>
+      <p class="gt-promo__body" id="gt-promo-star-body">
+        GopherTrunk is free and open source, built in the open by a tiny team. A
+        GitHub star costs you one click, helps other scanner operators find it, and
+        keeps the project moving. Would you drop one?
+      </p>
+      <div class="gt-promo__actions">
+        <a class="github-button" href="https://github.com/MattCheramie/GopherTrunk"
+           data-color-scheme="no-preference: light; light: light; dark: dark;"
+           data-icon="octicon-star" data-size="large" data-show-count="true"
+           aria-label="Star MattCheramie/GopherTrunk on GitHub">Star</a>
+        <a class="btn btn--primary" href="https://github.com/MattCheramie/GopherTrunk"
+           target="_blank" rel="noopener" data-cta-event="cta_star_github">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-1.18-.02-2.13-3.2.7-3.88-1.36-3.88-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.39.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.78 0c2.2-1.49 3.17-1.18 3.17-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.43-2.69 5.41-5.25 5.69.42.36.8 1.07.8 2.15 0 1.56-.01 2.81-.01 3.19 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
+
+          <span>View on GitHub</span>
+        </a>
+      </div>
+      <button type="button" class="gt-promo__later"
+              data-promo-close data-promo-close-method="maybe_later">Maybe later</button>
+    </div>
+  </div>
+</div>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<script defer src="/assets/js/analytics.js"></script>
+    <script defer src="/assets/js/site.js"></script>
+    <script defer src="/assets/js/autolink.js"></script>
+    <script defer src="/assets/js/promos.js"></script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+Installing ROCm & Llama.cpp for CPUs & APUs.
+Or: Adding a Device Driver for AMD GPUs & iGPUs.
+Thank you for reading this post.
+My name is Brian and I'm a developer from New Zealand. I've been interested in computers since the early 1990s. My first language was QBASIC. (Things have changed since the days of MS-DOS.)
+I am the managing director of a one-man startup called Digital Core (NZ) Limited. I have accepted the "12 Startups in 12 Months" challenge so that DigitalCore will have income-generating products by April 2024.
+This blog will follow the "12 Startups" project during its design, development, and deployment, cover the Agile principles and the DevOps philosophy that is used by the "12 Startups" project, and delve into the world of AI, machine learning, deep learning, prompt engineering, and large language models.
+I hope you enjoyed this post and, if you did, I encourage you to explore some others I've written. And remember: The best technologies bring people together.
+Abstract.
+I document my complete workflow for installing AMD ROCm drivers on Ubuntu Desktop 24.04 LTS and building the llama.cpp library with HIP (GPU) backend support for my AMD Strix Halo APU with its Radeon 8060S iGPU. I cover every step — adding the ROCm repository, installing the drivers, cloning and configuring the llama.cpp build with the correct GPU target, and verifying the final GPU-accelerated binary.
+Attributions:
+None for this post.
+An Introduction.
+I run llama.cpp on my system to serve large language models locally. By default, the Nix package manager installs a CPU-only build that ignores the -ngl GPU offload flag — meaning my Radeon 8060S iGPU sits idle while the CPU churns through inference. That is a waste of my hardware. I write this post to capture exactly how I enable GPU acceleration: installing AMD's ROCm drivers and rebuilding llama.cpp with the HIP backend so my iGPU does the heavy lifting.
+The Big Picture.
+My workflow follows three broad phases. First, I install the AMD ROCm driver stack onto my Ubuntu-based system — adding the official repository, pinning the package priority, and installing the ROCm metapackage. Second, I clone the llama.cpp repository from GitHub and configure the CMake build with the HIP backend enabled, targeting my Strix Halo's gfx1151 architecture. Third, I build the project, install the binary to a local prefix, verify the HIP support is active, and add the accelerated binary to my PATH so every llama-server invocation uses my iGPU.
+Prerequisites.
+- Ubuntu Desktop 22.04 LTS or later,
+- An AMD CPU or APU (Accelerated Processing Unit).
+Updating my Base System.
+- From the terminal, I update my system:
+sudo apt clean && \
+sudo apt update && \
+sudo apt dist-upgrade -y && \
+sudo apt --fix-broken install && \
+sudo apt autoclean && \
+sudo apt autoremove -y
+Installing OpenSSL.
+- I install OpenSSL:
+sudo apt update && sudo apt install openssl
+Installing ROCm.
+Step 1: Adding the ROCm Repository.
+- I open a terminal.
+- I add the ROCm GPG key:
+wget https://repo.radeon.com/rocm/rocm.gpg.key -qO - | gpg --dearmor | sudo tee /etc/apt/keyrings/rocm.gpg > /dev/null
+- I add the ROCm repository to my sources list:
+echo "deb [arch=amd64 signed-by=/etc/apt/keyrings/rocm.gpg] https://repo.radeon.com/rocm/apt/latest $(lsb_release -cs 2>/dev/null) main" | sudo tee --append /etc/apt/sources.list.d/rocm.list
+- I set the appropriate apt pin priority for ROCm:
+echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' | sudo tee /etc/apt/preferences.d/rocm-pin-600
+Step 2: Updating Package Lists.
+- I update my system to make the new packages available for installation:
+sudo apt update
+Step 3: Installing the ROCm Package.
+- I Install the ROCm package:
+sudo apt install -y rocm
+Step 4: Adding My Account to the ROCm Groups.**
+- I (-a)ppend my $USER account to the ROCm (-G)roups:
+sudo usermod -aG render,video $USER
+- I refresh the terminal:
+source ~/.bashrc
+- I test the ROCm installation:
+sudo rocminfo
+- I reboot my system (the first of three times):
+reboot
+Building the llama.cpp Library for ROCm.
+Setting up the Environment.
+- I set up the environment variables so the build tools can find the ROCm installation:
+export PATH=/opt/rocm/bin:$PATH
+export ROCM_PATH=/opt/rocm
+Cloning the Repo from GitHub.
+- I change to my Home directory, clone the llama.cpp repository, and change to the llama.cpp directory:
+cd ~
+git clone https://github.com/ggml-org/llama.cpp.git
+cd llama.cpp
+Configuring the Build for ROCm.
+- I make the build directory and change to it:
+mkdir -p build && cd build
+- I install CMake:
+sudo apt install -y cmake
+- I configure CMake with the HIP backend enabled, static libraries, and server-only mode:
+cmake .. \
+    -DGGML_HIP=ON \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DAMDGPU_TARGETS="gfx1151" \
+    -DCMAKE_HIP_COMPILER_ROCM_ROOT=/opt/rocm \
+    -DCMAKE_PREFIX_PATH=/opt/rocm \
+    -DBUILD_SHARED_LIBS=OFF \
+    -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+    -DCMAKE_INSTALL_PREFIX=./install
+- I reboot my system (the second of three times):
+reboot
+- To confirm the correct target for my hardware, I run:
+rocminfo | grep -E 'Name:|gfx'
+Building llama.cpp with ROCm Support.
+- I build the project using all available CPU or APU cores:
+cmake --build . --config Release -j$(nproc)
+iGPU kernels and the server binary together. I do NOT assume that the build has hung simply because the terminal output has not changed in a very long while. I step outside, I have a break, and I walk barefoot on the grass (unless there are prickles).
+Installing the Binary.
+- I install the resulting binaries to a local prefix:
+cmake --install . --prefix ./install
+Verifying the ROCm Build.
+- I confirm the build includes HIP support by running a quick smoke test:
+./install/bin/llama-server --help 2>&1 | grep -i hip
+ROCm backend is active if HIP appears in the help output.
+Adding ROCm to my PATH.
+I add the ROCm-enabled build to my PATH so the GPU/iGPU-accelerated binary is used:
+echo 'export PATH=$HOME/llama.cpp/build/install/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+- I reboot my system (third of three times):
+reboot
+The Results.
+I end up with a working ROCm installation and a GPU-accelerated llama-server binary. Running rocminfo confirms the ROCm driver stack is active and sees my Radeon 8060S iGPU. Running llama-server --help | grep hip confirms the build includes HIP backend support. I can now serve models with the -ngl -1 flag, offloading every layer to my iGPU for dramatically faster inference than the CPU-only build I used before.
+In Conclusion.
+I have successfully installed AMD ROCm drivers and built a GPU/iGPU-accelerated llama.cpp binary on my GMKtek EVO-X2 hardware running the Ubuntu 24.04 LTS distribution. My Radeon 8060S iGPU now handles inference through the HIP backend, and I serve models with full layer offload using the -ngl -1 flag. This workflow eliminates the wasted compute I had with the default CPU-only Nix build and puts my hardware to proper use.
+Until next time: Be safe, be kind, be awesome, kia kaha!!
+Document Details.
+The following information is the metadata for this post.
+Hash Tags.
+#ROCm #llama-cpp #AMD #GPU #iGPU #HIP #Ubuntu #Linux #Strix-Halo #Radeon8060S #AI #LLM #Machine-Learning #Open-Source
+SEO Title (60 Characters).
+Installing AMD ROCm Drivers & Building llama.cpp with GPU Acceleration
+SEO Description (150 Characters).
+I install AMD ROCm drivers on Ubuntu 24.04 and build llama.cpp with HIP backend GPU acceleration for my AMD Strix Halo APU with its Radeon 8060S iGPU, covering the complete workflow.
+Permalink
+https://solodev.app/installing-rocm-llama-cpp-for-cpus-apus
+Version
+v0.5.2

@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html class="no-js" xmlns:og="http://ogp.me/ns#" itemscope itemtype="https://schema.org/WebPage">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Подробный гайд: Установка и настройка драйверов AMD в ALT Linux - ServerMon</title>
+    <meta name="keywords" itemprop="keywords" content="AMD, Alt Linux, драйверы, amdgpu, Linux, Vulkan, Mesa, Radeon"/>
+<meta name="description" itemprop="description" content="Гайд по установке драйверов AMD в ALT Linux: amdgpu, radeon, Vulkan, Mesa. Настройка, проверка работы, решение проблем."/>
+<meta name="author" content="ServerMon"/>
+<meta name="og:title" itemprop="name" content="Подробный гайд: Установка и настройка драйверов AMD в ALT Linux"/>
+<meta name="og:description" content="Гайд по установке драйверов AMD в ALT Linux: amdgpu, radeon, Vulkan, Mesa. Настройка, проверка работы, решение проблем."/>
+<meta name="og:image" content="/cdn/attachment/2026/04/4841/thumb-320x-altlinux.jpeg"/>
+<meta name="og:url" content="https://servermon.ru/blog/pomoshch-po-rabote-s-alt-linux/podrobnyy-gayd-ustanovka-i-nastroyka-drayverov-amd-v-alt-linux.html"/>
+<meta name="og:type" content="website"/>
+<meta name="date" itemprop="datePublished" content="2026-04-25T23:50:57+03:00"/>
+<meta name="revised" itemprop="dateModified" content="2026-08-04T05:11:21+03:00"/>
+<link rel="canonical" href="https://servermon.ru/blog/pomoshch-po-rabote-s-alt-linux/podrobnyy-gayd-ustanovka-i-nastroyka-drayverov-amd-v-alt-linux.html"/>
+    <link rel="stylesheet" type="text/css" href="/assets/template_mon/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/assets/template_mon/css/style.css"/>
+
+    <script type="text/javascript" src="/assets/template_mon/js_src/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/template_mon/js_src/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/template_mon/js_src/script.js" async></script>
+    <script type="text/javascript" src="/assets/template_mon/js_src/ads/468x60/adbox.js" async></script>
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+
+    <link rel="stylesheet" type="text/css" href="/assets/site/css/site.css" />
+<script type="text/javascript">
+var Main={"loading":0,"loaded":{}};
+var awaLocale="ru";
+var awaBase="/";
+</script><script type="text/javascript" src="/assets/site/js_src/lib.js"></script><script> var def_title="ServerMon"; </script><link rel="stylesheet" type="text/css" href="/assets/forms/css/bootstrap-image-gallery.css" />
+
+<script type="text/javascript" src="/assets/forms/js_src/bootstrap-image-gallery.js"></script>
+<link rel="alternate" type="application/rss+xml" title="Новости игрового и IT мира" href="https://servermon.ru/?mod=free&amp;t=feed&amp;s=rss&amp;channel=world-news">
+
+  </head>
+  <body>
+<div id="token_wrapper" style="display:none;"><input type='hidden' id='token' name='token' value='411B4F0B4028062FBF66C02A38B29991' /></div>    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="container">
+                    <button type="button" class="btn btn-navbar" id="sidebar-toggle">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                    <button type="button" class="btn btn-navbar" id="topbar-toggle" data-toggle="collapse" data-target="#top-menu">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-center">
+            <a class="brand" title="Мониторинг игровых серверов" href="/">ServerMon</a>
+            <button type="button" class="btn btn-navbar-search" href="#global-seach-modal" role="button" data-toggle="modal">
+              <i class="icon-search icon-white"></i>
+            </button>
+          </div>
+          <div id="top-menu" class="nav-collapse collapse"><ul class="menu nav">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/ui/ru/add-server"><span class="bg">Добавить сервер</span></a></li>
+<li class="level1 item2"><a class="level1 item2" href="/monitoring/"><span class="bg">Мониторинг серверов</span></a></li>
+<li class="level1 item3"><a class="level1 item3" href="/news/"><span class="bg">Новости</span></a></li>
+<li class="current active level1 item4"><a class="current active level1 item4" href="/blog/"><span class="bg">Блог</span></a></li>
+<li class="level1 item5"><a class="level1 item5" href="/articles/"><span class="bg">Статьи</span></a></li>
+<li class="level1 item6 last"><a class="level1 item6 last" href="/forum/"><span class="bg">Форум</span></a></li>
+</ul>
+<ul class="nav pull-right"><li><a class="text" href="/auth/"><i class="icon-user icon-white"></i> Вход в аккаунт</a></li></ul></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="container">
+      <div id="main" class="container" role="main">
+        <div class="row">
+          <div id="sidebar" class="span3"><div class="block feed-categories">
+    <div class="block_head">
+        <strong>Разделы блога</strong>
+    </div>
+    <div class="block_content"><ul class="menu">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/blog/pomoshch-po-linux/"><span class="bg">Помощь в Linux</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item2"><a class="level1 item2" href="/blog/instrukcii-manualy/"><span class="bg">Инструкции, мануалы</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item3"><a class="level1 item3" href="/blog/pomoshch-vk/"><span class="bg">Помощь по работе с Windows</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item4"><a class="level1 item4" href="/blog/pomoshch-po-rabote-s-alt-linux/"><span class="bg">Помощь по работе с Alt Linux</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item5"><a class="level1 item5" href="/blog/pomoshch-po-rabote-s-astra-linux/"><span class="bg">Помощь по работе с Astra Linux</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item6"><a class="level1 item6" href="/blog/pomoshch-po-rabote-s-libreoffice/"><span class="bg">Помощь по работе с LibreOffice</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item7"><a class="level1 item7" href="/blog/pomoshch-po-rabote-s-centos/"><span class="bg">Помощь по работе с CentOS</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item8"><a class="level1 item8" href="/blog/pomoshch-po-rabote-s-debian/"><span class="bg">Помощь по работе с Debian</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item9"><a class="level1 item9" href="/blog/pomoshch-po-rabote-s-dallas-lock/"><span class="bg">Помощь по работе с Dallas Lock</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item10"><a class="level1 item10" href="/blog/sredstva-zashchity-informacii/"><span class="bg">Помощь по работе с Secret Net</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item11"><a class="level1 item11" href="/blog/pomoshch-po-rabote-s-vipnet/"><span class="bg">Помощь по работе с VipNet (разное)</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item12"><a class="level1 item12" href="/blog/pomoshch-po-rabote-s-vk/"><span class="bg">Помощь по работе с VK</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item13"><a class="level1 item13" href="/blog/pomoshch-v-active-directory/"><span class="bg">Помощь по работе с Active Directory</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item14"><a class="level1 item14" href="/blog/pomoshch-po-rabote-s-dr-web/"><span class="bg">Помощь по работе с Dr. Web</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item15"><a class="level1 item15" href="/blog/pochtovyy-server/"><span class="bg">Почтовый сервер hMail Server</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item16"><a class="level1 item16" href="/blog/obshchee-o-pochtovom-servere/"><span class="bg">Общее о почтовом сервере</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item17"><a class="level1 item17" href="/blog/reestr-windows/"><span class="bg">Помощь с реестром Windows</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item18"><a class="level1 item18" href="/blog/pomoshch-po-rabote-so-strazh-nt/"><span class="bg">Помощь по работе со Страж NT</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item19"><a class="level1 item19" href="/blog/videonablyudenie/"><span class="bg">Помощь по видеонаблюдению</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item20"><a class="level1 item20" href="/blog/pomoshch-po-microsoft-office/"><span class="bg">Помощь по Microsoft Office</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item21"><a class="level1 item21" href="/blog/pomoshch-po-rabote-s-kriptoarm/"><span class="bg">Помощь по работе с КриптоАРМ</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item22"><a class="level1 item22" href="/blog/pomoshch-po-rabote-s-kriptopro/"><span class="bg">Помощь по работе с КриптоПро</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item23"><a class="level1 item23" href="/blog/pomoshch-po-rabote-s-visual-studio-2026/"><span class="bg">Помощь по работе с Visual Studio</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item24"><a class="level1 item24" href="/blog/pomoshch-po-rabote-s-pak-sobol/"><span class="bg">Помощь по работе с ПАК Соболь</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item25"><a class="level1 item25" href="/blog/pomoshch-po-rabote-s-after-effects/"><span class="bg">Помощь по работе с After Effects</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item26"><a class="level1 item26" href="/blog/pomoshch-po-rabote-so-steam/"><span class="bg">Помощь по работе со Steam</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item27"><a class="level1 item27" href="/blog/pomoshch-po-rabote-s-android/"><span class="bg">Помощь по работе с Android</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item28"><a class="level1 item28" href="/blog/pomoshch-po-programmirovaniyu/"><span class="bg">Помощь по программированию</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item29"><a class="level1 item29" href="/blog/pomoshch-po-rabote-s-akvarius/"><span class="bg">Помощь по работе с Аквариус</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item30"><a class="level1 item30" href="/blog/pomoshch-po-rabote-s-avrora-os/"><span class="bg">Помощь по работе с Аврора ОС</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item31"><a class="level1 item31" href="/blog/pomoshch-po-rabote-s-avtomobilnym-po/"><span class="bg">Помощь по работе с автомобильным ПО</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item32"><a class="level1 item32" href="/blog/pomoshch-po-rabote-s-ubuntu/"><span class="bg">Помощь по работе с ubuntu</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item33"><a class="level1 item33" href="/blog/pomoshch-po-setevomu-oborudovaniyu/"><span class="bg">Помощь по сетевому оборудованию</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item34"><a class="level1 item34" href="/blog/pomoshch-po-rabote-s-kaspersky/"><span class="bg">Помощь по работе с Kaspersky</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item35"><a class="level1 item35" href="/blog/pomoshch-po-rabote-cad/"><span class="bg">Помощь по работе CAD</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item36"><a class="level1 item36" href="/blog/pomoshch-po-rabote-s-r7-ofis/"><span class="bg">Помощь по работе с Р7-Офис</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item37"><a class="level1 item37" href="/blog/pomoshch-po-rabote-s-onlayn-kassami/"><span class="bg">Помощь по работе с онлайн-кассами</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item38"><a class="level1 item38" href="/blog/pomoshch-po-rabote-s-1s/"><span class="bg">Помощь по работе с 1С</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item39"><a class="level1 item39" href="/blog/pomoshch-po-rabote-s-red-os/"><span class="bg">Помощь по работе с РЕД ОС</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item40"><a class="level1 item40" href="/blog/instrumenty/"><span class="bg">Инструменты</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item41"><a class="level1 item41" href="/blog/pomoshch-po-rabote-s-moy-ofis/"><span class="bg">Помощь по работе с Мой Офис</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item42"><a class="level1 item42" href="/blog/pomoshch-po-rabote-s-rosa-linux/"><span class="bg">Помощь по работе с ROSA Linux</span></a><ul class="level2">
+</ul>
+</li>
+<li class="level1 item43 last"><a class="level1 item43 last" href="/blog/pomoshch-po-rabote-s-arch-linux/"><span class="bg">Помощь по работе с Arch Linux</span></a><ul class="level2">
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="block free">
+    <div class="block_content"><style type="text/css">
+    .page_tag_cloud{font-size:12px;font-weight:normal;line-height: 25px;text-align: center;}
+    .page_tag_cloud a{text-decoration: underline;margin: 0 5px;}
+</style>
+<div class="page_tag_cloud">
+
+
+<a href="/tag/cs2.html" style="font-size:123%;" title="Всего 123 материалов">CS2</a>
+
+
+<a href="/tag/debian.html" style="font-size:105%;" title="Всего 88 материалов">Debian</a>
+
+
+<a href="/tag/oshibki-itunes.html" style="font-size:112%;" title="Всего 100 материалов">Ошибки iTunes</a>
+
+
+<a href="/tag/sistemnoe-administrirovanie.html" style="font-size:113%;" title="Всего 102 материалов">системное администрирование</a>
+
+
+<a href="/tag/alt-linux.html" style="font-size:164%;" title="Всего 271 материалов">Alt Linux</a>
+
+
+<a href="/tag/ustanovka.html" style="font-size:111%;" title="Всего 98 материалов">установка</a>
+
+
+<a href="/tag/bezopasnost.html" style="font-size:149%;" title="Всего 204 материалов">Безопасность</a>
+
+
+<a href="/tag/shuter.html" style="font-size:107%;" title="Всего 92 материалов">шутер</a>
+
+
+<a href="/tag/optimizaciya.html" style="font-size:122%;" title="Всего 121 материалов">оптимизация</a>
+
+
+<a href="/tag/bios.html" style="font-size:112%;" title="Всего 101 материалов">BIOS</a>
+
+
+<a href="/tag/astra-linux.html" style="font-size:151%;" title="Всего 210 материалов">Astra Linux</a>
+
+
+<a href="/tag/secret-net.html" style="font-size:105%;" title="Всего 88 материалов">Secret Net</a>
+
+
+<a href="/tag/nastroyka.html" style="font-size:162%;" title="Всего 260 материалов">настройка</a>
+
+
+<a href="/tag/active-directory.html" style="font-size:110%;" title="Всего 96 материалов">Active Directory</a>
+
+
+<a href="/tag/informacionnaya-bezopasnost.html" style="font-size:100%;" title="Всего 80 материалов">информационная безопасность</a>
+
+
+<a href="/tag/windows.html" style="font-size:141%;" title="Всего 176 материалов">Windows</a>
+
+
+<a href="/tag/linux.html" style="font-size:200%;" title="Всего 538 материалов">Linux</a>
+
+
+<a href="/tag/gayd.html" style="font-size:178%;" title="Всего 353 материалов">гайд</a>
+
+
+<a href="/tag/server.html" style="font-size:120%;" title="Всего 117 материалов">сервер</a>
+
+
+<a href="/tag/administrirovanie.html" style="font-size:146%;" title="Всего 192 материалов">администрирование</a>
+
+
+</div>
+<hr/></div>
+</div>
+</div>		
+          <div class="span6">		
+            <ul class="breadcrumb" itemprop="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" title="Главная" href="/"><span itemprop="name">Главная</span><meta itemprop="position" content="1"/></a> <span class="divider">/</span> </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" title="Блог" href="/blog/"><span itemprop="name">Блог</span><meta itemprop="position" content="2"/></a> <span class="divider">/</span> </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" title="Помощь по работе с Alt Linux" href="/blog/pomoshch-po-rabote-s-alt-linux/"><span itemprop="name">Помощь по работе с Alt Linux</span><meta itemprop="position" content="3"/></a> <span class="divider">/</span> </li><li class="active" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" title="Подробный гайд: Установка и настройка драйверов AMD в ALT Linux" href="/blog/pomoshch-po-rabote-s-alt-linux/podrobnyy-gayd-ustanovka-i-nastroyka-drayverov-amd-v-alt-linux.html"><span itemprop="name">Подробный гайд: Установка и на..</span><meta itemprop="position" content="4"/></a></li></ul><!-- Yandex.RTB -->
+<script>window.yaContextCb=window.yaContextCb||[]</script>
+<script src="https://yandex.ru/ads/system/context.js" async></script>            <div class="block">
+              <div class="block_head cnt"><h1 id="main_cont_title">Подробный гайд: Установка и настройка драйверов AMD в ALT Linux</h1></div>
+              <div class="block_content">
+<div data-toggle="modal-gallery" data-target="#modal-gallery-page_blog">
+    <style type="text/css">
+.page_blog p{text-align: justify;}
+.page_blog .thumb_wrap{display: block;margin-left: auto;margin-right: auto;margin-bottom: 20px;}
+.page_blog .thumb_wrap.pull-left{margin-right: 20px;}
+.page_blog .thumb_wrap.pull-right{margin-left: 20px;}
+.page_blog .thumb_wrap small{display: block;white-space: normal;line-height: 1.1em;text-align: left;margin: 3px 0;}
+@media (max-width: 767px) {
+.page_blog .thumb_wrap{float: none!important;max-width: 100%!important;margin-left:auto!important;margin-right:auto!important;}
+}
+.page_blog table thead th{border: 1px #ccc solid;padding:3px}
+.page_blog table tbody td{border: 1px #ccc solid;padding:3px}
+.page_blog table{line-height: 1.2;margin-bottom: 12px;}
+@media (max-width: 767px) {
+.page_blog table{display:block;max-width:100%;overflow-x:auto;}
+}
+.page_blog h1{font-size: 21px;}
+.page_blog h2{font-size: 18px;}
+.page_blog h3{font-size: 16px;}
+.page_blog h1,h2,h3,h4,h5,h6{line-height: 1.2;margin-bottom: 12px;}
+</style>
+<script type="text/javascript">
+function pageBlogThumbClick(url, title){popup.create('page_blog_window', title, '<img src="'+url+'" alt="'+url+'"/>');}
+</script>
+<div class="page_blog" itemprop="mainEntity" itemscope itemtype="http://schema.org/NewsArticle">
+  <meta itemprop="name" content="Подробный гайд: Установка и настройка драйверов AMD в ALT Linux"/>
+    <p itemprop="description"><em>Гайд по установке драйверов AMD в ALT Linux: amdgpu, radeon, Vulkan, Mesa. Настройка, проверка работы, решение проблем.</em></p>
+  <p itemscope itemtype="https://schema.org/ItemList">
+    <span class="time muted">2026.04.25</span> &nbsp;
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/amd.html">#<span itemprop="name">AMD</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/alt-linux.html">#<span itemprop="name">Alt Linux</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/drayvery.html">#<span itemprop="name">драйверы</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/amdgpu.html">#<span itemprop="name">amdgpu</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/linux.html">#<span itemprop="name">Linux</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/vulkan.html">#<span itemprop="name">Vulkan</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/mesa.html">#<span itemprop="name">Mesa</span></a>
+    </span>
+    &nbsp; 
+        <span itemprop="itemListElement" itemscope itemtype="https://schema.org/WebPage">
+      <a itemprop="url" href="/tag/radeon.html">#<span itemprop="name">Radeon</span></a>
+    </span>
+    &nbsp; 
+      </p>
+  <hr/>
+    <div itemprop="articleBody"><p><span class="thumb_wrap" style="width:330px"><a href="/cdn/attachment/2026/04/4841/altlinux.jpeg" title="Подробный гайд: Установка и настройка драйверов AMD в ALT Linux" data-gallery="gallery" class="thumbnail"><img src="/cdn/attachment/2026/04/4841/thumb-320x-altlinux.jpeg" alt="Подробный гайд: Установка и настройка драйверов AMD в ALT Linux" /></a><small>Подробный гайд: Установка и настройка драйверов AMD в ALT Linux</small></span></p>
+
+<h4>Важно:</h4>
+
+<ul>
+<li>В большинстве случаев драйверы AMD уже встроены в ядро Linux и работают «из коробки» в ALT Linux. Ручная установка требуется редко.</li>
+</ul>
+
+<hr />
+
+<h4>1. Определение модели видеокарты</h4>
+
+<h4>Перед установкой определите, какая у вас видеокарта:</h4>
+
+<pre><code>lspci | grep -i vga
+</code></pre>
+
+<hr />
+
+<h4>Пример вывода:</h4>
+
+<pre><code>08:00.0 VGA compatible controller: Advanced Micro Devices, Inc. [AMD/ATI] Navi 23 [Radeon RX 6600/6600 XT/6600M] (rev c1)
+</code></pre>
+
+<hr />
+
+<h4>2. Какой драйвер использовать?</h4>
+
+<table>
+<thead>
+<tr>
+  <th>Поколение карт</th>
+  <th>Рекомендуемый драйвер</th>
+  <th>Пакеты в ALT Linux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Radeon HD 2000–7000, R7/R9 (до 2015)</td>
+  <td>radeon (открытый)</td>
+  <td>xorg-drv-radeon, xorg-dri-radeon</td>
+</tr>
+<tr>
+  <td>GCN 1.2+, RX 400/500, Vega, Navi (RX 6000/7000)</td>
+  <td>amdgpu (открытый)</td>
+  <td>xorg-drv-amdgpu, xorg-dri-amdgpu</td>
+</tr>
+<tr>
+  <td>Профессиональные задачи (ROCm, OpenCL)</td>
+  <td>AMDGPU-PRO (проприетарный)</td>
+  <td>amdgpu-rock, vulkan-amdgpu</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<hr style="margin:9px 0;border:0"/><div class="clearfix"></div><!-- Yandex.RTB R-A-8587697-6 -->
+<div id="yandex_rtb_R-A-8587697-6"></div>
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-8587697-6",
+        "renderTo": "yandex_rtb_R-A-8587697-6"
+    })
+})
+</script><hr style="margin:9px 0;border:0"/><p><strong>amdgpu</strong> — opensource-драйвер под лицензией MIT, разработанный AMD для поддержки линейки видеокарт Radeon. Был анонсирован в 2014 году как преемник драйвера radeon.</p>
+
+<hr />
+
+<h4>3. Установка через репозитории ALT Linux (рекомендуемый способ)</h4>
+
+<h4>Базовая установка открытого драйвера</h4>
+
+<pre><code># Обновление системы
+sudo apt-get update &amp;&amp; sudo apt-get upgrade
+
+# Установка драйверов для современных карт (amdgpu)
+sudo apt-get install xorg-drv-amdgpu xorg-dri-amdgpu mesa-dri-drivers
+
+# Для старых карт (radeon)
+sudo apt-get install xorg-drv-radeon xorg-dri-radeon
+
+# Модули ядра (обычно уже установлены)
+sudo apt-get install kernel-modules-drm-std-def
+</code></pre>
+
+<p>Для RX 6600 XT и новее обязательно нужен пакет xorg-drv-amdgpu.</p>
+
+<hr />
+
+<h4>Установка Vulkan-поддержки</h4>
+
+<pre><code># RADV (Mesa) — рекомендуется для большинства пользователей
+sudo apt-get install vulkan-tools mesa-vulkan-drivers
+
+# AMDVLK (официальный от AMD) — для специфических задач
+sudo apt-get install vulkan-amdgpu
+</code></pre>
+
+<hr />
+
+<p>Начиная с amdvlk 2021.Q3.x убрана поддержка карт до Polaris — для них оставайтесь на RADV.</p>
+
+<hr />
+
+<h4>Установка firmware (микрокод)</h4>
+
+<pre><code># Микрокод для процессоров и видеокарт AMD
+sudo apt-get install firmware-amd-ucode firmware-amd-real-ucode
+</code></pre>
+
+<hr />
+
+<h4>4. Обновление ядра (при необходимости)</h4>
+
+<h4>Для поддержки новейших видеокарт может потребоваться более свежее ядро:</h4>
+
+<pre><code># Просмотр доступных ядер
+apt-cache search kernel-image
+
+# Установка ядра un-def (более новая ветка)
+sudo /usr/sbin/update-kernel -t un-def
+
+# Перезагрузка
+sudo reboot
+</code></pre>
+
+<hr />
+
+<h4>Если update-kernel зависает, попробуйте:</h4>
+
+<pre><code> sudo rpmdb --rebuild
+ sudo rpm -e kernel-image-un-def  # если есть конфликты
+ sudo /usr/sbin/update-kernel -t un-def
+</code></pre>
+
+<hr />
+
+<h4>5. Очистка конфигурации Xorg (если драйвер не применяется)</h4>
+
+<h4>Иногда старый xorg.conf мешает автоопределению драйвера:</h4>
+
+<pre><code># Удаление ручной конфигурации
+sudo rm -f /etc/X11/xorg.conf
+sudo rm -rf /etc/X11/xorg.conf.d/10-monitor.conf
+
+# Перезапуск графической сессии
+# (или просто перезагрузите систему)
+</code></pre>
+
+<hr />
+
+<p>После этого система автоматически подберёт правильный драйвер при наличии поддержки в ядре.</p>
+
+<hr />
+
+<h4>6. Проверка работы драйвера</h4>
+
+<h4>Какой драйвер загружен:</h4>
+
+<pre><code>lspci -k | grep -A 3 -i vga
+</code></pre>
+
+<hr />
+
+<h4>Ожидаемый вывод для amdgpu:</h4>
+
+<pre><code>Kernel driver in use: amdgpu
+Kernel modules: amdgpu
+</code></pre>
+
+<hr />
+
+<h4>Версия Mesa и поддержка OpenGL:</h4>
+
+<pre><code>glxinfo | grep "OpenGL version"
+</code></pre>
+
+<hr />
+
+<h4>Проверка Vulkan:</h4>
+
+<pre><code>vulkaninfo --summary
+# или
+glxinfo | grep Vulkan
+</code></pre>
+
+<hr />
+
+<h4>7. Установка AMDGPU-PRO (проприетарный драйвер, опционально)</h4>
+
+<p>Требуется только для специфических задач: ROCm, профессиональный рендеринг, некоторые CUDA-аналоги. Для игр и повседневного использования открытый стек предпочтительнее.</p>
+
+<pre><code># 1. Скачайте драйвер с официального сайта
+wget https://drivers.amd.com/drivers/linux/amdgpu-pro-XX.X-XXXXXX.tar.xz
+
+# 2. Распакуйте
+tar -Jxvf amdgpu-pro-*.tar.xz
+cd amdgpu-pro-*
+
+# 3. Запустите установку (только графический стек, без замены ядра)
+# ВАЖНО: используйте --opencl=legacy или --opencl=rocm при необходимости
+sudo ./amdgpu-pro-install -y --usecase=graphics
+
+# 4. Перезагрузка
+sudo reboot
+</code></pre>
+
+<hr />
+
+<p>Проприетарный драйвер может конфликтовать с обновлениями ядра. Используйте только если открытые драйверы не решают вашу задачу.</p>
+
+<hr />
+
+<h4>8. Устранение частых проблем</h4>
+
+<hr style="margin:9px 0;border:0"/><div class="clearfix"></div><!-- Yandex.RTB R-A-8587697-7 -->
+<div id="yandex_rtb_R-A-8587697-7"></div>
+<script>
+window.yaContextCb.push(() => {
+    Ya.Context.AdvManager.render({
+        "blockId": "R-A-8587697-7",
+        "renderTo": "yandex_rtb_R-A-8587697-7"
+    })
+})
+</script><hr style="margin:9px 0;border:0"/><table>
+<thead>
+<tr>
+  <th>Проблема</th>
+  <th>Решение</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Чёрный экран после установки</td>
+  <td>Загрузитесь в recovery-режим, удалите xorg.conf, проверьте dmesg | grep -i amdgpu</td>
+</tr>
+<tr>
+  <td>Низкая производительность в играх</td>
+  <td>Убедитесь, что используется amdgpu, а не vesa или llvmpipe. Проверьте glxinfo | grep "OpenGL renderer"</td>
+</tr>
+<tr>
+  <td>Отсутствует поддержка Vulkan</td>
+  <td>Установите vulkan-tools и mesa-vulkan-drivers. Проверьте vulkaninfo</td>
+</tr>
+<tr>
+  <td>Артефакты/мерцание</td>
+  <td>Обновите ядро и linux-firmware. Добавьте параметр ядра amdgpu.dc=1 в /etc/default/grub</td>
+</tr>
+<tr>
+  <td>Не определяется видеокарта</td>
+  <td>Убедитесь, что установлен firmware-amd-ucode и модуль amdgpu загружен (lsmod | grep amdgpu)</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h4>Совет:</h4>
+
+<ul>
+<li>В 95% случаев достаточно просто обновить систему (apt-get update &amp;&amp; apt-get upgrade) и перезагрузиться — открытый стек AMD (amdgpu + Mesa + RADV) работает в ALT Linux стабильно и не требует ручной настройки.</li>
+</ul>
+
+<hr />
+
+<p>Информация предоставлена в ознакомительных целях. 
+Применение описанных настроек в системах, должно 
+осуществляться только после согласования с ответственными 
+за информационную безопасность и в соответствии с 
+требованиями ФСТЭК, ФСБ и иных уполномоченных органов.</p>
+
+<hr />
+
+<div style="text-align:right;font-style:italic">Статью подготовил: Аверко Денис Сергеевич @Nymexis г. Омск (5)(531)(30)</div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>
+<div id="modal-gallery-page_blog" class="modal modal-gallery hide fade" tabindex="-1">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3 class="modal-title"></h3>
+    </div>
+    <div class="modal-body"><div class="modal-image"></div></div>
+    <div class="modal-footer">
+        <a class="btn modal-download" target="_blank"><i class="icon-download"></i> Полный размер</a>
+        <a class="btn modal-play modal-slideshow" data-slideshow="5000"><i class="icon-play"></i> Слайдшоу</a>
+        <a class="btn modal-prev"><i class="icon-arrow-left"></i> Предыдущий</a>
+        <a class="btn modal-next">Следующий <i class="icon-arrow-right"></i></a>
+    </div>
+</div><hr/><h2>Комментарии</h2>
+<div id="vk_comments"></div>
+<div class="alert alert-info" id="comments_loader">
+<strong>Загрузка...</strong><br/>
+Если комментарии не загружаются, можете попробовать отключить блокировщик рекламы для этого сайта
+</div>
+<script type="text/javascript">
+(() => {
+window.addEventListener("load", () => {
+  const elId = "vk_comments";
+  const apiId = "54613922";
+  const loadComments = () => {
+    const script = document.createElement("script");
+    script.src = "https://vk.ru/js/api/openapi.js?169";
+    script.type = "text/javascript";
+    script.async = true;
+    script.onload = () => {
+      VK.init({ apiId, onlyWidgets: true });
+      VK.Widgets.Comments(elId);
+      document.getElementById('comments_loader').remove();
+    };
+    document.head.appendChild(script);
+  };
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        observer.unobserve(entry.target);
+        setTimeout(loadComments, 500);
+      }
+    });
+  },{ root:null, threshold:0.5});
+  observer.observe(document.querySelector("#" + elId))
+});
+})();
+</script></div>
+            </div>
+          </div>
+          <div class="span3 oc-sidebar"><div class="block ">
+    <div class="block_content"><!-- Yandex.RTB R-A-8587697-1 -->
+<div id="yandex_rtb_R-A-8587697-1"></div>
+<script>
+window.yaContextCb.push(()=>{Ya.Context.AdvManager.render({"blockId": "R-A-8587697-1","renderTo": "yandex_rtb_R-A-8587697-1"})})
+</script></div>
+</div>
+</div>		
+        </div>
+      </div>
+
+      <footer>
+        <div id="footer">
+          <div class="container">
+            <div class="row">
+<div class="span3">
+<div class="block-title">Сайт</div>
+<ul class="menu nav">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/"><span class="bg">Главная</span></a></li>
+<li class="level1 item2"><a class="level1 item2" href="/?s=ticket"><span class="bg">Поддержка</span></a></li>
+<li class="level1 item3"><a class="level1 item3" href="/map/"><span class="bg">Карта сайта</span></a></li>
+<li class="level1 item4 last"><a class="level1 item4 last" href="/contact.html"><span class="bg">Контакты</span></a></li>
+</ul>
+</div>
+<div class="span3">
+<div class="block-title">Мониторинг</div>
+<ul class="menu nav">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/ui/ru/add-server"><span class="bg">Добавить сервер</span></a></li>
+<li class="level1 item2 last"><a class="level1 item2 last" href="/monitoring/"><span class="bg">Мониторинг</span></a></li>
+</ul>
+</div>
+<div class="span3">
+<div class="block-title">Публикации</div>
+<ul class="menu nav">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/blog/"><span class="bg">Блог</span></a></li>
+<li class="level1 item2"><a class="level1 item2" href="/forum/"><span class="bg">Форум</span></a></li>
+<li class="level1 item3"><a class="level1 item3" href="/news/"><span class="bg">Новости</span></a></li>
+<li class="level1 item4 last"><a class="level1 item4 last" href="/feed/"><span class="bg">Лента</span></a></li>
+</ul>
+</div>
+<div class="span3">
+<div class="block-title">Документы</div>
+<ul class="menu nav">
+<li class="level1 item1 first"><a class="level1 item1 first" href="/legal/terms.html"><span class="bg">Пользовательское соглашение</span></a></li>
+<li class="level1 item2 last"><a class="level1 item2 last" href="/legal/confidential.html"><span class="bg">Политика конфиденциальности</span></a></li>
+</ul>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(96767720, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/96767720" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter --></div>
+            </div>
+          </div>
+
+          <div class="copy container">
+            <div class="row">
+<div class="span3 text-center">
+<p>&copy; ServerMon 2011-2026</p>
+</div>     
+<div class="span8 text-center">
+<p>Частичное или полное использование материалов сайта &quot;ServerMon&quot; разрешается только
+при условии указания открытой для поисковых систем ссылки на адрес материала.</p>
+</div>
+<div class="span1 text-center age-restr"><div>18+</div></div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+<div class="cookies-consent">
+<div class="inner">
+<div class="text">Наш сайт использует куки. Продолжая им пользоваться, вы соглашаетесь на обработку персональных данных в соответствии с 
+<a href="/legal/confidential.html" target="_blank">политикой конфиденциальности</a>.</div>
+<div class="actions"><button type="button" class="btn btn-primary btn-large">Принять</button></div>
+</div>
+</div>
+<script>
+jQuery(()=>{
+  const $=jQuery;
+  $("#sidebar-toggle").click((e)=>$("#main").toggleClass("sidebar-open"));
+})
+</script>
+
+<form action="https://yandex.ru/search/site/" method="get" target="_blank" accept-charset="utf-8"
+  id="global-seach-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <input type="hidden" name="searchid" value="7045859"/>
+    <input type="hidden" name="l10n" value="ru"/>
+    <input type="hidden" name="reqenc" value=""/>
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">×</button>
+      <h3>Поиск по сайту</h3>
+    </div>
+    <div class="modal-body">
+        <div class="ya-site-form ya-site-form_inited_no">
+          <input class="input-block-level" type="text" name="text" value="" placeholder="Поисковый запрос" required=""/>
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn" data-dismiss="modal">Закрыть</button>
+      <button type="submit" class="btn btn-primary">Найти</button>
+    </div>
+</form>
+
+  </body>
+</html>

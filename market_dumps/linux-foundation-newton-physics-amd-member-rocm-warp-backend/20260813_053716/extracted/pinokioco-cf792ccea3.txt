@@ -1,0 +1,132 @@
+0
+Wan2GP: Could not detect ROCm GPU architecture: [WinError 2] The system cannot find the file specified
+Ok, Pinokio should have installed all the files, but it seems it can't find some of them. Get an error loading Wan every time. Tried deleting and re-installing, but get the same error. It's supposed to work with the AMD GPU, especailly this one (no CUDA, of course).
+App: Wan2GP (wan.git)
+Repo: https://github.com/pinokiofactory/wan.git
+Generated: 2026-08-10T14:17:12.040Z
+Pinokio: 8.0.40
+Platform: win32 x64
+Node: v22.21.1
+Summary
+System
+{
+  "pinokio": {
+    "version": "8.0.40",
+    "node": "v22.21.1",
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "hardware": {
+    "gpu": "amd",
+    "gpu_model": "amd radeon rx 7600 xt",
+    "ram_gb": 32,
+    "vram_gb": 16
+  },
+  "os": {
+    "platform": "Windows",
+    "distro": "Microsoft Windows 11 Home",
+    "release": "10.0.26200",
+    "codename": "25H2",
+    "kernel": "10.0.26200",
+    "arch": "x64",
+    "build": "26200",
+    "servicepack": "0.0",
+    "uefi": true
+  },
+  "system": {
+    "manufacturer": "ASUS",
+    "model": "System Product Name",
+    "version": "System Version",
+    "virtual": false
+  },
+  "cpu": {
+    "manufacturer": "AMD",
+    "brand": "Ryzen 9 5900X 12-Core Processor",
+    "vendor": "AuthenticAMD",
+    "family": "25",
+    "model": "33",
+    "stepping": "2",
+    "revision": "8450",
+    "speed": 3.7,
+    "speedMin": 3.7,
+    "speedMax": 3.7,
+    "cores": 24,
+    "physicalCores": 12,
+    "processors": 1,
+    "performanceCores": 24,
+    "efficiencyCores": 0,
+    "virtualization": false,
+    "cache": {
+      "l1d": 384,
+      "l1i": 384,
+      "l2": 6291456,
+      "l3": 67108864
+    }
+  },
+  "memory": {
+    "total": 34242347008,
+    "free": 24239009792,
+    "used": 10003337216,
+    "active": 10003337216,
+    "available": 24239009792,
+    "buffers": 0,
+    "cached": 0,
+    "slab": 0,
+    "buffcache": 0,
+    "swaptotal": 2147483648,
+    "swapused": 0,
+    "swapfree": 2147483648
+  },
+  "gpus": [
+    {
+      "model": "amd radeon rx 7600 xt"
+    }
+  ],
+  "graphics": {
+    "controllers": [
+      {
+        "vendor": "Advanced Micro Devices, Inc.",
+        "model": "AMD Radeon RX 7600 XT",
+        "bus": "PCI",
+        "vram": 16368,
+        "vramDynamic": true
+      }
+    ],
+    "displays": [
+      {
+        "model": "ES-G34C8",
+        "main": true,
+        "builtin": false,
+        "connection": "DP",
+        "currentResX": 2752,
+        "currentResY": 1152,
+        "resolutionX": 3440,
+        "resolutionY": 1440,
+        "pixelDepth": 32,
+        "currentRefreshRate": 60
+      }
+    ]
+  }
+}
+Logs
+logs/api/start.js/1786370860953
+Source: api / start.js
+Lines: 21 total, last 21 included
+[api shell.run]
+Microsoft Windows [Version 10.0.26200.8894]
+(c) Microsoft Corporation. All rights reserved.
+E:\3D\pinokio\api\wan.git\app>conda_hook & conda deactivate & conda deactivate & conda deactivate & conda activate base & E:\3D\pinokio\api\wan.git\app\venv\Scripts\activate E:\3D\pinokio\api\wan.git\app\venv && python wgp.py --multiple-images --advanced
+Could not detect ROCm GPU architecture: [WinError 2] The system cannot find the file specified
+ROCm GPU architecture detection failed despite ROCm being available.
+Could not detect ROCm warp size: [WinError 2] The system cannot find the file specified. Defaulting to 64. (some 4-bit functions may not work!)
+ROCm warp size detection failed despite ROCm being available.
+bitsandbytes library load error: Configured ROCm binary not found at E:\3D\pinokio\api\wan.git\app\venv\Lib\site-packages\bitsandbytes\libbitsandbytes_rocm65.dll
+Traceback (most recent call last):
+  File "E:\3D\pinokio\api\wan.git\app\venv\Lib\site-packages\bitsandbytes\cextension.py", line 320, in <module>
+    lib = get_native_library()
+          ^^^^^^^^^^^^^^^^^^^^
+  File "E:\3D\pinokio\api\wan.git\app\venv\Lib\site-packages\bitsandbytes\cextension.py", line 288, in get_native_library
+    raise RuntimeError(f"Configured {BNB_BACKEND} binary not found at {cuda_binary_path}")
+RuntimeError: Configured ROCm binary not found at E:\3D\pinokio\api\wan.git\app\venv\Lib\site-packages\bitsandbytes\libbitsandbytes_rocm65.dll
+Replies (0)
+Up to 10 files, 25MB each. Images are optimized; GIFs -> MP4; videos 720p (max 120s).

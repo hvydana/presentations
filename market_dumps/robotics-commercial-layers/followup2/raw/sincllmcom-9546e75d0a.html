@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Safety: Applying IEC 61508 and ISO 26262 to LLM Deployments | sincllm.com</title>
+<meta name="description" content="Free tool that analyzes AI use cases for functional safety — produces fault-tree analysis (FTA), failure-mode-and-effects analysis (FMEA), SIL/ASIL recommendations, and required safeguards using IEC 61508 / ISO 26262 / DO-178C frameworks.">
+<meta name="author" content="Mario Alexandre">
+<meta name="keywords" content="AI safety, IEC 61508, ISO 26262, ASIL, SIL rating, AI fault tree, FMEA AI, functional safety AI, DO-178C AI, safety-critical AI, sincllm">
+<link rel="canonical" href="https://sincllm.com/blog/ai-safety-iec-61508-functional-safety">
+<link rel="icon" href="/dlux-logo.png" type="image/png">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="AI Safety: Applying IEC 61508 and ISO 26262 to LLM Deployments">
+<meta property="og:description" content="Free tool that analyzes AI use cases for functional safety — produces fault-tree analysis (FTA), failure-mode-and-effects analysis (FMEA), SIL/ASIL recommendations, and required safeguards using IEC 61508 / ISO 26262 / DO-178C frameworks.">
+<meta property="og:url" content="https://sincllm.com/blog/ai-safety-iec-61508-functional-safety">
+<meta property="og:image" content="https://sincllm.com/images/mario-alexandre.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"AI Safety: Applying IEC 61508 and ISO 26262 to LLM Deployments","description":"Free tool that analyzes AI use cases for functional safety — produces fault-tree analysis (FTA), failure-mode-and-effects analysis (FMEA), SIL/ASIL recommendations, and required safeguards using IEC 61508 / ISO 26262 / DO-178C frameworks.","author":{"@type":"Person","name":"Mario Alexandre","url":"https://www.linkedin.com/in/mariioalexandre/","jobTitle":"AI Systems Engineer","alumniOf":"University of South Florida"},"publisher":{"@type":"Organization","name":"DLux Digital","url":"https://sincllm.com","logo":{"@type":"ImageObject","url":"https://sincllm.com/dlux-logo.png"}},"datePublished":"2026-04-13","dateModified":"2026-04-13","mainEntityOfPage":{"@type":"WebPage","@id":"https://sincllm.com/blog/ai-safety-iec-61508-functional-safety"},"image":"https://sincllm.com/images/mario-alexandre.jpg","keywords":"AI safety, IEC 61508, ISO 26262, ASIL, SIL rating, AI fault tree, FMEA AI, functional safety AI, DO-178C AI, safety-critical AI, sincllm","articleBody":"Functional safety is a discipline. AI deployment is mostly improvisation. This article shows how to apply IEC 61508 and ISO 26262 — the standards that govern medical devices, automotive ADAS, and industrial control — to LLM deployments using a free tool that produces FTA, FMEA, and SIL/ASIL recommendations."}</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use AI Safety Hazard Analyzer","description":"Free tool that analyzes AI use cases for functional safety — produces fault-tree analysis (FTA), failure-mode-and-effects analysis (FMEA), SIL/ASIL recommendations, and required safeguards using IEC 61508 / ISO 26262 / DO-178C frameworks.","totalTime":"PT2M","step":[{"@type":"HowToStep","name":"Visit the tool","text":"Go to https://sincllm.com/tools/safety-analyzer","url":"https://sincllm.com/tools/safety-analyzer"},{"@type":"HowToStep","name":"Provide input","text":"Describe your AI use case (20-4000 characters) — what the AI does, who uses it, what failures could harm"},{"@type":"HowToStep","name":"Read telemetry","text":"Inspect the model used, latency, fallback events, SNR, and audit ID displayed below the result"}]}</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: var(--t-0); --panel: var(--t-0); --panel2: var(--t-1); --border: var(--t-1); --border2: var(--t-3);
+  --ink: var(--t-9); --muted: var(--t-5); --dim: var(--t-5); --accent: var(--t-9); --accent2: var(--t-9);
+  --green: var(--t-9); --blue: var(--t-9);
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: 'Inter', -apple-system, sans-serif; font-size: 17px; line-height: 1.75; }
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+nav {
+  position: sticky; top: 0; z-index: 50; background: rgba(var(--t-0-rgb),0.92);
+  backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+  padding: 14px 32px; display: flex; justify-content: space-between; align-items: center;
+}
+nav .brand { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent); letter-spacing: 0.08em; text-decoration: none; }
+nav .links { display: flex; gap: 24px; }
+nav .links a { color: var(--muted); text-decoration: none; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+nav .links a:hover { color: var(--accent); }
+
+article { max-width: 760px; margin: 0 auto; padding: 60px 32px; }
+.eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent2); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 20px; }
+h1 { font-family: 'Playfair Display', Georgia, serif; font-size: clamp(32px, 5vw, 52px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 16px; }
+h1 em { font-style: italic; color: var(--accent); }
+.byline { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted); margin-bottom: 40px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.byline a { color: var(--accent); text-decoration: none; }
+.byline .dot { color: var(--dim); margin: 0 10px; }
+
+article h2 { font-family: 'Playfair Display', Georgia, serif; font-size: 28px; font-weight: 700; margin-top: 48px; margin-bottom: 16px; letter-spacing: -0.01em; color: var(--accent); }
+article h3 { font-size: 20px; font-weight: 700; margin-top: 32px; margin-bottom: 12px; color: var(--ink); }
+article p { margin-bottom: 18px; color: rgba(var(--t-9-rgb),0.92); }
+article p strong { color: var(--ink); font-weight: 700; }
+article ul, article ol { margin: 16px 0 24px 28px; }
+article li { margin-bottom: 10px; }
+article a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(var(--t-9-rgb),0.3); transition: border-color 0.2s; }
+article a:hover { border-bottom-color: var(--accent); }
+article code { background: var(--panel); padding: 2px 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent2); border: 1px solid var(--border2); }
+article pre { background: var(--panel); border: 1px solid var(--border2); padding: 16px; margin: 20px 0; overflow-x: auto; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; color: var(--ink); }
+article pre code { background: none; border: none; padding: 0; color: inherit; }
+article blockquote { border-left: 3px solid var(--accent); padding: 4px 0 4px 20px; margin: 24px 0; color: rgba(var(--t-9-rgb),0.7); font-style: italic; }
+
+.cta-box { background: var(--panel); border: 1px solid var(--accent); border-left-width: 4px; padding: 24px; margin: 32px 0; }
+.cta-box .label { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
+.cta-box h4 { font-size: 20px; margin-bottom: 8px; color: var(--ink); font-family: 'Playfair Display', serif; }
+.cta-box p { font-size: 14px; color: var(--muted); margin-bottom: 16px; }
+.cta-box .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.cta-box a.btn { display: inline-block; padding: 12px 24px; background: var(--accent); color: var(--t-0); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; border: none; transition: background 0.2s; }
+.cta-box a.btn:hover { background: var(--accent2); }
+.cta-box a.btn.outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+.cta-box a.btn.outline:hover { background: var(--accent); color: var(--t-0); }
+
+.pill { display: inline-block; padding: 4px 12px; border: 1px solid var(--border2); font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-right: 8px; margin-bottom: 8px; }
+.pill.accent { color: var(--accent); border-color: var(--accent); }
+
+footer { max-width: 760px; margin: 60px auto 0; padding: 32px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--dim); }
+footer a { color: var(--accent); text-decoration: none; }
+@media (max-width: 700px) { article { padding: 40px 20px; } h1 { font-size: 28px; } }
+</style>
+<link rel="stylesheet" href="/css/sincllm-theme.css"><link rel="stylesheet" href="/css/sincllm-editorial.css"><script defer src="/js/sincllm-theme.js"></script></head>
+<body>
+
+<nav>
+  <a href="/" class="brand">sinc-LLM</a>
+  <div class="links">
+<a href="/about">About</a>
+<a href="/blog">Blog</a>
+<a href="/products">Services</a>
+</div>
+</nav>
+
+<article>
+  <div class="eyebrow">// AI Systems Engineering · Functional Safety</div>
+  <h1>AI Safety: Applying <em>IEC 61508 / ISO 26262</em> to LLM Deployments</h1>
+  <div class="byline">
+    By <a href="https://www.linkedin.com/in/mariioalexandre/">Mario Alexandre</a>
+    <span class="dot">·</span>
+    AI Systems Engineer, DLux Digital
+    <span class="dot">·</span>
+    April 13, 2026
+    <span class="dot">·</span>
+    6 min read
+  </div>
+
+  
+<p>A wrong answer from an LLM in a chatbot is annoying. A wrong answer from an LLM suggesting medication doses can hurt someone. A wrong answer from an LLM driving a car can kill someone. The model is not the difference between these three cases. The difference is what happens when it fails. For fifty years, engineers have built a whole field around exactly this problem: making sure that when a system fails, it does not kill or injure people. That field is called <strong>functional safety</strong>. It runs on published standards: IEC 61508 (general use), ISO 26262 (cars), DO-178C (aircraft), IEC 62304 (medical software).</p>
+
+<p>Almost no one in the AI industry follows these standards. So we now have LLMs in hospitals, law firms, drones, and factories, and the engineering checks that would catch predictable failures are missing. These systems look fine in demos. Then they fail in real use in exactly the ways the standards would have caught.</p>
+
+<h2>The Three Pillars of Functional Safety Analysis</h2>
+
+<p>Three artifacts dominate functional-safety practice, and they are exactly what the free <a href="/tools/safety-analyzer">AI Safety Hazard Analyzer</a> produces:</p>
+
+<h3>1. Hazard Analysis (HA)</h3>
+<p>A hazard analysis lists every way the system could hurt users, operators, bystanders, or the environment. ISO 26262 uses three numbers to describe each hazard:</p>
+<ul>
+<li><strong>Severity (S1-S4)</strong>: how badly could someone be hurt?</li>
+<li><strong>Exposure (E1-E4)</strong>: how often does the system end up in a place where this harm could happen?</li>
+<li><strong>Controllability (C1-C3)</strong>: how easily can the person in charge steer away from harm if the system misbehaves?</li>
+</ul>
+<p>These three numbers combine into one score called the ASIL rating (Automotive Safety Integrity Level). ASIL-A is the lowest risk. ASIL-D is the highest. For systems outside cars, IEC 61508 uses a similar score called SIL-1 to SIL-4. A higher score means the engineers must do more rigorous work: add backups, do formal proofs, get outside reviewers, and document every test.</p>
+
+<h3>2. Failure Mode and Effects Analysis (FMEA)</h3>
+<p>For each part of the system, engineers ask: how can this part break? What happens to the whole system when it breaks? What causes the break? How do we notice it? What stops it? The FMEA table is the checklist engineers use when adding backups and monitors. For an LLM system, the common failure modes are:</p>
+<ul>
+<li>Made-up output (cause: the model was not trained on this situation; fix: check with a second model)</li>
+<li>The model refuses a perfectly fine request (cause: safety filters set too strict; fix: route to a backup model)</li>
+<li>The output gets cut off in the middle (cause: the prompt used too many tokens; fix: set a clear max_tokens limit)</li>
+<li>The provider goes offline (cause: external API failure; fix: serve cached backup responses)</li>
+<li>The response slows to a crawl (cause: the provider is congested; fix: switch to a faster model when time matters)</li>
+</ul>
+
+<h3>3. Fault Tree Analysis (FTA)</h3>
+<p>Start with the worst thing that could happen, for example "the AI recommends the wrong medication dose and a patient is harmed." Then work backward and list every combination of smaller events that could lead there. Each branch uses an AND gate (all events must happen at once) or an OR gate (any one event is enough). The FTA shows which single failure can bring down the whole system, which paths an attacker could use, and how reliable each part needs to be.</p>
+
+<h2>The SIL/ASIL Recommendation</h2>
+
+<p>The Analyzer reads your description and returns a recommended SIL or ASIL level. That level tells you exactly how much engineering rigor your system needs:</p>
+
+<ul>
+<li><strong>SIL-1 / ASIL-A</strong>: Low risk. Normal development practices and good documentation are enough. Fine for internal LLM tools.</li>
+<li><strong>SIL-2 / ASIL-B</strong>: Medium risk. Needs structured testing, clearly defined safety functions, and basic backups. Fine for public-facing LLMs when a human reviews the output.</li>
+<li><strong>SIL-3 / ASIL-C</strong>: High risk. Needs formal proofs or very thorough integration tests, redundant safety functions, and independent review. Required for medical decision support, financial trading, and industrial control.</li>
+<li><strong>SIL-4 / ASIL-D</strong>: Highest risk. Needs formal proof that the system is correct, multiple fully independent backup channels, and third-party certification. Required for any autonomous system where a failure can kill.</li>
+</ul>
+
+<p>Say you describe a chatbot that suggests medication doses to nurses on a tablet. The Analyzer should return SIL-3 or higher. It will then list specific safeguards: a human must approve any change that cannot be undone, a second system must check every dose, all actions must be logged, and the AI output must stay within the approved drug list.</p>
+
+<h2>The Deploy Verdict</h2>
+
+<p>The Analyzer also gives one of three verdicts:</p>
+
+<ul>
+<li><strong>DEPLOY_OK</strong>: low-stakes use case, current AI tools are good enough</li>
+<li><strong>DEPLOY_WITH_GUARDS</strong>: medium-stakes; specific safeguards must be built in before you deploy</li>
+<li><strong>DO_NOT_DEPLOY</strong>: stakes too high for current AI reliability; use a non-AI fallback or keep humans in full control</li>
+</ul>
+
+<p>The verdict is conservative on purpose. When lives or professional licenses are on the line, it is better to get a DO_NOT_DEPLOY warning and fix the problem than to ship and cause harm. That is the posture the safety standards require. Hope is not a strategy. Provable safeguards are.</p>
+
+<blockquote>From the wiki synthesis on direct AI application: "Reinforcement learning, cyber-physical systems architecture, AI in real-time systems, systems integration methodology — these transfer directly without analogy. CPS thinking applied to LLM deployment IS the safety engineering layer."</blockquote>
+
+<h2>Why This Is Underbuilt Right Now</h2>
+
+<p>People who know functional safety work mainly in industries where the standards have been required for decades: cars, aircraft, medical devices, and industrial machines. People who know AI work mainly at software companies that never needed safety standards until they started deploying AI in those same regulated industries. The group that understands both is very small.</p>
+
+<p>This tool exists because that gap is exactly where AI deployments will get blocked, sued, or recalled. Run your AI use case through the Analyzer before you ship. Catching a SIL-3 hazard during design takes a few hours. Catching it in production can cost everything.</p>
+
+<h2>From Audit to Production</h2>
+
+<p>The free Analyzer gives you the diagnosis. Actually building a system that meets the safeguards it recommends, including formal proofs, independent backups, certified inference paths, and predictable latency, is real engineering work. For medical, automotive, aerospace, or industrial deployments where the standards are not optional, see the paid service. The standards exist for a reason. AI does not get an exception.</p>
+
+
+  <div class="cta-box">
+    <div class="label">// Try It Free</div>
+    <h4>Run a Functional Safety Audit</h4>
+    <p>Describe an AI use case. Returns IEC 61508 / ISO 26262 hazard analysis: enumerated hazards, FMEA failure modes, fault-tree, SIL/ASIL recommendation, required safeguards, deploy verdict.</p>
+    <div class="actions">
+      <a href="/tools/safety-analyzer" class="btn">→ Open the Tool</a>
+      <a href="/tools" class="btn outline">All 8 Free Tools</a>
+    </div>
+  </div>
+
+  <div class="cta-box" style="border-color: var(--accent2);">
+    <div class="label" style="color: var(--accent2);">// Need It at Production Scale?</div>
+    <h4>Safety-Certified AI for Cyber-Physical Systems — Service #34</h4>
+    <p>Production AI systems that meet IEC 61508 / ISO 26262 / DO-178C — formal verification, certified inference paths, deterministic latency, deployable in regulated environments.</p>
+    <div class="actions">
+      <a href="/#ee-advanced" class="btn" style="background: var(--accent2);">→ See Service · $25K – $80K + $2K – $5K/mo</a>
+      <a href="/#contact" class="btn outline" style="color: var(--accent2); border-color: var(--accent2);">Book a Discovery Call</a>
+    </div>
+  </div>
+
+  <div style="margin-top: 40px;">
+    <span class="pill">IEC 61508</span> <span class="pill">ISO 26262</span> <span class="pill">ASIL rating</span> <span class="pill">Functional safety</span> <span class="pill">AI hazard analysis</span> <span class="pill">Safety-critical AI</span>
+  </div>
+
+<!-- ae-block -->
+<section class="ae-block" aria-label="Continue reading and get help">
+
+  <div class="ae-related">
+    <p class="ae-label">// Keep reading</p>
+    <ul>
+      <li><a href="/blog/ai-fallback-path-production-system-design">What an AI Fallback Path Actually Looks Like in a Production System</a></li>
+      <li><a href="/blog/ai-monitoring-checklist-production-critical-path">AI Monitoring Checklist: What Every Production System Needs on Every Critical Path</a></li>
+      <li><a href="/blog/ai-slo-design-error-budgets">SLO Design for AI Systems: How to Set Error Budgets That Survive a Vendor Update</a></li>
+    </ul>
+  </div>
+
+  <div class="ae-cta">
+    <p class="ae-cta-label">// Production AI Engineering</p>
+    <h3 class="ae-cta-heading">Build AI systems that hold up in production.</h3>
+    <p class="ae-cta-body">sinc-LLM designs, audits, and stabilises production AI infrastructure: from vendor evaluation and cost accountability to incident controls and MCP architecture.</p>
+    <a class="ae-cta-btn" href="/services">See what we do &#8594;</a>
+  </div>
+
+</section>
+<!-- /ae-block -->
+
+</article>
+
+<footer>
+  <p>// MARIO ALEXANDRE — DLux Digital · Tampa, FL · 40 services · 8 free tools · BSEE-grade engineering</p>
+  <p><a href="/">All services</a> · <a href="/tools">Free tools</a> · <a href="/blog">Blog index</a> · <a href="https://www.linkedin.com/in/mariioalexandre/" target="_blank">LinkedIn</a></p>
+</footer>
+
+<script defer src="/js/sincllm-analytics-v2.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+Isaac Sim vs MuJoCo vs Gazebo
+The three most-used robotics simulators, compared honestly. Each has a clear niche: photorealistic scale, contact-rich manipulation, and ROS-native robotics. Here is how they differ and which fits your work.
+Updated May 19, 2026 · by Ugur Yekta
+The short answer
+Choose NVIDIA Isaac Sim for photorealistic synthetic data and large-scale reinforcement learning (requires an RTX GPU). Choose MuJoCo for fast, contact-rich manipulation research (free, CPU or GPU via MJX). Choose Gazebo for ROS 2-native robotics with mature sensor simulation (no GPU required). Many teams use more than one.
+Side-by-side comparison
+|  | NVIDIA Isaac Sim Photorealistic, GPU-scale | MuJoCo Fast contact-rich physics | Gazebo ROS-native robotics | 
+|---|---|---|---|
+| Developer | NVIDIA | Google DeepMind | Open Robotics | 
+| License | Free, proprietary | Apache 2.0 (open source) | Apache 2.0 (open source) | 
+| Physics engine | PhysX 5 | MuJoCo solver | ODE / Bullet / DART / Simbody | 
+| Rendering | RTX ray-tracing (photorealistic) | Basic OpenGL | OGRE (functional) | 
+| GPU acceleration | Yes, RTX required | Yes, MJX on JAX (GPU/TPU) | Limited | 
+| Asset format | OpenUSD | MJCF XML | SDF / URDF | 
+| ROS / ROS 2 | ROS 2 bridge | Via community wrappers | Native | 
+| Hardware floor | RTX-class GPU | CPU (GPU via MJX) | CPU | 
+| Learning curve | Steep | Moderate | Moderate | 
+| Strongest at | Synthetic data, large-scale RL | Dexterous manipulation, fast RL iteration | Sensor sim, ROS robotics | 
+NVIDIA Isaac Sim: photorealism and scale
+Isaac Sim is built on OpenUSD and PhysX 5, with RTX ray-traced rendering. Its strengths are photorealistic synthetic data generation (via Replicator) and large-scale reinforcement learning through Isaac Lab, where thousands of environments run in parallel on the GPU. The cost is hardware: an RTX-class GPU is required, and the learning curve is the steepest of the three. It is the natural choice if your roadmap touches the NVIDIA robotics ecosystem or needs camera-realistic perception data.
+MuJoCo: contact-rich physics, fast iteration
+MuJoCo (now maintained by Google DeepMind, Apache 2.0) is prized for its accurate, fast contact solver, the reason it dominates dexterous manipulation and locomotion research. MJX, its JAX re-implementation, runs massively parallel RL on GPU or TPU. Rendering is basic, so it is not the tool for synthetic perception data, but for control research where contact dynamics matter most, it is often the fastest path from idea to trained policy.
+Gazebo: ROS-native, sensor-rich
+Gazebo (Open Robotics, Apache 2.0) is the long-standing default for ROS and ROS 2 robotics. Its strengths are native ROS integration, a mature sensor-simulation ecosystem (lidar, cameras, IMUs, depth), and the ability to run on CPU without specialized hardware. Rendering and large-scale RL throughput lag the other two, but for building and testing a ROS 2 robot with realistic sensors, it remains the most direct option.
+When to choose each
+NVIDIA Isaac Sim
+Photorealistic synthetic data, large-scale GPU reinforcement learning, and teams in the NVIDIA ecosystem with RTX hardware.
+MuJoCo
+Dexterous manipulation and locomotion research, fast RL iteration, and academic work where contact accuracy and speed matter most.
+Gazebo
+ROS 2-native robotics, sensor-heavy simulation, and teams that need to run on CPU without a high-end GPU.
+Where Rigyd fits
+Whichever simulator you choose, the asset-preparation problem is the same: every asset needs physics, collision meshes, and the right format before it can simulate. Rigyd produces native OpenUSD (Isaac Sim, Omniverse, Unreal, Unity, and Gazebo Sim USD imports) plus native MJCF (MuJoCo, MJX). For legacy Gazebo and ROS 2 stacks, the OpenUSD output converts to SDF and URDF via community tools, so the same source asset can move across all three simulators without re-authoring physics each time.
+Frequently asked questions
+Which robotics simulator is best for reinforcement learning?
+For large-scale RL with photorealistic perception, Isaac Sim (with Isaac Lab) leads, running thousands of parallel environments on RTX GPUs. For contact-rich manipulation and locomotion RL where speed and contact accuracy dominate, MuJoCo with MJX is often faster to iterate. Gazebo is less commonly used for high-throughput RL.
+Is MuJoCo still free after the DeepMind acquisition?
+Yes. Google DeepMind open-sourced MuJoCo under the Apache 2.0 license, and it remains free for commercial and research use. MJX, its JAX-based GPU/TPU implementation, is also open source.
+Do I need an NVIDIA GPU for robotics simulation?
+Only for Isaac Sim, which requires an RTX-class GPU for its ray-traced rendering and PhysX acceleration. MuJoCo runs on CPU (or GPU via MJX), and Gazebo runs on CPU. If you lack a high-end GPU, MuJoCo or Gazebo are the practical choices.
+Can the same 3D asset be used across Isaac Sim, MuJoCo, and Gazebo?
+Not without conversion, each expects a different format (OpenUSD, MJCF, and SDF/URDF respectively). Rigyd produces OpenUSD and MJCF directly; for Gazebo, the OpenUSD output can be imported via Gazebo Sim's USD support or converted to SDF/URDF using community tools while preserving mass, friction, and collision data, so one source asset works across all three simulators.
+Generate your own catalog to SimReady
+Convert a 3D model, image, or text description into a physics-enabled OpenUSD asset in minutes, exports to MJCF, URDF, and FBX too.
+Related reading
+Automatically Estimating Physics Properties for Simulation Assets
+Mass, friction, and collision geometry are what make a 3D model behave in a physics engine. This is how those properties get estimated automatically, and why automating them is what lets teams build simulation assets at scale.
+Scaling Simulation Asset Libraries Beyond Curated Inventory
+Curated SimReady libraries are a great starting point but a hard ceiling. Here is why fixed inventories limit robotics simulation at scale, and how on-demand asset generation closes the gap.
+Domain Randomization for Robotics Training: Asset Diversity at Scale
+Domain randomization makes trained policies transfer to the real world, but it only works if your asset library is diverse enough. Here is how asset diversity drives randomization, and how to generate it at the scale training needs.

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Implementing inference observability on HyperPod clusters - Amazon SageMaker AI</title><meta name="viewport" content="width=device-width,initial-scale=1" /><meta name="assets_root" content="/assets" /><meta name="target_state" content="sagemaker-hyperpod-model-deployment-observability" /><meta name="default_state" content="sagemaker-hyperpod-model-deployment-observability" /><link rel="icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" /><link rel="canonical" href="https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" /><meta name="description" content="Learn how to implement comprehensive inference observability on your Amazon SageMaker HyperPod clusters to monitor and optimize deployed machine learning models through integrated Prometheus and Grafana dashboards. This guide covers configuring metrics in deployment YAML files, accessing role-based monitoring dashboards, integrating with custom observability solutions using standard Prometheus endpoints, and troubleshooting common monitoring issues to maintain production model performance." /><meta name="deployment_region" content="BJS" /><meta name="product" content="Amazon SageMaker AI" /><meta name="guide" content="Developer Guide" /><meta name="abstract" content="Use SageMaker AI to build, train, and host machine learning models in Amazon." /><meta name="guide-locale" content="en_us" /><meta name="tocs" content="toc-contents.json" /><link rel="canonical" href="https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" /><link rel="alternate" href="https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" hreflang="en-us" /><link rel="alternate" href="https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" hreflang="en" /><link rel="alternate" href="https://docs.amazonaws.cn/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" hreflang="zh-cn" /><link rel="alternate" href="https://docs.amazonaws.cn/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment-observability.html" hreflang="x-default" /><meta name="this_doc_product" content="Amazon SageMaker AI" /><meta name="this_doc_guide" content="Developer Guide" /><meta name="googlebot" content="noindex" /><head xmlns="http://www.w3.org/1999/xhtml"> <script defer="" src="/assets/r/awsdocs-doc-page.2.0.0.js"></script><link href="/assets/r/awsdocs-doc-page.2.0.0.css" rel="stylesheet"/></head>
+</head><body class="awsdocs awsui"><div class="awsdocs-container"><p><a href="sagemaker-hyperpod-model-deployment-observability.md">View a markdown version of this page</a></p><awsdocs-header></awsdocs-header><awsui-app-layout id="app-layout" class="awsui-util-no-gutters" ng-controller="ContentController as $ctrl" header-selector="awsdocs-header" navigation-hide="false" navigation-width="$ctrl.navWidth" navigation-open="$ctrl.navOpen" navigation-change="$ctrl.onNavChange($event)" tools-hide="$ctrl.hideTools" tools-width="$ctrl.toolsWidth" tools-open="$ctrl.toolsOpen" tools-change="$ctrl.onToolsChange($event)"><div id="guide-toc" dom-region="navigation"><awsdocs-toc></awsdocs-toc></div><div id="main-column" dom-region="content" tabindex="-1"><awsdocs-view class="awsdocs-view"><div id="awsdocs-content"><head><title>Implementing inference observability on HyperPod clusters - Amazon SageMaker AI</title><meta name="pdf" content="/pdfs/en_us/sagemaker/latest/dg/sagemaker-dg.pdf#sagemaker-hyperpod-model-deployment-observability" /><meta name="rss" content="amazon-sagemaker-release-notes.rss" /><meta name="keywords" content="SageMaker,Amazon SageMaker,machine learning,notebook instance,ml environments,supports,Interactive development environment,IDEs,SageMaker HyperPod, sagemaker hyperpod,always-on cluster, always-on instance,resilient compute cluster,generative ai, foundation model,large language model, LLM, llm, language gen ai,vision transformer, diffusion model, image gen ai" /><link rel="alternate" type="text/markdown" href="sagemaker-hyperpod-model-deployment-observability.md" title="Markdown version" /><script type="application/ld+json">
+{
+    "@context" : "https://schema.org",
+    "@type" : "BreadcrumbList",
+    "itemListElement" : [
+      {
+        "@type" : "ListItem",
+        "position" : 1,
+        "name" : "亚马逊云科技",
+        "item" : "https://www.amazonaws.cn"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 2,
+        "name" : "Amazon SageMaker AI",
+        "item" : "https://docs.amazonaws.cn/sagemaker/index.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 3,
+        "name" : "Developer Guide",
+        "item" : "https://docs.amazonaws.cn/en_us/sagemaker/latest/dg"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 4,
+        "name" : "Machine learning environments offered by Amazon SageMaker AI",
+        "item" : "https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/machine-learning-environments.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 5,
+        "name" : "Amazon SageMaker HyperPod",
+        "item" : "https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 6,
+        "name" : "Deploying models on Amazon SageMaker HyperPod",
+        "item" : "https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment.html"
+      },
+      {
+        "@type" : "ListItem",
+        "position" : 7,
+        "name" : "Implementing inference observability on HyperPod clusters",
+        "item" : "https://docs.amazonaws.cn/en_us/sagemaker/latest/dg/sagemaker-hyperpod-model-deployment.html"
+      }
+    ]
+}
+</script></head><body><div id="main"><div style="display: none"><a href="/pdfs/en_us/sagemaker/latest/dg/sagemaker-dg.pdf#sagemaker-hyperpod-model-deployment-observability" target="_blank" rel="noopener noreferrer" title="Open PDF"></a></div><div id="breadcrumbs" class="breadcrumb"><a href="/index.html">Documentation</a><a href="/sagemaker/index.html">Amazon SageMaker AI</a><a href="whatis.html">Developer Guide</a></div><div id="page-toc-src"><a href="#sagemaker-hyperpod-model-deployment-observability-metrics">Supported inference metrics</a><a href="#sagemaker-hyperpod-model-deployment-observability-yaml">Configure metrics in deployment YAML</a><a href="#sagemaker-hyperpod-model-deployment-observability-role">Monitor and troubleshoot inference workloads by role</a><a href="#sagemaker-hyperpod-model-deployment-observability-diy">Implement your own observability integration</a><a href="#sagemaker-hyperpod-model-deployment-observability-troubleshoot">Troubleshoot inference observability issues</a></div><div id="main-content" class="awsui-util-container"><div id="main-col-body"><awsdocs-language-banner data-service="$ctrl.pageService"></awsdocs-language-banner><awsui-flash class="awsdocs-region-banner awsui-util-mb-l" id="divRegionDisclaimer">Services or capabilities described in Amazon Web Services documentation might vary by Region. To see the differences applicable to the China Regions,
+      see <a href="/en_us/aws/latest/userguide/services.html" rel="noopener noreferrer" target="_blank">Getting Started with Amazon Web Services in China</a>
+         <a href="/en_us/aws/latest/userguide/aws-ug.pdf#services" rel="noopener noreferrer" target="_blank">(PDF)</a>.
+    </awsui-flash><h1 class="topictitle" id="sagemaker-hyperpod-model-deployment-observability">Implementing inference observability on HyperPod clusters</h1><div class="awsdocs-page-header-container"><awsdocs-page-header></awsdocs-page-header><awsdocs-filter-selector id="awsdocs-filter-selector"></awsdocs-filter-selector></div><p>Amazon SageMaker HyperPod provides comprehensive inference observability capabilities that
+            enable data scientists and machine learning engineers to monitor and optimize their
+            deployed models. This solution is enabled through SageMaker HyperPod Observability and
+            automatically collects performance metrics for inference workloads, delivering
+            production-ready monitoring through integrated <a href="https://prometheus.io/" rel="noopener noreferrer" target="_blank"><span>Prometheus</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a> and <a href="https://grafana.com/oss/" rel="noopener noreferrer" target="_blank"><span>Grafana</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+            dashboards.</p><p>With metrics enabled by default, the platform captures essential model performance
+            data including invocation latency, concurrent requests, error rates, and token-level
+            metrics, while providing standard Prometheus endpoints for customers who prefer to
+            implement custom observability solutions.</p><div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>This topic contains a deep dive in to implementing inference observability on
+                HyperPod clusters. For a more general reference, see <a href="./sagemaker-hyperpod-eks-cluster-observability-cluster.html">Cluster and task observability</a>.</p></div></div><p>This guide provides step-by-step instructions for implementing and using inference
+            observability on your HyperPod clusters. You'll learn how to configure metrics in your
+            deployment YAML files, access monitoring dashboards based on your role (administrator,
+            data scientist, or machine learning engineer), integrate with custom observability
+            solutions using Prometheus endpoints, and troubleshoot common monitoring issues.</p>
+            <h2 id="sagemaker-hyperpod-model-deployment-observability-metrics">Supported inference metrics</h2>
+            <p><b>Invocation metrics</b></p>
+            <p>These metrics capture model inference request and response data, providing
+                universal visibility regardless of your model type or serving framework. When
+                inference metrics are enabled, these metrics are calculated at invocation time and
+                exported to your monitoring infrastructure.</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">model_invocations_total</code> - Total number of invocation requests
+                        to the model </p>
+                </li><li class="listitem">
+                    <p><code class="code">model_errors_total</code> - Total number of errors during model
+                        invocation</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_concurrent_requests</code> - Active concurrent model
+                        requests</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_latency_milliseconds</code> - Model invocation latency in
+                        milliseconds</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_ttfb_milliseconds</code> - Model time to first byte latency in
+                        milliseconds</p>
+                </li></ul></div>
+            <p><b>Model container metrics</b></p>
+            <p>These metrics provide insights into the internal operations of your model
+                containers, including token processing, queue management, and framework-specific
+                performance indicators. The metrics available depend on your model serving
+                framework:</p>
+            <div class="itemizedlist">
+                 
+                 
+
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><a href="https://huggingface.co/docs/text-generation-inference/en/reference/metrics" rel="noopener noreferrer" target="_blank"><span>TGI container metrics</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                    </p>
+                </li><li class="listitem">
+                    <p><a href="https://github.com/deepjavalibrary/djl-serving/blob/master/prometheus/README.md" rel="noopener noreferrer" target="_blank"><span>LMI container metrics</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a>
+                    </p>
+                </li></ul></div>
+            <p><b>Metric dimensions</b></p>
+            <p>All inference metrics include comprehensive labels that enable detailed filtering
+                and analysis across your deployments:</p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Cluster Identity:</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">cluster_id</code> - The unique ID of the HyperPod
+                                cluster</p>
+                        </li><li class="listitem">
+                            <p><code class="code">cluster_name</code> - The name of the HyperPod
+                                cluster</p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p><b>Resource Identity:</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">resource_name</code> - Deployment name (For example,
+                                "jumpstart-model-deployment")</p>
+                        </li><li class="listitem">
+                            <p><code class="code">resource_type</code> - Type of deployment (jumpstart,
+                                inference-endpoint)</p>
+                        </li><li class="listitem">
+                            <p><code class="code">namespace</code> - Kubernetes namespace for
+                                multi-tenancy</p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p><b>Model Characteristics:</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">model_name</code> - Specific model identifier (For example,
+                                "llama-2-7b-chat")</p>
+                        </li><li class="listitem">
+                            <p><code class="code">model_version</code> - Model version for A/B testing and
+                                rollbacks</p>
+                        </li><li class="listitem">
+                            <p><code class="code">model_container_type</code> - Serving framework (TGI, LMI,
+                                -)</p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p><b>Infrastructure Context:</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">pod_name</code> - Individual pod identifier for
+                                debugging</p>
+                        </li><li class="listitem">
+                            <p><code class="code">node_name</code> - Kubernetes node for resource
+                                correlation</p>
+                        </li><li class="listitem">
+                            <p><code class="code">instance_type</code> - EC2 instance type for cost
+                                analysis</p>
+                        </li></ul></div>
+                </li><li class="listitem">
+                    <p><b>Operational Context:</b></p>
+                    <div class="itemizedlist">
+                         
+                         
+                    <ul class="itemizedlist"><li class="listitem">
+                            <p><code class="code">metric_source</code> - Collection point (reverse-proxy,
+                                model-container)</p>
+                        </li><li class="listitem">
+                            <p><code class="code">task_type</code> - Workload classification
+                                (inference)</p>
+                        </li></ul></div>
+                </li></ul></div>
+
+
+
+
+
+
+         
+            <h2 id="sagemaker-hyperpod-model-deployment-observability-yaml">Configure metrics in deployment YAML</h2>
+            <p>Amazon SageMaker HyperPod enables inference metrics by default for all model deployments,
+                providing immediate observability without additional configuration. You can
+                customize metrics behavior by modifying the deployment YAML configuration to enable
+                or disable metrics collection based on your specific requirements.</p>
+
+            <p><b>Deploy a model from JumpStart</b></p>
+            <p>Use the following YAML configuration to deploy a JuJumpStartmpStart model with
+                metrics enabled:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">apiVersion: inference.sagemaker.aws.amazon.com/v1
+kind: JumpStartModel
+metadata:
+  name:mistral-model
+  namespace: ns-team-a
+spec:
+  model:
+    modelId: "huggingface-llm-mistral-7b-instruct"
+    modelVersion: "3.19.0"
+  metrics:
+    enabled:true # Default: true (can be set to false to disable)
+  replicas: 2
+  sageMakerEndpoint:
+    name: "mistral-model-sm-endpoint"
+  server:
+    instanceType: "ml.g5.12xlarge"
+    executionRole: "arn:aws:iam::123456789:role/SagemakerRole"
+  tlsConfig:
+    tlsCertificateOutputS3Uri: s3://hyperpod/mistral-model/certs/</code></pre>
+
+            <p><b>Deploy custom and fine-tuned models from Amazon S3 or
+                    Amazon FSx</b></p>
+            <p>Configure custom inference endpoints with detailed metrics settings using the
+                following YAML:</p>
+            <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">apiVersion: inference.sagemaker.aws.amazon.com/v1
+kind: JumpStartModel
+metadata:
+  name:mistral-model
+  namespace: ns-team-a
+spec:
+  model:
+    modelId: "huggingface-llm-mistral-7b-instruct"
+    modelVersion: "3.19.0"
+  metrics:
+    enabled:true # Default: true (can be set to false to disable)
+  replicas: 2
+  sageMakerEndpoint:
+    name: "mistral-model-sm-endpoint"
+  server:
+    instanceType: "ml.g5.12xlarge"
+    executionRole: "arn:aws:iam::123456789:role/SagemakerRole"
+  tlsConfig:
+    tlsCertificateOutputS3Uri: s3://hyperpod/mistral-model/certs/
+
+Deploy a custom inference endpoint
+
+Configure custom inference endpoints with detailed metrics settings using the following YAML:
+
+apiVersion: inference.sagemaker.aws.amazon.com/v1
+kind: InferenceEndpointConfig
+metadata:
+  name: inferenceendpoint-deepseeks
+  namespace: ns-team-a
+spec:
+  modelName: deepseeks
+  modelVersion: 1.0.1
+  metrics:
+    enabled: true # Default: true (can be set to false to disable)
+    metricsScrapeIntervalSeconds: 30 # Optional: if overriding the default 15s
+    modelMetricsConfig:
+        port: 8000 # Optional: if overriding, it defaults to the WorkerConfig.ModelInvocationPort.ContainerPort within the InferenceEndpointConfig spec 8080
+        path: "/custom-metrics" # Optional: if overriding the default "/metrics"
+  endpointName: deepseek-sm-endpoint
+  instanceType: ml.g5.12xlarge
+  modelSourceConfig:
+    modelSourceType: s3
+    s3Storage:
+      bucketName: model-weights
+      region: us-west-2
+    modelLocation: deepseek
+    prefetchEnabled: true
+  invocationEndpoint: invocations
+  worker:
+    resources:
+      limits:
+        nvidia.com/gpu: 1
+      requests:
+        nvidia.com/gpu: 1
+        cpu: 25600m
+        memory: 102Gi
+    image: 763104351884.dkr.ecr.us-west-2.amazonaws.com/djl-inference:0.32.0-lmi14.0.0-cu124
+    modelInvocationPort:
+      containerPort: 8080
+      name: http
+    modelVolumeMount:
+      name: model-weights
+      mountPath: /opt/ml/model
+    environmentVariables: ...
+  tlsConfig:
+    tlsCertificateOutputS3Uri: s3://hyperpod/inferenceendpoint-deepseeks4/certs/
+
+</code></pre>
+            <div class="awsdocs-note"><div class="awsdocs-note-title"><awsui-icon name="status-info" variant="link"></awsui-icon><h6>Note</h6></div><div class="awsdocs-note-text"><p>To disable metrics for specific deployments, set <code class="code">metrics.enabled:
+                        false</code> in your YAML configuration.</p></div></div>
+
+
+
+
+
+
+         
+            <h2 id="sagemaker-hyperpod-model-deployment-observability-role">Monitor and troubleshoot inference workloads by role</h2>
+
+            <p>Amazon SageMaker HyperPod provides comprehensive observability capabilities that support
+                different user workflows, from initial cluster setup to advanced performance
+                troubleshooting. Use the following guidance based on your role and monitoring
+                requirements.</p>
+
+            <p><b>HyperPod admin</b></p>
+
+            <p><b>Your responsibility:</b> Enable observability
+                infrastructure and ensure system health across the entire cluster.</p>
+
+            <p><b>What you need to know:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Cluster-wide observability provides infrastructure metrics for all
+                        workloads</p>
+                </li><li class="listitem">
+                    <p>One-click setup deploys monitoring stack with pre-configured
+                        dashboards</p>
+                </li><li class="listitem">
+                    <p>Infrastructure metrics are separate from model-specific inference
+                        metrics</p>
+                </li></ul></div>
+
+            <p><b>What you need to do:</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p>Navigate to the HyperPod console.</p>
+                </li><li>
+                    <p>Select your cluster.</p>
+                </li><li>
+                    <p>Go to the HyperPod cluster details page you just created. You
+                        will see a new option to install the HyperPod observability add-on.</p>
+                </li><li>
+                    <p>Click on the <b>Quick install</b> option. After 1-2 minutes
+                        all the steps will be completed and you will see the Grafana dashboard and
+                        Prometheus workspace details.</p>
+                </li></ol></div>
+
+            <p>This single action automatically deploys the EKS Add-on, configures observability
+                operators, and provisions pre-built dashboards in Grafana.</p>
+
+            <p><b>Data scientist</b></p>
+
+            <p><b>Your responsibility:</b> Deploy models efficiently
+                and monitor their basic performance.</p>
+
+            <p><b>What you need to know:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Metrics are automatically enabled when you deploy models</p>
+                </li><li class="listitem">
+                    <p>Grafana dashboards provide immediate visibility into model
+                        performance</p>
+                </li><li class="listitem">
+                    <p>You can filter dashboards to focus on your specific deployments</p>
+                </li></ul></div>
+
+            <p><b>What you need to do:</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+            <ol><li>
+                    <p>Deploy your model using your preferred method:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Amazon SageMaker Studio UI</p>
+                        </li><li>
+                            <p>HyperPod CLI commands</p>
+                        </li><li>
+                            <p>Python SDK in notebooks</p>
+                        </li><li>
+                            <p>kubectl with YAML configurations</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Access your model metrics:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Open Amazon SageMaker Studio</p>
+                        </li><li>
+                            <p>Navigate to HyperPod Cluster and open Grafana
+                                Dashboard</p>
+                        </li><li>
+                            <p>Select Inference Dashboard</p>
+                        </li><li>
+                            <p>Apply filters to view your specific model deployment</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Monitor key performance indicators:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Track model latency and throughput</p>
+                        </li><li>
+                            <p>Monitor error rates and availability</p>
+                        </li><li>
+                            <p>Review resource utilization trends</p>
+                        </li></ol></div>
+                </li></ol></div>
+
+            <p>After this is complete, you'll have immediate visibility into your model's
+                performance without additional configuration, enabling quick identification of
+                deployment issues or performance changes.</p>
+
+            <p><b>Machine learning engineer (MLE)</b></p>
+
+            <p><b>Your responsibility:</b> Maintain production model
+                performance and resolve complex performance issues.</p>
+
+            <p><b>What you need to know:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Advanced metrics include model container details like queue depths and
+                        token metrics</p>
+                </li><li class="listitem">
+                    <p>Correlation analysis across multiple metric types reveals root
+                        causes</p>
+                </li><li class="listitem">
+                    <p>Auto-scaling configurations directly impact performance during traffic
+                        spikes</p>
+                </li></ul></div>
+
+            <p><b>Hypothetical scenario:</b> A customer's chat model
+                experiences intermittent slow responses. Users are complaining about 5-10 second
+                delays. The MLE can use inference observability for systematic performance
+                investigation.</p>
+
+            <p><b>What you need to do:</b></p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p>Examine the Grafana dashboard to understand the scope and severity of the
+                        performance issue:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                    <ol><li>
+                            <p>High latency alert active since 09:30</p>
+                        </li><li>
+                            <p>P99 latency: 8.2s (normal: 2.1s)</p>
+                        </li><li>
+                            <p>Affected time window: 09:30-10:15 (45 minutes)</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Correlate multiple metrics to understand the system behavior during the
+                        incident:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Concurrent requests: Spiked to 45 (normal: 15-20)</p>
+                        </li><li>
+                            <p>Pod scaling: KEDA scaled 2→5 pods during incident</p>
+                        </li><li>
+                            <p>GPU utilization: Remained normal (85-90%)</p>
+                        </li><li>
+                            <p>Memory usage: Normal (24GB/32GB)</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Examine the distributed system behavior since the infrastructure metrics
+                        appear normal:</p>
+                    <div class="orderedlist">
+                         
+                         
+                    <ol><li>
+                            <p>Node-level view: All pods concentrated on same node (poor
+                                distribution)</p>
+                        </li><li>
+                            <p>Model container metrics: TGI queue depth shows 127 requests
+                                (normal: 5-10)</p>
+                        </li></ol></div>
+
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">Available in Grafana dashboard under "Model Container Metrics" panel
+        Metric: tgi_queue_size<span>{</span>resource_name="customer-chat-llama"}
+        Current value: 127 requests queued (indicates backlog)</code></pre>
+                </li><li>
+                    <p>Identify interconnected configuration issues:</p>
+                    <div class="orderedlist">
+                         
+                         
+                    <ol><li>
+                            <p>KEDA scaling policy: Too slow (30s polling interval)</p>
+                        </li><li>
+                            <p>Scaling timeline: Scaling response lagged behind traffic spike by
+                                45+ seconds</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Implement targeted fixes based on the analysis:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Updated KEDA polling interval: 30s → 15s</p>
+                        </li><li>
+                            <p>Increased maxReplicas in scaling configuration</p>
+                        </li><li>
+                            <p>Adjusted scaling thresholds to scale earlier (15 vs 20 concurrent
+                                requests)</p>
+                        </li></ol></div>
+                </li></ol></div>
+
+            <p>You can systematically diagnose complex performance issues using comprehensive
+                metrics, implement targeted fixes, and establish preventive measures to maintain
+                consistent production model performance.</p>
+
+
+
+
+
+
+         
+            <h2 id="sagemaker-hyperpod-model-deployment-observability-diy">Implement your own observability integration</h2>
+            <p>Amazon SageMaker HyperPod exposes inference metrics through industry-standard Prometheus
+                endpoints, enabling integration with your existing observability infrastructure. Use
+                this approach when you prefer to implement custom monitoring solutions or integrate
+                with third-party observability platforms instead of using the built-in Grafana and
+                Prometheus stack.</p>
+
+            <p><b>Access inference metrics endpoints</b></p>
+
+            <p><b>What you need to know:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Inference metrics are automatically exposed on standardized Prometheus
+                        endpoints</p>
+                </li><li class="listitem">
+                    <p>Metrics are available regardless of your model type or serving
+                        framework</p>
+                </li><li class="listitem">
+                    <p>Standard Prometheus scraping practices apply for data collection</p>
+                </li></ul></div>
+
+            <p><b>Inference metrics endpoint configuration:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Port:</b> 9113</p>
+                </li><li class="listitem">
+                    <p><b>Path:</b> /metrics</p>
+                </li><li class="listitem">
+                    <p><b>Full endpoint:</b>
+                        http://pod-ip:9113/metrics</p>
+                </li></ul></div>
+
+            <p><b>Available inference metrics:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><code class="code">model_invocations_total</code> - Total number of invocation requests
+                        to the model</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_errors_total</code> - Total number of errors during model
+                        invocation</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_concurrent_requests</code> - Active concurrent requests per
+                        model</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_latency_milliseconds</code> - Model invocation latency in
+                        milliseconds</p>
+                </li><li class="listitem">
+                    <p><code class="code">model_ttfb_milliseconds</code> - Model time to first byte latency in
+                        milliseconds</p>
+                </li></ul></div>
+
+            <p><b>Access model container metrics</b></p>
+
+            <p><b>What you need to know:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p>Model containers expose additional metrics specific to their serving
+                        framework</p>
+                </li><li class="listitem">
+                    <p>These metrics provide internal container insights like token processing
+                        and queue depths</p>
+                </li><li class="listitem">
+                    <p>Endpoint configuration varies by model container type</p>
+                </li></ul></div>
+
+            <p><b>For JumpStart model deployments using Text Generation
+                    Inference (TGI) containers:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Port:</b> 8080 (model container port)</p>
+                </li><li class="listitem">
+                    <p><b>Path:</b> /metrics</p>
+                </li><li class="listitem">
+                    <p><b>Documentation:</b>
+                        <a href="https://huggingface.co/docs/text-generation-inference/en/reference/metrics" rel="noopener noreferrer" target="_blank"><span>https://huggingface.co/docs/text-generation-inference/en/reference/metrics</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li></ul></div>
+
+            <p><b>For JumpStart model deployments using Large Model Inference
+                    (LMI) containers:</b></p>
+            <div class="itemizedlist">
+                 
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Port:</b> 8080 (model container port)</p>
+                </li><li class="listitem">
+                    <p><b>Path:</b> /server/metrics</p>
+                </li><li class="listitem">
+                    <p><b>Documentation:</b>
+                        <a href="https://github.com/deepjavalibrary/djl-serving/blob/master/prometheus/README.md" rel="noopener noreferrer" target="_blank"><span>https://github.com/deepjavalibrary/djl-serving/blob/master/prometheus/README.md</span><awsui-icon class="awsdocs-link-icon" name="external"></awsui-icon></a></p>
+                </li></ul></div>
+
+            <p><b>For custom inference endpoints (BYOD):</b></p>
+            <div class="itemizedlist">
+                 
+                 
+            <ul class="itemizedlist"><li class="listitem">
+                    <p><b>Port:</b> Customer-configured (default 8080
+                        Defaults to the WorkerConfig.ModelInvocationPort.ContainerPort within the
+                        InferenceEndpointConfig spec.)</p>
+                </li><li class="listitem">
+                    <p><b>Path:</b> Customer-configured (default
+                        /metrics)</p>
+                </li></ul></div>
+
+            <p><b>Implement custom observability integration</b></p>
+
+            <p>With a custom observability integration, you're responsible for:</p>
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p><b>Metrics Scraping:</b> Implement
+                        Prometheus-compatible scraping from the endpoints described previously</p>
+                </li><li>
+                    <p><b>Data Export:</b> Configure export to your
+                        chosen observability platform</p>
+                </li><li>
+                    <p><b>Alerting:</b> Set up alerting rules based on
+                        your operational requirements</p>
+                </li><li>
+                    <p><b>Dashboards:</b> Create visualization
+                        dashboards for your monitoring needs</p>
+                </li></ol></div>
+
+
+
+
+
+         
+            <h2 id="sagemaker-hyperpod-model-deployment-observability-troubleshoot">Troubleshoot inference observability issues</h2>
+            <p><b>The dashboard shows no data</b></p>
+
+            <p>If the Grafana dashboard is empty and all panels show "No data," perform the
+                following steps to investigate:</p>
+
+            <div class="orderedlist">
+                 
+                 
+                 
+                 
+                 
+            <ol><li>
+                    <p>Verify Administrator has inference observability installed:</p>
+                    <div class="orderedlist">
+                         
+                         
+                         
+                    <ol><li>
+                            <p>Navigate to HyperPod Console &gt; Select cluster &gt; Check if
+                                "Observability" status shows "Enabled"</p>
+                        </li><li>
+                            <p>Verify Grafana workspace link is accessible from cluster
+                                overview</p>
+                        </li><li>
+                            <p>Confirm Amazon Managed Prometheus workspace is configured and
+                                receiving data</p>
+                        </li></ol></div>
+                </li><li>
+                    <p>Verify HyperPod Observabilty is enabled:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">hyp observability view      </code></pre>
+                </li><li>
+                    <p>Verify model metrics are enabled:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">kubectl get jumpstartmodel -n &lt;namespace&gt; customer-chat-llama -o jsonpath='<span>{</span>.status.metricsStatus}' # Expected: enabled: true, state:Enabled       </code></pre>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">kubectl get jumpstartmodel -n &lt;namespace&gt; customer-chat-llama -o jsonpath='<span>{</span>.status.metricsStatus}' # Expected: enabled: true, state:Enabled        </code></pre>
+                </li><li>
+                    <p>Check the metrics endpoint:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class="">kubectl port-forward pod/customer-chat-llama-xxx 9113:9113
+curl localhost:9113/metrics | grep model_invocations_total# Expected: model_invocations_total<span>{</span>...} metrics       </code></pre>
+                </li><li>
+                    <p>Check the logs:</p>
+                    <pre class="programlisting"><div class="code-btn-container"><div class="btn-copy-code" title="Copy"><awsui-icon name="copy"></awsui-icon></div></div><!--DEBUG:  ()--><code class=""># Model Container
+kubectl logs customer-chat-llama-xxx -c customer-chat-llama# Look for: OOM errors, CUDA errors, model loading failures
+
+# Proxy/SideCar
+kubectl logs customer-chat-llama-xxx -c sidecar-reverse-proxy# Look for: DNS resolution issues, upstream connection failures
+
+# Metrics Exporter Sidecar
+kubectl logs customer-chat-llama-xxx -c otel-collector# Look for: Metrics collection issues, export failures      </code></pre>
+                </li></ol></div>
+
+            <p><b>Other common issues</b></p>
+            <div class="table-container"><div class="table-contents"><table id="w738aac11c35c41c57c19c11"><thead>
+                        <tr>
+                            <th>Issue</th>
+                            <th>Solution</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Inference observability is not installed</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Install inference observability through the console</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>"Enable Observability" in HyperPod console</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Metrics disabled in model</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Update model configuration</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Add <code class="code">metrics: <span>{</span>enabled: true}</code> to model spec</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>AMP workspace not configured</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Fix data source connection</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Verify AMP workspace ID in Grafana data sources</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td tabindex="-1">
+                                <p>Network connectivity</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Check security groups/NACLs</p>
+                            </td>
+                            <td tabindex="-1">
+                                <p>Ensure pods can reach AMP endpoints</p>
+                            </td>
+                        </tr>
+                    </table></div></div>
+
+
+
+
+
+        <awsdocs-copyright class="copyright-print"></awsdocs-copyright><awsdocs-thumb-feedback right-edge="{{$ctrl.thumbFeedbackRightEdge}}"></awsdocs-thumb-feedback></div><noscript><div><div><div><div id="js_error_message"><p><strong>Javascript is disabled or is unavailable in your browser.</strong></p><p>To use the Amazon Web Services Documentation, Javascript must be enabled. Please refer to your browser's Help pages for instructions.</p></div></div></div></div></noscript><div id="main-col-footer" class="awsui-util-font-size-0"><div id="doc-conventions">&nbsp;</div><div class="prev-next"><div id="previous" class="prev-link" accesskey="p" href="./sagemaker-hyperpod-model-deployment-autoscaling.html">Autoscaling</div><div id="next" class="next-link" accesskey="n" href="./sagemaker-hyperpod-model-deployment-task-gov.html">Task
+                governance</div></div></div><awsdocs-page-utilities></awsdocs-page-utilities></div></div></body></div></awsdocs-view><div class="page-loading-indicator" id="page-loading-indicator"><awsui-spinner size="large"></awsui-spinner></div></div><div id="tools-panel" dom-region="tools"><awsdocs-tools-panel id="awsdocs-tools-panel"></awsdocs-tools-panel></div></awsui-app-layout><awsdocs-cookie-banner class="doc-cookie-banner"></awsdocs-cookie-banner></div></body></html>

@@ -1,0 +1,2148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <meta property="og:site_name" content="Robotics Center of Silicon Valley">
+  <meta name="application-name" content="Robotics Center of Silicon Valley">
+  <script>!function(){try{var t=localStorage.getItem('svrc_theme_mode');var p=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';var m=t==='dark'?'dark':t==='light'?'light':p;document.documentElement.setAttribute('data-theme',m);document.documentElement.setAttribute('data-theme-mode',t||'system');document.documentElement.style.colorScheme=m;var c=m==='light'?'#f5f7fb':'#08090b';var g=document.querySelector('meta[name="theme-color"]');if(!g){g=document.createElement('meta');g.setAttribute('name','theme-color');document.head.appendChild(g);}g.setAttribute('content',c);}catch(e){}}();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State of Robotics 2026 Report: $38B Market, 12 Humanoids, VLA Adoption | Robotics Center of Silicon Valley</title>
+<meta name="description" content="$38B market, 12 humanoid platforms, VLA adoption up 3x — the 2026 State of Robotics report covers hardware, data costs, AI policy, and deployment across 12 verticals. Download the free 48-page PDF — no paywall.">
+<meta property="og:title" content="State of Robotics 2026 Report: $38B Market, 12 Humanoids, VLA Adoption | Robotics Center of Silicon Valley">
+<meta property="og:description" content="$38B market, 12 humanoid platforms, VLA adoption up 3x — the 2026 State of Robotics report covers hardware, data costs, AI policy, and deployment across 12 verticals. Download the free 48-page PDF — no paywall.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.roboticscenter.ai/state-of-robotics-2026">
+<meta property="og:image" content="https://www.roboticscenter.ai/assets/og/state-of-robotics-2026.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="State of Robotics 2026 Report: $38B Market, 12 Humanoids, VLA Adoption | Robotics Center of Silicon Valley">
+<meta name="twitter:description" content="$38B market, 12 humanoid platforms, VLA adoption up 3x — the 2026 State of Robotics report covers hardware, data costs, AI policy, and deployment across 12 verticals. Download the free 48-page PDF — no paywall.">
+<meta name="twitter:image" content="https://www.roboticscenter.ai/assets/og/state-of-robotics-2026.png">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "State of Robotics 2026",
+    "description": "The definitive annual report on the global robotics industry — hardware, data, AI policy, and deployment trends across 12 verticals.",
+    "author": {
+      "@type": "Organization",
+      "name": "Robotics Center of Silicon Valley",
+      "url": "https://www.roboticscenter.ai"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Robotics Center of Silicon Valley",
+      "logo":{"@type":"ImageObject","url":"https://www.roboticscenter.ai/assets/images/logo.png"}
+    },
+    "datePublished": "2026-03-01",
+    "dateModified": "2026-04-17",
+    "url": "https://www.roboticscenter.ai/state-of-robotics-2026",
+    "image": "https://www.roboticscenter.ai/assets/images/openarm.jpg",
+    "about": "Robotics Industry Report 2026",
+    "keywords": "robotics, VLA, humanoid robots, robot deployment, physical AI, imitation learning"
+  }</script>
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "Report",
+    "name": "State of Robotics 2026",
+    "description": "The definitive annual report on the global robotics industry covering hardware commoditization, data collection economics, VLA foundation models, deployment across 12 verticals, and $9.4B in venture investment.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Robotics Center of Silicon Valley",
+      "url": "https://www.roboticscenter.ai"
+    },
+    "datePublished": "2026-03-01",
+    "dateModified": "2026-04-17",
+    "url": "https://www.roboticscenter.ai/state-of-robotics-2026",
+    "image": "https://www.roboticscenter.ai/assets/images/openarm.jpg",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "numberOfPages": 48
+  }</script>
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How big is the global robotics market in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The global robotics market reached $38 billion in 2026, representing a 34% year-over-year increase — the fastest growth rate in a decade. Venture investment in robotics reached $9.4B globally in 2025, a 41% increase over 2024."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How many commercial humanoid robots are available in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Twelve commercial humanoid platforms are now available for purchase or structured lease in 2026, up from just 3 in 2024. Four are bipedal full-humanoids, three are upper-body torsos, and five are humanoid-adjacent mobile bases with dexterous arms. Prices range from $28,000 for torso-only systems to $245,000 for full bipeds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Vision-Language-Action (VLA) models and how widely are they adopted?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "VLA models integrate vision encoders, language models, and action decoders into a single end-to-end trainable stack, allowing robots to follow natural-language task instructions. VLA adoption tripled in 2025-2026 and is now present in 40% of all new robot deployments. At least eleven commercial deployments use VLA models as their primary policy backbone."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does robot data collection cost in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The average cost per hour of high-quality teleoperation data fell from approximately $340/hour in early 2024 to $118/hour as of March 2026 — a 60% decrease. This was driven by cheaper teleoperation hardware, improved replay-and-annotation pipelines, and standardization around common episode formats like RLDS and HDF5."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which industries deploy the most robots in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three verticals — logistics/warehousing (41,000 units), semiconductor manufacturing (22,500 units), and food service (8,200 units) — account for 64% of all commercial robot deployments by unit volume. Food service is the surprise growth sector with 61% year-over-year growth, with over 340 quick-service restaurant locations now operating robots."
+        }
+      }
+    ]
+  }</script>
+<script type="application/ld+json">{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.roboticscenter.ai/"},
+      {"@type": "ListItem", "position": 2, "name": "Research", "item": "https://www.roboticscenter.ai/research/"},
+      {"@type": "ListItem", "position": 3, "name": "State of Robotics 2026", "item": "https://www.roboticscenter.ai/state-of-robotics-2026"}
+    ]
+  }</script>
+<link rel="canonical" href="https://www.roboticscenter.ai/state-of-robotics-2026">
+<link rel="alternate" hreflang="x-default" href="https://www.roboticscenter.ai/state-of-robotics-2026">
+<link rel="alternate" hreflang="en" href="https://www.roboticscenter.ai/en/state-of-robotics-2026">
+<link rel="alternate" hreflang="zh" href="https://www.roboticscenter.ai/zh/state-of-robotics-2026">
+<link rel="alternate" hreflang="de" href="https://www.roboticscenter.ai/de/state-of-robotics-2026">
+<link rel="alternate" hreflang="ja" href="https://www.roboticscenter.ai/ja/state-of-robotics-2026">
+<link rel="alternate" hreflang="fr" href="https://www.roboticscenter.ai/fr/state-of-robotics-2026">
+<link rel="alternate" hreflang="ko" href="https://www.roboticscenter.ai/ko/state-of-robotics-2026">
+<link rel="alternate" hreflang="ar" href="https://www.roboticscenter.ai/ar/state-of-robotics-2026">
+<link rel="alternate" hreflang="hi" href="https://www.roboticscenter.ai/hi/state-of-robotics-2026">
+<link rel="alternate" hreflang="he" href="https://www.roboticscenter.ai/he/state-of-robotics-2026">
+<link rel="alternate" hreflang="pt" href="https://www.roboticscenter.ai/pt/state-of-robotics-2026">
+<link rel="alternate" hreflang="ru" href="https://www.roboticscenter.ai/ru/state-of-robotics-2026">
+<link rel="alternate" hreflang="es" href="https://www.roboticscenter.ai/es/state-of-robotics-2026">
+<meta name="svrc-locale" content="en">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="sitemap" type="application/xml" href="sitemap.xml">
+<script src="/analytics-config.js" async></script>
+<script src="/analytics.js" async></script>
+<link rel="stylesheet" href="https://www.roboticscenter.ai/styles.css">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></noscript>
+<style>
+  /* Scope report white background without breaking the dark nav */
+  body { background: #ffffff !important; padding-top: 104px !important; }
+  .report-wrapper { background: #ffffff; color: #1a1a1a; }
+  /* Hide report's own accent bar — main site CSS handles it */
+  .accent-bar { display: none !important; }
+  /* Remove the old custom topbar entirely */
+  .site-topbar, .report-topbar, .rpt-topbar { display: none !important; }
+  /* ============ RESET & BASE ============ */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy-900: #001a33;
+    --navy-800: #002d5c;
+    --navy-700: #003d7a;
+    --lime: #c8f53c;
+    --lime-dark: #7a9a00;
+    --lime-dim: rgba(200, 245, 60, 0.10);
+    --lime-glow: rgba(200, 245, 60, 0.22);
+    --red: #8b0000;
+    --ink: #1a1a1a;
+    --ink-soft: #4a4a4a;
+    --ink-mute: #8a8a8a;
+    --bg: #ffffff;
+    --bg-soft: #f5f7fb;
+    --bg-warm: #f0ffc7;
+    --border: #e0e4ea;
+    --border-soft: #cfd4da;
+    --serif: 'Fraunces', 'Georgia', 'Times New Roman', serif;
+    --sans: 'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --maxw: 960px;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img, svg { max-width: 100%; display: block; }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ============ ANIMATED ACCENT BAR ============ */
+  @keyframes accentBar {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .accent-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    z-index: 110;
+    background: linear-gradient(90deg, #c8f53c 0%, #38bdf8 50%, #c8f53c 100%);
+    background-size: 200% 100%;
+    animation: accentBar 6s linear infinite;
+  }
+
+  /* ============ SITE TOPBAR ============ */
+  .site-topbar {
+    position: sticky;
+    top: 3px;
+    z-index: 100;
+    background: #08090b;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 0 24px;
+  }
+  .site-topbar .inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 52px;
+  }
+  .site-topbar .logo-link {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 15px;
+    color: #f1f5f9;
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .site-topbar .logo-link .dot { color: #c8f53c; }
+  .site-topbar .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .site-topbar .back-link {
+    font-size: 13px;
+    color: #94a3b8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color .15s;
+  }
+  .site-topbar .back-link:hover { color: #f1f5f9; }
+  .site-topbar .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #c8f53c;
+    color: #08090b;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform .15s, background .15s;
+  }
+  .site-topbar .cta-btn:hover { background: #d4ff52; transform: translateY(-1px); }
+
+  /* ============ STICKY CHAPTER NAV ============ */
+  nav.report-nav {
+    position: sticky; top: 104px; z-index: 50;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  nav.report-nav .inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+  }
+  nav.report-nav .brand {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--navy-900);
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: flex; align-items: center; gap: 8px;
+  }
+  nav.report-nav .brand::before { content: ""; display: inline-block; width: 8px; height: 8px; background: var(--lime); border-radius: 50%; }
+  nav.report-nav .chapter-links { display: flex; gap: 20px; font-size: 13px; overflow-x: auto; }
+  nav.report-nav .chapter-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: color .15s;
+  }
+  nav.report-nav .chapter-links a:hover { color: var(--lime-dark); }
+  nav.report-nav .chapter-links a.active { color: var(--lime-dark); font-weight: 600; }
+  @media (max-width: 720px) {
+    nav.report-nav .chapter-links { display: none; }
+  }
+
+  /* ============ HERO / COVER ============ */
+  .hero {
+    background: linear-gradient(180deg, #001a33 0%, #002d5c 55%, #003d7a 100%);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+    padding: 120px 0 140px 0;
+  }
+  .hero::before {
+    content: ""; position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,245,60,0.12) 0%, rgba(200,245,60,0) 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ""; position: absolute;
+    bottom: -100px; left: -80px;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, rgba(56,189,248,0) 70%);
+    pointer-events: none;
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero-eyebrow-brand {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lime);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .hero-brand-sub { font-size: 13px; color: rgba(255,255,255,0.55); letter-spacing: 1px; margin-bottom: 80px; }
+  .hero-eyebrow {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--lime);
+    margin-bottom: 12px;
+    letter-spacing: 0.3px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(56px, 10vw, 104px);
+    line-height: 0.98;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+  }
+  .hero h1 .accent { color: var(--lime); font-style: italic; }
+  .hero-sub {
+    font-size: 19px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.8);
+    max-width: 640px;
+    font-weight: 300;
+    margin-bottom: 48px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  .hero-meta-item {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+  }
+  .hero-meta-item strong {
+    display: block;
+    color: #fff;
+    font-size: 15px;
+    margin-top: 4px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--lime);
+    color: var(--navy-900);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: transform .15s, background .15s;
+  }
+  .hero-cta:hover { background: #d4ff52; transform: translateY(-1px); }
+  .hero-cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    margin-top: 8px;
+    margin-left: 12px;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: transform .15s, border-color .15s, color .15s;
+  }
+  .hero-cta-secondary:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-1px); }
+
+  /* ============ TYPOGRAPHY ============ */
+  section.chapter { padding: 96px 0 40px 0; border-top: 3px solid var(--navy-900); }
+  section.chapter:first-of-type { border-top: none; }
+  .chapter-num {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--lime-dark);
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h1.chapter-title, h2.chapter-title {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 400;
+    color: var(--navy-900);
+    line-height: 1.05;
+    letter-spacing: -1px;
+    margin-bottom: 20px;
+  }
+  .chapter-lede {
+    font-family: var(--serif);
+    font-size: 21px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-weight: 300;
+    margin-bottom: 48px;
+    max-width: 720px;
+  }
+  h2.section {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy-900);
+    margin: 56px 0 14px 0;
+    letter-spacing: -0.3px;
+    line-height: 1.15;
+  }
+  h3.sub {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy-800);
+    margin: 40px 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+  p { margin-bottom: 18px; }
+  p.lead {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.55;
+    color: #333;
+    font-style: italic;
+    margin-bottom: 36px;
+    border-left: 3px solid var(--lime);
+    padding-left: 24px;
+  }
+  strong { color: var(--navy-900); font-weight: 700; }
+  em { color: var(--ink-soft); }
+
+  /* ============ TOC ============ */
+  .toc {
+    padding: 72px 0 48px 0;
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .toc-label { color: var(--ink-mute); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  .toc-title {
+    font-family: var(--serif);
+    font-size: 40px;
+    color: var(--navy-900);
+    margin-bottom: 36px;
+    letter-spacing: -0.5px;
+  }
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 16px 0;
+    border-bottom: 1px dotted var(--border-soft);
+    font-size: 18px;
+    text-decoration: none;
+    color: inherit;
+    transition: background .15s, padding .15s;
+  }
+  .toc-item:hover { background: rgba(200,245,60,0.08); padding-left: 8px; padding-right: 8px; }
+  .toc-item-left { display: flex; align-items: baseline; gap: 20px; flex-wrap: wrap; }
+  .toc-num {
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--lime-dark);
+    font-size: 18px;
+    min-width: 32px;
+    font-weight: 600;
+  }
+  .toc-text { font-family: var(--serif); color: var(--navy-900); font-weight: 500; }
+  .toc-text-sub { color: var(--ink-mute); font-size: 14px; font-family: var(--sans); font-style: italic; }
+
+  /* ============ KPI GRID ============ */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: 40px 0 48px 0;
+  }
+  @media (max-width: 720px) { .kpi-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+  @media (max-width: 480px) { .kpi-grid { grid-template-columns: 1fr; } }
+  .kpi-card {
+    border-top: 2px solid var(--lime);
+    padding: 18px 8px 8px 0;
+  }
+  .kpi-value {
+    font-family: var(--serif);
+    font-size: 52px;
+    font-weight: 600;
+    color: var(--navy-900);
+    line-height: 1;
+    letter-spacing: -1.5px;
+  }
+  .kpi-label {
+    font-size: 11px;
+    color: var(--lime-dark);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin: 14px 0 8px 0;
+  }
+  .kpi-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ============ CALLOUTS ============ */
+  .callout {
+    background: var(--bg-soft);
+    border-left: 4px solid var(--navy-700);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .callout-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy-900);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .callout p:last-child { margin-bottom: 0; }
+
+  .insight {
+    background: var(--bg-warm);
+    border-left: 4px solid var(--lime);
+    padding: 24px 28px;
+    margin: 32px 0;
+    border-radius: 0 6px 6px 0;
+  }
+  .insight-label {
+    font-size: 11px;
+    color: var(--lime-dark);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .insight p:last-child { margin-bottom: 0; }
+
+  /* ============ TABLES ============ */
+  .table-scroll { overflow-x: auto; margin: 28px 0; -webkit-overflow-scrolling: touch; }
+  table.data {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    min-width: 560px;
+  }
+  table.data thead { background: var(--navy-900); color: #fff; }
+  table.data th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+  }
+  table.data th.num, table.data td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data tbody tr { border-bottom: 1px solid var(--border); }
+  table.data tbody tr:nth-child(even) { background: #fafbfd; }
+  table.data td { padding: 12px 16px; color: #2a2a2a; }
+  table.data td strong { color: var(--navy-900); }
+
+  /* ============ CHARTS ============ */
+  .chart-block {
+    margin: 32px 0;
+    padding: 24px;
+    background: #fafbfd;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .chart-title { font-size: 15px; font-weight: 700; color: var(--navy-900); margin-bottom: 2px; }
+  .chart-sub { font-size: 13px; color: var(--ink-mute); margin-bottom: 16px; font-style: italic; }
+  .chart-source { font-size: 12px; color: var(--ink-mute); margin-top: 12px; font-style: italic; }
+  .chart-svg { width: 100%; height: auto; display: block; }
+
+  /* ============ TWO COL ============ */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 24px 0;
+  }
+  @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* ============ MINI STATS ============ */
+  .mini-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin: 28px 0;
+  }
+  @media (max-width: 720px) { .mini-stats { grid-template-columns: 1fr 1fr; } }
+  .mini-stat {
+    background: var(--bg-soft);
+    padding: 16px 14px;
+    border-top: 2px solid var(--lime);
+    border-radius: 0 0 4px 4px;
+  }
+  .mini-stat-val {
+    font-family: var(--serif);
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--navy-900);
+    line-height: 1;
+  }
+  .mini-stat-lab { font-size: 12px; color: #555; margin-top: 8px; line-height: 1.4; }
+
+  /* ============ CHINA FOCUS ============ */
+  .focus-header {
+    background: var(--red);
+    color: #fff;
+    padding: 56px 40px;
+    margin: 96px 0 32px 0;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .focus-header::after {
+    content: ""; position: absolute; top: -80px; right: -80px;
+    width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,245,60,0.14) 0%, rgba(200,245,60,0) 70%);
+  }
+  .focus-header > * { position: relative; z-index: 1; }
+  .focus-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--lime);
+    margin-bottom: 10px;
+    font-weight: 700;
+  }
+  .focus-header h1, .focus-header h2 {
+    font-family: var(--serif);
+    font-size: clamp(30px, 4vw, 44px);
+    line-height: 1.1;
+    font-weight: 400;
+    margin-bottom: 12px;
+  }
+  .focus-header p { font-size: 17px; color: rgba(255,255,255,0.88); margin: 0; max-width: 640px; }
+
+  /* ============ LISTS ============ */
+  ul.clean { list-style: none; padding-left: 0; }
+  ul.clean li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+  ul.clean li::before {
+    content: "\25B8";
+    color: var(--lime-dark);
+    font-weight: 700;
+    position: absolute;
+    left: 0;
+    top: 8px;
+  }
+
+  /* ============ BACK COVER / CTA ============ */
+  .cta-block {
+    background: var(--navy-900);
+    color: #fff;
+    padding: 100px 0;
+    margin-top: 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-block::before {
+    content: ""; position: absolute; top: -150px; right: -150px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,245,60,0.06) 0%, rgba(200,245,60,0) 70%);
+  }
+  .cta-block .wrap { position: relative; z-index: 1; }
+  .cta-label { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--lime); font-weight: 700; margin-bottom: 16px; }
+  .cta-block h2 {
+    font-family: var(--serif);
+    font-size: clamp(36px, 5vw, 56px);
+    color: #fff;
+    margin-bottom: 24px;
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.5px;
+  }
+  .cta-block h2 .accent { color: var(--lime); font-style: italic; }
+  .cta-block > .wrap > p { color: rgba(255,255,255,0.82); font-size: 17px; line-height: 1.7; margin-bottom: 18px; max-width: 680px; }
+  .cta-audience { margin-top: 16px; font-size: 17px; }
+  .cta-audience strong { color: var(--lime); font-weight: 700; }
+
+  .cta-buttons { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 36px; }
+  .btn-primary, .btn-secondary {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 28px; border-radius: 999px;
+    text-decoration: none; font-weight: 600; font-size: 14px;
+    transition: all .15s;
+  }
+  .btn-primary { background: var(--lime); color: var(--navy-900); }
+  .btn-primary:hover { background: #d4ff52; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); }
+  .btn-secondary:hover { border-color: var(--lime); color: var(--lime); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+    margin-top: 72px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+  @media (max-width: 720px) { .contact-grid { grid-template-columns: 1fr 1fr; gap: 24px; } }
+  .contact-item strong {
+    display: block; color: var(--lime);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 8px; font-weight: 700;
+  }
+  .contact-item span, .contact-item a {
+    color: #fff; font-size: 15px; line-height: 1.5; text-decoration: none;
+  }
+  .contact-item a:hover { color: var(--lime); }
+
+  /* ============ RELATED RESOURCES ============ */
+  .related-section {
+    background: var(--bg-soft);
+    padding: 80px 0;
+    border-top: 1px solid var(--border);
+  }
+  .related-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .related-section .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--lime-dark);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .related-section .section-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    color: var(--navy-900);
+    letter-spacing: -0.5px;
+  }
+  .related-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  @media (max-width: 720px) { .related-grid { grid-template-columns: 1fr; } }
+  .related-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color .15s, box-shadow .15s, transform .15s;
+  }
+  .related-card:hover {
+    border-color: var(--lime);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+  .related-card-tag {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--lime-dark);
+  }
+  .related-card-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy-900);
+    line-height: 1.3;
+  }
+  .related-card-desc {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .related-card-arrow {
+    margin-top: auto;
+    padding-top: 8px;
+    font-size: 13px;
+    color: var(--lime-dark);
+    font-weight: 600;
+  }
+
+  /* ============ FAQ ============ */
+  .faq-section {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 80px 24px;
+    border-top: 1px solid var(--border);
+  }
+  .faq-section .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .faq-section .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--lime-dark);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .faq-section .section-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    color: var(--navy-900);
+    letter-spacing: -0.5px;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 24px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-question {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-bottom: 10px;
+  }
+  .faq-answer {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+  .faq-answer a { color: var(--lime-dark); text-decoration: underline; }
+
+  /* ============ CITATION ============ */
+  .citation-section {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 24px 64px;
+  }
+  .citation-box {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+  }
+  .citation-box h2 {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-bottom: 14px;
+  }
+  .citation-text {
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 16px 20px;
+  }
+  .copy-cite-btn {
+    margin-top: 12px;
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--ink-soft);
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: border-color .15s, color .15s;
+  }
+  .copy-cite-btn:hover {
+    border-color: var(--lime-dark);
+    color: var(--lime-dark);
+  }
+
+  /* ============ NEWSLETTER ============ */
+  .newsletter-section {
+    background: var(--bg-soft);
+    padding: 64px 24px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  .newsletter-section h2 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-bottom: 10px;
+    letter-spacing: -0.3px;
+  }
+  .newsletter-section p {
+    color: var(--ink-soft);
+    max-width: 520px;
+    margin: 0 auto 24px;
+    font-size: 16px;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .newsletter-form input {
+    padding: 12px 16px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    min-width: 260px;
+    font-size: 15px;
+    color: var(--ink);
+    font-family: var(--sans);
+    outline: none;
+    transition: border-color .15s;
+  }
+  .newsletter-form input:focus { border-color: var(--lime-dark); }
+  .newsletter-form button {
+    background: var(--lime);
+    color: var(--navy-900);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: background .15s, transform .15s;
+  }
+  .newsletter-form button:hover { background: #d4ff52; transform: translateY(-1px); }
+
+  /* ============ PDF MODAL ============ */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,26,51,0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .modal-overlay.is-open { display: flex; }
+  .modal-box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 32px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.25);
+    position: relative;
+  }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: var(--ink-mute);
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: border-color .15s, color .15s;
+  }
+  .modal-close:hover { border-color: var(--lime-dark); color: var(--lime-dark); }
+  .modal-eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--lime-dark);
+    margin-bottom: 6px;
+  }
+  .modal-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--navy-900);
+    margin-bottom: 6px;
+  }
+  .modal-subtitle {
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+  .modal-form { display: flex; flex-direction: column; gap: 14px; }
+  .modal-field { display: flex; flex-direction: column; gap: 4px; }
+  .modal-field label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--ink-mute);
+  }
+  .modal-field input, .modal-field select {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    outline: none;
+    transition: border-color .15s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .modal-field input:focus, .modal-field select:focus { border-color: var(--lime-dark); }
+  .modal-field select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='7' viewBox='0 0 12 7'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238a8a8a' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 36px;
+  }
+  .modal-submit-btn {
+    background: var(--lime);
+    color: var(--navy-900);
+    font-weight: 600;
+    font-size: 14px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    font-family: var(--sans);
+    margin-top: 4px;
+    transition: background .15s, transform .15s;
+  }
+  .modal-submit-btn:hover { background: #d4ff52; transform: translateY(-1px); }
+  .modal-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .modal-fine-print { font-size: 12px; color: var(--ink-mute); text-align: center; margin-top: 8px; }
+  .modal-success { display: none; text-align: center; padding: 16px 0; }
+  .modal-success.is-visible { display: block; }
+  .modal-success-icon { font-size: 40px; margin-bottom: 16px; color: var(--lime-dark); }
+  .modal-success h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--navy-900); margin-bottom: 8px; }
+  .modal-success p { color: var(--ink-soft); font-size: 15px; }
+
+  /* ============ FOOTER ============ */
+  footer.disclaimer {
+    background: var(--navy-900);
+    color: rgba(255,255,255,0.5);
+    padding: 32px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    border-top: 1px solid rgba(255,255,255,0.12);
+  }
+
+  /* ============ UTILS ============ */
+  .section-rule {
+    height: 1px;
+    background: var(--border);
+    margin: 56px 0;
+    border: none;
+  }
+
+  @media (max-width: 720px) {
+    section.chapter { padding: 64px 0 32px 0; }
+    .hero { padding: 72px 0 80px 0; }
+    .hero-brand-sub { margin-bottom: 40px; }
+    .focus-header { padding: 40px 28px; margin: 64px 0 24px 0; }
+    .cta-block { padding: 72px 0; margin-top: 64px; }
+    .contact-grid { margin-top: 48px; padding-top: 32px; }
+    .site-topbar .back-link { display: none; }
+    nav.report-nav { top: 104px; }
+  }
+
+  .rpt-breadcrumb {
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    z-index: 49;
+    background: rgba(8,9,11,0.96);
+    border-bottom: 1px solid rgba(200,245,60,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .rpt-breadcrumb__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 7px 2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: var(--sans);
+  }
+  .rpt-breadcrumb__link {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .rpt-breadcrumb__link:hover { color: #c8f53c; }
+  .rpt-breadcrumb__sep { color: rgba(255,255,255,0.25); }
+  .rpt-breadcrumb__current { color: #c8f53c; font-weight: 500; }
+</style>
+</head>
+<body>
+
+<!-- ============ REAL SITE HEADER ============ -->
+<header class="site-header">
+    <nav class="nav">
+      <div class="logo-wrapper">
+        <a href="https://www.roboticscenter.ai/" class="logo">Robotics Center</a>
+        <div class="nav-dropdown logo-dropdown">
+          <div class="nav-dropdown-inner">
+            <a href="https://www.roboticscenter.ai/about" class="nav-priority-link">About Us</a>
+            <a href="https://www.roboticscenter.ai/locations">Locations</a>
+            <a href="https://www.roboticscenter.ai/events">Events</a>
+            <a href="https://www.roboticscenter.ai/news">News</a>
+            <a href="https://www.roboticscenter.ai/careers">Careers</a>
+            <a href="https://www.roboticscenter.ai/contact">Contact</a>
+          </div>
+        </div>
+      </div>
+      <ul class="nav-links">
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Robots</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="store" class="nav-priority-link">Store</a><a href="platform">Data Platform</a><a href="hardware">Hardware Catalog</a><a href="leasing">Leasing</a><a href="compare">Compare</a></div></div></li>
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Data &amp; Dev</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="eval">Eval</a><a href="datasets" class="nav-priority-link">Datasets</a><a href="data-services">Data Services</a><a href="datakit">DataKit</a><a href="teleop">Teleoperation</a><a href="vla-models">AI Models</a><a href="benchmarks">Benchmarks</a><a href="rl-environments">RL Environments</a><a href="tools">Tools &amp; SDKs</a><a href="marketplace">Data Marketplace</a><a href="marketplace/sell">Start Selling</a><a href="supplier">Supplier Portal</a></div></div></li>
+        <li><button class="nav-dropdown-trigger" aria-haspopup="true" aria-expanded="false">Learn</button><div class="nav-dropdown"><div class="nav-dropdown-inner"><a href="learn" class="nav-priority-link">Academy</a><a href="wiki/sdk-quickstart">Developer Docs</a><a href="glossary">Glossary</a><a href="forum">Forum</a><a href="research">Research &amp; Papers</a><a href="people">People</a><a href="institutions">Institutions</a><a href="reports">Reports</a><a href="markets">Markets</a><a href="applications">Applications</a><a href="blog">Blog</a></div></div></li>
+      </ul>
+      <div class="nav-cta">
+        <a href="https://www.roboticscenter.ai/contact" class="btn btn-primary">Book a Demo</a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+<div class="rpt-breadcrumb">
+  <div class="rpt-breadcrumb__inner">
+    <a href="https://www.roboticscenter.ai/" class="rpt-breadcrumb__link">Home</a>
+    <span class="rpt-breadcrumb__sep">›</span>
+    <a href="https://www.roboticscenter.ai/resources" class="rpt-breadcrumb__link">Reports</a>
+    <span class="rpt-breadcrumb__sep">›</span>
+    <span class="rpt-breadcrumb__current">State of Robotics 2026</span>
+  </div>
+</div>
+
+<!-- ============ ANIMATED ACCENT BAR ============ -->
+<div class="accent-bar"></div>
+
+<!-- ============ STICKY CHAPTER NAV ============ -->
+<nav class="report-nav">
+  <div class="inner">
+    <a href="#top" class="brand">SVRC Research</a>
+    <div class="chapter-links">
+      <a href="#chapter-1">Hardware</a>
+      <a href="#chapter-2">Data</a>
+      <a href="#chapter-3">Models</a>
+      <a href="#chapter-4">Deployment</a>
+      <a href="#chapter-4b">China</a>
+      <a href="#chapter-5">Investment</a>
+      <a href="#chapter-6">2027</a>
+    </div>
+  </div>
+</nav>
+
+<div class="report-wrapper">
+<!-- ============ HERO ============ -->
+<header class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-eyebrow-brand">SVRC Research</div>
+    <div class="hero-brand-sub">Robotics Center of Silicon Valley &middot; Annual Report Series</div>
+    <div class="hero-eyebrow">The 2026 Annual Report</div>
+    <h1>State of<br>Robotics<br><span class="accent">2026</span></h1>
+    <p class="hero-sub">Hardware, data, and foundation models &mdash; a definitive view of the global robotics industry across twelve verticals and four regions.</p>
+    <a href="#executive-summary" class="hero-cta">Read the report &rarr;</a>
+    <button id="downloadPdfBtn" class="hero-cta-secondary">Download PDF</button>
+    <div class="hero-meta">
+      <div class="hero-meta-item">Published<strong>March 2026</strong></div>
+      <div class="hero-meta-item">Volume<strong>48 pages &middot; v1.0</strong></div>
+      <div class="hero-meta-item">Author<strong>SVRC Research</strong></div>
+      <div class="hero-meta-item">Price<strong>Free</strong></div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ TOC ============ -->
+<section class="toc">
+  <div class="wrap">
+    <div class="toc-label">Contents</div>
+    <h2 class="toc-title">Inside this report</h2>
+
+    <a href="#executive-summary" class="toc-item"><div class="toc-item-left"><span class="toc-num">00</span><span class="toc-text">Executive Summary</span></div></a>
+    <a href="#chapter-1" class="toc-item"><div class="toc-item-left"><span class="toc-num">01</span><span class="toc-text">The Hardware Landscape</span><span class="toc-text-sub">arms, humanoids, compute</span></div></a>
+    <a href="#chapter-2" class="toc-item"><div class="toc-item-left"><span class="toc-num">02</span><span class="toc-text">Data Collection at Scale</span><span class="toc-text-sub">cost curves, operator markets</span></div></a>
+    <a href="#chapter-3" class="toc-item"><div class="toc-item-left"><span class="toc-num">03</span><span class="toc-text">The Rise of Foundation Models</span><span class="toc-text-sub">VLAs, IL, simulation</span></div></a>
+    <a href="#chapter-4" class="toc-item"><div class="toc-item-left"><span class="toc-num">04</span><span class="toc-text">Deployment by Vertical</span><span class="toc-text-sub">logistics, food, fabs, health</span></div></a>
+    <a href="#chapter-4b" class="toc-item"><div class="toc-item-left"><span class="toc-num">4B</span><span class="toc-text">Special Focus &mdash; China</span><span class="toc-text-sub">the strategic opportunity</span></div></a>
+    <a href="#chapter-5" class="toc-item"><div class="toc-item-left"><span class="toc-num">05</span><span class="toc-text">Investment &amp; M&amp;A</span><span class="toc-text-sub">capital flows, valuations</span></div></a>
+    <a href="#chapter-6" class="toc-item"><div class="toc-item-left"><span class="toc-num">06</span><span class="toc-text">What to Watch in 2027</span><span class="toc-text-sub">six themes shaping next year</span></div></a>
+  </div>
+</section>
+
+<!-- ============ EXECUTIVE SUMMARY ============ -->
+<section class="chapter" id="executive-summary">
+  <div class="wrap">
+    <div class="chapter-num">Executive Summary</div>
+    <h2 class="chapter-title">An industry moves from<br>hardware to infrastructure</h2>
+    <p class="lead">In 2026, the robotics industry is no longer defined by the novelty of a new form factor. It is defined by whether an operator can collect data, train a policy, and redeploy it &mdash; repeatedly, economically, at scale.</p>
+
+    <p>The global robotics market reached <strong>$38B in 2026</strong>, a 34% year-over-year increase and the fastest growth rate the sector has seen in a decade. But headline growth alone understates the structural shifts underneath: hardware is being commoditized faster than the software and data layer; foundation models have crossed from research curiosity to production infrastructure; and the economics of teleoperation data collection have fallen to a level where enterprise pilots are financially viable for the first time.</p>
+
+    <p>Three forces reorganize the stack this year. First, <strong>hardware commoditization</strong> &mdash; fourteen manufacturers now produce sub-$10K robotic arms, and twelve commercial humanoid platforms are available for purchase or lease. Second, <strong>data economics have inverted</strong>: what cost $340/hour to collect in 2024 now costs $118/hour, putting a $50K&ndash;$150K pilot data budget within reach for most enterprises. Third, <strong>Vision-Language-Action (VLA) models</strong> &mdash; absent from production 18 months ago &mdash; now back 40% of new deployments.</p>
+
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Market Size</div>
+        <div class="kpi-value">$38B</div>
+        <div class="kpi-desc">Global robotics market in 2026, up 34% YoY &mdash; fastest growth in a decade.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">VLA Adoption</div>
+        <div class="kpi-value">3&times;</div>
+        <div class="kpi-desc">Vision-Language-Action adoption tripled, now in 40% of new deployments.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Data Cost</div>
+        <div class="kpi-value">&minus;60%</div>
+        <div class="kpi-desc">Teleoperation data cost/hour fell 60% versus 2024 baseline.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Humanoid Platforms</div>
+        <div class="kpi-value">12</div>
+        <div class="kpi-desc">Commercial humanoids for purchase or lease &mdash; up from 3 in 2024.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Market Concentration</div>
+        <div class="kpi-value">58%</div>
+        <div class="kpi-desc">Japan and US combined share of global deployments by unit volume.</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Training Shift</div>
+        <div class="kpi-value">IL&gt;RL</div>
+        <div class="kpi-desc">Imitation learning overtook RL as the primary manipulation training method.</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <span class="insight-label">SVRC Perspective</span>
+      <p>The companies that will look back at 2026 as a pivotal year are those that used it to build <strong>repeatable data collection workflows</strong>, <strong>rigorous policy evaluation systems</strong>, and <strong>genuine vertical depth</strong> &mdash; not the ones that chased the latest hardware launch. The defensibility layer has moved up-stack.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 01 ============ -->
+<section class="chapter" id="chapter-1">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 01</div>
+    <h2 class="chapter-title">The Hardware Landscape</h2>
+    <p class="chapter-lede">The robotics hardware market entered 2026 in a state of productive fragmentation. Manufacturers have converged on a set of design principles that prioritize <em>data friendliness</em> over raw capability &mdash; backdrivable joints, onboard IMU stacks, and low-latency tethering built from the ground up for teleoperation.</p>
+
+    <h2 class="section">Arm proliferation and commoditization</h2>
+    <p>Six-DoF and seven-DoF robotic arms priced under $10,000 are now available from at least fourteen manufacturers across five countries. The <a href="https://www.roboticscenter.ai/store/product/openarm" style="color:var(--lime-dark);text-decoration:underline;">OpenArm platform</a> &mdash; originally a research derivative of ACT &mdash; has become the de facto baseline for academic and early-enterprise pilots, with more than <strong>2,400 units shipped in 2025</strong> alone. Its open-source URDF and ROS 2 compatibility mean researchers can port policies trained on one arm to another in hours rather than weeks.</p>
+    <p>Chinese manufacturers account for <strong>eight of the fourteen</strong> sub-$10K arms on the market. Lead times from Chinese OEMs have compressed from 14 weeks to as few as 3 weeks for standard configurations, applying significant price pressure on US and European suppliers. In response, US suppliers have competed on support density, software integration, and certification (CE, UL) rather than component cost.</p>
+
+    <div class="insight">
+      <span class="insight-label">Key Insight</span>
+      <p>The arm hardware market is being commoditized faster than the software and data market. Companies that built competitive advantage on hardware exclusivity are repositioning toward <strong>training pipelines, policy libraries, and support contracts</strong>.</p>
+    </div>
+
+    <h2 class="section">Humanoids cross the commercial threshold</h2>
+    <p>Twelve commercial humanoid platforms became available for purchase or structured lease in 2026. This is not merely a headline number &mdash; it represents a genuine market formation event. In 2024, only three platforms had reached that threshold; in early 2025, five. The jump to twelve reflects both the maturation of actuation technology (series elastic and quasi-direct-drive have both proven manufacturable at scale) and the capital deployed by strategic investors seeking to seed the data collection layer.</p>
+    <p>Of the twelve platforms, four are bipedal full-humanoids, three are upper-body-only torsos, and five are humanoid-adjacent mobile bases with two or more dexterous arms. Average selling prices range from <strong>$28,000 for the lightest torso-only systems to $245,000 for full bipeds</strong> with onboard compute. Several manufacturers are offering <a href="https://www.roboticscenter.ai/leasing" style="color:var(--lime-dark);text-decoration:underline;">lease-first programs</a> at $3,500&ndash;$8,000/month, recognizing that enterprise buyers are not yet ready to commit to purchase before demonstrating a workflow.</p>
+
+    <div class="mini-stats">
+      <div class="mini-stat"><div class="mini-stat-val">4</div><div class="mini-stat-lab">Bipedal full humanoids</div></div>
+      <div class="mini-stat"><div class="mini-stat-val">3</div><div class="mini-stat-lab">Upper-body torso systems</div></div>
+      <div class="mini-stat"><div class="mini-stat-val">5</div><div class="mini-stat-lab">Humanoid-adjacent mobile</div></div>
+      <div class="mini-stat"><div class="mini-stat-val">$3.5K</div><div class="mini-stat-lab">Monthly lease, entry tier</div></div>
+    </div>
+
+    <h2 class="section">Sensor and compute integration</h2>
+    <p>The integration of depth cameras, wrist-mounted force-torque sensors, and onboard compute into the robot itself &mdash; rather than hanging off a host PC &mdash; was a consistent theme across 2025 hardware launches. NVIDIA Jetson Orin and Thor modules now ship pre-integrated in at least seven commercial platforms. (See our <a href="https://www.roboticscenter.ai/compare" style="color:var(--lime-dark);text-decoration:underline;">robot comparison tool</a> for a side-by-side spec breakdown.) This shift shortens the "hardware to first inference" timeline from days to under two hours for developers already familiar with standard robot learning stacks.</p>
+
+    <div class="chart-block">
+      <div class="chart-title">Exhibit 1.1 &mdash; Global Robotics Market Size, 2021&ndash;2026</div>
+      <div class="chart-sub">USD billions</div>
+      <svg class="chart-svg" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Market size growing from $14B in 2021 to $38B in 2026">
+        <line x1="60" y1="200" x2="580" y2="200" stroke="#cfd4da" stroke-width="1"/>
+        <line x1="60" y1="150" x2="580" y2="150" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="100" x2="580" y2="100" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="50" x2="580" y2="50" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <text x="50" y="203" text-anchor="end" font-size="10" fill="#8a8a8a">$0</text>
+        <text x="50" y="153" text-anchor="end" font-size="10" fill="#8a8a8a">$15</text>
+        <text x="50" y="103" text-anchor="end" font-size="10" fill="#8a8a8a">$30</text>
+        <text x="50" y="53" text-anchor="end" font-size="10" fill="#8a8a8a">$45</text>
+        <rect x="90"  y="153.3" width="60" height="46.7" fill="#003d7a"/>
+        <rect x="170" y="140"   width="60" height="60"   fill="#003d7a"/>
+        <rect x="250" y="126.7" width="60" height="73.3" fill="#003d7a"/>
+        <rect x="330" y="120"   width="60" height="80"   fill="#003d7a"/>
+        <rect x="410" y="105"   width="60" height="95"   fill="#003d7a"/>
+        <rect x="490" y="73.3"  width="60" height="126.7" fill="#c8f53c"/>
+        <text x="120" y="148" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$14B</text>
+        <text x="200" y="135" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$18B</text>
+        <text x="280" y="121" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$22B</text>
+        <text x="360" y="115" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$24B</text>
+        <text x="440" y="100" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$28.5B</text>
+        <text x="520" y="68"  text-anchor="middle" font-size="12" fill="#7a9a00" font-weight="700">$38B</text>
+        <text x="120" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2021</text>
+        <text x="200" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2022</text>
+        <text x="280" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2023</text>
+        <text x="360" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2024</text>
+        <text x="440" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2025</text>
+        <text x="520" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">2026</text>
+        <text x="520" y="232" text-anchor="middle" font-size="9" fill="#7a9a00" font-style="italic">+34% YoY</text>
+      </svg>
+      <div class="chart-source">Source: SVRC Research, IFR, PitchBook &middot; Estimates where 2026 exceeds reporting period</div>
+    </div>
+
+    <div class="chart-block">
+      <div class="chart-title">Exhibit 1.2 &mdash; Commercial Humanoid Platforms Available</div>
+      <div class="chart-sub">Platforms available for purchase or structured lease, end-of-year</div>
+      <svg class="chart-svg" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Commercial humanoid platforms grew from 1 in 2023 to 12 in 2026">
+        <line x1="60" y1="160" x2="580" y2="160" stroke="#cfd4da" stroke-width="1"/>
+        <line x1="60" y1="120" x2="580" y2="120" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="80"  x2="580" y2="80"  stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="40"  x2="580" y2="40"  stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <text x="50" y="163" text-anchor="end" font-size="10" fill="#8a8a8a">0</text>
+        <text x="50" y="123" text-anchor="end" font-size="10" fill="#8a8a8a">5</text>
+        <text x="50" y="83"  text-anchor="end" font-size="10" fill="#8a8a8a">10</text>
+        <text x="50" y="43"  text-anchor="end" font-size="10" fill="#8a8a8a">15</text>
+        <polyline points="160,152 290,136 420,120 550,64" fill="none" stroke="#003d7a" stroke-width="3"/>
+        <circle cx="160" cy="152" r="6" fill="#003d7a"/>
+        <circle cx="290" cy="136" r="6" fill="#003d7a"/>
+        <circle cx="420" cy="120" r="6" fill="#003d7a"/>
+        <circle cx="550" cy="64"  r="8" fill="#c8f53c" stroke="#001a33" stroke-width="1.5"/>
+        <text x="160" y="144" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">1</text>
+        <text x="290" y="128" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">3</text>
+        <text x="420" y="112" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">5</text>
+        <text x="550" y="54"  text-anchor="middle" font-size="13" fill="#7a9a00" font-weight="700">12</text>
+        <text x="160" y="180" text-anchor="middle" font-size="10" fill="#4a4a4a">2023</text>
+        <text x="290" y="180" text-anchor="middle" font-size="10" fill="#4a4a4a">2024</text>
+        <text x="420" y="180" text-anchor="middle" font-size="10" fill="#4a4a4a">2025</text>
+        <text x="550" y="180" text-anchor="middle" font-size="10" fill="#4a4a4a">2026</text>
+      </svg>
+      <div class="chart-source">Source: SVRC Research, manufacturer surveys</div>
+    </div>
+
+    <h2 class="section">Form factor economics</h2>
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr><th>Form Factor</th><th class="num">Units Shipped (2025E)</th><th>Price Range (USD)</th><th>Primary Use Case</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>6-DoF Arm (&lt;$10K)</strong></td><td class="num">18,400</td><td>$2,800 &ndash; $9,500</td><td>Research, data collection</td></tr>
+          <tr><td><strong>Bimanual Arm System</strong></td><td class="num">3,100</td><td>$14,000 &ndash; $38,000</td><td>Manipulation research, pilots</td></tr>
+          <tr><td><strong>Mobile Manipulator</strong></td><td class="num">2,200</td><td>$28,000 &ndash; $95,000</td><td>Logistics, inspection</td></tr>
+          <tr><td><strong>Full Humanoid</strong></td><td class="num">410</td><td>$85,000 &ndash; $245,000</td><td>Factory pilots, media / demo</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 02 ============ -->
+<section class="chapter" id="chapter-2">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 02</div>
+    <h2 class="chapter-title">Data Collection at Scale</h2>
+    <p class="chapter-lede">If hardware was the story of 2024, data infrastructure is the defining story of 2026. The underlying economics of robot training data have shifted more than any other segment of the stack.</p>
+
+    <p>The average cost per hour of high-quality teleoperation data &mdash; captured, labeled, and packaged into a standardized dataset format &mdash; fell from <strong>approximately $340/hour in early 2024 to $136/hour by Q4 2025</strong>. The SVRC benchmark dataset puts the fully loaded cost at $118/hour as of March 2026 for a standard pick-and-place task with wrist camera and external RGBD.</p>
+
+    <h2 class="section">What drove the cost drop</h2>
+    <p>Three forces drove this compression in parallel. First, teleoperation hardware itself became cheaper and more ergonomic &mdash; the emergence of leader-follower systems priced under $2,000 made it economically viable to deploy teleoperators at scale without bespoke hardware per site. Second, replay-and-annotation pipelines matured dramatically; tools like DROID, LeRobot, and commercial equivalents can now ingest raw operator streams and produce RLDS-formatted episodes with semi-automated quality scoring, cutting annotation labor by <strong>40&ndash;60%</strong> compared to 2024 workflows. Third, the community standardized around a small set of episode formats (RLDS, HDF5 with LeRobot schema), reducing the integration tax for each new hardware platform.</p>
+
+    <div class="chart-block">
+      <div class="chart-title">Exhibit 2.1 &mdash; Teleoperation Data Collection Cost per Hour</div>
+      <div class="chart-sub">Fully-loaded USD per hour of labeled, RLDS-formatted manipulation data</div>
+      <svg class="chart-svg" viewBox="0 0 600 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Data collection cost fell from $340/hour to $118/hour between 2024 and 2026">
+        <line x1="60" y1="200" x2="580" y2="200" stroke="#cfd4da" stroke-width="1"/>
+        <line x1="60" y1="150" x2="580" y2="150" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="100" x2="580" y2="100" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <line x1="60" y1="50" x2="580" y2="50" stroke="#e8eaee" stroke-width="0.5" stroke-dasharray="2,2"/>
+        <text x="50" y="203" text-anchor="end" font-size="10" fill="#8a8a8a">$0</text>
+        <text x="50" y="153" text-anchor="end" font-size="10" fill="#8a8a8a">$100</text>
+        <text x="50" y="103" text-anchor="end" font-size="10" fill="#8a8a8a">$200</text>
+        <text x="50" y="53"  text-anchor="end" font-size="10" fill="#8a8a8a">$400</text>
+        <polyline points="110,72.5 204,100.6 298,126.9 392,141.9 486,149 550,155.75" fill="none" stroke="#003d7a" stroke-width="3"/>
+        <circle cx="110" cy="72.5" r="5" fill="#003d7a"/>
+        <circle cx="204" cy="100.6" r="5" fill="#003d7a"/>
+        <circle cx="298" cy="126.9" r="5" fill="#003d7a"/>
+        <circle cx="392" cy="141.9" r="5" fill="#003d7a"/>
+        <circle cx="486" cy="149" r="5" fill="#003d7a"/>
+        <circle cx="550" cy="155.75" r="7" fill="#c8f53c" stroke="#001a33" stroke-width="1.5"/>
+        <text x="110" y="64"  text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$340</text>
+        <text x="204" y="93"  text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$265</text>
+        <text x="298" y="119" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$195</text>
+        <text x="392" y="134" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$155</text>
+        <text x="486" y="142" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$136</text>
+        <text x="550" y="148" text-anchor="middle" font-size="12" fill="#7a9a00" font-weight="700">$118</text>
+        <text x="110" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q1 '24</text>
+        <text x="204" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q3 '24</text>
+        <text x="298" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q1 '25</text>
+        <text x="392" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q3 '25</text>
+        <text x="486" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q4 '25</text>
+        <text x="550" y="218" text-anchor="middle" font-size="10" fill="#4a4a4a">Q1 '26</text>
+      </svg>
+      <div class="chart-source">Source: SVRC Research, operator marketplace pricing data</div>
+    </div>
+
+    <div class="insight">
+      <span class="insight-label">The Scale Threshold</span>
+      <p>Our analysis suggests most manipulation tasks require <strong>300 to 1,200 high-quality demonstrations</strong> to train a policy that generalizes across 80% of in-distribution variations. This puts a <strong>$50K&ndash;$150K data budget</strong> within reach for enterprise pilots &mdash; a threshold that was out of reach for most organizations two years ago. <a href="https://www.roboticscenter.ai/data-services" style="color:var(--lime-dark);text-decoration:underline;">Learn about SVRC's data collection services</a>.</p>
+    </div>
+
+    <h2 class="section">Teleoperation operator markets</h2>
+    <p>A secondary market for trained teleoperation operators has materialized. Marketplaces now connect enterprises that need data collection coverage with operators certified on specific hardware platforms. Rates range from <strong>$22&ndash;$55/hour</strong> for operators in India, the Philippines, and Eastern Europe, to <strong>$65&ndash;$120/hour</strong> for US-based operators with domain expertise (surgical simulation, food service, laboratory settings). Leading platforms require 8&ndash;40 hours of platform certification before operators are eligible for production tasks.</p>
+
+    <h2 class="section">Dataset quality and contamination</h2>
+    <p>The commoditization of data collection has introduced new quality challenges. As collection costs fall and supply increases, buyers face a growing problem distinguishing high-quality datasets from noisy, auto-labeled, or contaminated collections. Reproducibility failures &mdash; where a published policy does not generalize to the buyer's hardware &mdash; have driven interest in standardized dataset quality scores. The Open-X Embodiment quality rubric, extended by SVRC and several academic partners, has become the most widely cited framework, covering trajectory smoothness, demonstration diversity, and labeling confidence.</p>
+
+    <h2 class="section">Proprietary vs. open data</h2>
+    <p>The tension between open datasets and proprietary curation is now acute. The Open-X ecosystem has grown to <strong>over 1 million annotated robot demonstrations</strong> across 22 robot types. But enterprise customers increasingly recognize that deployment-specific data &mdash; collected on their hardware, in their environments, with their task distribution &mdash; is a durable competitive asset. The smart money in 2026 is building proprietary datasets that <em>complement</em>, rather than substitute for, open foundation datasets.</p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 03 ============ -->
+<section class="chapter" id="chapter-3">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 03</div>
+    <h2 class="chapter-title">The Rise of Foundation Models</h2>
+    <p class="chapter-lede">Vision-Language-Action models represent the most significant architectural shift in robot learning since the emergence of end-to-end imitation learning in 2022 &mdash; and they crossed from research artifact to production infrastructure this year.</p>
+
+    <p>VLAs integrate vision encoders (typically ViT variants), language models (usually in the 7B&ndash;13B parameter range), and action decoders into a single end-to-end trainable stack. The key capability unlocked is <strong>natural-language task specification</strong>: an operator can describe a task in plain text, and the model grounds that instruction directly into action sequences without task-specific engineering.</p>
+
+    <h2 class="section">From research curiosity to production infrastructure</h2>
+    <p>In 2024, VLAs were primarily research artifacts &mdash; impressive in demos, brittle in deployment. By Q2 2025, three major robotics software companies had shipped VLA-based products to enterprise customers. By Q1 2026, at least <strong>eleven commercial deployments</strong> are using VLA models as the primary policy backbone. The turning point was inference optimization: quantized VLA models now run at 10&ndash;25Hz on consumer-grade GPUs, making them compatible with real-time manipulation loops.</p>
+    <p>The leading open-weight VLA model families &mdash; OpenVLA, Pi0, and RDT-1B &mdash; have each exceeded 1,000 citations in 12 months, a measure of how rapidly the research community has built on these foundations. Fine-tuning a base VLA on 200&ndash;500 task-specific demonstrations now consistently outperforms training a task-specific policy from scratch on 1,000+ demonstrations, a result that changes the economic calculus for enterprise deployment.</p>
+
+    <div class="insight">
+      <span class="insight-label">The Imitation Learning Inflection</span>
+      <p>For the first time in SVRC's annual survey, more respondents (<strong>61%</strong>) cited imitation learning as their primary training method than reinforcement learning (<strong>31%</strong>). Two years ago, that ratio was reversed. This is not a rejection of RL &mdash; it is an acknowledgment that <strong>IL is now the more practical on-ramp</strong> for most real-world tasks.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="chart-block">
+        <div class="chart-title">Exhibit 3.1 &mdash; Training Method Adoption</div>
+        <div class="chart-sub">% primary method &middot; SVRC survey n=1,240</div>
+        <svg class="chart-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Imitation learning grew from 30% in 2024 to 61% in 2026">
+          <text x="30" y="20" font-size="11" fill="#4a4a4a" font-weight="600">2024</text>
+          <rect x="30" y="30" width="182" height="18" fill="#cfd4da"/>
+          <rect x="30" y="30" width="55" height="18" fill="#003d7a"/>
+          <rect x="85" y="30" width="91" height="18" fill="#c8f53c"/>
+          <text x="57" y="43" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">30%</text>
+          <text x="130" y="43" font-size="11" fill="#001a33" text-anchor="middle" font-weight="700">50% RL</text>
+          <text x="192" y="43" font-size="10" fill="#4a4a4a">20%</text>
+
+          <text x="30" y="75" font-size="11" fill="#4a4a4a" font-weight="600">2025</text>
+          <rect x="30" y="85" width="182" height="18" fill="#cfd4da"/>
+          <rect x="30" y="85" width="82" height="18" fill="#003d7a"/>
+          <rect x="112" y="85" width="73" height="18" fill="#c8f53c"/>
+          <text x="71" y="98" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">45%</text>
+          <text x="148" y="98" font-size="11" fill="#001a33" text-anchor="middle" font-weight="700">40%</text>
+          <text x="192" y="98" font-size="10" fill="#4a4a4a">15%</text>
+
+          <text x="30" y="130" font-size="11" fill="#4a4a4a" font-weight="600">2026</text>
+          <rect x="30" y="140" width="182" height="18" fill="#cfd4da"/>
+          <rect x="30" y="140" width="111" height="18" fill="#003d7a"/>
+          <rect x="141" y="140" width="56" height="18" fill="#c8f53c"/>
+          <text x="85" y="153" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">61% IL</text>
+          <text x="169" y="153" font-size="11" fill="#001a33" text-anchor="middle" font-weight="700">31%</text>
+          <text x="202" y="153" font-size="10" fill="#4a4a4a">8%</text>
+
+          <rect x="30" y="180" width="10" height="10" fill="#003d7a"/><text x="44" y="188" font-size="9" fill="#4a4a4a">Imitation</text>
+          <rect x="95" y="180" width="10" height="10" fill="#c8f53c"/><text x="109" y="188" font-size="9" fill="#4a4a4a">RL</text>
+          <rect x="135" y="180" width="10" height="10" fill="#cfd4da"/><text x="149" y="188" font-size="9" fill="#4a4a4a">Other</text>
+        </svg>
+        <div class="chart-source">SVRC Annual Developer Survey</div>
+      </div>
+      <div class="chart-block">
+        <div class="chart-title">Exhibit 3.2 &mdash; VLA Adoption in New Deployments</div>
+        <div class="chart-sub">% of new deployments using a VLA backbone</div>
+        <svg class="chart-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VLA backbone adoption reached 40% of new deployments in 2026">
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#e8eaee" stroke-width="22"/>
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#003d7a" stroke-width="22"
+                  stroke-dasharray="150.8 376.99" transform="rotate(-90 140 95)"/>
+          <text x="140" y="92" font-size="32" fill="#001a33" text-anchor="middle" font-weight="700" font-family="Fraunces,Georgia,serif">40%</text>
+          <text x="140" y="110" font-size="10" fill="#8a8a8a" text-anchor="middle">of 2026 deployments</text>
+          <text x="30" y="185" font-size="11" fill="#4a4a4a">2024: <tspan font-weight="700" fill="#001a33">&lt;5%</tspan></text>
+          <text x="120" y="185" font-size="11" fill="#4a4a4a">2025: <tspan font-weight="700" fill="#001a33">14%</tspan></text>
+          <text x="220" y="185" font-size="11" fill="#7a9a00" font-weight="700">3x YoY</text>
+        </svg>
+        <div class="chart-source">SVRC enterprise deployment tracker</div>
+      </div>
+    </div>
+
+    <h2 class="section">Simulation and synthetic data</h2>
+    <p>Physics simulation &mdash; long the domain of RL researchers &mdash; has become relevant to IL practitioners through two channels. First, synthetic data augmentation allows teams to supplement 200 real demonstrations with thousands of simulated variants, improving generalization without proportionally increasing real-world collection costs. Second, sim-to-real transfer for VLAs has improved dramatically as photorealistic rendering (via NVIDIA Cosmos and Isaac Lab) has narrowed the visual domain gap. Teams at CMU and Stanford independently reported 2026 results where VLAs trained on <strong>40% synthetic data matched policies trained on 100% real data</strong> on held-out tasks.</p>
+
+    <h2 class="section">Model size and efficiency</h2>
+    <p>Contrary to the scaling narrative in language modeling, the empirical consensus for robotics foundation models in 2026 is that <strong>efficiency matters more than scale beyond ~7B parameters</strong>. A well-curated 500-demo fine-tune of a 7B VLA outperforms a poorly curated fine-tune of a 70B model on most manipulation benchmarks. This has driven significant interest in dataset curation tools, episode quality scoring, and demonstration filtering &mdash; the "data flywheel" layer of the stack.</p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 04 ============ -->
+<section class="chapter" id="chapter-4">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 04</div>
+    <h2 class="chapter-title">Deployment by Vertical</h2>
+    <p class="chapter-lede">Three verticals &mdash; logistics, food service, and semiconductor manufacturing &mdash; account for 64% of all commercial robot deployments by unit volume. But the most interesting story is in the long tail, where healthcare, retail, and agriculture are crossing 1,000 units for the first time.</p>
+
+    <h2 class="section">Logistics and warehousing</h2>
+    <p>Logistics remains the single largest deployment vertical, driven by continued e-commerce growth and persistent labor pressure in fulfillment centers. The dominant form factor is the mobile manipulator &mdash; a wheeled base with one or two arms capable of picking and placing in semi-structured environments. Key 2026 developments: the emergence of <strong>heterogeneous fleets</strong> (orchestrated combinations of AMRs, arms, and humanoids), and a transition from fixed-task to flexible-task deployments enabled by VLA models.</p>
+
+    <h2 class="section">Food service &mdash; the surprise vertical of 2026</h2>
+    <p>More than <strong>340 QSR locations</strong> across the US, Japan, and South Korea now operate at least one robot in a customer-facing or kitchen-facing capacity. The economics are compelling: a burger-flipping or fry-dispensing robot amortizes over 3&ndash;4 years at labor costs north of $18/hour. The primary technical challenge &mdash; handling variability of food items and hygiene requirements of commercial kitchens &mdash; has been substantially addressed by VLA models trained on kitchen-specific datasets.</p>
+
+    <h2 class="section">Semiconductor and electronics manufacturing</h2>
+    <p>High-precision manufacturing has been robot-dense for decades, but 2026 marks a shift from fixed industrial automation to <strong>flexible, reprogrammable manipulation systems</strong>. Semiconductor fab operators report that the ability to retask a robot arm in hours (versus weeks for traditional reprogramming) is unlocking entirely new use cases in wafer handling, PCB inspection, and component placement. The demand for ultra-high-precision force control has driven a parallel hardware market in sub-Newton torque sensing and sub-millimeter position accuracy.</p>
+
+    <h2 class="section">Healthcare and laboratory support</h2>
+    <p>Healthcare-adjacent robotics &mdash; covering sample transport, pharmacy dispensing, and instrument cleaning &mdash; crossed 1,200 deployed units in 2025 and is projected to reach <strong>3,500 by end of 2026</strong>. The regulatory pathway for non-patient-contact automation has proven more tractable than many expected, with FDA and EU MDR guidance updated in 2025 to provide clearer frameworks for software-controlled manipulation devices.</p>
+
+    <div class="table-scroll">
+      <table class="data">
+        <thead>
+          <tr><th>Vertical</th><th class="num">Deployed Units (2025E)</th><th class="num">YoY Growth</th><th>Leading Form Factor</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>Logistics / Warehousing</strong></td><td class="num">41,000</td><td class="num">+28%</td><td>Mobile Manipulator</td></tr>
+          <tr><td><strong>Semiconductor / Electronics</strong></td><td class="num">22,500</td><td class="num">+18%</td><td>Precision 6-DoF Arm</td></tr>
+          <tr><td><strong>Food Service</strong></td><td class="num">8,200</td><td class="num" style="color:#7a9a00;font-weight:700">+61%</td><td>Fixed Arm / Humanoid Torso</td></tr>
+          <tr><td><strong>Agricultural Harvesting</strong></td><td class="num">3,400</td><td class="num">+47%</td><td>Outdoor Mobile Arm</td></tr>
+          <tr><td><strong>Construction / Inspection</strong></td><td class="num">1,900</td><td class="num">+33%</td><td>Quadruped / Drone Hybrid</td></tr>
+          <tr><td><strong>Healthcare / Lab Support</strong></td><td class="num">1,200</td><td class="num" style="color:#7a9a00;font-weight:700">+94%</td><td>Mobile Base + Arm</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-block">
+      <div class="chart-title">Exhibit 4.1 &mdash; Deployed Units by Vertical, 2025 Estimate</div>
+      <div class="chart-sub">Units deployed, commercial / production environments only</div>
+      <svg class="chart-svg" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logistics leads with 41,000 units deployed, followed by semiconductor at 22,500">
+        <g font-size="11" fill="#4a4a4a">
+          <text x="165" y="24" text-anchor="end">Logistics</text>
+          <rect x="170" y="14" width="360" height="16" fill="#003d7a"/>
+          <text x="536" y="26" font-size="11" fill="#001a33" font-weight="700">41,000</text>
+          <text x="165" y="54" text-anchor="end">Semiconductor</text>
+          <rect x="170" y="44" width="197" height="16" fill="#003d7a"/>
+          <text x="372" y="56" font-size="11" fill="#001a33" font-weight="700">22,500</text>
+          <text x="165" y="84" text-anchor="end">Food Service</text>
+          <rect x="170" y="74" width="72" height="16" fill="#c8f53c"/>
+          <text x="247" y="86" font-size="11" fill="#001a33" font-weight="700">8,200 <tspan fill="#7a9a00" font-style="italic">+61%</tspan></text>
+          <text x="165" y="114" text-anchor="end">Agriculture</text>
+          <rect x="170" y="104" width="30" height="16" fill="#003d7a"/>
+          <text x="205" y="116" font-size="11" fill="#001a33" font-weight="700">3,400</text>
+          <text x="165" y="144" text-anchor="end">Construction</text>
+          <rect x="170" y="134" width="17" height="16" fill="#003d7a"/>
+          <text x="192" y="146" font-size="11" fill="#001a33" font-weight="700">1,900</text>
+          <text x="165" y="174" text-anchor="end">Healthcare</text>
+          <rect x="170" y="164" width="11" height="16" fill="#c8f53c"/>
+          <text x="186" y="176" font-size="11" fill="#001a33" font-weight="700">1,200 <tspan fill="#7a9a00" font-style="italic">+94%</tspan></text>
+        </g>
+      </svg>
+      <div class="chart-source">Source: SVRC Research, IFR &middot; lime bars indicate fastest-growing verticals</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SPECIAL FOCUS: CHINA ============ -->
+<section class="chapter" id="chapter-4b">
+  <div class="wrap">
+    <div class="focus-header">
+      <div class="focus-label">Special Focus &middot; Chapter 4B</div>
+      <h2>China: The World's Robotics Manufacturing Engine</h2>
+      <p>Why China is not merely a participant in the global robotics industry &mdash; it is the gravitational center &mdash; and what that means for partnerships, sourcing, and data collection strategy.</p>
+    </div>
+
+    <p>According to the IFR, China accounted for more than <strong>70% of global industrial robot installations in 2025</strong>, a share that has grown steadily from 52% in 2020. No other country comes close. This dominance in deployment volume is now being compounded by an equally significant advantage in hardware manufacturing, humanoid development, and national policy coordination.</p>
+
+    <h2 class="section">The sub-$10K arm manufacturing powerhouse</h2>
+    <p>Of the fourteen manufacturers globally producing robotic arms priced under $10,000, <strong>eight are Chinese companies</strong>: <a href="https://www.roboticscenter.ai/store/brand/unitree/" style="color:var(--lime-dark);text-decoration:underline;">Unitree</a>, <a href="https://www.roboticscenter.ai/store/brand/agilex/" style="color:var(--lime-dark);text-decoration:underline;">AgileX</a>, Elephant Robotics, LEBAI, Flexiv, WeLab (AgileX's education division), <a href="https://www.roboticscenter.ai/store/product/brainco-revo2" style="color:var(--lime-dark);text-decoration:underline;">BrainCo</a>, and several emerging Shenzhen-based OEMs. These companies benefit from the same hardware supply chain density that made Shenzhen the world's consumer electronics capital. A prototype that takes 12 weeks to produce in the US or Germany can be turned around in <strong>10&ndash;14 days in Shenzhen</strong>, at a fraction of the cost.</p>
+    <p>This manufacturing advantage extends beyond arms. Chinese companies are producing commodity-grade leader-follower teleoperation systems for under $2,000 &mdash; hardware that enables the large-scale data collection campaigns that VLA models require. The implications for the global data collection cost curve are significant: as Chinese hardware drives collection costs down, the barrier to entry for training competitive manipulation policies falls with it.</p>
+
+    <div class="chart-block">
+      <div class="chart-title">Exhibit 4B.1 &mdash; Sub-$10K Robot Arm Manufacturers by Country</div>
+      <div class="chart-sub">Of 14 global manufacturers producing sub-$10K six- and seven-DoF arms</div>
+      <svg class="chart-svg" viewBox="0 0 600 140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="China produces 8 of the 14 sub-10K arm manufacturers globally">
+        <g>
+          <text x="90" y="24" text-anchor="end" font-size="11" fill="#4a4a4a">China</text>
+          <rect x="95" y="14" width="320" height="18" fill="#8b0000"/>
+          <text x="420" y="27" font-size="12" fill="#001a33" font-weight="700">8</text>
+          <text x="90" y="54" text-anchor="end" font-size="11" fill="#4a4a4a">USA</text>
+          <rect x="95" y="44" width="120" height="18" fill="#003d7a"/>
+          <text x="220" y="57" font-size="12" fill="#001a33" font-weight="700">3</text>
+          <text x="90" y="84" text-anchor="end" font-size="11" fill="#4a4a4a">Germany</text>
+          <rect x="95" y="74" width="80" height="18" fill="#003d7a"/>
+          <text x="180" y="87" font-size="12" fill="#001a33" font-weight="700">2</text>
+          <text x="90" y="114" text-anchor="end" font-size="11" fill="#4a4a4a">Other</text>
+          <rect x="95" y="104" width="40" height="18" fill="#8a8a8a"/>
+          <text x="140" y="117" font-size="12" fill="#001a33" font-weight="700">1</text>
+        </g>
+      </svg>
+      <div class="chart-source">Source: SVRC Research, manufacturer surveys</div>
+    </div>
+
+    <h2 class="section">The humanoid race</h2>
+    <p>China's humanoid ambitions are backed by explicit national policy. The 2025 Humanoid Robot Action Plan &mdash; issued jointly by MIIT and five other ministries &mdash; set a national target of <strong>100,000 humanoid robots deployed by 2027</strong>, a figure that would exceed the rest of the world's combined humanoid installed base by a wide margin. Key programs:</p>
+
+    <ul class="clean">
+      <li><strong>Tiangong</strong> (Beijing Humanoid Robot Innovation Center) &mdash; a full-size bipedal humanoid with 42 degrees of freedom, demonstrating walking, manipulation, and stair climbing. A consortium effort backed by municipal and central government funding.</li>
+      <li><strong>AgiBot</strong> &mdash; a Shanghai-based company developing humanoid robots for manufacturing and logistics; among the first Chinese humanoid companies to begin structured enterprise pilot programs.</li>
+      <li><strong>Unitree H1 / G1</strong> &mdash; <a href="https://www.roboticscenter.ai/store/brand/unitree/" style="color:var(--lime-dark);text-decoration:underline;">Unitree's humanoid lineup</a> has attracted global attention for aggressive pricing and rapid iteration cycles, benefiting from Unitree's established quadruped manufacturing base.</li>
+    </ul>
+
+    <div class="callout">
+      <span class="callout-title">The Competitive Dynamic</span>
+      <p>US humanoid companies (Figure, Agility, Apptronik) compete on <strong>software sophistication and enterprise integration</strong>. Chinese companies compete on <strong>manufacturing cost and iteration speed</strong>. Both approaches have merit, and the market is large enough that regional champions will likely emerge on both sides.</p>
+    </div>
+
+    <h2 class="section">Manufacturing demand: BYD, CATL, and Foxconn</h2>
+    <p>The demand side of China's robotics equation is equally compelling. BYD &mdash; the world's largest EV manufacturer &mdash; operates factories with hundreds of thousands of workers and has publicly committed to aggressive automation targets. CATL, the dominant battery manufacturer, faces similar labor pressure and has begun piloting robotic manipulation in cell assembly and quality inspection. Foxconn, which manufactures electronics for Apple and others, is now investing specifically in flexible, AI-driven manipulation systems retaskable across product lines.</p>
+    <p>These three companies alone represent a potential demand pool of <strong>tens of thousands of robotic systems</strong> &mdash; and, critically, the training data generated from their deployments. A single BYD factory operating 50 robotic arms for 12 months generates more task-specific demonstration data than most academic datasets contain in total.</p>
+
+    <h2 class="section">SVRC's China cooperation strategy</h2>
+    <p>SVRC views China not as a competitive threat but as the single most important partnership opportunity in global robotics. Our China cooperation strategy focuses on three pillars:</p>
+
+    <ul class="clean">
+      <li><strong>Data collection partnerships</strong> &mdash; Joint programs to collect, curate, and standardize robot demonstration data across Chinese manufacturing environments, using both Chinese and international hardware platforms.</li>
+      <li><strong>Hardware sourcing</strong> &mdash; Direct procurement relationships with Chinese arm and teleoperation hardware manufacturers, passing cost savings through to SVRC enterprise customers and research partners.</li>
+      <li><strong>Joint research</strong> &mdash; Collaborative research programs with Chinese universities and robotics labs on VLA fine-tuning, sim-to-real transfer, and dataset quality standards.</li>
+    </ul>
+
+    <div class="insight">
+      <span class="insight-label">Call to Action</span>
+      <p>We are actively seeking Chinese manufacturing partners, research institutions, and data collection operators. If you are building robots in China, we want to work with you. Contact us at <strong><a href="mailto:contact@roboticscenter.ai" style="color:inherit;">contact@roboticscenter.ai</a></strong> or visit <a href="https://www.roboticscenter.ai/contact" style="color:var(--lime-dark);text-decoration:underline;">roboticscenter.ai/contact</a>.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 05 ============ -->
+<section class="chapter" id="chapter-5">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 05</div>
+    <h2 class="chapter-title">Investment &amp; M&amp;A</h2>
+    <p class="chapter-lede">Venture investment in robotics reached $9.4B globally in 2025 &mdash; a 41% increase over 2024. But the top ten rounds alone accounted for 58% of capital deployed, a concentration that signals a bifurcating market.</p>
+
+    <h2 class="section">The platform bet</h2>
+    <p>Several companies have raised at valuations above $1B on the premise that the "picks and shovels" of the robotics AI wave &mdash; training infrastructure, policy evaluation, data pipelines &mdash; will be more valuable than any single robot application. The analogy to cloud computing circa 2008 is imprecise but directionally useful: the infrastructure layer is attracting capital that earlier would have gone exclusively to end-application companies. Companies in this category received a combined <strong>$2.1B in 2025</strong>.</p>
+
+    <h2 class="section">Strategic acquirers accelerate</h2>
+    <p>Corporate M&amp;A in robotics accelerated sharply in 2025. <strong>Eleven acquisitions above $50M</strong> were recorded, compared to four in 2024 and three in 2023. Notable acquirers include automotive OEMs, defense primes, and large technology companies acquiring both talent and proprietary dataset libraries. The data asset in these acquisitions is increasingly valued explicitly &mdash; several term sheets in 2025 included specific line items for "annotated demonstration library" valuations.</p>
+
+    <div class="callout">
+      <span class="callout-title">The Data Moat Thesis</span>
+      <p>Investors who backed robotics companies in 2024&ndash;2026 frequently cited proprietary data collection infrastructure as the primary defensibility argument. The reasoning: a robot deployed in a real environment generating real task data <strong>compounds in value over time</strong> in a way that software alone does not. This thesis is now being tested as foundation model fine-tuning compresses the data advantage of incumbents.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="chart-block">
+        <div class="chart-title">Exhibit 5.1 &mdash; VC Investment in Robotics</div>
+        <div class="chart-sub">USD billions, announced rounds</div>
+        <svg class="chart-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Robotics VC investment grew from $3.8B in 2022 to $9.4B in 2025">
+          <line x1="40" y1="160" x2="270" y2="160" stroke="#cfd4da"/>
+          <rect x="60"  y="110.6" width="35" height="49.4" fill="#003d7a"/>
+          <rect x="115" y="92.4" width="35" height="67.6" fill="#003d7a"/>
+          <rect x="170" y="74.2" width="35" height="85.8" fill="#003d7a"/>
+          <rect x="225" y="37.8" width="35" height="122.2" fill="#c8f53c"/>
+          <text x="77.5"  y="106" text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$3.8</text>
+          <text x="132.5" y="88"  text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$5.2</text>
+          <text x="187.5" y="70"  text-anchor="middle" font-size="11" fill="#001a33" font-weight="700">$6.6</text>
+          <text x="242.5" y="33"  text-anchor="middle" font-size="12" fill="#7a9a00" font-weight="700">$9.4</text>
+          <text x="77.5"  y="175" text-anchor="middle" font-size="10" fill="#4a4a4a">2022</text>
+          <text x="132.5" y="175" text-anchor="middle" font-size="10" fill="#4a4a4a">2023</text>
+          <text x="187.5" y="175" text-anchor="middle" font-size="10" fill="#4a4a4a">2024</text>
+          <text x="242.5" y="175" text-anchor="middle" font-size="10" fill="#4a4a4a">2025</text>
+          <text x="242.5" y="188" text-anchor="middle" font-size="9" fill="#7a9a00" font-style="italic">+41% YoY</text>
+        </svg>
+        <div class="chart-source">SVRC Research, PitchBook, Crunchbase</div>
+      </div>
+      <div class="chart-block">
+        <div class="chart-title">Exhibit 5.2 &mdash; 2025 Investment by Geography</div>
+        <div class="chart-sub">% of global venture capital deployed</div>
+        <svg class="chart-svg" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="US received 52%, China 28%, Europe 14%, other 6% of 2025 robotics VC">
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#e8eaee" stroke-width="24"/>
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#003d7a" stroke-width="24"
+                  stroke-dasharray="196 376.99" transform="rotate(-90 140 95)"/>
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#8b0000" stroke-width="24"
+                  stroke-dasharray="105.6 376.99" stroke-dashoffset="-196" transform="rotate(-90 140 95)"/>
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#c8f53c" stroke-width="24"
+                  stroke-dasharray="52.8 376.99" stroke-dashoffset="-301.6" transform="rotate(-90 140 95)"/>
+          <circle cx="140" cy="95" r="60" fill="none" stroke="#8a8a8a" stroke-width="24"
+                  stroke-dasharray="22.6 376.99" stroke-dashoffset="-354.4" transform="rotate(-90 140 95)"/>
+          <g font-size="11">
+            <rect x="20" y="170" width="10" height="10" fill="#003d7a"/><text x="34" y="179" fill="#001a33">US <tspan font-weight="700">52%</tspan></text>
+            <rect x="85" y="170" width="10" height="10" fill="#8b0000"/><text x="99" y="179" fill="#001a33">China <tspan font-weight="700">28%</tspan></text>
+            <rect x="165" y="170" width="10" height="10" fill="#c8f53c"/><text x="179" y="179" fill="#001a33">EU <tspan font-weight="700">14%</tspan></text>
+            <rect x="225" y="170" width="10" height="10" fill="#8a8a8a"/><text x="239" y="179" fill="#001a33">6%</text>
+          </g>
+        </svg>
+        <div class="chart-source">SVRC Research, PitchBook</div>
+      </div>
+    </div>
+
+    <h2 class="section">Geographic capital distribution</h2>
+    <p>US-headquartered companies received 52% of global robotics venture capital in 2025, down from 61% in 2023. Chinese companies received 28%, a slight increase from 24% in 2023, despite continued restrictions on cross-border investment for some categories. European companies &mdash; particularly in Germany, France, and the UK &mdash; received 14%, with the remaining 6% distributed across Japan, South Korea, and Israel. Government-backed programs in France (France 2030), South Korea (K-Robotics Initiative), and Japan (Moonshot R&amp;D) are increasingly material co-investors in early-stage rounds.</p>
+
+    <h2 class="section">Valuation benchmarks</h2>
+    <p>Median pre-money valuations for robotics companies at Series A reached <strong>$42M in 2025</strong>, up from $28M in 2023. Companies with proprietary data collection capability command a <strong>1.4&ndash;1.8&times; premium</strong> over companies with equivalent revenue but no data moat. Companies with demonstrated vertical-specific deployment (more than 10 paying customers in a defined use case) command a further 1.3&times; premium over companies still in pilot phase.</p>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 06 ============ -->
+<section class="chapter" id="chapter-6">
+  <div class="wrap">
+    <div class="chapter-num">Chapter 06</div>
+    <h2 class="chapter-title">What to Watch in 2027</h2>
+    <p class="chapter-lede">Predicting robotics is humbling work. The 2024 edition of this report underestimated VLA adoption by a factor of three and missed the food service deployment surge entirely. With that caveat offered honestly, here are six themes the SVRC research team believes will define 2027.</p>
+
+    <h3 class="sub">01 &middot; Dexterous manipulation breaks through</h3>
+    <p>Dexterous hand manipulation &mdash; grasping non-rigid objects, operating tools designed for humans, manipulating small components &mdash; remains the most significant unsolved problem in practical robotics. In 2027, we expect at least two commercially viable dexterous hand systems to reach pricing below <strong>$25,000</strong>, and the first VLA models specifically fine-tuned for dexterous manipulation to reach production quality. The enabling conditions are in place: adequate hand hardware, large-enough demonstration datasets, and VLA architectures capable of the fine-grained action resolution required.</p>
+
+    <h3 class="sub">02 &middot; Policy evaluation becomes a product category</h3>
+    <p>The question "does my robot policy actually work?" is deceptively hard to answer without extensive real-world testing. In 2027, we expect policy evaluation to emerge as a standalone product category &mdash; combining simulation, standardized benchmark tasks, and automated regression testing. The analogy is software QA: it became a distinct profession and tooling market as software complexity grew. Robot policy QA will follow the same trajectory.</p>
+
+    <h3 class="sub">03 &middot; Regulatory frameworks solidify for commercial humanoids</h3>
+    <p>The EU's AI Act and updated Machinery Regulation will force the first wave of commercial humanoid operators to demonstrate systematic safety cases by <strong>Q3 2027</strong>. US OSHA guidance on autonomous robot co-workers is expected in H1 2027. This will be a headwind for companies selling into unregulated environments, but a tailwind for those that invested early in safety engineering and compliance infrastructure.</p>
+
+    <h3 class="sub">04 &middot; World models become a standard component</h3>
+    <p>World models &mdash; learned simulators allowing a robot to plan and evaluate action sequences in imagination before executing them physically &mdash; have made significant research progress in 2025&ndash;2026. NVIDIA Cosmos, Google Genie 2, and several academic models demonstrated that physical dynamics can be learned from video at sufficient fidelity to be useful for planning. In 2027, expect the first commercial robot systems to ship with integrated world model components as a <strong>standard feature</strong> rather than an experimental option.</p>
+
+    <h3 class="sub">05 &middot; The data aggregation race</h3>
+    <p>As foundation model training requires ever-larger robot demonstration datasets, the competition to aggregate training data across organizations will intensify. Expect new consortium structures &mdash; modeled on academic data-sharing agreements but with commercial terms &mdash; that allow multiple operators to pool task-specific data in exchange for shared access to the resulting foundation model.</p>
+
+    <h3 class="sub">06 &middot; Energy and sustainability enter the design conversation</h3>
+    <p>Robot energy consumption has been largely ignored as a design constraint while the industry focused on capability. In 2027, with manufacturing deployments at scale and energy cost pressure from both operators and regulators, power efficiency will become a <strong>first-class design consideration</strong>. Battery life for mobile platforms, thermal management for onboard compute, and per-task energy cost benchmarking will appear in vendor procurement requirements for the first time.</p>
+
+    <div class="insight">
+      <span class="insight-label">Our Overarching View for 2027</span>
+      <p>The robotics industry in 2027 will be characterized less by hardware breakthroughs than by software and data infrastructure maturation. The companies that will look back at 2027 as a good year are those that <strong>used 2026 to build repeatable data collection workflows, rigorous policy evaluation systems, and genuine vertical depth</strong> &mdash; not those that chased the latest hardware launch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BLOCK ============ -->
+<section class="cta-block">
+  <div class="wrap">
+    <div class="cta-label">Robotics Center of Silicon Valley</div>
+    <h2>Put this report <span class="accent">into action</span>.</h2>
+    <p>Whether you are evaluating robot hardware, planning a data collection program, or building a multi-site deployment strategy &mdash; our team partners with enterprises, research labs, and manufacturers to turn the analysis in this report into on-the-ground results.</p>
+    <div class="cta-audience"><strong>For enterprises</strong> &mdash; hardware sourcing, data collection programs, and deployment services tailored to your workflow and budget.</div>
+    <div class="cta-audience"><strong>For research labs</strong> &mdash; dataset access, benchmark participation, and joint research on VLAs, imitation learning, and policy evaluation.</div>
+    <div class="cta-audience"><strong>For manufacturers</strong> &mdash; distribution partnerships, integration support, and co-marketing into North American and European markets.</div>
+
+    <div class="cta-buttons">
+      <a href="https://www.roboticscenter.ai/contact" class="btn-primary">Contact Us &rarr;</a>
+      <a href="https://www.roboticscenter.ai/store/" class="btn-secondary">Shop Robots</a>
+      <a href="https://www.roboticscenter.ai/" class="btn-secondary">Visit roboticscenter.ai</a>
+    </div>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <strong>Web</strong>
+        <a href="https://www.roboticscenter.ai">roboticscenter.ai</a>
+      </div>
+      <div class="contact-item">
+        <strong>Email</strong>
+        <a href="mailto:contact@roboticscenter.ai">contact@roboticscenter.ai</a>
+      </div>
+      <div class="contact-item">
+        <strong>Headquarters</strong>
+        <span>90 Welsh St<br>San Francisco, CA 94107</span>
+      </div>
+      <div class="contact-item">
+        <strong>Cite this report</strong>
+        <span>SVRC. (2026). <em>State of Robotics 2026</em>. SVRC Research.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELATED RESOURCES ============ -->
+<section class="related-section">
+  <div class="section-header">
+    <span class="section-label">Go Deeper</span>
+    <h2 class="section-title">Related Resources</h2>
+    <p style="color:var(--ink-soft);max-width:560px;margin:8px auto 0;font-size:16px;">More from SVRC on hardware, datasets, and robot deployment.</p>
+  </div>
+  <div class="related-grid">
+    <a href="https://www.roboticscenter.ai/benchmarks/" class="related-card">
+      <div class="related-card-tag">Benchmarks</div>
+      <div class="related-card-title">SVRC Robot Benchmarks 2026</div>
+      <div class="related-card-desc">Standardized performance benchmarks for manipulation, mobility, and teleoperation across 14 platforms.</div>
+      <div class="related-card-arrow">View benchmarks &rarr;</div>
+    </a>
+    <a href="https://www.roboticscenter.ai/datasets/" class="related-card">
+      <div class="related-card-tag">Datasets</div>
+      <div class="related-card-title">Open Robot Demonstration Datasets</div>
+      <div class="related-card-desc">Browse and download curated teleoperation datasets in RLDS and LeRobot formats, free for research use.</div>
+      <div class="related-card-arrow">Browse datasets &rarr;</div>
+    </a>
+    <a href="https://www.roboticscenter.ai/data-services" class="related-card">
+      <div class="related-card-tag">Services</div>
+      <div class="related-card-title">Data Collection Services</div>
+      <div class="related-card-desc">Plan and run a teleoperation collection program with SVRC operators. Custom task design, quality scoring, and delivery.</div>
+      <div class="related-card-arrow">Learn more &rarr;</div>
+    </a>
+    <a href="https://www.roboticscenter.ai/research/" class="related-card">
+      <div class="related-card-tag">Research</div>
+      <div class="related-card-title">SVRC Research Papers</div>
+      <div class="related-card-desc">Technical publications from the SVRC team on imitation learning, policy evaluation, and data infrastructure.</div>
+      <div class="related-card-arrow">Read research &rarr;</div>
+    </a>
+    <a href="https://www.roboticscenter.ai/store/" class="related-card">
+      <div class="related-card-tag">Store</div>
+      <div class="related-card-title">Robot Catalog</div>
+      <div class="related-card-desc">Browse 40+ robotic arms, humanoids, and mobile platforms from the manufacturers covered in this report.</div>
+      <div class="related-card-arrow">Shop robots &rarr;</div>
+    </a>
+    <a href="https://www.roboticscenter.ai/compare" class="related-card">
+      <div class="related-card-tag">Tools</div>
+      <div class="related-card-title">Robot Comparison Tool</div>
+      <div class="related-card-desc">Compare specs, pricing, and data collection capabilities side-by-side across the platforms covered in this report.</div>
+      <div class="related-card-arrow">Compare robots &rarr;</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="faq-section">
+  <div class="section-header">
+    <span class="section-label">Frequently Asked Questions</span>
+    <h2 class="section-title">Report FAQ</h2>
+  </div>
+  <div class="faq-item">
+    <h3 class="faq-question">How big is the global robotics market in 2026?</h3>
+    <p class="faq-answer">The global robotics market reached $38 billion in 2026, representing a 34% year-over-year increase &mdash; the fastest growth rate in a decade. Venture investment in robotics reached $9.4B globally in 2025, a 41% increase over 2024. The US and China together account for 80% of venture capital deployed in the sector.</p>
+  </div>
+  <div class="faq-item">
+    <h3 class="faq-question">How many commercial humanoid robots are available in 2026?</h3>
+    <p class="faq-answer">Twelve commercial humanoid platforms are now available for purchase or structured lease, up from just 3 in 2024. Four are bipedal full-humanoids, three are upper-body torsos, and five are humanoid-adjacent mobile bases with dexterous arms. Prices range from $28,000 for torso-only systems to $245,000 for full bipeds. Several manufacturers also offer <a href="https://www.roboticscenter.ai/leasing">lease programs</a> at $3,500&ndash;$8,000/month.</p>
+  </div>
+  <div class="faq-item">
+    <h3 class="faq-question">What are VLA models and how widely are they adopted?</h3>
+    <p class="faq-answer">Vision-Language-Action (VLA) models integrate vision encoders, language models, and action decoders into a single trainable stack, allowing robots to follow natural-language instructions. VLA adoption tripled in 2025&ndash;2026 and is now present in 40% of all new robot deployments. Quantized VLA models run at 10&ndash;25Hz on consumer-grade GPUs, making them viable for real-time manipulation.</p>
+  </div>
+  <div class="faq-item">
+    <h3 class="faq-question">How much does robot data collection cost in 2026?</h3>
+    <p class="faq-answer">The average cost per hour of high-quality teleoperation data fell from $340/hour in early 2024 to $118/hour as of March 2026 &mdash; a 60% decrease. Most manipulation tasks require 300&ndash;1,200 demonstrations, putting a $50K&ndash;$150K <a href="https://www.roboticscenter.ai/data-services">data collection budget</a> within reach for enterprise pilots.</p>
+  </div>
+  <div class="faq-item">
+    <h3 class="faq-question">Which industries deploy the most robots?</h3>
+    <p class="faq-answer">Logistics/warehousing (41,000 units), semiconductor manufacturing (22,500 units), and food service (8,200 units) account for 64% of all commercial deployments. Food service is the surprise growth sector at +61% YoY, with 340+ quick-service restaurant locations now operating robots.</p>
+  </div>
+</section>
+
+<!-- ============ CITATION ============ -->
+<section class="citation-section">
+  <div class="citation-box">
+    <h2>Cite This Report</h2>
+    <div class="citation-text" id="citationText">Robotics Center of Silicon Valley. (2026). <em>State of Robotics 2026: Annual Report on the Global Robotics Industry.</em> SVRC Research. https://www.roboticscenter.ai/state-of-robotics-2026</div>
+    <button class="copy-cite-btn" id="copyCiteBtn">Copy citation</button>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="newsletter-section">
+  <h2>Stay Ahead in Robotics</h2>
+  <p>Get the latest on robot deployments, data collection, and physical AI &mdash; delivered to your inbox.</p>
+  <form action="/api/newsletter" method="POST" class="newsletter-form">
+    <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address">
+    <button type="submit">Subscribe</button>
+  </form>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="disclaimer">
+  <div class="wrap">
+    &copy; 2026 Robotics Center of Silicon Valley. All rights reserved. This report is provided for informational purposes only and does not constitute investment, legal, or procurement advice. Forecasts, estimates, and forward-looking statements reflect SVRC Research's views as of the publication date and are subject to change without notice. Market sizing and deployment figures draw on SVRC primary research, the International Federation of Robotics (IFR), PitchBook, Crunchbase, and operator marketplace data. Reproduction requires attribution.
+  </div>
+</footer>
+
+<!-- ============ PDF DOWNLOAD MODAL ============ -->
+<div class="modal-overlay" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-box" id="modalBox">
+    <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+
+    <div id="modalFormContent">
+      <div class="modal-eyebrow">Free Download</div>
+      <h2 class="modal-title" id="modalTitle">Get the Full PDF</h2>
+      <p class="modal-subtitle">State of Robotics 2026 &mdash; 48 pages, free. We'll send it straight to your inbox.</p>
+      <form class="modal-form" id="downloadForm" novalidate>
+        <div class="modal-field">
+          <label for="dlName">Full Name</label>
+          <input type="text" id="dlName" name="name" placeholder="Jane Smith" required autocomplete="name">
+        </div>
+        <div class="modal-field">
+          <label for="dlEmail">Work Email</label>
+          <input type="email" id="dlEmail" name="email" placeholder="jane@company.com" required autocomplete="email">
+        </div>
+        <div class="modal-field">
+          <label for="dlCompany">Company</label>
+          <input type="text" id="dlCompany" name="company" placeholder="Acme Robotics" autocomplete="organization">
+        </div>
+        <div class="modal-field">
+          <label for="dlRole">Role</label>
+          <select id="dlRole" name="role" required>
+            <option value="" disabled selected>Select your role</option>
+            <option value="researcher">Researcher</option>
+            <option value="enterprise">Enterprise</option>
+            <option value="startup">Startup</option>
+            <option value="investor">Investor</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <button type="submit" class="modal-submit-btn" id="dlSubmitBtn">Send me the PDF</button>
+        <p class="modal-fine-print">No spam. Unsubscribe any time.</p>
+      </form>
+    </div>
+
+    <div class="modal-success" id="modalSuccess">
+      <div class="modal-success-icon">&#10003;</div>
+      <h3>Check your inbox</h3>
+      <p>The PDF is on its way. If you don't see it within a few minutes, check your spam folder.</p>
+    </div>
+  </div>
+</div>
+
+</div><!-- /.report-wrapper -->
+
+<script>
+  // ── Modal ──
+  (function () {
+    var overlay = document.getElementById('downloadModal');
+    var modalBox = document.getElementById('modalBox');
+    var openBtn = document.getElementById('downloadPdfBtn');
+    var closeBtn = document.getElementById('modalClose');
+    var form = document.getElementById('downloadForm');
+    var formContent = document.getElementById('modalFormContent');
+    var successMsg = document.getElementById('modalSuccess');
+    var submitBtn = document.getElementById('dlSubmitBtn');
+
+    if (!overlay || !openBtn) return;
+
+    function getFocusableElements() {
+      return Array.from(modalBox.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ));
+    }
+
+    function openModal() {
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      var focusable = getFocusableElements();
+      if (focusable.length) focusable[0].focus();
+    }
+
+    function closeModal() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (!overlay.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { closeModal(); return; }
+      if (e.key === 'Tab') {
+        var focusable = getFocusableElements();
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+        } else {
+          if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.querySelector('[name="name"]').value.trim();
+      var email = form.querySelector('[name="email"]').value.trim();
+      var company = form.querySelector('[name="company"]').value.trim();
+      var role = form.querySelector('[name="role"]').value;
+      if (!name || !email || !role) {
+        alert('Please fill in your name, email, and role.');
+        return;
+      }
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
+      fetch('/api/report-download', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, email: email, company: company, role: role, report: 'state-of-robotics-2026' })
+      })
+        .then(function () {
+          formContent.style.display = 'none';
+          successMsg.classList.add('is-visible');
+        })
+        .catch(function () {
+          formContent.style.display = 'none';
+          successMsg.classList.add('is-visible');
+        });
+      // GA4 report_download + generate_lead
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'report_download', {
+            report_name: 'state-of-robotics-2026',
+            report_year: 2026,
+            file_format: 'pdf',
+            role: role,
+            page_path: location.pathname
+          });
+          window.gtag('event', 'generate_lead', {
+            currency: 'USD',
+            value: 50,
+            lead_source: 'report_download'
+          });
+        }
+      } catch (e) { /* never break UX on tracking failure */ }
+    });
+  })();
+
+  // ── Copy citation ──
+  (function () {
+    var btn = document.getElementById('copyCiteBtn');
+    var text = document.getElementById('citationText');
+    if (!btn || !text) return;
+    btn.addEventListener('click', function () {
+      var content = text.innerText || text.textContent;
+      navigator.clipboard.writeText(content).then(function () {
+        btn.textContent = 'Copied!';
+        setTimeout(function () { btn.textContent = 'Copy citation'; }, 2000);
+      }).catch(function () {
+        btn.textContent = 'Copy citation';
+      });
+    });
+  })();
+
+  // ── Active chapter nav highlight ──
+  (function () {
+    var links = document.querySelectorAll('nav.report-nav .chapter-links a');
+    if (!links.length) return;
+    var sections = [];
+    links.forEach(function(link) {
+      var id = link.getAttribute('href').slice(1);
+      var el = document.getElementById(id);
+      if (el) sections.push({ el: el, link: link });
+    });
+    function update() {
+      var scrollY = window.scrollY + 160;
+      var active = null;
+      sections.forEach(function(s) {
+        if (s.el.offsetTop <= scrollY) active = s;
+      });
+      links.forEach(function(l) { l.classList.remove('active'); });
+      if (active) active.link.classList.add('active');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  })();
+</script>
+<script>window.SVRC_API_URL = 'https://fearless-backend-533466225971.us-central1.run.app';</script>
+<script src="/script.js" defer></script>
+  <script>
+  (function() {
+    var loaded = false;
+    function loadDeferred() {
+      if (loaded) return; loaded = true;
+      ['/rc-advisor.js', '/messaging-widget.js'].forEach(function(src) {
+        var s = document.createElement('script');
+        s.src = src; s.defer = true;
+        document.body.appendChild(s);
+      });
+    }
+    ['scroll','mousemove','keypress','touchstart'].forEach(function(ev) {
+      window.addEventListener(ev, loadDeferred, { once: true, passive: true });
+    });
+    setTimeout(loadDeferred, 6000);
+  })();
+  </script>
+</body>
+</html>

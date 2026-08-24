@@ -1,0 +1,311 @@
+Monitor LLM Inference in Production (2026): Prometheus & Grafana for vLLM, TGI, llama.cpp
+Monitor LLM with Prometheus and Grafana
+LLM inference looks like “just another API” — until latency spikes, queues back up, and your GPUs sit at 95% memory with no obvious explanation.
+Monitoring becomes mission-critical the moment you move beyond a single-node setup or start optimizing for throughput. At that point, traditional API metrics aren’t enough. You need visibility into tokens, batching behavior, queue time, and KV cache pressure - the real bottlenecks of modern LLM systems.
+This article is part of my broader observability and monitoring guide, where I cover monitoring vs observability fundamentals, Prometheus architecture, and production best practices. Here, we’ll focus specifically on monitoring LLM inference workloads.
+(If you’re deciding on infrastructure, see my guide to LLM hosting in 2026. If you want a deep dive into batching mechanics, VRAM limits, and throughput vs latency trade-offs, see the LLM performance engineering guide.)
+Unlike typical REST services, LLM serving is shaped by tokens, continuous batching, KV cache utilization, GPU/CPU saturation, and queue dynamics. Two requests with identical payload sizes can have radically different latency depending on max_new_tokens, concurrency, and cache reuse.
+This guide is a practical, production-focused walkthrough for building LLM inference monitoring with Prometheus and Grafana:
+- What to measure (p95/p99 latency, tokens/sec, queue duration, cache utilization, error rate)
+- How to scrape /metrics from common servers (vLLM, Hugging Face TGI, llama.cpp)
+- PromQL examples for percentiles, saturation, and throughput
+- Deployment patterns with Docker Compose and Kubernetes
+- Troubleshooting the issues that only appear under real load
+The examples are intentionally vendor-neutral. Whether you later add OpenTelemetry tracing, autoscaling, or a service mesh, the same metric model applies.
+Why you should monitor LLM inference differently
+Traditional API monitoring (RPS, p95 latency, error rate) is necessary but not sufficient. LLM serving adds additional axes:
+1) Latency has two meanings
+- E2E latency: time from request received → final token returned.
+- Inter-token latency: time per token during decode (critical for streaming UX).
+Some servers expose both. For example, TGI exposes request duration and mean time-per-token as histograms.
+2) Throughput is in tokens, not requests
+A “fast” service that returns 5 tokens is not comparable to one returning 500 tokens. Your “RPS” should often be “tokens/sec”.
+3) The queue is the product
+If you run continuous batching, queue depth is what you sell. Watching queue duration and queue size tells you whether you’re meeting user expectations.
+4) Cache pressure is an outage precursor
+KV cache exhaustion (or fragmentation) often shows up as sudden latency spikes and timeouts. vLLM exposes KV cache usage as a gauge.
+Metrics checklist for LLM inference monitoring
+Use this as your north star. You don’t need everything on day one—but you’ll want most of it eventually.
+Golden signals (LLM-flavored)
+- Traffic: requests/sec, tokens/sec
+- Errors: error rate, timeouts, OOMs, 429s (rate limiting)
+- Latency: p50/p95/p99 request duration; prefill vs decode latency; inter-token latency
+- Saturation: GPU utilization, memory usage, KV cache usage, queue size
+If you need low-level visibility into GPU memory usage, temperature, and utilization outside of Prometheus (for debugging or single-node setups), see my guide to GPU monitoring applications in Linux / Ubuntu.
+For a broader view of LLM observability beyond metrics — including tracing, structured logs, synthetic testing, GPU profiling, and SLO design — see my in-depth guide on observability for LLM systems.
+Useful dimensions (labels)
+Keep label cardinality low. Good labels:
+- model ,endpoint ,method (prefill/decode),status (success/error),instance
+Avoid labels like:
+- raw prompt , rawuser_id , request ids — these explode series count.
+Exposing metrics: built-in /metrics endpoints (vLLM, TGI, llama.cpp)
+The easiest path is: use the metrics the server already exposes.
+vLLM: Prometheus-compatible /metrics
+vLLM exposes a Prometheus-compatible /metrics endpoint (via its Prometheus metrics logger) and publishes server/request metrics with the vllm: prefix, including gauges like running requests and KV cache usage.
+For container setup, OpenAI-compatible serving, and throughput-oriented runtime tuning, see vLLM Quickstart: High-Performance LLM Serving.
+Example metrics you’ll typically see:
+- vllm:num_requests_running
+- vllm:num_requests_waiting
+- vllm:kv_cache_usage_perc
+Hugging Face TGI: /metrics with queue + request histograms
+TGI exposes many production-grade metrics on /metrics, including queue size, request duration, queue duration, and mean time per token.
+Notable ones:
+- tgi_queue_size (gauge)
+- tgi_request_duration (histogram, e2e latency)
+- tgi_request_queue_duration (histogram)
+- tgi_request_mean_time_per_token_duration (histogram)
+Operational setup—Docker, GPUs, launch flags, and the failures that show up as empty or misleading scrapes—is covered in TGI - Text Generation Inference - Install, Config, Troubleshoot.
+llama.cpp server: enable metrics endpoint
+The llama.cpp server supports a Prometheus-compatible metrics endpoint that must be enabled with a flag (e.g., --metrics).
+For installation paths, key runtime flags, and OpenAI-compatible server usage, see llama.cpp Quickstart with CLI and Server.
+If you’re running llama.cpp behind a proxy, scrape the server directly whenever possible (to avoid proxy-level latency hiding the actual inference behavior).
+Prometheus configuration: scraping your inference servers
+This example assumes:
+- vLLM at http://vllm:8000/metrics
+- TGI at http://tgi:8080/metrics
+- llama.cpp at http://llama:8080/metrics
+- scrape interval tuned for fast feedback
+prometheus.yml
+global:
+  scrape_interval: 5s
+  evaluation_interval: 15s
+scrape_configs:
+  - job_name: "vllm"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["vllm:8000"]
+  - job_name: "tgi"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["tgi:8080"]
+  - job_name: "llama_cpp"
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["llama:8080"]
+If you’re new to Prometheus or want a deeper explanation of scrape configs, exporters, relabeling, and alerting rules, see my full Prometheus monitoring setup guide.
+Pro tip: add a “service label”
+If you run multiple models/replicas, add relabeling to include a stable service label for dashboards.
+relabel_configs:
+  - target_label: service
+    replacement: "llm-inference"
+PromQL examples you can copy/paste
+Request rate (RPS)
+sum(rate(tgi_request_count[5m]))
+For vLLM, use its request counters (names vary by version), but the pattern is the same: sum(rate(<counter>[5m])).
+Error rate (%)
+If you have *_success counters, compute failure ratio:
+1 - (
+  sum(rate(tgi_request_success[5m]))
+  /
+  sum(rate(tgi_request_count[5m]))
+)
+p95 latency for histogram metrics (Prometheus)
+Prometheus histograms are bucketed counts; use histogram_quantile() over rate() of the buckets. Prometheus documents this model and the histogram vs summary tradeoffs.
+histogram_quantile(
+  0.95,
+  sum by (le) (rate(tgi_request_duration_bucket[5m]))
+)
+p99 queue time
+histogram_quantile(
+  0.99,
+  sum by (le) (rate(tgi_request_queue_duration_bucket[5m]))
+)
+Mean time per token (inter-token latency)
+histogram_quantile(
+  0.95,
+  sum by (le) (rate(tgi_request_mean_time_per_token_duration_bucket[5m]))
+)
+Inter-token latency is often constrained by decode bottlenecks and memory bandwidth - topics covered in detail in LLM performance optimization guide.
+Queue depth (instant)
+max(tgi_queue_size)
+vLLM KV cache utilization (instant)
+max(vllm:kv_cache_usage_perc)
+Grafana dashboards: panels that actually help on-call
+Grafana can visualize histograms in multiple ways (percentiles, heatmaps, bucket distributions). Grafana Labs has a detailed guide to Prometheus histogram visualization.
+A minimal, high-signal dashboard layout:
+Row 1 — User experience
+- p95 request latency (time series)
+- p95 inter-token latency (time series)
+- Error rate (time series + stat)
+Row 2 — Capacity and saturation
+- Queue size (time series)
+- Running vs waiting requests (stacked)
+- KV cache usage % (gauge)
+Row 3 — Throughput
+- Requests/sec
+- Generated tokens/request (p50/p95)
+If you have streaming, add a panel for “first token latency” (TTFT) when available.
+Example Grafana queries
+- p95 latency panel: the histogram_quantile(0.95, …) query above
+- heatmap panel: graph the bucket rates (*_bucket ) as a heatmap (Grafana supports this approach)
+Deployment option 1: Docker Compose (fast local + single-node)
+If you’re deciding between local, self-hosted, or cloud-based inference architectures, see the full breakdown in my LLM hosting comparison guide.
+Create a folder like:
+monitoring/
+  docker-compose.yml
+  prometheus/
+    prometheus.yml
+  grafana/
+    provisioning/
+      datasources/datasource.yml
+      dashboards/dashboards.yml
+    dashboards/
+      llm-inference.json
+docker-compose.yml
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+  grafana:
+    image: grafana/grafana:latest
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+If you prefer a manual Grafana installation instead of Docker, see my step-by-step guide on installing and using Grafana on Ubuntu.
+Grafana datasource provisioning (grafana/provisioning/datasources/datasource.yml)
+apiVersion: 1
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+Dashboard provisioning (grafana/provisioning/dashboards/dashboards.yml)
+apiVersion: 1
+providers:
+  - name: "LLM"
+    folder: "LLM"
+    type: file
+    disableDeletion: true
+    options:
+      path: /var/lib/grafana/dashboards
+Deployment option 2: Kubernetes (Prometheus Operator + ServiceMonitor)
+If you use kube-prometheus-stack (Prometheus Operator), scrape targets via ServiceMonitor.
+For infrastructure trade-offs between Kubernetes, single-node Docker, and managed inference providers, see my LLM hosting in 2026 guide.
+1) Expose your inference deployment with a Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: tgi
+  labels:
+    app: tgi
+spec:
+  selector:
+    app: tgi
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+2) Create a ServiceMonitor
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: tgi
+  labels:
+    release: kube-prometheus-stack
+spec:
+  selector:
+    matchLabels:
+      app: tgi
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 5s
+Repeat for vLLM and llama.cpp services. This scales cleanly as you add replicas.
+3) Alerting: SLO-style rules (example)
+Here are good starter alerts:
+- High p95 latency (burn rate)
+- Queue time p99 too high (users waiting)
+- Error rate > 1%
+- KV cache usage > 90% sustained (capacity cliff)
+Example rule (p95 request duration):
+- alert: LLMHighP95Latency
+  expr: histogram_quantile(0.95, sum by (le) (rate(tgi_request_duration_bucket[5m]))) > 3
+  for: 10m
+  labels:
+    severity: page
+  annotations:
+    summary: "TGI p95 latency > 3s (10m)"
+Troubleshooting: common Prometheus + Grafana failures in LLM stacks
+1) Prometheus target is “DOWN”
+Symptoms
+- Prometheus UI → Targets shows DOWN
+- “context deadline exceeded” or connection refused
+Checklist
+- Is the server actually exposing /metrics ?
+- Wrong port? Wrong scheme (http vs https)?
+- Kubernetes: is the Service selecting pods? Is the ServiceMonitor label release correct?
+Quick test
+curl -sS http://tgi:8080/metrics | head
+2) You can scrape metrics, but panels are empty
+Most common causes
+- Wrong metric name (server version changed)
+- Dashboard expects _bucket but you only have a gauge/counter
+- Prometheus scrape interval too long for short windows (e.g., [1m] with 30s scrape can be noisy)
+Fix
+- Use Grafana Explore to search metric prefixes (e.g., tgi_ /vllm: )
+- Increase range window from [1m] →[5m]
+3) Histogram percentiles look “flat” or wrong
+Prometheus histograms require correct aggregation:
+- use rate(metric_bucket[5m])
+- then sum by (le) (and optionally other stable labels)
+- then histogram_quantile()
+Prometheus documents the bucket model and server-side quantile calculation.
+Grafana’s histogram visualization guide includes practical panel patterns.
+4) Cardinality explosion (Prometheus memory spikes)
+Symptoms
+- Prometheus RAM usage climbs
+- “too many series” errors
+Typical root cause
+- You added prompt ,user_id , or request ids as labels in a custom exporter.
+Fix
+- Remove high-cardinality labels
+- Pre-aggregate into low-cardinality labels (model, endpoint, status)
+- Consider using logs/traces for per-request debugging instead of labels
+5) “We have metrics, but no idea why it’s slow”
+Metrics are necessary, but sometimes you need correlation:
+- Add structured logs with request metadata (model, token counts, TTFT)
+- Add tracing (OpenTelemetry) around your gateway + inference server
+- Use exemplars (when supported) to jump from a latency spike to a trace
+A good workflow: Grafana dashboard spike -> click into Explore -> narrow by instance/model -> check logs/traces for that period.
+This follows the classic metrics -> logs -> traces model described in observability and monitoring architecture guide.
+6) vLLM / multi-process metric quirks
+If your serving stack runs in multiple processes, you may need Prometheus multi-process configuration (depends on how the process exposes metrics). The vLLM docs emphasize exposing metrics via /metrics for Prometheus polling; check the server’s metrics mode when deploying.
+A practical “day-1” dashboard and alert set
+If you want a lean setup that still works in production, start with:
+Dashboard panels
+- p95 request latency
+- p95 mean time per token
+- queue size
+- p95 queue duration
+- error rate
+- KV cache usage %
+Alerts
+- p95 request latency > X for 10m
+- p99 queue duration > Y for 10m
+- error rate > 1% for 5m
+- KV cache usage > 90% for 15m
+- Prometheus target down (always)
+Related Observability Guides
+- Observability Guide: Prometheus, Grafana & Production Monitoring
+- Prometheus Monitoring: Setup & Best Practices
+- Install and Use Grafana on Ubuntu: Complete Guide
+Related LLM Infrastructure Guides
+- LLM Hosting in 2026: Local, Self-Hosted & Cloud Compared
+- LLM Performance in 2026: Benchmarks & Optimization
+Closing notes
+Prometheus + Grafana gives you the “always-on” view of inference health. Once you have the basics, the next big wins usually come from:
+- SLOs per model / tenant
+- request shaping (max tokens, concurrency limits)
+- autoscaling tied to queue time and KV cache headroom
+For a broader explanation of monitoring vs observability, Prometheus fundamentals, and production patterns, see my complete observability guide.

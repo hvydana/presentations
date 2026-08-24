@@ -1,0 +1,60 @@
+Vision Language Action (VLA) Models Powering Robotics of Tomorrow
+Explore VLA models transforming robotics through vision, language, and action. Learn about OpenVLA, GR00T, Pi0, and real-world applications.
+Join the DZone community and get the full member experience.
+Join For Free
+Vision-language-action (VLA) models represent a critical breakthrough in this evolution by combining visual perception, language understanding, action generation, and the potential for generalization. VLA models are poised to redefine what machines can do in the physical world. We will go over different VLA models in the industry today that you can leverage in your work.
+What Are Vision-Language-Action (VLA) Models
+Vision-language-action (VLA) models combine visual perception and natural language understanding to generate contextually appropriate actions. Traditional computer vision models are designed to recognize objects, whereas VLA models interpret scenes, reason about them, and guide physical actions in real-world environments.
+What makes VLA models particularly significant is their potential for generalization. Traditional robotic systems struggle when faced with novel objects, lighting conditions, or unexpected obstacles. VLA models, trained on diverse multimodal datasets, can transfer knowledge across tasks and environments — bringing us closer to truly general-purpose robotic assistants.
+Many modern VLMs build on transformer architectures and are pretrained on text-to-image AI models (such as CLIP from DALLE2) to learn general-purpose representations that can be applied to diverse tasks involving both vision and language.
+Popular VLA Models to Use Today
+OpenVLA is the most popular open-source vision-language-action model.
+- 
+  Built on LLaMA 2, DINOv2, and SigLIP
+- 
+  7B-parameter model that fits on 16GB+ of VRAM, with the option to further quantize
+- 
+  Supports LoRA and full fine-tuning for user-specific training adaptations
+- 
+  Built on Eagle 2.5 and Qwen 2.5
+- 
+  3B-parameter model that fits on 16GB+ of VRAM
+- 
+  Supports Isaac Sim robotics playground training for encountering various terrain and solving different tasks
+Pi0 and Pi0.5 by Physical Intelligence are models popular for their fascinating degree of adaptability.
+- Built on PaLI-Gemma 3B
+- 3B-parameter models that require 16GB+ VRAM
+- Pi0 is the base VLA, with Pi0.5 expanding generalization across various environments
+These workloads need to be GPU-efficient due to the size constraints of robotics platforms. Recent efficiency advances, quantization techniques, and open-source implementations have made these models accessible on energy-efficient, edge-focused hardware. These models typically require only an RTX 4090 for inference, whereas fine-tuning generally requires a multi-GPU deployment.
+Real-World Applications
+Vision-language(-action) models are already enabling practical robotics tasks:
+- Warehouses and labs: Robots execute pick-and-place commands via natural language (e.g., “pick up the red screwdriver on the left shelf” or “sort these objects by size”). Warehouses and labs are ideal for robotics due to their relatively stable environments.
+- Healthcare logistics: Robots navigate hospitals to deliver supplies or guide patients while interpreting signage and objects in context.
+- Personal robotics: Robots act as household assistants, folding laundry or cleaning. These robots are less prevalent due to the difficulty of generalizing to highly variable environments.
+These applications show VLA models being tasked with goals and completing them using visual cues. They require hardware capable of real-time multimodal processing, often combining GPUs for vision and language inference with sufficient VRAM for context retention.
+Opportunities and Limitations
+While promising, VLA models still face challenges:
+- Spatial and temporal reasoning: Most models struggle with precise manipulation or multi-step tasks over time. With constrained hardware, it is difficult to provide sufficient context to overcome these reasoning barriers.
+- Variable environments: Performance drops under lighting changes, cluttered scenes, or unseen objects. This can be mitigated through virtual training across diverse environments and lighting conditions.
+- Integration complexity: Deploying these models for real-time control demands careful hardware selection. The move toward energy-efficient and powerful hardware will be a mainstay for robotics and vision-language models.
+However, efficiency improvements and open-source frameworks are lowering the barrier to entry, enabling researchers to experiment on consumer-grade GPUs while still achieving strong performance.
+Frequently Asked Questions
+What is the difference between VLA, VLM, and LLM models?
+Large language models (LLMs) process and generate text. Vision language models (VLMs) combine visual and textual understanding for tasks like image captioning. Vision language action models (VLAs) extend VLMs by also generating physical actions, enabling robots to perceive, understand, and act in real-world environments.
+What hardware do I need to run VLA models?
+For inference, most modern VLA models like OpenVLA can run on a single GPU with 16GB+ VRAM (such as an RTX 4090). Training or fine-tuning requires more resources, typically multi-GPU setups with 80GB+ VRAM for full-parameter training.
+Can VLA models work in unstructured environments?
+VLA models show promising generalization capabilities but still struggle with highly variable environments, novel objects, and changing lighting conditions. Performance is best in semi-structured settings like warehouses and labs, though research is actively improving robustness.
+Are VLA models open source?
+Yes, several VLA models are open source, including OpenVLA (7B parameters), which provides pre-trained weights, datasets, and support for fine-tuning. This makes VLA technology accessible to researchers and developers without requiring massive compute infrastructure.
+What are the main challenges facing VLA models today?
+Key challenges include limited spatial and temporal reasoning, brittleness under distribution shifts (lighting, clutter, new objects), integration complexity with real hardware, and the computational demands of real-time control. Ongoing research focuses on improving efficiency, generalization, and safety.
+Key Takeaways for Hardware and Workloads
+For teams exploring vision-language(-action) models:
+- Training workloads: Large models require multi-GPU setups like NVIDIA HGX H200/B200 or NVIDIA RTX PRO Blackwell servers for reasonable throughput.
+- Inference workloads: Modern VLA models can run on single high-VRAM GPUs with quantization. More complex tasks can benefit from multi-GPU configurations.
+- Memory considerations: For inference, VRAM requirements range from 16 GB to 32 GB. Training models exceed 80 GB for full-parameter foundational model development.
+- Open-source advantage: Efficient pretrained models and datasets accelerate experimentation without requiring massive compute infrastructure.
+Published at DZone with permission of Kevin Vu. See the original article here.
+Opinions expressed by DZone contributors are their own.
+Comments

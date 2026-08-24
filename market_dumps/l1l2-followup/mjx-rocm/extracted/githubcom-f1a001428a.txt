@@ -1,0 +1,46 @@
+MJWarp is a GPU-accelerated version of the MuJoCo physics simulator, designed for NVIDIA hardware. MJWarp delivers high-throughput, accurate simulation for robotics research.
+MJWarp is maintained by Google DeepMind and NVIDIA as part of the Newton project.
+MuJoCo Warp requires an NVIDIA GPU for fast simulation but supports CPU for development and debugging.
+Try it now: view a simulation of a dancing humanoid robot locally on your machine:
+git clone https://github.com/google-deepmind/mujoco_warp.git && cd mujoco_warp
+python benchmarks/run.py -f unitree_g1_flat --view
+Or try out a tutorial in your browser (no local setup required).
+MJWarp is also available via PyPI:
+pip install mujoco-warp
+MuJoCo Warp simulates many kinds of physical systems, from rigid bodies with contacts to soft bodies, cloth, signed distance fields, and more. Here are a few examples of what it can do:
+| python benchmarks/run.py -f unitree_g1_flat --view | python benchmarks/run.py -f unitree_g1_hfield --view | python benchmarks/run.py -f myoarm --view | 
+| python benchmarks/run.py -f aloha_clutter --view | python benchmarks/run.py -f aloha_pot --view | python benchmarks/run.py -f aloha_sdf --view | 
+| python benchmarks/run.py -f aloha_cloth --view | python benchmarks/run.py -f three_humanoids --view | python benchmarks/run.py -f cloth --view | 
+Each of these scenes is benchmarked nightly and the results are published nightly.
+To set up MJWarp for development:
+git clone https://github.com/google-deepmind/mujoco_warp.git && cd mujoco_warp
+uv sync --all-extras  # install all optional dependencies for development
+uv run pre-commit install  # enables ruff, uv-lock, and kernel-analyzer checks on commit
+uv run pytest -n 8  # run all tests, verify everything works
+If you plan to write Warp kernels for MJWarp, please use the kernel_analyzer vscode plugin located in contrib/kernel_analyzer.
+See the README there for details on how to install it and use it.  The same kernel analyzer will run on any PR
+you open, so it's important to fix any issues it reports.
+For performance profiling MJWarp, use the --event_trace flag on mjwarp-testspeed to get a full trace on a test scene of your choice:
+mjwarp-testspeed benchmarks/humanoid/humanoid.xml --event_trace
+mjwarp-testspeed has many configuration options, see mjwarp-testspeed --help for details.  For more details and advanced topics on using MJWarp, see the MuJoCo Warp documentation.
+There are many ways to use MuJoCo Warp in your projects. In many cases, you can directly install and use MJWarp as a drop-in replacement for MuJoCo.
+If you prefer the JAX ecosystem, you can use MJWarp via MJX. See MuJoCo Playground for robotics machine learning recipes that use JAX and MJWarp.
+If you prefer PyTorch for research, consider one of these two great options:
+- Isaac Lab integrates MJWarp via Newton. This setup enables powerful, highly extensible multi-physics simulation with deep NVIDIA ecosystem integration.
+- mjlab exposes the Isaac Lab manager-based API directly on top of MJWarp, providing a focused framework for robotics research with minimal dependencies and direct access to native MuJoCo data structures.
+MuJoCo Warp supports the same features as MuJoCo with the following exceptions:
+- Integrator: IMPLICITFAST midpoint integrator feature is not supported
+- Solver: PGS andnoslip not yet supported
+- Actuator / Sensors: PLUGIN types not yet supported
+- Flex: experimental — not all features are implemented or optimized yet
+Differentiability via Warp is not yet available. See #500 for progress.
+MJWarp includes a high-throughput GPU batch renderer designed for simultaneous rendering of cameras across many parallel simulation worlds. The renderer uses ray-tracing to render MuJoCo scenes at millions of frames per second on NVIDIA GPUs.
+Key capabilities:
+- Mesh rendering
+- Texture support
+- Heightfield rendering
+- Flex deformable rendering
+- Heterogeneous multi-camera support (different resolutions/FOV/intrinsics for each camera)
+- Lighting and shadow support
+See the announcement PR for more details.
+MJWarp is released under the Apache 2.0 license. See LICENSE for details.

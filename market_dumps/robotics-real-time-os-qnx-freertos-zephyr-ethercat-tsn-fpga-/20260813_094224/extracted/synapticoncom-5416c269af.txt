@@ -1,0 +1,72 @@
+FUNCTIONAL SAFETY FOR AI-BASED ROBOTICS AND MACHINES
+What is POSITRON SAFETY AI? We present Synapticon’s AI-based safety architecture for humanoid robots—the first certifiable solution that simultaneously addresses mechanical instability and non-deterministic AI behavior. The new white paper “Out of the Cage: Advanced Functional Safety for Humanoids” by Dr.-Ing. Florian Weißhardt, Dr.-Ing. Tim Fröhlich, and Dieter Volpert describes the architecture in detail.
+Download
+Synapticon’s POSITRON SAFETY AI platform is revolutionizing industrial safety by advancing the functional safety of AI-controlled robots and machines. It combines state-of-the-art hardware and software solutions to ensure reliable and robust safety functions that meet the highest industrial standards.
+Whether you’re working on advanced robotics, industrial automation, or AI-controlled machines, Synapticon’s POSITRON SAFETY AI ensures a fail-safe and reliable environment without compromising performance.
+POSITRON SAFETY AI is designed in accordance with SIL3 PLe (ARM) standards and integrates motion safety, human detection, and behavioral safety into a single device to prevent both risks arising from intentional movements (such as the robot deliberately injuring people) and unintentional hazards (accidental injury caused by the robot).
+Previous safety control systems quickly reach their limits in complex applications. The systems currently available on the market offer a maximum of safe motion monitoring for less than 10 degrees of freedom (DoF), safe forward kinematics for up to 6 DoF (single instance). But we go a decisive step further!
+- Safe movement monitoring for more than 50 degrees of freedom (DoF)
+- Safe inverse kinematics for up to 7 DoF (multi-instance)
+- Maximum performance for highly complex robotics and automation systems
+- Hardware and software developed in accordance with SIL3 PLe
+Humanoid Safe Motion – Setting New Standards for Industrial Safety Controllers
+Synapticon Safe Motion is significantly more powerful than previous solutions and offers greater freedom of movement for maximum flexibility. At the same time, it meets the highest safety standards. Take your machine control to the next level—with the Safe Motion module of the POSITRON SAFETY AI Platform.
+Intelligent Person Detection for Maximum Safety
+In modern industrial environments, the safe separation of people and machines is crucial. Conventional safety solutions are often inflexible and reach their limits in dynamic scenarios.
+With SAFE HUMAN DETECTION, Synapticon goes far beyond this, combining certified safety monitoring with state-of-the-art, camera-based human detection—both AI-based and non-AI-based.
+Synapticon enables a whole new dimension of safety in industrial automation. Through the intelligent combination of sensors and camera-based analysis, the system not only detects people and obstacles but also responds in real time with precise safety measures.
+- Maximum safety thanks to state-of-the-art technology
+- Real-time person recognition and tracking
+- Dynamic classification of objects for precise reactions
+- Automatic adjustment of compact safety zones
+- Immediate system reactions for maximum safety
+- Certification process according to SIL2 PLd in preparation
+Synapticon enables a completely new dimension of safety in industrial automation. Thanks to the intelligent combination of sensors and camera-based analysis, the system not only detects people and obstacles, but also reacts in real time with precise safety measures.
+- Recognizes potential dangers - before they arise
+- Detection of critical situations in real time
+- Dynamic assessment of the risk situation
+- Classification into safe, critical or dangerous scenarios
+- Optimization for industrial applications without continuous learning
+- Contributes to practical safety - without certification, with planned certification for non-learning AI
+Intelligent Risk Assessment for Safe Human-Robot Interaction
+Safety in human-robot collaboration requires precise, real-time risk assessment. Conventional safety mechanisms are often insufficient when it comes to dynamic interactions.
+With BEHAVIORAL SAFETY, Synapticon uses multimodal AI models that have been pre-trained with comprehensive data and specifically optimized for the robot’s perspective as well as complex manipulation scenarios.
+Synapticon takes industrial safety to a new level by not only detecting human-robot interactions but also analyzing them responsibly. The system makes data-driven decisions, enabling a precise response to potential hazards.
+With a focus on redundant systems and real-time monitoring, POSITRON SAFETY AI delivers unparalleled performance in the safety control of complex, multi-axis robot systems.
+This diagram illustrates the architecture and integration of POSITRON SAFETY AI into your application's motion control stack.
+- Robot software stack: This layer enables the integration of existing robot software, including VLMs, VLAs and ROS-based systems.
+- Motion Controller: The Motorcortex motion controllers from Synapticon or third-party motion controllers are integrated here, offering multi-axis motion control and a graphical user interface.
+- Safe movement: This level enables the monitoring and control of safe movements, including TCP/kinematics, movement/speed/force limitation.
+- Safe motion drives and sensors: This level includes safe motion drives (SOMANET) and sensors that provide safe motion functions (SLS, SLP, SLT, SOS) and safe process data.
+- AI Safety: This level includes functions for position monitoring, human detection and behavior monitoring.
+Hardware for safe person detection, behavioral safety and high-performance motion safety.
+Safety hardware target for high-performance motion safety
+ 
+Hardware:
+The platform is based on a lightweight and energy-efficient ARM architecture. The hardware has a modular design and consists of a CPU module and a carrier board, which enables a high degree of adaptability.
+Software:
+The software components are designed to meet the requirements of safety-critical applications. The SIL3 system software forms the basis for the safe execution of motion monitoring functions.
+ 
+Software:
+| Features | Description | 
+|---|---|
+| Processors | 2x 800MHz ARM R52 | 
+| Security I/O | 24 dual digital inputs, 16 dual digital outputs | 
+| Ethernet | 4x (configurable for safe fieldbuses) | 
+| Serial communication | 2x (RS232, 422, 485) | 
+| Fieldbus | EtherCAT/FSOE Master/Slave | 
+| Optional security protocols | PROFISAFE, CIP Safety, CC-Link Safety | 
+| Safety certification | SIL3 HFT=1, PLe Cat.3 (TÜV Rheinland) | 
+| Hardware architecture | Modular design (CPU card + carrier), lightweight, energy-efficient ARM-based hardware | 
+Please note that some details of the product are still under development. 
+ 
+Safety hardware target for behavioral safety AI, safe person detection and high-performance motion safety
+Thearchitecture of the IGX Jetson Thor follows the NVIDIA Halos Principles and incorporates safety concepts derived from NVIDIA’s research into autonomous driving. The system is designed to meet the hardware requirements of ISO 26262 (Automotive Functional Safety) and IEC 61508 (Functional Safety) and supports the implementation of additional safety standards such as ISO 13849 and ISO/IEC TS 22440. This allows developers to leverage pre-certified safety components and significantly reduce development and certification efforts.
+The central safety element is a Functional Safety Island (FSI) featuring a lockstep-based multicore MCU with its own clock, power, and memory domains. This FSI is completely isolated from the application computing platform and includes watchdog timers, ECC-protected memory areas, CRC mechanisms, and direct actuator interfaces. This allows hard real-time fail-safe and fail-operational functions to be executed independently of the main system.
+POSITRON SAFETY AI uses this architecture to implement safety-critical AI applications in a deterministic, traceable, and standards-compliant manner. This makes the use of complex AI models in embodied AI systems—from collaborative robots to autonomous machines—functionally safe and certifiable.
+- Nvidia IGX Jetson Thor SOM-based
+- All-in-one AI high-performance PC
+- MPC + Motion Control CPU and comprehensive safety controller
+- Flexible safety-certified IOs, safety-certified IMU
+Please note that some details of the product are still under development. 
+We're happy to advise you on our products or on the use of integrated motion technology in your application. Talk to us about your project at any stage of its development.

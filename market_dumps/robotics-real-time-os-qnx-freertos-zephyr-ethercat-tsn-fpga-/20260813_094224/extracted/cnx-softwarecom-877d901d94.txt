@@ -1,0 +1,32 @@
+AMD Xilinx Kria KR260 Robotics Starter Kit features the Kria K26 Zynq UltraScale+ XCK26 FPGA MPSoC system-on-module (SoM) introduced last year together with the Kria KV260 Vision AI Starter Kit.
+Designed as a development platform for robotics and industrial applications, the KR260 is said to deliver nearly 5x productivity gain, up to 8x better performance per watt and 3.5x lower latency compared to Nvidia Jetson AGX Xavier or Jetson Nano kits. We’ll have a better look at the details below.
+Kria KR260 Robotics Starter Kit specifications:
+- SoM – Kria K26 module with:
+  - MPSoC – Xilinx Zynq Ultrascale+ custom-built XCK26 with quad-core Arm Cortex-A53 processor up to 1.5GHz, dual-core Arm Cortex-R5F real-time processor up to 600MHz, Mali-400 MP2 GPU up to 667MHz, 4Kp60 VPU, 26.6Mb On-Chip SRAM, 256K logic cells, 1,248 DSP slices, 144 Block RAM blocks, 64 UltraRAM blocks
+  - System Memory – 4GB 64-bit DDR4 (non-ECC)
+  - Storage – 512 Mbit QSPI flash (primary boot)
+- Storage – microSD/SDHC card (secondary boot)
+- Video
+  - Output – 1x DisplayPort 1.2a up to 1920 x 1080 at 60Hz
+  - Input – 1x SLVS-EC (Scalable Low-Voltage Signaling with Embedded Clock) Gen2 x2 lane interface for Sony image sensors
+- Networking
+  - 4x Gigabit Ethernet RJ45 ports
+  - 1x SFP+ connector supporting 10GigE
+- USB – 4x USB 3.0/2.0 interfaces
+- Expansions
+  - 4x 12-pin Pmod interfaces
+  - 40-pin Raspberry Pi HAT header with 26 I/Os
+- Security – Zynq UltraScale+ MPSoC hardware root of trust (RoT) in support of Secure Boot. Infineon TPM2.0 in support of Measured Boot.
+- Power Supply – 12V/3A via DC jack
+- Dimensions – 140 x 119 x 36mm
+- Thermal cooling solution – Active (Fan + Heatsink)
+The Kria KR260 supports Ubuntu 22.04 Desktop (22.04) from Canonical and ROS 2 Humble Hawksbill through a collaboration with Open Robotics to validate and ensure compliance of the ROS 2 implementation for the robotics community. The kit also supports Vitis Unified SW Platform for FPGA program and AMD provides a Kria Robotics Stack At least, you won’t be stuck to Ubuntu 18.04 as on NVIDIA Jetson devkits.
+Talking about Jetson platforms, let’s go back to AMD claims when comparing Kria KR260 against Jetson Xavier AGX/Nano using the Isaac ROS SDK, and samples on Github:
+- 5x productivity gain against both Xavier AGX/Nano
+  - Development time accounts for toolchain setup with ROS 2, cross-compilation of host code, creation and build of accelerator implementing two functions: doublevadd_publisher and accelerated_doublevadd_publisher.
+- Up to 8x better performance per watt and 3.5x lower latency compared to Jetson Xavier AGX
+  - Rectify and Resize functions from the ROS Perception Stack accelerated on Kria and Nvidia platforms; power and performance are measured.
+A getting started guide on AMD Xilinx website shows instructions with Ubuntu 20.04 LTS and PetaLinux 2021.1, and it looks like accelerated apps are working on PetaLinux, but more work is needed on Ubuntu. Ubuntu 22.04 does also show up, but it’s currently marked at Beta on the download page, which as a side note is hosted on Ubuntu.com, and Canonical also announced it would be a Ubuntu certified board. Support is provided on the forums.
+AMD Kria KR260 Robotics Starter Kit sells for $349 directly on the product page, where you’ll find additional information, as well as through distributors such as Digikey and Excelpoint. The kit includes the board, a getting started guide, some stickers, a 12V/3A power adapter, some Ethernet cables, and you can optionally purchase a Sony IMX547 camera module. Additional information may also be found in the press release, and the company is also showcasing the Kria K26 SoM and kits at the 2022 Embedded Vision Summit, May 16-19 at the Santa Clara Convention Center.
+Jean-Luc started CNX Software in 2010 as a part-time endeavor, before quitting his job as a software engineering manager, and starting to write daily news, and reviews full time later in 2011.
+Support CNX Software! Donate via cryptocurrencies, become a Patron on Patreon, or purchase goods on Amazon or Aliexpress. We also use affiliate links in articles to earn commissions if you make a purchase after clicking on those links.

@@ -1,0 +1,2951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore VLA models transforming robotics through vision, language, and action. Learn about OpenVLA, GR00T, Pi0, and real-world applications.">
+  <meta name="keywords" content="Open source">
+
+  <meta property="og:description" content="Explore VLA models transforming robotics through vision, language, and action. Learn about OpenVLA, GR00T, Pi0, and real-world applications.">
+  <meta property="og:site_name" content="dzone.com">
+  <meta property="og:title" content="VLA Models Powering the Future of Robotics">
+  <meta property="og:url" content="https://www.exxactcorp.com/blog/deep-learning/vision-language-action-vla-models-powers-robotics">
+  <meta property="og:image" content="https://dz2cdn1.dzone.com/storage/article-thumb/18804089-thumb.jpg">
+  <meta property="og:type" content="article">
+
+  <meta name="twitter:site" content="@DZoneInc">
+  <meta name="twitter:image" content="https://dz2cdn1.dzone.com/storage/article-thumb/18804089-thumb.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:description" content="Explore VLA models transforming robotics through vision, language, and action. Learn about OpenVLA, GR00T, Pi0, and real-world applications.">
+  <meta name="twitter:title" content="VLA Models Powering the Future of Robotics">
+
+    <meta name="Googlebot-News" content="noindex">
+
+
+  <meta name="referrer" content="origin-when-cross-origin">
+  <meta name="google-site-verification" content="kndbhxcupfEqWmZclhCpB6vlgOs7QSmx2UHAGGnP2mA">
+  <meta name="df-verify" content="df0d76632b4543">
+
+  <link rel="icon" type="image/x-icon" href="https://dz2cdn1.dzone.com/themes/dz20/images/favicon.png">
+  <link rel="image_src" href="https://dz2cdn1.dzone.com/storage/article-thumb/18804089-thumb.jpg">
+  <link rel="canonical" href="https://www.exxactcorp.com/blog/deep-learning/vision-language-action-vla-models-powers-robotics">
+
+  <title>VLA Models Powering the Future of Robotics</title>
+
+  <link rel="preload" href="https://dz2cdn1.dzone.com/themes/dz20/font/fontello.woff?11773374" as="font" type="font/woff" crossorigin="anonymous">
+
+  <link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/icons.css">
+  <link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/lib/static/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/article/global.css">
+  <link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/header-updated/styles.css">
+<style>
+    :root {
+	    --xs-size: 2px;
+        --sm-size: 5px;
+        --md-size: 10px;
+        --lg-size: 15px;
+        --xl-size: 25px;
+        --sm-border-size: 8px;
+        --sm-font-size: 13px;
+        --sm-plus-font-size: 16px;
+        --md-font-size: 18px;
+        --lg-font-size: 22px;
+        --xl-font-size: 26px;
+    }
+
+    /* Display Quick-Access Classes */
+    .display-none { display: none; }
+    .display-block { display: block; }
+    .display-inline { display: inline; }
+    .display-inline-block { display: inline-block; }
+
+    /* Margin Quick-Access Classes */
+    .m-xs { margin: var(--xs-size); }
+    .m-sm { margin: var(--sm-size); }
+    .m-md { margin: var(--md-size); }
+    .m-lg { margin: var(--lg-size); }
+    .m-xl { margin: var(--xl-size); }
+
+    .mt-xs, .my-xs { margin-top: var(--xs-size); }
+    .mr-xs, .mx-xs { margin-right: var(--xs-size); }
+    .mb-xs, .my-xs { margin-bottom: var(--xs-size); }
+    .ml-xs, .mx-xs { margin-left: var(--xs-size); }
+
+    .mt-sm, .my-sm { margin-top: var(--sm-size); }
+    .mr-sm, .mx-sm { margin-right: var(--sm-size); }
+    .mb-sm, .my-sm { margin-bottom: var(--sm-size); }
+    .ml-sm, .mx-sm { margin-left: var(--sm-size); }
+
+    .mt-md, .my-md { margin-top: var(--md-size); }
+    .mr-md, .mx-md { margin-right: var(--md-size); }
+    .mb-md, .my-md { margin-bottom: var(--md-size); }
+    .ml-md, .mx-md { margin-left: var(--md-size); }
+
+    .mt-lg, .my-lg { margin-top: var(--lg-size); }
+    .mr-lg, .mx-lg { margin-right: var(--lg-size); }
+    .mb-lg, .my-lg { margin-bottom: var(--lg-size); }
+    .ml-lg, .mx-lg { margin-left: var(--lg-size); }
+
+    .mt-xl, .my-xl { margin-top: var(--xl-size); }
+    .mr-xl, .mx-xl { margin-right: var(--xl-size); }
+    .mb-xl, .my-xl { margin-bottom: var(--xl-size); }
+    .ml-xl, .mx-xl { margin-left: var(--xl-size); }
+
+    .ml-auto, .mx-auto { margin-left: auto; }
+    .mr-auto, .mx-auto { margin-right: auto; }
+    .mt-auto, .my-auto { margin-top: auto; }
+    .mb-auto, .my-auto { margin-bottom: auto; }
+
+    .my-none, .mt-none { margin-top: 0 !important; }
+    .mx-none, .mr-none { margin-right: 0 !important; }
+    .my-none, .mb-none { margin-bottom: 0 !important; }
+    .mx-none, .ml-none { margin-left: 0 !important; }
+
+    /* Padding Quick-Access Classes */
+    .p-xs { padding: var(--xs-size); }
+    .p-sm { padding: var(--sm-size); }
+    .p-md { padding: var(--md-size); }
+    .p-lg { padding: var(--lg-size); }
+    .p-xl { padding: var(--xl-size); }
+
+    .pt-xs, .py-xs { padding-top: var(--xs-size); }
+    .pr-xs, .px-xs { padding-right: var(--xs-size); }
+    .pb-xs, .py-xs { padding-bottom: var(--xs-size); }
+    .pl-xs, .px-xs { padding-left: var(--xs-size); }
+
+    .pt-sm, .py-sm { padding-top: var(--sm-size); }
+    .pr-sm, .px-sm { padding-right: var(--sm-size); }
+    .pb-sm, .py-sm { padding-bottom: var(--sm-size); }
+    .pl-sm, .px-sm { padding-left: var(--sm-size); }
+
+    .pt-md, .py-md { padding-top: var(--md-size); }
+    .pr-md, .px-md { padding-right: var(--md-size); }
+    .pb-md, .py-md { padding-bottom: var(--md-size); }
+    .pl-md, .px-md { padding-left: var(--md-size); }
+
+    .pt-lg, .py-lg { padding-top: var(--lg-size); }
+    .pr-lg, .px-lg { padding-right: var(--lg-size); }
+    .pb-lg, .py-lg { padding-bottom: var(--lg-size); }
+    .pl-lg, .px-lg { padding-left: var(--lg-size); }
+
+    .pt-xl, .py-xl { padding-top: var(--xl-size); }
+    .pr-xl, .px-xl { padding-right: var(--xl-size); }
+    .pb-xl, .py-xl { padding-bottom: var(--xl-size); }
+    .pl-xl, .px-xl { padding-left: var(--xl-size); }
+
+    .py-none, .pt-none { padding-top: 0 !important; }
+    .px-none, .pr-none { padding-right: 0 !important; }
+    .py-none, .pb-none { padding-bottom: 0 !important; }
+    .px-none, .pl-none { padding-left: 0 !important; }
+
+    /* Flex Quick-Access Classes */
+    .flex {
+	    display: flex;
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .flex-column-reverse {
+	    display: flex;
+	    flex-direction: column-reverse;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .flex-row-reverse {
+	    display: flex;
+	    flex-direction: row-reverse;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .flex-grow {
+        flex-grow: 1;
+    }
+
+    .align-center { align-items: center; }
+    .align-end { align-items: flex-end; }
+
+    .content-center {
+	    align-content: center;
+    }
+
+    .justify-center { justify-content: center; }
+    .justify-start { justify-content: flex-start; }
+    .justify-end { justify-content: flex-end; }
+    .justify-around { justify-content: space-around; }
+    .justify-between { justify-content: space-between; }
+    .justify-evenly { justify-content: space-evenly; }
+
+    .gap-sm { gap: var(--sm-size); }
+    .gap-md { gap: var(--md-size); }
+    .gap-lg { gap: var(--lg-size); }
+    .gap-xl { gap: var(--xl-size); }
+
+    /* Display Quick-Access Classes */
+    .inline-block { display: inline-block; }
+
+    /* Font Quick-Access Classes */
+    .font-xl { font-size: var(--xl-font-size); }
+    .font-lg { font-size: var(--lg-font-size); }
+    .font-md { font-size: var(--md-font-size); }
+    .font-sm-plus { font-size: var(--sm-plus-font-size); }
+    .font-sm { font-size: var(--sm-font-size); }
+
+    .font-strike { text-decoration: line-through; }
+    .font-underline { text-decoration: underline; }
+    .font-overline { text-decoration: overline; }
+
+    .font-italic { font-style: italic; }
+    .font-bold { font-weight: bold; }
+
+    .font-black { color: #000000; }
+    .font-white { color: #ffffff; }
+    .font-gray { color: var(--brand-gray-text); }
+    .font-danger { color: var(--header-dropdown-button-bg-danger); }
+    .font-center { text-align: center; }
+
+    .no-wrap { white-space: nowrap; }
+
+    /* Consistent headings between h and non-h tags */
+    .heading {
+	    margin-top: 0;
+	    margin-bottom: var(--md-size);
+    }
+
+    .heading.font-xl { line-height: var(--xl-font-size); }
+    .heading.font-lg { line-height: var(--lg-font-size); }
+    .heading.font-md { line-height: var(--md-font-size); }
+    .heading.font-sm-plus { line-height: var(--sm-plus-font-size); }
+    .heading.font-sm { line-height: var(--sm-font-size); }
+
+    /* Font Clamp Quick-Access Classes */
+    .line-clamp,
+    .line-clamp-2,
+    .line-clamp-3,
+    .line-clamp-4,
+    .line-clamp-5 {
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .line-clamp-2 { -webkit-line-clamp: 2 !important; }
+    .line-clamp-3 { -webkit-line-clamp: 3 !important; }
+    .line-clamp-4 { -webkit-line-clamp: 4 !important; }
+    .line-clamp-5 { -webkit-line-clamp: 5 !important; }
+
+    /* User-Select Quick-Access Classes */
+    .select-none { user-select: none; }
+
+    /* Position Quick-Access Classes */
+    .absolute { position: absolute; }
+    .relative { position: relative; }
+    .float-left { float: left; }
+    .float-right { float: right; }
+
+    .pos-top { top: 0; }
+    .pos-right { right: 0; }
+    .pos-bottom { bottom: 0; }
+    .pos-left { left: 0; }
+
+    .va-top { vertical-align: top; }
+    .va-middle { vertical-align: middle; }
+    .va-bottom { vertical-align: bottom; }
+
+    /* Transition Quick-Access Classes */
+    .trans-linear-quick {
+        transition: all 0.15s linear;
+    }
+
+    /* Background Quick-Access Classes */
+    .bg-gray { background: #cccccc; }
+    .bg-white { background-color: white; }
+    .bg-none { background: none; }
+
+    /* Border Quick-Access Classes */
+    .border-gray { border: 1px solid #cccccc; }
+    .tab-pane.border-gray { border: 1px solid #ddd; }
+    .no-border, .border-none { border: none !important; }
+
+    .bt-none { border-top: none !important; }
+    .br-none { border-right: none !important; }
+    .bb-none { border-bottom: none !important; }
+    .bl-none { border-left: none !important; }
+
+    /* Border Radius Quick-Access Classes */
+
+    .round-t-sm, .round-tl-sm { border-top-left-radius: var(--sm-border-size); }
+    .round-t-sm, .round-tr-sm { border-top-right-radius: var(--sm-border-size); }
+    .round-b-sm, .round-bl-sm { border-bottom-left-radius: var(--sm-border-size); }
+    .round-b-sm, .round-br-sm { border-bottom-right-radius: var(--sm-border-size); }
+    .round-sm { border-radius: var(--sm-border-size); }
+    .round-fully { border-radius: 50%; }
+
+    /* Misc Quick-Access Classes */
+    .haikei {
+        position: relative;
+        background-image: url('https://dz2cdn1.dzone.com/themes/dz20/images/polygon-scatter-haikei-shapes.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .haikei:before {
+        content: '';
+        position:absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-event-background);
+        z-index: -1;
+    }
+
+    .margin-auto-center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .flex-auto-center {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mw-1100 { max-width: 1100px; }
+    .mw-1300 { max-width: 1300px; }
+    .full-width { width: 100%; }
+
+    .h-separator {
+        background-color: #cccccc;
+        height: 1px;
+        width: 100%;
+        margin: 5px auto;
+    }
+
+    .no-spacing {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .inherit-color { color: inherit; }
+
+    .inherit-decoration { text-decoration: inherit; }
+
+    /* Table Quick-Access Classes */
+    .table-border-gray tr:not(:last-child) {
+        border-bottom: 1px solid #cccccc;
+    }
+
+    table.full-width tr td:last-child {
+        width:100%;
+    }
+
+    /* Animation Quick-Access Classes */
+    @keyframes anim-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(359deg); }
+    }
+
+    .anim-spin {
+        display: inline-block;
+        animation: anim-spin 2s infinite linear;
+    }
+
+    .hov-pointer { cursor: pointer; }
+    .hov-brighten:hover { filter: brightness(1.2); }
+    .hov-darken:hover { filter: brightness(0.95); }
+    .hov-underline:hover { text-decoration: underline; }
+
+    /* Small tweaks related to components when using these styles */
+    .nav-tabs {
+        border-bottom: none;
+    }
+    .tab-content > .flex-column.active,
+    .tab-content > .flex-row.active {
+        display: flex;
+    }
+
+    /* Alpine components with x-cloak should not be visible by default until conditionals kick in */
+    [x-cloak] { display: none !important; }
+</style>
+  <link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/alpine-components/modal.css">
+  <script defer src="https://dz2cdn1.dzone.com/themes/dz20/lib/alpinejs/3.13.2/cdn.min.js"></script>
+<script>
+	document.addEventListener('alpine:init', () => {
+		Alpine.store('article', {
+			id: null,
+			engagement: {
+				open: false,
+				page: 1,
+				users: [],
+				additional: true,
+				loading: false,
+				initializing: false,
+				unauthorized: false,
+				enqueued: null,
+				dequeued: null,
+
+				reset() {
+					this.open = false;
+					this.page = 1;
+					this.users.splice(0);
+					this.additional = true;
+					this.loading = false;
+					this.initializing = false;
+					this.enqueued = null;
+					this.dequeued = null;
+				},
+
+				enqueue(user) {
+					this.dequeued = null;
+					this.enqueued = user;
+				},
+
+				dequeue(user) {
+					this.enqueued = null;
+					this.dequeued = user;
+				},
+
+				add(user) {
+					this.users.push(user);
+					this.enqueued = null;
+				},
+
+				remove(user) {
+					const index = this.users.findIndex(u => u.id === user.id);
+
+					if (index !== -1) {
+						this.users.splice(index, 1);
+					}
+
+					this.dequeued = null;
+				},
+
+				contains(user) {
+					return this.users.filter(u => u.id === user.id).length;
+				}
+			}
+		});
+
+		Alpine.effect(() => {
+			const store = Alpine.store('article');
+			if (!store.engagement.additional && store.engagement.enqueued) {
+				if (!store.engagement.contains(store.engagement.enqueued)) {
+					store.engagement.add(store.engagement.enqueued);
+				}
+			}
+		});
+
+		Alpine.effect(() => {
+			const store = Alpine.store('article');
+			if (store.engagement.page && store.engagement.dequeued) {
+				store.engagement.remove(store.engagement.dequeued);
+			}
+		})
+	});
+</script></head>
+<body x-data>
+    <div class="skybox skybox-closeBtn dz_skybox" data-gpt-slot="skybox" id="div-gpt-ad-1435246566686-99"></div>
+<header id="ftl-header">
+    <div class="header-top">
+<div class="header-container">
+    <div class="pull-left logo-container">
+        <div class="logo">
+            <a class="inner" href="/">
+                <picture>
+                    <source srcset="https://dz2cdn1.dzone.com/themes/dz20/images/dz_logo_2021_cropped.webp" type="image/webp">
+                    <source srcset="https://dz2cdn1.dzone.com/themes/dz20/images/dz_logo_2021_cropped.png" type="image/png">
+                    <img src="https://dz2cdn1.dzone.com/themes/dz20/images/dz_logo_2021_cropped.png" width="181" height="56" alt="DZone">
+                </picture>
+            </a>
+        </div>
+    </div>
+
+    <div class="pull-right login-and-search">
+        <div id="authenticated-block" class="logged-in">
+            <div class="welcome-back">Thanks for visiting DZone today,</div>
+            <div id="user-header" class="user-info">
+                <button class="user-avatar">
+                    <span id="header-username" class="username"></span>
+                    <img id="header-avatar" src="" alt="user avatar">
+                </button>
+                <div id="user-dropdown" class="browse-user-menu">
+                    <div class="user-content">
+                        <a id="header-user-plug" href="#" class="user-description"></a>
+                        <a id="header-user-edit" href="#" class="edit-profile">Edit Profile</a>
+                    </div>
+                    <ul class="user-actions">
+                        <li id="first-user-action">
+                            <a id="header-dropdown-manage-email" href="#">Manage Email Subscriptions</a>
+                        </li>
+                        <li>
+                            <a href="/articles/how-to-submit-a-post-to-dzone?utm_source=DZone&utm_medium=user_dropdown&utm_campaign=how_to_post">
+                                How to Post to DZone
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/articles/dzones-article-submission-guidelines">
+                                Article Submission Guidelines
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="bottom">
+                        <a href="/users/logout.html" class="sign-out">Sign Out</a>
+                        <a id="dropdown-view-profile" href="#" class="view-profile">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-content">
+                <button id="post-button" class="post-content--button">
+                    <span class="post-class">Post</span>
+                    <i class="icon-plus"></i>
+                </button>
+
+                <div id="post-menu" class="posting-links">
+                    <div class="posting-links-menu">
+                        <ul>
+                            <li>
+                                <img src="https://dz2cdn1.dzone.com/themes/dz20/images/dz-postarticle.svg" width="15" height="18" style="width: 15px; height: 18px;">
+                                <a href="/content/article/post.html">Post an Article</a>
+                            </li>
+                            <li>
+                                <a id="drafts-link" href="#">Manage My Drafts</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="unauthenticated-block">
+            <div class="dz-intro">Over 2 million developers have joined DZone.</div>
+            <div class="mobile-invisible sign-in-join">
+                <a href="/users/login.html">Log In</a>
+                <span class="dz-intro-span">/</span>
+                <a href="/static/registration.html">Join</a>
+            </div>
+            <a class="join-icon" href="/users/login.html" aria-label="User">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide svg-user lucide-user-icon lucide-user">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+        </div>
+
+        <script>
+            document.addEventListener('alpine:init', () => {
+                Alpine.data('searchDrawer', () => ({
+                    open: false,
+                    query: '',
+                    minCharsMet: false,
+
+                    toggleVisibility() {
+                        this.open = !this.open;
+                        if (this.open) {
+                            this.$nextTick(() => {
+                                this.$refs.query.focus();
+                            });
+                        }
+                    },
+
+                    updateSearchValue() {
+                        if (!this.query || !this.query.length || this.query.length < 3) {
+                            this.minCharsMet = false;
+                            return;
+                        }
+                        this.minCharsMet = true;
+                        localStorage.setItem('ls.searchValue', this.query);
+                    },
+
+                    searchSite() {
+                        if (this.minCharsMet) {
+                            window.location = '/search';
+                        }
+                    }
+                }));
+            });
+        </script>
+
+        <div class="headerSearch" x-data="searchDrawer()" x-cloak>
+            <button class="btn-search dropdown-toggle" x-on:click="toggleVisibility()" aria-label="Search">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide svg-search lucide-search-icon lucide-search">
+                    <path d="m21 21-4.34-4.34"></path>
+                    <circle cx="11" cy="11" r="8"></circle>
+                </svg>
+            </button>
+            <template x-teleport=".header-container">
+                <div id="search-drawer" x-show="open" x-on:click.outside="open = false" x-transition>
+                    <div class="search-input">
+                        <input type="text"
+                               placeholder="Search"
+                               autofocus="autofocus"
+                               x-model="query"
+                               x-ref="query"
+                               x-on:input.change="updateSearchValue()"
+                               x-on:keyup.enter="searchSite()"
+                        >
+                        <button x-on:click="searchSite()" x-bind:disabled="!minCharsMet">
+                            <span>Search</span>
+                        </button>
+                    </div>
+                    <div class="search-footer">
+                        Please enter at least three characters to search
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>    </div>
+    <div class="header-bottom">
+        <div class="header-bottom-container">
+            <a class="resource-link" href="/refcardz">Refcards</a>
+            <a class="resource-link" href="/trendreports">Trend Reports</a>
+            <div class="resource-link link-menu">
+                <a href="/events">Events</a>
+                <a href="/events/video-library">Video Library</a>
+            </div>
+        </div>
+    </div>
+    <nav class="header-menu-bar">
+        <div class="header-menu resource-category">
+            <a href="/refcardz">Refcards</a>
+        </div>
+        <div class="header-menu-separator resource-category-separator"></div>
+        <div class="header-menu resource-category">
+            <a href="/trendreports">Trend Reports</a>
+        </div>
+        <div class="header-menu-separator resource-category-separator"></div>
+        <div class="header-menu resource-category no-bottom-radius" data-click-activation>
+            <p class="menu-label">Events</p>
+            <div class="header-menu-items">
+                <div class="header-menu-columns">
+                    <a class="header-menu-item" href="/events">View Events</a>
+                    <a class="header-menu-item" href="/events/video-library">Video Library</a>
+                </div>
+            </div>
+        </div>
+            <div class="header-menu zone-menu" data-click-activation>
+                <p class="menu-label">Zones <i class="icon-down-dir icon-closed"></i><i class="icon-right-dir icon-open"></i></p>
+                <div class="header-menu-items">
+                    <div class="header-menu-columns">
+                            <div class="header-menu-column-item">
+                                <a class="header-menu-item" href="/culture-and-methodologies">Culture and Methodologies</a>
+                                        <a class="header-menu-item" href="/agile">Agile</a>
+                                        <a class="header-menu-item" href="/career-development">Career Development</a>
+                                        <a class="header-menu-item" href="/methodologies">Methodologies</a>
+                                        <a class="header-menu-item" href="/team-management">Team Management</a>
+                            </div>
+                            <div class="header-menu-column-item">
+                                <a class="header-menu-item" href="/data-engineering">Data Engineering</a>
+                                        <a class="header-menu-item" href="/ai-ml">AI/ML</a>
+                                        <a class="header-menu-item" href="/big-data">Big Data</a>
+                                        <a class="header-menu-item" href="/data">Data</a>
+                                        <a class="header-menu-item" href="/databases">Databases</a>
+                                        <a class="header-menu-item" href="/iot">IoT</a>
+                            </div>
+                            <div class="header-menu-column-item">
+                                <a class="header-menu-item" href="/software-design-and-architecture">Software Design and Architecture</a>
+                                        <a class="header-menu-item" href="/cloud-architecture">Cloud Architecture</a>
+                                        <a class="header-menu-item" href="/containers">Containers</a>
+                                        <a class="header-menu-item" href="/integration">Integration</a>
+                                        <a class="header-menu-item" href="/microservices">Microservices</a>
+                                        <a class="header-menu-item" href="/performance">Performance</a>
+                                        <a class="header-menu-item" href="/security">Security</a>
+                            </div>
+                            <div class="header-menu-column-item">
+                                <a class="header-menu-item" href="/coding">Coding</a>
+                                        <a class="header-menu-item" href="/frameworks">Frameworks</a>
+                                        <a class="header-menu-item" href="/java">Java</a>
+                                        <a class="header-menu-item" href="/javascript">JavaScript</a>
+                                        <a class="header-menu-item" href="/languages">Languages</a>
+                                        <a class="header-menu-item" href="/tools">Tools</a>
+                            </div>
+                            <div class="header-menu-column-item">
+                                <a class="header-menu-item" href="/testing-deployment-and-maintenance">Testing, Deployment, and Maintenance</a>
+                                        <a class="header-menu-item" href="/deployment">Deployment</a>
+                                        <a class="header-menu-item" href="/devops-and-cicd">DevOps and CI/CD</a>
+                                        <a class="header-menu-item" href="/maintenance">Maintenance</a>
+                                        <a class="header-menu-item" href="/monitoring-and-observability">Monitoring and Observability</a>
+                                        <a class="header-menu-item" href="/testing-tools-and-frameworks">Testing, Tools, and Frameworks</a>
+                            </div>
+                            <div class="header-menu-column-item sponsored">
+                                <a class="header-menu-item" href="javascript:void(0)">Partner Zones</a>
+                                        <a class="header-menu-item" href="/hubs/build-ai-agents-that-are-ready-for-production/">Build AI Agents That Are Ready for Production</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+                <div class="header-menu parent-category" tabindex="1">
+                    <a href="/culture-and-methodologies">Culture and Methodologies</a>
+                    <div class="header-menu-items">
+                                <a class="header-menu-item" href="/agile">Agile</a>
+                                <a class="header-menu-item" href="/career-development">Career Development</a>
+                                <a class="header-menu-item" href="/methodologies">Methodologies</a>
+                                <a class="header-menu-item" href="/team-management">Team Management</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+                <div class="header-menu parent-category" tabindex="2">
+                    <a href="/data-engineering">Data Engineering</a>
+                    <div class="header-menu-items">
+                                <a class="header-menu-item" href="/ai-ml">AI/ML</a>
+                                <a class="header-menu-item" href="/big-data">Big Data</a>
+                                <a class="header-menu-item" href="/data">Data</a>
+                                <a class="header-menu-item" href="/databases">Databases</a>
+                                <a class="header-menu-item" href="/iot">IoT</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+                <div class="header-menu parent-category" tabindex="3">
+                    <a href="/software-design-and-architecture">Software Design and Architecture</a>
+                    <div class="header-menu-items">
+                                <a class="header-menu-item" href="/cloud-architecture">Cloud Architecture</a>
+                                <a class="header-menu-item" href="/containers">Containers</a>
+                                <a class="header-menu-item" href="/integration">Integration</a>
+                                <a class="header-menu-item" href="/microservices">Microservices</a>
+                                <a class="header-menu-item" href="/performance">Performance</a>
+                                <a class="header-menu-item" href="/security">Security</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+                <div class="header-menu parent-category" tabindex="4">
+                    <a href="/coding">Coding</a>
+                    <div class="header-menu-items">
+                                <a class="header-menu-item" href="/frameworks">Frameworks</a>
+                                <a class="header-menu-item" href="/java">Java</a>
+                                <a class="header-menu-item" href="/javascript">JavaScript</a>
+                                <a class="header-menu-item" href="/languages">Languages</a>
+                                <a class="header-menu-item" href="/tools">Tools</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+                <div class="header-menu parent-category" tabindex="5">
+                    <a href="/testing-deployment-and-maintenance">Testing, Deployment, and Maintenance</a>
+                    <div class="header-menu-items">
+                                <a class="header-menu-item" href="/deployment">Deployment</a>
+                                <a class="header-menu-item" href="/devops-and-cicd">DevOps and CI/CD</a>
+                                <a class="header-menu-item" href="/maintenance">Maintenance</a>
+                                <a class="header-menu-item" href="/monitoring-and-observability">Monitoring and Observability</a>
+                                <a class="header-menu-item" href="/testing-tools-and-frameworks">Testing, Tools, and Frameworks</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+                <div class="header-menu parent-category sponsored" tabindex="6">
+                    <a href="javascript:void(0)">Partner Zones</a>
+                    <div class="header-menu-items sponsored">
+                                <a class="header-menu-item" href="/hubs/build-ai-agents-that-are-ready-for-production/">Build AI Agents That Are Ready for Production</a>
+                    </div>
+                </div>
+                <div class="header-menu-separator parent-category-separator"></div>
+    </nav>
+</header>
+
+<script>
+    const csrf = {
+        parameter: 'TH_CSRF',
+        header: 'X-TH-CSRF',
+        token: '8652909710178979510'
+    }; // set csrf for auth-status script
+</script>
+<script>
+addEventListener('DOMContentLoaded', function() {
+    handleRedirects();
+    handleMenus();
+    handleMobileMenuHeights();
+    handleGotoLinks();
+});
+
+function isHidden(element) {
+    try {
+        return window.getComputedStyle(element).display === 'none';
+    } catch (_) {
+        return false;
+    }
+}
+
+function getLink(element) {
+    if (element.hasAttribute('data-goto')) {
+        return element.getAttribute('data-goto');
+    }
+    return element.href;
+}
+
+function isLeftClick(event) {
+    if (event.altKey || event.shiftKey) {
+        return false;
+    } else if ('buttons' in event || 'which' in event) {
+        return event.buttons === 1 || event.which === 1;
+    } else {
+        return (event.button === 1 || (event.type === 'click'));
+    }
+}
+
+function handleRedirects() {
+    const redirections = [...document.querySelectorAll('[data-activate-menu]'), ...document.querySelectorAll('[data-click-target]')];
+
+    redirections.forEach(function(element) {
+        const menuSelector = element.getAttribute('data-activate-menu') || element.getAttribute('data-click-target');
+        const redirectingElement = document.querySelector(menuSelector);
+        if (redirectingElement) {
+            element.style.cursor = 'pointer';
+            const redirect = function(e) {
+                if (redirectingElement.hasAttribute('href') || redirectingElement.hasAttribute('data-goto')) {
+                    if (redirectingElement.hasAttribute('data-new-window') || e.ctrlKey || e.metaKey) {
+                        window.open(getLink(redirectingElement), '_blank');
+                    } else {
+                        window.open(getLink(redirectingElement), '_self');
+                    }
+                } else {
+                    const evt = new e.constructor(e.type, e);
+                    redirectingElement.dispatchEvent(evt);
+                }
+            };
+            element.addEventListener('mouseup', redirect);
+            element.addEventListener('mousedown', (e) => e.preventDefault());
+            element.addEventListener('click', (e) => e.preventDefault());
+        }
+    });
+}
+
+function handleMenus() {
+    const menuElements = [
+        ...document.querySelectorAll('.header-menu > a'),
+        ...document.querySelectorAll('.header-menu > p.menu-label')
+    ];
+
+    let scrollYMemory = -1;
+
+    function scrollToMemory() {
+        if (scrollYMemory !== -1) {
+            setTimeout(function() {
+                window.scrollTo(0, scrollYMemory);
+                scrollYMemory = -1;
+            }, 10);
+        }
+    }
+
+    function hideMenus() {
+        // unfocus menus & items, and set the menus to non-visible.
+        menuElements.forEach(function (element) {
+            element.blur();
+            element.parentElement.blur();
+            element.parentElement.classList.remove('menu-opened');
+            const menuItems = element.parentElement.querySelector('.header-menu-items');
+            if (menuItems) {
+                menuItems.style.display = 'none';
+            }
+        });
+        const wasHidden = document.body.style.overflowY === 'hidden';
+        document.body.style.overflowY = 'auto';
+        if (wasHidden) {
+            scrollToMemory();
+        }
+    }
+
+    function isEventOutsideMenu(e) {
+        return e.target.closest && !e.target.closest('.header-menu') && !e.target.closest('[data-activate-menu]');
+    }
+
+    // Handle mobile menu toggling
+    menuElements.forEach(function(element) {
+        const menu = element.parentElement;
+        const headerItems = menu.querySelector('.header-menu-items');
+        const menuEntries = headerItems ? headerItems.querySelectorAll('.header-menu-item') : [];
+
+        const focus = function() {
+            menu.focus();
+            menu.classList.add('menu-opened');
+            if (headerItems) {
+                headerItems.style.display = 'block';
+            }
+            if (menu.classList.contains('zone-menu')) {
+                scrollYMemory = window.scrollY;
+                document.body.style.overflowY = 'hidden';
+            } else {
+                scrollYMemory = -1;
+            }
+        };
+
+        const unfocus = function() {
+            menu.blur();
+            menu.classList.remove('menu-opened');
+            if (headerItems) {
+                headerItems.style.display = 'none';
+            }
+            const wasHidden = document.body.style.overflowY === 'hidden';
+            document.body.style.overflowY = 'auto';
+            if (wasHidden) {
+                scrollToMemory();
+            }
+        };
+
+        const toggleMenuVisibility = function(e) {
+            if ((e.type === 'click' || e.type === 'mouseup') && !isLeftClick(e)) {
+                e.preventDefault();
+                return;
+            }
+            const hidden = isHidden(headerItems);
+            if (menu.hasAttribute('data-click-activation')) { // handle click activated toggling
+                if (hidden) {
+                    hideMenus(); // hide other open menus first
+                    focus();
+                } else {
+                    unfocus();
+                }
+                e.preventDefault();
+            } else if (hidden) {
+                hideMenus(); // hide other open menus first
+                focus();
+                e.preventDefault(); // prevent 'click' event from firing when menu is hidden
+            }
+        };
+
+        element.addEventListener('touchend', toggleMenuVisibility);
+        element.addEventListener('mouseup', toggleMenuVisibility);
+
+        // Add hover events to non-click-activated menus, even though CSS should cover it.
+        if (!menu.hasAttribute('data-click-activation')) {
+            menu.addEventListener('mouseover', function () {
+                hideMenus(); // hide other open menus first
+                focus();
+            });
+
+            menu.addEventListener('mouseout', function (e) {
+                if (isEventOutsideMenu(e)) {
+                    unfocus();
+                }
+            });
+        }
+
+        // Hide menu when child is clicked
+        menuEntries.forEach(function(menuEntry) {
+            const linkToItem = function(e) {
+                if (e.type === 'mousedown' || e.type === 'click') {
+                    e.preventDefault();
+                    return;
+                }
+                if (e.type === 'mouseup' && !isLeftClick(e)) {
+                    e.preventDefault();
+                    return;
+                }
+                window.open(getLink(menuEntry), (e.ctrlKey || e.metaKey) ? '_blank' : (menuEntry.target || '_self'));
+                unfocus();
+                e.preventDefault();
+            };
+
+            const linkToMobileItem = function(e) {
+                if (e.type === 'touchstart') {
+                    menuEntry.setAttribute('data-touchmove', false);
+                } else if (e.type === 'touchmove') {
+                    menuEntry.setAttribute('data-touchmove', true);
+                } else if (e.type === 'touchend' && (!menuEntry.hasAttribute('data-touchmove') || menuEntry.getAttribute('data-touchmove').toLowerCase() === 'false')) {
+                    window.open(getLink(menuEntry), (e.ctrlKey || e.metaKey) ? '_blank' : (menuEntry.target || '_self'));
+                    unfocus();
+                    e.preventDefault();
+                }
+            };
+
+            menuEntry.addEventListener('mousedown', linkToItem);
+            menuEntry.addEventListener('mouseup', linkToItem);
+            menuEntry.addEventListener('click', linkToItem);
+            menuEntry.addEventListener('touchstart', linkToMobileItem);
+            menuEntry.addEventListener('touchmove', linkToMobileItem);
+            menuEntry.addEventListener('touchend', linkToMobileItem);
+        });
+    });
+
+    function hideIfNonMenuBounds(e) {
+        if (isEventOutsideMenu(e)) {
+            hideMenus();
+        }
+    }
+
+    addEventListener('mousemove', hideIfNonMenuBounds);
+    addEventListener('touchend', hideIfNonMenuBounds);
+    addEventListener('mouseup', hideIfNonMenuBounds);
+    addEventListener('mousedown', hideIfNonMenuBounds);
+    addEventListener('click', hideIfNonMenuBounds);
+}
+
+function handleMobileMenuHeights() {
+    function setAppHeight() {
+        document.documentElement.style.setProperty('--app-height', window.innerHeight + 'px');
+    }
+
+    addEventListener('resize', function() {
+        setAppHeight();
+    });
+
+    setAppHeight();
+}
+
+function handleGotoLinks() {
+    // Add anchor mimicking to elements with data-goto attributes
+    // This addresses SEO concerns of linking to noindex pages by allowing JS to handle the URL
+    const anchorElements = document.querySelectorAll('*[data-goto]');
+    anchorElements.forEach((anchorElement) => {
+        anchorElement.addEventListener('mouseover', () => {
+            anchorElement.style.cursor = 'pointer';
+            anchorElement.style.textDecoration = 'underline';
+        });
+        anchorElement.addEventListener('mouseout', () => {
+            anchorElement.style.cursor = 'unset';
+            anchorElement.style.textDecoration = 'unset';
+        });
+        anchorElement.addEventListener('mouseup', (e) => {
+            e.preventDefault();
+        });
+        anchorElement.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+        });
+        anchorElement.addEventListener('click', (e) => {
+            e.preventDefault();
+            const anchorHref = anchorElement.getAttribute('data-goto');
+            if (anchorElement.hasAttribute('data-new-window') || e.ctrlKey || e.metaKey) {
+                window.open(anchorHref, '_blank');
+            } else {
+                window.open(anchorHref, '_self');
+            }
+        });
+    });
+}
+</script><script>
+const authenticatedBlock = document.querySelector('#authenticated-block');
+const unauthenticatedBlock = document.querySelector('#unauthenticated-block');
+
+let authenticated = {
+    isAuthenticated: false,
+    isAdmin: false,
+	user: {
+		id: null,
+		name: null,
+		url: null,
+		profileImage: null,
+	}
+};
+
+fetch('/services/internal/data/articles-getAuthenticationStatus', {
+    headers: {
+        'Accept': 'application/json'
+    }
+})
+    .then(function (result) {
+        return result.json()
+    })
+    .then(function (result) {
+        const res = result.result.data
+        if (!res.authenticated) {
+            unauthenticatedBlock.classList.add('shown')
+        } else {
+			authenticated.user.id = res.id;
+			authenticated.user.name = res.realName;
+			authenticated.user.url = res.profileUrl;
+			authenticated.user.profileImage = res.avatar;
+			authenticated.user.jobTitle = res.jobTitle;
+			authenticated.user.companyName = res.companyName;
+
+            bindProps('#header-username', null, null, (res.firstName || res.username), null)
+            bindProps('#header-avatar', null, res.avatar, null, null)
+            bindProps('#header-user-plug', res.profileUrl, null, res.realName, null)
+            bindProps('#header-user-edit', '/users/' + res.id + '/edit.html', null, null, null)
+            bindProps('#header-dropdown-manage-email', '/newsletters/' + res.id + '/manage.html', null, null, null)
+            bindProps('#dropdown-view-profile', res.profileUrl, null, null, null)
+            bindProps('#drafts-link', '/users/' + res.id + '/drafts.html', null, null, null)
+
+            if (res.isAdmin) {
+                // Construct backwards so the #after call places elements in the correct order
+                const firstUserAction = document.querySelector('#first-user-action')
+                const adminConsoleItem = document.createElement('li')
+                const adminConsoleLink = createLink('/dzone/staff/index.html', 'Admin Console')
+                adminConsoleItem.appendChild(adminConsoleLink)
+                firstUserAction.after(adminConsoleItem)
+
+                const moderationItem = document.createElement('li')
+                const moderationLink = createLink('/moderation/list.html', 'Moderation')
+                moderationItem.appendChild(moderationLink)
+                firstUserAction.after(moderationItem)
+
+	            const bountyModerationItem = document.createElement('li')
+	            const bountyModerationLink = createLink('/moderation/bounties', 'Bounty Moderation')
+	            bountyModerationItem.appendChild(bountyModerationLink)
+	            firstUserAction.after(bountyModerationItem)
+            }
+
+            authenticated.isAuthenticated = res.authenticated;
+            authenticated.isAdmin = res.isAdmin;
+
+            authenticatedBlock.classList.add('shown')
+        }
+    }).catch(function (result) {
+        console.error(result)
+})
+
+/**
+ * Binds different properties to the selected element.
+ *
+ * @param selector - Selector to select the element
+ * @param href - href attribute value
+ * @param src - src attribute value
+ * @param innerHTML - innerHTML property value
+ * @param innerText - innerText property value
+ */
+function bindProps(selector, href, src, innerHTML, innerText) {
+    const element = document.querySelector(selector)
+    if (element) {
+        if (href) element.href = href
+        if (src) element.src = src
+        if (innerHTML) element.innerHTML = innerHTML
+        if (innerText) element.innerText = innerText
+    }
+}
+
+/**
+ * Creates a new link element.
+ *
+ * @param href - href attribute value
+ * @param innerText - innerText property value
+ * @returns {HTMLAnchorElement} The generated link element
+ */
+function createLink(href, innerText) {
+    const link = document.createElement('a')
+    link.href = href
+    link.innerText = innerText
+
+    return link
+}
+</script><script>
+const userHeader = document.querySelector('#user-header')
+const userDropdown = document.querySelector('#user-dropdown')
+const postDropdown = document.querySelector('#post-button')
+const postMenu = document.querySelector('#post-menu')
+
+let userDropdownOpen = false
+let postDropdownOpen = false
+
+document.addEventListener('click', function(event) {
+    if (postDropdown && postDropdown.contains(event.target)) {
+        setUserDropdown(false)
+        setPostDropdown(!postDropdownOpen)
+    } else if (userHeader && userHeader.contains(event.target)) {
+        setPostDropdown(false)
+        setUserDropdown(!userDropdownOpen)
+    } else {
+        setUserDropdown(false)
+        setPostDropdown(false)
+    }
+})
+
+function setUserDropdown(value) {
+    userDropdownOpen = value
+    if (userDropdownOpen) {
+        if (userDropdown) {
+            userDropdown.classList.add('open')
+        }
+    } else {
+        if (userDropdown) {
+            userDropdown.classList.remove('open')
+        }
+    }
+}
+
+function setPostDropdown(value) {
+    postDropdownOpen = value
+    if (postDropdownOpen) {
+        if (postMenu) {
+            postMenu.classList.add('open')
+        }
+    } else {
+        if (postMenu) {
+            postMenu.classList.remove('open')
+        }
+    }
+}
+</script><script>
+	document.addEventListener("alpine:init", () => {
+		Alpine.store('global', {
+			executeHttp(path, body, method) {
+				const options = {
+					method: method,
+					headers: {
+						[csrf.header]: csrf.token
+					}
+				};
+
+				if (method !== 'GET') {
+					options.body = JSON.stringify(body);
+					options.headers = {
+						...options.headers,
+						'Content-Type': 'application/json; charset=UTF-8'
+					};
+				}
+
+				return new Promise((resolve, reject) => {
+					fetch(path, options)
+						.then(res => {
+							if (!res.ok) {
+								reject(res);
+							} else {
+								resolve(res);
+							}
+						})
+						.catch(err => reject(err));
+				});
+			},
+			getFromService(path) {
+				return this.executeHttp(path, null, 'GET');
+			},
+			postToService(path, body = {}) {
+				return this.executeHttp(path, body, 'POST');
+			},
+			putToService(path, body = {}) {
+				return this.executeHttp(path, body, 'PUT');
+			}
+		});
+	});
+</script>
+<link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/colors.css">
+<link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/article/styles.css">
+
+
+
+
+
+<div id="body-container">
+		<div id="announcement-container-outer">
+			<div id="announcement-previous">
+				<i class="icon-angle-left"></i>
+			</div>
+			<div id="announcement-next">
+				<i class="icon-angle-right"></i>
+			</div>
+			<div id="announcement-container">
+					<div class="announcement announcement-count-1"
+					     data-position="1">
+						<div class="body"><p>AI agents are accelerating development, but are your controls keeping pace? <strong>Join live to see governed autonomous workflows in action.</strong></p></div>
+						<div class="spacer"></div>
+						<a href="https://cvent.me/YxZxqY?utm_source=Announcements&amp;utm_medium=DzoneWeb&amp;utm_campaign=JFrog-0909" target="_blank">
+							<button>Reserve My Spot</button>
+						</a>
+					</div>
+			</div>
+		</div>
+	<script type="text/javascript" async>
+(function() {
+    let announcementPosition = 1;
+    let minAnnouncementPosition = -1;
+    let maxAnnouncementPosition = -1;
+
+    const announcementPrevBtn = document.querySelector('#announcement-previous');
+    const announcementNextBtn = document.querySelector('#announcement-next');
+
+    function withAnnouncements(callback) {
+        const announcements = document.querySelectorAll('#announcement-container .announcement');
+        for (let announcement of announcements) {
+            callback(announcement);
+        }
+    }
+
+    function initAnnouncementVars() {
+        document.querySelector(':root').style.setProperty('--mobile-announcement-separator-width', '1px');
+        withAnnouncements(function(announcement) {
+            const pos = parseInt(announcement.getAttribute('data-position'));
+            minAnnouncementPosition = minAnnouncementPosition === -1 ? pos : Math.min(minAnnouncementPosition, pos);
+            maxAnnouncementPosition = maxAnnouncementPosition === -1 ? pos : Math.max(maxAnnouncementPosition, pos);
+        });
+
+        if (document.querySelector('.announcementBarContainer')) {
+            document.querySelector(':root').style.setProperty('--body-top-padding', '0');
+        }
+
+        if (maxAnnouncementPosition <= 0) {
+            document.querySelector(':root').style.setProperty('--body-top-padding', '0');
+        }
+
+        sizeToFullWhenOneEntryOnMobile();
+    }
+
+    function setAnnouncementPosition(position) {
+        if (window.outerWidth >= 890) {
+            return; // we do not need to change the position, since we can display everything on desktop.
+        }
+
+        // Make the announcement cyclical
+        if (minAnnouncementPosition !== -1 && maxAnnouncementPosition !== -1) {
+            if (position > maxAnnouncementPosition) {
+                position = minAnnouncementPosition; // overflow to the first announcement
+            } else if (position < minAnnouncementPosition) {
+                position = maxAnnouncementPosition; // underflow to the last announcement
+            }
+            announcementPosition = position;
+        }
+
+        const shownAnnouncements = [];
+
+        let reverseFlex = false; // should only be true when the first and last items are showing
+
+        // Now that the position is valid, apply the transforms
+        withAnnouncements(function(announcement) {
+            const pos = parseInt(announcement.getAttribute('data-position'));
+            const isWrapped = position === maxAnnouncementPosition && pos === minAnnouncementPosition; // showing first + last at same time
+            const doesNextQualify = window.outerWidth >= 500 && (pos === position + 1 || isWrapped);
+
+            if (pos === position || doesNextQualify) {
+                shownAnnouncements.push(announcement);
+            } else {
+                announcement.style.display = 'none';
+            }
+
+            announcement.style.opacity = 0.0;
+
+            if (isWrapped) {
+                reverseFlex = true;
+            }
+        });
+
+        for (let announcement of shownAnnouncements) {
+            announcement.style.display = 'flex';
+            announcement.style.opacity = 1.0;
+        }
+
+        const announcementContainer = document.querySelector('#announcement-container');
+        if (announcementContainer) {
+            announcementContainer.style.flexDirection = reverseFlex ? 'row-reverse' : 'row';
+        }
+    }
+
+    function resetAnnouncements() {
+        announcementPosition = 1;
+        const announcementContainer = document.querySelector('#announcement-container');
+        if (announcementContainer) {
+            announcementContainer.style.flexDirection = 'row';
+        }
+        withAnnouncements(function(announcement) {
+            announcement.style.opacity = 1.0;
+            announcement.style.display = 'flex';
+        });
+    }
+
+    function sizeToFullWhenOneEntryOnMobile() {
+        if (maxAnnouncementPosition <= 2 && announcementPrevBtn && announcementNextBtn) {
+            announcementPrevBtn.style.display = maxAnnouncementPosition === 2 && window.outerWidth < 500 ? 'flex' : 'none';
+            announcementNextBtn.style.display = maxAnnouncementPosition === 2 && window.outerWidth < 500 ? 'flex' : 'none';
+        }
+        if (maxAnnouncementPosition === 1 && window.outerWidth >= 500 && window.outerWidth < 890) {
+            document.querySelector(':root').style.setProperty('--mobile-announcement-separator-width', '0');
+            document.querySelector('#announcement-container .announcement').style.maxWidth = '100%';
+        }
+    }
+
+    function resetAnnouncementsOnResize() {
+        announcementPosition = 1; // we want to reset the announcement position every resize
+        if (window.outerWidth >= 890) { // 4 announcements can be shown (215px * 4) + separator padding
+            resetAnnouncements();
+        } else { // if we're still on mobile, set the position to normalize things after resize
+            setAnnouncementPosition(announcementPosition);
+            sizeToFullWhenOneEntryOnMobile();
+        }
+    }
+
+    window.addEventListener('resize', resetAnnouncementsOnResize);
+
+    initAnnouncementVars();
+    setAnnouncementPosition(announcementPosition); // sets the min & max positions as well as initializes transforms
+
+    if (announcementPrevBtn) {
+        announcementPrevBtn.onclick = function() {
+            setAnnouncementPosition(announcementPosition - 1);
+        };
+    }
+
+    if (announcementNextBtn) {
+        announcementNextBtn.onclick = function() {
+            setAnnouncementPosition(announcementPosition + 1);
+        };
+    }
+})();	</script>
+  <div id="ftl-article" class="trending-article-body">
+      <div class="trending-sidebar">
+        <div class="trending">
+          <h3>Related</h3>
+          <div class="trending-separator"></div>
+          <ul>
+              <li class="item">
+                <a href="/articles/java-official-documentary" class="related-link">The Java Story: The Official Documentary Is Here</a>
+              </li>
+              <li class="item">
+                <a href="/articles/fhe-application-checklist" class="related-link">Developer’s Checklist: How to Build an FHE Application</a>
+              </li>
+              <li class="item">
+                <a href="/articles/async-opc-ua-python" class="related-link">From Polling to PubSub: Building an Asynchronous OPC UA Stack in Python</a>
+              </li>
+              <li class="item">
+                <a href="/articles/how-i-fixed-silent-production-bug-apache-airflow" class="related-link">How I Fixed a Silent Production Bug in Apache Airflow That Affected Thousands of Deployments</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    <div class="container-fluid body trending-article-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="articles-wrap">
+                <div class="ad-container">
+                  <div id="div-gpt-ad-1435246566686-0" class="ads-billboard-article dz2_article_billboard_new" data-gpt-slot="top"></div>
+                </div>
+
+
+            <div class="article-stream widget-top-border">
+                <div class="content-right-images">
+                  <div id="div-gpt-ad-1435246566686-2" class="sidebar-ad dz2_article_halfpage_new" data-gpt-slot="sidebar1"></div>
+                    <div class="trending-separator"></div>
+                    <div class="trending">
+                      <h3>Trending</h3>
+                      <ul>
+                          <li class="item">
+                            <a href="/articles/ai-supply-chain-blueprint" class="trending-link" target="_self">The AI Software Supply Chain Blueprint</a>
+                          </li>
+                          <li class="item">
+                            <a href="/articles/quarkus-agentic-workflows" class="trending-link" target="_self">Orchestration Meets MCP: Building Governed Agentic Workflows With Quarkus Flow and AGENTS.md</a>
+                          </li>
+                          <li class="item">
+                            <a href="/articles/python-graphrag-knowledge-graph" class="trending-link" target="_self">Build Your First Knowledge Graph From Unstructured Documents Using Python</a>
+                          </li>
+                          <li class="item">
+                            <a href="/articles/docker-model-loading" class="trending-link" target="_self">Docker Containers Don’t Know Your Model Is Still Loading</a>
+                          </li>
+                      </ul>
+                    </div>
+                </div>
+                <script type="application/ld+json">
+                  {
+                    "@context": "https://schema.org",
+                    "@type": "Article",
+                    "headline": "Vision Language Action (VLA) Models Powering Robotics of Tomorrow",
+                    "author": [{"image":{"@type":"ImageObject","caption":"Kevin Vu","url":"https://dzone.com/users/3493411/photo/view.html?time=1565124621320"},"@type":"Person","worksFor":{"@type":"Organization","name":"Exxact Corporation"},"name":"Kevin Vu","url":"https://dzone.com/users/3493411/exxactcorp.html"}],
+                    "audience": "software developers",
+                    "keywords": "",
+                    "timeRequired": "PT4M",
+                    "commentCount": 0,
+                    "wordCount": "953",
+                    "accessMode": "textual, visual",
+                    "datePublished": "2025-12-18T00:00:00Z",
+                    
+                    "articleSection": "",
+                    "publisher": {
+                      "@type": "Organization",
+                      "name": "DZone",
+                      "url": "https://dzone.com",
+                      "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://dzone.com/themes/dz20/images/dz_logo_2021_cropped.png"
+                      }
+                    },
+                    "articleBody": "The robotics industry is undergoing a fundamental transformation. For decades, robots have been confined to narrow, pre-programmed tasks in controlled environments — assembly lines, warehouses, and labs where predictability reigns. Vision-language-action (VLA) models represent a critical breakthrough in this evolution by combining visual perception, language understanding, action generation, and the potential for generalization. VLA models are poised to redefine what machines can do in the physical world. We will go over different VLA models in the industry today that you can leverage in your work. What Are Vision-Language-Action (VLA) Models Vision-language-action (VLA) models combine visual perception and natural language understanding to generate contextually appropriate actions. Traditional computer vision models are designed to recognize objects, whereas VLA models interpret scenes, reason about them, and guide physical actions in real-world environments. What makes VLA models particularly significant is their potential for generalization. Traditional robotic systems struggle when faced with novel objects, lighting conditions, or unexpected obstacles. VLA models, trained on diverse multimodal datasets, can transfer knowledge across tasks and environments — bringing us closer to truly general-purpose robotic assistants. Many modern VLMs build on transformer architectures and are pretrained on text-to-image AI models (such as CLIP from DALLE2) to learn general-purpose representations that can be applied to diverse tasks involving both vision and language. Popular VLA Models to Use TodayOpenVLA is the most popular open-source vision-language-action model. Built on LLaMA 2, DINOv2, and SigLIP 7B-parameter model that fits on 16GB+ of VRAM, with the option to further quantize Supports LoRA and full fine-tuning for user-specific training adaptations GR00T N1.5 is NVIDIA’s robotics VLA built on their Omniverse and Cosmos platforms. Built on Eagle 2.5 and Qwen 2.5 3B-parameter model that fits on 16GB+ of VRAM Supports Isaac Sim robotics playground training for encountering various terrain and solving different tasks Pi0 and Pi0.5 by Physical Intelligence are models popular for their fascinating degree of adaptability. Built on PaLI-Gemma 3B3B-parameter models that require 16GB+ VRAM Pi0 is the base VLA, with Pi0.5 expanding generalization across various environments These workloads need to be GPU-efficient due to the size constraints of robotics platforms. Recent efficiency advances, quantization techniques, and open-source implementations have made these models accessible on energy-efficient, edge-focused hardware. These models typically require only an RTX 4090 for inference, whereas fine-tuning generally requires a multi-GPU deployment. Real-World Applications Vision-language(-action) models are already enabling practical robotics tasks: Warehouses and labs: Robots execute pick-and-place commands via natural language (e.g., “pick up the red screwdriver on the left shelf” or “sort these objects by size”). Warehouses and labs are ideal for robotics due to their relatively stable environments.Healthcare logistics: Robots navigate hospitals to deliver supplies or guide patients while interpreting signage and objects in context.Personal robotics: Robots act as household assistants, folding laundry or cleaning. These robots are less prevalent due to the difficulty of generalizing to highly variable environments. These applications show VLA models being tasked with goals and completing them using visual cues. They require hardware capable of real-time multimodal processing, often combining GPUs for vision and language inference with sufficient VRAM for context retention. Opportunities and Limitations While promising, VLA models still face challenges: Spatial and temporal reasoning: Most models struggle with precise manipulation or multi-step tasks over time. With constrained hardware, it is difficult to provide sufficient context to overcome these reasoning barriers.Variable environments: Performance drops under lighting changes, cluttered scenes, or unseen objects. This can be mitigated through virtual training across diverse environments and lighting conditions.Integration complexity: Deploying these models for real-time control demands careful hardware selection. The move toward energy-efficient and powerful hardware will be a mainstay for robotics and vision-language models. However, efficiency improvements and open-source frameworks are lowering the barrier to entry, enabling researchers to experiment on consumer-grade GPUs while still achieving strong performance. Pi0 shows that VLA models can achieve the dexterity required to fold laundry. Frequently Asked Questions What is the difference between VLA, VLM, and LLM models? Large language models (LLMs) process and generate text. Vision language models (VLMs) combine visual and textual understanding for tasks like image captioning. Vision language action models (VLAs) extend VLMs by also generating physical actions, enabling robots to perceive, understand, and act in real-world environments. What hardware do I need to run VLA models? For inference, most modern VLA models like OpenVLA can run on a single GPU with 16GB+ VRAM (such as an RTX 4090). Training or fine-tuning requires more resources, typically multi-GPU setups with 80GB+ VRAM for full-parameter training. Can VLA models work in unstructured environments? VLA models show promising generalization capabilities but still struggle with highly variable environments, novel objects, and changing lighting conditions. Performance is best in semi-structured settings like warehouses and labs, though research is actively improving robustness. Are VLA models open source? Yes, several VLA models are open source, including OpenVLA (7B parameters), which provides pre-trained weights, datasets, and support for fine-tuning. This makes VLA technology accessible to researchers and developers without requiring massive compute infrastructure. What are the main challenges facing VLA models today? Key challenges include limited spatial and temporal reasoning, brittleness under distribution shifts (lighting, clutter, new objects), integration complexity with real hardware, and the computational demands of real-time control. Ongoing research focuses on improving efficiency, generalization, and safety. Key Takeaways for Hardware and Workloads For teams exploring vision-language(-action) models: Training workloads: Large models require multi-GPU setups like NVIDIA HGX H200/B200 or NVIDIA RTX PRO Blackwell servers for reasonable throughput.Inference workloads: Modern VLA models can run on single high-VRAM GPUs with quantization. More complex tasks can benefit from multi-GPU configurations.Memory considerations: For inference, VRAM requirements range from 16 GB to 32 GB. Training models exceed 80 GB for full-parameter foundational model development.Open-source advantage: Efficient pretrained models and datasets accelerate experimentation without requiring massive compute infrastructure.",
+                    "mainEntityOfPage": {
+                      "@type": "WebPage",
+                      "@id": "https://dzone.com/articles/vision-language-action-vla-models-powering-robotic"
+                    },
+                    "image": {
+                      "@type": "ImageObject",
+                      "url": "https://dz2cdn1.dzone.com/storage/article-thumb/18804089-thumb.jpg"
+                    }
+                  }
+                </script>
+
+	<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "DZone",
+            "item": "https://dzone.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Popular",
+            "item": "https://dzone.com/popular-topics"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Open Source",
+            "item": "https://dzone.com/open-source"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Vision Language Action (VLA) Models Powering Robotics of Tomorrow",
+            "item": "https://dzone.com/articles/vision-language-action-vla-models-powering-robotic"
+          }
+      ]
+    }
+
+	</script>
+
+              <article>
+                <div class="content">
+                  <div class="header">
+	<ol class="breadcrumb">
+				<li class="server"><a href="https://dzone.com">DZone</a></li>
+				<li class="server"><a href="https://dzone.com/popular-topics">Popular</a></li>
+				<li class="server"><a href="https://dzone.com/open-source">Open Source</a></li>
+				<li class="active server">Vision Language Action (VLA) Models Powering Robotics of Tomorrow</li>
+	</ol>
+
+
+                    <div class="header-title">
+                      <div class="title">
+                        <h1 class="article-title">Vision Language Action (VLA) Models Powering Robotics of Tomorrow</h1>
+                      </div>
+
+                      <div class="subhead">
+                        <h3>Explore VLA models transforming robotics through vision, language, and action. Learn about OpenVLA, GR00T, Pi0, and real-world applications.</h3>
+                      </div>
+
+                      <div class="publish-meta">
+                        By<span style="user-select: none;">&nbsp;</span>
+  <div class="article-author-meta">
+    <img src="https://dzone.com/users/3493411/photo/view.html?time=1565124621320" class="avatar" alt="Kevin Vu user avatar" width="40">
+    <div class="author-info">
+      <span class="author-name">
+        <a href="/users/3493411/exxactcorp.html" rel="nofollow" data-core-user="false">Kevin Vu</a>
+      </span>
+    </div>
+
+
+
+    &middot;
+  </div>
+                        <span class="author-date">
+                          Dec. 18, 25
+                        </span>
+                        &middot;
+                        <span>Analysis</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="author-n-useraction">
+                    <div class="like action" x-data="engagementModal(articleId)">
+                      <span id="activity-like-icon" class="dz-like icon-thumbs-up" x-on:click="updateStore()"></span>
+                      <span class="action-label like-text" x-on:click="open()" x-cloak>
+                        <span>Likes</span>
+                        <span id="activity-like-counter" class="like-count">(1)</span>
+                      </span>
+<template x-teleport="body">
+	<div class="engagement-overlay" x-show="$store.article.engagement.open && nodeId === $store.article.id" x-on:keyup.escape.window="close()">
+		<div class="engagement-modal">
+			<div class="inner" x-on:click.outside="close()">
+				<div class="header">
+					<div class="title">Likes</div>
+					<button class="close" x-on:click="close()"></button>
+				</div>
+				<div class="content">
+					<div x-show="$store.article.engagement.initializing" class="loading-screen">
+						<i class="icon icon-spin3 anim-spin"></i>
+					</div>
+					<div x-show="!$store.article.engagement.initializing">
+						<template x-for="user in $store.article.engagement.users" :key="user.id">
+							<div class="media">
+								<div class="media-left">
+									<img class="avatar"
+									     x-bind:src="user.profile.profileImage"
+									     loading="lazy"
+									     width="50"
+									     height="50"
+									>
+								</div>
+								<div class="media-right">
+									<a x-bind:href="user.computed.url" x-html="user.profile.name"></a>
+									<div x-show="formatJobData(user)" x-html="formatJobData(user)"></div>
+								</div>
+							</div>
+						</template>
+					</div>
+					<div x-show="isDataUnavailable()" class="center-screen">
+						<div x-show="!$store.article.engagement.unauthorized">
+							<div>There are no likes...yet! &#128064;</div>
+							<div>Be the first to like this post!</div>
+						</div>
+						<div x-show="$store.article.engagement.unauthorized">
+							<div>It looks like you're not logged in.</div>
+							<div><a href="/users/login.html">Sign in</a> to see who liked this post!</div>
+						</div>
+					</div>
+					<div x-show="isFooterShowing()">
+						<div class="footer">
+							<button class="btn btn-primary" x-on:click="fetchEngagements()"
+							        x-bind:disabled="$store.article.engagement.loading"
+							>
+								Load More
+								<i x-show="$store.article.engagement.loading" class="icon icon-spin3 anim-spin"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>                    </div>
+
+                    <div class="action comment-action">
+                      <span class="comment">
+                        <i class="icon-comment"></i>
+                        <span class="action-label">Comment</span>
+                        <span id="activity-comment-counter" class="comment-count"></span>
+                      </span>
+                    </div>
+
+                    <div class="save action">
+                      <div id="activity-save-icon" class="save icon-star-empty">
+                        <span id="activity-save-text" class="action-label">Save</span>
+                      </div>
+                    </div>
+
+                    <div class="tweet action">
+                      <a id="tweet-link" href="" class="title" target="_blank">
+                        <span><i class="icon-twitter"></i></span>
+                        <span class="action-label">Tweet</span>
+                      </a>
+                    </div>
+
+                    <div class="linkedin action">
+                      <a id="linkedin-link" href="https://www.linkedin.com/sharing/share-offsite/?url=https://dzone.com/articles/vision-language-action-vla-models-powering-robotic" class="title" target="_blank">
+                        <span><i class="icon-linkedin-1"></i></span>
+                        <span class="action-label">Share</span>
+                      </a>
+                    </div>
+
+                    <div class="right-most">
+                      <div id="activity-view-container" class="article-views action">
+                        <i class="icon-eye"></i>
+                        <span class="action-label view-count">1.2K Views</span>
+                      </div>
+                    </div>
+                  </div>
+
+                      <div class="signin-prompt">
+                        <p>Join the DZone community and get the full member experience.</p>
+                        <a id="article-signin-prompt" href="/static/registration.html">Join For Free</a>
+                      </div>
+                      <div class="arrow-down"></div>
+
+                    <div id="top-bumper-container"></div>
+
+                  <div>
+                    <div class="content-html"><p><img alt="VLA Models Powering Robotics" class="fr-fic fr-dib lazyload" data-image="true" data-new="false" data-sizeformatted="404.5 kB" data-mimetype="image/png" data-creationdate="1761307069270" data-creationdateformatted="10/24/2025 11:57 AM" data-type="temp" data-url="https://dz2cdn1.dzone.com/storage/temp/18711940-1761307066260.png" data-modificationdate="null" data-size="404500" data-name="1761307066260.png" data-id="18711940" data-src="https://dz2cdn1.dzone.com/storage/temp/18711940-1761307066260.png" style="width: 705px;"></p>
+<div data-cy="blog-post-article">
+ <br>
+</div>
+<div data-cy="blog-post-article">
+ The <a href="https://dzone.com/articles/robotics-software-automation">robotics</a> industry is undergoing a fundamental transformation. For decades, robots have been confined to narrow, pre-programmed tasks in controlled environments — assembly lines, warehouses, and labs where predictability reigns.
+</div>
+<p>Vision-language-action (VLA) models represent a critical breakthrough in this evolution by combining visual perception, language understanding, action generation, and the potential for generalization. VLA models are poised to redefine what machines can do in the physical world. We will go over different VLA models in the industry today that you can leverage in your work.</p>
+<h2>What Are Vision-Language-Action (VLA) Models</h2>
+<p>Vision-language-action (VLA) models combine visual perception and natural language understanding to generate contextually appropriate actions. Traditional computer vision models are designed to recognize objects, whereas VLA models interpret scenes, reason about them, and guide physical actions in real-world environments.</p>
+<p>What makes VLA models particularly significant is their potential for generalization. Traditional robotic systems struggle when faced with novel objects, lighting conditions, or unexpected obstacles. VLA models, trained on diverse multimodal datasets, can transfer knowledge across tasks and environments — bringing us closer to truly general-purpose robotic assistants.</p>
+<p>Many modern VLMs build on transformer architectures and are pretrained on <a href="https://dzone.com/articles/automatic-1111-apis">text-to-image AI models</a> (such as CLIP from DALLE2) to learn general-purpose representations that can be applied to diverse tasks involving both vision and language.</p>
+<div data-cy="blog-post-article">
+ <h2>Popular VLA Models to Use Today</h2><strong data-end="1849" data-start="1838">OpenVLA</strong> is the most popular open-source vision-language-action model.
+</div>
+<ul>
+ <li>
+  <div data-cy="blog-post-article">
+   Built on LLaMA 2, DINOv2, and SigLIP
+  </div></li>
+ <li>
+  <div data-cy="blog-post-article">
+   7B-parameter model that fits on 16GB+ of VRAM, with the option to further quantize
+  </div></li>
+ <li>
+  <div data-cy="blog-post-article">
+   Supports LoRA and full fine-tuning for user-specific training adaptations
+  </div></li>
+</ul>
+<div data-cy="blog-post-article">
+ <strong data-end="2135" data-start="2121">GR00T N1.5</strong> is NVIDIA’s robotics VLA built on their Omniverse and Cosmos platforms.
+</div>
+<ul>
+ <li>
+  <div data-cy="blog-post-article">
+   Built on Eagle 2.5 and Qwen 2.5
+  </div></li>
+ <li>
+  <div data-cy="blog-post-article">
+   3B-parameter model that fits on 16GB+ of VRAM
+  </div></li>
+ <li>
+  <div data-cy="blog-post-article">
+   Supports Isaac Sim robotics playground training for encountering various terrain and solving different tasks
+  </div></li>
+</ul>
+<p data-end="2519" data-start="2410"><strong data-end="2427" data-start="2410">Pi0 and Pi0.5</strong> by Physical Intelligence are models popular for their fascinating degree of adaptability.</p>
+<ul>
+ <li data-end="2519" data-start="2410">Built on PaLI-Gemma 3B</li>
+ <li>3B-parameter models that require 16GB+ VRAM&nbsp;</li>
+ <li>Pi0 is the base VLA, with Pi0.5 expanding generalization across various environments</li>
+</ul>
+<p data-end="3065" data-start="2685">These workloads need to be GPU-efficient due to the size constraints of robotics platforms. Recent efficiency advances, quantization techniques, and open-source implementations have made these models accessible on energy-efficient, edge-focused hardware. These models typically require only an RTX 4090 for inference, whereas fine-tuning generally requires a <a href="https://dzone.com/articles/distributed-training-at-scale">multi-GPU deployment</a>.</p>
+<h2>Real-World Applications</h2>
+<p data-end="3173" data-start="3095">Vision-language(-action) models are already enabling practical robotics tasks:</p>
+<ul>
+ <li><strong data-end="3201" data-start="3177">Warehouses and labs:</strong> Robots execute pick-and-place commands via natural language (e.g., “pick up the red screwdriver on the left shelf” or “sort these objects by size”). Warehouses and labs are ideal for robotics due to their relatively stable environments.</li>
+ <li><strong data-end="3466" data-start="3441">Healthcare logistics:</strong> Robots navigate hospitals to deliver supplies or guide patients while interpreting signage and objects in context.</li>
+ <li><strong data-end="3606" data-start="3584">Personal robotics:</strong> Robots act as household assistants, folding laundry or cleaning. These robots are less prevalent due to the difficulty of generalizing to highly variable environments.</li>
+</ul>
+<p>These applications show VLA models being tasked with goals and completing them using visual cues. They require <strong>hardware capable of real-time multimodal processing</strong>, often combining GPUs for vision and language inference with sufficient VRAM for context retention.</p>
+<h2>Opportunities and Limitations</h2>
+<p data-end="4124" data-start="4074">While promising, VLA models still face challenges:</p>
+<ul>
+ <li data-end="4352" data-start="4128"><strong data-end="4163" data-start="4128">Spatial and temporal reasoning:</strong> Most models struggle with precise manipulation or multi-step tasks over time. With constrained hardware, it is difficult to provide sufficient context to overcome these reasoning barriers.</li>
+ <li data-end="4560" data-start="4355"><strong data-end="4381" data-start="4355">Variable environments:</strong> Performance drops under lighting changes, cluttered scenes, or unseen objects. This can be mitigated through virtual training across diverse environments and lighting conditions.</li>
+ <li data-end="4786" data-start="4563"><strong data-end="4590" data-start="4563">Integration complexity:</strong> Deploying these models for real-time control demands careful hardware selection. The move toward energy-efficient and powerful hardware will be a mainstay for robotics and vision-language models.</li>
+</ul>
+<p data-end="4982" data-start="4788">However, efficiency improvements and open-source frameworks are <strong>lowering the barrier to entry</strong>, enabling researchers to experiment on consumer-grade GPUs while still achieving strong performance.</p>
+<p data-end="4982" data-start="4788"><img data-image="true" data-new="false" data-sizeformatted="172.6 kB" data-mimetype="image/webp" data-creationdate="1765837431714" data-creationdateformatted="12/15/2025 10:23 PM" data-type="temp" data-url="https://dz2cdn1.dzone.com/storage/temp/18804084-exx-blog-vla-models-powering-robotics-1.webp" data-modificationdate="null" data-size="172574" data-name="exx-blog-vla-models-powering-robotics-1.webp" data-id="18804084" alt="VLA powering Pi0’s robot to fold laundry" class="fr-fic fr-dib lazyload" style="width: 662px;" data-src="https://dz2cdn1.dzone.com/storage/temp/18804084-exx-blog-vla-models-powering-robotics-1.webp"></p>
+<figcaption class="fr-inner" contenteditable="true">
+ Pi0 shows that VLA models can achieve the dexterity required to fold laundry.
+</figcaption>
+<p><br></p>
+<h2>Frequently Asked Questions</h2>
+<h3>What is the difference between VLA, VLM, and LLM models?</h3>
+<p>Large language models (LLMs) process and generate text. Vision language models (VLMs) combine visual and textual understanding for tasks like image captioning. Vision language action models (VLAs) extend VLMs by also generating physical actions, enabling robots to perceive, understand, and act in real-world environments.</p>
+<h3>What hardware do I need to run VLA models?</h3>
+<p>For inference, most modern VLA models like OpenVLA can run on a single GPU with 16GB+ VRAM (such as an RTX 4090). Training or fine-tuning requires more resources, typically multi-GPU setups with 80GB+ VRAM for full-parameter training.</p>
+<h3>Can VLA models work in unstructured environments?</h3>
+<p>VLA models show promising generalization capabilities but still struggle with highly variable environments, novel objects, and changing lighting conditions. Performance is best in semi-structured settings like warehouses and labs, though research is actively improving robustness.</p>
+<h3>Are VLA models open source?</h3>
+<p>Yes, several VLA models are open source, including OpenVLA (7B parameters), which provides pre-trained weights, datasets, and support for fine-tuning. This makes VLA technology accessible to researchers and developers without requiring massive compute infrastructure.</p>
+<h3>What are the main challenges facing VLA models today?</h3>
+<p>Key challenges include limited spatial and temporal reasoning, brittleness under distribution shifts (lighting, clutter, new objects), integration complexity with real hardware, and the computational demands of real-time control. Ongoing research focuses on improving efficiency, generalization, and safety.</p>
+<h2>Key Takeaways for Hardware and Workloads</h2>
+<p>For teams exploring vision-language(-action) models:</p>
+<ul>
+ <li><strong>Training workloads:</strong> Large models require multi-GPU setups like NVIDIA HGX H200/B200 or NVIDIA RTX PRO Blackwell servers for reasonable throughput.</li>
+ <li><strong>Inference workloads:</strong> Modern VLA models can run on single high-VRAM GPUs with quantization. More complex tasks can benefit from multi-GPU configurations.</li>
+ <li><strong>Memory considerations:</strong> For inference, VRAM requirements range from 16 GB to 32 GB. Training models exceed 80 GB for full-parameter foundational model development.</li>
+ <li><strong>Open-source advantage:</strong> Efficient pretrained models and datasets accelerate experimentation without requiring massive compute infrastructure.</li>
+</ul></div>
+                  </div>
+
+                    <div id="bottom-bumper-container"></div>
+                    <div class="article-tag-pill-container">
+                        <span class="article-tag-pill">Open source</span>
+                    </div>
+
+                    <div class="attribution">
+                        <p>Published at DZone with permission of <span>Kevin Vu</span>.
+                          <span>
+                            <a href="https://www.exxactcorp.com/blog/deep-learning/vision-language-action-vla-models-powers-robotics" target="_blank">See the original article here.
+                              <i class="icon-link-ext-alt"></i>
+                            </a>
+                          </span>
+                        </p>
+                      <p>Opinions expressed by DZone contributors are their own.</p>
+                    </div>
+                      <div class="trending-separator goto"></div>
+                      <div class="trending goto">
+                        <h3>Related</h3>
+                        <ul>
+                            <li class="item">
+                              <div class="goto-link related-link" data-goto="/articles/java-official-documentary">The Java Story: The Official Documentary Is Here</div>
+                            </li>
+                            <li class="item">
+                              <div class="goto-link related-link" data-goto="/articles/fhe-application-checklist">Developer’s Checklist: How to Build an FHE Application</div>
+                            </li>
+                            <li class="item">
+                              <div class="goto-link related-link" data-goto="/articles/async-opc-ua-python">From Polling to PubSub: Building an Asynchronous OPC UA Stack in Python</div>
+                            </li>
+                            <li class="item">
+                              <div class="goto-link related-link" data-goto="/articles/how-i-fixed-silent-production-bug-apache-airflow">How I Fixed a Silent Production Bug in Apache Airflow That Affected Thousands of Deployments</div>
+                            </li>
+                        </ul>
+                      </div>
+                </div>
+              </article>
+            </div>
+
+              <div id="div-gpt-ad-1435246566686-11" class="ads-bottom-leaderboard dz2_article_bottom" data-gpt-slot="bottom"></div>
+              <div class="layout-card widget-top-border partner-resources-block" style="width:100%; margin-bottom: 1em;">
+                <div class="main-container">
+                  <div class="featured-header">
+                    <h2>
+                      <span>Partner Resources</span>
+                    </h2>
+                  </div>
+                  <div class="partner-resources-container">
+                    <div id="div-gpt-ad-1435246566686-5" class="resource-block dz2_partner_resource_link" data-gpt-slot="partner" data-gpt-position="pr1"></div>
+                    <div id="div-gpt-ad-1435246566686-6" class="resource-block dz2_partner_resource_link" data-gpt-slot="partner" data-gpt-position="pr2"></div>
+                    <div id="div-gpt-ad-1435246566686-7" class="resource-block dz2_partner_resource_link" data-gpt-slot="partner" data-gpt-position="pr3"></div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="bottom-sticky-ad-container">
+        <span class="bottom-sticky-ad-close" title="close"
+          x-on:click="$el.parentElement.classList.add('closed')">×</span>
+        <div id="div-gpt-ad-1635294790718-12" class="bottom-sticky-ad dz2_sticky_footer_leaderboard" data-gpt-slot="bottomStickyFooter"></div>
+      </div>
+
+    <div class="modal fade bd-example-modal-lg" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header"></div>
+          <div class="modal-body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<div class="comments-overlay"></div>
+<div id="comment-box">
+  <div class="comment-box-wrapper">
+    <div id="comment-input-editor"></div>
+  </div>
+  <div class="info hidden"></div>
+  <div class="comments-content" style="display: none;">
+    <div class="comment-header">
+      <hr />
+      <span class="icon-comment">
+        <span class="numOfComments"></span> Comments
+      </span>
+    </div>
+    <div class="comments"></div>
+  </div>
+</div>
+
+<script async>var articleTitle = 'Vision Language Action (VLA) Models Powering Robotics of Tomorrow';
+var articleUrl = 'https://dzone.com/articles/vision-language-action-vla-models-powering-robotic';
+
+var retweetLink = document.querySelector('#tweet-link');
+
+function retweet(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    var twitter = 'https://twitter.com/intent/tweet';
+    var params = '?text=' + encodeURIComponent(articleTitle) + '&url=' + articleUrl + '&ref=dzone.com&via=DZoneInc';
+    var win = window.open(twitter + params, '_blank');
+    win.focus();
+}
+
+retweetLink.addEventListener('click', retweet);
+
+function showStatusMessage(options) {
+  var modal = document.getElementById('modal-message');
+
+  if(modal) {
+    modal.classList.add(options.type);
+    var modalBody = modal.querySelector('.modal-content .modal-body');
+    var modalHeader = modal.querySelector('.modal-content .modal-header');
+
+    modalHeader.innerText = options.header ? options.header : '';
+    modalBody.innerText = options.body ? options.body : '';
+
+    $(modal).modal('show');
+
+    $(modal).on('hidden.bs.modal', function () {
+      modal.classList.remove(options.type);
+    });
+  }
+}
+
+function showConfirmMessage(options) {
+  var modal = document.getElementById('modal-message');
+
+  if(modal) {
+    modal.classList.add(options.type);
+    var modalBody = modal.querySelector('.modal-content .modal-body');
+    var modalHeader = modal.querySelector('.modal-content .modal-header');
+
+    modalHeader.innerText = options.header ? options.header : '';
+    modalBody.innerText = options.body ? options.body : '';
+
+    if (options.textarea) {
+      var textareaDiv = document.createElement('div');
+      var textareaLabel = document.createElement('label');
+      textareaLabel.setAttribute('for', 'modal-textarea');
+      textareaLabel.innerText = options.textarea.label;
+
+      var textarea = document.createElement('textarea');
+      textarea.id = 'modal-textarea';
+      textarea.placeholder = (options.textarea.placeholder || '');
+      textarea.setAttribute('rows', (options.textarea.rows || 3));
+      textarea.classList.add('form-control', 'not-resizable');
+
+      if (options.textarea.maxlength) {
+        textarea.maxLength = options.textarea.maxlength;
+      }
+
+      textareaDiv.appendChild(textareaLabel);
+      textareaDiv.appendChild(textarea);
+      modalBody.appendChild(textareaDiv);
+    }
+
+    var btnContainer = document.createElement('div');
+    btnContainer.classList.add('btn-container');
+
+    var noBtn = document.createElement('button');
+    noBtn.innerText = options.noBtnText ? options.noBtnText : 'No';
+    noBtn.classList.add('no-btn');
+
+    var yesBtn = document.createElement('button');
+    yesBtn.innerText = options.yesBtnText ? options.yesBtnText : 'Yes';
+    yesBtn.classList.add('yes-btn');
+
+    btnContainer.appendChild(noBtn);
+    btnContainer.appendChild(yesBtn);
+
+    modalBody.appendChild(btnContainer);
+
+    $(modal).modal('show');
+
+    $(noBtn).one('click', function() {
+      $(modal).modal('hide');
+
+      if(options.noCallback) {
+        $(modal).one('hidden.bs.modal', function () {
+          options.noCallback();
+        });
+      }
+    });
+
+    $(yesBtn).one('click', function() {
+      $(modal).modal('hide');
+
+      if(options.yesCallback) {
+        $(modal).one('hidden.bs.modal', function () {
+          options.yesCallback();
+        });
+      }
+    });
+
+    $(modal).on('hidden.bs.modal', function () {
+      modal.classList.remove(options.type);
+    });
+  }
+}
+
+function getSuspensionBody() {
+  return 'We regret to inform you that your DZone account has been suspended for violating our Guidelines. ' +
+      'Please reach out to editors@dzone.com if you would like additional information.';
+}</script>
+<style>.engagement-overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: rgb(0, 0, 0, 0.5);
+	z-index: 10000;
+}
+
+.engagement-modal {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	z-index: 10;
+	width: 100%;
+	height: 100%;
+}
+
+.engagement-modal .inner {
+	background-color: white;
+	border-radius: 0.5em;
+	margin: auto;
+	border: 1px solid #cccccc;
+}
+
+.engagement-modal .header {
+	padding: 20px 50px 10px 30px;
+	position: relative;
+}
+
+.engagement-modal .title {
+	font-size: 20px;
+	font-weight: bold;
+	color: #333333;
+}
+
+.engagement-modal .title:hover {
+	text-decoration: none;
+}
+
+.engagement-modal .close {
+	font-size: 18px;
+	position: absolute;
+	top: 18px;
+	right: 20px;
+	width: 32px;
+	height: 32px;
+	background: none;
+	border: none;
+	opacity: 0.8;
+	font-weight: bold;
+	text-shadow: 0 1px 0 #fff;
+}
+
+.engagement-modal .close:hover {
+	background-color: rgba(146, 148, 151, 0.2);
+	color: #000;
+	border-radius: 50%;
+}
+
+.engagement-modal .close:after {
+	content: '\2715';
+}
+
+.engagement-modal .content {
+	padding: 0 30px 20px;
+	width: min(450px, 90vw);
+	height: min(450px, 90vw);
+	scrollbar-width: thin;
+	overflow: auto;
+	overscroll-behavior: contain;
+}
+
+.engagement-modal .loading-screen,
+.engagement-modal .content .center-screen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	font-size: 18px;
+}
+
+.engagement-modal .content .center-screen a {
+	color: var(--acc-ffffff-blue-1);
+	font-weight: bold;
+}
+
+.engagement-modal .loading-screen i {
+	font-size: 24px;
+}
+
+.engagement-modal .media-left,
+.engagement-modal .media-right {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.engagement-modal .media-left {
+	padding-right: 10px;
+}
+
+.engagement-modal .media-right {
+	padding-left: 10px;
+}
+
+.engagement-modal .media a {
+	color: black;
+	font-size: 16px;
+}
+
+.engagement-modal .avatar {
+	border-radius: 50%;
+}
+
+.engagement-modal .footer {
+	margin: 20px 0 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: unset !important;
+	border-top: none !important;
+}
+
+.engagement-modal .footer .btn {
+	border: 1px solid transparent;
+}
+
+.engagement-modal .footer .btn-primary {
+	color: #fff;
+	border-color: #2e6da4;
+}
+
+.engagement-modal .footer button {
+	background-color: var(--acc-ffffff-blue-2);
+	padding: 6px 12px;
+	border-radius: 4px;
+}
+
+.engagement-modal .footer button:hover {
+	filter: brightness(1.2);
+}
+
+@keyframes anim-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(359deg);
+	}
+}
+
+.engagement-modal .anim-spin {
+	display: inline-block;
+	animation: anim-spin 2s infinite linear;
+}</style>
+<script>document.addEventListener('alpine:init', () => {
+	Alpine.data('engagementModal', (nodeId) => ({
+
+		nodeId: null,
+
+		init() {
+			this.nodeId = nodeId;
+		},
+
+		open() {
+			this.updateStore();
+			this.$store.article.engagement.open = true;
+			if (this.$store.article.engagement.page === 1 && !this.$store.article.engagement.unauthorized) {
+				this.$store.article.engagement.initializing = true;
+				this.fetchEngagements();
+			}
+		},
+
+		close() {
+			if (this.$store.article.engagement.open) {
+				this.$store.article.engagement.open = false;
+			}
+		},
+
+		updateStore() {
+			if (this.nodeId !== this.$store.article.id) {
+				this.$store.article.engagement.reset();
+				this.$store.article.id = this.nodeId;
+			}
+		},
+
+		fetchEngagements() {
+			if (this.$store.article.engagement.loading || !this.$store.article.engagement.additional) {
+				return;
+			}
+
+			this.$store.article.engagement.loading = true;
+			this.$store.global.getFromService('/services/nodes/' + this.$store.article.id + '/engagements?page=' + this.$store.article.engagement.page)
+				.then(res => {
+					res.json().then(data => {
+						for (let user of data.engagements) {
+							this.$store.article.engagement.users.push(user);
+						}
+
+						this.$store.article.engagement.additional = data.additional;
+						this.$store.article.engagement.page++;
+					});
+				})
+				.catch(err => {
+					err.json().then(data => {
+						if (data.error?.code === 4011) {
+							this.$store.article.engagement.unauthorized = true;
+						} else {
+							this.$store.modal_engagement_error.open();
+						}
+					});
+				})
+				.finally(() => {
+					// Allow the loader to gracefully exit
+					setTimeout(() => {
+						this.$store.article.engagement.loading = false;
+						this.$store.article.engagement.initializing = false;
+					}, 200);
+				});
+		},
+
+		formatJobData(user) {
+			if (user.profile.jobTitle && user.profile.companyName) {
+				return user.profile.jobTitle + ', ' + user.profile.companyName;
+			}
+
+			if (user.profile.jobTitle) {
+				return user.profile.jobTitle;
+			}
+
+			if (user.profile.companyName) {
+				return user.profile.companyName;
+			}
+
+			return null;
+		},
+
+		isDataUnavailable() {
+			return !this.$store.article.engagement.initializing && !this.$store.article.engagement.users.length;
+		},
+
+		isFooterShowing() {
+			return !this.$store.article.engagement.initializing
+				&& this.$store.article.engagement.additional
+				&& this.$store.article.engagement.page > 1;
+		}
+	}));
+});
+</script>
+
+    <div class="alpine-overlay" x-cloak x-show="$store.modal_engagement_error._open">
+        <div id="modal_engagement_error"
+             class="alpine-modal"
+             role="dialog"
+             tabindex="-1"
+             x-show="$store.modal_engagement_error._open"
+             x-on:click.self="$store.modal_engagement_error.dismissible && $store.modal_engagement_error.close()"
+             x-cloak
+             x-transition
+        >
+            <div class="dz-style modal-inner centered relative">
+                <button x-show="$store.modal_engagement_error.closeable"
+                        class="btn-close"
+                        x-on:click="$store.modal_engagement_error.close()"
+                        aria-label="Close">
+                </button>
+
+                <div x-show="$store.modal_engagement_error.title" class="modal-header p-sm mt-sm mb-md">
+                    <div class="title " x-text="$store.modal_engagement_error.title"></div>
+                </div>
+
+                <div class="modal-content py-md px-lg" x-bind:class="{ 'has-top-border': $store.modal_engagement_error.title }">
+                    <p x-show="$store.modal_engagement_error.bodyText" class="my-none" x-text="$store.modal_engagement_error.bodyText"></p>
+  <p>The likes didn't load as expected. Please refresh the page and try again.</p>
+                </div>
+
+                <div x-show="$store.modal_engagement_error.options.length" class="modal-footer p-sm">
+                    <template x-for="option in $store.modal_engagement_error.options">
+                        <button x-show="option.canDisplay" x-text="option.text"
+                                type="button"
+                                x-bind:id="'button_modal_engagement_error_' + option.index"
+                                x-bind:class="option.classList"
+                                x-on:click="option.onClick"
+                                x-bind:disabled="option.isDisabled"
+                        ></button>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("alpine:init", () => {
+            Alpine.store("modal_engagement_error", {
+                _open: false,
+                title: "Oops! Something Went Wrong",
+                bodyText: null,
+                options: [{"action":"dismiss","text":"Close"}],
+                closeable: true,
+                dismissible: true,
+                open(data) {
+                    if (data) {
+                        if (data.title) {
+                            this.title = data.title;
+                        }
+                        if (data.bodyText) {
+                            this.bodyText = data.bodyText;
+                        }
+                        if (data.options) {
+                            this.options = data.options;
+                        }
+                        if (data.dismissAfterMs) {
+                            setTimeout(() => this._open = false, data.dismissAfterMs);
+                        }
+                    }
+                    this.updateOptions();
+                    this._open = true;
+                },
+                close() {
+                    // Manually click the buttons in which should run on dismiss.
+                    // This is to keep the context. Calling this[option.action]() will not work.
+                    for (let option of this.options) {
+                        if (option.runOnDismiss) {
+                            const element = document.querySelector('#button_modal_engagement_error_' + option.index);
+                            element.click();
+                        }
+                    }
+                    this._open = false;
+                },
+                updateOptions() {
+                    const btnStyle = this.options.length === 2 ? ' btn-default' : '';
+                    this.options = this.options.map((o, idx) => ({
+                        ...o,
+                        index: idx,
+                        classList: o.classList ? o.classList : (idx === 0 ? "btn btn-primary hov-brighten" : "btn hov-underline" + btnStyle),
+                        onClick: function() {
+                            if (o.action !== "dismiss") {
+                                this[o.action]();
+                            }
+                            this.$store["modal_engagement_error"].close();
+                        },
+                        isDisabled: function() {
+                            return Object.hasOwn(o, 'disabled') && this[o.disabled]();
+                        },
+                        canDisplay: function() {
+                            return !Object.hasOwn(o, 'condition') || this[o.condition]();
+                        }
+                    }));
+                },
+                init() {
+                    this.updateOptions();
+                }
+            });
+        });
+    </script>
+
+<link rel="stylesheet" media="all" href="https://dz2cdn1.dzone.com/themes/dz20/ftl/footer/styles.css">
+
+<div id="ftl-footer">
+  <div class="container-fluid footerOuter" style="padding-bottom: 90px;">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="container">
+          <div class="row footer">
+            <div class="col-md-12 footerWidget">
+              <div class="row footerContainer footer">
+                <div class="left col-xs-12 col-sm-7">
+                  <div class="col-xs-12 social-media-icons footer-mobile">
+                    <ul class="icons-only">
+                      <li class="rss-icon" id="rss-footer-1">
+                        <a href="/pages/feeds" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" class="w-4 h-4 mt-1.75 fill-current" aria-label="Follow our RSS feeds">
+                            <title>RSS</title>
+                            <path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="twitter-icon">
+                        <a href="https://twitter.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" aria-label="Follow us on X">
+                            <title>X</title>
+                            <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="facebook-icon">
+                        <a href="https://www.facebook.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" aria-label="Follow us on Facebook">
+                            <title>Facebook</title>
+                            <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="linkedin-icon">
+                        <a href="https://www.linkedin.com/company/dzone/" target="_blank"
+                           rel="noreferrer noopener">
+                          <svg viewBox="0 0 24 25" fill="none" aria-label="Follow us on LinkedIn">
+                            <path d="M6.20062 21.2143H1.84688V7.194H6.20062V21.2143ZM4.02141 5.2815C2.62922 5.2815 1.5 4.12838 1.5 2.73619C1.5 2.06747 1.76565 1.42614 2.2385 0.953285C2.71136 0.48043 3.35269 0.214783 4.02141 0.214783C4.69012 0.214783 5.33145 0.48043 5.80431 0.953285C6.27716 1.42614 6.54281 2.06747 6.54281 2.73619C6.54281 4.12838 5.413 5.2815 4.02141 5.2815ZM22.4953 21.2143H18.1509V14.3893C18.1509 12.7628 18.1181 10.6768 15.8873 10.6768C13.6237 10.6768 13.2769 12.444 13.2769 14.2721V21.2143H8.92781V7.194H13.1034V9.1065H13.1644C13.7456 8.00494 15.1655 6.84244 17.2838 6.84244C21.69 6.84244 22.5 9.744 22.5 13.5128V21.2143H22.4953Z" fill="currentColor"></path>
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="top-section col-xs-12">
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">ABOUT US</p>
+                      <ul class="link-group">
+                        <li><a href="/pages/about" rel="noreferrer noopener">About DZone</a></li>
+                        <li><a href="/cdn-cgi/l/email-protection#3e4d4b4e4e514c4a7e5a4451505b105d5153" rel="noreferrer noopener">Support and feedback</a></li>
+                        <li><a href="/pages/dzone-community-research">Community research</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">ADVERTISE</p>
+                      <ul class="link-group">
+                        <li><a href="https://advertise.dzone.com" target="_blank" rel="noreferrer noopener">Advertise with DZone</a></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="bottom-section col-xs-12">
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">CONTRIBUTE ON DZONE</p>
+                      <ul class="bottom-top-list link-group">
+                        <li><a href="/articles/dzones-article-submission-guidelines">Article Submission Guidelines</a></li>
+                        <li><a href="/pages/contribute" rel="noreferrer noopener">Become a Contributor</a></li>
+                        <li><a href="/pages/core" rel="noreferrer noopener">Core Program</a></li>
+                        <li><a href="/writers-zone" rel="noreferrer noopener">Visit the Writers' Zone</a></li>
+                      </ul>
+
+                      <p class="section-header">LEGAL</p>
+                      <ul class="link-group">
+                        <li><a href="https://technologyadvice.com/terms-conditions/" target="_blank" rel="noreferrer noopener">Terms of Service</a></li>
+                        <li><a href="https://technologyadvice.com/privacy-policy/" target="_blank" rel="noreferrer noopener">Privacy Policy</a></li>
+                      </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                      <p class="section-header">CONTACT US</p>
+                      <ul class="link-group">
+                        <li>3343 Perimeter Hill Drive</li>
+                        <li>Suite 215</li>
+                        <li>Nashville, TN 37211</li>
+                        <li><a href="/cdn-cgi/l/email-protection#83f0f6f3f3ecf1f7c3e7f9ecede6ade0ecee" rel="noreferrer noopener"><span class="__cf_email__" data-cfemail="a4d7d1d4d4cbd6d0e4c0decbcac18ac7cbc9">[email&#160;protected]</span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="right col-xs-12 col-sm-5">
+
+                  <p class="connect-text">Let's be friends:</p>
+                  <div class="col-xs-12 social-media-icons footer-wide">
+                    <ul class="icons-only">
+                      <li class="rss-icon" id="rss-footer-1">
+                        <a href="/pages/feeds" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" aria-label="Follow our RSS feeds">
+                            <title>RSS</title>
+                            <path d="M19.199 24C19.199 13.467 10.533 4.8 0 4.8V0c13.165 0 24 10.835 24 24h-4.801zM3.291 17.415c1.814 0 3.293 1.479 3.293 3.295 0 1.813-1.485 3.29-3.301 3.29C1.47 24 0 22.526 0 20.71s1.475-3.294 3.291-3.295zM15.909 24h-4.665c0-6.169-5.075-11.245-11.244-11.245V8.09c8.727 0 15.909 7.184 15.909 15.91z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="twitter-icon">
+                        <a href="https://twitter.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" aria-label="Follow us on X">
+                            <title>X</title>
+                            <path d="M14.234 10.162 22.977 0h-2.072l-7.591 8.824L7.251 0H.258l9.168 13.343L.258 24H2.33l8.016-9.318L16.749 24h6.993zm-2.837 3.299-.929-1.329L3.076 1.56h3.182l5.965 8.532.929 1.329 7.754 11.09h-3.182z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="facebook-icon">
+                        <a href="https://www.facebook.com/DZoneInc" target="_blank" rel="noreferrer noopener">
+                          <svg role="img" viewBox="0 0 24 24" aria-label="Follow us on Facebook">
+                            <title>Facebook</title>
+                            <path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"></path>
+                          </svg>
+                        </a>
+                      </li>
+                      <li class="linkedin-icon">
+                        <a href="https://www.linkedin.com/company/dzone/" target="_blank"
+                           rel="noreferrer noopener">
+                          <svg viewBox="0 0 24 25" fill="none" aria-label="Follow us on LinkedIn">
+                            <path d="M6.20062 21.2143H1.84688V7.194H6.20062V21.2143ZM4.02141 5.2815C2.62922 5.2815 1.5 4.12838 1.5 2.73619C1.5 2.06747 1.76565 1.42614 2.2385 0.953285C2.71136 0.48043 3.35269 0.214783 4.02141 0.214783C4.69012 0.214783 5.33145 0.48043 5.80431 0.953285C6.27716 1.42614 6.54281 2.06747 6.54281 2.73619C6.54281 4.12838 5.413 5.2815 4.02141 5.2815ZM22.4953 21.2143H18.1509V14.3893C18.1509 12.7628 18.1181 10.6768 15.8873 10.6768C13.6237 10.6768 13.2769 12.444 13.2769 14.2721V21.2143H8.92781V7.194H13.1034V9.1065H13.1644C13.7456 8.00494 15.1655 6.84244 17.2838 6.84244C21.69 6.84244 22.5 9.744 22.5 13.5128V21.2143H22.4953Z" fill="currentColor"></path>
+                          </svg>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+	  const articleId = 3603531;
+	  const likes = 1;
+	  const assetDomain = 'https://dz2cdn1.dzone.com';
+	  const codemirrorVars = {
+		  modeURI: 'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/mode/',
+		  requiredScripts: [
+			  'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/lib/codemirror.js',
+			  'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/addon/mode/overlay.js',
+			  'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/addon/mode/multiplex.js',
+			  'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/mode/meta.js'
+		  ]
+	  };
+
+	  const gptTags = {
+		  'zone': 'Open Source',
+		  'topicTag': 'Open source',
+		  'company': '',
+		  'siteSection': 'Zones',
+		  'articleCategory': 'analysis',
+		  'nodeID': '3603531',
+		  'authorID': '3493411',
+		  'publishYear': '2025',
+		  'publishMonth': '12',
+		  'jobRole': '',
+		  'companySize': '',
+		  'env': 'prod'
+	  };
+
+	  const minCommentChar = 10;
+  </script>
+  <script async>const width = window.innerWidth;
+
+const metadata = {
+    'top': {
+        'position': 'top',
+        'slot': 'dz2_article_billboard_new',
+    },
+    'sponsorLogo': {
+        'position': 'zoneHomepage',
+        'slot': 'dz2_homepage_sponsor_logo',
+	    'refreshable': false
+    },
+    'sidebar1': {
+        'position': 'sidebar',
+        'slot': 'dz2_article_halfpage_new',
+        'minWidthToShow': 1024
+    },
+    'topBumper': {
+        'position': 'top',
+        'slot': 'dz2_bumper_text_ad',
+        'minWidthToShow': 1024
+    },
+    'bottomBumper': {
+        'position': 'bottom',
+        'slot': 'dz2_bumper_text_ad',
+        'minWidthToShow': 1024
+    },
+    'bottom': {
+        'position': 'bottom',
+        'slot': 'dz2_article_bottom',
+    },
+    'bottomStickyFooter': {
+        'position': 'sticky',
+        'slot': 'dz2_sticky_footer_leaderboard',
+    },
+    'partner': {
+        'slot': 'dz2_partner_resource_link',
+    },
+    'branded': {
+        'slot': 'dz2_branded_content',
+	    'refreshable': false
+    },
+    'topicBillboard': {
+        'position': ['top', 'zoneHomepage'],
+        'slot': 'dz2_topic_billboard',
+    },
+    'listPageSidebar': {
+        'position': 'sidebar',
+        'slot': 'dz2_list_page_sidebar',
+        'minWidthToShow': 1024
+    },
+    'topListPageLeaderboard2': {
+        'position': ['top', 'zoneList'],
+        'slot': 'dz2_list_page_leaderboard_2',
+    },
+    'bottomListPageLeaderboard2': {
+        'position': ['bottom', 'zoneList'],
+        'slot': 'dz2_list_page_leaderboard_2',
+    },
+    'homepageLeaderboard': {
+        'position': 'top',
+        'slot': 'dz2_homepage_leaderboard',
+    },
+    'homepageLeaderboard2': {
+        'position': 'bottom',
+        'slot': 'dz2_homepage_leaderboard_2',
+    },
+    'skybox': {
+        'position': 'above nav',
+        'slot': 'dz_skybox',
+	    'refreshable': false
+    },
+	'inline': {
+		'position': 'inline',
+		'slot': 'dz2_inline-article-display',
+	}
+};
+
+var campaign = new URLSearchParams(window.location.search).get("adTargeting_campaign");
+
+window.googletag = window.googletag || { cmd: [] };
+
+if (campaign) {
+    window.googletag.cmd.push(function() {
+        window.googletag.setConfig({ targeting: { campaign }});
+    });
+}
+
+let lastHeader = null;
+
+const topContainer = document.querySelector('#top-bumper-container');
+const bottomContainer = document.querySelector('#bottom-bumper-container');
+
+function GAM_getPersistentValue(key) {
+    const stored = JSON.parse(localStorage.getItem(key));
+
+    if (!stored) {
+        return null;
+    }
+
+    const { value, expiration } = stored;
+
+    if (expiration && Date.now() >= expiration) {
+        localStorage.removeItem(key);
+        return null;
+    }
+
+    return value;
+}
+
+function GAM_setPersistentValue(key, value, expiration) {
+    // 5 minutes from now
+    if (!expiration) {
+        expiration = Date.now() + 300000;
+    }
+
+    const storedValue = JSON.stringify({
+        value: value,
+        expiration: expiration
+    });
+
+    localStorage.setItem(key, storedValue);
+
+    return value;
+}
+
+function GAM_synchronousRequest(params) {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', params.url, false);
+    xhr.setRequestHeader("Content-Type", "application/json");
+
+    if (typeof params.auth_header !== "undefined") {
+        xhr.setRequestHeader("Authorization", params.auth_header);
+    }
+
+    xhr.send(null);
+    if (xhr.status === 200) {
+        return xhr.responseText;
+    } else {
+        throw new Error('Request failed: ' + xhr.statusText);
+    }
+}
+
+function GAM_fetch_data(params) {
+    let stored_data = GAM_getPersistentValue(params.storage_key);
+
+    if (stored_data === null) {
+        try {
+            const response = GAM_synchronousRequest(params);
+            const data = JSON.parse(response);
+
+            // Store and expire after 30 minutes
+            return GAM_setPersistentValue(params.storage_key, data, Date.now() + 1800000);
+        } catch (error) {
+            console.error('Could not get ' + params.storage_key + ' data: ' + error);
+            return null;
+        }
+    } else {
+        return stored_data;
+    }
+}
+
+function GAM_setUpSixSenseTargeting() {
+    let meData = GAM_fetch_data({
+        url: "https://link.technologyadvice.com/_me",
+        storage_key: "ta_me_data"
+    });
+    let sixSenseData = GAM_fetch_data({
+        url: "https://epsilon.6sense.com/v3/company/details",
+        auth_header: "Token d20a1b0e892442270cbc4cb6801c0160d28af04c",
+        storage_key: "ta_6s_data"
+    });
+
+    function meDataIncludes(i) {
+        return meData.tags.includes(i);
+    }
+
+    if (typeof meData !== "undefined" && meData !== null) {
+        window.googletag.pubads().setTargeting("visitor_id", meData.vid);
+        window.googletag.pubads().setTargeting("user_agent", meData.user_agent);
+
+        var tags_mapping = {
+            "is_datacenter": ["site.is-datacenter"],
+            "is_suspected_bot": ["site.suspected-bad-bot", "site.bad-bot"],
+            "is_ta_user": ["site.is-ta-user"],
+            "is_crawler": ["site.user-agent-blocked"],
+            "is_ad_blocked": ["site.is-ad-blocked"],
+        };
+
+        for (var key in tags_mapping) {
+            if (tags_mapping[key].some(meDataIncludes)) {
+                window.googletag.pubads().setTargeting(key, 'true');
+            }
+        }
+    }
+
+    if (typeof sixSenseData !== "undefined" && sixSenseData !== null) {
+        var segment_ids = [];
+        if (sixSenseData.segments && sixSenseData.segments.ids && sixSenseData.segments.ids.length) {
+            sixSenseData.segments.ids.forEach(function (v) {
+                segment_ids.push(v.toString());
+            });
+        }
+        if (typeof segment_ids !== "undefined" && segment_ids.length > 0) {
+            window.googletag.pubads().setTargeting("segment_ids_6si", segment_ids);
+        }
+    }
+}
+
+if (width >= 1024 && (topContainer || bottomContainer)) {
+    // Dynamically create bumper ad slots for non-mobile devices.
+    // Prevents ugly dividers being rendered on empty ad slots (mobile)
+    const topBumper = document.createElement('div');
+    topBumper.id = 'div-gpt-ad-1435246566686-3';
+    topBumper.classList.add('article-bumper', 'article-bumper-top', 'dz2_bumper_text_ad');
+    topBumper.setAttribute('data-gpt-slot', 'topBumper');
+
+    topContainer.appendChild(topBumper);
+
+    const bottomBumper = document.createElement('div');
+    bottomBumper.id = 'div-gpt-ad-1435246566686-4';
+    bottomBumper.classList.add('article-bumper', 'article-bumper-bottom', 'dz2_bumper_text_ad');
+    bottomBumper.setAttribute('data-gpt-slot', 'bottomBumper');
+
+    bottomContainer.appendChild(bottomBumper);
+}
+
+if (gptTags.zone) {
+    gptTags.zone = gptTags.zone.replaceAll(/[\s/]/g, '_')
+        .replaceAll(/[^a-zA-Z0-9_]/g, '')
+        .toLowerCase();
+}
+
+makeAds();
+
+function handleSkybox() {
+    const skybox = document.querySelector('div.skybox');
+    if (skybox) {
+        document.body.classList.add('skybox-auto-collapse');
+        // observe classlist changes for offsetting sticky ads
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                    let offset = 0;
+                    if (!document.body.classList.contains('skybox-closed') && (
+                        document.body.classList.contains('ccad-skybox-manualcollapse')
+                        || document.body.classList.contains('ccad-skybox-manualexpand')
+                    )) {
+                        offset = skybox.getBoundingClientRect().height;
+                    }
+                    let eligibleAds = [
+                        { element: document.querySelector('.content-right-images'), offset: 108 },
+                        { element: document.querySelector('.trending-sidebar'), offset: 88 },
+                        { element: document.querySelector('.trending'), offset: 88 }
+                    ];
+                    for (let ad of eligibleAds) {
+                        if (ad.element) {
+                            ad.element.style.top = (ad.offset + offset) + 'px';
+                        }
+                    }
+                }
+            });
+        });
+        observer.observe(document.body, { attributes: true });
+    }
+}
+
+function isHeaderEligible(header) {
+	const range = document.createRange();
+	range.setStartAfter(lastHeader);
+	range.setEndBefore(header);
+
+	return range.toString().trim().length >= 600;
+}
+
+function placeInlineAds() {
+	const excludedContent = document.querySelectorAll('#ftl-article.branded-content, #ftl-article.sponsored');
+
+	if (excludedContent.length > 0) {
+		return;
+	}
+
+	const headers = Array.from(document.querySelectorAll('.content-html h2')).splice(1);
+
+	let globalIndex = 12;
+
+	for (let i = 0; i < headers.length; i++) {
+		if (!lastHeader || isHeaderEligible(headers[i])) {
+			const element = document.createElement('div');
+			element.id = 'div-gpt-ad-1435246566686-' + globalIndex;
+			element.classList.add('inline-display', 'dz2_inline-article-display');
+            element.setAttribute('data-gpt-slot', 'inline');
+			headers[i].before(element);
+			lastHeader = element;
+			globalIndex++;
+		}
+	}
+}
+
+function makeAds() {
+    handleSkybox();
+	placeInlineAds();
+
+    const script = document.createElement('script');
+    script.src = 'https://i6ByW9Zmz4ncxhHkb.ay.delivery/manager/i6ByW9Zmz4ncxhHkb';
+    script.type = 'text/javascript';
+    script.referrerPolicy = 'no-referrer-when-downgrade';
+
+    document.head.appendChild(script);
+
+    window.googletag.cmd.push(function() {
+        const containers = document.querySelectorAll('div[data-gpt-slot]');
+
+        for (let container of containers) {
+            const div = container.getAttribute('data-gpt-slot');
+            const meta = metadata[div];
+
+            if (meta.minWidthToShow && width < meta.minWidthToShow) {
+                continue;
+            }
+
+            window.googletag.pubads().setTargeting('hostname', window.location.hostname);
+
+            Object.keys(gptTags).forEach(function(key) {
+	            window.googletag.pubads().setTargeting(key, gptTags[key]);
+            });
+
+            window.googletag.pubads().addEventListener('slotRenderEnded', (event) => {
+                window.requestAnimationFrame(() => {
+                    var slotId = event.slot.getSlotElementId();
+
+                    if (!slotId.includes('__ayManagerEnv__')) {
+                        return;
+                    }
+
+                    var className = slotId.split('__ayManagerEnv__')[0];
+                    var slotName = className.replace('dz2_', '').replace('dz_', '').replace(/_\d+$/, '');
+                    var unitName = meta.slot.replace('dz2_', '').replace('dz_', '').replace(/_\d+$/, '');
+
+                    if (slotName !== unitName) {
+                        return;
+                    }
+
+                    var elem = document.getElementById(slotId);
+
+                    if (!elem) {
+                        console.warn('Ad element missing', slotId);
+                        return;
+                    }
+
+                    // Ad unit did not fill, collapse slot
+                    if (event.isEmpty && elem.parentElement) {
+                        elem.parentElement.style.display = 'none';
+                    }
+                });
+            });
+		}
+
+        GAM_setUpSixSenseTargeting();
+    });
+}
+</script>
+  <script async>// InMobi Choice. Consent Manager Tag v3.0 (for TCF 2.2)
+!function(){var e=window.location.hostname,t=document.createElement("script"),n=document.getElementsByTagName("script")[0],a="https://cmp.inmobi.com".concat("/choice/","vPn77x7pBG57Y","/","dzone.com","/choice.js?tag_version=V3"),p=0;t.async=!0,t.type="text/javascript",t.src=a,n.parentNode.insertBefore(t,n),function(){for(var e,t="__tcfapiLocator",n=[],a=window;a;){try{if(a.frames[t]){e=a;break}}catch(e){}if(a===window.top)break;a=a.parent}e||(!function e(){var n=a.document,p=!!a.frames[t];if(!p)if(n.body){var s=n.createElement("iframe");s.style.cssText="display:none",s.name=t,n.body.appendChild(s)}else setTimeout(e,5);return!p}(),a.__tcfapi=function(){var e,t=arguments;if(!t.length)return n;if("setGdprApplies"===t[0])t.length>3&&2===t[2]&&"boolean"==typeof t[3]&&(e=t[3],"function"==typeof t[2]&&t[2]("set",!0));else if("ping"===t[0]){var a={gdprApplies:e,cmpLoaded:!1,cmpStatus:"stub"};"function"==typeof t[2]&&t[2](a)}else"init"===t[0]&&"object"==typeof t[3]&&(t[3]=Object.assign(t[3],{tag_version:"V3"})),n.push(t)},a.addEventListener("message",(function(e){var t="string"==typeof e.data,n={};try{n=t?JSON.parse(e.data):e.data}catch(e){}var a=n.__tcfapiCall;a&&window.__tcfapi(a.command,a.version,(function(n,p){var s={__tcfapiReturn:{returnValue:n,success:p,callId:a.callId}};t&&(s=JSON.stringify(s)),e&&e.source&&e.source.postMessage&&e.source.postMessage(s,"*")}),a.parameter)}),!1))}(),function(){const e=["2:tcfeuv2","6:uspv1","7:usnatv1","8:usca","9:usvav1","10:uscov1","11:usutv1","12:usctv1"];window.__gpp_addFrame=function(e){if(!window.frames[e])if(document.body){var t=document.createElement("iframe");t.style.cssText="display:none",t.name=e,document.body.appendChild(t)}else window.setTimeout(window.__gpp_addFrame,10,e)},window.__gpp_stub=function(){var t=arguments;if(__gpp.queue=__gpp.queue||[],__gpp.events=__gpp.events||[],!t.length||1==t.length&&"queue"==t[0])return __gpp.queue;if(1==t.length&&"events"==t[0])return __gpp.events;var n=t[0],a=t.length>1?t[1]:null,p=t.length>2?t[2]:null;if("ping"===n)a({gppVersion:"1.1",cmpStatus:"stub",cmpDisplayStatus:"hidden",signalStatus:"not ready",supportedAPIs:e,cmpId:10,sectionList:[],applicableSections:[-1],gppString:"",parsedSections:{}},!0);else if("addEventListener"===n){"lastId"in __gpp||(__gpp.lastId=0),__gpp.lastId++;var s=__gpp.lastId;__gpp.events.push({id:s,callback:a,parameter:p}),a({eventName:"listenerRegistered",listenerId:s,data:!0,pingData:{gppVersion:"1.1",cmpStatus:"stub",cmpDisplayStatus:"hidden",signalStatus:"not ready",supportedAPIs:e,cmpId:10,sectionList:[],applicableSections:[-1],gppString:"",parsedSections:{}}},!0)}else if("removeEventListener"===n){for(var i=!1,o=0;o<__gpp.events.length;o++)if(__gpp.events[o].id==p){__gpp.events.splice(o,1),i=!0;break}a({eventName:"listenerRemoved",listenerId:p,data:i,pingData:{gppVersion:"1.1",cmpStatus:"stub",cmpDisplayStatus:"hidden",signalStatus:"not ready",supportedAPIs:e,cmpId:10,sectionList:[],applicableSections:[-1],gppString:"",parsedSections:{}}},!0)}else"hasSection"===n?a(!1,!0):"getSection"===n||"getField"===n?a(null,!0):__gpp.queue.push([].slice.apply(t))},window.__gpp_msghandler=function(e){var t="string"==typeof e.data;try{var n=t?JSON.parse(e.data):e.data}catch(e){n=null}if("object"==typeof n&&null!==n&&"__gppCall"in n){var a=n.__gppCall;window.__gpp(a.command,(function(n,p){var s={__gppReturn:{returnValue:n,success:p,callId:a.callId}};e.source.postMessage(t?JSON.stringify(s):s,"*")}),"parameter"in a?a.parameter:null,"version"in a?a.version:"1.1")}},"__gpp"in window&&"function"==typeof window.__gpp||(window.__gpp=window.__gpp_stub,window.addEventListener("message",window.__gpp_msghandler,!1),window.__gpp_addFrame("__gppLocator"))}();var s=function(){var e=arguments;typeof window.__uspapi!==s&&setTimeout((function(){void 0!==window.__uspapi&&window.__uspapi.apply(window.__uspapi,e)}),500)};if(void 0===window.__uspapi){window.__uspapi=s;var i=setInterval((function(){p++,window.__uspapi===s&&p<3?console.warn("USP is not accessible"):clearInterval(i)}),6e3)}}();
+</script>
+
+  <script async>
+      (function(w, d, s, l, i) {
+          w[l] = w[l] || [];
+          w[l].push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+          var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+          j.async = true;
+          j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+          f.parentNode.insertBefore(j,f);
+      })(window, document, 'script', 'dataLayer', 'GTM-K25QL22');
+  </script>
+
+  <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-410289-1', 'auto');
+      ga('require', 'linkid', 'linkid.js');
+      ga('require', 'GTM-TSD9TZP');
+      ga('set', 'siteSpeedSampleRate', 25);
+  </script>
+  <script async src="https://www.google-analytics.com/analytics.js"></script>
+  <script async>var analytics = {
+    'dimension1': 'Open Source',
+    'dimension2': 'article/analysis',
+    'dimension3': '2025-12-18',
+    'dimension4': '0',
+    'dimension5': '',
+    'dimension7': 'Open source',
+    'dimension8': 'ExxactCorp',
+    'dimension9': 'undefined',
+    'dimension10': 'Exxact Corporation'
+};
+
+if (window.ga) {
+    Object.keys(analytics).forEach(function(key) {
+        window.ga('set', key, analytics[key]);
+    });
+
+    window.ga('send', 'pageview');
+}</script>
+
+  <script src="https://dz2cdn1.dzone.com/themes/dz20/lib/static/jquery/jquery.min.js"></script>
+  <script async src="https://dz2cdn1.dzone.com/themes/dz20/lib/static/bootstrap/bootstrap.min.js"></script>
+
+  <script>
+      function loadScript(src) {
+          return new Promise(function (resolve, reject) {
+              const s = document.createElement('script');
+              s.src = src;
+              s.onload = resolve;
+              s.onerror = reject;
+              document.head.appendChild(s);
+          });
+      }
+
+      function loadStyle(href) {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = href;
+          document.head.appendChild(link);
+      }
+
+      function loadScriptsSync(deferred) {
+          var p = Promise.resolve();
+          for (var i = 0; i < deferred.length; i++) {
+              let script = deferred[i];
+              p = p.then(function() {
+                  return loadScript(script);
+              });
+          }
+          return p;
+      }
+
+      function loadStyles() {
+          const deferred = [
+              'https://dz2cdn1.dzone.com/themes/dz20/lib/codemirror/lib/codemirror.css',
+              'https://dz2cdn1.dzone.com/themes/dz20/ftl/comments/styles.css',
+              'https://dz2cdn1.dzone.com/themes/dz20/lib/froala3/css/froala_editor.pkgd.min.css',
+              'https://dz2cdn1.dzone.com/themes/dz20/lib/froala3/css/themes/gray.min.css',
+              'https://dz2cdn1.dzone.com/themes/dz20/ftl/article/mini-profile.css'
+          ];
+
+          for (var i = 0; i < deferred.length; i++) {
+              loadStyle(deferred[i]);
+          }
+      }
+
+      window.addEventListener('load', function(_event) {
+          loadStyles();
+
+          loadScriptsSync([
+            'https://dz2cdn1.dzone.com/themes/dz20/lib/lazysizes.min.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/ftl/article/codeblocks.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/ftl/article/activity-bar.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/lib/froala3/js/froala_editor.pkgd.min.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/ftl/froala/content.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/ftl/comments/content.js',
+            'https://dz2cdn1.dzone.com/themes/dz20/ftl/article/content.js'
+          ]);
+      });
+  </script>
+</body>
+</html>

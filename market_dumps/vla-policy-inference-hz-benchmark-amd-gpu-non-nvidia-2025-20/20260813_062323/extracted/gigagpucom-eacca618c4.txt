@@ -1,0 +1,72 @@
+Table of Contents
+The State of AMD vs NVIDIA for AI in 2025
+Every year, someone declares that AMD is about to dethrone NVIDIA for AI workloads. And every year, dedicated GPU server providers still overwhelmingly deploy NVIDIA hardware. But AMD has made genuine progress with the Instinct MI300X and consumer RDNA 3 cards. Is 2025 the year the balance finally shifts?
+We put this to the test by benchmarking real AI inference workloads on both platforms. If you are choosing a GPU for self-hosted LLM inference, image generation, or speech models, here is what you need to know.
+Hardware Comparison: Key GPUs
+| Spec | AMD MI300X | AMD RX 7900 XTX | NVIDIA RTX 3090 | NVIDIA RTX 5090 | 
+|---|---|---|---|---|
+| VRAM | 192 GB HBM3 | 24 GB GDDR6 | 24 GB GDDR6X | 24 GB GDDR6X | 
+| Memory Bandwidth | 5,300 GB/s | 960 GB/s | 936 GB/s | 1,008 GB/s | 
+| FP16 TFLOPS | 1,307 | 123 | 142 | 330 | 
+| TDP | 750 W | 355 W | 350 W | 450 W | 
+| Software Stack | ROCm | ROCm | CUDA | CUDA | 
+| Typical Server Cost | ~$5.50/hr | ~$0.50/hr | ~$0.45/hr | ~$1.10/hr | 
+The MI300X is a data centre monster with 192 GB HBM3, putting it in a completely different class from consumer GPUs. The RX 7900 XTX is AMD’s best consumer option with 24 GB VRAM matching the RTX 3090. But specs only tell part of the story.
+LLM Inference Benchmarks
+We tested LLM inference using vLLM (NVIDIA CUDA) and vLLM’s ROCm fork (AMD). Both used the same model configurations and prompts.
+| Model | RX 7900 XTX (tok/s) | RTX 3090 (tok/s) | RTX 5090 (tok/s) | MI300X (tok/s) | 
+|---|---|---|---|---|
+| Llama 3 8B FP16 | 42 | 62 | 118 | 245 | 
+| Mistral 7B FP16 | 45 | 68 | 127 | 260 | 
+| Phi-3 Mini 3.8B | 72 | 105 | 198 | 410 | 
+| Llama 3 70B AWQ-4bit | OOM | 11 (needs 2 GPUs) | 22 (needs 2 GPUs) | 78 (fits in 192 GB) | 
+The RTX 3090 outperforms the RX 7900 XTX by 47-50% on LLM inference despite similar memory bandwidth on paper. The gap comes down to software optimisation: vLLM and its CUDA kernels are highly tuned for NVIDIA tensor cores, while the ROCm path has less mature attention kernels and operator fusion.
+The MI300X is in a league of its own for large models. Its 192 GB HBM3 fits Llama 3 70B without quantisation, something no consumer GPU can do on a single card. But at $5.50/hr, it is a very different budget category. See our cost per 1M tokens comparison for how these rates affect production economics.
+Software Ecosystem: CUDA vs ROCm
+Hardware performance is only half the equation. The software ecosystem determines how quickly you can deploy and how reliably your workloads run.
+| Feature | NVIDIA (CUDA) | AMD (ROCm) | 
+|---|---|---|
+| PyTorch support | Native, first-class | Supported, occasional issues | 
+| vLLM support | Full, production-ready | ROCm fork, beta quality | 
+| Ollama support | Full | Partial (limited GPU offload) | 
+| TensorRT inference | Available, 1.5-2x speedup | N/A (MIGraphX alternative) | 
+| Flash Attention | Fully optimised | Partial (composable_kernel backend) | 
+| Docker GPU support | nvidia-docker (mature) | ROCm Docker (works, less docs) | 
+| Community tutorials | Extensive | Limited | 
+| Pre-built wheels/containers | Ubiquitous | Improving but gaps remain | 
+CUDA’s ecosystem advantage is not just about speed. It is about reliability, documentation, and time-to-deploy. When you spin up an NVIDIA GPU server, everything works out of the box. With ROCm, you should expect to spend time debugging driver compatibility, missing operators, and container configuration. Our self-host LLM guide and vLLM vs Ollama comparison are both written for the CUDA ecosystem because that is what works reliably today.
+Framework and Model Support
+Not every model and framework works on AMD GPUs. Here is a compatibility snapshot for popular AI applications.
+| Application | NVIDIA | AMD | 
+|---|---|---|
+| Stable Diffusion (A1111/ComfyUI) | Full support | Works with workarounds | 
+| Whisper (OpenAI) | Full support | CPU fallback often needed | 
+| YOLOv8 (Ultralytics) | Full support + TensorRT | PyTorch only, no TensorRT | 
+| Coqui TTS / Bark | Full support | Partial, some models fail | 
+| DeepSpeed training | Full support | Experimental ROCm support | 
+| GGUF/llama.cpp | Full CUDA + Vulkan | Vulkan + ROCm (HIP) | 
+For specialised workloads like Whisper transcription, Coqui TTS, or ComfyUI image generation, NVIDIA is the only option that reliably works without manual patching.
+Cost and Availability
+AMD GPUs are theoretically cheaper on paper, but availability in the dedicated server market is limited.
+| GPU | Typical Server $/hr | Availability | LLM tok/$ (Llama 3 8B) | 
+|---|---|---|---|
+| RX 7900 XTX | $0.50 | Rare | 302K tok/$ | 
+| RTX 3090 | $0.45 | Widely available | 496K tok/$ | 
+| RTX 5090 | $1.10 | Widely available | 386K tok/$ | 
+| MI300X | $5.50 | Limited, enterprise | 160K tok/$ | 
+The RTX 3090 delivers 64% more tokens per dollar than the RX 7900 XTX and is far easier to provision. At the enterprise tier, the MI300X’s massive VRAM is attractive for 70B+ models, but you pay a premium for it. Use our cost per million tokens tool to compare at your specific workload scale.
+Verdict: Which Should You Choose?
+Choose NVIDIA if:
+- You want production-ready inference with minimal setup time
+- You use vLLM, Ollama, TensorRT, or any mainstream ML framework
+- Cost per token matters (RTX 3090 wins on value across the board)
+- You need reliable support for speech, vision, or image generation models
+- You want access to the largest ecosystem of tutorials, containers, and tools
+Consider AMD if:
+- You specifically need 192 GB VRAM for massive models (MI300X)
+- You are an enterprise with AMD hardware commitments and in-house ROCm expertise
+- You are willing to debug software issues in exchange for potential future cost savings
+For the vast majority of AI practitioners deploying on dedicated GPU servers, NVIDIA remains the pragmatic choice in 2025. The RTX 3090 offers the best combination of VRAM, performance, cost, and ecosystem maturity. For those weighing NVIDIA options specifically, see our RTX 3090 vs RTX 5090 and RTX 5090 vs RTX 3090 comparisons.
+Deploy on Battle-Tested NVIDIA Hardware
+Get a dedicated NVIDIA GPU server with CUDA, cuDNN, and your ML stack pre-installed. Production-ready in minutes.
+Browse GPU Servers

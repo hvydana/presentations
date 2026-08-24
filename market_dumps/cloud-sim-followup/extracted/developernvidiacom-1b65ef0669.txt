@@ -1,0 +1,27 @@
+Autonomous machine development is an iterative process of data generation and gathering, model training, and deployment characterized by complex multi-stage, multi-container workflows across heterogeneous compute resources.
+Multiple teams are involved, each requiring shared and heterogeneous compute. Furthermore, teams want to scale certain workloads into the cloud, which typically requires DevOps expertise, while maintaining other workloads on-premises.
+Until now, there has not been a unified platform where developers can easily submit workloads on their desired compute.
+At GTC this week, NVIDIA announced OSMO, a cloud-native workflow orchestration platform that delivers a single pane of glass for scheduling and managing various autonomous machine workloads across a heterogeneous shared compute. These workloads include the following:
+- Synthetic data generation (SDG)
+- DNN training and validation
+- Reinforcement learning
+- Robot (re)simulation in SIL or HIL
+- Perception evaluation on SIM or real data
+Deploy complex workflows across heterogeneous shared compute
+With the OSMO unified compute resource scheduling, you can effortlessly deploy and orchestrate multi-stage workloads on Kubernetes clusters. This includes shared heterogeneous multi-node compute resources, such as aarch64 and x86-64, ensuring flexibility and compatibility across different architectures.
+Easily set up YAML-based, multi-stage, multi-node tasks and streamline the end-to-end development pipeline from SDG and training to model validation. OSMO can also be integrated into existing CI/CD pipelines to dynamically schedule tasks for nightly regression testing, benchmarking, and model validation.
+The service also uses open standards such as OIDC for authentication and supports best practices for credential and dataset security with one-button key rotation. When it comes to compliance, teams can manage and trace the lineage of all data used for model training with versioning in development. This feature is also incredibly valuable for reproducibility.
+Orchestrate on-premises and cloud SDG workloads
+Synthetic data generation in particular benefits from distributed environments, as it typically starts on-premises for smaller batches but requires cloud-scale as the need for large-volume data generation arises. OSMO uses elastic resource provisioning to play a crucial role in reducing costs for offline batch processes like SDG, enabling efficient and cost-effective data generation at scale.
+Efficiently run SIL and HIL testing
+Another important workload supported by OSMO is software-in-the-loop (SIL) robot testing, which involves simulating multi-sensor and multi-robot scenarios or a suite of testing scenarios. These scenarios are best suited for cloud environments where compute resources are easily accessible. OSMO’s ability to schedule and manage workloads across distributed environments ensures that SIL testing can be efficiently performed, leveraging the scalability and accessibility of cloud resources.
+On the other hand, hardware-in-the-loop (HIL) testing requires on-premises deployment due to the availability of specific robot or machine hardware.
+Heterogeneous compute is also necessary for HIL testing, with workloads such as simulation and debugging that require x86 and running software under test targeted on aarch64, providing accurate performance and hardware features not available otherwise. Running HIL directly on the target hardware also mitigates the need for costly emulators.
+Generate and train foundation models concurrently
+OSMO supports GR00T, a foundation model that requires concurrently running NVIDIA DGX for model training and OVX for live reinforcement learning. This workload involves generating and training models iteratively in a loop.
+OSMO can manage and schedule workloads across distributed environments, which enables the seamless coordination of DGX and OVX systems for efficient and iterative model development.
+Track data lineage
+Data lineage and management is essential for model auditing and ensuring traceability throughout the development process. With OSMO, you can track the lineage of data from its source to the trained model, providing transparency and accountability.
+Managing large datasets and creating collections is easy with OSMO, enabling the efficient organization and categorization of data. This includes the ability to manage collections of real data, synthetic data, or a blend, providing flexibility and control over the datasets used for model training and evaluation.
+Apply for early access
+NVIDIA OSMO is currently available in early access. Apply now to start accelerating your autonomous machine development workloads.

@@ -1,0 +1,120 @@
+Architecture Principle: Inference spend is not a billing problem — it is an architecture problem. The decisions that determine your inference cost are made at model selection, routing logic, and observability design — not at the invoice.
+This repository consolidates Rack2Cloud research on AI inference cost architecture into a structured reference for architects, platform teams, and FinOps practitioners responsible for modeling and governing AI infrastructure costs.
+Inference cost has shifted from a burst workload concern to a steady-state infrastructure problem. The dominant failure modes in AI cost architecture are no longer configuration errors — they are structural: inference systems designed without cost visibility, GPU resources allocated without governance, and FinOps models inherited from cloud compute that do not apply to AI workloads.
+This repository addresses inference cost across three dimensions:
+- Cost architecture — how inference cost is structured and why it is systematically undermodeled
+- Cost failure modes — where GPU waste, steady-state accumulation, and placement decisions produce unbounded cost exposure
+- Cost governance — how to design authority and visibility into inference cost before it becomes uncontrollable
+The intended audience is AI infrastructure architects, platform engineers, and FinOps teams responsible for production inference systems.
+Most teams discover that inference is expensive after the bill arrives. By that point, the architectural decisions that drove the cost — model selection, context window sizing, routing logic, caching strategy — are already embedded in production systems.
+Inference cost is not a spend management problem. It is a design problem that surfaces as a spend problem. The engineering teams that operate inference at scale without runaway cost are not the ones with better procurement contracts. They are the ones that modeled cost as an architectural constraint from the beginning — the same way they model latency, availability, and throughput.
+This framework maps the cost physics of production inference systems and the decision points where architectural choices determine whether spend remains deterministic or compounds unpredictably.
+The 4 Cost Levers in Production Inference:
+- Model Selection — The choice of model determines the baseline cost per token. Routing every request to the largest available model when a smaller one is sufficient is the single highest-impact cost error in production inference systems.
+- Context Window Management — Token cost scales with context length. Unbounded context accumulation in agentic workflows is the inference equivalent of a memory leak — invisible until it compounds.
+- Routing Logic — Cost-aware routing determines which model handles which request class. Without explicit routing policy, all requests default to the highest-capability (highest-cost) path.
+- Observability — You cannot manage what you cannot measure. Cost observability at the request level — not the invoice level — is the prerequisite for every other cost control.
+| Decision Point | Low-Cost Pattern | High-Cost Anti-Pattern | Key Metric | 
+|---|---|---|---|
+| Model Selection | Route by capability requirement — smallest model that satisfies the task | Default all requests to frontier model regardless of task complexity | Cost per request class by model | 
+| Context Window | Enforce context budgets per workflow, summarize and truncate aggressively | Accumulate full conversation history across multi-turn agentic sessions | Tokens per request P95/P99 | 
+| Routing Logic | Explicit routing policy with capability tiers and fallback rules | No routing layer — all traffic hits single endpoint | Request distribution by model tier | 
+| Caching | Semantic caching for high-frequency, low-variance request patterns | No cache layer — every request generates a full inference pass | Cache hit rate by request class | 
+| Batch vs. Real-Time | Async batch processing for non-latency-sensitive workloads | Real-time inference for all workloads regardless of latency requirement | Batch eligibility rate | 
+| Observability | Per-request cost attribution with model, tokens, and latency | Monthly invoice as primary cost signal | Cost per request, P50/P95/P99 | 
+An execution budget is a hard constraint on the compute resources — tokens, API calls, model tier — that a workflow or agent is permitted to consume per invocation. Without execution budgets, agentic systems have no mechanism to prevent cost compounding across recursive calls, tool use loops, and multi-step reasoning chains.
+Budget dimensions:
+- Token budget — maximum input + output tokens per invocation
+- Model tier budget — permitted model classes for this workflow
+- Call depth budget — maximum recursive tool call depth
+- Latency budget — maximum acceptable response time (determines model tier ceiling)
+Execution budgets are not throttles. They are architectural contracts that define the cost envelope of a workflow before it runs — the same way memory limits define the resource envelope of a container.
+Cost observability at the invoice level is not observability. By the time a spend anomaly appears on a monthly invoice, the architectural decision that caused it has been running in production for weeks.
+Production inference cost observability requires measurement at the request level: Per-request attributes to capture:
+model_id input_tokens output_tokens cost_usd (calculated at request time) workflow_id request_class cache_hit (boolean) latency_ms timestamp
+Aggregate from this foundation:
+- Cost per workflow per day
+- Cost per model tier per day
+- P50 / P95 / P99 cost per request class
+- Cache hit rate by request class
+- Token budget utilization rate
+The structural framing for why inference cost is different from other infrastructure cost categories.
+The Core Thesis
+- AI Inference Is the New Egress: The Cost Layer Nobody Modeled — Inference cost as a structural architectural cost category parallel to egress — present by design, invisible until it becomes a crisis.
+- Inference Is Becoming the New Steady-State Cost Center — Inference cost as steady-state infrastructure spend, not a burst or experimental cost category. (Added 2026-06-30)
+- AI Workloads Break Traditional FinOps Models — Why FinOps models built for cloud compute fail under AI inference workloads. (Added 2026-06-30)
+Cost as Architectural Constraint
+- Your AI System Doesn't Have a Cost Problem. It Has No Runtime Limits. — Execution budget absence as the primary inference cost failure mode.
+- Cloud Cost Is Now an Architectural Constraint — Cost as a first-class architectural input, not a post-deployment concern.
+- Cost Visibility Is Not Cost Control — Why observing cost does not constitute governing it.
+The specific mechanisms through which GPU cost accumulates uncontrolled in inference environments.
+Utilization and Waste
+- Your AI Cluster Is Idle 95% of the Time — GPU idleness as the primary inference cost failure mode at cluster scale.
+- GPU Utilization Is Becoming the New Cloud Waste Crisis — GPU waste as the dominant cost failure mode in enterprise AI deployments. (Added 2026-06-30)
+- GPU Allocation Governance Is the Next AI Infrastructure Crisis — GPU allocation without governance as a structural cost exposure. (Added 2026-06-30)
+Scheduling and Placement
+- GPU Scheduling in Kubernetes: Start Before the Scheduler — GPU scheduling decisions as cost architecture inputs.
+- AI Placement Decisions Are Architecture — Not Optimization — Placement as a first-class cost decision with architectural consequences. (Added 2026-06-30)
+- Inference Routing Is Becoming an Infrastructure Placement Problem — Inference routing decisions as placement cost variables. (Added 2026-06-30)
+Hardware Economics
+- The Training/Inference Split Is Now Hardware — What GTC 2026 Actually Changed — Hardware bifurcation between training and inference and its cost implications.
+- TPU Logic for Architects: When to Choose Accelerated Compute Over Traditional CPUs — Accelerated compute selection as a cost architecture decision.
+Cost dimensions that are structurally absent from most inference cost models.
+CPU Overhead for Agentic AI
+- The CPU Is Back in the Stack — and Nobody Budgeted for It — CPU coordination overhead as an unmodeled cost for agentic AI workloads. (Added 2026-06-30)
+Egress and Data Movement
+- Exit Cost as a First-Class Metric: The Architecture Constraint Nobody Models — Exit and egress cost as inference architecture constraints.
+- The Law of Data Gravity: Why Compute Eventually Moves to the Data — Data gravity as a placement cost driver in inference architecture.
+Edge Inference Economics
+- Beyond the Hyper-scaler: Why AI Inference is Moving to the Edge — Edge inference as a cost architecture decision.
+- The CPU Strikes Back: Architecting Inference for SLMs on Cisco UCS M7 — CPU-based inference economics for smaller model deployments.
+- Sub-500ms LLM Inference on AWS Lambda: The GenAI Architecture Guide — Serverless inference cost architecture.
+Cost-aware routing as an architectural pattern for managing inference cost in production.
+- Cost-Aware Model Routing in Production: Why Every Request Shouldn't Hit Your Best Model — Model routing as a cost control mechanism.
+- Serverless AI Inference Without Kubernetes: GCP Cloud Run, Azure Flex, and the Exit Strategy — Serverless inference as a cost architecture alternative.
+- AWS Lambda for GenAI: The Real-World Architecture Guide (2026 Edition) — Lambda-based inference cost architecture.
+- The Vector DB Money Pit: Why Boring SQL is the Best Choice for GenAI — Retrieval infrastructure cost as an inference cost component.
+Seeing inference cost before it becomes a crisis.
+- Inference Observability: Why You Don't See the Cost Spike Until It's Too Late — Inference cost observability lag as a structural architecture failure.
+- 200 OK is the New 500: The Death of Deterministic Observability — Semantic failures that defeat traditional cost and performance observability.
+- Your Monitoring Didn't Miss the Incident. It Was Never Designed to See It. — Monitoring architecture failure modes for AI cost visibility.
+- How to Read a Cloud Bill Like an Architect — Cloud billing as an inference cost signal.
+Designing authority and control into inference cost before exposure becomes unbounded.
+Governance Architecture
+- Your AI Infrastructure Is Probably Solving the Wrong Problem — Governance misalignment as a cost architecture failure mode. (Added 2026-06-30)
+- AI Didn't Reduce Engineering Complexity. It Moved It — Complexity displacement as a cost governance challenge.
+- The Platform Team Became a Finance Team — Platform team cost governance as an organizational architecture pattern.
+- The Cloud Bill Is Your Real Org Chart — Cost structure as an organizational signal for governance design.
+Regulatory Cost Architecture
+- The EU AI Act Enforcement Date Is an Infrastructure Problem, Not a Compliance Problem — Regulatory enforcement as an infrastructure cost deadline. (Added 2026-06-30)
+Sovereign AI Cost Architecture
+- Sovereign AI Requires a Sovereign Control Plane — Sovereignty requirements as inference cost architecture constraints.
+- The Sovereign AI Mandate: Why Private Data Must Stay on Private Infrastructure — Private infrastructure cost architecture for sovereign AI.
+- AI Infrastructure Repatriation: Why On-Prem Is Now the Strategic Call for Enterprise AI — Repatriation economics as an inference cost architecture decision.
+Operational tools for measuring, modeling, and governing inference cost:
+| Tool | Purpose | 
+|---|---|
+| AI Inference Saturation Analyzer | Inference capacity and saturation measurement | 
+| GPU Utilization & AI Capacity Analyzer | GPU utilization and cost exposure analysis | 
+| AI Runtime & Governance Analyzer | Runtime governance measurement and cost authority analysis | 
+| AI Gravity & Placement Engine | Placement decision support and cost tradeoff analysis | 
+| Kubernetes Cost Density Calculator | Cost density modeling for inference workloads on Kubernetes | 
+| Refactoring Cliff Calculator | Cost modeling for infrastructure refactoring decisions | 
+| Real World Egress Calculator | Egress cost modeling for inference data movement | 
+The AI Architecture Path provides the structured learning context for this repository's content.
+Relevant modules:
+- Accelerated Compute Architecture
+- Storage & Data Pipeline Architecture
+- Operations & LLMOps Architecture
+- Governance & Runtime Control
+- AI Governance Assessment — Structured governance gap assessment for AI infrastructure cost control.
+- Cost Architecture Review — Structured cost architecture assessment.
+- Architecture Audit Services — Full audit service catalog.
+- LLM application development tutorials
+- Prompt engineering guides
+- Cloud provider pricing comparisons
+- Vendor benchmark analysis
+This is a production systems architecture and cost engineering framework.
+This repository is maintained against the Rack2Cloud Canonical Architecture Specifications governance system.
+If this framework helped you design a more cost-deterministic inference system, please star the repository.
+Architectural frameworks maintained byy Rack2Cloud

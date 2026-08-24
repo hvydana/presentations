@@ -1,0 +1,663 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>AMD MI300X Adoption Reality 2026 | pdpspectra</title><meta name="description" content="AMD MI300X and MI350X adoption at Microsoft, Meta, and OpenAI, the ROCm 6 and 7 status, the CoreWeave and Crusoe deployments, and the unit economics."><meta name="author" content="pdpspectra"><meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"><link rel="canonical" href="https://pdpspectra.com/blog/amd-mi300x-adoption-2026/"><link rel="alternate" hreflang="en" href="https://pdpspectra.com/"><link rel="alternate" hreflang="en-US" href="https://pdpspectra.com/"><link rel="alternate" hreflang="en-GB" href="https://pdpspectra.com/"><link rel="alternate" hreflang="en-AU" href="https://pdpspectra.com/"><link rel="alternate" hreflang="x-default" href="https://pdpspectra.com/"><link rel="dns-prefetch" href="https://fonts.googleapis.com"><link rel="dns-prefetch" href="https://fonts.gstatic.com"><link rel="dns-prefetch" href="https://www.googletagmanager.com"><link rel="dns-prefetch" href="https://www.google-analytics.com"><meta property="og:title" content="AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026"><meta property="og:description" content="Microsoft, Meta, and OpenAI all run AMD GPUs in production. The MI325X, the MI350X, the ROCm picture, and the Nvidia software moat reality."><meta property="og:type" content="website"><meta property="og:url" content="https://pdpspectra.com/blog/amd-mi300x-adoption-2026/"><meta property="og:site_name" content="pdpspectra"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://pdpspectra.com/assets/images/blog/amd-mi300x-adoption-2026.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="pdpspectra — international AI, data and DevOps consultancy"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@pdpspectra"><meta name="twitter:creator" content="@pdpspectra"><meta name="twitter:title" content="AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026"><meta name="twitter:description" content="Microsoft, Meta, and OpenAI all run AMD GPUs in production. The MI325X, the MI350X, the ROCm picture, and the Nvidia software moat reality."><meta name="twitter:image" content="https://pdpspectra.com/assets/images/blog/amd-mi300x-adoption-2026.png"><meta name="twitter:image:alt" content="pdpspectra — international AI, data and DevOps consultancy"><!-- Bing Webmaster Tools verification.
+       Replace the content value with the code from
+       Bing Webmaster Tools → Site Settings → Ownership → Meta tag option.
+       Until then this is a harmless placeholder. --><meta name="msvalidate.01" content="REPLACE_WITH_BING_VERIFICATION_CODE"><!-- Favicon --><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest"><meta name="theme-color" content="#09090B"><meta name="msapplication-TileColor" content="#09090B"><meta name="msapplication-TileImage" content="/android-chrome-192x192.png"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"></noscript><link rel="stylesheet" href="/assets/css/style.css"><link rel="alternate" type="application/rss+xml" title="pdpspectra blog" href="/rss.xml"><!-- Astro view transitions disabled — see the import comment at the top of
+       this file for context. Full-page navigation is what was here originally. --><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BlogPosting","@id":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026#article","headline":"AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026","description":"Microsoft, Meta, and OpenAI all run AMD GPUs in production. The MI325X, the MI350X, the ROCm picture, and the Nvidia software moat reality.","url":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026","datePublished":"2026-05-28T00:00:00.000Z","dateModified":"2026-05-28T00:00:00.000Z","inLanguage":"en","isPartOf":{"@id":"https://pdpspectra.com/blog#blog"},"publisher":{"@id":"https://pdpspectra.com/#org"},"author":{"@type":"Organization","name":"pdpspectra","@id":"https://pdpspectra.com/#org"},"mainEntityOfPage":{"@id":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026#webpage"},"keywords":"AMD, MI300X, ROCm, AI Chips"},{"@type":"WebPage","@id":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026#webpage","url":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026","name":"AMD MI300X Adoption Reality 2026 | pdpspectra","isPartOf":{"@id":"https://pdpspectra.com/#website"},"primaryImageOfPage":"https://pdpspectra.com/assets/images/blog/amd-mi300x-adoption-2026.png","breadcrumb":{"@id":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026#breadcrumbs"},"inLanguage":"en"},{"@type":"BreadcrumbList","@id":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026#breadcrumbs","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pdpspectra.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://pdpspectra.com/blog"},{"@type":"ListItem","position":3,"name":"AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026","item":"https://pdpspectra.com/blog/amd-mi300x-adoption-2026"}]}]}</script><script>
+    // GA4 loaded only after explicit consent (GDPR/UK ePrivacy). See cookie banner near </body>.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+    gtag('consent', 'default', { analytics_storage: 'denied' });
+
+    window.pdpLoadAnalytics = function () {
+      if (window.__pdpAnalyticsLoaded) return;
+      window.__pdpAnalyticsLoaded = true;
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9QSQ819Z59';
+      document.head.appendChild(s);
+      gtag('js', new Date());
+      gtag('config', 'G-9QSQ819Z59');
+      attachEventTracking();
+    };
+
+    // Conversion event tracking — only attaches after consent is granted.
+    // Mark these as conversions in the GA4 Admin > Events panel: contact_form_submit, email_click, contact_cta_click.
+    function attachEventTracking() {
+      if (window.__pdpEventsAttached) return;
+      window.__pdpEventsAttached = true;
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a');
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (href.indexOf('mailto:') === 0) {
+          gtag('event', 'email_click', {
+            link_url: href,
+            link_text: (a.textContent || '').trim().slice(0, 80),
+            page_location: location.pathname
+          });
+        } else if (href === '#contact' || href === '/#contact' || href.indexOf('#contact') !== -1) {
+          gtag('event', 'contact_cta_click', {
+            link_url: href,
+            link_text: (a.textContent || '').trim().slice(0, 80),
+            page_location: location.pathname
+          });
+        }
+      });
+      document.addEventListener('submit', function (e) {
+        var f = e.target;
+        if (f && f.id === 'contactForm') {
+          var svc = f.querySelector('[name="service"]');
+          gtag('event', 'contact_form_submit', {
+            form_id: 'contactForm',
+            service: svc ? svc.value : '',
+            page_location: location.pathname
+          });
+        }
+      });
+    }
+
+    try {
+      if (localStorage.getItem('pdp_consent') === 'granted') {
+        window.pdpLoadAnalytics();
+      }
+    } catch (e) {}
+  </script><style>@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media(prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+.blog-hero[data-astro-cid-ffijqjw4]{position:relative;width:100%;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--color-border);background:var(--color-surface);line-height:0}.blog-hero[data-astro-cid-ffijqjw4] svg[data-astro-cid-ffijqjw4]{display:block;width:100%;height:auto;aspect-ratio:1200 / 630}.blog-hero--card[data-astro-cid-ffijqjw4] svg[data-astro-cid-ffijqjw4]{aspect-ratio:240 / 126}.blog-hero-label[data-astro-cid-ffijqjw4]{position:absolute;top:18px;left:18px;font-family:Inter,sans-serif;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--color-text-secondary);background:#09090ba6;border:1px solid var(--color-border-strong);padding:6px 10px;border-radius:var(--r-sm);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+</style></head> <body> <a class="skip-link" href="#main-content">Skip to content</a> <header class="site-header" role="banner" data-astro-transition-persist="astro-y3fmoqb2-1"> <nav class="nav" id="nav" aria-label="Primary"> <div class="container nav-inner"> <a href="/" class="logo" aria-label="pdpspectra home"> <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true"> <rect width="12" height="12" fill="currentColor"></rect> <rect x="16" width="12" height="12" fill="currentColor" fill-opacity="0.7"></rect> <rect y="16" width="12" height="12" fill="currentColor" fill-opacity="0.4"></rect> <rect x="16" y="16" width="12" height="12" fill="currentColor" fill-opacity="0.2"></rect> </svg> <span class="logo-text">pdpspectra</span> </a> <ul class="nav-links"> <li><a href="/services">Services</a></li> <li><a href="/#industries">Industries</a></li> <li><a href="/#work">Work</a></li> <li><a href="/#offices">Offices</a></li> <li><a href="/#pricing">Pricing</a></li> <li><a href="/blog">Blog</a></li> <li><a href="/contact" class="btn-nav">Get in touch</a></li> </ul> <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false"> <span></span><span></span><span></span> </button> </div> </nav> </header> <div class="mobile-menu" id="mobileMenu" aria-hidden="true"> <ul> <li><a href="/services" class="mobile-link">Services</a></li> <li><a href="/#industries" class="mobile-link">Industries</a></li> <li><a href="/#work" class="mobile-link">Work</a></li> <li><a href="/#offices" class="mobile-link">Offices</a></li> <li><a href="/#pricing" class="mobile-link">Pricing</a></li> <li><a href="/blog" class="mobile-link">Blog</a></li> <li><a href="/about" class="mobile-link">About</a></li> <li><a href="/#faq" class="mobile-link">FAQ</a></li> <li><a href="/contact" class="mobile-link">Get in touch</a></li> </ul> </div> <main id="main-content">   <div class="reading-progress" id="readingProgress" aria-hidden="true"></div> <article class="post"> <header class="post-header"> <div class="container"> <nav class="breadcrumbs" aria-label="Breadcrumb"> <a href="/">Home</a> <span aria-hidden="true">/</span> <a href="/blog">Blog</a> <span aria-hidden="true">/</span> <span aria-current="page">AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026</span> </nav> <div class="post-meta"> <time datetime="2026-05-28T00:00:00.000Z">May 28, 2026</time> <span class="post-meta-dot" aria-hidden="true">·</span> <span class="post-reading-time" aria-label="6 minute read">6 min read</span> <span class="post-meta-dot" aria-hidden="true">·</span> <span class="post-category-chip">AI &amp; LLM</span>  </div> <button type="button" class="post-listen-btn" id="postListenBtn" aria-label="Listen to this post"> <svg class="post-listen-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7L8 5z"></path></svg> <svg class="post-listen-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"></path></svg> <span class="post-listen-label">Listen to this post</span> </button> <h1 class="post-title">AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026</h1> <p class="post-lede">Microsoft, Meta, and OpenAI all run AMD GPUs in production. The MI325X, the MI350X, the ROCm picture, and the Nvidia software moat reality.</p> <ul class="post-tags"> <li class="blog-tag">AMD</li><li class="blog-tag">MI300X</li><li class="blog-tag">ROCm</li><li class="blog-tag">AI Chips</li> </ul> </div> </header> <div class="post-hero"> <div class="container"> <picture> <source srcset="/assets/images/blog/amd-mi300x-adoption-2026.webp" type="image/webp"> <img src="/assets/images/blog/amd-mi300x-adoption-2026.png" alt="AMD MI300X to MI350X: The Real State of AMD AI Adoption in 2026" width="1200" height="630" loading="eager" fetchpriority="high"> </picture> </div> </div> <div class="post-body"> <div class="container post-body-inner post-with-toc"> <aside class="post-toc" aria-label="Table of contents"> <div class="post-toc-sticky"> <p class="post-toc-label">On this page</p> <nav> <ul class="post-toc-list"> <li class="post-toc-item post-toc-item--h2"> <a href="#what-actually-shipped" data-toc-target="what-actually-shipped">What actually shipped</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#the-microsoft-meta-and-openai-commitments" data-toc-target="the-microsoft-meta-and-openai-commitments">The Microsoft, Meta, and OpenAI commitments</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#the-rocm-6-and-7-status" data-toc-target="the-rocm-6-and-7-status">The ROCm 6 and 7 status</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#the-nvidia-software-moat-reality" data-toc-target="the-nvidia-software-moat-reality">The Nvidia software moat reality</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#coreweave-crusoe-and-the-specialist-cloud-picture" data-toc-target="coreweave-crusoe-and-the-specialist-cloud-picture">CoreWeave, Crusoe, and the specialist cloud picture</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#the-unit-economics" data-toc-target="the-unit-economics">The unit economics</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#where-pdpspectra-fits" data-toc-target="where-pdpspectra-fits">Where pdpspectra fits</a> </li><li class="post-toc-item post-toc-item--h2"> <a href="#closing" data-toc-target="closing">Closing</a> </li> </ul> </nav> <div class="post-share"> <p class="post-toc-label">Share</p> <div class="post-share-row"> <a class="post-share-btn" href="https://twitter.com/intent/tweet?text=AMD%20MI300X%20to%20MI350X%3A%20The%20Real%20State%20of%20AMD%20AI%20Adoption%20in%202026&#38;url=https%3A%2F%2Fpdpspectra.com%2Fblog%2Famd-mi300x-adoption-2026" target="_blank" rel="noopener" aria-label="Share on X / Twitter" title="Share on X"> <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg> </a> <a class="post-share-btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fpdpspectra.com%2Fblog%2Famd-mi300x-adoption-2026" target="_blank" rel="noopener" aria-label="Share on LinkedIn" title="Share on LinkedIn"> <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.063 2.063 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z"></path></svg> </a> <button type="button" class="post-share-btn post-share-copy" data-copy-url="https://pdpspectra.com/blog/amd-mi300x-adoption-2026" aria-label="Copy link" title="Copy link"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg> <span class="post-share-copy-feedback" aria-hidden="true">Copied</span> </button> </div> </div> </div> </aside> <div class="service-prose post-prose"> <p>The story of AMD’s AI silicon has shifted faster than most procurement teams realize. The MI300X launched in December 2023 with cautious commercial commitments from Microsoft and Meta. By the close of 2025 AMD had shipped meaningful volume across all three of Microsoft, Meta, and OpenAI; the MI325X had filled the mid-cycle refresh slot; the MI350X had launched with material design improvements; and specialist AI clouds including CoreWeave and Crusoe had built out genuine MI300X-class capacity alongside their Nvidia footprints. ROCm 6 and the in-flight ROCm 7 release have closed enough of the software-stack gap that AMD GPUs are now a credible option for many production workloads rather than a permanent science project.</p>
+<p>This is the honest reading of where AMD AI silicon sits in 2026.</p>
+<h2 id="what-actually-shipped">What actually shipped<a class="heading-anchor" aria-label="Anchor link to this section" href="#what-actually-shipped">#</a></h2>
+<p>The product cadence through 2024 and 2025 ran cleanly. The MI300X launched in late 2023 with 192GB of HBM3 — meaningfully more memory per accelerator than the H100’s 80GB and competitive with the H200’s 141GB. The MI325X arrived in late 2024 as a mid-cycle refresh with 256GB of HBM3E and improved bandwidth. The MI350X launched in 2025 with the CDNA 4 architecture, 288GB of HBM3E, and the architectural changes — including FP4 and FP6 support — that AMD positioned as competitive with Blackwell on inference workloads.</p>
+<p><img src="/assets/images/blog/amd-mi300x-adoption-2026-2.png" alt="AMD MI300X to MI350X adoption"/></p>
+<p>The MI350X performance positioning at launch put it at roughly the same training throughput as the H200 on dense workloads and meaningfully ahead on memory-bound inference for large models, with the memory-per-accelerator advantage allowing single-GPU serving of models that required multi-GPU sharding on Nvidia hardware. AMD’s stated benchmark numbers — interpreted carefully — put the MI350X within roughly 30% of Blackwell B200 on the workloads where Blackwell wins and slightly ahead on the workloads where the memory advantage dominates.</p>
+<h2 id="the-microsoft-meta-and-openai-commitments">The Microsoft, Meta, and OpenAI commitments<a class="heading-anchor" aria-label="Anchor link to this section" href="#the-microsoft-meta-and-openai-commitments">#</a></h2>
+<p>The most consequential commercial wins for AMD have been the three large hyperscaler and frontier-model customers. Microsoft Azure ND MI300X v5 instances have been generally available since 2024, with confirmed Copilot inference workloads running on them. Meta has publicly confirmed Llama training and inference deployment on MI300X clusters in its production fleet. OpenAI announced in October 2024 an agreement to deploy AMD MI300X capacity, framed by Sam Altman as part of the diversification beyond Nvidia.</p>
+<p>The Microsoft deployment is the largest and most-watched of the three. The Azure ND MI300X v5 instance pricing put AMD silicon at a meaningful discount to comparable H100 instances, and the practical experience reported by customers running both has been that for many production inference workloads the AMD instances deliver competitive throughput per dollar. The training workloads continue to be more Nvidia-anchored — the software stack gap on training is real and ROCm has more work to do — but for inference the gap has narrowed dramatically.</p>
+<h2 id="the-rocm-6-and-7-status">The ROCm 6 and 7 status<a class="heading-anchor" aria-label="Anchor link to this section" href="#the-rocm-6-and-7-status">#</a></h2>
+<p>The ROCm software stack has historically been the binding constraint on AMD AI adoption. The 2024 ROCm 6 release closed most of the production-readiness gaps for inference. PyTorch 2.x has first-class ROCm support, vLLM ships with ROCm backends, the major model-serving frameworks all work, and the porting friction for an inference workload originally developed on CUDA is now genuinely small.</p>
+<p>ROCm 7, in active development through 2025 and 2026, focuses on training-workload parity. The training-side ergonomics have improved meaningfully but the gap with CUDA on advanced features — custom CUDA kernels in research code, the fastest fused-attention implementations, the long tail of CUDA-specific libraries — remains real. Teams running pure inference workloads can switch to ROCm with weeks of work; teams running cutting-edge training research still pay a meaningful tax to leave CUDA.</p>
+<h2 id="the-nvidia-software-moat-reality">The Nvidia software moat reality<a class="heading-anchor" aria-label="Anchor link to this section" href="#the-nvidia-software-moat-reality">#</a></h2>
+<p>The CUDA software moat is the single most-discussed and most-misunderstood part of the Nvidia story. The honest picture in 2026: the moat is real but it is narrower than the bull case suggests for inference and broader than the bear case suggests for training. For production inference of mainline open-source and frontier models, ROCm is now genuinely good enough that AMD’s silicon advantages can win on TCO. For training novel architectures and for the research workloads that produce frontier-model improvements, CUDA’s library depth, kernel maturity, and developer-ecosystem mass still dominate.</p>
+<p>The interesting structural development is that the model-serving frameworks — vLLM, SGLang, TensorRT-LLM’s ROCm equivalents — have become the actual abstraction layer that matters for most enterprise teams. Once a workload is targeting vLLM rather than CUDA-direct, the underlying silicon choice becomes a procurement question rather than a code-rewriting question. This abstraction trend is what gives AMD its opening.</p>
+<h2 id="coreweave-crusoe-and-the-specialist-cloud-picture">CoreWeave, Crusoe, and the specialist cloud picture<a class="heading-anchor" aria-label="Anchor link to this section" href="#coreweave-crusoe-and-the-specialist-cloud-picture">#</a></h2>
+<p>The specialist AI cloud providers have been more aggressive AMD adopters than the major hyperscalers. CoreWeave added MI300X instances to its catalog in 2024 and expanded MI325X capacity through 2025. Crusoe Cloud has built dedicated MI300X clusters at multiple sites including its flagship Iceland facility. TensorWave is an AMD-only AI cloud that has built its entire business model on MI300X and MI325X capacity. Vultr has added AMD AI instances. Oracle Cloud Infrastructure has confirmed MI300X availability.</p>
+<p><img src="/assets/images/blog/amd-mi300x-adoption-2026-3.png" alt="AMD ecosystem and cloud partnerships"/></p>
+<p>The pricing advantage the specialists offer on AMD silicon has been the strongest commercial signal that the supply-versus-demand story is real. AMD GPUs are easier to procure than Blackwell, the per-hour list price runs meaningfully below comparable Nvidia instances, and for inference workloads the throughput-per-dollar can win convincingly. For teams whose training workloads are anchored on Nvidia but whose inference economics are getting squeezed by GPU costs, splitting the workload — Nvidia for training, AMD for steady-state inference — has become a real pattern.</p>
+<h2 id="the-unit-economics">The unit economics<a class="heading-anchor" aria-label="Anchor link to this section" href="#the-unit-economics">#</a></h2>
+<p>The procurement math that matters for enterprises in 2026:</p>
+<ul>
+<li><strong>Per-hour list price</strong>: AMD MI300X instances run roughly 25-40% below comparable H100 SXM5 instances at major providers</li>
+<li><strong>Memory per accelerator</strong>: MI300X at 192GB and MI350X at 288GB versus H100 at 80GB means many workloads need fewer accelerators</li>
+<li><strong>Throughput on production inference</strong>: roughly competitive with H100 for dense decoder-only models in the 70B to 405B range</li>
+<li><strong>Training throughput</strong>: still meaningfully behind H100 and Blackwell on most workloads — pick Nvidia for training-heavy use cases</li>
+<li><strong>Software setup cost</strong>: weeks of porting work for inference, months for training, near-zero for vLLM-based serving</li>
+</ul>
+<h2 id="where-pdpspectra-fits">Where pdpspectra fits<a class="heading-anchor" aria-label="Anchor link to this section" href="#where-pdpspectra-fits">#</a></h2>
+<p>Our <a href="/services/cloud-infrastructure">cloud infrastructure practice</a> helps clients evaluate the AMD-versus-Nvidia procurement decision for their workload mix. For most production inference workloads in 2026, including the Llama 4 and Mistral Large 3 deployments we ship, AMD silicon at a specialist cloud provider produces better unit economics than Nvidia on the major hyperscalers. For training workloads we still default to Nvidia. The split-workload pattern is where most of our 2026 client engagements land.</p>
+<p>Related reading: <a href="/blog/nvidia-blackwell-shipping-2026">Nvidia Blackwell shipping reality</a>, <a href="/blog/tsmc-2nm-process-2026">TSMC N2 process</a>, and <a href="/blog/open-source-llms-production">open-source LLMs in production</a>.</p>
+<h2 id="closing">Closing<a class="heading-anchor" aria-label="Anchor link to this section" href="#closing">#</a></h2>
+<p>AMD AI silicon has crossed the credibility threshold. The commercial commitments from Microsoft, Meta, and OpenAI are real; the ROCm software stack has matured enough to ship production inference workloads; the specialist clouds have made procurement easier than Nvidia in many cases; and the unit economics on inference workloads can be meaningfully better. The training-side gap with Nvidia remains real but is narrowing.</p>
+<p>For enterprises sizing AI infrastructure in 2026, AMD deserves a real evaluation rather than the dismissive nod it would have gotten in 2023. <a href="/contact">Talk to our team</a> about your AI silicon procurement.</p> </div> </div> </div> <nav class="post-nav" aria-label="More posts"> <div class="container"> <div class="post-nav-grid"> <a href="/blog/ai-wind-solar-forecasting-2026" class="post-nav-link post-nav-link--prev"> <span class="post-nav-direction">← Newer</span> <span class="post-nav-title">AI Wind and Solar Forecasting in 2026: GraphCast, Pangu-Weather and the Neural NWP Era</span> </a> <a href="/blog/apache-pinot-realtime-olap-2026" class="post-nav-link post-nav-link--next"> <span class="post-nav-direction">Older →</span> <span class="post-nav-title">Apache Pinot Deep Dive 2026: User-Facing Analytics, Upserts, and StarTree Cloud</span> </a> </div> </div> </nav> <section class="related-section reveal-on-scroll" aria-label="Related posts"> <div class="container"> <div class="related-header"> <span class="section-tag">Keep reading</span> <h2 class="related-title">Related posts.</h2> </div> <div class="latest-blog-grid"> <a href="/blog/nvidia-blackwell-shipping-2026" class="latest-blog-card"> <div class="latest-blog-meta"> <time datetime="2026-05-28T00:00:00.000Z">May 28, 2026</time> <span class="latest-blog-tag">Nvidia</span> </div> <h3>Nvidia Blackwell in 2026: B200, GB200 NVL72, and the Vera Rubin Roadmap</h3> <p>Blackwell finally shipped at scale through 2025. The B200, the GB200 NVL72 rack, the Vera Rubin roadmap, and the secondary market for H100s.</p> <span class="latest-blog-cta">Read post →</span> </a><a href="/blog/school-ai-policy-deadlines-erp-requirements-2026" class="latest-blog-card"> <div class="latest-blog-meta"> <time datetime="2026-08-04T00:00:00.000Z">August 4, 2026</time> <span class="latest-blog-tag">Education</span> </div> <h3>State AI Policy Deadlines Are Now School ERP Requirements</h3> <p>Ohio&#39;s AI policy deadline and California&#39;s model policy are not prose. They are schema, config and contract requirements most School ERP vendors miss.</p> <span class="latest-blog-cta">Read post →</span> </a><a href="/blog/cost-per-completed-task-llm-benchmarks-2026" class="latest-blog-card"> <div class="latest-blog-meta"> <time datetime="2026-08-03T00:00:00.000Z">August 3, 2026</time> <span class="latest-blog-tag">AI &amp; LLM</span> </div> <h3>Cost Per Completed Task Is the Only LLM Benchmark That Matters Now</h3> <p>Anthropic held prices and normalised every benchmark by cost. OpenAI cut its cheap tier 80%. Here is how to measure cost per completed task yourself.</p> <span class="latest-blog-cta">Read post →</span> </a> </div> </div> </section> <footer class="post-footer reveal-on-scroll"> <div class="container"> <div class="post-footer-card"> <h3>Working on something like this?</h3> <p>If this post touches a problem you're solving, we'd be happy to talk. No pitch — just a focused conversation.</p> <div class="post-footer-actions"> <a href="/services" class="btn btn-ghost" data-magnetic>Browse services</a> <a href="/#contact" class="btn btn-primary" data-magnetic>Start a project</a> </div> </div> <p class="post-footer-back"> <a href="/blog">← All posts</a> </p> </div> </footer> </article>  <div class="post-listen-player" id="postListenPlayer" hidden role="region" aria-label="Article audio player"> <button type="button" class="plb-icon plb-toggle" id="plbToggle" aria-label="Pause"> <svg class="plb-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"></path></svg> <svg class="plb-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" hidden><path d="M8 5v14l11-7L8 5z"></path></svg> </button> <button type="button" class="plb-icon plb-stop" id="plbStop" aria-label="Stop"> <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg> </button> <div class="plb-progress-wrap" id="plbProgressWrap" role="slider" aria-label="Reading progress — click to jump" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" tabindex="0"> <div class="plb-progress-track"> <div class="plb-progress-fill" id="plbProgressFill"></div> <div class="plb-progress-marker" id="plbProgressMarker"></div> </div> <div class="plb-progress-meta" aria-live="polite"> <span class="plb-progress-label">Reading</span> <span class="plb-progress-count" id="plbProgressCount">0 / 0</span> </div> </div> <div class="plb-speed-group" role="group" aria-label="Reading speed"> <button type="button" class="plb-speed" data-rate="0.85">0.85×</button> <button type="button" class="plb-speed is-active" data-rate="1">1×</button> <button type="button" class="plb-speed" data-rate="1.25">1.25×</button> <button type="button" class="plb-speed" data-rate="1.5">1.5×</button> </div> <select class="plb-voice" id="plbVoice" aria-label="Reading voice" title="Voice"> <option value="">System default</option> </select> <button type="button" class="plb-icon plb-close" id="plbClose" aria-label="Close player"> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> </button> </div> <script>
+    (function () {
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // ── Reading progress bar (fixed top of viewport)
+      var bar = document.getElementById('readingProgress');
+      var article = document.querySelector('.post-body');
+      if (bar && article) {
+        var ticking = false;
+        function update() {
+          var rect = article.getBoundingClientRect();
+          var total = rect.height - window.innerHeight;
+          var progressed = Math.min(Math.max(-rect.top, 0), Math.max(total, 1));
+          var pct = total > 0 ? (progressed / total) * 100 : 0;
+          bar.style.width = pct.toFixed(2) + '%';
+          ticking = false;
+        }
+        window.addEventListener('scroll', function () {
+          if (!ticking) { requestAnimationFrame(update); ticking = true; }
+        }, { passive: true });
+        update();
+      }
+
+      // ── Reveal-on-scroll for related + footer
+      if (!reduce && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (e) {
+            if (e.isIntersecting) {
+              e.target.classList.add('is-visible');
+              io.unobserve(e.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        document.querySelectorAll('.reveal-on-scroll').forEach(function (el) { io.observe(el); });
+      } else {
+        document.querySelectorAll('.reveal-on-scroll').forEach(function (el) { el.classList.add('is-visible'); });
+      }
+
+      // ── TOC scroll-spy: highlight whichever section is currently in view
+      var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.post-toc-item > a[data-toc-target]'));
+      if (tocLinks.length && 'IntersectionObserver' in window) {
+        var linkBySlug = {};
+        tocLinks.forEach(function (a) { linkBySlug[a.getAttribute('data-toc-target')] = a; });
+        var headings = tocLinks
+          .map(function (a) { return document.getElementById(a.getAttribute('data-toc-target')); })
+          .filter(Boolean);
+        var visibleIds = new Set();
+        function setActive() {
+          // Pick the topmost visible heading; if none visible, pick the last one above viewport
+          var current = null;
+          for (var i = headings.length - 1; i >= 0; i--) {
+            var h = headings[i];
+            var rect = h.getBoundingClientRect();
+            if (rect.top < window.innerHeight * 0.35) { current = h; break; }
+          }
+          tocLinks.forEach(function (a) { a.classList.remove('is-active'); });
+          if (current && linkBySlug[current.id]) linkBySlug[current.id].classList.add('is-active');
+        }
+        var spyTicking = false;
+        window.addEventListener('scroll', function () {
+          if (!spyTicking) { requestAnimationFrame(function () { setActive(); spyTicking = false; }); spyTicking = true; }
+        }, { passive: true });
+        setActive();
+      }
+
+      // ── Copy-link button in the share dock
+      document.querySelectorAll('[data-copy-url]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var url = btn.getAttribute('data-copy-url') || location.href;
+          var done = function () {
+            btn.classList.add('is-copied');
+            setTimeout(function () { btn.classList.remove('is-copied'); }, 1600);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(url).then(done).catch(function () {});
+          } else {
+            // Fallback: hidden textarea select
+            var ta = document.createElement('textarea');
+            ta.value = url; ta.style.position = 'fixed'; ta.style.opacity = '0';
+            document.body.appendChild(ta); ta.select();
+            try { document.execCommand('copy'); done(); } catch (e) {}
+            document.body.removeChild(ta);
+          }
+        });
+      });
+
+      // ── Code-block copy buttons
+      document.querySelectorAll('.post-prose pre').forEach(function (pre) {
+        if (pre.querySelector('.post-code-copy')) return;
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'post-code-copy';
+        btn.setAttribute('aria-label', 'Copy code');
+        btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copy</span>';
+        pre.appendChild(btn);
+        btn.addEventListener('click', function () {
+          var code = pre.querySelector('code');
+          var text = code ? code.innerText : pre.innerText;
+          var afterCopy = function () {
+            btn.classList.add('is-copied');
+            var label = btn.querySelector('span');
+            if (label) { var prev = label.textContent; label.textContent = 'Copied'; setTimeout(function () { label.textContent = prev; btn.classList.remove('is-copied'); }, 1500); }
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(afterCopy).catch(function () {});
+          }
+        });
+      });
+
+      // ── Listen / text-to-speech ─────────────────────────────────────
+      // Uses the browser's free Web Speech API. No external service, no
+      // billable cost, no data leaves the browser. Voice quality varies by
+      // OS/browser (best on Mac/iOS, decent on Chrome/Windows).
+      // ── Recently-read tracker ───────────────────────────────────────
+      // Stores last 10 visited post slugs (most-recent first) in
+      // localStorage so the /blog index can show a "Recently visited"
+      // strip at the top.
+      (function trackVisit() {
+        try {
+          var slug = location.pathname.replace(/^\/blog\//, '').replace(/\/$/, '');
+          if (!slug || slug === 'blog' || slug.indexOf('/') !== -1) return;
+          var KEY = 'pdp_recent_posts';
+          var raw = localStorage.getItem(KEY);
+          var list = raw ? JSON.parse(raw) : [];
+          // Pull existing entry out, push to front
+          list = [slug].concat(list.filter(function (s) { return s !== slug; }));
+          if (list.length > 10) list = list.slice(0, 10);
+          localStorage.setItem(KEY, JSON.stringify(list));
+        } catch (e) { /* localStorage blocked — skip silently */ }
+      })();
+
+      (function setupListen() {
+        if (!('speechSynthesis' in window)) return;   // browser doesn't support it — bail
+        var btn = document.getElementById('postListenBtn');
+        var player = document.getElementById('postListenPlayer');
+        var toggle = document.getElementById('plbToggle');
+        var stop = document.getElementById('plbStop');
+        var close = document.getElementById('plbClose');
+        var progressWrap = document.getElementById('plbProgressWrap');
+        var progressFill = document.getElementById('plbProgressFill');
+        var progressCount = document.getElementById('plbProgressCount');
+        var voiceSel = document.getElementById('plbVoice');
+        if (!btn || !player) return;
+        var article = document.querySelector('.post-prose');
+        if (!article) return;
+
+        // Extract readable sentences in document order. Each chunk is
+        // { block: <DOM element>, text: <sentence>, blockText: <block's full text> }
+        // so we can highlight the parent block while reading and then mark
+        // the active sentence within it via CSS Custom Highlight API.
+        function readableChunks() {
+          var out = [];
+          var els = article.querySelectorAll('h2, h3, p, li, blockquote');
+          els.forEach(function (el) {
+            if (el.closest('pre')) return;
+            var clone = el.cloneNode(true);
+            clone.querySelectorAll('a.heading-anchor').forEach(function (a) { a.remove(); });
+            var t = (clone.innerText || '').trim();
+            if (!t) return;
+            // Headings get spoken as a single sentence (no internal sentence
+            // splitting — they're usually short titles, not full sentences).
+            if (el.tagName === 'H2' || el.tagName === 'H3') {
+              out.push({ block: el, text: t });
+              return;
+            }
+            // Split body text on sentence terminators. Treat lines that end
+            // in : - or — as their own chunk so colons before lists pause.
+            var sentences = t.match(/[^.!?]+[.!?]+(?:\s|$)|[^.!?]+$/g) || [t];
+            sentences.forEach(function (s) {
+              var sentence = s.trim();
+              if (!sentence) return;
+              // If a single sentence is still over 280 chars (rare for our
+              // editorial style), break it at the next comma+space to dodge
+              // Chrome's 15-second utterance limit.
+              if (sentence.length > 320) {
+                var parts = sentence.split(/,\s+/);
+                var buf = '';
+                parts.forEach(function (p) {
+                  if ((buf + ', ' + p).length > 320 && buf) {
+                    out.push({ block: el, text: buf.trim() });
+                    buf = p;
+                  } else {
+                    buf = buf ? buf + ', ' + p : p;
+                  }
+                });
+                if (buf.trim()) out.push({ block: el, text: buf.trim() });
+              } else {
+                out.push({ block: el, text: sentence });
+              }
+            });
+          });
+          return out;
+        }
+
+        // ── Sentence/block highlighting via CSS Custom Highlight API.
+        // Supported in Chrome 105+, Safari 17.2+, Firefox 131+. Older
+        // browsers gracefully degrade — block-level class still works.
+        var supportsHighlights = typeof CSS !== 'undefined' && CSS.highlights && typeof Highlight === 'function';
+        var sentenceHighlight = null;
+        if (supportsHighlights) {
+          sentenceHighlight = new Highlight();
+          CSS.highlights.set('listen-sentence', sentenceHighlight);
+        }
+        var currentBlock = null;
+        function markBlock(block) {
+          if (currentBlock === block) return;
+          if (currentBlock) currentBlock.classList.remove('is-reading-block');
+          currentBlock = block;
+          if (currentBlock) {
+            currentBlock.classList.add('is-reading-block');
+            // Scroll the block into view if it's outside the viewport.
+            var rect = currentBlock.getBoundingClientRect();
+            if (rect.top < 80 || rect.bottom > window.innerHeight - 60) {
+              currentBlock.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+            }
+          }
+        }
+        function clearBlock() {
+          if (currentBlock) currentBlock.classList.remove('is-reading-block');
+          currentBlock = null;
+        }
+        // Build a Range that covers `sentenceText` within `block`, walking
+        // its text nodes so the range works even when the sentence spans
+        // bold/link/code inline elements.
+        function rangeForSentence(block, sentenceText) {
+          var blockText = block.textContent;
+          var startInBlock = blockText.indexOf(sentenceText);
+          if (startInBlock < 0) return null;
+          var endInBlock = startInBlock + sentenceText.length;
+          var walker = document.createTreeWalker(block, NodeFilter.SHOW_TEXT, null);
+          var node, charsSeen = 0, startNode, startOffset, endNode, endOffset;
+          while ((node = walker.nextNode())) {
+            var nodeLen = node.nodeValue.length;
+            if (startNode === undefined && charsSeen + nodeLen > startInBlock) {
+              startNode = node;
+              startOffset = startInBlock - charsSeen;
+            }
+            if (endNode === undefined && charsSeen + nodeLen >= endInBlock) {
+              endNode = node;
+              endOffset = endInBlock - charsSeen;
+              break;
+            }
+            charsSeen += nodeLen;
+          }
+          if (!startNode || !endNode) return null;
+          var range = document.createRange();
+          range.setStart(startNode, startOffset);
+          range.setEnd(endNode, endOffset);
+          return range;
+        }
+        function markSentence(block, sentenceText) {
+          if (!sentenceHighlight) return;
+          sentenceHighlight.clear();
+          var r = rangeForSentence(block, sentenceText);
+          if (r) sentenceHighlight.add(r);
+        }
+        function clearSentence() {
+          if (sentenceHighlight) sentenceHighlight.clear();
+        }
+
+        var chunks = [];
+        var idx = 0;
+        var rate = 1.0;
+        var state = 'idle';   // 'idle' | 'playing' | 'paused'
+        var selectedVoiceURI = null;
+
+        // ── Voice selector ───────────────────────────────────────────
+        // Voices load asynchronously in Chrome — populate now and on the
+        // voiceschanged event. Persist the chosen voice so users only pick
+        // it once across visits.
+        var STORAGE_KEY = 'pdp_listen_voice_uri';
+        try {
+          var saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) selectedVoiceURI = saved;
+        } catch (e) {}
+
+        function populateVoices() {
+          var voices = window.speechSynthesis.getVoices() || [];
+          if (!voices.length) return;
+          // Prefer en-* voices at the top; everything else after.
+          voices.sort(function (a, b) {
+            var ae = /^en/i.test(a.lang) ? 0 : 1;
+            var be = /^en/i.test(b.lang) ? 0 : 1;
+            if (ae !== be) return ae - be;
+            if (a.lang !== b.lang) return a.lang.localeCompare(b.lang);
+            return a.name.localeCompare(b.name);
+          });
+          // Rebuild options. Keep the "System default" placeholder at the top.
+          while (voiceSel.options.length > 1) voiceSel.remove(1);
+          voices.forEach(function (v) {
+            var opt = document.createElement('option');
+            opt.value = v.voiceURI;
+            opt.textContent = v.name + ' (' + v.lang + ')';
+            if (selectedVoiceURI === v.voiceURI) opt.selected = true;
+            voiceSel.appendChild(opt);
+          });
+        }
+        populateVoices();
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+          window.speechSynthesis.onvoiceschanged = populateVoices;
+        }
+
+        voiceSel.addEventListener('change', function () {
+          selectedVoiceURI = voiceSel.value || null;
+          try {
+            if (selectedVoiceURI) localStorage.setItem(STORAGE_KEY, selectedVoiceURI);
+            else localStorage.removeItem(STORAGE_KEY);
+          } catch (e) {}
+          if (state === 'playing') {
+            window.speechSynthesis.cancel();
+            setTimeout(speakChunk, 30);
+          }
+        });
+
+        function resolveVoice() {
+          if (!selectedVoiceURI) return null;
+          var voices = window.speechSynthesis.getVoices() || [];
+          for (var i = 0; i < voices.length; i++) if (voices[i].voiceURI === selectedVoiceURI) return voices[i];
+          return null;
+        }
+
+        function setState(next) {
+          state = next;
+          var playing = state === 'playing';
+          var active = state !== 'idle';
+          // Listen button label/icon
+          btn.classList.toggle('is-playing', active);
+          btn.querySelector('.post-listen-icon-play').hidden = active;
+          btn.querySelector('.post-listen-icon-pause').hidden = !active;
+          btn.querySelector('.post-listen-label').textContent =
+            state === 'paused' ? 'Resume' : state === 'playing' ? 'Pause' : 'Listen to this post';
+          btn.setAttribute('aria-label', state === 'paused' ? 'Resume reading' : state === 'playing' ? 'Pause reading' : 'Listen to this post');
+          // Player bar
+          player.hidden = !active;
+          toggle.querySelector('.plb-pause').hidden = !playing;
+          toggle.querySelector('.plb-play').hidden = playing;
+          toggle.setAttribute('aria-label', playing ? 'Pause' : 'Resume');
+        }
+
+        function updateProgress() {
+          if (!chunks.length) {
+            progressFill.style.width = '0%';
+            progressCount.textContent = '0 / 0';
+            progressWrap.setAttribute('aria-valuenow', '0');
+            return;
+          }
+          var pct = Math.min(100, (idx / chunks.length) * 100);
+          progressFill.style.width = pct + '%';
+          progressCount.textContent = Math.min(idx + (state === 'idle' ? 0 : 1), chunks.length) + ' / ' + chunks.length;
+          progressWrap.setAttribute('aria-valuenow', String(Math.round(pct)));
+        }
+
+        // Click-to-scrub: jump to the paragraph at the clicked position.
+        function scrubTo(clientX) {
+          if (!chunks.length) return;
+          var rect = progressWrap.getBoundingClientRect();
+          var ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+          var newIdx = Math.min(chunks.length - 1, Math.floor(ratio * chunks.length));
+          idx = newIdx;
+          updateProgress();
+          // If currently playing, cancel the in-flight utterance and re-queue
+          // from the new position. If paused or idle, just update the marker;
+          // pressing play will resume from there.
+          if (state === 'playing') {
+            window.speechSynthesis.cancel();
+            setTimeout(speakChunk, 30);
+          }
+        }
+        progressWrap.addEventListener('click', function (e) { scrubTo(e.clientX); });
+        progressWrap.addEventListener('keydown', function (e) {
+          // Keyboard scrubbing: left/right by one chunk, home/end to ends.
+          if (!chunks.length) return;
+          var newIdx = idx;
+          if (e.key === 'ArrowLeft') newIdx = Math.max(0, idx - 1);
+          else if (e.key === 'ArrowRight') newIdx = Math.min(chunks.length - 1, idx + 1);
+          else if (e.key === 'Home') newIdx = 0;
+          else if (e.key === 'End') newIdx = chunks.length - 1;
+          else return;
+          e.preventDefault();
+          idx = newIdx;
+          updateProgress();
+          if (state === 'playing') {
+            window.speechSynthesis.cancel();
+            setTimeout(speakChunk, 30);
+          }
+        });
+
+        // Chrome bug workaround: speechSynthesis pauses after ~15s of speech.
+        // Ping it every 10s so it stays alive across long readings.
+        var keepalive = null;
+        function startKeepalive() {
+          stopKeepalive();
+          keepalive = setInterval(function () {
+            if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+              window.speechSynthesis.pause();
+              window.speechSynthesis.resume();
+            }
+          }, 10000);
+        }
+        function stopKeepalive() {
+          if (keepalive) { clearInterval(keepalive); keepalive = null; }
+        }
+
+        function speakChunk() {
+          if (idx >= chunks.length) { stopAll(); return; }
+          var chunk = chunks[idx];
+          // Highlight the current block + active sentence
+          markBlock(chunk.block);
+          markSentence(chunk.block, chunk.text);
+          var u = new SpeechSynthesisUtterance(chunk.text);
+          u.rate = rate;
+          u.pitch = 1.0;
+          u.volume = 1.0;
+          var v = resolveVoice();
+          if (v) u.voice = v;
+          u.onend = function () {
+            // Move the sentence highlight off but keep the block highlight
+            // until the next chunk's markBlock runs (avoids a flicker).
+            clearSentence();
+            idx++;
+            updateProgress();
+            if (state === 'playing') speakChunk();
+          };
+          u.onerror = function () {
+            clearSentence();
+            idx++;
+            updateProgress();
+            if (state === 'playing') speakChunk();
+          };
+          window.speechSynthesis.speak(u);
+        }
+
+        function startAll() {
+          if (state !== 'idle') return;
+          chunks = readableChunks();
+          if (!chunks.length) return;
+          idx = 0;
+          updateProgress();
+          setState('playing');
+          startKeepalive();
+          // Some browsers need a tiny delay before .speak() works on the
+          // first call after page load.
+          setTimeout(speakChunk, 30);
+        }
+
+        function pauseAll() {
+          if (state !== 'playing') return;
+          window.speechSynthesis.pause();
+          setState('paused');
+        }
+
+        function resumeAll() {
+          if (state !== 'paused') return;
+          window.speechSynthesis.resume();
+          setState('playing');
+        }
+
+        function stopAll() {
+          window.speechSynthesis.cancel();
+          stopKeepalive();
+          idx = 0;
+          updateProgress();
+          clearSentence();
+          clearBlock();
+          setState('idle');
+        }
+
+        btn.addEventListener('click', function () {
+          if (state === 'idle') startAll();
+          else if (state === 'playing') pauseAll();
+          else if (state === 'paused') resumeAll();
+        });
+        toggle.addEventListener('click', function () {
+          if (state === 'playing') pauseAll();
+          else if (state === 'paused') resumeAll();
+        });
+        stop.addEventListener('click', stopAll);
+        close.addEventListener('click', stopAll);
+
+        // Speed selector
+        document.querySelectorAll('.plb-speed').forEach(function (el) {
+          el.addEventListener('click', function () {
+            rate = parseFloat(el.getAttribute('data-rate') || '1');
+            document.querySelectorAll('.plb-speed').forEach(function (e) { e.classList.toggle('is-active', e === el); });
+            // Mid-reading rate change: cancel the current utterance and re-queue
+            // from the current chunk so the new rate applies immediately.
+            if (state === 'playing') {
+              window.speechSynthesis.cancel();
+              setTimeout(speakChunk, 30);
+            }
+          });
+        });
+
+        // If the user navigates away, stop any in-flight speech.
+        window.addEventListener('beforeunload', stopAll);
+      })();
+
+      // ── Smooth-scroll for TOC and anchor-heading clicks (account for fixed header)
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href^="#"]');
+        if (!a) return;
+        var hash = a.getAttribute('href');
+        if (!hash || hash === '#' || hash.length < 2) return;
+        var target = document.getElementById(hash.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: top, behavior: reduce ? 'auto' : 'smooth' });
+        history.replaceState(null, '', hash);
+      });
+    })();
+  </script>  </main> <footer class="footer" role="contentinfo" data-astro-transition-persist="astro-2xzdna7b-2"> <div class="container footer-inner"> <a href="/" class="logo" aria-label="pdpspectra home"> <svg width="22" height="22" viewBox="0 0 28 28" fill="none" aria-hidden="true"> <rect width="12" height="12" fill="currentColor"></rect> <rect x="16" width="12" height="12" fill="currentColor" fill-opacity="0.7"></rect> <rect y="16" width="12" height="12" fill="currentColor" fill-opacity="0.4"></rect> <rect x="16" y="16" width="12" height="12" fill="currentColor" fill-opacity="0.2"></rect> </svg> <span class="logo-text">pdpspectra</span> </a> <div class="footer-tagline">International AI, data &amp; DevOps consultancy.</div> <div class="footer-offices">Offices in Boston &middot; London &middot; Sydney &middot; Kathmandu</div> <p class="footer-trust">Trusted by healthcare, finance, education, and technology teams across 3 continents.</p> <nav class="footer-links" aria-label="Footer navigation"> <a href="/services">Services</a> <a href="/solutions">Solutions</a> <a href="/#work">Work</a> <a href="/#pricing">Pricing</a> <a href="/blog">Blog</a> <a href="/about">About</a> <a href="/#faq">FAQ</a> <a href="/press">Press</a> <a href="/contact">Contact</a> </nav> <div class="footer-bottom"> <span>&copy; 2026 pdpspectra. All rights reserved.</span> <div class="footer-legal"> <a href="/privacy">Privacy</a> <span aria-hidden="true">&middot;</span> <a href="/terms">Terms</a> <span aria-hidden="true">&middot;</span> <button type="button" id="cookiePrefsLink" class="footer-legal-link">Cookies</button> </div> <div class="footer-socials"> <a href="https://linkedin.com/company/pdpspectra" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path> <rect x="2" y="9" width="4" height="12"></rect> <circle cx="4" cy="4" r="2"></circle> </svg> </a> <a href="https://github.com/pdpspectra" target="_blank" rel="noopener noreferrer" aria-label="GitHub"> <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path> </svg> </a> </div> </div> </div> </footer> <aside id="cookieBanner" class="cookie-banner" role="dialog" aria-label="Cookie consent" aria-describedby="cookieBannerText" hidden> <div class="cookie-banner-inner"> <p id="cookieBannerText" class="cookie-banner-text">
+We use a small number of cookies to measure how the site is used (Google Analytics). They&rsquo;re off until you allow them.
+        See our <a href="/privacy#cookies">privacy policy</a> for details.
+</p> <div class="cookie-banner-actions"> <button type="button" id="cookieReject" class="btn btn-ghost btn-sm" data-magnetic>Reject</button> <button type="button" id="cookieAccept" class="btn btn-primary btn-sm" data-magnetic>Accept</button> </div> </div> </aside> <script>
+    (function () {
+      var KEY = 'pdp_consent';
+      var banner = document.getElementById('cookieBanner');
+      var acceptBtn = document.getElementById('cookieAccept');
+      var rejectBtn = document.getElementById('cookieReject');
+      var prefsLink = document.getElementById('cookiePrefsLink');
+      var prefsButton = document.getElementById('cookiePrefsButton');
+      if (!banner || !acceptBtn || !rejectBtn) return;
+
+      function show() { banner.hidden = false; }
+      function hide() { banner.hidden = true; }
+      function save(value) {
+        try { localStorage.setItem(KEY, value); } catch (e) {}
+      }
+      function read() {
+        try { return localStorage.getItem(KEY); } catch (e) { return null; }
+      }
+
+      if (!read()) show();
+
+      acceptBtn.addEventListener('click', function () {
+        save('granted');
+        hide();
+        if (typeof window.pdpLoadAnalytics === 'function') window.pdpLoadAnalytics();
+      });
+      rejectBtn.addEventListener('click', function () {
+        save('denied');
+        hide();
+      });
+      if (prefsLink) {
+        prefsLink.addEventListener('click', function (e) {
+          e.preventDefault();
+          show();
+        });
+      }
+      if (prefsButton) {
+        prefsButton.addEventListener('click', function () { show(); });
+      }
+    })();
+  </script> <script type="module">const v=document.createElement("div");v.className="scroll-progress";document.body.prepend(v);const f=document.getElementById("nav");let h=!1,E=Math.max(1,document.documentElement.scrollHeight-window.innerHeight);const M=()=>{E=Math.max(1,document.documentElement.scrollHeight-window.innerHeight)};window.addEventListener("resize",M,{passive:!0});window.addEventListener("load",M);let g=!1;window.addEventListener("scroll",()=>{h||(h=!0,requestAnimationFrame(()=>{const t=window.scrollY,e=t>50;f&&e!==g&&(f.classList.toggle("scrolled",e),g=e),v.style.width=t/E*100+"%",h=!1}))},{passive:!0});function L(t,e){if(e.includes("/")){t.textContent=e;return}const n=e.includes("%"),o=e.includes("x"),r=parseFloat(e),i=1800,c=performance.now();function l(d){const u=Math.min((d-c)/i,1),x=1-Math.pow(1-u,3),p=r*x;t.textContent=n?p.toFixed(1)+"%":Math.round(p)+(o?"x":""),u<1?requestAnimationFrame(l):t.textContent=e}requestAnimationFrame(l)}const A=document.querySelectorAll(".stat-number");if(A.length){const t=new IntersectionObserver(e=>{e.forEach(s=>{s.isIntersecting&&(L(s.target,(s.target.textContent||"").trim()),t.unobserve(s.target))})},{threshold:.5});A.forEach(e=>t.observe(e))}const a=document.getElementById("menuToggle"),m=document.getElementById("mobileMenu");a&&m&&(a.addEventListener("click",()=>{const t=m.classList.toggle("open");a.classList.toggle("active",t),a.setAttribute("aria-expanded",String(t)),m.setAttribute("aria-hidden",String(!t))}),document.querySelectorAll(".mobile-link").forEach(t=>{t.addEventListener("click",()=>{m.classList.remove("open"),a.classList.remove("active"),a.setAttribute("aria-expanded","false"),m.setAttribute("aria-hidden","true")})}));const w=new IntersectionObserver(t=>{t.forEach(e=>{e.isIntersecting&&(e.target.classList.add("visible"),w.unobserve(e.target))})},{threshold:.1});document.querySelectorAll(".service-card, .step, .pillar, .reveal").forEach(t=>w.observe(t));document.querySelectorAll(".faq-question").forEach(t=>{t.addEventListener("click",()=>{const e=t.parentElement;if(!e)return;const s=e.classList.contains("open");document.querySelectorAll(".faq-item.open").forEach(n=>{n.classList.remove("open"),n.querySelector(".faq-question")?.setAttribute("aria-expanded","false")}),s||(e.classList.add("open"),t.setAttribute("aria-expanded","true"))})});const b=document.getElementById("contactForm");b?.addEventListener("submit",t=>{t.preventDefault();const e=t.target,s=e.elements.namedItem("name")?.value.trim(),n=e.elements.namedItem("email")?.value.trim(),o=e.elements.namedItem("service")?.value,r=e.elements.namedItem("message")?.value.trim();!s||!n||!o||!r||(e.innerHTML=`
+        <div class="form-success">
+          <span class="check">&#10003;</span>
+          <p>Thanks, ${s}! We'll be in touch at ${n} within 24 hours.</p>
+        </div>`)});const y=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(!y&&window.matchMedia("(hover: hover)").matches){document.querySelectorAll("[data-magnetic]").forEach(n=>{n.addEventListener("pointermove",o=>{const r=n.getBoundingClientRect(),i=o.clientX-r.left-r.width/2,c=o.clientY-r.top-r.height/2,l=Math.max(-8,Math.min(8,i*.25)),d=Math.max(-8,Math.min(8,c*.25));n.style.transform=`translate(${l}px, ${d}px)`}),n.addEventListener("pointerleave",()=>{n.style.transform=""})});const s=6;document.querySelectorAll("[data-tilt]").forEach(n=>{let o=null;n.addEventListener("pointermove",r=>{const i=n.getBoundingClientRect(),c=(r.clientX-i.left)/i.width,d=(.5-(r.clientY-i.top)/i.height)*s,u=(c-.5)*s;o&&cancelAnimationFrame(o),o=requestAnimationFrame(()=>{n.style.transform=`perspective(900px) rotateX(${d}deg) rotateY(${u}deg) translateY(-2px)`})}),n.addEventListener("pointerleave",()=>{o&&cancelAnimationFrame(o),n.style.transform=""})})}</script> <!-- Global scroll-driven reveal observer.
+       Any element with .reveal-on-scroll or data-reveal anywhere on the site
+       fades + slides into place when it enters the viewport. Wrapped in a
+       single named function so we can re-attach on astro:page-load. --> <script type="module">function a(){var o=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches,t=document.querySelectorAll(".reveal-on-scroll, [data-reveal]");if(t.length){if(o||!("IntersectionObserver"in window)){t.forEach(function(e){e.classList.add("is-visible")});return}var c=window.innerHeight||document.documentElement.clientHeight;t.forEach(function(e){var i=e.getBoundingClientRect();i.top<c&&e.classList.add("is-visible")});var r=new IntersectionObserver(function(e){e.forEach(function(i){if(i.isIntersecting){var n=i.target,s=parseInt(n.getAttribute("data-reveal-delay")||"0",10);s>0?setTimeout(function(){n.classList.add("is-visible")},s):n.classList.add("is-visible"),r.unobserve(n)}})},{rootMargin:"0px 0px 120px 0px",threshold:0});t.forEach(function(e){e.classList.contains("is-visible")||r.observe(e)})}}a();document.addEventListener("astro:page-load",a);</script> <script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"9b02c4fb090f4affbae23f63c1b64208","r":1}' crossorigin="anonymous"></script>
+</body> </html>

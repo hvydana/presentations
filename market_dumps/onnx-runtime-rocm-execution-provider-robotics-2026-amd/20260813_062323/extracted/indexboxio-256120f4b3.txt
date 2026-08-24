@@ -1,0 +1,352 @@
+AMD's ROCm Software Stack: Key to Data Center GPU Ambitions in 2026
+The ability of AMD to capture data center GPU market share from the incumbent leader depends significantly on the trajectory of its ROCm AI software platform, according to an EE Times report. Confronting the established CUDA ecosystem, widely viewed as a key competitive barrier for its rival, represents a substantial challenge for the chip designer.
+Strategic Acquisition and Unification Effort
+The company's vice president of AI software, who joined through the acquisition of startup Nod.ai approximately two and a half years ago, described the effort as a gradual, step-by-step process. The Nod team had previously developed AI compiler technology for several years and engaged with major cloud providers and enterprises. Following the acquisition, ROCm has received consistent investment and development focus, having been described previously as a disparate collection of components.
+The current initiative, known internally as OneROCm, aims to create a unified software stack for all of the company's processor types, including CPUs, GPUs, and FPGAs. While some elements remain specific to certain hardware, all acceleration is now channeled through the ROCm stack, which facilitates portability across AMD's product portfolio.
+Shifting Developer Dynamics and Open Source Focus
+The executive noted that the technical burden of porting code between different GPU architectures has diminished as developers increasingly work with higher-level software frameworks. The rise of an open-source AI framework has acted as a significant equalizer, allowing code to run on different hardware. AMD has invested heavily in this framework and related compiler infrastructure, with a key engineer from the Nod team leading the effort.
+Direct conversion from CUDA code is now a less common requirement, as many inference customers utilize specific high-level libraries focused on performance metrics. The ROCm platform is fully open source, excluding firmware, a strategy intended to accelerate innovation by leveraging the broader developer community rather than being limited by internal development cycles.
+Community Engagement and Future Roadmap
+Building its developer community is an active and critical priority for AMD. The company is conducting outreach and has ensured ROCm runs on new consumer laptops immediately upon setup, with software updates for these devices released concurrently with data center versions. The AI software lead personally monitors social media for user feedback and complaints, viewing direct engagement as vital.
+Following a poll that gathered over a thousand developer complaints last year, the company states all identified issues have now been addressed, a move said to have improved sentiment within the developer base. Looking forward, the team is beginning to plan features for ROCm that will distinguish it beyond being a reliable foundation, with a goal of providing a stable platform for the next decade. The executive expressed anticipation for a forthcoming data center GPU accelerator scheduled for release later in 2026.
+- 1. INTRODUCTIONMaking Data-Driven Decisions to Grow Your Business 
+  - REPORT DESCRIPTION
+  - RESEARCH METHODOLOGY AND THE AI PLATFORM
+  - DATA-DRIVEN DECISIONS FOR YOUR BUSINESS
+  - GLOSSARY AND SPECIFIC TERMS
+- 2. EXECUTIVE SUMMARYA Quick Overview of Market Performance 
+  - KEY FINDINGS
+  - MARKET TRENDS This Chapter is Available Only for the Professional EditionPRO
+- 3. MARKET OVERVIEWUnderstanding the Current State of The Market and its Prospects 
+  - MARKET SIZE: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - CONSUMPTION BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - MARKET FORECAST TO 2035
+- 4. MOST PROMISING PRODUCTS FOR DIVERSIFICATIONFinding New Products to Diversify Your Business 
+  - TOP PRODUCTS TO DIVERSIFY YOUR BUSINESS
+  - BEST-SELLING PRODUCTS
+  - MOST CONSUMED PRODUCTS
+  - MOST TRADED PRODUCTS
+  - MOST PROFITABLE PRODUCTS FOR EXPORT
+- 5. MOST PROMISING SUPPLYING COUNTRIESChoosing the Best Countries to Establish Your Sustainable Supply Chain 
+  - TOP COUNTRIES TO SOURCE YOUR PRODUCT
+  - TOP PRODUCING COUNTRIES
+  - TOP EXPORTING COUNTRIES
+  - LOW-COST EXPORTING COUNTRIES
+- 6. MOST PROMISING OVERSEAS MARKETSChoosing the Best Countries to Boost Your Export 
+  - TOP OVERSEAS MARKETS FOR EXPORTING YOUR PRODUCT
+  - TOP CONSUMING MARKETS
+  - UNSATURATED MARKETS
+  - TOP IMPORTING MARKETS
+  - MOST PROFITABLE MARKETS
+- 7. PRODUCTIONThe Latest Trends and Insights into The Industry 
+  - PRODUCTION VOLUME AND VALUE: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - PRODUCTION BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+- 8. IMPORTSThe Largest Import Supplying Countries 
+  - IMPORTS: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - IMPORTS BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - IMPORT PRICES BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+- 9. EXPORTSThe Largest Destinations for Exports 
+  - EXPORTS: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - EXPORTS BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+  - EXPORT PRICES BY COUNTRY: HISTORICAL DATA (2012–2025) AND FORECAST (2026–2035)
+- 10. PROFILES OF MAJOR PRODUCERSThe Largest Producers on The Market and Their Profiles
+- 
+                        11. COUNTRY PROFILESThe Largest Markets And Their Profiles This Chapter is Available Only for the Professional Edition PRO
+  - 11.1United States
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.2China
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.3Japan
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.4Germany
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.5United Kingdom
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.6France
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.7Brazil
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.8Italy
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.9Russian Federation
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.10India
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.11Canada
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.12Australia
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.13Republic of Korea
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.14Spain
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.15Mexico
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.16Indonesia
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.17Netherlands
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.18Turkey
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.19Saudi Arabia
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.20Switzerland
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.21Sweden
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.22Nigeria
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.23Poland
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.24Belgium
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.25Argentina
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.26Norway
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.27Austria
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.28Thailand
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.29United Arab Emirates
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.30Colombia
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.31Denmark
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.32South Africa
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.33Malaysia
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.34Israel
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.35Singapore
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.36Egypt
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.37Philippines
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.38Finland
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.39Chile
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.40Ireland
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.41Pakistan
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.42Greece
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.43Portugal
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.44Kazakhstan
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.45Algeria
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.46Czech Republic
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.47Qatar
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.48Peru
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.49Romania
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+  - 11.50Vietnam
+    - Market Size
+    - Production
+    - Imports
+    - Exports
+- LIST OF TABLES
+  - Key Findings In 2025
+  - Market Volume, In Physical Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Market Value: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Per Capita Consumption, by Country, 2022–2025
+  - Production, In Physical Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Physical Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Value Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Import Prices, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Physical Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Value Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Export Prices, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+- LIST OF FIGURES
+  - Market Volume, In Physical Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Market Value: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Consumption, by Country, 2025
+  - Market Volume Forecast to 2035
+  - Market Value Forecast to 2035
+  - Market Size and Growth, By Product
+  - Average Per Capita Consumption, By Product
+  - Exports and Growth, By Product
+  - Export Prices and Growth, By Product
+  - Production Volume and Growth
+  - Exports and Growth
+  - Export Prices and Growth
+  - Market Size and Growth
+  - Per Capita Consumption
+  - Imports and Growth
+  - Import Prices
+  - Production, In Physical Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Production, In Value Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Production, by Country, 2025
+  - Production, In Physical Terms, by Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Physical Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Value Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Physical Terms, By Country, 2025
+  - Imports, In Physical Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Imports, In Value Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Import Prices, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Physical Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Value Terms: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Physical Terms, By Country, 2025
+  - Exports, In Physical Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Exports, In Value Terms, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+  - Export Prices, By Country: Historical Data (2012–2025) and Forecast (2026–2035)
+Recommended posts
+Free Data: Insights - World
+Instant access. No credit card needed.

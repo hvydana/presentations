@@ -1,0 +1,31 @@
+Open source SDK.
+ A single toolchain to log, transform, query, view, and train on
+            multi-rate, multimodal data.
+ A flexible framework to build with rather than a platform you can't change.
+pip install rerun-sdk
+rerun
+Visualize everything
+Review datasets, debug detail-level issues, and extend with your own views and tools for every stage of the pipeline.
+Query and transform
+Full dataframe or SQL queries over any robotics data. Extend with post-processing or annotations as easily as adding columns to a table.
+Log, store, and convert
+Store multi-rate, multimodal data as column-chunks in rrd files. Either log directly or easily convert from any other format.
+Open Source Stewardship
+We’re an active contributor to the open source projects we all love and rely on.
+Infrastructure that powers your data loop
+The production backend for the Rerun data layer. Catalog, byte-range indexing, and retrieval that turns your object stores into a queryable, streamable foundation. Run transforms on the edge or close to the data.
+Query
+Query into your recordings with SQL
+Run any SQL or dataframe query across your catalog, down into the columns, time ranges, and values inside your recordings, not just their metadata.
+Transform
+Refine your data without copies
+Add derived columns and evolve schemas without breaking history. You run the transforms with the SDK; Hub keeps the derived data and your raw recordings organized together.
+Train
+Train without an export step
+Express a dataset mix as a query and stream it to your GPUs. The dataloader is column-aware and video-codec-aware, so you train directly on your recordings.
+Share
+Everyone works from the same data
+One viewer, the same recordings, shared across the team. Explore, annotate, and trace a failure back to the data that caused it.
+News
+Spotlight: 3D reconstruction is a data layer problem
+3D reconstruction runs on multimodal, multi-rate data, and handling that data is most of the work. This is a worked example of what Rerun's data layer removes from a real project: all 5,015 ARKitScenes scans converted into recordings that the viewer, the dataframe API, and the PyTorch dataloader read directly, no export step in between.

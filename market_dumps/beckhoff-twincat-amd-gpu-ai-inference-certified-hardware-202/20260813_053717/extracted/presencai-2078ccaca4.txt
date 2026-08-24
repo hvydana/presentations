@@ -1,0 +1,58 @@
+The 2026 AI Accelerator Landscape
+NVIDIA continues to dominate AI accelerator market share in 2026 but the structure is no longer a monopoly. AMD MI300X+ ramps, Google TPU v6 expands beyond Google's internal use, AWS Trainium 2 captures inference workloads, and Apple Silicon dominates on-device inference. This page consolidates 2026 market-share data and competitive dynamics.
+Key Findings
+- NVIDIA holds an estimated 80-85 percent of data center AI accelerator market by revenue in 2026, down from approximately 92 percent in 2023, but still overwhelmingly dominant.
+- AMD market share rose to approximately 5-7 percent on the strength of MI300X and MI325X inference adoption; Microsoft and Meta are the largest deployers.
+- Google TPU represents approximately 6-8 percent of the broader market by deployed FLOPS but is concentrated within Google Cloud and Google internal workloads.
+- AWS Trainium 2 captures approximately 2-3 percent, growing fast on inference cost arbitrage; AWS internal workloads dominate.
+- On-device inference (Apple Silicon, Qualcomm Hexagon, Intel NPU) represents a separate market of approximately $25-35 billion in 2026, with Apple as the dominant single-vendor.
+Data Center AI Accelerator Market Share (estimated, 2026)
+| Vendor | Estimated revenue share | Trend vs 2024 | 
+|---|---|---|
+| NVIDIA | ~80-85% | Down from ~92% | 
+| AMD | ~5-7% | Up from ~2% | 
+| Google TPU | ~6-8% | Up modestly | 
+| AWS Trainium / Inferentia | ~2-3% | Up from ~1% | 
+| Intel (Gaudi 3) | ~1-2% | Modest growth | 
+| Cerebras / Groq / Etched / Tenstorrent | ~1% | Niche but growing | 
+| Other (Huawei Ascend, etc.) | ~2-3% | Concentrated in China | 
+NVIDIA revenue figures from NVIDIA investor disclosures (Q4 FY26 data center segment revenue exceeded $35 billion). AMD AI revenue from AMD earnings. Other vendor figures triangulated from quarterly disclosures and analyst reports.
+NVIDIA Product Mix in 2026
+| SKU | Status | Primary use | 
+|---|---|---|
+| H100 / H200 | Mature; widely available | Training, inference | 
+| B200 / GB200 NVL72 | Ramping; allocation-constrained at top end | Frontier training, large inference | 
+| RTX 5090 / RTX Pro | Available | Workstation, prosumer | 
+| DGX Spark (GB10) | Available; 2026 launch | Local AI workstation | 
+| Jetson Thor | Available | Robotics, edge AI | 
+| Rubin (next-gen, 2026-2027) | Announced | Frontier training successor to Blackwell | 
+AMD Product Mix in 2026
+| SKU | Status | Primary use | 
+|---|---|---|
+| MI300X | Mature; widely deployed at Microsoft, Meta | Inference, fine-tuning | 
+| MI325X | Available | Inference, training competitor to H200 | 
+| MI355X / MI400 | Ramping | Frontier training competitor to B200 | 
+| Strix Halo (Ryzen AI Max+) | Available | Local AI workstation, mini-PC | 
+Google TPU and AWS Trainium
+Google TPU v6 (Trillium) and TPU v7 (preview) capture meaningful share within Google Cloud workloads and Google's own AI deployments. TPU is not sold; access is GCP-only. AWS Trainium 2 competes primarily on inference cost: AWS-internal workloads (Anthropic Claude inference on AWS, AWS Bedrock) drive most volume.
+On-Device AI Silicon
+| Vendor | Product family | Position | 
+|---|---|---|
+| Apple | M5 Max / M5 Ultra / Apple Neural Engine | Dominant on Mac and iOS local AI | 
+| Qualcomm | Hexagon NPU in Snapdragon X / Snapdragon 8 Gen 4 | Android and Windows on Arm leader | 
+| Intel | Lunar Lake / Panther Lake NPU | Windows x86 leader for Copilot+ PCs | 
+| AMD | Ryzen AI XDNA | Windows x86 alternative to Intel | 
+| NVIDIA | Jetson Thor | Robotics edge | 
+|  | Tensor (in Pixel) | Pixel-only | 
+| Samsung | Exynos | Samsung devices | 
+Competitive Dynamics
+Three structural dynamics in the 2026 AI chip market:
+- NVIDIA's software moat (CUDA) remains the dominant lock-in. Hardware-only competitors close raw performance gaps; CUDA library maturity and developer mindshare keep workloads on NVIDIA. AMD ROCm progress in 2025-2026 has narrowed but not eliminated the gap.
+- Hyperscalers diversify away from NVIDIA strategically. AWS, Google, Microsoft, Meta all invest in custom silicon (Trainium, TPU, Maia, MTIA) primarily for cost arbitrage on internal workloads, less so for external customer-facing products.
+- Inference cost optimisation drives accelerator diversification faster than training. Inference workloads are more elastic to alternative hardware; training is more locked-in to CUDA.
+Brand Visibility Implications
+AI chip market share is a high-citation journalism topic; brands of accelerator competitors, AI cloud providers, and AI hardware infrastructure face material AI-mediated discovery surface. Queries like "best AI chip for inference 2026", "alternative to NVIDIA for AI", "cost-effective GPU for AI" route through AI assistants increasingly often. Brand presence in technical comparison content shapes recommendations.
+Methodology
+Market share aggregated from NVIDIA investor relations, AMD earnings, AWS quarterly reports, hyperscaler capex disclosures, and analyst reports (TrendForce, IDC, Mercury Research). Many figures are estimates because non-NVIDIA disclosures are partial. Updated quarterly as earnings release.
+How Presenc AI Helps
+Presenc AI tracks brand-mention rates inside AI assistant queries about AI chips, accelerators, and AI compute infrastructure. For brands selling AI silicon, alternative compute, or AI infrastructure services, this is the operational visibility into a high-stakes discovery surface where journalism, analysts, and procurement teams converge.

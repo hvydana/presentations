@@ -1,0 +1,19 @@
+MuJoCo
+Advanced physics simulation
+MuJoCo is a free and open source physics engine that aims to facilitate research and development in robotics, biomechanics, graphics and animation, and other areas where fast and accurate simulation is needed.
+MuJoCo offers a unique combination of speed, accuracy and modeling power, yet it is not merely a better simulator. Instead it is the first full-featured simulator designed from the ground up for the purpose of model-based optimization, and in particular optimization through contacts.
+MuJoCo makes it possible to scale up computationally-intensive techniques such optimal control, physically-consistent state estimation, system identification and automated mechanism design, and apply them to complex dynamical systems in contact-rich behaviors. It also has more traditional applications such as testing and validation of control schemes before deployment on physical robots, interactive scientific visualization, virtual environments, animation and gaming.
+Key features
+- Simulation in generalized coordinates, avoiding joint violations
+- Inverse dynamics that are well-defined even in the presence of contacts
+- Unified continuous-time formulation of constraints via convex optimization
+- Constraints include soft contacts, limits, dry friction, equality constraints
+- Simulation of particle systems, cloth, rope and soft objects
+- Actuators including motors, cylinders, muscles, tendons, slider-cranks
+- Choice of Newton, Conjugate Gradient, or Projected Gauss-Seidel solvers
+- Choice of pyramidal or elliptic friction cones, dense or sparse Jacobians
+- Choice of Euler or Runge-Kutta numerical integrators
+- Multi-threaded sampling and finite-difference approximations
+- Intuitive XML model format (called MJCF) and built-in model compiler
+- Cross-platform GUI with interactive 3D visualization in OpenGL
+- Run-time module written in ANSI C and hand-tuned for performance
