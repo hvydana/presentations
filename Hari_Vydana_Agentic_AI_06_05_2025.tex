@@ -1,0 +1,316 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[11pt,a4paper,sans]{moderncv} % Font sizes: 10, 11, or 12; paper sizes: a4paper, letterpaper, a5paper, legalpaper, executivepaper or landscape; font families: sans or roman
+
+\moderncvstyle{classic} % CV theme - options include: 'casual' (default), 'classic', 'oldstyle' and 'banking'
+\moderncvcolor{blue} % CV color - options include: 'blue' (default), 'orange', 'green', 'red', 'purple', 'grey' and 'black'
+\definecolor{blue}{rgb}{0.22,0.45,0.70}
+\usepackage{amsmath,amssymb,amsthm,enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{multicol}
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage[hyperref]{}
+\usepackage[scale=0.90]{geometry} % Reduce document margins
+
+\usepackage[colorlinks=true,urlcolor=blue]{hyperref}
+\RequirePackage{fontawesome}
+%----------------------------------------------------------------------------------------
+%	NAME AND CONTACT INFORMATION SECTION
+%----------------------------------------------------------------------------------------
+
+\firstname{Hari Krishna} % Your first name
+\familyname{Vydana} % Your last name
+\title{Tech Lead – Physical AI SDK | Agentic \& Conversational AI}
+% All information in this block is optional, comment out any lines you don't need
+%\title{Curriculum Vitae}
+\address{}{India}
+\mobile{(+91)9989017431}
+%\phone{(000) 111 1112}
+%\fax{(000) 111 1113}
+\email{harivydana@gmail.com}
+%\extrainfo{\href{https://www.linkedin.com/in/hari-krishna-vydana-0b014b87}{Linkdin}} % The first argument is the url for the clickable link, the second argument is the url displayed in the template - this allows special characters to be displayed such as the tilde in this example
+%\extrainfo{\href{https://www.linkedin.com/in/hari-krishna-vydana-0b014b87}{...}}
+%\social[linkedin][https://www.linkedin.com/in/hari-krishna-vydana-0b014b87]{Hari Krishna Vydana }
+
+\extrainfo{\href{https://www.linkedin.com/in/hari-krishna-vydana-0b014b87}{Linkedin \faExternalLink}~\\
+\href{https://scholar.google.com/citations?user=NiuFOHsAAAAJ\&hl=en}{Google scholar(H-index: 14)\faExternalLink}}
+%\extrainfo{\href{https://scholar.google.com/citations?user=NiuFOHsAAAAJ\&hl=en}{Google Scholar...}}
+
+
+%\photo[70pt][0.4pt]{pictures/picture} % The first bracket is the picture height, the second is the thickness of the frame around the picture (0pt for no frame)
+%\quote{"A witty and playful quotation" - John Smith}
+
+%----------------------------------------------------------------------------------------
+\photo[64pt][0.4pt]{profile1.jpg}
+\begin{document}
+%----------------------------------------------------------------------------------------
+%	COVER LETTER
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%	CURRICULUM VITAE
+%----------------------------------------------------------------------------------------
+\makecvtitle % Print the CV title
+\vspace{-15mm}
+\section{Scientific Interests}
+{Physical AI SDK, Edge AI Inference, Unified Inference Engines (CPU$\cdot$GPU$\cdot$NPU), Robotics Perception Pipelines, Model Optimization \& Quantization (ROCm/RyzenAI), VLA/VLM Systems, Text and Voice Agents, Multi-Agentic workflows, Dialog Systems, Speech Recognition, Large Language Models (LLMs), Multimodal LLMs, Speech-Translation, Spoken/Written Language Assessment (Ed-Tech), Machine Translation, Natural Language Processing (NLP), Text-to-Speech (TTS), Knowledge Distillation, RLHF, DPO}
+%\begin{itemize}
+%    \item[$\bullet$]{\textit{Developed an AI-powered receptionist system for automated appointment booking and organization.}}
+%    \item[$\bullet$]{\textit{DAI-Guided Opinion alignment process to help humans cooporate at scale.}}
+%\end{itemize}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+\section{Experience}
+%----------------------------------------------------------------------------------------
+%	EXPERIENCE SECTION
+%----------------------------------------------------------------------------------------
+\cventry{Feb 2026 -- Present}{Tech Lead – Physical AI SDK (Senior Member of Technical Staff)}{AMD}{Bangalore, India}{}
+{\begin{itemize}[noitemsep]
+    \item[\tiny $\bullet$] {\textbf{\textit{Vision \& Strategy}} – Conceived and owns the roadmap for \textbf{Physical AI SDK (PAVS)} — AMD's unified edge-inference platform (CPU$\cdot$GPU$\cdot$NPU) countering NVIDIA's NIM/Jetson lock-in; authored executive market analysis identifying AMD's \textbf{softpower gap}, framed the \$47.5B Physical/Voice AI opportunity (35\% CAGR), and drove internal alignment to resource the initiative.}
+    \item[\tiny $\bullet$] {\textbf{\textit{Team Leadership}} – Lead and mentor a cross-functional team of \textbf{9 engineers} across model inference, power \& performance, SDK delivery, and customer co-engineering — setting technical direction, conducting design reviews, and driving quarterly deliverables from prototype to production.}
+    \item[\tiny $\bullet$] {\textbf{\textit{SDK Architecture}} – Designed the \textbf{unified inference engine}: single API across CPU, GPU, and NPU with multi-language bindings (Python, C++, Kotlin, JavaScript) and zero-copy edge transport — reducing developer time-to-first-inference from weeks to a day.}
+    \item[\tiny $\bullet$] {\textbf{\textit{Technical Execution}} – Directed \textbf{PaDiM} optimization (1.6 $\to$ 125\,FPS, \textbf{77$\times$}, zero accuracy loss); led \textbf{SmolVLA} VLA tuning (\textbf{37\% latency reduction}, 48\,$\to$\,30\,ms on ROCm 7.2.4); operationalized MobileSAM, YOLOv12, YOLO26, CenterPoint into AARTS robotics pipelines with MIGraphX (\textbf{2$\times$} over PyTorch+ROCm).}
+    \item[\tiny $\bullet$] {\textbf{\textit{Ecosystem \& Customers}} – Defined model zoo strategy (research tarball $\to$ off-the-shelf packaged models per device); delivered ROCm + RyzenAI installer, vLLM/Llama.cpp/FastFlowLM stack, and Yocto/LTS edge support; initiated co-engineering with \textbf{Rivian} (in-car monitoring \& voice assistant) and \textbf{Google} (Gemma on LiteRT on AMD hardware).}
+\end{itemize}}
+
+
+
+
+\cventry{Dec 2025 -- July 2025}{AI Engineer}{Complex Chaos~(Through Rippling)}{Zurich, Switzerland}{}
+{\begin{itemize}[noitemsep]
+    \item[\tiny $\bullet$] {\textbf{\textit{Alignment.AI}} – Developed AI systems for Aligning Human opinions At Scale.}
+    \item[\tiny $\bullet$] {\textbf{\textit{Alignment.AI}} – Led the design and deployment of LLM-Agents for Strategy-Negotiations and Consensus building.}
+\end{itemize}}
+
+
+
+
+
+\cventry{June 2025 -- Dec 2024}{Tech Lead – Voice AI}{Telepathy AI Labs GMBH}{Zurich, Switzerland}{}
+{\begin{itemize}[noitemsep]
+    \item[\tiny $\bullet$] {\textbf{\textit{Appointment.AI}} – Developed scalable, goal-oriented multi-agent dialog systems (text/voice)  appointment booking and task management.}
+    \item[\tiny $\bullet$] {\textbf{\textit{Appointment.AI}} –  Led the design and deployment of LLM-driven agents for automated appointment scheduling with adaptive, real-time dialog capabilities .}
+    \item[\tiny$\bullet$]{\textbf{\textit{ASR \& Dialog Management}} – Engineered ASR, VAD, and dialog turn detection for real-time voice interactions.}
+    \item[\tiny$\bullet$]{\textbf{\textit{Agentic AI \& LLMs}} – Built an LLM-driven Multi-Agentic systems for automated appointment scheduling.}
+    \item[\tiny$\bullet$]{\textbf{\textit{TTS Optimization}} – Integrated cost-effective TTS models, optimizing latency and inference costs.}
+\end{itemize}}
+
+
+
+\bigskip
+\cventry{Nov 2024 -- Oct 2023}{Research Associate – ALTA Project}{University of Cambridge, UK}{}{}{
+\begin{itemize}[noitemsep]
+    \item[\tiny$\bullet$]{\textbf{\textit{ALTA Project}} - \href{https://mi.eng.cam.ac.uk/~mjfg/ALTA/index.html}{Contributed to Automated Language Teaching and Assessment (ALTA).}}
+    \item[\tiny$\bullet$] Developed \textbf{\textit{Automatic evaluation of spoken summaries using Large Language Models (LLMs)}}.
+    \item[\tiny$\bullet$] Researched \textbf{\textit{Automatic spoken language assessment with Human-in-the-Loop validation}}.
+    \item[\tiny$\bullet$]{\textbf{\textit{Distillation:}} – Distilled audio foundation models to optimize inference compute.}
+    \item[\tiny$\bullet$]{\textbf{\textit{LLM's For Analytic Scoring:}} – Proposed analytic scoring methods and benchmarked on spoken assessment.}
+    \item[\tiny$\bullet$]{\textbf{\textit{Multi-View Error Mitigation:}} – Leveraged LLMs for multi-view error correction in language assessment.}
+    \end{itemize}}
+\bigskip
+\cventry{Sept 2023 --Nov 2022}{Senior Researcher}{\href{https://www.cerence.ai/}{Cerence, Aachen, Germany}}{}{}{
+\begin{itemize}[noitemsep]
+\item[\tiny$\bullet$] Developed voice-enabled digital assistants for real-time interactions in Advanced Driver Assistance Systems.
+    \item[\tiny$\bullet$] Developed \textbf{\textit{On-Device and Cloud Speech Recognition models}} for automotive applications.
+    \item[\tiny$\bullet$] Worked on \textbf{\textit{Training/Evaluating/Benchmarking}} ASR models targeted for Automotive Domains.
+\end{itemize}}
+\bigskip
+\cventry{Oct 2022 -- Sept 2021}{Senior ASR Researcher}{\href{https://huaweifinlandrnd.teamtailor.com/}{Huawei Technologies Oy~(Through GITPS consultant), R\&D Center, Finland}}{}{}{
+\begin{itemize}[noitemsep]
+    \item[\tiny$\bullet$] Built \textbf{\textit{Voice Search models}} for \textbf{\textit{Petal Search}} in Huawei devices.
+    \item[\tiny$\bullet$] Developed and Deployed Speech and Language Models for \textbf{Voice operated Web Search}. 
+    \item[\tiny$\bullet$] Designed \textbf{\textit{On-Device ASR models}} for Huawei mobiles.
+\end{itemize}}
+
+\section{Education}
+%----------------------------------------------------------------------------------------
+%	EDUCATION SECTION
+%----------------------------------------------------------------------------------------
+
+\cventry{July 2021 -- Jan 2019}{Postdoctoral Researcher}{\href{https://speech.fit.vut.cz/}{Brno University of Technology (BUT), Brno, Czech Republic}}{}{}{
+\textbf{Research Focus:} Speech Translation Systems, End-to-End Speech Recognition \\
+\textbf{Advisors:} Doc. Ing. Lukáš Burget \& Prof. Doc. Ing. Jan Černocký
+}
+\bigskip
+\cventry{Dec 2018 -- Dec 2014}{Ph.D. in Multilingual Speech Recognition}{\href{https://www.iiit.ac.in/}{III-T Hyderabad, India}}{}{}{
+\textbf{Thesis:} Multilingual Speech Recognition for Indian Scenarios \\
+\textbf{CGPA:} 9.5/10 \quad \textbf{Advisor:} Dr. Anil Kumar Vuppala
+}
+\bigskip
+%\cventry{Jan – June 2016}{Teaching Assistant}{International Institute of Information Technology Hyderabad, India}{}{}{
+%\textbf{Course:} Speech Systems \quad \textbf{Advisor:} Dr. Anil Kumar Vuppala}
+\section{Research Projects}
+\begin{itemize}[labelwidth=2mm,labelindent=8pt,leftmargin=2cm,align=left] 
+    \item[$\bullet$] \textbf{LLMs for Managing Conversations}\\
+    \textit{\scriptsize " LLMs for Conversation Generation and Assesment."}
+    \begin{itemize}[itemsep=1mm,labelwidth=0mm,labelindent=5pt,leftmargin=1cm,align=left]
+        \scriptsize
+        \item[$\bullet$] \textbf{Voice-operated appointment booking and service systems} with multi-agent frameworks for dynamic conversations.}
+        %\item[\tiny$\bullet$] Employed \textbf{Text/Multimodal LLMs} for generating conversations and providing multi-level feedback for language assessment.
+        \item[\tiny$\bullet$] \textbf{Stefano Bano, \textbf{Hari Krishna Vydana}, Kate Knill, Mark J.F. Gales.} \newline \href{...}{\textbf{\textit{"Can GPT-4 Perform Analytic Assessment of L2 Writing?"}}} In Proc. Workshop on Innovative Use of NLP for Building Educational Applications, ACL 2024.
+        \item[$\bullet$]{Finetunig LLMs with parameter efficient training, LORA, QLORA}
+        \item[$\bullet$]{Preference training LLMS with RLHF (Reinforcement Learning with Human Feedback) and DPO(Direct Parameter Optimization).}
+        \item[\tiny$\bullet$] Developed \textbf{multi-view error mitigation systems} (LLMs), \textbf{neural text graders} (BERT, RoBERTa models)} for language assessment.
+    \end{itemize}
+%\end{itemize}
+
+
+
+\item[$\bullet$] \textbf{Transformer-based Speech Translation Systems}\\
+\textit{\scriptsize "Explored approaches to integrate ASR with NLP modules, developing models with an end-to-end differentiable path between ASR and NLP modules (MT). These models reduce error propagation across the pipeline."}
+\begin{itemize}[itemsep=1mm,labelwidth=0mm,labelindent=5pt,leftmargin=1cm,align=left]
+    \scriptsize
+    \item[\tiny$\bullet$] Developed Cascaded, End-to-End systems, and Jointly-optimized ASR-MT systems.
+    \item[\tiny$\bullet$] \textbf{Hari Krishna Vydana}, Martin Karafi'at, Lukáš Burget, Honza Černocký. \newline \href{https://arxiv.org/abs/2107.06155}{\textbf{\textit{"The IWSLT 2021 BUT Speech Translation Systems"}}}, Proceedings of the 18th International Conference on Spoken Language Translation (IWSLT 2021).
+    \item[\tiny$\bullet$] \textbf{Hari Krishna Vydana}, Martin Karafi'at, Katerina Zmolíková, Lukáš Burget, Honza Černocký. \newline \href{https://ieeexplore.ieee.org/document/9414159}{\textbf{\textit{"Jointly Trained Transformer Models for Spoken Language Translation"}}}, Proc. ICASSP, Toronto, Canada, 2021.
+\end{itemize}
+
+
+
+\item[$\bullet$] \textbf{End-to-End Automatic Speech Recognition Systems}
+\begin{itemize}[itemsep=2mm,labelwidth=0mm,labelindent=5pt,leftmargin=1cm,align=middle]
+    \item{\textbf{Speech Recognition for Indian Scenarios:}\\
+    \textit{\scriptsize "Developed ASR systems for code-mixing/code-switching environments. Proposed a model that handles recognition and text rendering separately to operate in code-mixed contexts."}}
+    \begin{itemize}[itemsep=2mm]
+        \scriptsize
+        \item[\tiny$\bullet$]{\textbf{Hari Krishna Vydana}, Krishna Gurugubelli, Vishnu Vidyadhara Raju V, and Anil Kumar Vuppala. \href{https://www.isca-speech.org/archive/pdfs/interspeech_2018/vydana18_interspeech.pdf}{\textbf{\textit{"An Exploration Towards Joint Acoustic Modeling for Indian Languages"}}}, Interspeech 2018, Hyderabad, India.}
+        \item[\tiny$\bullet$]{\textbf{Thesis:} \href{http://14.139.116.20:8080/jspui/handle/10603/246056}{\textbf{\textit{"Salient Features for Multilingual Speech Recognition in Indian Scenarios"}}}.}
+    \end{itemize}
+    \item{\textbf{Combining Hybrid and End-to-End ASR Models:}\\
+    \textit{\scriptsize "Trained End-to-End ASR systems and combined them with hybrid models to enhance performance."}}
+    \begin{itemize}[itemsep=2mm]
+        \scriptsize
+        \item[\tiny$\bullet$]{Martin Karafiát, Murali Karthick Baskar, Igor Szöke, \textbf{Hari Krishna Vydana}, Karel Veselý, and Jan Černocký. \href{https://arxiv.org/abs/2001.11360}{\textbf{\textit{"BUT Opensat 2019 Speech Recognition System"}}}, arXiv:2001.11360, 2020.}
+        \item[\tiny$\bullet$]{Katerina Zmolikova, Martin Kocour, Federico Landini, Karel Beneš, Martin Karafiát, \textbf{Hari Krishna Vydana}, Alicia Lozano-Diez, Oldrich Plchot, and Murali Karthick Baskar. \href{https://www.isca-speech.org/archive/pdfs/chime_2020/zmolikova20_chime.pdf}{\textbf{\textit{"BUT System for CHiME-6 Challenge"}}}, ICASSP 2020, Barcelona, Spain.}
+        \item[\tiny$\bullet$]{\textbf{Hari Krishna Vydana}, Sivanand Achanta, and Anil Kumar Vuppala. \href{https://www.isca-speech.org/archive/pdfs/sltu_2018/krishna18_sltu.pdf}{\textbf{\textit{"Incorporating Speaker Normalization to End-to-End ASR"}}}, SLTU 2018, India.}
+        \item[\tiny$\bullet$]{Ekaterina Egorova, \textbf{Hari Krishna Vydana}, Lukáš Burget, and Jan Černocký. \href{https://www.isca-speech.org/archive/pdfs/interspeech_2021/egorova21_interspeech.pdf}{\textbf{\textit{"Out-of-Vocabulary Words Detection in End-to-End ASR"}}}, Interspeech 2021, Brno, Czech Republic.}
+        \item[\tiny$\bullet$]{Ekaterina Egorova, \textbf{Hari Krishna Vydana}, Lukáš Burget, and Jan Černocký. \href{https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9833231}{\textbf{\textit{"Spelling-Aware Word-Based End-to-End ASR"}}}, IEEE Signal Processing Letters, 2022.}
+        %\item[\tiny$\bullet$] Self-training: Using ASR to label unsupervised data and improving performance via auto-labeled data.
+        %\item[\tiny$\bullet$] Exploring semi-supervised models for ASR (Speech-BERT, Wav2Vec, HuBERT) and MT (Mbart).
+    \end{itemize}
+\end{itemize}
+
+%\item[$\bullet$]{\textbf{Language Identification systems}\\
+%\textit{\scriptsize "Explored implicit and explicit models for developing Language Identification systems"}
+%\begin{itemize}
+%    \scriptsize
+%    \item{{Tirusha Mandava, \textbf{Hari Krishna Vydana}, Ravi Kumar Vuddagiri, Hari Krishna Vydana, Anil Kumar Vuppala,\href{https://ieeexplore.ieee.org/document/9003784}{\textbf{\textit{"An Investigation of LSTM-CTC based Joint Acoustic Model for Indian Language Identification"}}}, ASRU 2019, Sentosa, Singapore 2019.}}
+%    \item{Brij Mohan Lal Srivastava, \textbf{Hari Krishna Vydana}, Anil Kumar Vuppala and Manish Shrivastava, \href{https://ieeexplore.ieee.org/document/7966114}{\textbf{\textit{"Significance of neural phonotactic models for large-scale spoken language identification"}}}, IJCNN, Alaska USA, May 2017.}}
+%\end{itemize}
+\end{itemize}
+
+%\cventry{4.}{Language Identification in practical environments}{\newline Implict and Explicit systems}{}{}{}{}
+%----------------------------------------------------------------------------------------
+%	AWARDS SECTION
+%----------------------------------------------------------------------------------------
+\section{Evaluations participated \& Open-source Repositories}
+\cventry{}{}{}{}{}{
+\begin{multicols}{2}
+\begin{itemize}
+    \scriptsize
+    %\setlength\itemsep{0.1em} ##
+    \item[\tiny$\bullet$] \textbf{IWSLT-2020, IWSLT-2021}: Offline speech Translation~\href{https://iwslt.org/2021/}{\faExternalLink}
+    %\item[$\bullet$] IWSLT-2020: Offline speech Translation~\href{http://iwslt2020.ira.uka.de/doku.php}{\faExternalLink}
+    \item[\tiny$\bullet$] ASR Challenge for Indian English-2021: First place~\href{https://sites.google.com/view/indian-language-asrchallenge/home}{\faExternalLink}
+    \item[\tiny$\bullet$] \textbf{OPENSAT-2019 \& OPENSAT-2020 }: First place in ASR~\href{https://www.nist.gov/itl/iad/mig/openasr-challenge}{\faExternalLink}
+    %\item[$\bullet$] OPENSAT-2020: First place in ASR Track~\href{https://sat.nist.gov/openasr20}{\faExternalLink}
+    \item[\tiny$\bullet$] CHiME-6 Workshop (satellite of ICASSP 2020)~\href{https://chimechallenge.github.io/chime6/}{\faExternalLink}
+    \item[\tiny$\bullet$] Low Resource Speech Recognition Challenge for Indian Languages~(Interspeech 2018 Special Session)~\href{https://www.microsoft.com/en-us/research/event/interspeech-2018-special-session-low-resource-speech-recognition-challenge-indian-languages/}{\faExternalLink}
+\end{itemize}
+\columnbreak
+\cventry{}{Open-source Repositories}{}{}{}{
+\begin{itemize}
+    \scriptsize
+    \item[\tiny$\bullet$] \href{https://github.com/BUTSpeechFIT/ASR_Transformer}{Transformer ASR: \faExternalLink}
+    \item[\tiny$\bullet$] \href{https://github.com/BUTSpeechFIT/MT_Transformer}{Transformer-Machine Translation:\faExternalLink}
+    \item[\tiny$\bullet$] \href{https://github.com/HariKrishna-Vydana/End_to_End_ASR_V1}{End-to-End ASR:\faExternalLink}
+    \item[\tiny$\bullet$] \href{https://github.com/HariKrishna-Vydana/Joint_ASR_MT_Transformer}{Jointly-Trained Transformers\\ for Spoken Language Translation: \faExternalLink}
+\end{itemize}}
+\end{multicols}}
+
+\section{Skills}
+
+\cvitem{ML}{Agents-SDK, LangChain, LangGraph, Semantic Kernel, PyTorch, Numpy, Scipy, Pandas, Matplotlib, PyTorch Lightening, Databricks, Pipecat, LiveKit, Retell, WebRTC, Websocket.}
+\cvitem{Speech}{KALDI, EESEN, ESPNET, FAIRSEQ, NEMO, WENET, Huggingface, AZURE, OPENAI, FASTAPI, Azure Graphs, Authentications.}
+\cvitem{Data-Tools}{SQL, Mongo-DB, Pydantic, Redis, PySpark.}
+\cvitem{UX-UI}{REACT, Node.js, STREAMLIT, TWILLIO}
+%----------------------------------------------------------------------------------------
+%	COMPUTER SKILLS SECTION
+%----------------------------------------------------------------------------------------
+
+%----------------------------------------------------------------------------------------
+%	COMMUNICATION SKILLS SECTION
+%----------------------------------------------------------------------------------------
+\section{Publications}
+\setlength{\parskip}{0.01em}
+\cventry{}{Link for the complete list of papers:}{\href{https://scholar.google.com/citations?user=NiuFOHsAAAAJ&hl=en}{Google scholar~\faExternalLink}}{}{}{}{}
+
+%\subsection{Conferences [2017-2021]}
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Martin Karafi'at, Luk'as Burget, and Honza Cernocky. ~\textbf{\textit{"The IWSLT 2021 BUT Speech Translation Systems"}}, In Proceedings of the 18th International Conference on Spoken Language Translation}
+
+%\cventry{}{}{}{}{}{Ekaterina Egorova, \textbf{Hari Krishna Vydana}, Lukáš Burget, and Jan Černocký.\textbf{\textit{"Out-of-Vocabulary Words Detection with Attention and CTC Alignments in an End-to-End ASR System."}} In Proc. Interspeech, Brno, Czech Republic 2021, pp.2901-2905.}}
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Martin Karafi'at, Katerina Zmolikova, Luk'as Burget, and Honza Cernocky. \textbf{\textit{"Jointly Trained Transformers models for Spoken Language Translation."}} In Proc.ICASSP Toronto, Canada,2021.}
+
+%\cventry{}{}{}{}{}{Martin Karafiát, Murali Karthick Baskar, Igor Szöke, \textbf{Hari Krishna Vydana}, Karel Veselý, and Jan Černocký. \textbf{\textit{"BUT Opensat 2019 Speech Recognition System."}} arXiv preprint arXiv:2001.11360 (2020).}
+
+%\cventry{}{}{}{}{}{Katerina Zmolikova, Martin Kocour, Federico Landini, Karel Beneš, Martin Karafiát, \textbf{Hari Krishna Vydana}, Alicia Lozano-Diez, Oldrich Plchot, and Murali Karthick Baskar. \textbf{\textit{"BUT System for CHiME-6 Challenge."}}, The 6th CHiME Speech Separation and Recognition Challenge, In Proc. ICASSP 2020, Barcelona, Spain, 2020}
+
+%\cventry{}{}{}{}{}{Tirusha Mandava, \textbf{Hari Krishna Vydana}, Ravi Kumar Vuddagiri, Hari Krishna Vydana, Anil Kumar Vuppala,\textbf{\textit{"An Investigation of LSTM-CTC based Joint Acoustic Model for Indian Language Identification"}}, ASRU 2019, Sentosa, Singapore2019.}
+
+
+
+%\cventry{}{}{}{}{}{Lucas Ondel, \textbf{Hari Krishna Vydana}, Lukáš Burget, and Jan Černocký. \href{https://arxiv.org/pdf/1904.03876.pdf}{\textbf{\textit{"Bayesian Subspace Hidden Markov Model for Acoustic Unit Discovery."}}} Interspeech 2019, Graz, Austria, Sep 2019.}
+
+
+
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Krishna Gurugubelli, Vishnu Vidyadhara Raju V and Anil Kumar Vuppala,~\textbf{\textit{An Exploration Towards Joint Acoustic Modeling for Indian Languages: IIIT-H submission for Low Resource Speech Recognition Challenge for Indian languages"}}, Interspeech 2018, Hyderabad, India, Sep 2018.}
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Sivanand Achanta and Anil Kumar Vuppala, \textbf{\textit{"Incorporating Speaker Normalizing Capabilities to an End-to-End Speech Recognition System"}}, In.Proc. $6^{th}$ workshop on Spoken Language Technologies for Under resourced Languages SLTU 2018, India, Aug 2018}
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Sivanand Achanta and Anil Kumar Vuppala, \textit{"Incorporating Speaker Normalizing Capabilities to an End-to-End Speech Recognition System"}, In.Proc. $6^{th}$ workshop on Spoken Language Technologies for Under resourced Languages SLTU 2018, (Satellite workshop in Interspeech 2018) India, Aug 2018}
+
+%\cventry{}{}{}{}{}{Ravi Kumar Vuddagiri, \textbf{Hari Krishna Vydana}, and Anil Kumar Vuppala, \textbf{\textit{"Improved Language Identification using Stacked SDC Features and Residual Neural Network"}}, In Proc.$6^th$ workshop on Spoken Language Technologies for Under resourced Languages SLTU 2018, India, Aug 2018}
+
+%\cventry{}{}{}{}{}{Ravi Kumar Vuddagiri, \textbf{Hari Krishna Vydana}, and Anil Kumar Vuppala, \textit{"Improved Language Identification using Stacked SDC Features and Residual Neural Network"}, In Proc.$6^th$ workshop on Spoken Language Technologies for Under resourced Languages SLTU 2018, (Satellite workshop in Interspeech 2018) India, Aug 2018}
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Anil Kumar Vuppala \href{https://ieeexplore.ieee.org/document/8081266}{\textbf{\textit{"Residual Neural Networks for Speech Recognition''}}} In Proc. EUSIPCO 2017 Kos Island,Greece}
+
+
+
+%\cventry{}{}{}{}{}{Brij Mohan Lal Srivastava, \textbf{Hari Krishna Vydana}, Anil Kumar Vuppala and Manish Shrivastava, \textbf{\textit{"Significance of neural phonotactic models for large-scale spoken language identification"}}, IJCNN, Alaska USA, May 2017.}
+
+
+%\subsection{Journals}
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Anil Kumar Vuppala \href{https://asa.scitation.org/doi/10.1121/1.4967517}{\textbf{\textit{"Detection of Fricatives using S-Transform''.}}} Journal of the Acoustical Society of America (JASA), Vol 140, no.5, 2016.}
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Sudarsana Reddy Kadiri and Anil Kumar Vuppala \href{https://link.springer.com/article/10.1007/s00034-015-0134-1}{\textbf{\textit{"Vowel Based Non-Uniform Prosody Modification for Emotion Conversion".}}} Springer Circuits, systems and signal processing, Volume 35, No.5, pp.1643-1663, 2016.}
+
+
+%\cventry{}{}{}{}{}{\textbf{Hari Krishna Vydana}, Sudarsana Reddy Kadiri and Anil Kumar Vuppala \textit{"Vowel Based Non-Uniform Prosody Modification for Emotion Conversion".} Springer Circuits, systems and signal processing, Volume 35, No.5, pp.1643-1663, 2016.}
+
+%\item {{\bf Hari Krishna Vydana}, Anil Kumar Vuppala ``Detecting Fricatives by Spectral Weighting'' (under review Speech Communication.}
+ 
+%\cventry{}{}{}{}{}{Vuddagiri Ravi Kumar, \textbf{Hari Krishna Vydana}, and Anil Kumar Vuppala. \textbf{\textit{Curriculum learning based approach for noise robust language identification using DNN with attention."}} Expert Systems with Applications 110 (2018): 290-297.}
+
+%----------------------------------------------------------------------------------------
+
+%\section{Dissemination Activities}
+%\cventry{}{Reviewer for}{Interspeech}{}{}{}{}
+%\cventry{}{Reviewer for}{ICASSP}{}{}{}{}
+%\begin{comment}
+%\section{References}
+%\begin{multicols*}{4}
+%\cventry{}{Honza Černocký}{\newline Associate Professor}{\newline
+%Head of Department}{\newline cernocky@fit.vutbr.cz}{\newline  Brno University of Technology}
+%\cventry{}{Anil Kumar Vuppala}{\newline Associate Professor}{\newline anil.vuppala.iiit.ac.in}{\newline IIIT Hyderabad}{}
+%\cventry{}{Suryakanth. V. Gangashetty}{\newline Professor}{\newline suryakanthvgangashetty@gmail.com}{\newline K L University}{}
+%\end{multicols*}
+%\end{comment}
+\end{document}
