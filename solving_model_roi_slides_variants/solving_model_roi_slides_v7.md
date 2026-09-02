@@ -484,7 +484,9 @@ We lose the deal <strong>before</strong> hardware economics enter the conversati
 
 ## 5 · The Insight: The Target Is Already Known
 
-<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">When the models and target numbers are published, closing the gap becomes bounded, measurable work.</div>
+### This Isn't Open-Ended Research — the Answer Sheet Is Public
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">When the models and their target numbers are already published, closing the gap becomes bounded, measurable work.</div>
 
 <div class="columns">
 <div>
@@ -517,6 +519,9 @@ Known target + available compute → the task collapses to <strong>solving the d
 </div>
 </div>
 
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">Known target + our compute → the job collapses to one thing: <span style="color:#4caf50;">solving the data problem at scale.</span></span>
+</div>
 
 ---
 
@@ -524,14 +529,16 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 ## 6 · The Proposal: An AMD-Wide Model Training Challenge
 
-<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Convert one multi-year bill into a cohort of motivated engineers, pointed at a scored target.</div>
+### Crowdsource the Engineering Cycles PAVS Cannot Hire Overnight
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Convert one impossible multi-year bill into thousands of motivated engineer-hours, pointed at a scored target.</div>
 
 <div style="display:flex; align-items:stretch; justify-content:center; gap:8px; margin:10px 0;">
   <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Pick a target model</strong><br><span style="font-size:0.82em; color:#ccc;">from the known NGC-parallel set</span></div>
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
   <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Train on AMD compute</strong><br><span style="font-size:0.82em; color:#ccc;">clusters PAVS brokers</span></div>
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;">per-category/model webpage</span></div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;">per-category, public webpage</span></div>
   <div style="display:flex; align-items:center; color:#4caf50; font-weight:bold;">&#8594;</div>
   <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;">top 3–4 teams per category</span></div>
 </div>
@@ -541,9 +548,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 **The mechanics**
 
-- A **leaderboard per category/model** (perception · manipulation · VLA · SLAM …)
-- A **webpage** tracking the top teams and their models
-- Each **new #1 notifies every participant** — winner + solution shared — keeping the field competitive
+- A **leaderboard per category** (perception · manipulation · VLA · SLAM …)
+- A **public webpage** tracking the top teams and their models
 - **Top 3–4 teams** get to **publish their work** under AMD
 - PAVS **reproduces and certifies** the model + performance
 
@@ -559,6 +565,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 </div>
 </div>
 
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">Not a headcount request — a <span style="color:#4caf50;">challenge:</span> the org contributes the cycles <span style="color:#4caf50;">no single BU could fund.</span></span>
 </div>
 
 ---
@@ -566,6 +574,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 <!-- _class: smallest -->
 
 ## 7 · Challenges Have Closed Big Capability Gaps Before
+
+### The Precedent That De-Risks This Proposal
 
 <div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">We're not guessing this works — a scored, public target has repeatedly closed gaps no single roadmap could.</div>
 
@@ -583,7 +593,6 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 </div>
 <div>
-
 
 <div style="background:#2a2a2a; border:1px solid #4caf50; border-radius:8px; padding:12px; height:100%;">
 <div style="color:#4caf50; font-weight:bold; font-size:1.1em;">DARPA Grand Challenge</div>
@@ -733,7 +742,7 @@ Each category has a <strong>concrete, scored finish line</strong> — replicate 
 - Send an **org-wide call** for the right technical solutions
 - The right solution that reaches us → **we help take it to market**
 - **Reproduce, evaluate, and certify** each model + its performance
-- Curate the leaderboard and the **model webpage**
+- Curate the leaderboard and the **public model webpage**
 
 </div>
 <div>
@@ -803,7 +812,7 @@ Each category has a <strong>concrete, scored finish line</strong> — replicate 
 ## Sanction an **AMD-wide model-training challenge**, organized by PAVS
 
 <div style="display:flex; justify-content:center; gap:16px; margin-top:20px; font-size:0.62em;">
-  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:8px; padding:14px 18px; width:230px;"><strong style="color:#4caf50;">Bless the format</strong><br>org-wide challenge + per-category leaderboards + webpage</div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:8px; padding:14px 18px; width:230px;"><strong style="color:#4caf50;">Bless the format</strong><br>org-wide challenge + per-category leaderboards + public webpage</div>
   <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:8px; padding:14px 18px; width:230px;"><strong style="color:#5dade2;">Unlock the compute</strong><br>endorse PAVS brokering ALOLA &amp; AMD-wide clusters to participants</div>
   <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:8px; padding:14px 18px; width:230px;"><strong style="color:#ff9800;">Back the incentive</strong><br>let winning work count as an AMD contribution &amp; go to market via PAVS</div>
 </div>

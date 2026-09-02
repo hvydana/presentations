@@ -541,7 +541,7 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 **The mechanics**
 
-- A **leaderboard per category/model** (perception · manipulation · VLA · SLAM …)
+- A **leaderboard per category** (perception · manipulation · VLA · SLAM …)
 - A **webpage** tracking the top teams and their models
 - Each **new #1 notifies every participant** — winner + solution shared — keeping the field competitive
 - **Top 3–4 teams** get to **publish their work** under AMD
@@ -559,6 +559,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 </div>
 </div>
 
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">Not a headcount request — a <span style="color:#4caf50;">challenge:</span> the org contributes the cycles <span style="color:#4caf50;">no single BU could fund.</span></span>
 </div>
 
 ---
@@ -566,6 +568,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 <!-- _class: smallest -->
 
 ## 7 · Challenges Have Closed Big Capability Gaps Before
+
+### The Precedent That De-Risks This Proposal
 
 <div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">We're not guessing this works — a scored, public target has repeatedly closed gaps no single roadmap could.</div>
 
@@ -583,7 +587,6 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 </div>
 <div>
-
 
 <div style="background:#2a2a2a; border:1px solid #4caf50; border-radius:8px; padding:12px; height:100%;">
 <div style="color:#4caf50; font-weight:bold; font-size:1.1em;">DARPA Grand Challenge</div>

@@ -567,6 +567,8 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 ## 7 · Challenges Have Closed Big Capability Gaps Before
 
+### The Precedent That De-Risks This Proposal
+
 <div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">We're not guessing this works — a scored, public target has repeatedly closed gaps no single roadmap could.</div>
 
 <div class="columns-3">
@@ -583,7 +585,6 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 </div>
 <div>
-
 
 <div style="background:#2a2a2a; border:1px solid #4caf50; border-radius:8px; padding:12px; height:100%;">
 <div style="color:#4caf50; font-weight:bold; font-size:1.1em;">DARPA Grand Challenge</div>
