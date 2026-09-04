@@ -22,7 +22,7 @@
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INPUT="${1:-Physical_AI_SDK_v2.md}"
+INPUT="${1:-aig_models_collab.md}"
 
 # Resolve input to an absolute path (relative paths are relative to this dir).
 case "$INPUT" in

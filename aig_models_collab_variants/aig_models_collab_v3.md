@@ -145,13 +145,18 @@ GEAK is the kernel-optimizing part of Hyperloom (other parts create traces, etc.
 - An optimized NPU model → step toward an NPU-Hyperloom
 - <span class="violet">AIG-M</span> to allocate an engineer to on-board us on GEAK
 
-**2. World Action Robotic Models** (*<span style="color:#4caf50">Srini · Hari</span>*)
+
+**2. World Action Robotic Models**
 - <span class="violet">AIG-M</span> developing & optimizing these now (trending soon)
 - PAVS to understand, integrate & benchmark on Edge HW
 
-**3. Synthetic Data Generation** (*<span style="color:#4caf50">Ravi · Kush · Hari</span>*)
+*<span style="color:#4caf50">Srini · Hari</span>*
+
+**3. Synthetic Data Generation**
 - <span class="violet">AIG-M</span> expertise in optimizing Genesis-style simulators
 - PAVS robotics / sim-to-real can benefit
+
+*<span style="color:#4caf50">Ravi · Kush · Hari</span>*
 
 **4. Kernel Generation**
 - <span class="violet">AIG-M</span> has proposed kernel-generation expertise
@@ -164,8 +169,8 @@ GEAK is the kernel-optimizing part of Hyperloom (other parts create traces, etc.
 
 **<span style="color:#ff9800">5. Assets Exchange — schedule a robotics session</span>**
 - <span class="violet">AIG-M</span> wants to learn PAVS assets: AMD-ROS pipelines, AMD-cUROBO motion planner
-- <span style="color:#4caf50"> Setting up a walkthrough with the robotics team could help more collaboration and more AIG-Users for Robotics Team **<span class="violet">PAVS-Robotics-DEV</span>**</span>
-- They're interested in latest model development for edge deployment (**<span class="violet">PAVS-AI-DEV</span>**)
+- Set up a walkthrough with the robotics team
+- They're interested in latest model development for edge deployment
 
 **<span style="color:#ff9800">6. Customer Gateway — HW access</span>**
 - <span class="violet">AIG-M</span> sees PAVS as their gateway to customers
