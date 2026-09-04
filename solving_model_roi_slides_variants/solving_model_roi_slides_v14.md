@@ -138,7 +138,6 @@ style: |
   h1 {
     font-size: 1.8em;
     font-weight: bold;
-    color: #4caf50;
     border-bottom: 3px solid #3498db;
     padding-bottom: 0.2em;
     margin-bottom: 0.5em;
@@ -146,7 +145,6 @@ style: |
 
   h2 {
     font-size: 1.4em;
-    color: #4caf50;
     margin-top: 0;
   }
 
@@ -316,7 +314,7 @@ style: |
 
 <!-- _class: lead -->
 
-# <span style="color:#4caf50;">Solving the Model Gap</span>
+# Solving the Model Gap
 
 ## Why does cheaper, better silicon not win by itself?
 
@@ -509,7 +507,7 @@ Producing a replica of a known target is <strong>bounded, measurable work</stron
 
 <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
   <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 12px;"><strong style="color:#4caf50;">Compute — we already have it</strong><br><span style="font-size:0.88em; color:#ccc;">AMD-wide clusters (ALOLA &amp; others); PAVS can broker access</span></div>
-  <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">synthetic generation</strong> · <strong style="color:#fff;">pooled + curated open data</strong> · <strong style="color:#fff;">semi-supervised for the task</strong> · <strong style="color:#fff;">pseudo-labels from large OSS models</strong> · &amp; more</span></div>
+  <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">the "1M open episodes vs trillions of tokens" gap in physical AI</span></div>
 </div>
 
 <div class="highlight-box">
@@ -533,9 +531,9 @@ Known target + available compute → the task collapses to <strong>solving the d
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
   <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Train on AMD compute</strong><br><span style="font-size:0.82em; color:#ccc;">clusters PAVS brokers</span></div>
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;">per-model webpage</span></div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;">per-category/model webpage</span></div>
   <div style="display:flex; align-items:center; color:#4caf50; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;">top 3–4 teams per model</span></div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;">top 3–4 teams per category</span></div>
 </div>
 
 <div class="columns">
@@ -543,7 +541,7 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 **The mechanics**
 
-- A **leaderboard per model** (grouped: perception · manipulation · VLA · SLAM …)
+- A **leaderboard per category/model** (perception · manipulation · VLA · SLAM …)
 - A **webpage** tracking the top teams and their models
 - Each **new #1 notifies every participant** — winner + solution shared — keeping the field competitive
 - **Top 3–4 teams** get to **publish their work** under AMD
@@ -708,7 +706,6 @@ Each NGC model has a <strong>concrete, scored finish line</strong> — replicate
 <div style="color:#ff9800; font-weight:bold; font-size:1.15em; margin-bottom:6px;">AMD (Org)</div>
 
 - The **ecosystem gap closes fast** — target is known
-- A growing **pool of curated datasets** — one team's data &amp; models **catalyze the next**
 - **Idle compute** (ALOLA &amp; others) gets **popularized**
 - A pipeline of **market-ready, AMD-native models**
 - Engagement without a **single-BU budget line**
@@ -815,12 +812,12 @@ Each NGC model has a <strong>concrete, scored finish line</strong> — replicate
 **What we need from leadership**
 
 <div class="highlight-box" style="border-left-color:#4caf50;">
-An <strong>org-wide email</strong> endorsing the challenge — the signal that gives the effort <strong>traction</strong>.
+An <strong>org-wide email</strong> endorsing the challenge — the signal that gives trction <strong>count</strong>
 </div>
 
-![w:260](./contibutors/Upperlevel_management.png)
+![w:270](./contibutors/Upperlevel_management.png)
 
-<div style="font-size:0.82em; color:#888;">The push </div>
+<div style="font-size:0.82em; color:#888;">The push 
 
 </div>
 <div>

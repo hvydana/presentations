@@ -138,7 +138,6 @@ style: |
   h1 {
     font-size: 1.8em;
     font-weight: bold;
-    color: #4caf50;
     border-bottom: 3px solid #3498db;
     padding-bottom: 0.2em;
     margin-bottom: 0.5em;
@@ -146,7 +145,6 @@ style: |
 
   h2 {
     font-size: 1.4em;
-    color: #4caf50;
     margin-top: 0;
   }
 
@@ -316,7 +314,7 @@ style: |
 
 <!-- _class: lead -->
 
-# <span style="color:#4caf50;">Solving the Model Gap</span>
+# Solving the Model Gap
 
 ## Why does cheaper, better silicon not win by itself?
 
@@ -509,7 +507,7 @@ Producing a replica of a known target is <strong>bounded, measurable work</stron
 
 <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
   <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 12px;"><strong style="color:#4caf50;">Compute — we already have it</strong><br><span style="font-size:0.88em; color:#ccc;">AMD-wide clusters (ALOLA &amp; others); PAVS can broker access</span></div>
-  <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">synthetic generation</strong> · <strong style="color:#fff;">pooled + curated open data</strong> · <strong style="color:#fff;">semi-supervised for the task</strong> · <strong style="color:#fff;">pseudo-labels from large OSS models</strong> · &amp; more</span></div>
+  <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">the "1M open episodes vs trillions of tokens" gap in physical AI</span><br><span style="font-size:0.85em; color:#aaa;">Close it with <strong style="color:#fff;">synthetic generation</strong> · <strong style="color:#fff;">pooled + curated open data</strong> · <strong style="color:#fff;">semi-supervised for the task</strong> · <strong style="color:#fff;">pseudo-labels from large OSS models</strong> · &amp; more</span></div>
 </div>
 
 <div class="highlight-box">

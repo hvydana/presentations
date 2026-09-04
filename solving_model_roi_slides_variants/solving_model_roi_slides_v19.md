@@ -316,9 +316,9 @@ style: |
 
 <!-- _class: lead -->
 
-# <span style="color:#4caf50;">Solving the Model Gap</span>
+# Solving the Model Gap
 
-## Why does cheaper, better silicon not win by itself?
+## Why does cheaper, better silicon does not win by itself?
 
 **AMD-Sourcing the Engineering Cycles to Close NVIDIA's Physical-AI Lead -- A proposal**
 
