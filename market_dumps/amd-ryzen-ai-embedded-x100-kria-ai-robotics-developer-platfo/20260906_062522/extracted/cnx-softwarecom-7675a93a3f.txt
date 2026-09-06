@@ -1,0 +1,73 @@
+AMD has announced a range of new AI solutions at Advanced AI 2026, including 6th Gen AMD EPYC CPUs, AMD Instinct MI400 Series GPUs, and AMD Helios AI rackscale solutions designed for data centers. In this article, we’ll focus instead on embedded and physical AI solutions like the new Ryzen AI Embedded X100 processor family and a new Kria AI SoM integrated into the Kria AI Robotics Developer Platform pairing an X100 embedded CPU with a Kria FPGA.
+AMD Ryzen AI Embedded X100
+AMD first introduced the Ryzen AI Embedded X100 family when it launched the Ryzen AI Embedded P100 family in January 2026, delivering up to 50 TOPS of AI performance. However, at the time there were very few details about the X100 family, just that it would offer higher CPU core counts and AI TOPS performance, and this latest announcement fixes that.
+AMD claims the new X100 series processors are expected to deliver up to 2.1x higher multithread CPU performance (CoreMark), an 1.7x graphics performance uplift (OpenGL, GFXBench 5.0.0), and 3.5x higher token generation throughput with 1.4x faster time-to-first-token (TTFT on llama-bench) for accelerating physical AI workloads compared to equivalent Intel Core Ultra Series 3 processors.
+Compared to the NVIDIA Jetson Thor T5000 platform, the Ryzen AI Embedded X100 Series processors deliver up to 3x higher peak FP32 performance and an average of 1.7x higher performance compared to discrete GPUs like NVIDIA RTX 4000 Ada on workloads such as beamforming for advanced medical ultrasound.
+Six models are currently available in the Ryzen AI Embedded X100 family: AMD Ryzen AI X199, X188, and X168, and the industrial-grade equivalent: X199i, X188i, and X168i. All feature Zen 5 cores, an up to 50 TOPS NPU, and a TDP of 55 Watts.
+| Name | CPU Cores | Max Freq. | GPU CU | Temperature Range | 
+|---|---|---|---|---|
+| AMD Ryzen AI Embedded X199 | 16 | 5.1 GHz | 40 | 0-105°C | 
+| AMD Ryzen AI Embedded X199i | 16 | 5.1 GHz | 40 | -40-105°C | 
+| AMD Ryzen AI Embedded X188 | 12 | 5 GHz | 32 | 0-105°C | 
+| AMD Ryzen AI Embedded X188i | 12 | 5 GHz | 32 | -40-105°C | 
+| AMD Ryzen AI Embedded X168 | 8 | 5 GHz | 32 | 0-105°C | 
+| AMD Ryzen AI Embedded X168i | 8 | 5 GHz | 32 | -40-105°C | 
+Other shared specifications:
+- Memory – LPDDR5x-8533 up to 8 channels with Link-ECC
+- HW Video Encode / Decode – up to 4K @60Hz
+- Display Interfaces – Up to 5 ports using HDMI 2.1, DP 2.0, eDP v1.4, DVI, and USB4 up to 8K (7680×4320) @ 60 FPS
+- USB – 2x USB4, 2x USB 3.2, 3x USB 2.0
+- PCIe – 16-lane PCIe Gen4
+- Low Speed Interfaces – I2C, SMBus, SPI, UART
+- Package – 45 x 37.5 mm
+- Reliability – Standard: 2.5 years; extended: 10 years
+The new family is supported by an open software stack, which includes Linux, the AMD ROCm software stack for iGPU workload acceleration, Xen Hypervisor for virtualization, and support for standard AI frameworks like PyTorch, ONNX, and TensorFlow. The company is also offering tools to migrate existing codebases from CUDA to ROCm.
+Sampling of Ryzen AI Embedded X100 Series processors began in June 2026, but mass production is scheduled for Q4 2026, and they will be available for purchase at least until 2037. System-on-modules from Arbor, Congatec, iBase, IEI, Sapphire, and Seavo are also planned. Additional information can be found on the product page and in the announcement.
+Kria AI SOM and AI Robotics Developer Platform
+AMD also launched a new Kria AI SOM system-on-module based on the X100 CPU along with the Kria AI Robotics Developer Platform.
+The AMD Kria AI SOM is a COM-HPC module based on the AMD Ryzen AI Embedded X100, but contrary to earlier Kria modules, there’s no FPGA on the module itself
+AMD Kria AI SoM key features:
+- SoC – 16-Core ”Zen 5” CPU with AMD RDNA 3.5 iGPU, AMD XDNA 2 NPU (not sure why AMD didn’t mention the SKU here, but “advanced detective work” implies it’s the AMD Ryzen AI Embedded X199…
+- System Memory – 64GB or 128 GB LPDDR5x unified memory
+- Camera support – Up to 8x camera inputs via FAKRA connectors (on the carrier)
+- Interfaces – CAN-FD, RS485, 10GbE QSFP
+AMD says the Kria AI SOM can scale up to 234 concurrent agents and make up to 8,000 decisions per second based on tests using mimik Agentix computer benchmarking and a Bosch Rexroth controller, respectively.
+The Kria AI SOM is integrated into a robotics developer platform, which has an FPGA on the carrier board, with the following specifications:
+- System-on-Module – AMD Kria AI SoM described above with X199 16-core CPU, 64GB or 128GB LPDDR5X memory
+- FPGA – Unspecified Spartan UltraScale+ FPGA
+- Storage – M.2 NVMe SSD socket
+- Display – 2x Mini DisplayPort
+- Camera
+  - 1x FAKRA x4 camera (GMSL2/3)
+  - 1x FAKRA x4 camera (GMSL1/2)
+- Audio
+  - 3.5mm audio jack
+  - A2B (Automotive Audio Bus)
+- Networking
+  - 2x 5Gbps Ethernet RJ45 ports
+  - 2x Gigabit Ethernet RJ45 ports (EtherCAT/TSN)
+  - 10GbE (x4) QFSP cage
+  - Optional WiFi and Bluetooth
+- USB
+  - 2x USB4 Type-C ports
+  - 3x USB 3.2 Type-C ports
+  - 2x USB 2.0 Type-A ports
+- Serial – 2x CAN-FD,RS485
+- I/O Expansion
+  - 1x Oculink PCIe connector
+  - M.2 (NVMe SSD) 2280 Key-M socket
+  - M.2 (WiFi/Bluetooth) 2230 Key-E socket
+  - Pmod connector
+- Misc – Inertial Measurement Unit (IMU)
+The AMD Kria AI SOMs will be available from ODM partners starting in Q4 2026, and the Kria AI Robotics Developer Platform is sampling with early access customers, while generally available is also planned for Q4 2026. The developer platform may have different names depending on the vendor, and I just received an email from Sapphire about their EDGE+ Apex SOM/Carrier Robotics Platform based on the same design (no product page yet). More details can be found on the product page and in the announcement specific to the Kria AI SoM and devkit. While no pricing has been announced, it will compete against the Jetson AGX Thor Developer Kit, so expect $5,000+ for the new AMD Developer Platform.
+Jean-Luc started CNX Software in 2010 as a part-time endeavor, before quitting his job as a software engineering manager, and starting to write daily news, and reviews full time later in 2011.
+Support CNX Software! Donate via cryptocurrencies, become a Patron on Patreon, or purchase goods on Amazon or Aliexpress. We also use affiliate links in articles to earn commissions if you make a purchase after clicking on those links.
+It’s probably good for the future of the “Halo” mega APUs that AMD is trying to shove them in everything. More of them will get made, they will become cheaper (note that they use a custom Zen 5 chiplet with InFO-oS die-to-die interconnect directly contacting the I/O chiplet, not shared with other Zen 5 products), and AMD should improve the formula as they release new versions such as Medusa Halo (Zen 6) and Grimlock Halo (Zen 7). AMD may have been unprepared for an AI/embedded focus of Strix Halo when it was designed years ago. Intel’s Panther Lake has lower… Read more »
+8 channels, so that would be 540 GB/s, that’s a nice improvement and it starts to close the gap with entry-level GPUs while allowing to stuff more RAM than most GPUs support. Of course at $5K there start to be some reasonable GPU-based options as well.
+Nope, it should be “8 channels” as in 32-bit LPDDR5X channels, with the same 256-bit bus corresponding to eight memory chips like all other Strix Halo products. 273 GB/s bandwidth because of 8533 MT/s memory (older products are limited to 256 GB/s and 8000 MT/s, probably artificially). If AMD were able to suddenly and cheaply double the bus width and memory bandwidth, they would probably have done that for the Gorgon Halo refresh to boost its AI performance. Since this supports 8533 MT/s, you could consider it a Gorgon Halo product. Maybe they will allow customers to get up to… Read more »
+If that’s true, then it’s just again pure marketing shit, because in the x86 world, “channel” has meant “64-bit” for a very very long time now, and they know this very well, especially since they advertised 4 channels on the 395.
+It’s confirmed on an AMD blog post @ https://www.amd.com/en/blogs/2026/amd-ryzen-ai-embedded-x100-series-consolidating-compute.html
+Ah good find! I have been looking for this and failed to. Even their spec didn’t say a word about it beyond “8 LPDDR5X channels”.
+It’s unfortunate and we should just have the total bus width listed for all products to prevent confusion, along with a calculation of the memory bandwidth if available.
+Oh, and if you wanted to really overcomplicate things, you could throw ECC into the mix, since it requires more bits.
+It’s fortunate that the marketing team doesn’t know they can count about 12.5% more BW by counting ECC in it, otherwise they’d advertise it as part of the total bandwidth to go over 300GB/s…

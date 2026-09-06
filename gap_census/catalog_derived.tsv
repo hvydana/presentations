@@ -1,0 +1,27 @@
+id	layer	capability	vendor	component	ref_url	notes
+C290	L4	VLA-specific model registry + safety-gated rollout	NONE	(whitespace) VLA lifecycle/MLOps platform	derived:grid-sweep	derived — L3 ships policies, L4 has no policy-aware lifecycle tool
+C291	L4	robot fleet inference observability (Hz, per-joint latency, action drift)	NONE	(whitespace) robot inference observability layer	derived:grid-sweep	derived — L1 emits runtime telemetry, L4 has no consumer for it
+C292	L4	fleet-scale demonstration data curation (dedup, quality scoring, active learning)	NONE	(whitespace) data-intelligence / fleet curation layer	derived:grid-sweep	derived — L3 datasets exist at scale, no curation tooling above them
+C293	L4	accelerator profiler exported into ROS 2 tracing	NONE	(whitespace) RocProfiler/DCGM-to-ROS 2 exporter	derived:grid-sweep	derived — profilers exist (L0/L1), ROS tracing exists, nothing bridges them
+C294	L3	published VLA inference Hz benchmark on non-NVIDIA silicon	NONE	(whitespace) vendor-neutral VLA Hz benchmark suite	derived:grid-sweep	derived — benchmark methodology exists for LLMs, not for robot policies
+C295	L2	integrated authoring + physics + rendering simulation platform (non-NVIDIA)	NONE	(whitespace) integrated open sim platform	derived:grid-sweep	derived — Genesis/MuJoCo/Gazebo each cover a slice, none bundles all three
+C296	L2	differentiable physics usable for policy gradient training	NONE	(whitespace) production differentiable physics	derived:grid-sweep	derived — incomplete on every backend incl. CUDA, not just ROCm
+C297	L1	robotics inference SDK combining ROS 2 + INT8 + VLA + low latency	NONE	(whitespace) vendor-neutral robotics inference SDK	derived:grid-sweep	derived — Kenning and vla.cpp each miss 2+ criteria
+C298	L1	single recommended inference execution path per accelerator vendor	NONE	(whitespace) inference-path decision tree	derived:grid-sweep	derived — fragmentation across EPs is a documentation/governance gap
+C299	L0	open ML compiler targeting embedded NPU/AI-engine tiles	NONE	(whitespace) open compiler path to embedded NPU	derived:grid-sweep	derived — TVM/MLC target GPUs, vendor NPU toolchains are closed
+C300	L0	reference robotics SDK stack shipped with edge AI hardware at launch	NONE	(whitespace) day-one edge robotics SDK bundle	derived:grid-sweep	derived — hardware ships before its SDK layer exists
+C301	L0	FPGA real-time control loop callable from ROS 2/Python	NONE	(whitespace) FPGA control-loop high-level API	derived:grid-sweep	derived — building blocks exist, last-mile packaging does not
+C302	L5	functional-safety certification covering AI-inference tiles (not just fabric)	NONE	(whitespace) certified AI-inference safety envelope	derived:grid-sweep	derived — existing certs stop at deterministic fabric
+C303	L5	accredited third-party AI-robotics systems inspection lab	NONE	(whitespace) independent AI systems inspection lab	derived:grid-sweep	derived — only one vendor-run instance exists industry-wide
+C304	L5	safety standard for dynamically-balanced humanoids	NONE	(whitespace) humanoid safety standard participation	derived:grid-sweep	derived — standard is at committee-draft stage, participation window open
+C305	L6	accelerator-vendor presence on the model hub developers actually use	NONE	(whitespace) vendor model cards at the callsite	derived:grid-sweep	derived — working code exists but is invisible where developers look
+C306	L6	CI publishing prebuilt robot-policy wheels per accelerator target	NONE	(whitespace) VLA policy CI/wheel pipeline	derived:grid-sweep	derived — CI playbook exists for LLM serving, not for robot policies
+C307	L6	end-to-end validated synthetic-data pipeline reference (non-NVIDIA)	NONE	(whitespace) synthetic data pipeline reference	derived:grid-sweep	derived — components are ROCm-capable, orchestration is unowned
+C308	L4	robot fleet edge data center / GPU module fleet compute	NONE	(whitespace) robot fleet edge datacenter category	derived:grid-sweep	derived — uncontested emerging category, no incumbent
+C309	L6	industrial IPC / PLC vendor certification for AI accelerators	NONE	(whitespace) industrial automation platform certification	derived:grid-sweep	derived — technical barrier closed, commercial certification unclaimed
+C310	L3	open teleop data-collection path not tied to one vendor's stack	NONE	(whitespace) vendor-neutral teleop data collection	derived:grid-sweep	derived — dataset format is neutral, collection tooling is not
+C311	L3	published foundation-model training case study on non-NVIDIA cluster	NONE	(whitespace) non-NVIDIA VLA training case study	derived:grid-sweep	derived — memory-bound regime suits alternatives, unmeasured publicly
+C312	L2	GPU-accelerated collision-free motion planning (non-NVIDIA)	NONE	(whitespace) open GPU motion planning library	derived:grid-sweep	derived — cuRobo has no portable equivalent
+C313	L1	zero-copy sensor transport for ROS 2 on non-NVIDIA accelerators	NONE	(whitespace) portable zero-copy ROS 2 transport	derived:grid-sweep	derived — check whether this is already closed before scoring
+C314	L0	safety co-processor / functional safety island for AI compute	NONE	(whitespace) safety island alongside AI accelerator	derived:grid-sweep	derived — architectural pattern shipped by one vendor only
+C315	L6	robotics developer forum / docs portal for a non-NVIDIA accelerator	NONE	(whitespace) accelerator robotics developer portal	derived:grid-sweep	derived — distribution and community surface, not engineering

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="dns-prefetch" href="//code.jquery.com" />
+  <link rel="preconnect" href="//code.jquery.com" />
+  <link rel="dns-prefetch" href="//www.google-analytics.com" />
+  <link rel="preconnect" href="//www.google-analytics.com" />
+  <link rel="dns-prefetch" href="//www.googletagmanager.com">
+  <link rel="dns-prefetch" href="//stats.g.doubleclick.net" />
+  <link rel="preconnect" href="//stats.g.doubleclick.net" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="-L5AC_QN5fIxf4UGiP_Y0_8Q09_OJm_RsBEVVopvnp0" />
+  <meta name="msvalidate.01" content="E4440144B1C51C5DEE14BE203CCDBBCF" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="https://promwad.com/sites/default/files/favicon_0_0.ico" type="image/vnd.microsoft.icon" />
+<meta name="description" content="What RISC-V profile standardization means for embedded product teams. Covers RVA23 and RVB23 ratification, toolchain readiness, safety case construction for ISO 26262 and IEC 61508, and practical migration from ARM Cortex-M." />
+<meta name="generator" content="Drupal 7 (https://www.drupal.org)" />
+<link rel="canonical" href="https://promwad.com/news/risc-v-profiles-portability-toolchains-safety-embedded-products" />
+<meta property="og:site_name" content="Promwad" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://promwad.com/news/risc-v-profiles-portability-toolchains-safety-embedded-products" />
+<meta property="og:title" content="RISC-V Profiles for Real Products: Portability, Toolchains and Safety Cases" />
+  <title>RISC-V Profiles for Real Products: Portability, Toolchains and Safety Cases</title>
+  <link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_lQaZfjVpwP_oGNqdtWCSpJT1EMqXdMiU84ekLLxQnc4.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_5K9aVH2rjG9EjX9cO4eH-Og_CxMDDeGEqDjNodEfc3g.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_uoXzKhW06CSwBN6YwHwmWnUmRc-ALcLcI-esnNahmMk.css" media="all" />
+<link type="text/css" rel="stylesheet" href="https://promwad.com/sites/default/files/css/css_sCkrfF-7-hKkKuD1uDpnz9xwocFnmeA1VTFAADLCoyI.css" media="all" />
+  <script>!function(e){"function"==typeof define&&define.amd?define(e):e()}(function(){var e,t=["scroll","wheel","touchstart","touchmove","touchenter","touchend","touchleave","mouseout","mouseleave","mouseup","mousedown","mousemove","mouseenter","mousewheel","mouseover"];if(function(){var e=!1;try{var t=Object.defineProperty({},"passive",{get:function(){e=!0}});window.addEventListener("test",null,t),window.removeEventListener("test",null,t)}catch(e){}return e}()){var n=EventTarget.prototype.addEventListener;e=n,EventTarget.prototype.addEventListener=function(n,o,r){var i,s="object"==typeof r&&null!==r,u=s?r.capture:r;(r=s?function(e){var t=Object.getOwnPropertyDescriptor(e,"passive");return t&&!0!==t.writable&&void 0===t.set?Object.assign({},e):e}(r):{}).passive=void 0!==(i=r.passive)?i:-1!==t.indexOf(n)&&!0,r.capture=void 0!==u&&u,e.call(this,n,o,r)},EventTarget.prototype.addEventListener._original=e}});</script>
+  <!-- HTML5 element support for IE6-8 -->
+  <!--[if lt IE 9]>
+    <script src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+<!-- Google Tag Manager -->
+<script defer="defer">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TF6PJ2C');</script>
+<!-- End Google Tag Manager -->
+</head>
+<body class="html not-front not-logged-in no-sidebars page-node page-node- page-node-2318 node-type-news">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TF6PJ2C"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+  <div id="skip-link">
+    <a href="#main-content" class="element-invisible element-focusable">Skip to main content</a>
+  </div>
+    <header id="navbar" class="navbar navbar-fixed-top">
+  <div class="container-max">
+      <a class="logo" href="/" title="Home">
+      <img loading="lazy" src="/sites/all/themes/promwad2021/images/promwad_logo.svg" alt="promwad logo" width="263" height="127" />
+    </a>
+        <nav id="main-menu">
+      <ul class="menu"><li class="first expanded"><span class="nolink" tabindex="0">Services <span class="arrow-down"></span></span><ul class="menu"><li class="first leaf"><a href="/services">Overview &amp; Product Design</a></li>
+<li class="expanded"><a href="/services/hardware">Hardware Design <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/hardware">Hardware Design</a></div><ul class="menu"><li class="first leaf"><a href="/services/hardware/pcb-design">PCB Layout &amp; Schematic Design </a></li>
+<li class="leaf"><a href="/services/hardware/pcb-design/high-speed-pcb">High-Speed PCB Design</a></li>
+<li class="leaf"><a href="/services/hardware/pcb-design/simulation">SI / PI / Thermal Analysis </a></li>
+<li class="leaf"><a href="/services/industrial-design">Enclosures: Industrial &amp; Mechanical Design</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/embedded/fpga-design">FPGA & SoC Design  <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/embedded/fpga-design">FPGA &amp; SoC Design </a></div><ul class="menu"><li class="first leaf"><a href="/services/embedded/fpga-design/soc-mpsoc">FPGA &amp; SoC Projects Review</a></li>
+<li class="leaf"><a href="/industries/industrial/industrial-fpga-design">FPGA for Industrial &amp; Robotics</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/ai">FPGA for AI Applications</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/custom-frame-grabber-solutions">FPGA for Industrial Video Processing</a></li>
+<li class="last collapsed"><a href="/services/embedded/asic-frontend-development">ASIC Verification &amp; Prototyping</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/embedded">Embedded Software Development <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/embedded">Embedded Software Development</a></div><ul class="menu"><li class="first expanded"><a href="/services/embedded/firmware/mcu">MCU Firmware: RTOS & Bare-Metal <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/services/embedded/zephyr-rtos">Zephyr RTOS-Based Firmware</a></li>
+</ul></li>
+<li class="leaf"><a href="/services/embedded/kernel-system-design">Linux &amp; Android Kernel Engineering</a></li>
+<li class="leaf"><a href="/vendors/qt-software-development">Cross-Platform &amp; Embedded Apps</a></li>
+<li class="last leaf"><a href="/services/embedded/ai-on-edge">Edge AI Engineering</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/services/software">Custom Software Development <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/software">Custom Software Development</a></div><ul class="menu"><li class="first leaf"><a href="/vendors/qt-software-development">Cross-Platform Software Development</a></li>
+<li class="leaf"><a href="/services/software/backend">Backend &amp; Cloud Software</a></li>
+<li class="leaf"><a href="/services/software/web-development">Web Frontend Development</a></li>
+<li class="leaf"><a href="/services/software/mobile-app-development">Mobile Apps Development</a></li>
+<li class="leaf"><a href="/services/software/qa">QA &amp; Test Automation  </a></li>
+<li class="last leaf"><a href="/services/software/ui-ux">UI/UX Design</a></li>
+</ul></div></li>
+<li class="leaf"><a href="/services/embedded/security-hardening">Embedded Security Engineering</a></li>
+<li class="expanded"><a href="/services/industrial-design/manufacturing">Manufacturing Support <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/services/industrial-design/manufacturing">Manufacturing Support</a></div><ul class="menu"><li class="first leaf"><a href="/services/industrial-design/manufacturing/prototyping">Prototyping: PCB &amp; Enclosures</a></li>
+<li class="leaf"><a href="/services/industrial-design/enclosures/production-launch">Enclosure Mass Production</a></li>
+<li class="last leaf"><a href="/services/industrial-design/manufacturing/in-production-testing">In-Production Testing</a></li>
+</ul></div></li>
+<li class="last leaf"><a href="/services/software/dedicated-team">Dedicated Engineering Teams</a></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="expanded"><span class="nolink" tabindex="0">Expertise <span class="arrow-down"></span></span><ul class="menu"><li class="top text"><div class="bold" style="font-size:16px;">Embedded Systems Engineering</div></li><li class="first expanded"><a href="https://promwad.com/industries/video-streaming">Broadcasting & Media <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="https://promwad.com/industries/video-streaming">Broadcasting &amp; Media</a></div><ul class="menu"><li class="first expanded"><a href="/industries/video-streaming/broadcast-technology-solutions">Broadcasting Equipment Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/services/opengear-module-design">OpenGear Hardware &amp; Firmware</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/fpga-based-video-audio-processing">FPGA-Based Video/Audio Processing</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/ai-video-analytics">AI-Powered Content Processing</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/st-2110-nmos-integration">ST 2110 / NMOS Integration</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/mxl-sdk-integration">MXL SDK Integration</a></li>
+<li class="leaf"><a href="/services/bcp-003-pep-encryption-st2110-ipmx">BCP-003 / PEP Encryption</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/ndi-integration">NDI Support</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/camera-control-systems">Camera Control Software Development</a></li>
+<li class="leaf"><a href="/broadcasting-equipment/low-latency-ip-transport">Low-Latency IP Transport</a></li>
+<li class="last leaf"><a href="/broadcasting-equipment/broadcasting-proav-equipment-testing-qa">Broadcast &amp; ProAV Equipment Testing</a></li>
+</ul></li>
+<li class="expanded"><a href="/industries/video-streaming/stb-software-development">CTV & STB Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/services/android-tv-aosp-development">Android TV &amp; AOSP Development</a></li>
+<li class="leaf"><a href="/services/android-tv-stb-custom-middleware-development">Custom Middleware Development</a></li>
+<li class="leaf"><a href="/industries/video-streaming/smart-tv">Smart TV Apps Development</a></li>
+<li class="leaf"><a href="/industries/video-streaming/drm-content-protection">Content Protection (DRM)</a></li>
+<li class="last leaf"><a href="/industries/video-streaming/stb-software-development/stb-app-development">STB Apps Development</a></li>
+</ul></li>
+<li class="expanded"><a href="/proav-engineering-services">ProAV Solutions Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/ipmx-based-video-distribution">IPMX-Based Video Distribution</a></li>
+<li class="leaf"><a href="/industries/video-streaming/digital-signage-software-development">Digital Signage Systems Development</a></li>
+<li class="leaf"><a href="/digital-audio-mixers-development">Digital Audio Mixers Design</a></li>
+<li class="leaf"><a href="/proav-engineering-services/ai-powered-analytics">AI-Powered Audience Analytics</a></li>
+<li class="leaf"><a href="/proav-engineering-services/crestron-control-systems-development">Crestron Control Systems Integration</a></li>
+<li class="leaf"><a href="/proav-engineering-services/hybrid-sdi-ip-workflows">Hybrid SDI/IP Workflows</a></li>
+<li class="last leaf"><a href="/cross-platform-av-applications-development">Cross-Platform AV App Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/ux-design-av-ott-devices">UI/UX for AV &amp; OTT Devices</a></li>
+<li class="last expanded"><a href="/ott-platforms-development-services">OTT Platforms Development <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/content-delivery-platform">Content Delivery Platform Development</a></li>
+<li class="leaf"><a href="/ai-ml-recommendations">AI/ML Recommendations &amp; Personalization</a></li>
+<li class="leaf"><a href="/ott-platforms/ad-insertion-monetization">Ad Insertion &amp; Monetization</a></li>
+<li class="leaf"><a href="/industries/video-streaming/ott-app-development">OTT App Development</a></li>
+<li class="last leaf"><a href="/industries/video-streaming/real-time-streaming-solutions">Real-Time Streaming</a></li>
+</ul></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/automotive">Automotive & Transportation <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/automotive">Automotive &amp; Transportation</a></div><ul class="menu"><li class="first leaf"><a href="/industries/automotive/aspice-software-engineering">ASPICE Software &amp; Hardware Development</a></li>
+<li class="leaf"><a href="/industries/automotive/software-defined-vehicle">SDV Solution Development</a></li>
+<li class="leaf"><a href="/industries/automotive/ecu-development">ECU &amp; Embedded Platform Design</a></li>
+<li class="leaf"><a href="/services/public-transport-HMI-design">HMI Design for Public Transport</a></li>
+<li class="leaf"><a href="/services/automotive-ivi-design">Digital Cockpit &amp; IVI Engineering</a></li>
+<li class="leaf"><a href="/industries/automotive/connectivity">Automotive Connectivity Solutions</a></li>
+<li class="leaf"><a href="/industries/automotive/custom-gps">GNSS &amp; Tracking Solutions</a></li>
+<li class="expanded"><a href="/industries/automotive/cameras-vision-systems">Vision Systems & ADAS Sensors <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/adas-development-services">ADAS Development</a></li>
+<li class="leaf"><a href="/industries/automotive/dash-cam">Dashboard Camera Design</a></li>
+<li class="leaf"><a href="/industries/automotive/digital-mirror-for-car">Digital Mirror Design</a></li>
+<li class="last leaf"><a href="/industries/automotive/adas-development-services/dms">Driver Monitoring System Development</a></li>
+</ul></li>
+<li class="expanded"><a href="/industries/automotive/ev-charging-solutions">EV Сharging Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/ev-charging-solutions/bms">BMS Development  </a></li>
+<li class="leaf"><a href="/industries/automotive/ev-charging-solutions/charging">EV Charger Design</a></li>
+<li class="last leaf"><a href="/predictive-maintenance/ev-chargers">Predictive Maintenance for EV Chargers</a></li>
+</ul></li>
+<li class="last leaf"><a href="/industries/industrial/hydrogen-electronics-solutions">Hydrogen Electronics Development</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/industrial/industrial-solutions">Industrial Automation <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/industrial/industrial-solutions">Industrial Automation</a></div><ul class="menu"><li class="first leaf"><a href="/industries/industrial/sensor-development">Sensor Development</a></li>
+<li class="leaf"><a href="/industries/industrial/custom-controller-development">Controller Development</a></li>
+<li class="expanded"><a href="/industries/industrial/power-electronics-design-services">Power Electronics Design <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/motor-control-solutions">Motor Control Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/power-monitoring-solutions">Power Metering &amp; Quality Solutions</a></li>
+<li class="last leaf"><a href="/services/energy-storage-and-power-electronics">BESS Engineering</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/industrial-machine-vision-solutions">Machine Vision Engineering</a></li>
+<li class="expanded"><a href="/industries/industrial/industrial-software-development">Industrial Software Development <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/industries/industrial/qt-industrial-automation">HMI &amp; SCADA Software Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/industrial-networks-design">Industrial Network Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/iec-61508-safety-software">Functional Safety IEC 61508</a></li>
+<li class="leaf"><a href="/industries/industrial/smart-grid-protocols">Smart Grid Protocol Integration</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/industrial/robotics-engineering">Drones & Robotics <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/industrial/robotics-engineering">Drones &amp; Robotics</a></div><ul class="menu"><li class="first leaf"><a href="/industries/industrial/motor-control-solutions">Motor Control Engineering</a></li>
+<li class="leaf"><a href="/industries/industrial/industrial-machine-vision-solutions">Machine Vision Engineering</a></li>
+<li class="leaf"><a href="/industries/automotive/ev-charging-solutions/bms">BMS Development</a></li>
+<li class="expanded"><a href="/industries/industrial/robotics-engineering/nvidia-robotics-development-services">NVIDIA-Powered Robotics <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></li>
+<li class="last leaf"><a href="/industries/industrial/robotics-engineering/drone-design-uav-engineering">Drone Design</a></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries/telecom">Telecommunications & Networking <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries/telecom">Telecommunications &amp; Networking</a></div><ul class="menu"><li class="first expanded"><a href="/industries/telecom/network-equipment">Network Infrastructure Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/telecom/network-switches">Network Switch Design</a></li>
+<li class="last leaf"><a href="/industries/telecom/media-converters">Media Converter Design</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/telecom/security-operations">Cybersecurity</a></li>
+<li class="last expanded"><a href="/services/network-perfomance-control">Network Performance & Control <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/telecom/network-management-software">Network Management Software Development</a></li>
+<li class="leaf"><a href="/cloud-dashboard-for-network-device-management">Cloud Dashboard Development</a></li>
+<li class="leaf"><a href="/industries/telecom/spdk-dpdk-solutions">SPDK &amp; DPDK Engineering</a></li>
+<li class="leaf"><a href="/industries/telecom/dpi-software-development">DPI Development</a></li>
+<li class="last leaf"><a href="/industries/telecom/openwrt-for-wireless-routers">OpenWRT/prplOS based Solutions</a></li>
+</ul></li>
+</ul></div></li>
+<li class="expanded"><a href="/industries">Other Industries <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/industries">Other Industries</a></div><ul class="menu"><li class="first expanded"><a href="/industries/industrial/design-services-power-engineering">Green Energy & Power Engineering <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/industries/industrial/hydrogen-electronics-solutions">Hydrogen Electronics Development</a></li>
+</ul></li>
+<li class="leaf"><a href="/industries/industrial/digital-oil-gas-solutions">Oil &amp; Gas / Mining Engineering</a></li>
+<li class="expanded"><a href="/industries/industrial/building-automation-systems">Smart Home & Building Automation Development <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/building-automation-systems/hvac-electronics-design">HVAC Electronics Design</a></li>
+<li class="leaf"><a href="/industries/industrial/building-automation-networks">Building Automation Networks</a></li>
+<li class="last leaf"><a href="/hems">HEMS Development</a></li>
+</ul></li>
+<li class="last expanded"><a href="/services/off-road-industrial-vehicles">Off-Road & Industrial Vehicle Solutions <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/automotive/agricultural-machinery-design">Agricultural Machinery Design</a></li>
+<li class="leaf"><a href="/industries/automotive/construction-vehicle-embedded-systems">Construction Electronics</a></li>
+<li class="last leaf"><a href="/industries/forestry-machinery-electronics">Forestry Electronics</a></li>
+</ul></li>
+</ul></div></li>
+<li class="top text"></br><div class="bold" style="font-size:16px;">Platforms</div></li><li class="leaf"><a href="https://promwad.com/platforms">Platform-Based Product Design</a></li>
+<li class="top text"></br><div class="bold" style="font-size:16px;">Partners</div></li><li class="last expanded"><a href="/company/partners">Tech Vendors <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/company/partners">Tech Vendors</a></div><ul class="menu"><li class="first leaf"><a href="/vendors/qualcomm-design-solutions">Qualcomm Technologies</a></li>
+<li class="leaf"><a href="/vendors/infineon-partners">Infineon</a></li>
+<li class="expanded"><a href="/vendors/nvidia">NVIDIA <span class="arrow-down"></span></a><ul class="menu"><li class="first leaf"><a href="/industries/industrial/robotics-engineering/nvidia-robotics-development-services">NVIDIA-Powered Robotics</a></li>
+<li class="last leaf"><a href="/nvidia-carrier-boards-design">Nvidia Carrier Boards Design</a></li>
+</ul></li>
+<li class="expanded"><a href="/vendors/lattice-semiconductor">Lattice Semiconductor <span class="arrow-down"></span></a><ul class="menu"><li class="first last leaf"><a href="/services/embedded/fpga-design/lattice">Lattice FPGA Use Cases</a></li>
+</ul></li>
+<li class="leaf"><a href="/vendors/nxp-semiconductors">NXP Semiconductors</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/altera">Altera</a></li>
+<li class="leaf"><a href="/vendors/hilscher">Hilscher</a></li>
+<li class="leaf"><a href="/vendors/qt-software-development">Qt Group</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/microchip">Microchip</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/amd-kria">Kria SoM by AMD</a></li>
+<li class="leaf"><a href="/services/embedded/fpga-design/ultrascale">Zynq FPGA by AMD</a></li>
+<li class="last leaf"><a href="/vendors/telit-cinterion-solutions">Telit Cinterion</a></li>
+</ul></div></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="leaf"><a href="/case-studies">Case Studies</a></li>
+<li class="expanded"><span class="nolink" tabindex="0">About  <span class="arrow-down"></span></span><ul class="menu"><li class="first leaf"><a href="/company">About Promwad</a></li>
+<li class="leaf"><a href="/company/testimonials-clients">What Our Clients Say</a></li>
+<li class="leaf"><a href="https://promwad.com/blog">Blog: Industry Insights</a></li>
+<li class="leaf"><a href="https://promwad.com/news">Company News</a></li>
+<li class="leaf"><a href="/company/press-kit">Media about Us</a></li>
+<li class="leaf"><a href="/company/partners">Our Partners</a></li>
+<li class="expanded"><a href="/company/careers">Careers <span class="arrow-down"></span></a><div class="inner"><div class="browse"><a href="/company/careers">Careers</a></div><ul class="menu"><li class="first leaf"><a href="/careers/account-executive">Account Executive</a></li>
+<li class="leaf"><a href="/company/careers/fpga-engineer">FPGA Engineer</a></li>
+<li class="leaf"><a href="/company/careers/firmware-engineer-power-electronic">Firmware Engineer (Power Electronics)</a></li>
+<li class="leaf"><a href="/company/careers/hardware-design-engineer">Hardware Design Engineer</a></li>
+<li class="last leaf"><a href="/company/careers/mechanical-design-engineer">Mechanical Design Engineer (Middle+ / Senior)</a></li>
+</ul></div></li>
+<li class="last leaf"><a href="/contacts">Locations / Contacts</a></li>
+<li class="bottom text"><div class="discuss-link"><a href="/contacts">Discuss Your Project</a></div></li></ul></li>
+<li class="leaf"><a href="/news">News</a></li>
+<li class="last leaf"><a href="/contacts">Contact Us</a></li>
+</ul>    </nav>
+    <div id="search-top">
+    <form class="form-search content-search" action="/news/risc-v-profiles-portability-toolchains-safety-embedded-products" method="post" id="search-block-form" accept-charset="UTF-8"><div><div class="input-group"><input title="Enter the terms you wish to search for." placeholder="Search" class="form-control form-text" type="text" id="edit-search-block-form--2" name="search_block_form" value="" size="15" maxlength="128" /><span class="input-group-btn"><button type="submit" class="btn btn-primary">Search</button></span></div><div class="form-actions form-wrapper form-group" id="edit-actions"><button class="element-invisible btn btn-primary form-submit" type="submit" id="edit-submit" name="op" value="Search">Search</button>
+</div><input type="hidden" name="form_build_id" value="form-WyOxwaWyBhzI8WeKjfPGM7lj_M0WYWZ9LQ8-rmRKhvM" />
+<input type="hidden" name="form_id" value="search_block_form" />
+
+</div></form>  </div>
+          <div class="languages">
+    <div class="inner">
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 28.0005C14.3485 28.0005 12.7929 27.6849 11.3333 27.0538C9.87379 26.4218 8.60267 25.564 7.52001 24.4805C6.43734 23.3969 5.57956 22.1258 4.94667 20.6672C4.31379 19.2085 3.99823 17.6529 4.00001 16.0005C4.00001 14.3436 4.31556 12.7867 4.94667 11.3298C5.57867 9.87204 6.43645 8.60227 7.52001 7.52049C8.60356 6.43871 9.87467 5.58093 11.3333 4.94716C12.7929 4.31604 14.3485 4.00049 16 4.00049C17.6569 4.00049 19.2138 4.31604 20.6707 4.94716C22.1285 5.57916 23.3987 6.43693 24.4813 7.52049C25.564 8.60404 26.4213 9.87382 27.0533 11.3298C27.6845 12.7876 28 14.3445 28 16.0005C28 17.652 27.6845 19.2076 27.0533 20.6672C26.4213 22.1267 25.5636 23.3978 24.48 24.4805C23.3965 25.5632 22.1267 26.4209 20.6707 27.0538C19.2147 27.6867 17.6578 28.0023 16 28.0005ZM16 26.6778C16.7822 25.6725 17.4276 24.6854 17.936 23.7165C18.4436 22.7476 18.8565 21.6632 19.1747 20.4632H12.8253C13.1782 21.7307 13.5996 22.8489 14.0893 23.8178C14.58 24.7867 15.2169 25.74 16 26.6778ZM14.3027 26.4778C13.6805 25.7445 13.1125 24.8378 12.5987 23.7578C12.0849 22.6787 11.7027 21.58 11.452 20.4618H6.33867C7.10312 22.1196 8.18623 23.4796 9.58801 24.5418C10.9907 25.6032 12.5622 26.2485 14.3027 26.4778ZM17.6973 26.4778C19.4378 26.2485 21.0093 25.6032 22.412 24.5418C23.8138 23.4796 24.8969 22.1196 25.6613 20.4618H20.5493C20.2116 21.5969 19.7862 22.704 19.2733 23.7832C18.7596 24.8632 18.2342 25.7623 17.6973 26.4778ZM5.79467 19.1298H11.1747C11.0733 18.5823 11.0022 18.0489 10.9613 17.5298C10.9187 17.0116 10.8973 16.5018 10.8973 16.0005C10.8973 15.4992 10.9182 14.9894 10.96 14.4712C11.0018 13.9529 11.0729 13.4196 11.1733 12.8712H5.79601C5.65112 13.3334 5.53779 13.8369 5.45601 14.3818C5.37423 14.9258 5.33334 15.4654 5.33334 16.0005C5.33334 16.5356 5.37379 17.0756 5.45467 17.6205C5.53556 18.1654 5.6489 18.668 5.79467 19.1285M12.508 19.1285H19.492C19.5933 18.5818 19.6645 18.0574 19.7053 17.5552C19.748 17.0538 19.7693 16.5356 19.7693 16.0005C19.7693 15.4654 19.7485 14.9472 19.7067 14.4458C19.6649 13.9445 19.5938 13.42 19.4933 12.8725H12.5067C12.4062 13.4192 12.3351 13.9436 12.2933 14.4458C12.2516 14.9472 12.2307 15.4654 12.2307 16.0005C12.2307 16.5356 12.2516 17.0538 12.2933 17.5552C12.3351 18.0565 12.4076 18.5809 12.508 19.1285ZM20.8267 19.1285H26.2053C26.3502 18.6672 26.4636 18.1645 26.5453 17.6205C26.6262 17.0756 26.6667 16.5356 26.6667 16.0005C26.6667 15.4654 26.6262 14.9254 26.5453 14.3805C26.4645 13.8356 26.3511 13.3329 26.2053 12.8725H20.8253C20.9267 13.4192 20.9978 13.952 21.0387 14.4712C21.0813 14.9903 21.1027 15.5 21.1027 16.0005C21.1027 16.5009 21.0818 17.0107 21.04 17.5298C20.9982 18.0489 20.9271 18.5823 20.8267 19.1298M20.5493 11.5392H25.6613C24.88 9.84671 23.8098 8.48671 22.4507 7.45916C21.0916 6.4316 19.5071 5.77782 17.6973 5.49782C18.3196 6.31649 18.8791 7.25293 19.376 8.30716C19.8729 9.36049 20.264 10.4378 20.5493 11.5392ZM12.8253 11.5392H19.1747C18.8227 10.2876 18.3885 9.15604 17.872 8.14449C17.3556 7.13293 16.7316 6.19249 16 5.32316C15.2685 6.1916 14.6445 7.13204 14.128 8.14449C13.6116 9.15693 13.1765 10.2885 12.8253 11.5392ZM6.34001 11.5392H11.452C11.7373 10.4387 12.1285 9.36138 12.6253 8.30716C13.1222 7.25293 13.6818 6.31649 14.304 5.49782C12.4782 5.77871 10.8898 6.43649 9.53867 7.47116C8.18756 8.5076 7.1209 9.86316 6.33867 11.5378" fill="white"/>
+<path d="M5.79467 19.1298H11.1747C11.0733 18.5823 11.0022 18.0489 10.9613 17.5298C10.9187 17.0116 10.8973 16.5018 10.8973 16.0005C10.8973 15.4992 10.9182 14.9894 10.96 14.4712C11.0018 13.9529 11.0729 13.4196 11.1733 12.8712H5.79601C5.65112 13.3334 5.53779 13.8369 5.45601 14.3818C5.37423 14.9258 5.33334 15.4654 5.33334 16.0005C5.33334 16.5356 5.37379 17.0756 5.45467 17.6205C5.53556 18.1654 5.6489 18.668 5.79467 19.1285M20.8267 19.1285H26.2053C26.3502 18.6672 26.4636 18.1645 26.5453 17.6205C26.6262 17.0756 26.6667 16.5356 26.6667 16.0005C26.6667 15.4654 26.6262 14.9254 26.5453 14.3805C26.4645 13.8356 26.3511 13.3329 26.2053 12.8725H20.8253C20.9267 13.4192 20.9978 13.952 21.0387 14.4712C21.0813 14.9903 21.1027 15.5 21.1027 16.0005C21.1027 16.5009 21.0818 17.0107 21.04 17.5298C20.9982 18.0489 20.9271 18.5823 20.8267 19.1298M6.34001 11.5392H11.452C11.7373 10.4387 12.1285 9.36138 12.6253 8.30716C13.1222 7.25293 13.6818 6.31649 14.304 5.49782C12.4782 5.77871 10.8898 6.43649 9.53867 7.47116C8.18756 8.5076 7.1209 9.86316 6.33867 11.5378M16 28.0005C14.3485 28.0005 12.7929 27.6849 11.3333 27.0538C9.87379 26.4218 8.60267 25.564 7.52001 24.4805C6.43734 23.3969 5.57956 22.1258 4.94667 20.6672C4.31379 19.2085 3.99823 17.6529 4.00001 16.0005C4.00001 14.3436 4.31556 12.7867 4.94667 11.3298C5.57867 9.87204 6.43645 8.60227 7.52001 7.52049C8.60356 6.43871 9.87468 5.58093 11.3333 4.94716C12.7929 4.31604 14.3485 4.00049 16 4.00049C17.6569 4.00049 19.2138 4.31604 20.6707 4.94716C22.1285 5.57916 23.3987 6.43693 24.4813 7.52049C25.564 8.60404 26.4213 9.87382 27.0533 11.3298C27.6845 12.7876 28 14.3445 28 16.0005C28 17.652 27.6845 19.2076 27.0533 20.6672C26.4213 22.1267 25.5636 23.3978 24.48 24.4805C23.3965 25.5632 22.1267 26.4209 20.6707 27.0538C19.2147 27.6867 17.6578 28.0023 16 28.0005ZM16 26.6778C16.7822 25.6725 17.4276 24.6854 17.936 23.7165C18.4436 22.7476 18.8565 21.6632 19.1747 20.4632H12.8253C13.1782 21.7307 13.5996 22.8489 14.0893 23.8178C14.58 24.7867 15.2169 25.74 16 26.6778ZM14.3027 26.4778C13.6805 25.7445 13.1125 24.8378 12.5987 23.7578C12.0849 22.6787 11.7027 21.58 11.452 20.4618H6.33867C7.10312 22.1196 8.18623 23.4796 9.58801 24.5418C10.9907 25.6032 12.5622 26.2485 14.3027 26.4778ZM17.6973 26.4778C19.4378 26.2485 21.0093 25.6032 22.412 24.5418C23.8138 23.4796 24.8969 22.1196 25.6613 20.4618H20.5493C20.2116 21.5969 19.7862 22.704 19.2733 23.7832C18.7596 24.8632 18.2342 25.7623 17.6973 26.4778ZM12.508 19.1285H19.492C19.5933 18.5818 19.6645 18.0574 19.7053 17.5552C19.748 17.0538 19.7693 16.5356 19.7693 16.0005C19.7693 15.4654 19.7485 14.9472 19.7067 14.4458C19.6649 13.9445 19.5938 13.42 19.4933 12.8725H12.5067C12.4062 13.4192 12.3351 13.9436 12.2933 14.4458C12.2516 14.9472 12.2307 15.4654 12.2307 16.0005C12.2307 16.5356 12.2516 17.0538 12.2933 17.5552C12.3351 18.0565 12.4076 18.5809 12.508 19.1285ZM20.5493 11.5392H25.6613C24.88 9.84671 23.8098 8.48671 22.4507 7.45916C21.0916 6.4316 19.5071 5.77782 17.6973 5.49782C18.3196 6.31649 18.8791 7.25293 19.376 8.30716C19.8729 9.36049 20.264 10.4378 20.5493 11.5392ZM12.8253 11.5392H19.1747C18.8227 10.2876 18.3885 9.15604 17.872 8.14449C17.3556 7.13293 16.7316 6.19249 16 5.32316C15.2685 6.1916 14.6445 7.13204 14.128 8.14449C13.6116 9.15693 13.1765 10.2885 12.8253 11.5392Z" stroke="white" stroke-width="0.5"/>
+</svg>
+      <a href="https://promwad.de" rel="nofollow">DE</a>
+      <a class="active" href="/">EN</a>
+    </div>
+    <div class="language-trio"></div>
+  </div>
+  
+  <div id="search-icon">
+    <div class="inner"><svg><use xlink:href="/sites/all/themes/promwad/images/sprites/sprite.svg#icon-search"></use></svg></div>
+  </div>  
+  
+  <div class="networks">
+    <a class="center-vertical" rel="nofollow" href="https://www.linkedin.com/company/promwad/"><img loading="lazy" src="/sites/all/themes/promwad2021/images/networks/li.png" alt="linkedin icon" width="16" height="16" /></a>
+    <a class="center-vertical" rel="nofollow" href="https://www.facebook.com/promwad.electronics"><img loading="lazy" src="/sites/all/themes/promwad2021/images/networks/fb.png" alt="facebook icon" width="16" height="16" /></a>
+  </div>
+    <div class="mobile-menu">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </div>
+  </div>
+</header>
+<div class="main-container container-fluid container-constructor">
+
+  <header role="banner" id="page-header">
+      </header> <!-- /#page-header -->
+    <div class="row">
+
+    
+    <section class="col-md-12">
+      
+      <a id="main-content"></a>
+                                                                <div class="region region-content">
+    <section id="block-system-main" class="block block-system clearfix">
+
+      
+  <article id="node-2318" class="node node-news clearfix" about="/news/risc-v-profiles-portability-toolchains-safety-embedded-products" typeof="sioc:Item foaf:Document">
+    <header>
+            <span property="dc:title" content="RISC-V Profiles for Real Products: Portability, Toolchains and Safety Cases" class="rdf-meta element-hidden"></span>      </header>
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded"><div  class = 'container-fluid '>
+<div  class = 'container-1170 '>
+<div  class = 'row '>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+<div  class = 'col-md-8 col-lg-8 '>
+
+    <section ><div class="row">
+         <div class="col-md-12">
+            <div class="mod-breadcrumbs font-alt align-left">
+              <div class="breadcrumb"><a href="/">Home</a> / <a href="/news">News</a> / RISC-V Profiles for Real Products: Portability, Toolchains and Safety Cases</div><div class="breadcrumb news-date">31 March 2026</div>
+            </div>
+          </div>
+            
+      </div>
+    </section>
+<div class="content-title-outer"><div class="content-title "><h1  class = 'text-left     c-font-bold '>RISC-V Profiles for Real Products: What Standardization Changes for Portability, Toolchains and Safety Cases
+</h1></div></div>
+<span  style = 'padding-bottom: 50px; '><img loading="lazy"  style="" typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/risc-v-profiles-portability-toolchains-banner.jpg" width="1256" height="833" alt="RISC-V Profiles for Real Products: What Standardization Changes for Portability, Toolchains and Safety Cases" title="" /></span>
+<p>&nbsp;</p>
+<p>RISC-V has spent most of its first decade being simultaneously overhyped as an ARM killer and underestimated as a production-grade embedded architecture. The honest picture in 2025 is more specific than either extreme. RISC-V is not replacing ARM across the board. It is, however, becoming a credible platform for well-defined categories of embedded products, and the technical reasons for this shift are rooted less in ISA elegance than in a set of standardization milestones that most embedded engineers have not yet fully internalized.</p><p>The ratification of the RVA23 profile in October 2024 is the most significant of these milestones for application-class processors. For MCU-class embedded development — the domain of real-time control, safety-critical firmware, and constrained hardware — the trajectory of profile standardization, toolchain certification, and safety IP availability now makes RISC-V a platform that product engineering teams need to evaluate seriously, rather than treating it as research infrastructure with uncertain production applicability.</p><h2>	The Fragmentation Problem That Profiles Are Designed to Solve</h2><p>The architectural flexibility of RISC-V is also its principal liability for product engineers. Unlike ARM Cortex-M, where a Cortex-M4 from STMicroelectronics and a Cortex-M4 from NXP both execute the same binary, RISC-V silicon vendors can implement different combinations of optional extensions. A device with RV32IMC includes the multiply, compressed instruction, and integer base extensions. Another device adds F for single-precision floating-point, or B for bit manipulation, or V for vector operations. Without an agreed minimum feature set, software cannot be compiled for a portable binary target — the compiler must know exactly what instructions the hardware will execute.</p><p>This fragmentation concern is precisely what RISC-V International's profile specification addresses. A profile defines which ISA extensions are mandatory, which are optional but recommended, and which are explicitly excluded. Software built against a profile target can rely on the mandatory feature set being present in any compliant implementation.</p><p>The profile hierarchy currently covers two main market segments:</p><ul class = "list">	<li>		RVA profiles: target 64-bit application processors running full OS distributions, binary-compatible across multiple hardware vendors. RVA23, ratified in October 2024, mandates the V Vector extension, the H Hypervisor extension, and a set of floating-point, cryptography, and atomic extensions that make it suitable for Linux-class compute including edge AI and server workloads.</li>	<li>		RVB profiles: target customized 64-bit application processors where custom OS builds are acceptable. RVB23, ratified alongside RVA23, provides a large mandatory feature base while allowing more optionality for extensions that are expensive to implement in silicon.</li></ul><p>For most embedded MCU-class designs — 32-bit real-time controllers, motor drives, automotive ECUs, industrial sensors — neither RVA23 nor RVB23 is the directly relevant profile. The relevant work is at the 32-bit embedded and microcontroller profile level, where RISC-V International continues active specification work. The MCU-class profile targets devices running RTOS workloads without a full OS, and the feature set maps to what Zephyr, FreeRTOS, and bare-metal firmware actually need: integer math, compressed instructions, hardware multiply, optional floating-point, and memory protection unit support.</p><p>The practical consequence of profile ratification at the application level is that it anchors the compiler and OS ecosystem. Ubuntu's decision in August 2025 to require RVA23 as the baseline for RISC-V support — deprecating older profiles — is exactly the kind of ecosystem consolidation that makes software investment predictable. When a toolchain vendor, OS distributor, and hardware vendor all converge on the same profile, binary compatibility becomes a real and testable property rather than a theoretical one.</p><h2>	What Profile Standardization Changes for Toolchain Users</h2><p>Before profiles, a RISC-V GCC or LLVM build required careful management of the -march and -mabi flags to match the exact extension combination of the target silicon. Switching from one vendor's RV32IMAC implementation to another vendor's RV32IMAFC implementation meant verifying that the compiler flags were updated and that any assembly code or intrinsics referencing specific extensions were compatible. For teams managing firmware across multiple product SKUs using different silicon, this was a concrete maintenance burden.</p><p>With a ratified profile as the compiler target, the compiler flag becomes a well-defined contract: build for RVA23U64 and the resulting binary will execute on any compliant implementation. The toolchain vendor's responsibility is to ensure that the code generator produces correct output for all mandatory extensions in the profile. The silicon vendor's responsibility is to implement those extensions and document compliance. The test suites maintained by RISC-V International and contributed implementations in QEMU and Spike provide a reference against which compliance can be verified.</p><p>The toolchain landscape for RISC-V has matured considerably since 2020. The key commercial tools relevant for embedded product development are:</p><ul class = "list">	<li>		GCC 14 and LLVM 18: both provide production-quality code generation for RISC-V 32-bit and 64-bit targets. GCC's RISC-V backend is actively maintained with contributions from SiFive, Alibaba, Andes Technology, and PLCT Lab.</li>	<li>		IAR Embedded Workbench for RISC-V: the functional safety edition is certified by TÜV SÜD for IEC 61508, ISO 26262, IEC 62304 (medical), EN 50128 (railway), and ISO 13849 (machinery). For product teams building safety-critical devices, a certified compiler is a mandatory element of the software qualification evidence package. IAR's December 2025 release extended support to SiFive's E7-A and S7-A automotive cores.</li>	<li>		SEGGER Embedded Studio and J-Link: debug and trace support for RISC-V is available, though trace capabilities for certain RISC-V cores still lag the maturity of Cortex-M trace infrastructure.</li>	<li>		Lauterbach TRACE32: supports RISC-V with hardware trace modules for silicon vendors who implement the RISC-V trace specification.</li></ul><p>The table below compares toolchain availability for RISC-V against ARM Cortex-M across the dimensions most relevant for production embedded development:</p><table class = "table table-bordered table-striped">	<tbody>		<tr>			<td>				<p><strong>Capability</strong></p>			</td>			<td>				<p><strong>ARM Cortex-M</strong></p>			</td>			<td>				<p><strong>RISC-V (2025)</strong></p>			</td>		</tr>		<tr>			<td>				<p>Open-source compiler (GCC/LLVM)</p>			</td>			<td>				<p>Mature, extensive CMSIS support</p>			</td>			<td>				<p>Production-grade, profile-aware</p>			</td>		</tr>		<tr>			<td>				<p>Commercial safety-certified compiler</p>			</td>			<td>				<p>Keil MDK, IAR (TÜV SÜD)</p>			</td>			<td>				<p>IAR Embedded Workbench RISC-V (TÜV SÜD)</p>			</td>		</tr>		<tr>			<td>				<p>Hardware trace</p>			</td>			<td>				<p>ETM/ITM widely available</p>			</td>			<td>				<p>Vendor-specific, RISC-V trace spec in adoption</p>			</td>		</tr>		<tr>			<td>				<p>RTOS support (Zephyr, FreeRTOS)</p>			</td>			<td>				<p>Extensive, multi-vendor</p>			</td>			<td>				<p>Zephyr 750+ boards, FreeRTOS multi-vendor</p>			</td>		</tr>		<tr>			<td>				<p>Vendor-optimized math libraries</p>			</td>			<td>				<p>CMSIS-DSP (ARM-maintained)</p>			</td>			<td>				<p>Vendor-specific, no universal equivalent yet</p>			</td>		</tr>		<tr>			<td>				<p>MISRA-C static analysis</p>			</td>			<td>				<p>Multiple tools, mature</p>			</td>			<td>				<p>Growing support, not fully equivalent</p>			</td>		</tr>	</tbody></table><p>The gap that remains most significant for safety-critical embedded development is the absence of a universally available, vendor-optimized math library equivalent to ARM's CMSIS-DSP. For DSP-intensive workloads — motor control, audio processing, sensor fusion — CMSIS-DSP provides optimized fixed-point and floating-point routines tuned to the Cortex-M hardware pipeline. RISC-V silicon vendors with vector extensions can achieve comparable performance, but the software layer requires either in-house optimization or reliance on vendor-specific libraries that are not portable across RISC-V implementations.</p><h2>	Building a Safety Case on RISC-V: What Has Changed</h2><p>The ISO 26262 and IEC 61508 safety case for a product built on RISC-V requires evidence at three levels: the processor IP, the compiler and development toolchain, and the RTOS and safety software libraries. Until 2020, each of these was incomplete or absent. The trajectory since then has been consistent.</p><p>At the processor IP level, SiFive has led the commercial RISC-V safety IP market. SiFive's E6-A series supports ASIL B hardware safety for real-time workloads, and the E7-A and S7-A series extend this to more demanding automotive and industrial safety applications. SiFive's automotive RISC-V IP has achieved ISO 26262:2018, IEC 61508:2010, and ISO/SAE 21434:2021 certifications across both its 32-bit E Series and 64-bit S Series cores. This means the silicon IP provider delivers a safety manual, FMEDA documentation, and a qualification package that can be incorporated into the product-level safety case — the same evidence structure that ARM Cortex-M device vendors have provided for a decade.</p><p>At the toolchain level, IAR's certified Embedded Workbench for RISC-V closes the most significant gap. A certified compiler removes the need for the development team to perform its own compiler qualification by analysis, which under IEC 61508 Tool Confidence Level 3 requirements would require extensive regression testing and code coverage evidence for the compiler itself. The IAR certification by TÜV SÜD provides this evidence as a pre-existing qualification artifact.</p><p>At the software library level, the situation is more variable. Vendors including Andes Technology and WCH provide safety-relevant runtime libraries for their specific silicon. RTOS safety certification is in active progress: the Zephyr project's IEC 61508 Safety Element out of Context certification effort is ongoing, and FreeRTOS has an ASIL D safety library available from SafeRTOS under commercial license. The coverage is not yet as complete as the ARM ecosystem, where a product team can select from multiple pre-certified RTOS and middleware vendors with documented ASIL B or ASIL D qualification packages.</p><p>The practical impact on a product safety case is that using RISC-V in a new IEC 61508 SIL 2 or ISO 26262 ASIL C product in 2025 is achievable with the right IP and toolchain selection, but requires more upfront planning than the equivalent ARM-based design. The safety case construction effort is higher because fewer pre-qualified software components are available off the shelf, and the product team needs to allocate engineering time to qualification of components that would be pre-certified in an ARM-based alternative.</p><p>This is not a permanent state. The combination of SiFive's safety IP certification, IAR's compiler certification, and the ongoing RTOS and library qualification work means the RISC-V safety ecosystem is tracking a credible path toward ARM equivalency over the next two to three years.</p><p>&nbsp;</p>
+<span  style = 'padding-bottom: 50px; '><img loading="lazy"  style="" typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/risc-v-profiles-portability-toolchains.jpg" width="1250" height="833" alt=" RISC-V" title="" /></span>
+<p>&nbsp;</p>
+<h2>	<br>	Where RISC-V Actually Fits in Production Embedded Designs Today</h2><p>The fragmentation concern and the safety case maturity gap define the boundaries of where RISC-V is the practical choice for new product designs versus where it remains a higher-risk option requiring additional qualification investment. The following breakdown reflects the current state, not a multi-year aspiration:</p><p>RISC-V is the natural choice today for:</p><ul class = "list">	<li>		High-volume consumer IoT and industrial sensing products where unit economics dominate, functional safety certification is not required, and the Espressif ESP32-C and ESP32-H series RISC-V MCUs provide a well-supported SDK and strong community.</li>	<li>		Edge AI inference on Linux-class processors where the RVA23 mandatory V extension makes RISC-V competitive for ML workloads and the OS/toolchain ecosystem is converging on the ratified profile.</li>	<li>		Custom SoC development where a RISC-V licensable core is integrated into a purpose-built chip with domain-specific accelerators, avoiding ARM licensing costs and enabling instruction set customization.</li>	<li>		Gateway and connectivity modules where Zephyr RTOS portability is more important than vendor-optimized hardware abstraction.</li></ul><p>RISC-V remains a higher-risk choice today for:</p><ul class = "list">	<li>		ISO 26262 ASIL C/D or IEC 61508 SIL 3 products where the pre-qualified software component ecosystem is thinner than ARM and the additional qualification effort needs to be budgeted explicitly.</li>	<li>		DSP-intensive control applications requiring CMSIS-DSP-equivalent performance without the engineering overhead of in-house library optimization.</li>	<li>		Products with 15+ year production lifecycle commitments where long-term silicon vendor support guarantees for RISC-V MCUs are less established than the equivalent ARM-based alternatives from STMicroelectronics, NXP, or Renesas.</li></ul><p>The direction of travel is clear. RISC-V International reported one billion RISC-V cores shipped in 2024, and Infineon joined as an automotive-focused Premier member in 2025, explicitly to shape RISC-V's development for automotive safety applications. Qualcomm's acquisition of Ventana Micro in December 2025 signaled that RISC-V is reaching the performance tier where it competes directly with high-end ARM cores in data center and edge compute contexts, not just in constrained embedded applications.</p><p>For product engineering teams, the actionable implication is that RISC-V should be included in platform feasibility analysis for any new program starting design in 2025 or later, particularly when unit volume, supply chain resilience, or long-term ISA licensing independence are design inputs. The time when RISC-V could be dismissed as insufficiently mature for production use has passed. The time when it can be adopted without careful qualification strategy has not yet arrived for safety-critical domains.</p><h2>	<strong>Quick Overview</strong></h2><p>RISC-V profile standardization — particularly the RVA23 and RVB23 ratifications in October 2024 — marks a shift from fragmented vendor-specific implementations to a defined binary compatibility baseline for application-class processors. For embedded product development, the significance is not only portability across silicon vendors but the downstream effect on toolchain consolidation, OS ecosystem stability, and the construction of functional safety cases for production hardware.</p><p>Key Applications</p><p>Edge AI inference on Linux-class RISC-V processors targeting the RVA23 mandatory V extension, high-volume IoT and industrial sensing using Espressif RISC-V MCUs with Zephyr or ESP-IDF, custom SoC development requiring licensable RISC-V IP without ARM royalties, automotive ECU designs using SiFive E-Series and S-Series safety-certified RISC-V cores, gateway modules requiring cross-vendor firmware portability.</p><p>Benefits</p><p>Profile standardization provides a stable compiler target across multiple silicon vendors, reducing the -march flag fragmentation that complicated multi-vendor RISC-V firmware maintenance. IAR Embedded Workbench for RISC-V delivers a TÜV SÜD-certified compiler covering IEC 61508, ISO 26262, IEC 62304, and EN 50128, eliminating the need for in-house compiler qualification. Royalty-free ISA licensing reduces unit-level silicon cost for high-volume designs and enables full custom instruction extension without licensor approval.</p><p>Challenges</p><p>No universal CMSIS-DSP equivalent exists for RISC-V, creating optimization overhead for DSP-intensive control applications. Pre-certified RTOS and safety middleware is less available than for ARM Cortex-M, increasing the qualification burden for SIL 2 and ASIL C or D products. Long-term production lifecycle guarantees from RISC-V MCU silicon vendors are less established than equivalent ARM-based suppliers. Hardware trace infrastructure is vendor-specific and not yet uniformly mature across RISC-V silicon families.</p><p>Outlook</p><p>RISC-V International reported one billion RISC-V cores shipped in 2024. Infineon joined as an automotive-focused Premier member in 2025 to shape RISC-V for safety-critical applications. Qualcomm's acquisition of Ventana Micro in late 2025 signals RISC-V reaching high-performance compute tiers beyond embedded. MCU-class profile standardization, ongoing RTOS safety certification efforts, and expanding silicon vendor commitment suggest the ARM-equivalency gap in safety-critical embedded tooling will narrow substantially by 2027.</p><p>Related Terms</p><p>RVA23, RVB23, RISC-V profile, RISC-V ISA extensions, RV32IMAC, V Vector extension, Zephyr RTOS, FreeRTOS, IAR Embedded Workbench, GCC RISC-V, LLVM RISC-V, CMSIS-DSP, IEC 61508, ISO 26262, ASIL D, SiFive E-Series, SiFive S-Series, Espressif ESP32-C, RISC-V International, TÜV SÜD, safety case, functional safety compiler, MISRA-C</p>
+<div> <p>&nbsp;</p> <p class="rtecenter"> <a class="btn-blue" href="https://promwad.com/contacts" target="_blank">Contact us</a> </p> <p>&nbsp;</p></div>
+</div>
+<div  class = 'col-md-2 col-lg-2 '>
+</div>
+</div>
+<p class="rtecenter">&nbsp;</p><h2 class="gray c-font-bold" style="box-sizing: border-box; margin: 29px 0px; font-family: MuseoSansCyrl; line-height: 54px; text-align: center;">	Our Case Studies</h2><p>&nbsp;</p>
+<section id="block-views-some-cases-block-47" class="block block-views clearfix">
+
+      
+  <div class="view view-some-cases view-id-some_cases view-display-id-block_47 view-dom-id-ee431460c19c0059077e2025301672dd">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/cfexpress-storage-board-fpga-broadcast"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/cfexpress-promwad_mini_0.jpg?itok=fENdtaTX" width="337" height="346" alt="" title="CFexpress Storage Board for Broadcast FPGA Systems" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/cfexpress-storage-board-fpga-broadcast">Hot-Swappable CFexpress Storage for FPGA Systems
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/broadcasting">Broadcasting &amp; Media</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/fpga">FPGA Design</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/ai-photo-booth-for-tech-exhibitions"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/ai-photo_booth_mini-1.jpg?itok=UmUhCoNE" width="337" height="346" alt="" title="AI Photo Booth" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/ai-photo-booth-for-tech-exhibitions">AI Photo Booth for Trade Show Lead Generation
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/broadcasting">Broadcasting &amp; Media</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/software-development">Software Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/ai">AI</a></div>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/ambarella-cvflow-ai-camera-platform-vehicle-access"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/gesture_control.jpg?itok=H9S_rvfi" width="337" height="346" alt="" title="AI Camera Platform for Exterior Vehicle Access " /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/ambarella-cvflow-ai-camera-platform-vehicle-access">AI Camera Platform for Vehicle Access
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/automotive">Automotive &amp; Transportation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/ai">AI</a></div>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/design-intelligent-speed-assistance-device"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/asi-390.jpg?itok=CQb-_HeO" width="337" height="346" alt="" title="Intelligent Speed Assistance" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/design-intelligent-speed-assistance-device">Speed Limiter for Any Electronic-Throttle Vehicle
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/automotive">Automotive &amp; Transportation</a>, <a href="/case-studies/safety-systems">Safety Systems</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/frontend">Frontend</a>, <a href="/case-studies/hardware">Hardware Design</a>, <a href="/case-studies/manufacturing">Manufacturing</a>, <a href="/case-studies/ui-ux">UI / UX</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/nvidia-robotics-platform-industrial-protocols"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/universal-platform-robotics-390.jpg?itok=C5MUR_GO" width="337" height="346" alt="" title="Universal Platform for Robotics " /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/nvidia-robotics-platform-industrial-protocols">Jetson Robotics Platform with Industrial Protocols
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/industrial-automation">Industrial Automation</a>, <a href="/case-studies/robotics">Robotics &amp; Drones</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+  <div class="views-row views-row-6 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/lattice-fpga-sealsq-tpm-post-quantum-crypto-platform"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/sealsq_lattice_pqc_demo_mini_0.jpg?itok=DsoOnn4u" width="337" height="346" alt="" title="SEALSQ &amp; Lattice PQC Demo" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/lattice-fpga-sealsq-tpm-post-quantum-crypto-platform">FPGA Security Platform with Post-Quantum Cryptography
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/industrial-automation">Industrial Automation</a>, <a href="/case-studies/robotics">Robotics &amp; Drones</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/fpga">FPGA Design</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+  <div class="views-row views-row-7 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/ventisight-edge-ai-ventilation-monitoring"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/ventisight_mini.jpg?itok=oY61WTyA" width="337" height="346" alt="" title="Ventisight " /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/ventisight-edge-ai-ventilation-monitoring">Predictive Edge-AI Monitoring for Ventilation Systems
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/industrial-automation">Industrial Automation</a>, <a href="/case-studies/smart-home">Smart Home</a>, <a href="/case-studies/safety-systems">Safety Systems</a>, <a href="/case-studies/smart-city">Smart City</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/ai">AI</a></div>  </div>  </div>
+  <div class="views-row views-row-8 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/direct-drive-turntable-embedded-verification"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/studio-grade_turntable-mini.jpg?itok=-mQRMVH7" width="337" height="346" alt="" title="Studio-Grade Turntable Built to Verify Itself" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/direct-drive-turntable-embedded-verification">Turnkey Design for a Studio-Grade Direct-Drive Turntable
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/industrial-automation">Industrial Automation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/motor-control">Motor Control</a></div>  </div>  </div>
+  <div class="views-row views-row-9 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/do-160-pharma-telemetry-gateway-architecture"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/telematics_solutions_for_aviation_cargo_industry_mini_0.jpg?itok=RH51Hb_Z" width="337" height="346" alt="" title="Aviation IoT Gateway Architecture" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/do-160-pharma-telemetry-gateway-architecture">Aviation IoT Gateway Architecture
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/medtech">MedTech</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/software-development">Software Development</a>, <a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/c-and-c-plus-plus">C / C++</a>, <a href="/case-studies/linux">Linux Kernel</a></div>  </div>  </div>
+  <div class="views-row views-row-10 views-row-even">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/mmwave-radar-module-video-surveillance"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/video_surveillance_radar-promwad_mini.jpg?itok=PMk-JBKK" width="337" height="346" alt="" title="Cutting Video Surveillance" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/mmwave-radar-module-video-surveillance">Compact mmWave Radar Module for Video Surveillance
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/safety-systems">Safety Systems</a>, <a href="/case-studies/video-surveillance">Video Surveillance</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/ai">AI</a>, <a href="/sensors">Sensors</a></div>  </div>  </div>
+  <div class="views-row views-row-11 views-row-odd">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/zynq-ultrascale-board-sdi-st-2110-broadcast"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/hardware_platform.jpg?itok=C0b-5UQw" width="337" height="346" alt="" title="Hardware Platform for Hybrid SDI and ST 2110 Broadcast Devices" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/zynq-ultrascale-board-sdi-st-2110-broadcast">SDI and ST 2110 Hardware Platform for SONOVTS
+</a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/broadcasting">Broadcasting &amp; Media</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"><a href="/case-studies/tv-stb">TV &amp; STB</a></div>  </div>  </div>
+  <div class="views-row views-row-12 views-row-even views-row-last">
+      
+  <div class="views-field views-field-field-image-portfolio">        <div class="field-content"><a href="/case-studies/automotive-fragrance-electronics-nfc-lin"><img loading="lazy"  typeof="foaf:Image" class="img-responsive" src="https://promwad.com/sites/default/files/styles/337x346/public/portfolio/images/incar_aroma_device_mini.jpg?itok=gMCFcbc2" width="337" height="346" alt="" title="Automotive Fragrance Systems" /></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content">
+<a href="/case-studies/automotive-fragrance-electronics-nfc-lin">Architecture for Automotive Fragrance Systems
+ </a></span>  </div>  
+  <div class="views-field views-field-field-market-type">        <div class="field-content"><a href="/case-studies/automotive">Automotive &amp; Transportation</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-serv">        <div class="field-content"><a href="/case-studies/firmware">Firmware Development</a>, <a href="/case-studies/hardware">Hardware Design</a></div>  </div>  
+  <div class="views-field views-field-field-clasify-portfolio-tech">        <div class="field-content"></div>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>
+</section>
+
+</div>
+</div>
+<div  class = 'container-fluid '>
+<div  class = 'container-1170 ' style = 'padding-bottom: 50px; padding-top: 50px; '>
+<div class="content-title-outer"><div class="content-title "><h2  class = 'text-center     c-font-bold '>FAQ
+</h2></div></div>
+<div  class = 'row '>
+<div  class = 'col-md-1 col-lg-1 '>
+</div>
+<div  class = 'col-md-10 col-lg-10 '>
+<div class="spoiler colapsed"><div class="spoiler-outer" style="border:solid 1px"><h3>What is the RVA23 profile and why does it matter for embedded software portability?</h3><div class="spoiler-text">RVA23 is a ratified RISC-V profile standard that defines the mandatory and optional ISA extensions for 64-bit application processors targeting binary OS distributions. It mandates the V Vector extension, the H Hypervisor extension, and cryptographic and floating-point extensions as a baseline. By defining a common feature target, RVA23 allows compilers, operating systems, and application software to build against a stable, cross-vendor binary ABI rather than a specific silicon configuration, which is the foundational requirement for software portability across RISC-V hardware vendors.</div><div class="plus">&nbsp;</div></div></div><div class="spoiler colapsed"><div class="spoiler-outer" style="border:solid 1px"><h3>Can RISC-V be used for ISO 26262 or IEC 61508 certified products today?</h3><div class="spoiler-text">Yes, with the right component selection. SiFive's automotive RISC-V IP has achieved ISO 26262:2018, IEC 61508:2010, and ISO/SAE 21434 certifications across its E and S series cores. IAR Embedded Workbench for RISC-V provides a TÜV SÜD-certified compiler covering IEC 61508, ISO 26262, IEC 62304, and EN 50128. The main gap relative to ARM-based safety designs is the smaller library of pre-certified RTOS and middleware components, which increases the qualification effort the product team must perform internally.</div><div class="plus">&nbsp;</div></div></div><div class="spoiler colapsed"><div class="spoiler-outer" style="border:solid 1px"><h3>What is the difference between RVA23 and RVB23 for embedded product development?</h3><div class="spoiler-text">RVA23 targets 64-bit application processors that run standard binary OS distributions — Linux-class hardware where multiple vendors' chips must execute the same binary without recompilation. RVB23 targets customized 64-bit processors where the OS is built from source for the specific hardware, allowing more optional extensions and less strict binary compatibility. For MCU-class embedded development below 64-bit, neither profile is the primary target; RISC-V International is developing dedicated embedded and microcontroller profiles in this segment.</div><div class="plus">&nbsp;</div></div></div><div class="spoiler colapsed"><div class="spoiler-outer" style="border:solid 1px"><h3>How does the RISC-V toolchain for safety-critical development compare to ARM Cortex-M in 2025?</h3><div class="spoiler-text">The core gap is pre-certified software component availability. ARM Cortex-M benefits from a mature ecosystem of TÜV-certified RTOS options, vendor-provided ASIL D safety libraries, and CMSIS-DSP for optimized math operations. RISC-V has IAR's certified compiler and SiFive's certified core IP, which covers the two most fundamental safety case evidence requirements. RTOS and middleware certification is in progress but not yet equivalent. For SIL 2 or ASIL C products, RISC-V is achievable but requires more internal qualification work than a comparable ARM-based design.</div><div class="plus">&nbsp;</div></div></div>
+</div>
+<div  class = 'col-md-1 col-lg-1 '>
+</div>
+</div>
+</div>
+</div>
+ </div></div></div>    </article>
+
+</section>
+  </div>
+    </section>
+
+    
+  </div>
+</div>
+
+  <footer class="footer container">
+      <div class="region region-footer">
+    <section id="block-block-22" class="block block-block clearfix">
+
+      
+  <div class="row footer-black">
+  <div class="max-width-1200px">  
+    <div class="col-sm-4 col-md-3 col-lg-2">
+      <div class="footer-phones-inner">
+      <a class="footer-logo" href="/"><img loading="lazy" src="/sites/all/themes/promwad2021/images/footer/promwad_logo.svg" alt="Promwad white logo" width="175" height="84"/></a>
+<p><a href="https://promwad.com/company/testimonials-clients"><img loading="lazy" src="https://promwad.com/sites/default/files/clutch-reviews.jpg" alt="Clutch with reviews icon"width="160" height="46" /></a></p>
+      <div class="footer-phones">
+        <div><a href="tel:+4920148790148">DE: +4920148790148</a></div> 
+       <div><a href="tel:+37052141244">LT: +37052141244</a></div>
+        <div class="footer-email"><a href="mailto:info@promwad.com">info@promwad.com</a></div>
+        <div class="footer-get"><a href="/contacts">GET IN TOUCH</a></div>
+      </div>
+      </div>
+    </div>
+    <div class="footer-links col-sm-8 col-md-9 col-lg-10">
+      <div class="row">
+        <div class="col-sm-6 col-md-3 padding-left-40">
+          <div><b><a href="/services">Services</a></b></div>
+          <div><a href="/services/hardware">Hardware Development</a></div>
+         <div><a href="/services/embedded/fpga-design">FPGA &amp; SoC Design</a></div>
+         <div><a href="/services/embedded">Embedded Software</a></div>
+          <div><a href="/services/software">Custom Software</a></div>
+          <div><a href="/services/embedded/security-hardening">Embedded Security</a></div>
+          <div><a href="/services/industrial-design/manufacturing">Manufacturing Support</a></div>
+           <div><a href="/services/software/dedicated-team">Dedicated Dev Teams</a></div>
+ 
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div><b><a href="/industries">Industries</a></b></div>
+          <div><a href="/industries/video-streaming">Broadcasting &amp; Media</a></div>
+          <div><a href="/industries/automotive">Automotive &amp; Transportation</a></div>
+          <div><a href="/industries/industrial/industrial-solutions">Industrial Automation</a></div>
+          <div><a href="/industries/industrial/robotics-engineering">Drones &amp; Robotics</a></div>
+          <div><a href="/industries/telecom">Telecom &amp; Networking</a></div>
+          <div><b><a href="/platforms">Platform-Based Design</a></b></div>
+          <div><b><a href="/company/partners">Our Tech Vendors</a></b></div>
+        </div>    
+        <div class="col-sm-6 col-md-3">
+        <div style="font-weight:bold;color: #7F7F7F; margin-bottom: 6px;">Featured Expertise</div>
+          <div><a href="/proav-engineering-services">ProAV &amp; AV-over-IP</a></div>
+          <div><a href="/industries/video-streaming/stb-software-development">CTV &amp; STB Solutions</a></div>
+          <div><a href="/ott-platforms-development-services">OTT Platform Development</a></div>
+          <div><a href="/industries/industrial/power-electronics-design-services">Power Electronics</a></div>
+          <div><a href="/industries/automotive/cameras-vision-systems">Vision Systems &amp; ADAS</a></div>
+          <div><a href="/industries/telecom/network-equipment">Network Infrastructure</a></div>
+          <div><a href="/services/embedded/ai-on-edge">Edge AI Engineering</a></div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div><b><a href="/company">About Promwad</a></b></div>
+          <div><a href="/case-studies">Case Studies</a></div>
+          <div><a href="/news">News &amp; Insights</a></div>
+          <div><a href="/company/partners">Partners</a></div>
+          <div><a href="/company/testimonials-clients">Client Reviews</a></div>
+          <div><a href="/company/careers">Careers</a></div>
+          <div><a href="/company/press-kit">Press Kit</a></div>
+          <div><a href="/contacts">Contacts</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row grey">
+  <div class="max-width-1200px">
+    <div class="col-md-3 col-lg-3 footer-social-links">
+      <a href="https://www.linkedin.com/company/promwad/"><img loading="lazy" alt="Linkedin SVG icon" src="/sites/all/themes/promwad2021/images/footer/linkedin.svg"  width="150" height="150"/></a>
+      <a href="https://www.facebook.com/promwad.electronics"><img loading="lazy" alt="Facebook SVG icon" src="/sites/all/themes/promwad2021/images/footer/facebook.svg"  width="150" height="150"/></a>
+    </div>
+    <div class="col-md-9 col-lg-9 footer-logos">
+      <div class="footer-logos-inner">
+      <img loading="lazy" alt="Sertika ISO 9001" src="/sites/all/themes/promwad2021/images/footer/ISO 9001.svg"  width="150" height="77"/>
+      <img loading="lazy" alt="Microchip partner program icon" src="/sites/all/themes/promwad2021/images/footer/microchip-partner-icon.png"  width="264" height="252"/>    
+      <img loading="lazy" alt="FPGA partner program icon" src="/sites/all/themes/promwad2021/images/footer/fpga-partner-icon.png"  width="406" height="312"/>
+      <img loading="lazy" alt="NXP partner program icon" src="/sites/all/themes/promwad2021/images/footer/nxp-partner-icon.png"  width="152" height="67"/>
+      <img loading="lazy" alt="AMD partner program icon" src="/sites/default/files/amd_embedded.png"  width="140" height="36"/>
+      <img loading="lazy" alt="Lattice partner program icon" src="/sites/all/themes/promwad2021/images/footer/lattice.png"  width="240" height="149"/>
+     <img loading="lazy" alt="Sertika ISO 9001" src="/sites/all/themes/promwad2021/images/footer/IEC 27002.svg"  width="150" height="77"/>
+     <img loading="lazy" alt="Infineon partner program icon" src="/sites/all/themes/promwad2021/images/footer/infineon-logo.png"  width="240" height="131"/>
+     <img loading="lazy" alt="Altera partner program icon" src="/sites/all/themes/promwad2021/images/footer/altera-logo.png"  width="240" height="135"/>
+     <img loading="lazy" alt="Hilscher partner program icon" src="/sites/all/themes/promwad2021/images/footer/hilscher-logo.png"  width="240" height="135"/>
+     <img loading="lazy" alt="Qualcomm partner program icon" src="/sites/all/themes/promwad2021/images/footer/Qualcomm-Logo 1.png"  width="240" height="105" />
+    </div>
+    </div>
+  </div>
+</div>
+<div class="row copyright">
+  <div class="max-width-1200px">
+    <div class="col-md-6">© Promwad — Software and Hardware Product Development, 2004 — 2026</div>
+    <div class="col-md-6 policy">By using our website you agree to our <a href="https://promwad.com/privacy-policy">Privacy and Cookies Policy</a></div>
+  </div>
+</div>
+</section>
+  </div>
+  </footer>
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script>window.jQuery || document.write("<script src='/sites/all/modules/jquery_update/replace/jquery/1.10/jquery.min.js'>\x3C/script>")</script>
+<script src="https://promwad.com/sites/default/files/js/js_Hfha9RCTNm8mqMDLXriIsKGMaghzs4ZaqJPLj2esi7s.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_RulCPHj8aUtatsXPqRSFtJIhBjBSAzFXZzADEVD4CHY.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_1kaE6aRlZSHSnzRT9hpBdgsoA0AF4wvjtBeioxwbQUs.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_8RylhjbeTS2wmW3ooc-bJq3k_THW1iGE3EVny9a-R34.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_FcMNZP_mZ_yyumpEZAcsOXIGoWjDdREOhHaLMLbYkeI.js"></script>
+<script>jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","setHasJsCookie":0,"ajaxPageState":{"theme":"promwad2021","theme_token":"zi2ApGTCgkCBDJdixidkDBIzWNLOYk4Q3vucJ5KFL5c","js":{"0":1,"sites\/all\/modules\/eu_cookie_compliance\/js\/eu_cookie_compliance.min.js":1,"sites\/all\/themes\/bootstrap\/js\/bootstrap.js":1,"\/\/code.jquery.com\/jquery-1.10.2.min.js":1,"1":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery-html-prefilter-3.5.0-backport.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"sites\/all\/modules\/eu_cookie_compliance\/js\/jquery.cookie-1.4.1.min.js":1,"misc\/form-single-submit.js":1,"sites\/all\/modules\/ckeditor_tabber\/semantic-tabs.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/bootstrap.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/slick.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/masonry.pkgd.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/isotope.pkgd.min.js":1,"sites\/all\/themes\/promwad2021\/js\/libs\/tabs.js":1,"sites\/all\/themes\/promwad2021\/js\/slider.js":1,"sites\/all\/themes\/promwad2021\/js\/main.js":1,"sites\/all\/themes\/promwad2021\/js\/inner.js":1},"css":{"modules\/system\/system.base.css":1,"sites\/all\/modules\/ckeditor_tabber\/ckeditor_tabber.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"sites\/all\/modules\/views\/css\/views.css":1,"sites\/all\/modules\/ckeditor\/css\/ckeditor.css":1,"sites\/all\/modules\/ctools\/css\/ctools.css":1,"sites\/all\/modules\/eu_cookie_compliance\/css\/eu_cookie_compliance.css":1,"public:\/\/ctools\/css\/e82ed354f85f0fa82dc711e8329b00f1.css":1,"sites\/all\/themes\/promwad2021\/css\/bootstrap.min.css":1,"sites\/all\/themes\/promwad2021\/css\/drupal-bootstrap.css":1,"sites\/all\/themes\/promwad2021\/css\/slick.css":1,"sites\/all\/themes\/promwad2021\/css\/slick-theme.css":1,"sites\/all\/themes\/promwad2021\/css\/style.css":1,"sites\/all\/themes\/promwad2021\/css\/components.css":1,"sites\/all\/themes\/promwad2021\/css\/front.css":1}},"eu_cookie_compliance":{"cookie_policy_version":"1.0.0","popup_enabled":1,"popup_agreed_enabled":0,"popup_hide_agreed":0,"popup_clicking_confirmation":0,"popup_scrolling_confirmation":0,"popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies to ensure you get the best experience. By using our website you agree to our\u00a0\u003Ca class=\u0022eu-cookie-compliance-more-button\u0022 href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAccept\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button agree-button eu-cookie-compliance-default-button\u0022\u003EReject\u003C\/button\u003E\n                \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","use_mobile_message":false,"mobile_popup_html_info":"\u003Cdiv\u003E\n  \u003Cdiv class =\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies on our website to analyze, improve its functionality and improve the usability of the website. By continuing to browse this website, you agree that we may place cookies on your device. If you want, you can change the cookie settings at any time. For more information, please read our \u003Ca href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022agree-button eu-cookie-compliance-default-button\u0022\u003EAccept\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button agree-button eu-cookie-compliance-default-button\u0022\u003EReject\u003C\/button\u003E\n                \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","mobile_breakpoint":"768","popup_html_agreed":"\u003Cdiv\u003E\n  \u003Cdiv class=\u0022popup-content agreed\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Ch2\u003EThank you for accepting cookies\u003C\/h2\u003E\u003Cp\u003EYou can now hide this message or find out more about cookies.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022hide-popup-button eu-cookie-compliance-hide-button\u0022\u003EHide\u003C\/button\u003E\n              \u003Cbutton type=\u0022button\u0022 class=\u0022find-more-button eu-cookie-compliance-more-button-thank-you\u0022 \u003EMore info\u003C\/button\u003E\n          \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E","popup_use_bare_css":false,"popup_height":"auto","popup_width":"100%","popup_delay":1000,"popup_link":"\/privacy-policy","popup_link_new_window":1,"popup_position":null,"fixed_top_position":1,"popup_language":"en","store_consent":false,"better_support_for_screen_readers":0,"reload_page":0,"domain":"","domain_all_sites":0,"popup_eu_only_js":0,"cookie_lifetime":"100","cookie_session":false,"disagree_do_not_show_popup":0,"method":"default","allowed_cookies":"","withdraw_markup":"\u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-tab\u0022\u003EPrivacy settings\u003C\/button\u003E\n\u003Cdiv class=\u0022eu-cookie-withdraw-banner\u0022\u003E\n  \u003Cdiv class=\u0022popup-content info\u0022\u003E\n    \u003Cdiv id=\u0022popup-text\u0022\u003E\n      \u003Cp\u003EWe use cookies to ensure you get the best experience. By using our website you agree to our \u003Ca class=\u0022eu-cookie-compliance-more-button\u0022 href=\u0022\/privacy-policy\u0022\u003EPrivacy and Cookies Policy\u003C\/a\u003E.\u003C\/p\u003E    \u003C\/div\u003E\n    \u003Cdiv id=\u0022popup-buttons\u0022\u003E\n      \u003Cbutton type=\u0022button\u0022 class=\u0022eu-cookie-withdraw-button\u0022\u003EWithdraw consent\u003C\/button\u003E\n    \u003C\/div\u003E\n  \u003C\/div\u003E\n\u003C\/div\u003E\n","withdraw_enabled":false,"withdraw_button_on_info_popup":0,"cookie_categories":[],"cookie_categories_details":[],"enable_save_preferences_button":1,"cookie_name":"Clarity","cookie_value_disagreed":"0","cookie_value_agreed_show_thank_you":"1","cookie_value_agreed":"2","containing_element":"body","automatic_cookies_removal":1,"close_button_action":"close_banner"},"ckeditor_tabber":{"elements":"dl.ckeditor-tabber"},"urlIsAjaxTrusted":{"\/news\/risc-v-profiles-portability-toolchains-safety-embedded-products":true},"bootstrap":{"anchorsFix":"0","anchorsSmoothScrolling":"0","formHasError":1,"popoverEnabled":0,"popoverOptions":{"animation":1,"html":0,"placement":"right","selector":"","trigger":"click","triggerAutoclose":1,"title":"","content":"","delay":0,"container":"body"},"tooltipEnabled":0,"tooltipOptions":{"animation":1,"html":0,"placement":"auto left","selector":"","trigger":"hover focus","delay":0,"container":"body"}}});</script>
+  <script>window.eu_cookie_compliance_cookie_name = "Clarity";</script>
+<script src="https://promwad.com/sites/default/files/js/js_R0Kkh6Dl-rxYpVGDPqv4qCK9smRGUo-lO9XBfNa4Gw8.js"></script>
+<script src="https://promwad.com/sites/default/files/js/js_MRdvkC2u4oGsp5wVxBG1pGV5NrCPW3mssHxIn6G9tGE.js"></script>
+
+  
+  <script defer="defer">
+  document.addEventListener('DOMContentLoaded', () => {
+    window.DocsBotAI = window.DocsBotAI || {};
+    DocsBotAI.init = function(config) {
+      return new Promise((resolve, reject) => {
+        const script = document.createElement('script');
+        script.src = 'https://widget.docsbot.ai/chat.js';
+        script.async = true;
+        script.onload = async () => {
+          try {
+            await window.DocsBotAI.mount(Object.assign({}, config));
+            await waitForElement('#docsbotai-root');
+            resolve();
+          } catch (err) { reject(err); }
+        };
+        script.onerror = (err) => reject(err.message);
+        document.head.appendChild(script);
+      });
+    };
+
+    function waitForElement(selector) {
+      return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+          resolve(document.querySelector(selector));
+          return;
+        }
+        const observer = new MutationObserver(() => {
+          if (document.querySelector(selector)) {
+            resolve(document.querySelector(selector));
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      });
+    }
+
+    DocsBotAI.init({ id: "L1tYD2bocQ5cgDKo8Ht4/QpuhM1o3ACHxsIf23VHa" });
+  });
+  </script>
+  
+  <script defer="defer">
+    setTimeout(function(){
+      (function(w,d,u){
+        var s=d.createElement('script');s.async=true;s.src=u+'?'+(Date.now()/60000|0);
+        var h=d.getElementsByTagName('script')[0];h.parentNode.insertBefore(s,h);
+      })(window,document,'https://bitrix.promwad.com/upload/crm/tag/call.tracker.js');
+    }, 4000);
+  </script>
+  
+</body>
+</html>

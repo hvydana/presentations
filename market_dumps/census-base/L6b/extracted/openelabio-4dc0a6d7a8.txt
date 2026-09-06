@@ -1,0 +1,1856 @@
+Choosing LeRobot hardware is not simply a matter of comparing payload, motor torque, degrees of freedom or price.
+SO-ARM101, Koch v1.1, OpenArm 2, LeKiwi and XLeRobot represent fundamentally different robot configurations. Some are fixed tabletop arms designed for straightforward imitation-learning experiments. Others combine manipulation with mobility, dual-arm coordination or research-grade contact capabilities.
+The right question is therefore not:
+Which robot has the best specifications?
+It is:
+Which platform most closely reproduces the physical structure of the tasks you eventually want to demonstrate, train and deploy?
+A low-cost stationary arm may be the best choice for learning the complete LeRobot workflow. A mobile dual-arm robot may appear more capable, but it also introduces navigation, camera synchronization, base-position uncertainty, self-collision and much more complicated data requirements. A research-grade platform such as OpenArm may cost substantially more, yet its backdrivable actuators, higher payload and contact-rich manipulation capabilities can make it the more appropriate tool for advanced laboratory work.
+This guide compares the five platforms by robot form factor, Leader–Follower configuration, actuator architecture, data-collection difficulty, software complexity, expansion potential and total cost of ownership.
+Quick Answer: Which LeRobot Robot Should You Buy?
+Choose SO-ARM101 if you want the lowest-cost and most accessible introduction to LeRobot, teleoperation and stationary imitation learning.
+Choose Koch v1.1 if you want a more robust stationary Leader–Follower system built around the Dynamixel ecosystem.
+Choose LeKiwi if the robot needs to move between locations but only requires one manipulation arm.
+Choose XLeRobot if your project requires a low-cost mobile platform with two arms for household or whole-body embodied-AI experiments.
+Choose OpenArm 2 if you need a research-grade bimanual platform with higher payload, seven degrees of freedom per arm, backdrivable joints, CAN-FD control and stronger contact-manipulation capabilities. OpenArm is designed and engineered by Enactic, while WowRobo manufactures and commercially delivers its hardware configurations.
+| User or project | Recommended platform | Main reason | 
+|---|---|---|
+| First LeRobot project | SO-ARM101 | Lowest overall entry barrier | 
+| Student or individual Maker | SO-ARM101 | Affordable and compact | 
+| Repeated stationary teleoperation | Koch v1.1 | More robust servo ecosystem | 
+| Mobile manipulation on a limited budget | LeKiwi | Integrated locomotion and one arm | 
+| Dual-arm household robotics | XLeRobot | Mobile bimanual form factor | 
+| University robotics laboratory | OpenArm 2 | Research-grade architecture | 
+| Contact-rich manipulation | OpenArm 2 | Backdrivable QDD joints | 
+| Scalable low-cost data collection | SO-ARM101 | Lower fleet and maintenance cost | 
+| Mobile embodied-AI experiments | LeKiwi or XLeRobot | Navigation plus manipulation | 
+| Advanced bimanual research | OpenArm 2 | Payload, control quality and expandability | 
+Understanding Leader–Follower Systems Before You Buy
+One of the most common purchasing mistakes is focusing only on the arm that performs the task.
+For imitation learning, the Leader Arm or another teleoperation device can be just as important as the robot that executes the movement.
+What Are Leader and Follower Arms?
+A Leader Arm is manually moved by a human operator. Its joint positions are read by the control system and converted into commands for another robot.
+A Follower Arm is the powered robot that reproduces those movements and physically interacts with the environment.
+A typical LeRobot imitation-learning workflow is:
+- 
+The operator moves the Leader Arm.
+- 
+The Follower Arm reproduces the motion.
+- 
+Cameras record the task and environment.
+- 
+The system records joint states, actions and observations.
+- 
+A policy is trained from the demonstrations.
+- 
+The trained policy controls the Follower Arm autonomously.
+LeRobot’s official real-world imitation-learning workflow supports teleoperation devices such as a Leader Arm or keyboard, followed by dataset recording, policy training and autonomous evaluation.
+Why the Leader Arm Matters
+The Leader affects more than basic robot control. It can influence:
+- 
+How naturally the operator demonstrates a task
+- 
+Whether the Leader and Follower joint structures match
+- 
+How much effort is required to move the Leader
+- 
+Teleoperation latency and smoothness
+- 
+The consistency of repeated demonstrations
+- 
+Operator fatigue during long data-collection sessions
+- 
+Whether the gripper input maps correctly to the Follower
+- 
+How much calibration is required before recording
+SO-ARM101 illustrates this clearly. Its Follower uses six STS3215 motors with the same 1:345 gearing, while the Leader uses several different gear ratios so that it can support its own structure while remaining easier to manipulate manually.
+The Hidden Cost of Teleoperation
+Before ordering any robot, verify whether the selected package includes:
+- 
+The Leader Arm
+- 
+The Follower Arm
+- 
+Servo or motor control boards
+- 
+Power supplies
+- 
+USB, serial or CAN adapters
+- 
+Gripper controls
+- 
+Cameras
+- 
+Mounting clamps
+- 
+Required cables
+- 
+Calibration software
+WowRobo’s SO-ARM101 configurations, for example, include options containing one Leader, one Follower and one camera, while the exact contents depend on the selected package.
+The WowRobo TwinArm packing list states that its Koch-based package contains one Leader, one Follower, 12 Dynamixel servos, two driver boards, power components, cables and clamps. Buyers should still verify the selected product variant and current packing list before payment.
+How Teleoperation Changes on Mobile Robots
+For a stationary robot, the operator mainly controls the arm and gripper.
+For a mobile manipulator, the operator may need to control:
+- 
+The robot base
+- 
+Driving direction
+- 
+Base orientation
+- 
+One or two arms
+- 
+One or two grippers
+- 
+Head or camera orientation
+- 
+Task transitions between navigation and manipulation
+LeKiwi’s official LeRobot documentation describes a Follower arm installed on the mobile base and a separate Leader arm used for teleoperation. Depending on the build, the robot can run through a Raspberry Pi over SSH or through a wired host computer.
+This means that “mobile LeRobot hardware” is not merely a stationary arm placed on wheels. It is a larger control, synchronization and data-engineering problem.
+SO-ARM101 vs Koch v1.1 vs OpenArm vs LeKiwi vs XLeRobot at a Glance
+| Feature | SO-ARM101 | Koch v1.1 | OpenArm 2 | LeKiwi | XLeRobot | 
+|---|---|---|---|---|---|
+| Form factor | Fixed single Follower arm | Fixed single Follower arm | Fixed dual-arm platform | Mobile single arm | Mobile dual arm | 
+| Typical teleoperation | Matching SO-101 Leader | Matching Koch Leader | OpenArm Leader or other research interface | Arm Leader plus base control | Dual-arm and base control | 
+| Active manipulation arms | One | One | Two | One | Two | 
+| Mobile base | No | No | Not included by default | Yes | Yes | 
+| Main actuator class | Feetech bus servos | Dynamixel servos | QDD actuators | Feetech arm plus base motors | SO-series arms plus mobile base | 
+| Main connection type | USB-to-serial bus | USB/Dynamixel interface | CAN-FD | Serial/USB plus network or wired host | Multiple interfaces depending on build | 
+| Relative hardware cost | Lowest | Low to medium | Highest | Low to medium | Medium | 
+| Mechanical setup difficulty | Low to medium | Medium | High | Medium to high | High | 
+| Data-collection complexity | Low | Low to medium | Medium to high | High | Very high | 
+| Policy complexity | Low | Low to medium | High | High | Very high | 
+| Best use | Basic imitation learning | Robust tabletop teleoperation | Advanced bimanual research | Mobile manipulation | Household/mobile bimanual research | 
+The categories in this table are relative rather than absolute. The platforms use different mechanical architectures, communication systems, software integrations and package structures, so they should not be ranked by one specification alone.
+The Most Important Difference Is Robot Form Factor
+Robot form factor determines what type of demonstrations can be collected and what physical problems the policy must solve.
+Stationary Manipulation Platforms
+SO-ARM101, Koch v1.1 and OpenArm are normally installed on a fixed desk, frame or laboratory structure.
+This configuration is suitable for:
+- 
+Pick-and-place
+- 
+Sorting
+- 
+Object insertion
+- 
+Tabletop organization
+- 
+Tool interaction
+- 
+Cloth manipulation
+- 
+Bimanual coordination
+- 
+Repeatable vision-based experiments
+- 
+Standardized evaluation environments
+A fixed base removes several sources of variation. The robot begins each episode from a known location, the cameras can remain in consistent positions, and the relationship between the arm and workspace is easier to reproduce.
+That does not make stationary manipulation easy. Contact, occlusion, object variation and demonstration quality remain difficult problems. However, it reduces the number of variables that must be represented in the dataset.
+Mobile Manipulation Platforms
+LeKiwi and XLeRobot combine robot arms with mobile bases.
+This enables tasks such as:
+- 
+Moving between tables
+- 
+Fetching objects from another area
+- 
+Transporting lightweight items
+- 
+Interacting with multiple workstations
+- 
+Household robotics demonstrations
+- 
+Navigation followed by manipulation
+- 
+Long-horizon embodied-AI tasks
+Mobility also adds uncertainty:
+- 
+Wheel slip
+- 
+Base-position error
+- 
+Different approach angles
+- 
+Changing camera viewpoints
+- 
+Floor irregularities
+- 
+Battery state
+- 
+Wireless communication quality
+- 
+Localization drift
+- 
+Collision risks
+- 
+Navigation failures
+LeKiwi is an open-source mobile manipulator associated with the LeRobot ecosystem and uses an omnidirectional base architecture. WowRobo currently offers versions with and without a Raspberry Pi and storage card, demonstrating why buyers must check the selected configuration rather than assuming that onboard computing is included.
+Single-Arm vs Dual-Arm Tasks
+A single arm is normally sufficient for:
+- 
+Picking up an object
+- 
+Placing an object in a container
+- 
+Pressing a button
+- 
+Moving a lightweight item
+- 
+Pushing or pulling a simple object
+- 
+Basic drawer interaction
+- 
+Simple tool movement
+Two arms become valuable when the task requires:
+- 
+Holding an object with one hand while manipulating it with the other
+- 
+Folding cloth
+- 
+Opening containers
+- 
+Regrasping
+- 
+Coordinated lifting
+- 
+Handing objects between arms
+- 
+Stabilizing tools or workpieces
+- 
+Human-style household manipulation
+However, two arms do not automatically improve performance. They increase the action dimension, calibration burden, collision risk and number of demonstrations required to cover meaningful behaviors.
+Data-Collection Complexity by Robot Type
+Hardware buyers frequently underestimate how strongly robot form factor affects dataset cost.
+Stationary Single-Arm Data Collection
+SO-ARM101 and Koch v1.1 have the simplest problem structure among the five platforms.
+The robot base remains fixed, the number of controlled joints is relatively limited, and a single task can often be framed within a small workspace. External cameras can also be rigidly mounted.
+This generally provides:
+- 
+More repeatable initial conditions
+- 
+Shorter episodes
+- 
+Fewer collision combinations
+- 
+Easier camera calibration
+- 
+Simpler failure analysis
+- 
+Lower demonstration requirements
+- 
+Faster iteration during early experiments
+This is one reason SO-ARM101 is a strong entry point. It does not merely cost less; it reduces the number of simultaneous engineering problems the user must solve.
+Stationary Dual-Arm Data Collection
+OpenArm increases the manipulation state and action space because it has two seven-degree-of-freedom arms.
+A bimanual dataset may need to preserve:
+- 
+Synchronization between the left and right arms
+- 
+Relative hand poses
+- 
+Gripper timing
+- 
+Object transfer events
+- 
+Arm-to-arm collision margins
+- 
+Contact states
+- 
+Wrist and scene-camera observations
+OpenArm remains stationary by default, so base localization is not part of the normal task. This helps preserve repeatability even when the manipulation itself is complex.
+Mobile Single-Arm Data Collection
+LeKiwi adds base motion to the arm trajectory.
+A complete episode may include:
+- 
+Driving toward a target
+- 
+Aligning the base
+- 
+Positioning the arm
+- 
+Manipulating the object
+- 
+Retracting the arm
+- 
+Driving to another destination
+The dataset may therefore need to capture both navigation and manipulation phases. Base-position errors can also change the arm’s effective relationship to the object even when the arm follows the same joint trajectory.
+Mobile Dual-Arm Data Collection
+XLeRobot combines the largest number of variables:
+- 
+Mobile-base motion
+- 
+Two arms
+- 
+Two grippers
+- 
+Multiple cameras
+- 
+Whole-body geometry
+- 
+Longer task sequences
+- 
+More self-collision possibilities
+- 
+More failure-recovery situations
+XLeRobot is built on projects including LeRobot, SO-100/SO-101 and LeKiwi. Its official repository presents it as a practical low-cost mobile home robot and continues to add hardware, control and simulation updates.
+Moving from SO-ARM101 to XLeRobot is therefore not equivalent to purchasing one additional arm and a mobile base. It significantly increases the amount of data, calibration and policy engineering required.
+SO-ARM101: Best Entry-Level LeRobot Hardware
+What Is SO-ARM101?
+SO-ARM101 is a low-cost open-source Leader–Follower robot-arm platform supported by LeRobot.
+A typical setup contains:
+- 
+One manually controlled Leader Arm
+- 
+One powered Follower Arm
+- 
+Feetech bus servos
+- 
+MotorBus control hardware
+- 
+A power supply
+- 
+One or more cameras
+- 
+A host computer running LeRobot
+The official LeRobot SO-101 documentation describes a six-motor Follower and a six-motor Leader. The Follower uses STS3215 motors with 1:345 gearing, while the Leader uses a combination of gear ratios intended to balance structural support and manual movement.
+WowRobo offers multiple SO-ARM101 package levels, including printed parts with servos, an unassembled Leader–Follower kit with a camera, and an assembled Leader–Follower configuration with a camera. Current availability and contents should always be confirmed on the selected listing.
+Why SO-ARM101 Is the Easiest Starting Point
+SO-ARM101 concentrates the project around one clear manipulation problem.
+The operator moves the Leader, the Follower reproduces the motion, cameras record the observation, and LeRobot records the action and state data.
+Its advantages for first-time users include:
+- 
+A compact tabletop workspace
+- 
+A direct Leader–Follower relationship
+- 
+Relatively inexpensive actuators
+- 
+Lower replacement-part cost
+- 
+No mobile-base localization
+- 
+No dual-arm coordination
+- 
+A widely documented LeRobot workflow
+- 
+A manageable calibration process
+The official LeRobot documentation includes port detection, motor setup and separate Leader and Follower calibration procedures. Calibration aligns the physical joint positions with their recorded values and is essential for consistent teleoperation and policy deployment.
+Key Strengths
+SO-ARM101 is particularly attractive because it offers:
+- 
+The lowest entry cost of the five platforms
+- 
+Direct compatibility with common LeRobot workflows
+- 
+Affordable experimentation
+- 
+Compact dimensions
+- 
+DIY and assembled options
+- 
+Relatively easy replacement of damaged components
+- 
+Suitability for multi-unit data-collection deployments
+- 
+A straightforward path from teleoperation to autonomous inference
+A team can also use SO-ARM101 to determine whether its task, camera arrangement and policy architecture are viable before committing to more expensive hardware.
+Main Limitations
+SO-ARM101 remains a lightweight servo-based arm.
+Its limitations include:
+- 
+Limited payload
+- 
+Limited structural rigidity
+- 
+Servo backlash
+- 
+Lower precision under changing loads
+- 
+Heat during demanding operation
+- 
+A relatively small workspace
+- 
+No mobility
+- 
+No native bimanual configuration in the standard pair
+- 
+Limited suitability for sustained high-force contact
+It should not be treated as an industrial manipulator or as a direct substitute for a research-grade force-responsive arm.
+Best Use Cases
+SO-ARM101 is well suited to:
+- 
+Picking up small objects
+- 
+Sorting components
+- 
+Placing objects into containers
+- 
+Moving lightweight household items on a table
+- 
+Basic visual imitation learning
+- 
+Classroom demonstrations
+- 
+Dataset-collection practice
+- 
+Testing new LeRobot policies
+- 
+Reproducing simple manipulation tutorials
+Who Should Buy SO-ARM101?
+SO-ARM101 is the strongest default choice for:
+- 
+Beginners
+- 
+Students
+- 
+Educators
+- 
+Makers
+- 
+Individual AI developers
+- 
+Small research teams validating a new task
+- 
+Organizations that need several low-cost data-collection stations
+Who Should Not Buy It?
+A different platform is more appropriate when the task requires:
+- 
+High payload
+- 
+Long reach
+- 
+Mobile operation
+- 
+Two-handed manipulation
+- 
+High-quality contact control
+- 
+High-duty-cycle production
+- 
+Precise force interaction
+- 
+A rigid institutional research platform
+Koch v1.1: Best for a More Robust Leader–Follower Setup
+What Is Koch v1.1?
+Koch v1.1 is another Leader–Follower arm architecture supported by LeRobot.
+The official LeRobot integration provides separate setup and calibration types for the Koch Leader and Koch Follower. Its calibration procedure follows the same general middle-position and full-range workflow used by SO-series arms.
+WowRobo’s TwinArm product is based on the open-source Koch v1.1 design rather than being an unrelated proprietary arm. The manufacturer highlights production-oriented improvements such as a mixed-material gripper, standardized quality control and more durable engineering-plastic structures.
+Koch v1.1 vs SO-ARM101
+The central difference is not simply appearance.
+SO-ARM101 is designed around lower-cost Feetech bus servos. Koch-style implementations generally use Dynamixel servos.
+That difference affects:
+- 
+Component cost
+- 
+Diagnostic tools
+- 
+Motor configuration
+- 
+Software ecosystem
+- 
+Replacement-part availability
+- 
+Feedback quality
+- 
+Maintenance procedures
+- 
+Long-term ownership cost
+Dynamixel is widely used in education and robotics research, providing a mature set of configuration and diagnostic tools. However, individual servos and replacement components typically cost more than comparable low-cost bus-servo parts.
+Key Strengths
+Koch v1.1 offers:
+- 
+A more premium servo ecosystem
+- 
+A direct Leader–Follower configuration
+- 
+Better suitability for repeated teleoperation
+- 
+Strong educational and research value
+- 
+A useful middle position between SO-ARM101 and OpenArm
+- 
+Easier adoption for laboratories already using Dynamixel hardware
+WowRobo’s current packing list for its Koch-based TwinArm includes one Leader, one Follower, 12 Dynamixel servos, two servo driver boards, power components, cables and clamps.
+Main Limitations
+Koch v1.1 still has important constraints:
+- 
+It is more expensive than SO-ARM101.
+- 
+Dynamixel replacement parts increase maintenance cost.
+- 
+It remains a fixed tabletop platform.
+- 
+It does not provide mobile manipulation.
+- 
+It does not provide OpenArm-class payload or backdrivability.
+- 
+Commercial implementations may differ in gripper, structure and package contents.
+- 
+The term “Koch v1.1” may refer to the open architecture rather than one standardized retail product.
+Best Use Cases
+Koch v1.1 is suitable for:
+- 
+Repeated tabletop demonstrations
+- 
+Robotics teaching laboratories
+- 
+More durable Leader–Follower workstations
+- 
+Teams already standardized on Dynamixel
+- 
+Intermediate LeRobot research
+- 
+Users who have outgrown the lowest-cost servo platform
+Who Should Buy Koch v1.1?
+Choose Koch v1.1 when:
+- 
+You want fixed tabletop manipulation.
+- 
+You value the Dynamixel ecosystem.
+- 
+You expect frequent teleoperation.
+- 
+You want more robust hardware than an entry-level SO-ARM.
+- 
+You do not require mobility, high payload or advanced contact control.
+OpenArm 2: Best Research-Grade Bimanual Platform
+What Is OpenArm?
+OpenArm is an open-source seven-degree-of-freedom humanoid-arm platform developed for physical-AI research and contact-rich environments.
+OpenArm 2 provides seven degrees of freedom per arm, QDD backdrivable joints, mechanical limits, a CAN-FD control bus, a metal structure and a compact parallel gripper with an in-hand camera. Its official published payload figures are 4.1 kg nominal and 6.0 kg peak under specifically defined test conditions.
+Commercial attribution must remain clear:
+- 
+Enactic designs and engineers OpenArm.
+- 
+WowRobo manufactures and delivers commercial configurations.
+- 
+The hardware and software are open source.
+- 
+OpenArm should not be described as a project originally designed by WowRobo.
+Why OpenArm Is Not Just a More Expensive SO-ARM101
+SO-ARM101 and OpenArm can both participate in robot-learning workflows, but they belong to different hardware classes.
+OpenArm introduces:
+- 
+Seven degrees of freedom per arm
+- 
+A bimanual structure
+- 
+QDD actuators
+- 
+Backdrivable joints
+- 
+CAN-FD communication
+- 
+Higher payload
+- 
+A larger human-scale workspace
+- 
+Higher-frequency control
+- 
+More robust mounting structures
+- 
+Integrated end-effector cameras
+- 
+Greater capacity for advanced sensors and grippers
+WowRobo’s current OpenArm 2 configuration specifies 1 kHz CAN-FD control and a two-finger gripper with an integrated RGB camera. A separate top stereo-camera package is optional, showing that the wrist or gripper cameras and the overhead stereo system are distinct components.
+OpenArm’s Advantage in Contact-Rich Tasks
+Many low-cost arms perform best when moving through free space from one pose to another.
+Contact-rich manipulation requires the robot to interact continuously with objects, surfaces or tools. Examples include:
+- 
+Inserting a component
+- 
+Sliding an object along a surface
+- 
+Folding fabric
+- 
+Rotating a lid
+- 
+Operating a tool
+- 
+Supporting an object with one hand
+- 
+Manipulating the object with the other
+- 
+Maintaining contact while adapting to uncertainty
+Backdrivable QDD joints and higher-quality real-time control make OpenArm better suited to this class of research than lightweight hobby-servo arms. This does not mean that every OpenArm task automatically includes force control, but the mechanical and control architecture provides a stronger foundation for compliant and contact-aware behavior.
+Key Strengths
+OpenArm 2 offers:
+- 
+Two research-grade arms
+- 
+Seven degrees of freedom per arm
+- 
+Higher nominal and peak payload
+- 
+Backdrivable joints
+- 
+Real-time CAN-FD control
+- 
+Integrated close-range vision
+- 
+A rigid metal structure
+- 
+Strong potential for bimanual manipulation
+- 
+Open CAD, firmware and control resources
+- 
+Better suitability for long-term laboratory development
+- 
+Institutional procurement options
+Main Limitations
+OpenArm also demands more from the user.
+Its limitations include:
+- 
+Substantially higher purchase cost
+- 
+Greater power requirements
+- 
+More complex CAN configuration
+- 
+More advanced software integration
+- 
+Higher repair cost
+- 
+Greater safety requirements
+- 
+A need for secure mounting
+- 
+More difficult bimanual policy training
+- 
+A larger physical workspace
+- 
+More expensive replacement actuators
+It is a research platform rather than the most practical first robot for a complete beginner.
+OpenArm V1.1 vs OpenArm 2
+OpenArm V1.1 remains relevant for existing owners, but OpenArm 2 should be the main reference point for new comparisons.
+WowRobo currently offers an OpenArm 1-to-2 upgrade kit. The upgrade is not a complete robot: it contains selected revised mechanical structures and new end-effector assemblies, while some motors and the original arms are not included. A separate version adds the recommended top stereo-camera package.
+Existing owners should verify:
+- 
+Mechanical compatibility
+- 
+Motor reuse
+- 
+Camera configuration
+- 
+Firmware
+- 
+CAN setup
+- 
+Software version
+- 
+End-effector compatibility
+- 
+Exact included components
+Long-Term Scalability
+OpenArm is stationary by default, but its architecture is more modular than a closed desktop appliance.
+Potential expansions include:
+- 
+Alternative grippers
+- 
+Tactile sensors
+- 
+Additional wrist cameras
+- 
+External depth cameras
+- 
+Standardized robot cells
+- 
+Custom workstations
+- 
+Different teleoperation devices
+- 
+Integration with larger mobile bases
+OpenArm could be mounted on an AMR or another mobile platform, but this is a system-integration project rather than an out-of-box feature.
+A mobile OpenArm platform would require engineering work involving:
+- 
+Payload and center of gravity
+- 
+Base stability
+- 
+Battery and power distribution
+- 
+CAN and compute integration
+- 
+Whole-body control
+- 
+Collision prevention
+- 
+Emergency stopping
+- 
+Mobile-base localization
+Who Should Buy OpenArm?
+OpenArm is appropriate for:
+- 
+Universities
+- 
+Robotics laboratories
+- 
+Embodied-AI companies
+- 
+Teams developing bimanual policies
+- 
+Contact-manipulation researchers
+- 
+Organizations requiring higher payload
+- 
+Teams building a long-term extensible platform
+- 
+Buyers with dedicated robotics integration capability
+LeKiwi: Best Low-Cost Mobile Manipulator
+What Is LeKiwi?
+LeKiwi is a low-cost open-source mobile manipulator that combines a LeRobot-compatible arm with a mobile base.
+The project provides hardware-design, assembly and LeRobot setup resources. The official LeRobot documentation describes assembling one arm for the mobile base and another arm for teleoperation.
+WowRobo’s current LeKiwi listing describes an omnidirectional drive platform and offers package options with or without a Raspberry Pi and 64 GB card.
+Why Mobility Changes the Entire System
+Adding wheels does more than increase travel distance.
+The system now needs to address:
+- 
+Base control
+- 
+Driving safety
+- 
+Localization
+- 
+Approach positioning
+- 
+Network communication
+- 
+Battery management
+- 
+Camera movement
+- 
+Wheel slip
+- 
+Floor conditions
+- 
+Coordination between driving and arm motion
+In a stationary setup, the relationship between the arm and table remains fixed. In LeKiwi, a small change in the base position changes the arm’s reachable workspace relative to the object.
+Wired vs Onboard Computing
+LeKiwi can be configured around onboard or external computing.
+LeRobot’s documentation states that the robot computer is normally a Raspberry Pi, although another 5 V computer with sufficient USB connectivity can be used. A wired version can run LeKiwi and Leader-arm commands directly from a host PC without the Raspberry Pi and SSH setup.
+This creates several possible purchasing configurations:
+- 
+Mobile base only
+- 
+Base plus robot arm
+- 
+Base plus arm and Raspberry Pi
+- 
+Wired host-controlled configuration
+- 
+Additional camera or battery configurations
+The product title alone does not establish which of these components are included.
+Key Strengths
+LeKiwi provides:
+- 
+Affordable mobile manipulation
+- 
+More task variety than a fixed arm
+- 
+A compact indoor platform
+- 
+Omnidirectional movement
+- 
+Compatibility with LeRobot workflows
+- 
+Navigation-plus-manipulation data
+- 
+A practical transition from tabletop robotics to embodied AI
+- 
+Lower complexity than a dual-arm mobile robot
+Main Limitations
+LeKiwi’s limitations include:
+- 
+Only one active manipulation arm
+- 
+Lower arm payload and rigidity than OpenArm
+- 
+More difficult calibration than a fixed system
+- 
+Battery dependence
+- 
+Wireless or network configuration
+- 
+Floor-dependent movement accuracy
+- 
+Changing camera viewpoints
+- 
+More complicated dataset segmentation
+- 
+Possible separation of the Pi, cameras or other components across packages
+Best Use Cases
+LeKiwi is suitable for:
+- 
+Mobile pick-and-place
+- 
+Moving between work surfaces
+- 
+Fetching lightweight objects
+- 
+Navigation followed by manipulation
+- 
+Indoor embodied-AI demonstrations
+- 
+Mobile dataset collection
+- 
+Research into base-and-arm coordination
+Who Should Buy LeKiwi?
+Choose LeKiwi when:
+- 
+The robot must move.
+- 
+One arm is sufficient.
+- 
+The task involves multiple locations.
+- 
+You already understand basic LeRobot setup.
+- 
+You are prepared to manage a battery and mobile computer.
+- 
+You want lower complexity than a mobile dual-arm platform.
+XLeRobot: Best Low-Cost Dual-Arm Mobile Robot
+What Is XLeRobot?
+XLeRobot is an open-source dual-arm mobile household-robot project designed to lower the cost of embodied-AI experimentation.
+Its project repository states that it builds on LeRobot, SO-100/SO-101, LeKiwi and related open-source work. The project has continued to add hardware revisions, control methods and simulation resources.
+WowRobo provides manufacturing support and sells XLeRobot 0.4.0 hardware packages. Its current listing separates:
+- 
+An assembled dual-arm robot package
+- 
+An unassembled base-expansion package
+- 
+A combined dual-arm and base package
+The lowest displayed price should therefore not be interpreted automatically as the cost of a complete mobile dual-arm robot.
+Why XLeRobot Is More Than Two Arms on a Base
+A complete mobile dual-arm system requires coordination across:
+- 
+The left arm
+- 
+The right arm
+- 
+Both grippers
+- 
+The mobile base
+- 
+Multiple cameras
+- 
+Onboard compute
+- 
+Power distribution
+- 
+Communication links
+- 
+Whole-body collision constraints
+This introduces problems that do not exist on a stationary single-arm system:
+- 
+The arms may collide with each other.
+- 
+The arms may collide with the robot body.
+- 
+Base motion changes both arms’ reference frames.
+- 
+Different cameras may observe different parts of the task.
+- 
+Long tasks may contain navigation and manipulation failures.
+- 
+Recovery behavior becomes part of the policy problem.
+Key Strengths
+XLeRobot offers:
+- 
+Dual-arm mobile manipulation
+- 
+A household-robot form factor
+- 
+Broad embodied-AI task coverage
+- 
+Lower hardware cost than many commercial mobile manipulators
+- 
+Open-source hardware and software resources
+- 
+Multiple possible teleoperation methods
+- 
+A platform for whole-body experimentation
+- 
+The ability to study longer multi-stage tasks
+Main Limitations
+XLeRobot has the highest integration complexity among the low-cost options.
+Potential limitations include:
+- 
+Many servo and wiring failure points
+- 
+Complex multi-camera calibration
+- 
+Dual-arm self-collision
+- 
+Difficult whole-body data collection
+- 
+Lower payload and rigidity than OpenArm
+- 
+Higher maintenance requirements
+- 
+More complicated software versioning
+- 
+Package contents that vary by configuration
+- 
+A development-oriented rather than industrial service-robot architecture
+Because the project continues to evolve, users should match documentation, hardware revision, CAD files, control scripts and simulation assets to the exact version they purchase. The active repository and current hardware revisions indicate that version alignment remains important.
+Best Use Cases
+XLeRobot is suitable for:
+- 
+Household-object organization
+- 
+Dual-arm carrying
+- 
+Drawer and cabinet interaction
+- 
+Fetch-and-carry demonstrations
+- 
+Long-horizon household tasks
+- 
+Whole-body teleoperation
+- 
+Mobile bimanual data collection
+- 
+Embodied-AI education and research
+Who Should Buy XLeRobot?
+Choose XLeRobot when:
+- 
+You already have LeRobot experience.
+- 
+Mobility and two arms are both required.
+- 
+Household tasks are the main research target.
+- 
+You can manage complex calibration.
+- 
+You can afford additional data-engineering work.
+- 
+You accept lower payload in exchange for a broader robot form factor.
+SO-ARM101 vs Koch v1.1
+SO-ARM101 and Koch v1.1 are the closest direct competitors in this guide because both are normally used as fixed Leader–Follower tabletop systems.
+| Category | SO-ARM101 | Koch v1.1 | 
+|---|---|---|
+| Servo ecosystem | Feetech | Dynamixel | 
+| Entry cost | Lower | Higher | 
+| Replacement cost | Lower | Higher | 
+| Typical user | Beginner or low-cost deployment | Intermediate user or lab | 
+| Teleoperation structure | Matching Leader and Follower | Matching Leader and Follower | 
+| Main advantage | Accessibility | More robust servo ecosystem | 
+| Main limitation | Lower rigidity and payload | Higher ownership cost | 
+Choose SO-ARM101 when affordability, repair cost and simplicity are the priorities.
+Choose Koch v1.1 when the project benefits from Dynamixel hardware and a more durable stationary teleoperation platform.
+SO-ARM101 vs LeKiwi
+SO-ARM101 is a stationary manipulation system. LeKiwi is a mobile manipulation system.
+| Category | SO-ARM101 | LeKiwi | 
+|---|---|---|
+| Mobility | No | Yes | 
+| Arm count | One Follower | One mobile Follower | 
+| Base localization | Not required | Required or implicitly managed | 
+| Battery | Usually not required for the arm | Required for mobile operation | 
+| Network dependence | Low | Higher in onboard configurations | 
+| Dataset complexity | Lower | Higher | 
+| Best task type | Tabletop | Multi-location indoor tasks | 
+Choose SO-ARM101 when the task fits within one fixed workspace.
+Choose LeKiwi when movement between locations is essential to the task rather than merely desirable.
+LeKiwi vs XLeRobot
+Both platforms are mobile, but their manipulation complexity differs substantially.
+| Category | LeKiwi | XLeRobot | 
+|---|---|---|
+| Arms | One | Two | 
+| Mobile-base control | Yes | Yes | 
+| Bimanual tasks | No | Yes | 
+| Self-collision complexity | Lower | Higher | 
+| Camera count | Moderate | Potentially high | 
+| Data requirements | High | Very high | 
+| Best application | Simple mobile manipulation | Household bimanual tasks | 
+Choose LeKiwi for simpler mobile pick-and-place, fetching or navigation-plus-manipulation experiments.
+Choose XLeRobot when two-handed household interaction is central to the project.
+Koch v1.1 vs OpenArm
+Koch v1.1 and OpenArm occupy different technical tiers.
+| Category | Koch v1.1 | OpenArm 2 | 
+|---|---|---|
+| Main actuator type | Dynamixel servo | QDD actuator | 
+| Communication | USB/Dynamixel bus | CAN-FD | 
+| Active arms | One Follower | Two | 
+| Degrees of freedom | Compact tabletop architecture | Seven per arm | 
+| Backdrivability | Limited by servo architecture | Core joint characteristic | 
+| Payload | Lightweight | Research-grade published payload | 
+| Contact tasks | Basic | Stronger platform suitability | 
+| Cost | Medium | High | 
+Choose Koch v1.1 for a robust but relatively affordable fixed teleoperation station.
+Choose OpenArm 2 when payload, bimanual coordination, backdrivability, real-time control and contact-rich tasks justify the higher cost.
+XLeRobot vs OpenArm
+This comparison should not be reduced to “which robot is more advanced?”
+Form Factor
+XLeRobot is a lightweight mobile dual-arm platform.
+OpenArm is a fixed research-grade dual-arm platform by default.
+Manipulation Quality
+XLeRobot prioritizes affordability, mobility and task variety.
+OpenArm prioritizes actuator quality, payload, backdrivability, control frequency and contact interaction.
+Deployment Complexity
+XLeRobot must coordinate navigation, two arms and multiple viewpoints.
+OpenArm has more advanced arm-level control requirements but benefits from a fixed base and more repeatable laboratory environment.
+Scalability
+XLeRobot provides an integrated mobile form factor without requiring the user to design a mobile robot from the ground up.
+OpenArm offers stronger long-term potential for research-grade grippers, tactile sensors, vision systems and custom mobile-base integration. However, mounting OpenArm on an AMR requires significant mechanical, electrical and software engineering.
+Choose XLeRobot to obtain a low-cost mobile dual-arm platform quickly.
+Choose OpenArm to build a higher-performance and more extensible manipulation research system.
+Hardware Quality and Actuator Differences
+Feetech Bus Servos
+Feetech servos are central to SO-ARM101 and related low-cost LeRobot hardware.
+Their advantages include:
+- 
+Low cost
+- 
+Compact dimensions
+- 
+Accessible replacement parts
+- 
+Serial-bus control
+- 
+Suitability for education
+- 
+Support for lightweight robot structures
+Their limitations include:
+- 
+Backlash
+- 
+Limited rigidity
+- 
+Heat under sustained load
+- 
+Lower payload
+- 
+Less suitable force behavior
+- 
+Sensitivity to correct model and voltage selection
+SO-ARM101’s Leader and Follower do not necessarily use identical motor gear ratios, so replacement motors must be matched to the correct joint and role.
+Dynamixel Servos
+Dynamixel servos are used by Koch-style systems.
+Their advantages include:
+- 
+Mature software tools
+- 
+Detailed configuration
+- 
+Broad educational adoption
+- 
+Useful status feedback
+- 
+Established robotics integration
+Their disadvantages include:
+- 
+Higher unit cost
+- 
+More expensive spares
+- 
+Greater total kit cost
+- 
+Continued limitations relative to QDD research actuators
+QDD Actuators
+OpenArm uses quasi-direct-drive, backdrivable joints.
+Their advantages include:
+- 
+Lower mechanical impedance
+- 
+Better manual interaction
+- 
+Stronger suitability for compliant control
+- 
+High torque
+- 
+Higher payload
+- 
+High-frequency CAN-based control
+- 
+Better foundation for contact-aware research
+Their disadvantages include:
+- 
+Higher purchase cost
+- 
+More demanding power requirements
+- 
+More complicated CAN configuration
+- 
+Greater safety responsibility
+- 
+More expensive repair and replacement
+Interfaces, Connectivity and Host Requirements
+SO-ARM101
+A typical SO-ARM101 setup requires:
+- 
+USB connections for the Leader and Follower motor buses
+- 
+External power
+- 
+One or more USB cameras
+- 
+A computer running LeRobot
+- 
+Correct device-port identification
+The official setup procedure includes detecting the USB port associated with each MotorBus.
+Koch v1.1
+A Koch setup commonly requires:
+- 
+USB-connected Dynamixel interfaces
+- 
+Separate Leader and Follower ports
+- 
+Appropriate power supplies
+- 
+Camera connections
+- 
+Motor setup and calibration
+The official LeRobot integration distinguishes koch_leader and koch_follower device types and requires separate calibration identities.
+OpenArm
+An OpenArm system may require:
+- 
+CAN-FD interfaces
+- 
+A Linux or compatible control host
+- 
+Camera interfaces
+- 
+High-power electrical supply
+- 
+Proper grounding
+- 
+Real-time control configuration
+- 
+Optional network connections
+- 
+Additional perception hardware
+OpenArm’s official hardware overview specifies CAN-FD as its control bus.
+LeKiwi
+LeKiwi may require:
+- 
+A Raspberry Pi or other onboard computer
+- 
+Wi-Fi and SSH
+- 
+USB connections for cameras
+- 
+USB or serial control hardware
+- 
+Battery power
+- 
+A separate host for the Leader Arm
+Alternatively, a wired configuration can run both robot and Leader commands from a laptop or desktop computer.
+XLeRobot
+XLeRobot connectivity depends on the selected hardware revision and control method.
+A complete system may involve:
+- 
+Multiple servo buses
+- 
+Onboard compute
+- 
+Cameras
+- 
+Bluetooth controllers
+- 
+USB devices
+- 
+Network communication
+- 
+Battery monitoring
+- 
+Mobile-base motor control
+Before purchasing, count the physical ports, power rails and communication devices required by the exact configuration.
+USB bandwidth, unstable device names, insufficient power and wireless latency can all disrupt data collection even when the robot mechanics are functioning correctly.
+Software, Policy and Deployment Complexity
+Typical LeRobot Workflow
+A complete LeRobot project normally involves:
+- 
+Building or unpacking the robot
+- 
+Connecting the motors and control hardware
+- 
+Assigning or verifying motor IDs
+- 
+Detecting device ports
+- 
+Calibrating the Follower
+- 
+Calibrating the teleoperation device
+- 
+Configuring cameras
+- 
+Testing manual teleoperation
+- 
+Recording demonstrations
+- 
+Reviewing the dataset
+- 
+Training a policy
+- 
+Running evaluation episodes
+- 
+Analyzing failures
+- 
+Collecting additional demonstrations
+- 
+Retraining or fine-tuning
+The official LeRobot imitation-learning guide follows this general progression from calibration and teleoperation through recording, training and evaluation.
+Policy Complexity by Platform
+| Platform | Main policy challenge | 
+|---|---|
+| SO-ARM101 | Basic vision-to-action manipulation | 
+| Koch v1.1 | Similar task structure with different hardware | 
+| OpenArm | High-dimensional bimanual and contact interaction | 
+| LeKiwi | Base and arm coordination | 
+| XLeRobot | Navigation, dual-arm control and multi-camera fusion | 
+Why SO-ARM101 Is Usually Easier
+SO-ARM101 generally provides:
+- 
+A fixed base
+- 
+A smaller action space
+- 
+Stable camera placement
+- 
+Short task horizons
+- 
+Fewer collision combinations
+- 
+Easier episode resets
+- 
+More consistent initial conditions
+A simple pick-and-place task can therefore be debugged without simultaneously solving navigation or bimanual coordination.
+Why XLeRobot Is Harder
+XLeRobot may require a policy or control stack to represent:
+- 
+Base movement
+- 
+Two arm trajectories
+- 
+Two grippers
+- 
+Multiple visual perspectives
+- 
+Longer task sequences
+- 
+Recovery behavior
+- 
+Navigation-to-manipulation transitions
+- 
+Changes in robot pose relative to the environment
+A hardware platform with more capabilities does not automatically produce a more effective learning system. The dataset must adequately cover those additional capabilities.
+Version Compatibility
+Before installation, verify:
+- 
+Current LeRobot version
+- 
+Python version
+- 
+PyTorch version
+- 
+CUDA version
+- 
+Servo firmware
+- 
+Motor IDs
+- 
+USB device paths
+- 
+Camera drivers
+- 
+ROS 2 distribution, when used
+- 
+OpenArm hardware revision
+- 
+XLeRobot hardware revision
+- 
+Dataset format
+- 
+Policy checkpoint compatibility
+- 
+Simulation-model version
+Open-source robotics projects evolve rapidly. Mixing documentation from different releases can produce mechanical, electrical or software incompatibilities.
+Cameras, Computing and GPU Requirements
+Camera Placement
+Possible camera positions include:
+- 
+External scene camera
+- 
+Top-down camera
+- 
+Wrist camera
+- 
+Gripper camera
+- 
+Head camera
+- 
+Depth camera
+- 
+Navigation camera
+A simple SO-ARM task may need only one fixed scene camera.
+A mobile dual-arm task may need:
+- 
+One or more scene views
+- 
+Wrist views
+- 
+A head view
+- 
+Navigation perception
+- 
+Accurate timestamp synchronization
+Adding cameras increases observation coverage but also increases bandwidth, storage and calibration requirements.
+Teleoperation Host
+The teleoperation computer may need to:
+- 
+Read Leader positions
+- 
+Send Follower commands
+- 
+Display camera feeds
+- 
+Record observations
+- 
+Synchronize timestamps
+- 
+Manage the mobile base
+- 
+Store episodes
+- 
+Monitor errors
+Training Computer
+Training may require:
+- 
+An NVIDIA GPU
+- 
+Sufficient GPU memory
+- 
+High-speed SSD storage
+- 
+Adequate system memory
+- 
+Dataset backup
+- 
+Cooling for long training sessions
+The required hardware depends on the policy architecture, image resolution, batch size and dataset scale. The robot price alone does not represent the full cost of the learning workflow.
+On-Robot Inference
+Mobile platforms may use:
+- 
+Raspberry Pi
+- 
+NVIDIA Jetson
+- 
+Mini PC
+- 
+Remote inference over a network
+- 
+A hybrid architecture with local control and remote policy execution
+Local inference reduces dependence on network quality but increases onboard power and cooling requirements.
+DIY Kit vs Assembled Version
+Advantages of DIY Kits
+A DIY kit offers:
+- 
+Lower purchase cost
+- 
+Better understanding of the hardware
+- 
+Easier future repair
+- 
+More customization
+- 
+Educational value
+- 
+Familiarity with wiring and motor IDs
+Disadvantages of DIY Kits
+DIY assembly introduces:
+- 
+Wiring mistakes
+- 
+Incorrect motor placement
+- 
+Wrong servo IDs
+- 
+Reversed joint directions
+- 
+Poor cable routing
+- 
+Mechanical misalignment
+- 
+Loose fasteners
+- 
+Damaged connectors
+- 
+Calibration errors
+- 
+Longer setup time
+Advantages of Assembled Systems
+An assembled system offers:
+- 
+Faster deployment
+- 
+Factory-installed wiring
+- 
+Prebuilt mechanical structures
+- 
+Lower assembly risk
+- 
+Easier institutional adoption
+- 
+More time for software and policy development
+“Assembled” does not necessarily mean that calibration, software installation, camera configuration and policy setup have already been completed.
+Recommended Configuration by Platform
+| Platform | Recommended purchasing approach | 
+|---|---|
+| SO-ARM101 | DIY for hands-on users; assembled for faster setup | 
+| Koch v1.1 | DIY for experienced builders; assembled for laboratories | 
+| LeKiwi | Partially or fully assembled preferred | 
+| XLeRobot | Assembled dual-arm structure preferred | 
+| OpenArm | Factory-assembled and tested strongly preferred | 
+Total Cost of Ownership
+The lowest product-page price is rarely the true project cost.
+Initial Hardware Cost
+The initial budget may need to include:
+- 
+Robot arms
+- 
+Leader devices
+- 
+Mobile base
+- 
+Cameras
+- 
+Grippers
+- 
+Power supplies
+- 
+Battery
+- 
+Computer
+- 
+Communication adapters
+- 
+Mounting structures
+- 
+Shipping
+- 
+Customs duties
+- 
+Taxes
+Setup and Integration Cost
+Integration cost includes:
+- 
+Mechanical assembly
+- 
+Wiring
+- 
+Motor configuration
+- 
+Calibration
+- 
+Camera calibration
+- 
+Network setup
+- 
+Software installation
+- 
+Workspace preparation
+- 
+Safety testing
+Host and GPU Cost
+The computing budget may include:
+- 
+Teleoperation laptop
+- 
+Data-recording computer
+- 
+GPU training workstation
+- 
+Jetson or onboard computer
+- 
+SSD storage
+- 
+Backup storage
+- 
+USB hubs
+- 
+Network equipment
+- 
+Cooling
+Maintenance Cost
+Maintenance may require:
+- 
+Replacement servos
+- 
+QDD actuators
+- 
+Cables
+- 
+Control boards
+- 
+Gripper components
+- 
+3D-printed parts
+- 
+Wheels
+- 
+Batteries
+- 
+Camera mounts
+- 
+Power adapters
+- 
+Technician time
+- 
+Shipping downtime
+Data and Algorithm Cost
+The largest hidden cost may be human and compute time.
+This includes:
+- 
+Demonstration recording
+- 
+Episode resets
+- 
+Failed demonstration removal
+- 
+Dataset inspection
+- 
+Annotation
+- 
+Training
+- 
+Policy tuning
+- 
+Evaluation
+- 
+Recovery-data collection
+- 
+Repeated experiments
+Why the Cheapest Robot May Not Produce the Cheapest Project
+A low-cost robot can become expensive when:
+- 
+The task exceeds its payload.
+- 
+The arm cannot reach the required workspace.
+- 
+Servo backlash produces inconsistent demonstrations.
+- 
+The project actually requires mobility.
+- 
+The task requires two arms.
+- 
+Contact causes repeated failures.
+- 
+The team spends months compensating for a hardware limitation.
+Conversely, an expensive platform is not automatically economical. Purchasing OpenArm for simple tabletop sorting would add cost and complexity without necessarily improving the outcome.
+The most economical platform is the least complex system that still reproduces the essential physical requirements of the target task.
+Buying Recommendations by User Type
+For Complete Beginners
+Start with SO-ARM101.
+A practical progression is:
+- 
+Install one fixed scene camera.
+- 
+Calibrate the Leader and Follower.
+- 
+Test teleoperation.
+- 
+Record a short pick-and-place task.
+- 
+Train and evaluate a basic policy.
+- 
+Identify the actual limitation.
+- 
+Upgrade only when the limitation is clear.
+This approach isolates the fundamental LeRobot workflow before mobility or bimanual control is introduced.
+For Universities and Robotics Courses
+Choose according to teaching level:
+- 
+SO-ARM101: large student groups and affordable labs
+- 
+Koch v1.1: more durable reusable teaching stations
+- 
+OpenArm 2: advanced manipulation and research laboratories
+- 
+LeKiwi: mobile robotics and embodied-AI courses
+- 
+XLeRobot: advanced whole-body or household-robot projects
+For Embodied-AI Startups
+Choose according to the company’s immediate data objective:
+- 
+Fast low-cost tabletop data: SO-ARM101
+- 
+More robust stationary teleoperation: Koch v1.1
+- 
+Mobile single-arm data: LeKiwi
+- 
+Household dual-arm data: XLeRobot
+- 
+High-quality bimanual manipulation: OpenArm 2
+A startup should avoid purchasing the most complex robot before defining the tasks and data pipeline. Hardware capability that is not represented in the dataset or policy becomes unused cost.
+For Robotics Laboratories
+A laboratory may benefit from multiple platform tiers:
+- 
+OpenArm for high-quality bimanual and contact research
+- 
+XLeRobot for affordable mobile household experiments
+- 
+LeKiwi for simpler mobile manipulation
+- 
+Multiple SO-ARM101 units for scalable demonstration collection
+For Individual Makers
+For most individual users:
+- 
+Start with SO-ARM101.
+- 
+Move to LeKiwi when mobility becomes necessary.
+- 
+Consider Koch when hardware durability and Dynamixel integration justify the cost.
+- 
+Choose XLeRobot only with sufficient software and calibration experience.
+- 
+Choose OpenArm only with a defined research objective, workspace and budget.
+Decision Tree
+1. Does the Robot Need to Move?
+No: Continue to Question 2.
+Yes: Continue to Question 3.
+2. Do You Need Research-Grade Bimanual or Contact-Rich Manipulation?
+No, and cost is the priority: Choose SO-ARM101.
+No, but you want a more robust Dynamixel Leader–Follower system: Choose Koch v1.1.
+Yes: Choose OpenArm 2.
+3. Do You Need Two Manipulation Arms?
+No: Choose LeKiwi.
+Yes: Choose XLeRobot.
+4. How Much Algorithm Complexity Can You Accept?
+Minimal complexity: SO-ARM101.
+Moderate stationary complexity: Koch v1.1.
+Advanced fixed bimanual control: OpenArm 2.
+Navigation plus one arm: LeKiwi.
+Navigation plus two arms and multiple cameras: XLeRobot.
+Final Exception
+None of the five standard configurations fully satisfies a project that simultaneously requires:
+- 
+Mobility
+- 
+Two research-grade arms
+- 
+High payload
+- 
+Backdrivability
+- 
+Contact-aware manipulation
+- 
+Turnkey whole-body control
+That requirement may need:
+- 
+OpenArm integrated with an AMR
+- 
+A custom mobile bimanual platform
+- 
+A higher-cost commercial mobile manipulator
+Pre-Purchase Checklist
+Hardware Configuration
+Confirm:
+- 
+Exact hardware revision
+- 
+DIY, unassembled or assembled version
+- 
+Number of Leader Arms
+- 
+Number of Follower Arms
+- 
+Mobile base inclusion
+- 
+Servo or actuator models
+- 
+Gear ratios
+- 
+Operating voltage
+- 
+Power-supply inclusion
+- 
+Battery inclusion
+- 
+Camera models
+- 
+Camera count
+- 
+Gripper type
+- 
+Control boards
+- 
+Mounting hardware
+Interfaces and Computing
+Confirm:
+- 
+Required USB ports
+- 
+USB bandwidth
+- 
+Serial adapters
+- 
+Dynamixel interface
+- 
+CAN or CAN-FD adapter
+- 
+Ethernet requirement
+- 
+Wi-Fi requirement
+- 
+Bluetooth requirement
+- 
+Onboard computer
+- 
+GPU host
+- 
+Storage capacity
+Software Compatibility
+Confirm:
+- 
+LeRobot version
+- 
+Operating system
+- 
+Python version
+- 
+Firmware
+- 
+ROS 2 support
+- 
+Calibration utility
+- 
+Camera drivers
+- 
+Simulation files
+- 
+Example datasets
+- 
+Supported policies
+- 
+Hardware-revision compatibility
+Logistics and Support
+Confirm:
+- 
+Current stock
+- 
+Production lead time
+- 
+Shipping method
+- 
+Shipping cost
+- 
+Import duties
+- 
+VAT or sales tax
+- 
+Warranty
+- 
+Collision and overload exclusions
+- 
+Spare-part availability
+- 
+Technical-support channel
+- 
+Assembly documentation
+- 
+Compliance documents
+- 
+Institutional invoice or proforma invoice
+Frequently Asked Questions
+What Is the Best LeRobot Arm for Beginners?
+SO-ARM101 is usually the best starting point because it combines low cost, a direct Leader–Follower workflow and relatively low data-collection complexity.
+Do I Need a Leader Arm for LeRobot?
+Not always. LeRobot can support other teleoperation devices, including keyboards and game controllers in some workflows. However, a matching Leader Arm is often the most direct method for collecting natural joint-space demonstrations.
+Does Every SO-ARM101 Kit Include a Leader Arm?
+No. Package contents vary. Some kits may include only parts and servos, while other packages include one Leader, one Follower and a camera. Verify the selected configuration.
+Is Koch v1.1 Better Than SO-ARM101?
+Koch v1.1 generally offers a more premium servo ecosystem and may be more suitable for repeated laboratory use. SO-ARM101 remains more affordable and may be the better choice for beginners or multi-unit deployment.
+Better hardware does not guarantee a better trained policy. Dataset quality, camera placement, task design and demonstration consistency remain critical.
+Is OpenArm Compatible With LeRobot?
+LeRobot currently documents an OpenArm integration, including an OpenArm Leader teleoperation type and CAN interface. Compatibility should still be verified against the current OpenArm hardware and LeRobot software versions before deployment.
+Is LeKiwi a Complete Robot?
+That depends on the package. WowRobo currently offers versions with and without a Raspberry Pi, while the full project also requires an arm, mobile base, power, cameras and teleoperation hardware.
+Does XLeRobot Include the Mobile Base?
+Not every package does. WowRobo currently separates the dual-arm robot, base expansion and combined package.
+Can SO-ARM101 Perform Household Tasks?
+It can demonstrate small tabletop household tasks, such as moving lightweight objects or placing items into containers. Its fixed base, limited reach and limited payload prevent it from acting as a general household robot.
+Is OpenArm Suitable for Beginners?
+Usually not as a first robot. It is more appropriate for teams with a defined research objective, sufficient budget, safe workspace and experience with robotics software and electrical integration.
+Which Platform Is Easiest for Policy Training?
+A typical order from lower to higher system complexity is:
+- 
+SO-ARM101
+- 
+Koch v1.1
+- 
+OpenArm 2
+- 
+LeKiwi
+- 
+XLeRobot
+This is not a universal performance ranking. It reflects the increasing action space, number of arms, base mobility and observation complexity.
+Which Platform Has the Best Long-Term Scalability?
+- 
+SO-ARM101: best for scaling the number of low-cost stations
+- 
+Koch v1.1: best for maintaining a more robust tabletop teleoperation setup
+- 
+OpenArm 2: best for research-grade sensor, end-effector and platform expansion
+- 
+LeKiwi: best for progressing into affordable mobile manipulation
+- 
+XLeRobot: best for expanding into household and whole-body tasks
+Final Verdict
+Buy SO-ARM101 If:
+- 
+This is your first LeRobot project.
+- 
+Your budget is limited.
+- 
+The task fits on a table.
+- 
+One arm is enough.
+- 
+You want the shortest path from teleoperation to policy inference.
+- 
+You may eventually deploy multiple low-cost data-collection units.
+Buy Koch v1.1 If:
+- 
+You want more robust stationary teleoperation.
+- 
+You prefer the Dynamixel ecosystem.
+- 
+You do not need a mobile base.
+- 
+You can accept higher component and maintenance costs.
+- 
+SO-ARM101 feels too entry-level, but OpenArm is unnecessary.
+Buy LeKiwi If:
+- 
+The robot must travel between task locations.
+- 
+One manipulation arm is sufficient.
+- 
+You are prepared to manage navigation, batteries and onboard computing.
+- 
+You already understand basic LeRobot calibration and data collection.
+Buy XLeRobot If:
+- 
+You need a mobile dual-arm form factor.
+- 
+Household tasks are the primary objective.
+- 
+You can manage complex calibration and software integration.
+- 
+You accept a higher data and policy-development burden.
+- 
+Broad task coverage matters more than arm-level payload and rigidity.
+Buy OpenArm 2 If:
+- 
+You need research-grade bimanual manipulation.
+- 
+Payload and backdrivability matter.
+- 
+The task contains sustained physical contact.
+- 
+You require CAN-FD real-time control.
+- 
+You want a platform that can support advanced grippers, cameras and tactile sensing.
+- 
+Your organization can support the higher integration and safety requirements.
+The best LeRobot hardware is not the platform with the most motors, the largest payload or the longest specification sheet.
+It is the simplest platform that reproduces the mobility, number of arms, contact conditions, observation requirements and workspace constraints of the task you ultimately want to train and deploy.

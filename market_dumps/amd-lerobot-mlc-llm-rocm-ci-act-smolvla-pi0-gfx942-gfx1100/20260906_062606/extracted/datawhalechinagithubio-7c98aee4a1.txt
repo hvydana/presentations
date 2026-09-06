@@ -1,0 +1,96 @@
+AMD-YES 🎮
+A Curated Collection of Cool Projects on AMD GPUs
+Making AI more fun, unleashing creativity ✨
+🚀 Quick Navigation 
+| Local Run (Single GPU) | Cluster Deployment (Multi-GPU) | 
+|---|---|
+| 🧸 toy-cli ✅️ | 🚀 happy-llm ✅️ | 
+| 💣 Minesweeper Agent ✅️ |  | 
+| 🎮 WeChat Jump ✅️ |  | 
+| 🎭 Chat-Huanhuan ✅️ |  | 
+| ✈️ Smart Travel Planner ✅️ |  | 
+| 🦞 OpenClaw Private Assistant ✅️ |  | 
+| 📚 Torch-RecHub Recommender Practice ✅️ |  | 
+| 🤖 Every Embodied Policy Replication ✅️ |  | 
+✅ Supported | 🚧 In progress
+Introduction 
+AMD-YES brings together practical project examples built on AMD GPU and ROCm platform. Whether you want to quickly experience LLM applications, learn computer vision, or dive deep into distributed training, you can find suitable example projects here.
+This module is divided into two stages: First, quickly get started with various applications on a single local GPU, then advance to cluster deployment and distributed training. Each project includes complete code and detailed tutorial guidance.
+AMD-YES Learning Path 
+Project List 
+Local Run (Single GPU) 
+Suitable for individual developers to quickly get started – you can do it all with just one AMD GPU!
+🧸 toy-cli - Lightweight LLM Terminal Assistant 
+toy-cli is a simplified code Agent that provides a minimal command-line interface for calling LLM APIs.
+- Target Audience: Beginners, users wanting to quickly learn API calls
+- Difficulty Level: ⭐
+- Estimated Time: 30 minutes
+💣 Minesweeper Agent - Play Minesweeper with a Local LLM 
+This case uses a Minesweeper board as the Agent's runtime environment. Through llama.cpp + Gemma 4 E4B, it demonstrates the full Agent loop: observation, reasoning, tool calling, and feedback. Includes comparison between constrained Agent and autonomous Agent modes.
+- Target Audience: Developers who want to understand the Agent core loop and engineering stability design
+- Difficulty Level: ⭐⭐
+- Estimated Time: 1 hour
+📖 Start Learning Minesweeper Agent
+🎮 YOLOv10 WeChat Jump 
+YOLOv10 WeChat Jump is an automated game AI based on YOLOv10 object detection, which automatically recognizes jump targets in real-time and calculates distances accurately.
+- Target Audience: Developers interested in computer vision and game AI
+- Difficulty Level: ⭐⭐
+- Estimated Time: 1 hour
+🎭 Chat-Huanhuan - Palace Language Model 
+Chat-Huanhuan is a LoRA fine-tuned model trained on dialogue excerpts from the TV series, perfectly imitating Huanhuan's tone and speaking style.
+- Target Audience: Developers wanting to learn model fine-tuning and LoRA techniques
+- Difficulty Level: ⭐⭐
+- Estimated Time: 1.5 hours
+📖 Start Learning Chat-Huanhuan
+✈️ Smart Travel Planner 
+Smart Travel Planner is an intelligent Agent application based on the HelloAgents framework, integrating MCP protocol to call Amap API, running large models locally on AMD GPU.
+- Target Audience: Developers wanting to learn Agent frameworks and MCP protocol
+- Difficulty Level: ⭐⭐⭐
+- Estimated Time: 2 hours
+📖 Start Learning Smart Travel Planner
+🦞 OpenClaw - Fully Private Local AI Agent Platform 
+OpenClaw is a unified message processing and AI agent platform. Deploy a large model locally on AMD 395 Max for a fully private personal AI assistant.
+- Target Audience: Developers wanting to learn AI Agent platforms and local privacy deployment
+- Difficulty Level: ⭐⭐⭐
+- Estimated Time: 1.5 hours
+📚 Torch-RecHub - Recommender Systems Practice 
+Torch-RecHub recommender systems practice covers CTR ranking, sequential interest modeling, matching, multi-task learning, experiment tracking, and model export.
+- Target Audience: Developers who want to learn recommender system modeling and training on AMD GPU / ROCm environments
+- Difficulty Level: ⭐⭐⭐
+- Estimated Time: 3+ hours
+📖 Start Learning Torch-RecHub Recommender Practice
+🤖 Every Embodied - ROCm Embodied Intelligence Policy Replication 
+Every Embodied replicates ACT, SmolVLA, Pi0, and Pi0.5 on MuJoCo desktop manipulation tasks, covering data collection, ROCm training, closed-loop deployment, strict physical evaluation, and failure diagnostics.
+- Target Audience: Developers who want to learn robot imitation learning, VLA, and policy debugging on AMD GPU
+- Difficulty Level: ⭐⭐⭐
+- Project Resources: Model notebooks and ROCm replication diagnostics
+📖 Start Learning Every Embodied ROCm Policy Replication
+Cluster Deployment (Multi-GPU) 
+Advanced usage – distributed training and deployment!
+🚀 Happy-LLM - Train Large Models from Scratch 
+Happy-LLM provides comprehensive tutorials for distributed multi-machine multi-GPU training, including core principles of large models and hands-on training implementation.
+- Target Audience: Advanced developers wanting to gain deep knowledge of large model training
+- Difficulty Level: ⭐⭐⭐
+- Estimated Time: 3+ hours
+Environment Requirements 
+Hardware Requirements 
+- AMD GPU (ROCm-compatible GPUs, such as RX 7000 series, MI series, etc.)
+- Recommended VRAM: 8 GB or more
+Software Requirements 
+- Operating System: Linux (Ubuntu 22.04+) or Windows 11
+- ROCm 7.12.0/7.2.0 or higher version
+- Python 3.10~3.12
+Frequently Asked Questions 
+Q: How do I verify if my AMD GPU supports ROCm?
+Please refer to the ROCm Official Support List to check supported GPU models.
+Q: What is the recommended learning order for these projects?
+It is recommended to learn in the following order:
+- Start with toy-cli first to get familiar with basic LLM API calls
+- Choose projects of interest to dive deeper (game AI, dialogue models, Agent applications)
+- After completing basic projects, challenge yourself with Happy-LLM for advanced distributed training
+Reference Resources 
+- self-llm Complete Tutorial
+- HelloAgents AI Agent Framework
+- ROCm Official Documentation
+- hello-rocm Main Project
+Contributions of more project examples are welcome! 🎉

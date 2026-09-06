@@ -1,0 +1,20 @@
+C234	L4	Cloud-edge orchestration for device fleets	CNCF	KubeEdge	https://kubeedge.io/	Extends K8s control plane to edge nodes
+C235	L4	Managed edge runtime and component deploy	AWS	AWS IoT Greengrass	https://aws.amazon.com/greengrass/	Component model, local Lambda/containers
+C236	L5	Generic functional safety lifecycle and SIL	IEC	IEC 61508	https://en.wikipedia.org/wiki/IEC_61508	Parent standard for SIL 1-4
+C237	L5	Road vehicle functional safety and ASIL	ISO	ISO 26262	https://en.wikipedia.org/wiki/ISO_26262	ASIL A-D; basis for AV/robot silicon claims
+C238	L5	Safety requirements for industrial robots	ISO	ISO 10218-1:2025	https://www.iso.org/standard/73933.html	2025 revision shifts to application scope
+C239	L5	Safety for robot systems and integration	ISO	ISO 10218-2:2025	https://www.iso.org/standard/73934.html	Absorbs ISO/TS 15066 contact limits
+C240	L5	Biomechanical limits for collaborative robots	ISO	ISO/TS 15066	https://www.iso.org/standard/62996.html	Power and force limiting thresholds
+C241	L5	Performance level for safety control systems	ISO	ISO 13849-1	https://www.iso.org/standard/73481.html	PL a-e for safety-related control parts
+C242	L5	Industrial automation and control system security	IEC	IEC 62443	https://webstore.iec.ch/publication/7029	Security levels for OT and robot cells
+C244	L5	Safety standard for service and personal robots	UL Solutions	UL 3300	https://www.ul.com/services/ul-3300-safety-standard-service-communication-and-personal-care-robots	Covers cleaning, delivery, personal care robots
+C245	L5	US national industrial robot safety standard	A3 (Association for Advancing Automation)	ANSI/A3 R15.06-2025	https://www.automate.org/robot-safety	US adoption track of ISO 10218
+C246	L5	EU market access for machinery incl. robots	European Union	Machinery Regulation (EU) 2023/1230	https://eur-lex.europa.eu/eli/reg/2023/1230/oj	Applies from Jan 2027; covers AI-enabled safety functions
+C247	L5	Risk-tier obligations for AI in machinery	European Union	AI Act (EU) 2024/1689	https://eur-lex.europa.eu/eli/reg/2024/1689/oj	High-risk classification via machinery Annex I
+C248	L5	Airborne software certification objectives	RTCA / EUROCAE	DO-178C	https://en.wikipedia.org/wiki/DO-178C	DAL A-E; drone and aerial robotics
+C249	L5	Third-party functional safety assessment	TUV SUD	Functional Safety Certification Service	https://www.tuvsud.com/en/services/functional-safety	Assesses SIL/ASIL claims for tools and products
+C250	L5	Product safety testing and certification lab	UL Solutions	UL Solutions certification services	https://www.ul.com/	Issues UL 3300 marks
+C252	L5	Safety-qualified C/C++ compiler toolchain	Green Hills Software	MULTI compiler with TCL-3 kit	https://wrocpp.github.io/toolset/qualified-compilers/	ASIL D / SIL 4 / DO-178C Level A
+C253	L5	Qualification kit for open-source compiler	Validas + OSS GCC	GCC + Validas Compiler Test Suite	https://wrocpp.github.io/toolset/qualified-compilers/	Brings GCC to ASIL B/D, SIL 2/3
+C254	L5	Certified RTOS variant for safety products	BlackBerry QNX	QNX OS for Safety	https://blackberry.qnx.com/en/products/safety-certified	IEC 61508 SIL 3 / ISO 26262 ASIL D
+C255	L5	Certified RTOS and hypervisor in one	SYSGO	PikeOS	https://www.sysgo.com/pikeos	DO-178C, IEC 61508, ISO 26262 evidence packages

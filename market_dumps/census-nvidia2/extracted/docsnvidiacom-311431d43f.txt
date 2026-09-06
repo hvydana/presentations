@@ -1,0 +1,16 @@
+NVIDIA DeepStream SDK Developer Guide#
+Plugins Development Guide#
+Troubleshooting and FAQ Guide#
+DeepStream Setup On WSL2#
+- DeepStream On WSL
+- FAQ for DeepStream On WSL
+  - 1. Do we need to install nvidia driver inside Ubuntu Image with WSL?
+  - 2. While installing driver, should you choose ‘Clean Installation’?
+  - 3. While starting docker, I face error:“docker: Error response from daemon: could not select device driver “” with capabilities: [[gpu]]. What should I do?
+  - 4. While starting docker, I get error “GPU access blocked by operating system”. What should I do?
+  - 5. While installing Ubuntu image for WSL2, I get error: “The service cannot be started, either because it is disabled or because it has no enabled devices associated with it”. What should I do?
+  - 6. While running deepstream-app for the first time, I get an error: “GLib (gthread-posix.c): Unexpected error from C library during ‘pthread_setspecific’: Invalid argument. Aborting.”. What should I do?
+  - 7. There is no video on the screen while running gstreamer or deepstream video pipelines. But pipeline seems to be running in terminal without any error. What is the reason?
+  - 8. Warning prints are coming while running deepstream-app for first time after starting docker. For e.g: “deepstream-app –version” shows below warnings. Is that an issue?
+  - 9. While using pipelines involving ‘nveglglessink’ or any other display sinks, black screen is coming with “MESA: error: Failed to attach to x11 shm” on terminal.
+  - 10. While running a gstreamer or deepstream pipeline, I get errors “Error while setting IOCTL”, “Invalid control”, “S_EXT_CTRLS for CUDA_GPU_ID failed” followed by a SIGSEGV. What should I do?

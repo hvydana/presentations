@@ -1,0 +1,20 @@
+C068	L3	6D pose estimation foundation model	NVIDIA	FoundationPose	https://github.com/NVlabs/FoundationPose
+C069	L3	Zero-shot stereo matching model	NVIDIA	FoundationStereo	https://github.com/NVlabs/FoundationStereo	Fast-FoundationStereo is the real-time variant
+C070	L3	Indoor object detection model	NVIDIA	SyntheticaDETR	https://developer.nvidia.com/isaac	Front end for FoundationPose
+C071	L3	Vision-based mobility foundation model	NVIDIA	COMPASS	https://developer.nvidia.com/isaac	Cross-embodiment navigation
+C073	L3	Open robotics training dataset	NVIDIA	NVIDIA Physical AI Dataset	https://developer.nvidia.com/isaac/sim	Hosted on Hugging Face
+C074	L3	Synthetic data generation workflows	NVIDIA	physical-ai-data-factory	https://github.com/NVIDIA/physical-ai-data-factory
+C075	L3	Vision model post-training toolkit	NVIDIA	TAO	https://developer.nvidia.com/tao-toolkit	TAO 7 is agent-skill driven
+C077	L3	Learned humanoid control policies	NVIDIA	isaac_ros_learned_policies	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C078	L3	Humanoid loco-manipulation training workflow	NVIDIA	WBC-AGILE	https://github.com/nvidia-isaac/WBC-AGILE
+C079	L3	Spatial memory 3D action policies	NVIDIA	nvblox_mindmap	https://github.com/nvidia-isaac/nvblox_mindmap
+C080	L3	Policy benchmarking task suite	NVIDIA	IsaacLabEvalTasks	https://github.com/isaac-sim/IsaacLabEvalTasks	GR00T N1 benchmarking in Isaac Lab
+C081	L4	Physical AI workflow orchestration	NVIDIA	OSMO	https://developer.nvidia.com/osmo	YAML pipelines across cloud/on-prem/edge; not an MLOps platform per NVIDIA
+C082	L4	Cloud fleet mission dispatch	NVIDIA	isaac_mission_dispatch	https://github.com/nvidia-isaac/isaac_mission_dispatch	VDA5050 compatible
+C083	L4	Lightweight VDA5050 fleet manager	NVIDIA	isaac_mission_control	https://github.com/nvidia-isaac/isaac_mission_control
+C084	L4	Robot-side fleet mission client	NVIDIA	isaac_ros_cloud_control	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Receives tasks, reports progress and errors
+C085	L4	Remote file backup and deployment	NVIDIA	ota-file-service	https://github.com/nvidia-isaac/ota-file-service
+C086	L4	Edge AI microservice deployment	NVIDIA	Jetson Platform Services	https://github.com/NVIDIA-AI-IOT/jetson-platform-services
+C087	L4	GPU route and fleet optimization	NVIDIA	cuOpt	https://github.com/NVIDIA/cuopt
+C088	L4	ROS 2 topic health monitoring	NVIDIA	greenwave_monitor	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	r2s_gw is the companion TUI
+C089	L4	Robot data visualization tool	NVIDIA	lichtblick	https://github.com/nvidia-isaac/lichtblick

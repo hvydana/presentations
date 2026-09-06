@@ -1,0 +1,20 @@
+C132	L1	Tightly-coupled lidar-inertial odometry	OSS	FAST-LIO2	https://github.com/hku-mars/FAST_LIO
+C133	L1	Point cloud filtering and segmentation	OSS	PCL	https://pointclouds.org/
+C134	L1	Classical and DNN computer vision ops	OSS	OpenCV	https://github.com/opencv/opencv
+C136	L1	Full autonomous driving reference stack	Autoware Foundation	Autoware	https://github.com/autowarefoundation/autoware	Found via https://github.com/topics/ros2
+C137	L2	Contact-rich rigid body physics simulation	Google DeepMind	MuJoCo	https://github.com/google-deepmind/mujoco	Found via https://github.com/topics/robotics
+C139	L2	Curated validated robot model assets	Google DeepMind	MuJoCo Menagerie	https://github.com/google-deepmind/mujoco_menagerie
+C140	L2	General robot simulation with ROS 2 bridge	Open Robotics	Gazebo (gz-sim)	https://gazebosim.org/	Gazebo Classic is deprecated/EOL
+C142	L2	Rigid body dynamics and collision detection	OSS	Bullet / PyBullet	https://github.com/bulletphysics/bullet3	Found via https://github.com/topics/robotics
+C143	L2	Model-based design and multibody dynamics	Toyota Research Institute	Drake	https://drake.mit.edu/
+C144	L2	Simulation with realistic sensor rendering	Hillbot / UCSD	SAPIEN	https://sapien.ucsd.edu
+C145	L2	GPU manipulation benchmark environments	Hillbot / UCSD	ManiSkill	https://github.com/haosulab/ManiSkill	Built on SAPIEN
+C146	L2	Massively parallel differentiable physics	Google	Brax	https://github.com/google/brax	JAX-based; backend-portable
+C151	L2	Manipulation motion planning framework	PickNik / OSS	MoveIt 2	https://moveit.ai/	Plugin architecture over multiple planners
+C152	L2	Sampling-based motion planning algorithms	Kavraki Lab	OMPL	https://ompl.kavrakilab.org/	Default MoveIt 2 planner set
+C153	L2	Stochastic trajectory optimization planner	OSS	STOMP	https://moveit.ai/documentation/planners/	MoveIt 2 plugin; partial support
+C154	L2	Deterministic industrial LIN/PTP/CIRC motion	Pilz / OSS	Pilz Industrial Motion Planner	https://moveit.ai/documentation/planners/	Blended deterministic segments for industrial arms
+C155	L2	Rigid body kinematics and dynamics algorithms	Stack-of-Tasks	Pinocchio	https://stack-of-tasks.github.io/pinocchio/	Analytical derivatives for whole-body control
+C156	L2	Mobile robot navigation and behavior trees	Open Navigation	Nav2	https://nav2.org/	Found via https://github.com/topics/ros2
+C157	L3	Open vision-language-action policy model	Stanford / OSS	OpenVLA	https://github.com/openvla/openvla	7B; Prismatic VLM backbone
+C158	L3	Generalist transformer robot policy	Octo Model Team	Octo	https://github.com/octo-models/octo	JAX; trained on Open X-Embodiment

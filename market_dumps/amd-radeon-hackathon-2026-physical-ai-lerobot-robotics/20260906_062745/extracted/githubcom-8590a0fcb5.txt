@@ -1,0 +1,144 @@
+An autonomous codebase analysis agent powered by a LangGraph ReAct loop and Chroma RAG, running heavily optimized quantized LLM inference via vLLM on AMD Radeon GPUs.
+Streamlit interface streaming the ReAct planner's execution and dynamic architecture generation.
+Terminal view showing rocm-smi hardware monitoring during active inference.
+- 
+🤖 Agentic Orchestration 
+  - LangGraph-powered ReAct loop (Reasoning & Acting)
+  - Autonomous repository cloning
+  - Intelligent tool selection
+  - Multi-step reasoning
+- 
+📚 Deep Codebase Extraction 
+  - Python AST parsing
+  - Dependency graph generation
+  - Chroma vector database for Retrieval-Augmented Generation (RAG)
+  - Context-aware code retrieval
+- 
+⚡ AMD Hardware Acceleration 
+  - ROCm backend support
+  - Optimized inference on AMD Radeon GPUs
+  - Production-ready vLLM serving
+- 
+💾 Extreme VRAM Efficiency 
+  - AWQ 4-bit quantization
+  - Reduced memory footprint
+  - Increased memory bandwidth utilization
+- 
+📈 Live GPU Telemetry 
+  - Real-time rocm-smi monitoring
+  - GPU utilization
+  - VRAM usage
+  - Temperature tracking
+- Real-time 
+            [User Request]
+                  │
+                  ▼
+       [Streamlit Interface]
+                  │
+                  ▼
+      [LangGraph ReAct Loop]
+           │            │
+           │            ▼
+           │    [AST Parser]
+           │            │
+           │            ▼
+           │      [ChromaDB]
+           │            ▲
+           └────────────┘
+                  │
+                  ▼
+   [vLLM OpenAI-Compatible API]
+                  │
+                  ▼
+           [ROCm Backend]
+                  │
+                  ▼
+      [AMD Radeon / Instinct GPU]
+.
+├── .gitignore
+├── README.md
+├── requirements.txt
+└── src/
+    ├── agent.py
+    ├── graph.py
+    └── main.py
+- Python 3.11 or 3.12
+- ROCm 6.0+ (Recommended: ROCm 7.0)
+- AMD Radeon RX 7000 Series
+- AMD Radeon PRO GPUs
+- AMD Instinct MI-Series GPUs
+- Ubuntu 22.04+
+- Fedora
+- Radeon Cloud Platform
+python -m venv env
+source env/bin/activatepip install -r requirements.txt
+Launch the Streamlit application:
+streamlit run src/app.py
+Verify that inference is running on the AMD GPU.
+Run the following command in another terminal:
+watch -n 0.5 rocm-smiGPU Utilization : 57%
+VRAM Used       : 5.8 GB
+Temperature     : 64°C
+| Metric | Value | 
+|---|---|
+| Hardware | AMD Radeon PRO / Radeon Cloud | 
+| Model | Qwen 2.5 Coder 7B (AWQ) | 
+| Backend | vLLM (ROCm) | 
+| Quantization | 4-bit AWQ | 
+| Peak GPU Utilization | 89% | 
+| VRAM Footprint | ~5.8 GB | 
+| Average Tokens/sec | 65 t/s | 
+Analyze this repository:
+https://github.com/example/repo
+Explain its authentication flow.
+- Clone repository
+- Build Abstract Syntax Tree (AST)
+- Index code into ChromaDB
+- Retrieve authentication-related code
+- Generate architecture summary
+Based on the retrieved context, the application uses a
+JWT-based authentication flow located in src/auth.py.
+When a user posts to /login, the verify_password()
+function validates the password hash before generating
+a signed JWT token returned to the client.
+Copy the environment template:
+cp .env.example .env
+Edit the .env file:
+RADEON_BASE_URL=https://radeon-global.anruicloud.com/spaces/<YOUR_ID>/8000/v1
+RADEON_API_KEY=your_api_key_here
+This project is designed specifically to showcase the AMD AI software ecosystem.
+Instead of using traditional inference frameworks such as llama.cpp, this project connects to a dedicated vLLM server compiled for ROCm, closely matching enterprise deployment workflows.
+The model is served using 4-bit AWQ quantization, reducing VRAM usage from approximately 14 GB to 5.8 GB.
+Because LLM inference is primarily memory-bandwidth bound, this reduction allows Radeon GPUs to move model weights significantly faster, improving throughput while maintaining high-quality responses.
+The application runs directly on the AMD Radeon Cloud One-Click Base Container, providing:
+- Zero dependency conflicts
+- Native ROCm support
+- Immediate GPU acceleration
+404 Instance pod not found
+Solution
+- Ensure the Radeon Cloud instance is running.
+- Verify the deployment type is vLLM Model API.
+- Wait until the instance is fully active.
+- Confirm that RADEON_BASE_URL matches the current deployment.
+High latency or model stalls during startup
+Solution
+The server is likely downloading model weights from Hugging Face.
+You can:
+- Monitor progress from the Technical Details panel.
+- SSH into the container to view download progress.
+- Enable Persistent Volume (PVC) storage to cache model weights across restarts.
+- 🤖 Multi-agent architecture for specialized repository analysis
+- 🚀 Multi-GPU tensor parallelism using vLLM
+- 🧠 GraphRAG using Neo4j for structural code understanding
+- 📈 Interactive architecture visualization
+- 📝 Automatic documentation generation
+- 🔍 Cross-repository semantic search
+This project builds upon the following open-source technologies:
+- AMD ROCm
+- vLLM
+- LangGraph
+- LangChain
+- ChromaDB
+- Streamlit
+This project is licensed under the MIT License.
+Siddhartha

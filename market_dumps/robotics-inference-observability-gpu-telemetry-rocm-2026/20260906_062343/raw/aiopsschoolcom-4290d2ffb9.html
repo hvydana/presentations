@@ -1,0 +1,2676 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="profile" href="http://gmpg.org/xfn/11">
+		<title>What is rocm? Meaning, Architecture, Examples, Use Cases, and How to Measure It (2026 Guide) &#8211; AiOps School</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='//www.google.com' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" type="application/rss+xml" title="AiOps School &raquo; Feed" href="https://aiopsschool.com/blog/feed/" />
+<link rel="alternate" type="application/rss+xml" title="AiOps School &raquo; Comments Feed" href="https://aiopsschool.com/blog/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="AiOps School &raquo; What is rocm? Meaning, Architecture, Examples, Use Cases, and How to Measure It (2026 Guide) Comments Feed" href="https://aiopsschool.com/blog/rocm/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://aiopsschool.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Faiopsschool.com%2Fblog%2Frocm%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://aiopsschool.com/blog/wp-json/oembed/1.0/embed?url=https%3A%2F%2Faiopsschool.com%2Fblog%2Frocm%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="wp-block-archives-inline-css">
+.wp-block-archives{box-sizing:border-box}.wp-block-archives-dropdown label{display:block}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/archives/style.min.css */
+</style>
+<style id="wp-block-categories-inline-css">
+.wp-block-categories{box-sizing:border-box}.wp-block-categories.alignleft{margin-right:2em}.wp-block-categories.alignright{margin-left:2em}.wp-block-categories.wp-block-categories-dropdown.aligncenter{text-align:center}.wp-block-categories .wp-block-categories__label:not(.screen-reader-text){display:block;width:100%}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/categories/style.min.css */
+</style>
+<style id="wp-block-heading-inline-css">
+h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-background,h3:where(.wp-block-heading).has-background,h4:where(.wp-block-heading).has-background,h5:where(.wp-block-heading).has-background,h6:where(.wp-block-heading).has-background{padding:1.25em 2.375em}h1.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h1.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h2.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h2.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h3.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h3.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h4.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h4.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h5.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h5.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]),h6.has-text-align-left[style*=writing-mode]:where([style*=vertical-lr]),h6.has-text-align-right[style*=writing-mode]:where([style*=vertical-rl]){rotate:180deg}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/heading/style.min.css */
+</style>
+<style id="wp-block-latest-posts-inline-css">
+.wp-block-latest-posts{box-sizing:border-box}.wp-block-latest-posts.alignleft{margin-right:2em}.wp-block-latest-posts.alignright{margin-left:2em}.wp-block-latest-posts.wp-block-latest-posts__list{list-style:none}.wp-block-latest-posts.wp-block-latest-posts__list li{clear:both;overflow-wrap:break-word}.wp-block-latest-posts.is-grid{display:flex;flex-wrap:wrap}.wp-block-latest-posts.is-grid li{margin:0 1.25em 1.25em 0;width:100%}@media (min-width:600px){.wp-block-latest-posts.columns-2 li{width:calc(50% - .625em)}.wp-block-latest-posts.columns-2 li:nth-child(2n){margin-right:0}.wp-block-latest-posts.columns-3 li{width:calc(33.33333% - .83333em)}.wp-block-latest-posts.columns-3 li:nth-child(3n){margin-right:0}.wp-block-latest-posts.columns-4 li{width:calc(25% - .9375em)}.wp-block-latest-posts.columns-4 li:nth-child(4n){margin-right:0}.wp-block-latest-posts.columns-5 li{width:calc(20% - 1em)}.wp-block-latest-posts.columns-5 li:nth-child(5n){margin-right:0}.wp-block-latest-posts.columns-6 li{width:calc(16.66667% - 1.04167em)}.wp-block-latest-posts.columns-6 li:nth-child(6n){margin-right:0}}:root :where(.wp-block-latest-posts.is-grid){padding:0}:root :where(.wp-block-latest-posts.wp-block-latest-posts__list){padding-left:0}.wp-block-latest-posts__post-author,.wp-block-latest-posts__post-date{display:block;font-size:.8125em}.wp-block-latest-posts__post-excerpt,.wp-block-latest-posts__post-full-content{margin-bottom:1em;margin-top:.5em}.wp-block-latest-posts__featured-image a{display:inline-block}.wp-block-latest-posts__featured-image img{height:auto;max-width:100%;width:auto}.wp-block-latest-posts__featured-image.alignleft{float:left;margin-right:1em}.wp-block-latest-posts__featured-image.alignright{float:right;margin-left:1em}.wp-block-latest-posts__featured-image.aligncenter{margin-bottom:1em;text-align:center}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/latest-posts/style.min.css */
+</style>
+<style id="wp-block-list-inline-css">
+ol,ul{box-sizing:border-box}:root :where(.wp-block-list.has-background){padding:1.25em 2.375em}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/list/style.min.css */
+</style>
+<style id="wp-block-paragraph-inline-css">
+.is-small-text{font-size:.875em}.is-regular-text{font-size:1em}.is-large-text{font-size:2.25em}.is-larger-text{font-size:3em}.has-drop-cap:not(:focus):first-letter{float:left;font-size:8.4em;font-style:normal;font-weight:100;line-height:.68;margin:.05em .1em 0 0;text-transform:uppercase}body.rtl .has-drop-cap:not(:focus):first-letter{float:none;margin-left:.1em}p.has-drop-cap.has-background{overflow:hidden}:root :where(p.has-background){padding:1.25em 2.375em}:where(p.has-text-color:not(.has-link-color)) a{color:inherit}p.has-text-align-left[style*="writing-mode:vertical-lr"],p.has-text-align-right[style*="writing-mode:vertical-rl"]{rotate:180deg}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/paragraph/style.min.css */
+</style>
+<style id="wp-block-search-inline-css">
+.wp-block-search__button{margin-left:10px;word-break:normal}.wp-block-search__button.has-icon{line-height:0}.wp-block-search__button svg{fill:currentColor;height:1.25em;min-height:24px;min-width:24px;vertical-align:text-bottom;width:1.25em}:where(.wp-block-search__button){border:1px solid #ccc;padding:6px 10px}.wp-block-search__inside-wrapper{display:flex;flex:auto;flex-wrap:nowrap;max-width:100%}.wp-block-search__label{width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__button{box-sizing:border-box;display:flex;flex-shrink:0;justify-content:center;margin-left:0;max-width:100%}.wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{min-width:0!important;transition-property:width}.wp-block-search.wp-block-search__button-only .wp-block-search__input{flex-basis:100%;transition-duration:.3s}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden,.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__inside-wrapper{overflow:hidden}.wp-block-search.wp-block-search__button-only.wp-block-search__searchfield-hidden .wp-block-search__input{border-left-width:0!important;border-right-width:0!important;flex-basis:0;flex-grow:0;margin:0;min-width:0!important;padding-left:0!important;padding-right:0!important;width:0!important}:where(.wp-block-search__input){appearance:none;border:1px solid #949494;flex-grow:1;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;line-height:inherit;margin-left:0;margin-right:0;min-width:3rem;padding:8px;text-decoration:unset!important;text-transform:inherit}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper){background-color:#fff;border:1px solid #949494;box-sizing:border-box;padding:4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input{border:none;border-radius:0;padding:0 4px}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) .wp-block-search__input:focus{outline:none}:where(.wp-block-search__button-inside .wp-block-search__inside-wrapper) :where(.wp-block-search__button){padding:4px 8px}.wp-block-search.aligncenter .wp-block-search__inside-wrapper{margin:auto}.wp-block[data-align=right] .wp-block-search.wp-block-search__button-only .wp-block-search__inside-wrapper{float:right}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/search/style.min.css */
+</style>
+<style id="wp-block-group-inline-css">
+.wp-block-group{box-sizing:border-box}:where(.wp-block-group.wp-block-group-is-layout-constrained){position:relative}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/group/style.min.css */
+</style>
+<style id="wp-block-separator-inline-css">
+@charset "UTF-8";.wp-block-separator{border:none;border-top:2px solid}:root :where(.wp-block-separator.is-style-dots){height:auto;line-height:1;text-align:center}:root :where(.wp-block-separator.is-style-dots):before{color:currentColor;content:"···";font-family:serif;font-size:1.5em;letter-spacing:2em;padding-left:2em}.wp-block-separator.is-style-dots{background:none!important;border:none!important}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/separator/style.min.css */
+</style>
+<style id="wp-block-table-inline-css">
+.wp-block-table{overflow-x:auto}.wp-block-table table{border-collapse:collapse;width:100%}.wp-block-table thead{border-bottom:3px solid}.wp-block-table tfoot{border-top:3px solid}.wp-block-table td,.wp-block-table th{border:1px solid;padding:.5em}.wp-block-table .has-fixed-layout{table-layout:fixed;width:100%}.wp-block-table .has-fixed-layout td,.wp-block-table .has-fixed-layout th{word-break:break-word}.wp-block-table.aligncenter,.wp-block-table.alignleft,.wp-block-table.alignright{display:table;width:auto}.wp-block-table.aligncenter td,.wp-block-table.aligncenter th,.wp-block-table.alignleft td,.wp-block-table.alignleft th,.wp-block-table.alignright td,.wp-block-table.alignright th{word-break:break-word}.wp-block-table .has-subtle-light-gray-background-color{background-color:#f3f4f5}.wp-block-table .has-subtle-pale-green-background-color{background-color:#e9fbe5}.wp-block-table .has-subtle-pale-blue-background-color{background-color:#e7f5fe}.wp-block-table .has-subtle-pale-pink-background-color{background-color:#fcf0ef}.wp-block-table.is-style-stripes{background-color:initial;border-collapse:inherit;border-spacing:0}.wp-block-table.is-style-stripes tbody tr:nth-child(odd){background-color:#f0f0f0}.wp-block-table.is-style-stripes.has-subtle-light-gray-background-color tbody tr:nth-child(odd){background-color:#f3f4f5}.wp-block-table.is-style-stripes.has-subtle-pale-green-background-color tbody tr:nth-child(odd){background-color:#e9fbe5}.wp-block-table.is-style-stripes.has-subtle-pale-blue-background-color tbody tr:nth-child(odd){background-color:#e7f5fe}.wp-block-table.is-style-stripes.has-subtle-pale-pink-background-color tbody tr:nth-child(odd){background-color:#fcf0ef}.wp-block-table.is-style-stripes td,.wp-block-table.is-style-stripes th{border-color:#0000}.wp-block-table.is-style-stripes{border-bottom:1px solid #f0f0f0}.wp-block-table .has-border-color td,.wp-block-table .has-border-color th,.wp-block-table .has-border-color tr,.wp-block-table .has-border-color>*{border-color:inherit}.wp-block-table table[style*=border-top-color] tr:first-child,.wp-block-table table[style*=border-top-color] tr:first-child td,.wp-block-table table[style*=border-top-color] tr:first-child th,.wp-block-table table[style*=border-top-color]>*,.wp-block-table table[style*=border-top-color]>* td,.wp-block-table table[style*=border-top-color]>* th{border-top-color:inherit}.wp-block-table table[style*=border-top-color] tr:not(:first-child){border-top-color:initial}.wp-block-table table[style*=border-right-color] td:last-child,.wp-block-table table[style*=border-right-color] th,.wp-block-table table[style*=border-right-color] tr,.wp-block-table table[style*=border-right-color]>*{border-right-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:last-child,.wp-block-table table[style*=border-bottom-color] tr:last-child td,.wp-block-table table[style*=border-bottom-color] tr:last-child th,.wp-block-table table[style*=border-bottom-color]>*,.wp-block-table table[style*=border-bottom-color]>* td,.wp-block-table table[style*=border-bottom-color]>* th{border-bottom-color:inherit}.wp-block-table table[style*=border-bottom-color] tr:not(:last-child){border-bottom-color:initial}.wp-block-table table[style*=border-left-color] td:first-child,.wp-block-table table[style*=border-left-color] th,.wp-block-table table[style*=border-left-color] tr,.wp-block-table table[style*=border-left-color]>*{border-left-color:inherit}.wp-block-table table[style*=border-style] td,.wp-block-table table[style*=border-style] th,.wp-block-table table[style*=border-style] tr,.wp-block-table table[style*=border-style]>*{border-style:inherit}.wp-block-table table[style*=border-width] td,.wp-block-table table[style*=border-width] th,.wp-block-table table[style*=border-width] tr,.wp-block-table table[style*=border-width]>*{border-style:inherit;border-width:inherit}
+/*# sourceURL=https://aiopsschool.com/blog/wp-includes/blocks/table/style.min.css */
+</style>
+
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='wp-mint-magazine-google-fonts-css' href='https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&#038;ver=7.0.2' media='all' />
+<link rel='stylesheet' id='bootstrap-css' href='https://aiopsschool.com/blog/wp-content/themes/wp-mint-magazine/css/bootstrap.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://aiopsschool.com/blog/wp-content/themes/wp-mint-magazine/css/font-awesome.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='wp-mint-magazine-style-css' href='https://aiopsschool.com/blog/wp-content/themes/wp-mint-magazine/style.css?ver=1.0.0' media='all' />
+<link rel='stylesheet' id='wpdiscuz-frontend-css-css' href='https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/themes/default/style.css?ver=7.6.54' media='all' />
+<style id="wpdiscuz-frontend-css-inline-css">
+ #wpdcom .wpd-blog-administrator .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-administrator .wpd-comment-author, #wpdcom .wpd-blog-administrator .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-administrator .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-administrator{border-left:3px solid #00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-administrator .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-administrator .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-administrator .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-editor .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-editor .wpd-comment-author, #wpdcom .wpd-blog-editor .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-editor .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-editor{border-left:3px solid #00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-editor .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-editor .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-editor .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-author .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-author .wpd-comment-author, #wpdcom .wpd-blog-author .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-author .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-author .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-author .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-author .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-contributor .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-contributor .wpd-comment-author, #wpdcom .wpd-blog-contributor .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-contributor .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-contributor .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-contributor .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-contributor .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-subscriber .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-subscriber .wpd-comment-author, #wpdcom .wpd-blog-subscriber .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-subscriber .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-subscriber .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom .wpd-blog-post_author .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-post_author .wpd-comment-author, #wpdcom .wpd-blog-post_author .wpd-comment-author a{color:#00B38F}#wpdcom .wpd-blog-post_author .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-1 .wpd-comment .wpd-blog-post_author .wpd-avatar img{border-color:#00B38F}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply .wpd-comment-wrap.wpd-blog-post_author{border-left:3px solid #00B38F}#wpdcom.wpd-layout-2 .wpd-comment .wpd-blog-post_author .wpd-avatar img{border-bottom-color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-post_author .wpd-comment-subheader{border-top:1px dashed #00B38F}#wpdcom.wpd-layout-3 .wpd-reply .wpd-blog-post_author .wpd-comment-right{border-left:1px solid #00B38F}#wpdcom .wpd-blog-guest .wpd-comment-label{color:#ffffff;background-color:#00B38F;border:none}#wpdcom .wpd-blog-guest .wpd-comment-author, #wpdcom .wpd-blog-guest .wpd-comment-author a{color:#00B38F}#wpdcom.wpd-layout-3 .wpd-blog-guest .wpd-comment-subheader{border-top:1px dashed #00B38F}#comments, #respond, .comments-area, #wpdcom{}#wpdcom .ql-editor > *{color:#777777}#wpdcom .ql-editor::before{}#wpdcom .ql-toolbar{border:1px solid #DDDDDD;border-top:none}#wpdcom .ql-container{border:1px solid #DDDDDD;border-bottom:none}#wpdcom .wpd-form-row .wpdiscuz-item input[type="text"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="email"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="url"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="color"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="date"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="datetime-local"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="month"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="number"], #wpdcom .wpd-form-row .wpdiscuz-item input[type="time"], #wpdcom textarea, #wpdcom select{border:1px solid #DDDDDD;color:#777777}#wpdcom .wpd-form-row .wpdiscuz-item textarea{border:1px solid #DDDDDD}#wpdcom input::placeholder, #wpdcom textarea::placeholder, #wpdcom input::-moz-placeholder, #wpdcom textarea::-webkit-input-placeholder{}#wpdcom .wpd-comment-text{color:#777777}#wpdcom .wpd-thread-head .wpd-thread-info{border-bottom:2px solid #00B38F}#wpdcom .wpd-thread-head .wpd-thread-info.wpd-reviews-tab svg{fill:#00B38F}#wpdcom .wpd-thread-head .wpdiscuz-user-settings{border-bottom:2px solid #00B38F}#wpdcom .wpd-thread-head .wpdiscuz-user-settings:hover{color:#00B38F}#wpdcom .wpd-comment .wpd-follow-link:hover{color:#00B38F}#wpdcom .wpd-comment-status .wpd-sticky{color:#00B38F}#wpdcom .wpd-thread-filter .wpdf-active{color:#00B38F;border-bottom-color:#00B38F}#wpdcom .wpd-comment-info-bar{border:1px dashed #33c3a6;background:#e6f8f4}#wpdcom .wpd-comment-info-bar .wpd-current-view i{color:#00B38F}#wpdcom .wpd-filter-view-all:hover{background:#00B38F}#wpdcom .wpdiscuz-item .wpdiscuz-rating > label{color:#DDDDDD}#wpdcom .wpdiscuz-item .wpdiscuz-rating:not(:checked) > label:hover, .wpdiscuz-rating:not(:checked) > label:hover ~ label{}#wpdcom .wpdiscuz-item .wpdiscuz-rating > input ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:not(:checked) ~ label:hover ~ label{color:#FFED85}#wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover, #wpdcom .wpdiscuz-item .wpdiscuz-rating > label:hover ~ input:checked ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked + label:hover ~ label, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label:hover ~ label, .wpd-custom-field .wcf-active-star, #wpdcom .wpdiscuz-item .wpdiscuz-rating > input:checked ~ label{color:#FFD700}#wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-star{fill:#DDDDDD}#wpd-post-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-active{fill:#FFD700}#wpd-post-rating .wpd-rating-wrap .wpd-rate-starts svg .wpd-star{fill:#DDDDDD}#wpd-post-rating .wpd-rating-wrap .wpd-rate-starts:hover svg .wpd-star{fill:#FFED85}#wpd-post-rating.wpd-not-rated .wpd-rating-wrap .wpd-rate-starts svg:hover ~ svg .wpd-star{fill:#DDDDDD}.wpdiscuz-post-rating-wrap .wpd-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-star{fill:#DDDDDD}.wpdiscuz-post-rating-wrap .wpd-rating .wpd-rating-wrap .wpd-rating-stars svg .wpd-active{fill:#FFD700}#wpdcom .wpd-comment .wpd-follow-active{color:#ff7a00}#wpdcom .page-numbers{color:#555;border:#555 1px solid}#wpdcom span.current{background:#555}#wpdcom.wpd-layout-1 .wpd-new-loaded-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap > .wpd-comment-right{background:transparent}#wpdcom.wpd-layout-2 .wpd-new-loaded-comment.wpd-comment.wpd-reply > .wpd-comment-wrap{background:#FFFAD6}#wpdcom.wpd-layout-3 .wpd-new-loaded-comment.wpd-comment > .wpd-comment-wrap > .wpd-comment-right{background:#FFFAD6}#wpdcom .wpd-follow:hover i, #wpdcom .wpd-unfollow:hover i, #wpdcom .wpd-comment .wpd-follow-active:hover i{color:#00B38F}#wpdcom .wpdiscuz-readmore{cursor:pointer;color:#00B38F}.wpd-custom-field .wcf-pasiv-star, #wpcomm .wpdiscuz-item .wpdiscuz-rating > label{color:#DDDDDD}.wpd-wrapper .wpd-list-item.wpd-active{border-top:3px solid #00B38F}#wpdcom.wpd-layout-2 .wpd-comment.wpd-reply.wpd-unapproved-comment .wpd-comment-wrap{border-left:3px solid #FFFAD6}#wpdcom.wpd-layout-3 .wpd-comment.wpd-reply.wpd-unapproved-comment .wpd-comment-right{border-left:1px solid #FFFAD6}#wpdcom .wpd-prim-button{background-color:#07B290;color:#FFFFFF}#wpdcom .wpd_label__check i.wpdicon-on{color:#07B290;border:1px solid #83d9c8}#wpd-bubble-wrapper #wpd-bubble-all-comments-count{color:#1DB99A}#wpd-bubble-wrapper > div{background-color:#1DB99A}#wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message{background-color:#1DB99A}#wpd-bubble-wrapper > #wpd-bubble #wpd-bubble-add-message::before{border-left-color:#1DB99A;border-right-color:#1DB99A}#wpd-bubble-wrapper.wpd-right-corner > #wpd-bubble #wpd-bubble-add-message::before{border-left-color:#1DB99A;border-right-color:#1DB99A}.wpd-inline-icon-wrapper path.wpd-inline-icon-first{fill:#1DB99A}.wpd-inline-icon-count{background-color:#1DB99A}.wpd-inline-icon-count::before{border-right-color:#1DB99A}.wpd-inline-form-wrapper::before{border-bottom-color:#1DB99A}.wpd-inline-form-question{background-color:#1DB99A}.wpd-inline-form{background-color:#1DB99A}.wpd-last-inline-comments-wrapper{border-color:#1DB99A}.wpd-last-inline-comments-wrapper::before{border-bottom-color:#1DB99A}.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments{background:#1DB99A}.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:hover,.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:active,.wpd-last-inline-comments-wrapper .wpd-view-all-inline-comments:focus{background-color:#1DB99A}#wpdcom .ql-snow .ql-tooltip[data-mode="link"]::before{content:"Enter link:"}#wpdcom .ql-snow .ql-tooltip.ql-editing a.ql-action::after{content:"Save"}.comments-area{width:auto}
+/*# sourceURL=wpdiscuz-frontend-css-inline-css */
+</style>
+<link rel='stylesheet' id='wpdiscuz-fa-css' href='https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/third-party/font-awesome-5.13.0/css/fa.min.css?ver=7.6.54' media='all' />
+<link rel='stylesheet' id='wpdiscuz-combo-css-css' href='https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/css/wpdiscuz-combo.min.css?ver=7.0.2' media='all' />
+<script id="jquery-core-js" src="https://aiopsschool.com/blog/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://aiopsschool.com/blog/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<link rel="https://api.w.org/" href="https://aiopsschool.com/blog/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://aiopsschool.com/blog/wp-json/wp/v2/posts/1716" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://aiopsschool.com/blog/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0.2" />
+<link rel="canonical" href="https://aiopsschool.com/blog/rocm/" />
+<link rel='shortlink' href='https://aiopsschool.com/blog/?p=1716' />
+    </head>
+    <body class="wp-singular post-template-default single single-post postid-1716 single-format-standard wp-theme-wp-mint-magazine header_style_1 layout_box">
+        <div id="page" class="site">
+            <a class="skip-link screen-reader-text" href="#content">Skip to content</a>
+
+            <div class="sidebar-nav-overlay"></div>
+
+            <header id="masthead" class="site-header">
+				                <!-- /. mobile-menu-toggle  -->
+                <div class="navbar-mobile-collapse" id="cc-navbar-mobile-collapse">
+                    <div class="mobile-collapse-container">
+                        <div class="mob-menu-header clearfix">
+                            Menu
+                            <a href="javascript:;" class="close-mob-menu">
+                                <span>&nbsp;</span>
+                            </a>
+                        </div>
+						<ul id="toggle-nav-menu" class="toggle_nav_links"><li id="menu-item-534" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-534"><a href="https://aiopsschool.com/">Home</a></li>
+<li id="menu-item-532" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-532"><a href="https://aiopsschool.com/storify/">DailyLogs</a></li>
+<li id="menu-item-1779" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1779"><a href="https://aiopsschool.com/forum/">Forum</a></li>
+<li id="menu-item-1780" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1780"><a href="https://aiopsschool.com/certifications/">Certifications</a></li>
+<li id="menu-item-1781" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1781"><a href="https://aiopsschool.com/courses/">Courses</a></li>
+<li id="menu-item-1782" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1782"><a href="https://aiopsschool.com/services/">Services</a></li>
+<li id="menu-item-1783" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1783"><a href="https://aiopsschool.com/consulting/">Consulting</a></li>
+<li id="menu-item-1784" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1784"><a href="https://aiopsschool.com/freelancers/">Freelancers</a></li>
+<li id="menu-item-1785" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1785"><a href="https://aiopsschool.com/contact/">Contact</a></li>
+</ul>                    </div>
+                </div>
+                <!-- /. mobile-menu-toggle  -->
+                <nav id="site-navigation" class="main-navigation navbar navbar-default navbar-pd-mag" role="banner">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary-nav-bar-col">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>
+                            <button type="button" class="sidemenu-toggle btn-mob-menu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>  
+															<h1 class="site-title"><a href="https://aiopsschool.com/blog/" class="navbar-brand" rel="home">AiOps School</a></h1>
+																	<p class="site-description">Lets Learn AiOps</p>
+									
+                            <ul class="nav navbar-nav navbar-right search-bar">
+                                <li class=""><a href="#toggle-search" class="animate"><i class="fa fa-search"></i> <i class="fa fa-times"></i></a></li>                
+								                            </ul>
+                        </div>
+                        <div class="collapse navbar-collapse" id="primary-nav-bar-col">
+                            <button type="button" class="sidemenu-toggle btn-mob-menu">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>
+							<ul id="primary-menu" class="nav navbar-nav main-navbar clearfix"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-534"><a href="https://aiopsschool.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-532"><a href="https://aiopsschool.com/storify/">DailyLogs</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1779"><a href="https://aiopsschool.com/forum/">Forum</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1780"><a href="https://aiopsschool.com/certifications/">Certifications</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1781"><a href="https://aiopsschool.com/courses/">Courses</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1782"><a href="https://aiopsschool.com/services/">Services</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1783"><a href="https://aiopsschool.com/consulting/">Consulting</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1784"><a href="https://aiopsschool.com/freelancers/">Freelancers</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1785"><a href="https://aiopsschool.com/contact/">Contact</a></li>
+</ul>                            <div class="hidden-sm hidden-md hidden-lg">
+																	<h1 class="site-title"><a href="https://aiopsschool.com/blog/" class="navbar-brand" rel="home">AiOps School</a></h1>
+									                            </div>
+                            <ul class="nav navbar-nav navbar-right search-bar">
+                                <li class=""><a href="#toggle-search" class="animate"><i class="fa fa-search"></i> <i class="fa fa-times"></i></a></li>                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bootsnipp-search animate">
+                        <div class="container">
+							
+<form role="search" method="get" class="search-form" action="https://aiopsschool.com/blog/">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="search" class="search-field form-control" placeholder="Search &hellip;" value="" name="s" />
+        <span class="input-group-btn">
+            <button class="btn btn-default search-submit" type="submit">Search</button>
+        </span>
+    </div>
+</form>
+                        </div>
+                    </div>
+                </nav><!-- #site-navigation -->
+                <div class="hidden-header-fixed"></div>
+            </header><!-- #masthead -->
+
+            <div id="content" class="site-content">
+<section class="pd_post_single_section pd_post_with_add_sidebar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-8">
+                <div id="primary" class="content-area">
+                    <main id="main" class="site-main">
+
+						
+<article id="post-1716" class="pd_post_single_article post-1716 post type-post status-publish format-standard hentry category-what-is-series">
+
+    <div class="pd_mag_post_title_wrap ">
+		<h1 class="entry-title pd_mag_post_title">What is rocm? Meaning, Architecture, Examples, Use Cases, and How to Measure It (2026 Guide)</h1>    </div>
+	
+    <div class="article-content pd_post_content">
+        <div class="pd_post_single_meta">
+            <div class="pd_post_cat_label">
+				<a href="https://aiopsschool.com/blog/category/what-is-series/"  rel="category tag">What is Series?</a>            </div>
+
+
+            <header class="entry-header">
+									<div class="entry-meta pd_post_author"> <i class="fa fa-bars"></i>
+						<span class="posted-on">Posted on <a href="https://aiopsschool.com/blog/rocm/" rel="bookmark"><time class="entry-date published" datetime="2026-02-17T12:46:40+00:00">February 17, 2026</time><time class="updated" datetime="2026-02-17T15:13:13+00:00">February 17, 2026</time></a></span> |<span class="byline"> by <span class="author vcard"><a class="url fn n" href="https://aiopsschool.com/blog/author/rajeshkumar/">rajeshkumar</a></span></span>					</div><!-- .entry-meta -->
+				            </header><!-- .entry-header -->
+        </div>
+        <div class="entry-content">
+			
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Quick Definition (30–60 words)</h2>
+
+
+
+<p class="wp-block-paragraph">rocm is AMD&#8217;s open-source software stack for GPU-accelerated computing on Linux. Analogy: rocm is like a GPU-aware operating toolkit that lets applications speak GPU efficiently, similar to how a database client library lets apps talk to databases. Formal: rocm implements drivers, runtime, compilers, and libraries for heterogeneous compute.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">What is rocm?</h2>
+
+
+
+<p class="wp-block-paragraph">rocm is an integrated open-source platform enabling GPU-accelerated compute on AMD hardware. It is not a single monolithic product but a suite of components: kernel drivers, runtimes, compilers, math and ML libraries, and developer tools. rocm focuses on high-performance compute, machine learning, and HPC workloads on Linux. It is not a cloud service, not a Windows-first stack, and not a proprietary closed driver set.</p>
+
+
+
+<p class="wp-block-paragraph">Key properties and constraints:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Open-source modular stack maintained primarily for Linux.</li>
+<li>Optimized for AMD GPUs with ROCm-compatible hardware.</li>
+<li>Provides HSA-like execution model and ROC runtime APIs.</li>
+<li>Integrates with common ML frameworks via adapters.</li>
+<li>Kernel and driver compatibility constraints can be strict across versions.</li>
+<li>Performance tuned for parallel compute not graphics rendering.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Where it fits in modern cloud/SRE workflows:</p>
+
+
+
+<ul class="wp-block-list">
+<li>As the GPU runtime layer in GPU-enabled VMs, Kubernetes nodes, or bare-metal clusters.</li>
+<li>Provides the compute abstraction needed for model training, inference, and data-parallel pipelines.</li>
+<li>Interacts with device plugins, container runtimes, schedulers, monitoring agents, and security tooling.</li>
+<li>Requires integration with CI/CD for driver/runtime compatibility testing, and SRE practices for capacity, cost, resilience, and observability.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">A text-only diagram description readers can visualize:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Visualize three horizontal layers. Bottom layer: Hardware &#8211; AMD GPU cards and PCIe or CCIX fabric. Middle layer: Kernel drivers and ROCk, ROCT components plus ROC runtime. Top layer: Userland libraries and frameworks including compilers, BLAS, ML adapters, and applications. Arrows from applications down through runtime to hardware indicate job submission. Side arrows show monitoring, security, and orchestration tools connecting to runtime and apps.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">rocm in one sentence</h3>
+
+
+
+<p class="wp-block-paragraph">rocm is an open-source GPU compute stack that exposes AMD GPU capabilities to compilers, runtimes, and frameworks for high-performance compute and ML workloads on Linux.</p>
+
+
+
+<h3 class="wp-block-heading">rocm vs related terms (TABLE REQUIRED)</h3>
+
+
+
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Term</th>
+<th>How it differs from rocm</th>
+<th>Common confusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>ROCm driver</td>
+<td>Kernel and low level components vs full stack</td>
+<td>Confused as entire stack</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>ROCm runtime</td>
+<td>Userland runtime vs kernel pieces</td>
+<td>Mistaken for driver only</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>HIP</td>
+<td>Language portability layer vs whole ecosystem</td>
+<td>Thought to be replacement for CUDA</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>MIOpen</td>
+<td>ML library for AMD vs general ML frameworks</td>
+<td>Mistaken for full ML framework</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>ROCk</td>
+<td>Kernel driver components vs entire userland</td>
+<td>Seen as synonymous with rocm</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>CUDA</td>
+<td>NVIDIA proprietary stack vs AMD open stack</td>
+<td>Interchanged incorrectly with rocm</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>ROCclr</td>
+<td>Common runtime layer vs higher libs</td>
+<td>Overlap confusion with HIP</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>ROCprofiler</td>
+<td>Profiling tools vs compute stack</td>
+<td>Thought to be required runtime</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>ROCm containers</td>
+<td>Prebuilt images vs runtime installation</td>
+<td>Considered only deployment method</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>Driver package</td>
+<td>Distribution packages vs project scope</td>
+<td>Mistaken as only deliverable</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<h4 class="wp-block-heading">Row Details (only if any cell says “See details below”)</h4>
+
+
+
+<p class="wp-block-paragraph">Not applicable.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Why does rocm matter?</h2>
+
+
+
+<p class="wp-block-paragraph">Business impact:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Revenue: Faster model training reduces time to market for AI features and shortens iteration cycles for products that monetize ML.</li>
+<li>Trust: Predictable compute performance and maintained open-source stack reduce vendor lock-in and procurement risk.</li>
+<li>Risk: Driver incompatibilities or unsupported GPUs create operational outages and capacity loss.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Engineering impact:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Incident reduction: Well-integrated runtimes and telemetry reduce silent failures and mis-scheduled jobs.</li>
+<li>Velocity: Developers can iterate on GPU-accelerated code faster when toolchains are stable and reproducible.</li>
+<li>Cost control: Proper GPU utilization with rocm can reduce wasted GPU time and cloud spend.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">SRE framing:</p>
+
+
+
+<ul class="wp-block-list">
+<li>SLIs/SLOs: GPU job completion rate, time to start GPU job, GPU utilization, and model throughput.</li>
+<li>Error budgets: Allow controlled risk for driver upgrades or experimental kernel changes.</li>
+<li>Toil: Manual driver installations and node maintenance are high-toil activities to automate.</li>
+<li>On-call: On-call should own GPU node health, driver state, and job scheduling incidents.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">3–5 realistic “what breaks in production” examples:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Kernel-driver mismatch after host OS update causing nodes to lose GPU devices.</li>
+<li>Container runs but lacks required privileged mounts so GPUs appear but are unusable.</li>
+<li>Model training job stalls due to out-of-memory on GPU and no graceful retry logic.</li>
+<li>Resource overcommit leads to noisy-neighbor performance degradation for multi-tenant jobs.</li>
+<li>Silent numerical divergence when using incompatible math library versions.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Where is rocm used? (TABLE REQUIRED)</h2>
+
+
+
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Layer/Area</th>
+<th>How rocm appears</th>
+<th>Typical telemetry</th>
+<th>Common tools</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>L1</td>
+<td>Edge devices</td>
+<td>ROCm appears if edge AMD GPUs used</td>
+<td>Device health and temp</td>
+<td>Lightweight agents</td>
+</tr>
+<tr>
+<td>L2</td>
+<td>Network</td>
+<td>Used in GPU accelerated NIC offload nodes</td>
+<td>Packet processing latency</td>
+<td>Telemetry for fabric</td>
+</tr>
+<tr>
+<td>L3</td>
+<td>Service</td>
+<td>Backend ML inference services with GPUs</td>
+<td>Throughput and latency</td>
+<td>APM and logs</td>
+</tr>
+<tr>
+<td>L4</td>
+<td>Application</td>
+<td>Model training pipelines on GPU nodes</td>
+<td>Job duration and GPU memory</td>
+<td>Batch schedulers</td>
+</tr>
+<tr>
+<td>L5</td>
+<td>Data</td>
+<td>GPU ETL or feature extract jobs</td>
+<td>Task completion stats</td>
+<td>Data pipeline metrics</td>
+</tr>
+<tr>
+<td>L6</td>
+<td>IaaS</td>
+<td>GPU VMs with ROCm installed</td>
+<td>VM and GPU metrics</td>
+<td>Cloud provider telemetry</td>
+</tr>
+<tr>
+<td>L7</td>
+<td>PaaS</td>
+<td>Managed Kubernetes with GPU node pools</td>
+<td>Pod GPU metrics</td>
+<td>K8s device plugin</td>
+</tr>
+<tr>
+<td>L8</td>
+<td>SaaS</td>
+<td>Hosted ML platforms using ROCm</td>
+<td>Tenant resource use</td>
+<td>Multi-tenant quotas</td>
+</tr>
+<tr>
+<td>L9</td>
+<td>CI CD</td>
+<td>GPU test runners and build agents</td>
+<td>Test pass rate and duration</td>
+<td>CI dashboards</td>
+</tr>
+<tr>
+<td>L10</td>
+<td>Observability</td>
+<td>Profiling and traces for GPU code</td>
+<td>Profiling traces and counters</td>
+<td>Profilers and exporters</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<h4 class="wp-block-heading">Row Details (only if needed)</h4>
+
+
+
+<p class="wp-block-paragraph">Not applicable.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">When should you use rocm?</h2>
+
+
+
+<p class="wp-block-paragraph">When it&#8217;s necessary:</p>
+
+
+
+<ul class="wp-block-list">
+<li>You have AMD GPUs in production hardware.</li>
+<li>Your workload benefits from GPU parallelism e.g., deep learning training, HPC simulations, or large-scale data transforms.</li>
+<li>You need an open-source GPU stack for licensing or procurement reasons.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">When it&#8217;s optional:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Small inference or CPU-bound workloads with negligible GPU usage.</li>
+<li>When existing NVIDIA CUDA investments are entrenched and migration cost is high.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">When NOT to use / overuse it:</p>
+
+
+
+<ul class="wp-block-list">
+<li>For graphics-only workloads where Vulkan or OpenGL is primary.</li>
+<li>On unsupported GPUs or non-Linux environments.</li>
+<li>For tiny batch jobs where GPU startup cost outweighs benefits.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Decision checklist:</p>
+
+
+
+<ul class="wp-block-list">
+<li>If you have AMD GPUs and need high-performance compute -&gt; Use rocm.</li>
+<li>If you are tied to CUDA-only libraries and no AMD hardware -&gt; Consider other routes.</li>
+<li>If you need multi-cloud portability without hardware lock-in -&gt; Evaluate HIP portability efforts.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Maturity ladder:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Beginner: Run sample workloads on single-node ROCm-enabled VM or instance.</li>
+<li>Intermediate: Deploy GPUs in a Kubernetes node pool with device plugin and CI GPU tests.</li>
+<li>Advanced: Full fleet management with automated driver upgrades, profiling, cost allocation, and SLOs.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">How does rocm work?</h2>
+
+
+
+<p class="wp-block-paragraph">Components and workflow:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Kernel components expose GPU devices and memory via drivers and kernel modules.</li>
+<li>ROC runtime provides user-level APIs to load kernels, manage memory, and schedule kernels on GPU.</li>
+<li>HIP provides source portability to compile CUDA-like code to run on AMD GPUs.</li>
+<li>Libraries such as MIOpen provide optimized kernels for ML primitives.</li>
+<li>Tooling includes profilers, debuggers, and telemetry exporters.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Data flow and lifecycle:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Application compiles kernels via HIP or ROCm toolchain.</li>
+<li>At runtime, application allocates GPU memory and transfers data via PCIe or fabric.</li>
+<li>The runtime dispatches work to the GPU queue and schedules compute kernels.</li>
+<li>GPU computes and writes results back to host memory or persists to storage.</li>
+<li>Monitoring captures metrics like utilization, temperature, and kernel timings for SRE analysis.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Edge cases and failure modes:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Driver version mismatch causing symbol errors.</li>
+<li>Container privilege limits blocking device nodes or privileged IOCTLs.</li>
+<li>Starvation when host CPU cannot feed GPU fast enough.</li>
+<li>Memory leaks in long-running processes causing out-of-memory errors.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Typical architecture patterns for rocm</h3>
+
+
+
+<ul class="wp-block-list">
+<li>Single-node development: Developer laptop or workstation with a single AMD GPU for local testing.</li>
+<li>Bare-metal HPC cluster: Many nodes with AMD GPUs for MPI and HPC workloads with job scheduler integration.</li>
+<li>Kubernetes GPU pool: Node pool of ROCm-enabled nodes using device plugin and gpu aware schedulers for ML workloads.</li>
+<li>Multi-tenant inference service: Kubernetes or VM-based inference service with multi-tenant isolation and quota controls.</li>
+<li>Hybrid cloud burst: On-prem ROCm cluster for baseline training, burst to cloud ROCm-enabled instances for extra capacity.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Failure modes &amp; mitigation (TABLE REQUIRED)</h3>
+
+
+
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Failure mode</th>
+<th>Symptom</th>
+<th>Likely cause</th>
+<th>Mitigation</th>
+<th>Observability signal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>F1</td>
+<td>No GPU found</td>
+<td>Runtime error device not visible</td>
+<td>Kernel module not loaded</td>
+<td>Reload driver and reboot</td>
+<td>Node device absence counter</td>
+</tr>
+<tr>
+<td>F2</td>
+<td>Kernel panic</td>
+<td>Host crash during driver init</td>
+<td>Driver kernel incompatibility</td>
+<td>Revert kernel or driver</td>
+<td>System kernel crash logs</td>
+</tr>
+<tr>
+<td>F3</td>
+<td>Slow kernels</td>
+<td>High tail latency on tasks</td>
+<td>Contention or wrong tuning</td>
+<td>Tune kernels and isolate noisy jobs</td>
+<td>Kernel time percentile</td>
+</tr>
+<tr>
+<td>F4</td>
+<td>OOM on GPU</td>
+<td>Job fails with out of memory</td>
+<td>Memory leak or wrong batch size</td>
+<td>Add limits and retries</td>
+<td>Memory usage spikes</td>
+</tr>
+<tr>
+<td>F5</td>
+<td>Silent numerical errors</td>
+<td>Wrong model outputs</td>
+<td>ABI or math lib mismatch</td>
+<td>Validate with test vectors</td>
+<td>Output validation failures</td>
+</tr>
+<tr>
+<td>F6</td>
+<td>Container fails start</td>
+<td>Missing mounts for device nodes</td>
+<td>Container runtime policy</td>
+<td>Adjust container spec</td>
+<td>Pod start failure reason</td>
+</tr>
+<tr>
+<td>F7</td>
+<td>Driver upgrade failure</td>
+<td>Nodes fail to join cluster</td>
+<td>Automation raced upgrade</td>
+<td>Stagger upgrades and rollback</td>
+<td>Upgrade failure rate</td>
+</tr>
+<tr>
+<td>F8</td>
+<td>Thermal throttling</td>
+<td>Performance drops under load</td>
+<td>Cooling or power issue</td>
+<td>Throttle detection and capping</td>
+<td>Temperature and clock metrics</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<h4 class="wp-block-heading">Row Details (only if needed)</h4>
+
+
+
+<p class="wp-block-paragraph">Not applicable.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Key Concepts, Keywords &amp; Terminology for rocm</h2>
+
+
+
+<p class="wp-block-paragraph">(Glossary of 40+ terms; each line: Term — 1–2 line definition — why it matters — common pitfall)</p>
+
+
+
+<p class="wp-block-paragraph">HSA — Heterogeneous System Architecture — CPU GPU coordination model — Defines shared memory concepts — Assumed available without checking.
+HIP — Heterogeneous-Compute Interface for Portability — CUDA-like portability layer for ROCm — Lets code run on AMD and NVIDIA via translation — Pitfall: performance differences require tuning.
+ROCm runtime — Userland runtime and APIs — Manages kernels, queues, and memory — Critical for application execution — Ensure version compatibility.
+ROCr — Runtime component for kernel launch — Low-level execution control — Enables queue management — Confused with ROCclr.
+ROCclr — Common runtime layer — Provides cross-language glue — Important for library interoperability — Naming confusion with other runtimes.
+ROCm driver — Kernel modules exposing devices — Base for any GPU use — Ensure driver matches kernel — Outdated drivers break nodes.
+ROCm stack — Collective term for driver runtime tools — Overall platform — Important for lifecycle planning — Treat as multiple components.
+ROCm kernel modules — Kernel side drivers like amdgpu — Enable device enumeration — Kernel updates may break modules — Pin versions.
+MIOpen — Machine learning primitives library — Optimized ops for AMD GPUs — Improves ML performance — Version mismatches cause crashes.
+ROCm compiler — ROCm-provided compilers for kernels — Compiles HIP and device code — Required for build pipelines — Different flags affect perf.
+HIPIFY — Tool to convert CUDA to HIP — Facilitates porting — Speeds migration — Not perfect; manual fixes needed.
+ROCm containers — Container images with ROCm stack — Simplifies deployment — Useful for reproducibility — Must match host kernel and drivers.
+ROCm device plugin — Kubernetes plugin for device allocation — Exposes GPUs to pods — Required for Kubernetes scheduling — Plugin and runtime must align.
+ROCprofiler — Profiling toolset — Captures kernel timing and counters — Essential for tuning — Can add overhead to runs.
+ROCtx — Abstraction layer in ROCm tools — Internal runtime layer — Helps interoperability — Name overlaps in docs.
+ROCm API — Public interfaces — For runtime control — Used by frameworks — Backwards compatibility varies.
+ROCm SDK — Collection of libraries and tools — For development and optimization — Used in build pipelines — Keep up with releases.
+ROCruntime — Alias for ROCm user runtime — Handles host side resource management — Critical for host-GPU interaction — Verify logs on errors.
+ROCm dispatch — Kernel submission semantics — Defines queue semantics — Important for parallel workloads — Misuse causes serialization.
+GPU isolation — Logical separation of GPU resources — Required for multi-tenant clusters — Ensures predictable performance — Hard to enforce for shared memory.
+GPU topology — Layout of GPUs in a node — Affects memory transfer speeds — Important for MPI jobs — Ignored topology causes latency.
+Peer-to-peer — Direct transfers between GPUs — Improves multi-GPU performance — Use when topology supports it — Not available on all platforms.
+NUMA — Non-uniform memory access considerations — Affects CPU-GPU data paths — Tune placement for perf — Ignored NUMA lowers throughput.
+Device nodes — /dev entries for GPUs — Required for containers to access GPU — Must be mounted into container — Missing mounts block workloads.
+PCIe lanes — Interconnect between host and GPU — Limits bandwidth — Performance dependent — Cloud instances vary widely.
+ROCblas — BLAS library for ROCm — Optimized linear algebra — Key for ML and HPC — Ensure ABI compatibility.
+ROCm debugging — Tools for debugging kernels — Critical for development — May require special privileges — Can be disruptive in prod.
+Apertures — GPU memory mapping ranges — For host-GPU DMA — Relevant for driver tuning — Incorrect config leads to faults.
+Event queues — Mechanism for async execution — Used for overlapping transfer and compute — Misuse leads to stalls.
+ASLR implications — Address randomization with drivers — Affects low-level debug — Rarely an issue but check on crashes.
+Driver signing — Kernel module signing requirements — Security constraint on hosts — May block unsigned modules.
+SELinux/AppArmor — Security frameworks that may block ROCm actions — Protects host but can prevent access — Need policy updates.
+GPU scheduler — Kernel or runtime scheduler for compute queues — Affects fairness — Poor scheduling causes noisy neighbor.
+GPU memory pool — Memory management strategy — Affects allocation latency — Fragmentation causes OOM.
+Telemetry exporter — Exposes GPU metrics to monitoring — Essential for SRE — Missing exporters cause blind spots.
+GPU firmware — Microcode on GPU — Impacts stability — Firmware updates may be required — Not all updates are automatic.
+NUMA affinity — Binding threads to CPUs near GPU — Improves throughput — Ignoring causes extra latency.
+Checksum/validation — Numeric correctness checks — Ensures computation validity — Omitted tests hide silent errors.
+Driver ABI — Binary interface contract — Compatibility across upgrades — Breaks can surface in runtime crashes.
+Operator pattern — Kubernetes operator to manage ROCm nodes — Automates lifecycle — Reduces toil — Requires maintenance.
+Device isolation plugin — Advanced plugin for sharing GPUs — Enables partitioning — Complex to configure.
+GPU durability — Long-term reliability considerations — Affects hardware refresh cycles — Heat cycles reduce lifespan.
+Profiling counters — Hardware counters for perf insights — Key for tuning — Can be noisy and require sampling.
+Container runtime — Docker containerd runtime interactions with ROCm — Enables encapsulation — Runtime security rules can block access.
+JFed tools — Not publicly stated — Use &#8220;Not publicly stated&#8221; if specifics unknown.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">How to Measure rocm (Metrics, SLIs, SLOs) (TABLE REQUIRED)</h2>
+
+
+
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Metric/SLI</th>
+<th>What it tells you</th>
+<th>How to measure</th>
+<th>Starting target</th>
+<th>Gotchas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M1</td>
+<td>GPU availability</td>
+<td>Fraction of healthy GPU nodes</td>
+<td>Node exporter plus device checks</td>
+<td>99.9% weekly</td>
+<td>Node churn hides partial failure</td>
+</tr>
+<tr>
+<td>M2</td>
+<td>Job success rate</td>
+<td>Fraction of jobs finished ok</td>
+<td>CI or scheduler job status</td>
+<td>99% per job class</td>
+<td>Transient retries inflate success</td>
+</tr>
+<tr>
+<td>M3</td>
+<td>Time to GPU allocation</td>
+<td>Delay from request to allocation</td>
+<td>Scheduler timing events</td>
+<td>95th pct less than 30s</td>
+<td>Scheduler spikes skew percentiles</td>
+</tr>
+<tr>
+<td>M4</td>
+<td>GPU utilization</td>
+<td>Percent GPU active time</td>
+<td>Hardware counters avg over window</td>
+<td>60 80% for training</td>
+<td>Single metric masks idle phases</td>
+</tr>
+<tr>
+<td>M5</td>
+<td>Kernel tail latency</td>
+<td>High percentile per kernel</td>
+<td>Profiler traces</td>
+<td>95th under target latency</td>
+<td>Sampling may miss spikes</td>
+</tr>
+<tr>
+<td>M6</td>
+<td>GPU memory usage</td>
+<td>Used memory percentage</td>
+<td>Driver exported metrics</td>
+<td>Keep below 85% average</td>
+<td>Fragmentation causes OOM</td>
+</tr>
+<tr>
+<td>M7</td>
+<td>Driver upgrade failure rate</td>
+<td>Failed upgrades fraction</td>
+<td>Automation logs</td>
+<td>&lt;1% per rollout</td>
+<td>Rollout size affects blast radius</td>
+</tr>
+<tr>
+<td>M8</td>
+<td>Thermal events</td>
+<td>Throttle or temperature events</td>
+<td>Sensor telemetry</td>
+<td>Zero critical throttles</td>
+<td>Sensors delayed reporting</td>
+</tr>
+<tr>
+<td>M9</td>
+<td>Profiling coverage</td>
+<td>Percent critical jobs profiled</td>
+<td>CI and periodic profiling</td>
+<td>20 30% of jobs</td>
+<td>Profiling overhead limits scale</td>
+</tr>
+<tr>
+<td>M10</td>
+<td>Cost per training hour</td>
+<td>Dollars per GPU training hour</td>
+<td>Billing divided by hours</td>
+<td>Varies per org</td>
+<td>Spot instances vary cost</td>
+</tr>
+<tr>
+<td>M11</td>
+<td>Resident set size</td>
+<td>Host memory used by GPU process</td>
+<td>Process metrics</td>
+<td>No hard target</td>
+<td>Host OOMs are catastrophic</td>
+</tr>
+<tr>
+<td>M12</td>
+<td>CUDA to HIP parity</td>
+<td>Functional parity checks pass</td>
+<td>Test vector suite</td>
+<td>100% for critical ops</td>
+<td>Numerical tolerance differences</td>
+</tr>
+<tr>
+<td>M13</td>
+<td>Multi-tenant fairness</td>
+<td>Variance in throughput between tenants</td>
+<td>Per-tenant metrics</td>
+<td>Low variance</td>
+<td>Shared resources cause imbalance</td>
+</tr>
+<tr>
+<td>M14</td>
+<td>Scheduler rejection rate</td>
+<td>Pod/job rejections needing retries</td>
+<td>Scheduler events</td>
+<td>Near zero</td>
+<td>Backpressure in control plane</td>
+</tr>
+<tr>
+<td>M15</td>
+<td>Error budget burn rate</td>
+<td>Rate of SLO violations</td>
+<td>Error vs budget math</td>
+<td>Alert on 50% burn</td>
+<td>Requires historical baseline</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<h4 class="wp-block-heading">Row Details (only if needed)</h4>
+
+
+
+<p class="wp-block-paragraph">Not applicable.</p>
+
+
+
+<h3 class="wp-block-heading">Best tools to measure rocm</h3>
+
+
+
+<h3 class="wp-block-heading">Tool — Prometheus + exporters</h3>
+
+
+
+<ul class="wp-block-list">
+<li>What it measures for rocm: GPU metrics, node status, driver-related counters</li>
+<li>Best-fit environment: Kubernetes, VMs, on-prem clusters</li>
+<li>Setup outline:</li>
+<li>Install node exporter or ROCm exporter on GPU nodes.</li>
+<li>Configure Prometheus scrape targets.</li>
+<li>Define recording rules for GPU workload metrics.</li>
+<li>Create dashboards and alerts.</li>
+<li>Strengths:</li>
+<li>Flexible and widely used.</li>
+<li>Powerful query language for SLI calculations.</li>
+<li>Limitations:</li>
+<li>Requires maintenance and scale planning.</li>
+<li>May need custom exporters for some counters.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Tool — Grafana</h3>
+
+
+
+<ul class="wp-block-list">
+<li>What it measures for rocm: Visualization of time-series GPU metrics and traces</li>
+<li>Best-fit environment: Any environment with Prometheus or other TSDB</li>
+<li>Setup outline:</li>
+<li>Connect to Prometheus or other data sources.</li>
+<li>Import or build dashboards for GPU metrics.</li>
+<li>Configure alerting rules via Grafana or external alert manager.</li>
+<li>Strengths:</li>
+<li>Rich visualization and alerting.</li>
+<li>Pluggable panels for profiling overlays.</li>
+<li>Limitations:</li>
+<li>Dashboards need maintenance.</li>
+<li>Large datasets can be expensive to store.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Tool — ROCprofiler / ROCTracer</h3>
+
+
+
+<ul class="wp-block-list">
+<li>What it measures for rocm: Kernel timings and hardware counters</li>
+<li>Best-fit environment: Development and performance labs</li>
+<li>Setup outline:</li>
+<li>Instrument jobs with profiler hooks.</li>
+<li>Collect traces and analyze hotspots in dev.</li>
+<li>Integrate with CI profiling runs.</li>
+<li>Strengths:</li>
+<li>Detailed low-level insights.</li>
+<li>Helps optimize kernels and libraries.</li>
+<li>Limitations:</li>
+<li>Profiling overhead and complexity.</li>
+<li>Requires expertise to interpret.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Tool — Kubernetes device plugin</h3>
+
+
+
+<ul class="wp-block-list">
+<li>What it measures for rocm: Allocation and device assignment events</li>
+<li>Best-fit environment: Kubernetes clusters with ROCm nodes</li>
+<li>Setup outline:</li>
+<li>Deploy device plugin daemonset.</li>
+<li>Ensure node labels and taints for GPU pools.</li>
+<li>Use resource limits to track allocation.</li>
+<li>Strengths:</li>
+<li>Native integration with K8s scheduling.</li>
+<li>Supports automated lifecycle management.</li>
+<li>Limitations:</li>
+<li>Plugin and runtime compatibility issues.</li>
+<li>Limited to K8s environments.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Tool — CI systems (Jenkins/GitLab/GitHub Actions)</h3>
+
+
+
+<ul class="wp-block-list">
+<li>What it measures for rocm: Build and test pass rates for ROCm-enabled tests</li>
+<li>Best-fit environment: Developer and release pipelines</li>
+<li>Setup outline:</li>
+<li>Provision GPU runners with ROCm.</li>
+<li>Add tests for GPU paths and HIP parity.</li>
+<li>Record test metrics and trends.</li>
+<li>Strengths:</li>
+<li>Detects regressions early.</li>
+<li>Automates regressions across driver changes.</li>
+<li>Limitations:</li>
+<li>Cost of GPU CI runners.</li>
+<li>Test flakiness due to hardware variance.</li>
+</ul>
+
+
+
+<h3 class="wp-block-heading">Recommended dashboards &amp; alerts for rocm</h3>
+
+
+
+<p class="wp-block-paragraph">Executive dashboard:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Panels: Overall GPU availability, cost per training hour, job success rate, aggregate utilization.</li>
+<li>Why: Gives leadership simple indicators of capacity and cost.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">On-call dashboard:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Panels: Node-level GPU health, driver status, recent failures, job queue backlog, top failing jobs.</li>
+<li>Why: Rapidly surface issues that need paging.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Debug dashboard:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Panels: Kernel-level latencies, per-job GPU memory usage, profiler traces, temperature and clock rates.</li>
+<li>Why: For deeper performance troubleshooting.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Alerting guidance:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Page vs ticket: Page for node-level GPU loss, kernel panics, driver upgrade failures. Create ticket for slowdowns or cost anomalies that don&#8217;t threaten immediate availability.</li>
+<li>Burn-rate guidance: If error budget burn exceeds 50% within the day for critical SLIs, trigger escalation and freeze risky changes.</li>
+<li>Noise reduction tactics: Deduplicate alerts by node or job, group by cluster region, suppress transient alerts using short delays, require sustained thresholds for high-cardinality metrics.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Implementation Guide (Step-by-step)</h2>
+
+
+
+<p class="wp-block-paragraph">1) Prerequisites
+&#8211; Confirm hardware compatibility list for ROCm.
+&#8211; Ensure Linux host kernel versions supported.
+&#8211; Prepare privileged access for driver install or container mounts.
+&#8211; CI runners or staging nodes with GPUs.</p>
+
+
+
+<p class="wp-block-paragraph">2) Instrumentation plan
+&#8211; Identify SLIs and required exporter metrics.
+&#8211; Add profiling for critical workflows.
+&#8211; Instrument job lifecycle events in scheduler.</p>
+
+
+
+<p class="wp-block-paragraph">3) Data collection
+&#8211; Deploy telemetry exporters on GPU nodes.
+&#8211; Configure centralized TSDB and retention strategy.
+&#8211; Capture profiler traces into an artifact store.</p>
+
+
+
+<p class="wp-block-paragraph">4) SLO design
+&#8211; Map business objectives to SLIs.
+&#8211; Define SLOs with realistic targets and error budgets.
+&#8211; Stagger SLOs per workload class.</p>
+
+
+
+<p class="wp-block-paragraph">5) Dashboards
+&#8211; Build executive, on-call, and debug dashboards.
+&#8211; Create runbook links directly from panels.</p>
+
+
+
+<p class="wp-block-paragraph">6) Alerts &amp; routing
+&#8211; Configure alert thresholds and routes.
+&#8211; Define paging criteria vs ticket creation.
+&#8211; Integrate with incident management tools.</p>
+
+
+
+<p class="wp-block-paragraph">7) Runbooks &amp; automation
+&#8211; Draft step-by-step runbooks for common faults.
+&#8211; Automate recurring fixes like driver restarts or node cordon/evict.</p>
+
+
+
+<p class="wp-block-paragraph">8) Validation (load/chaos/game days)
+&#8211; Run load tests and measure SLO behavior.
+&#8211; Execute controlled failure drills for driver upgrade and node loss.</p>
+
+
+
+<p class="wp-block-paragraph">9) Continuous improvement
+&#8211; Review postmortems and integrate learnings.
+&#8211; Automate upgrades with canary and rollback.</p>
+
+
+
+<p class="wp-block-paragraph">Pre-production checklist:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Confirm kernel and driver compatibility.</li>
+<li>Run full CI test matrix on staging GPUs.</li>
+<li>Validate container images match host drivers.</li>
+<li>Configure monitoring and alert endpoints.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Production readiness checklist:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Canary driver rollout and health monitoring.</li>
+<li>Capacity plan and scaling policy.</li>
+<li>On-call playbooks and contact rotations.</li>
+<li>Billing and quota allocations enabled.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Incident checklist specific to rocm:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Check node device visibility and driver logs.</li>
+<li>Verify container mounts and privileges.</li>
+<li>Confirm temperatures and clocks.</li>
+<li>Isolate affected jobs and evict noisy neighbors.</li>
+<li>Perform staged rollback if driver upgrade suspect.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Use Cases of rocm</h2>
+
+
+
+<p class="wp-block-paragraph">1) Distributed model training
+&#8211; Context: Training large models on multi-GPU nodes.
+&#8211; Problem: Need efficient inter-GPU transfers and optimized kernels.
+&#8211; Why rocm helps: Optimized libraries and peer-to-peer capabilities.
+&#8211; What to measure: GPU utilization, training throughput, cross-GPU bandwidth.
+&#8211; Typical tools: ROCprofiler, Kubernetes device plugin, MIOpen.</p>
+
+
+
+<p class="wp-block-paragraph">2) Inference at scale
+&#8211; Context: Serving models to customers with low latency.
+&#8211; Problem: Multi-tenant latency isolation and cost control.
+&#8211; Why rocm helps: Dedicated GPU runtime and optimized inference kernels.
+&#8211; What to measure: Tail latency, per-tenant throughput, GPU memory.
+&#8211; Typical tools: Prometheus, Grafana, pod autoscaler.</p>
+
+
+
+<p class="wp-block-paragraph">3) HPC simulation
+&#8211; Context: Physics or chemistry simulations using GPU compute.
+&#8211; Problem: High compute density and deterministic performance.
+&#8211; Why rocm helps: HPC-tuned kernels and batch runtimes.
+&#8211; What to measure: Job completion times, error rates, node health.
+&#8211; Typical tools: Slurm, MIOpen, ROCblas.</p>
+
+
+
+<p class="wp-block-paragraph">4) Data preprocessing with GPU
+&#8211; Context: Heavy ETL transforms benefit from GPU acceleration.
+&#8211; Problem: CPU-bound ETL slows pipelines.
+&#8211; Why rocm helps: Accelerated kernels for transforms and reductions.
+&#8211; What to measure: Task latency, GPU offload rate, pipeline throughput.
+&#8211; Typical tools: GPU-enabled data frameworks and exporters.</p>
+
+
+
+<p class="wp-block-paragraph">5) Porting CUDA workloads
+&#8211; Context: Migrating workloads from NVIDIA to AMD.
+&#8211; Problem: Codebase tied to CUDA.
+&#8211; Why rocm helps: HIP and HIPIFY tools for porting.
+&#8211; What to measure: Functional parity and performance delta.
+&#8211; Typical tools: HIPIFY, CI test runners.</p>
+
+
+
+<p class="wp-block-paragraph">6) Edge inferencing
+&#8211; Context: On-prem inference with AMD accelerators.
+&#8211; Problem: Limited connectivity and need local compute.
+&#8211; Why rocm helps: Deployable stack for Linux edge devices.
+&#8211; What to measure: Device reliability, temperature, inference throughput.
+&#8211; Typical tools: Lightweight telemetry agents.</p>
+
+
+
+<p class="wp-block-paragraph">7) CI for GPU code
+&#8211; Context: Ensure regressions are caught early.
+&#8211; Problem: GPU changes break downstream code silently.
+&#8211; Why rocm helps: Provides predictable runtime for tests.
+&#8211; What to measure: Test pass rates, flake rates, job durations.
+&#8211; Typical tools: CI runners with ROCm.</p>
+
+
+
+<p class="wp-block-paragraph">8) Profiling and tuning
+&#8211; Context: Performance teams optimizing kernels.
+&#8211; Problem: Hard to find hotspots without hardware counters.
+&#8211; Why rocm helps: ROCprofiler and tracing utilities.
+&#8211; What to measure: Kernel time breakdown and counters.
+&#8211; Typical tools: Profilers, trace viewers.</p>
+
+
+
+<p class="wp-block-paragraph">9) Cost optimization
+&#8211; Context: Reduce cloud GPU spend.
+&#8211; Problem: Idle GPUs billed but unused.
+&#8211; Why rocm helps: Better utilization and telemetry for chargeback.
+&#8211; What to measure: Utilization per dollar, idle hours, job packing.
+&#8211; Typical tools: Billing dashboards and autoscalers.</p>
+
+
+
+<p class="wp-block-paragraph">10) Security-sensitive compute
+&#8211; Context: Regulated workloads requiring open stack auditability.
+&#8211; Problem: Need inspectable and auditable stack.
+&#8211; Why rocm helps: Predominantly open-source components.
+&#8211; What to measure: Patch compliance and binary provenance.
+&#8211; Typical tools: SBOM tooling and compliance scanners.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Scenario Examples (Realistic, End-to-End)</h2>
+
+
+
+<h3 class="wp-block-heading">Scenario #1 — Kubernetes multi-tenant inference cluster</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>Context:</strong> Serving multiple customers from shared GPU node pool.<br/>
+<strong>Goal:</strong> Provide predictable latency and fair resource allocation.<br/>
+<strong>Why rocm matters here:</strong> Exposes AMD GPUs to K8s with device plugin and enables per-pod GPU allocation.<br/>
+<strong>Architecture / workflow:</strong> K8s cluster with ROCm-enabled node pool, device plugin, metrics exporter, autoscaler, and per-tenant namespaces with quotas.<br/>
+<strong>Step-by-step implementation:</strong> </p>
+
+
+
+<ol class="wp-block-list">
+<li>Prepare nodes with supported kernel and ROCm drivers. </li>
+<li>Deploy device plugin daemonset. </li>
+<li>Configure node labels and taints for GPU scheduling. </li>
+<li>Add exporters and dashboards. </li>
+<li>Define quotas and admission policies. 
+<strong>What to measure:</strong> Tail latency, GPU utilization, per-tenant throughput, memory usage.<br/>
+<strong>Tools to use and why:</strong> Kubernetes device plugin, Prometheus, Grafana, ROCprofiler.<br/>
+<strong>Common pitfalls:</strong> Misaligned container image and host driver versions; noisy neighbor without isolation.<br/>
+<strong>Validation:</strong> Run per-tenant load tests simulating production traffic and measure SLO compliance.<br/>
+<strong>Outcome:</strong> Predictable multi-tenant inference with observable SLIs and automated scaling.</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">Scenario #2 — Serverless managed PaaS for on-demand training</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>Context:</strong> Developers request short training jobs on demand from a managed platform.<br/>
+<strong>Goal:</strong> Fast startup and cost efficient GPU usage.<br/>
+<strong>Why rocm matters here:</strong> Enables AMD-backed GPU instances for managed training functions.<br/>
+<strong>Architecture / workflow:</strong> PaaS control plane schedules jobs onto ROCm-enabled nodes, uses ephemeral containers, and charges per GPU-minute.<br/>
+<strong>Step-by-step implementation:</strong> </p>
+
+
+
+<ol class="wp-block-list">
+<li>Integrate device plugin and autoscaler. </li>
+<li>Build images with ROCm runtime matching host. </li>
+<li>Implement fast cold-start patterns and ephemeral storage. </li>
+<li>Instrument job lifecycle and billing.<br/>
+<strong>What to measure:</strong> Cold start time, cost per job, job success rate.<br/>
+<strong>Tools to use and why:</strong> CI for images, Prometheus for metrics, billing pipeline.<br/>
+<strong>Common pitfalls:</strong> Long container startup when drivers not preloaded; billing mismatches.<br/>
+<strong>Validation:</strong> Run developer acceptance tests with variable job sizes.<br/>
+<strong>Outcome:</strong> On-demand training with cost transparency and reasonable startup latency.</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">Scenario #3 — Incident response after a driver upgrade</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>Context:</strong> Batch of GPU nodes fail after automated driver rollout.<br/>
+<strong>Goal:</strong> Triage, rollback, and restore jobs quickly.<br/>
+<strong>Why rocm matters here:</strong> Driver compatibility is critical to GPU availability.<br/>
+<strong>Architecture / workflow:</strong> Automation deploys package updates, monitoring detects node failures, on-call triggers rollback playbook.<br/>
+<strong>Step-by-step implementation:</strong> </p>
+
+
+
+<ol class="wp-block-list">
+<li>Detect increased node GPU absence alerts. </li>
+<li>Cordon affected nodes and reschedule jobs. </li>
+<li>Roll back driver via automation to previous known good version. </li>
+<li>Validate node rejoin and uncordon.<br/>
+<strong>What to measure:</strong> Time to detect, time to remediation, job impact.<br/>
+<strong>Tools to use and why:</strong> Monitoring, deployment automation, runbooks.<br/>
+<strong>Common pitfalls:</strong> Incomplete rollback due to kernel mismatch.<br/>
+<strong>Validation:</strong> Postmortem with RCA and improved canary rollout policy.<br/>
+<strong>Outcome:</strong> Restored capacity and improved upgrade process.</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">Scenario #4 — Cost vs performance trade-off for training</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>Context:</strong> Choosing between larger fewer nodes vs many smaller nodes.<br/>
+<strong>Goal:</strong> Optimize cost per epoch while meeting deadlines.<br/>
+<strong>Why rocm matters here:</strong> GPU topology affects inter-GPU bandwidth and training time.<br/>
+<strong>Architecture / workflow:</strong> Compare multi-GPU nodes with peer-to-peer topology vs distributed across nodes using fabric.<br/>
+<strong>Step-by-step implementation:</strong> </p>
+
+
+
+<ol class="wp-block-list">
+<li>Benchmark training on single node multi-GPU and multi-node setups. </li>
+<li>Measure epoch time, cost, and utilization. </li>
+<li>Choose configuration meeting SLAs for lowest cost.<br/>
+<strong>What to measure:</strong> Epoch time, network transfer time, cost per hour, utilization.<br/>
+<strong>Tools to use and why:</strong> ROCprofiler, billing dashboards.<br/>
+<strong>Common pitfalls:</strong> Ignoring cross-node transfer overhead.<br/>
+<strong>Validation:</strong> End-to-end training run for representative dataset.<br/>
+<strong>Outcome:</strong> Data-driven choice about node sizing and placement.</li>
+</ol>
+
+
+
+<h3 class="wp-block-heading">Scenario #5 — Porting CUDA research code to HIP on ROCm</h3>
+
+
+
+<p class="wp-block-paragraph"><strong>Context:</strong> Research team wants to run models on AMD clusters.<br/>
+<strong>Goal:</strong> Port and validate correctness and performance.<br/>
+<strong>Why rocm matters here:</strong> HIP enables translation of CUDA kernels to run on AMD hardware.<br/>
+<strong>Architecture / workflow:</strong> Use HIPIFY to convert code, compile against ROCm, run CI tests and profiling.<br/>
+<strong>Step-by-step implementation:</strong> </p>
+
+
+
+<ol class="wp-block-list">
+<li>Run HIPIFY on codebase. </li>
+<li>Fix edge cases and numeric tolerances. </li>
+<li>Compile in CI with ROCm toolchain. </li>
+<li>Run parity tests and tune kernels.<br/>
+<strong>What to measure:</strong> Functional parity, performance delta, memory usage.<br/>
+<strong>Tools to use and why:</strong> HIPIFY, CI GPU runners, profiler.<br/>
+<strong>Common pitfalls:</strong> Numerical tolerance differences and unsupported CUDA intrinsics.<br/>
+<strong>Validation:</strong> Test suite covering critical ops.<br/>
+<strong>Outcome:</strong> Functionally equivalent workloads running on AMD with performance tuning.</li>
+</ol>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Common Mistakes, Anti-patterns, and Troubleshooting</h2>
+
+
+
+<p class="wp-block-paragraph">(List of 20 common mistakes with Symptom -&gt; Root cause -&gt; Fix)</p>
+
+
+
+<ol class="wp-block-list">
+<li>Symptom: GPUs not visible in container -&gt; Root cause: Device nodes not mounted -&gt; Fix: Mount /dev amdgpu and required device nodes into container.</li>
+<li>Symptom: Driver module fails to load -&gt; Root cause: Kernel mismatch -&gt; Fix: Roll back to supported kernel or install matching driver.</li>
+<li>Symptom: Jobs succeed locally but fail in cluster -&gt; Root cause: Image runtime and host driver mismatch -&gt; Fix: Align container image and host driver versions.</li>
+<li>Symptom: Sudden host reboots during load -&gt; Root cause: Thermal shutdown or driver kernel panic -&gt; Fix: Check cooling, firmware, and revert driver.</li>
+<li>Symptom: Extremely low GPU utilization -&gt; Root cause: CPU or IO starvation -&gt; Fix: Profile host CPU and data pipeline feeding GPU.</li>
+<li>Symptom: Quiet numerical divergence -&gt; Root cause: Library ABI mismatch or precision differences -&gt; Fix: Run validation tests, pin library versions.</li>
+<li>Symptom: High OOM on GPU -&gt; Root cause: Memory leaks or incorrect batch sizes -&gt; Fix: Add prechecks and dynamic batching.</li>
+<li>Symptom: Slow kernel tail latency -&gt; Root cause: Mixed workloads and contention -&gt; Fix: Isolate workloads or throttle low priority jobs.</li>
+<li>Symptom: Upgrade breaks many nodes -&gt; Root cause: Non staggered rollout -&gt; Fix: Implement canary and phased rollout.</li>
+<li>Symptom: Too noisy alerts -&gt; Root cause: High-cardinality metrics and low thresholds -&gt; Fix: Aggregate, dedupe, and use sustained windows.</li>
+<li>Symptom: Profiling causes job timeouts -&gt; Root cause: Profiler overhead -&gt; Fix: Use sampling and limit profiling to canary jobs.</li>
+<li>Symptom: Multi-tenant unfairness -&gt; Root cause: No per-tenant quotas -&gt; Fix: Use quotas and fair scheduling.</li>
+<li>Symptom: Container cannot access GPU firmware -&gt; Root cause: Privilege restrictions -&gt; Fix: Adjust security policies or use privileged init for firmware load.</li>
+<li>Symptom: Failed port from CUDA -&gt; Root cause: Unsupported intrinsic or metadata -&gt; Fix: Manual code fixes and test vectors.</li>
+<li>Symptom: Billing surprises -&gt; Root cause: Idle GPUs billed due to poor autoscaling -&gt; Fix: Implement autoscaler and job packing.</li>
+<li>Symptom: Silent driver warnings in logs -&gt; Root cause: Ignored telemetry -&gt; Fix: Alert on driver warning log signatures.</li>
+<li>Symptom: Fragmented GPU memory -&gt; Root cause: Long-running allocations without pooling -&gt; Fix: Use memory pools and restart long-running processes periodically.</li>
+<li>Symptom: Slow node recovery after crash -&gt; Root cause: Manual remediation required -&gt; Fix: Automate health checks and auto-replace nodes.</li>
+<li>Symptom: Excessive kernel retries -&gt; Root cause: Submission errors due to driver bugs -&gt; Fix: Apply vendor patches and test regressions in CI.</li>
+<li>Symptom: Missing observability for GPU events -&gt; Root cause: No exporter installed -&gt; Fix: Deploy exporters and integrate traces.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Observability pitfalls (at least 5 included above): noisy alerts, lack of exporters, profiling overhead, aggregated metrics hiding hot spots, high-cardinality causing missing signals.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Best Practices &amp; Operating Model</h2>
+
+
+
+<p class="wp-block-paragraph">Ownership and on-call:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Define clear ownership for GPU nodes and runtime components.</li>
+<li>On-call rotations should include GPU specialist for critical incidents.</li>
+<li>Maintain runbook owners and SLA custodians.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Runbooks vs playbooks:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Runbooks: Step-by-step recovery instructions for known issues.</li>
+<li>Playbooks: Higher-level decision guides for complex incidents.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Safe deployments:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Use canary rollouts for driver upgrades.</li>
+<li>Automate rollback triggers based on SLI impact.</li>
+<li>Prefer progressive deployment across AZs or racks.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Toil reduction and automation:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Automate driver installs, node reprovisioning, and image builds.</li>
+<li>Use operators to manage lifecycle and reduce manual steps.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Security basics:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Minimize privileged containers; only grant required capabilities.</li>
+<li>Use signed kernel modules if enforced in environment.</li>
+<li>Maintain SBOMs for container images and drivers.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Weekly/monthly routines:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Weekly: Check node health, driver warnings, and GPU temperatures.</li>
+<li>Monthly: Run full profiling on representative workloads and update performance baselines.</li>
+<li>Quarterly: Review capacity and refresh hardware as needed.</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">What to review in postmortems related to rocm:</p>
+
+
+
+<ul class="wp-block-list">
+<li>Root cause including driver/kernel mismatch.</li>
+<li>SLOs impacted and error budget usage.</li>
+<li>Rollout and automation gaps.</li>
+<li>Remediation and prevention actions with owners and timelines.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Tooling &amp; Integration Map for rocm (TABLE REQUIRED)</h2>
+
+
+
+<figure class="wp-block-table"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Category</th>
+<th>What it does</th>
+<th>Key integrations</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I1</td>
+<td>Monitoring</td>
+<td>Collects GPU metrics</td>
+<td>Prometheus Grafana</td>
+<td>Use exporters on GPU nodes</td>
+</tr>
+<tr>
+<td>I2</td>
+<td>Profiling</td>
+<td>Captures kernel traces</td>
+<td>ROCprofiler CI</td>
+<td>Heavyweight for dev and canaries</td>
+</tr>
+<tr>
+<td>I3</td>
+<td>Scheduling</td>
+<td>Allocates GPUs to jobs</td>
+<td>Kubernetes Slurm</td>
+<td>Device plugin required</td>
+</tr>
+<tr>
+<td>I4</td>
+<td>CI</td>
+<td>Runs GPU tests</td>
+<td>Jenkins GitLab</td>
+<td>GPU runners needed</td>
+</tr>
+<tr>
+<td>I5</td>
+<td>Containers</td>
+<td>Packaged runtime images</td>
+<td>Container runtimes</td>
+<td>Image-driver compatibility</td>
+</tr>
+<tr>
+<td>I6</td>
+<td>Operators</td>
+<td>Manages node lifecycle</td>
+<td>K8s APIs</td>
+<td>Automates upgrades</td>
+</tr>
+<tr>
+<td>I7</td>
+<td>Billing</td>
+<td>Tracks cost per GPU</td>
+<td>Billing systems</td>
+<td>Tagging for chargeback</td>
+</tr>
+<tr>
+<td>I8</td>
+<td>Security</td>
+<td>Policy and module signing</td>
+<td>Kernel security</td>
+<td>Verify signing and policies</td>
+</tr>
+<tr>
+<td>I9</td>
+<td>Firmware tools</td>
+<td>Manage GPU firmware</td>
+<td>Host tooling</td>
+<td>Firmware update process</td>
+</tr>
+<tr>
+<td>I10</td>
+<td>Testing suites</td>
+<td>Parity and validation tests</td>
+<td>CI and dev</td>
+<td>Ensures functional correctness</td>
+</tr>
+</tbody>
+</table></figure>
+
+
+
+<h4 class="wp-block-heading">Row Details (only if needed)</h4>
+
+
+
+<p class="wp-block-paragraph">Not applicable.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Frequently Asked Questions (FAQs)</h2>
+
+
+
+<h3 class="wp-block-heading">What hardware does rocm support?</h3>
+
+
+
+<p class="wp-block-paragraph">Mainly AMD GPUs meeting ROCm compatibility. Specific compat lists vary by release.</p>
+
+
+
+<h3 class="wp-block-heading">Can I run rocm on cloud GPU VMs?</h3>
+
+
+
+<p class="wp-block-paragraph">Yes when the cloud VM exposes compatible AMD GPUs and allows required kernel modules.</p>
+
+
+
+<h3 class="wp-block-heading">Is rocm compatible with Kubernetes?</h3>
+
+
+
+<p class="wp-block-paragraph">Yes via device plugin and node configuration.</p>
+
+
+
+<h3 class="wp-block-heading">How does HIP differ from CUDA?</h3>
+
+
+
+<p class="wp-block-paragraph">HIP is a portability layer to help port CUDA code to AMD GPUs; not identical in performance by default.</p>
+
+
+
+<h3 class="wp-block-heading">Can I use Docker images with rocm?</h3>
+
+
+
+<p class="wp-block-paragraph">Yes, but images must match host driver and kernel expectations.</p>
+
+
+
+<h3 class="wp-block-heading">How do driver upgrades affect production?</h3>
+
+
+
+<p class="wp-block-paragraph">Driver upgrades can impact availability; use canaries and staged rollouts.</p>
+
+
+
+<h3 class="wp-block-heading">Is profiling safe in production?</h3>
+
+
+
+<p class="wp-block-paragraph">Profiling adds overhead; limit to canary or short runs.</p>
+
+
+
+<h3 class="wp-block-heading">How to handle multi-tenant GPU isolation?</h3>
+
+
+
+<p class="wp-block-paragraph">Use quotas, scheduling policies, and possibly device partitioning if supported.</p>
+
+
+
+<h3 class="wp-block-heading">What monitoring is essential?</h3>
+
+
+
+<p class="wp-block-paragraph">GPU availability, utilization, memory, temperature, and job success rates.</p>
+
+
+
+<h3 class="wp-block-heading">Are there security concerns with ROCm?</h3>
+
+
+
+<p class="wp-block-paragraph">Yes: privileged mounts, kernel module signing, and runtime privileges must be managed.</p>
+
+
+
+<h3 class="wp-block-heading">Can I port CUDA models to rocm easily?</h3>
+
+
+
+<p class="wp-block-paragraph">HIP and conversion tools help, but manual tuning and validation are usually required.</p>
+
+
+
+<h3 class="wp-block-heading">What causes silent numerical differences?</h3>
+
+
+
+<p class="wp-block-paragraph">Library and ABI mismatches or precision differences; validate with test vectors.</p>
+
+
+
+<h3 class="wp-block-heading">How do I measure cost effectiveness?</h3>
+
+
+
+<p class="wp-block-paragraph">Track cost per training hour and utilization; run benchmarks to find optimal instance types.</p>
+
+
+
+<h3 class="wp-block-heading">How to recover a node that loses GPUs?</h3>
+
+
+
+<p class="wp-block-paragraph">Cordon, inspect driver logs, reload modules, and rollback drivers if necessary.</p>
+
+
+
+<h3 class="wp-block-heading">What is the typical onboarding time?</h3>
+
+
+
+<p class="wp-block-paragraph">Varies by org. Depends on hardware availability and CI coverage.</p>
+
+
+
+<h3 class="wp-block-heading">Can ROCm run on Windows?</h3>
+
+
+
+<p class="wp-block-paragraph">Not publicly stated.</p>
+
+
+
+<h3 class="wp-block-heading">Is there an operator for ROCm lifecycle?</h3>
+
+
+
+<p class="wp-block-paragraph">Operators exist in community and enterprise; specifics vary.</p>
+
+
+
+<h3 class="wp-block-heading">How to handle firmware updates for GPUs?</h3>
+
+
+
+<p class="wp-block-paragraph">Coordinate with maintenance windows; test on staging before production.</p>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Conclusion</h2>
+
+
+
+<p class="wp-block-paragraph">rocm is a robust open-source GPU compute stack for AMD hardware that fits into modern cloud-native and SRE practices when integrated with orchestration, telemetry, CI, and automation. Proper testing, observability, and staged operations reduce risk and improve velocity.</p>
+
+
+
+<p class="wp-block-paragraph">Next 7 days plan (5 bullets):</p>
+
+
+
+<ul class="wp-block-list">
+<li>Day 1: Inventory GPU hardware and confirm kernel compatibility.</li>
+<li>Day 2: Stand up monitoring exporters and basic dashboards.</li>
+<li>Day 3: Deploy a small ROCm node pool in staging and run validation tests.</li>
+<li>Day 4: Implement CI GPU runners and parity test suite.</li>
+<li>Day 5: Create runbooks for common incidents and assign owners.</li>
+<li>Day 6: Run a canary driver upgrade and observe SLI impact.</li>
+<li>Day 7: Schedule a game day to practice incident recovery on ROCm nodes.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator" />
+
+
+
+<h2 class="wp-block-heading">Appendix — rocm Keyword Cluster (SEO)</h2>
+
+
+
+<p class="wp-block-paragraph">Primary keywords</p>
+
+
+
+<ul class="wp-block-list">
+<li>rocm</li>
+<li>ROCm</li>
+<li>AMD rocm</li>
+<li>rocm GPU</li>
+<li>rocm runtime</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Secondary keywords</p>
+
+
+
+<ul class="wp-block-list">
+<li>HIP rocm</li>
+<li>MIOpen rocm</li>
+<li>ROCm driver</li>
+<li>ROCm profiler</li>
+<li>ROCm Kubernetes</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Long-tail questions</p>
+
+
+
+<ul class="wp-block-list">
+<li>how to install rocm on linux</li>
+<li>rocm vs CUDA performance</li>
+<li>how to profile rocm kernels</li>
+<li>rocm k8s device plugin setup</li>
+<li>HIPIFY CUDA to HIP migration steps</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Related terminology</p>
+
+
+
+<ul class="wp-block-list">
+<li>GPU compute</li>
+<li>Heterogeneous compute</li>
+<li>device plugin</li>
+<li>GPU monitoring</li>
+<li>GPU telemetry</li>
+<li>kernel modules</li>
+<li>GPU profiling</li>
+<li>multi GPU topology</li>
+<li>NUMA affinity</li>
+<li>GPU memory management</li>
+<li>ROCblas</li>
+<li>kernel panic</li>
+<li>driver compatibility</li>
+<li>firmware updates</li>
+<li>container runtime</li>
+<li>GPU isolation</li>
+<li>node pool autoscaling</li>
+<li>SLO for GPU jobs</li>
+<li>error budget for upgrades</li>
+<li>canary rollout</li>
+<li>staging GPU tests</li>
+<li>profiling counters</li>
+<li>job scheduling</li>
+<li>batch training</li>
+<li>inference latency</li>
+<li>device nodes</li>
+<li>PCIe bandwidth</li>
+<li>peer to peer GPU</li>
+<li>multi tenancy GPU</li>
+<li>CI GPU runners</li>
+<li>GPU cost optimization</li>
+<li>runbook for GPU failure</li>
+<li>thermal throttling GPUs</li>
+<li>NUMA binding</li>
+<li>ROCprofiler traces</li>
+<li>MIOpen kernels</li>
+<li>HIPIFY toolchain</li>
+<li>SBOM for GPU images</li>
+<li>kernel module signing</li>
+<li>container image compatibility</li>
+<li>GPU telemetry exporters</li>
+<li>ROCm SDK</li>
+<li>ROCm operator</li>
+<li>driver rollback procedure</li>
+<li>GPU health checks</li>
+<li>training throughput metrics</li>
+<li>GPU memory fragmentation</li>
+</ul>
+        </div><!-- .entry-content -->
+        <div class="pd_post_tag_label">
+			        </div>
+
+        <footer class="entry-footer pd_post_single_footer">
+			        </footer><!-- .entry-footer -->
+    </div>
+
+</article><!-- #post-1716 -->
+
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="https://aiopsschool.com/blog/cudnn/" rel="prev">What is cudnn? Meaning, Architecture, Examples, Use Cases, and How to Measure It (2026 Guide)</a></div><div class="nav-next"><a href="https://aiopsschool.com/blog/tensor-cores/" rel="next">What is tensor cores? Meaning, Architecture, Examples, Use Cases, and How to Measure It (2026 Guide)</a></div></div>
+	</nav>    <div class="wpdiscuz_top_clearing"></div>
+    <div id='comments' class='comments-area'><div id='respond' style='width: 0;height: 0;clear: both;margin: 0;padding: 0;'></div><div id='wpd-post-rating' class='wpd-not-rated'>
+            <div class='wpd-rating-wrap'>
+            <div class='wpd-rating-left'></div>
+            <div class='wpd-rating-data'>
+                <div class='wpd-rating-value'>
+                    <span class='wpdrv'>0</span>
+                    <span class='wpdrc'>0</span>
+                    <span class='wpdrt'>votes</span></div>
+                <div class='wpd-rating-title'>Article Rating</div>
+                <div class='wpd-rating-stars'><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg></div><div class='wpd-rate-starts'><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg><svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none'/><path class='wpd-star' d='M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z'/><path d='M0 0h24v24H0z' fill='none'/></svg></div></div>
+            <div class='wpd-rating-right'></div></div></div>    <div id="wpdcom" class="wpdiscuz_unauth wpd-default wpd-layout-1 wpd-comments-open">
+                    <div class="wc_social_plugin_wrapper">
+                            </div>
+            <div class="wpd-form-wrap">
+                <div class="wpd-form-head">
+                                            <div class="wpd-sbs-toggle">
+                            <i class="far fa-envelope"></i> <span
+                                class="wpd-sbs-title">Subscribe</span>
+                            <i class="fas fa-caret-down"></i>
+                        </div>
+                                            <div class="wpd-auth">
+                                                <div class="wpd-login">
+                                                    </div>
+                    </div>
+                </div>
+                                                    <div class="wpdiscuz-subscribe-bar wpdiscuz-hidden">
+                                                    <form action="https://aiopsschool.com/blog/wp-admin/admin-ajax.php?action=wpdAddSubscription"
+                                  method="post" id="wpdiscuz-subscribe-form">
+                                <div class="wpdiscuz-subscribe-form-intro">Notify of </div>
+                                <div class="wpdiscuz-subscribe-form-option"
+                                     style="width:40%;">
+                                    <select class="wpdiscuz_select" name="wpdiscuzSubscriptionType">
+                                                                                    <option value="post">new follow-up comments</option>
+                                                                                                                                <option
+                                                value="all_comment" >new replies to my comments</option>
+                                                                                </select>
+                                </div>
+                                                                    <div class="wpdiscuz-item wpdiscuz-subscribe-form-email">
+                                        <input class="email" type="email" name="wpdiscuzSubscriptionEmail"
+                                               required="required" value=""
+                                               placeholder="Email"/>
+                                    </div>
+                                                                    <div class="wpdiscuz-subscribe-form-button">
+                                    <input id="wpdiscuz_subscription_button" class="wpd-prim-button wpd_not_clicked"
+                                           type="submit"
+                                           value="&rsaquo;"
+                                           name="wpdiscuz_subscription_button"/>
+                                </div>
+                                <input type="hidden" id="wpdiscuz_subscribe_form_nonce" name="wpdiscuz_subscribe_form_nonce" value="4924f6ae07" /><input type="hidden" name="_wp_http_referer" value="/blog/rocm/" />                            </form>
+                                                </div>
+                            <div
+            class="wpd-form wpd-form-wrapper wpd-main-form-wrapper" id='wpd-main-form-wrapper-0_0'>
+                                        <form  method="post" enctype="multipart/form-data" data-uploading="false" class="wpd_comm_form wpd_main_comm_form"                >
+                                        <div class="wpd-field-comment">
+                        <div class="wpdiscuz-item wc-field-textarea">
+                            <div class="wpdiscuz-textarea-wrap ">
+                                                                                                        <div class="wpd-avatar">
+                                        <img alt='guest' src='https://secure.gravatar.com/avatar/a994d9df8e3ea8a89968a6e7b37214fffba7c0791b28b1952ac308205abddf61?s=56&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/a994d9df8e3ea8a89968a6e7b37214fffba7c0791b28b1952ac308205abddf61?s=112&#038;d=mm&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>                                    </div>
+                                                <div id="wpd-editor-wraper-0_0" style="display: none;">
+                <div id="wpd-editor-char-counter-0_0"
+                     class="wpd-editor-char-counter"></div>
+                <label style="display: none;" for="wc-textarea-0_0">Label</label>
+                <textarea id="wc-textarea-0_0" name="wc_comment"
+                          class="wc_comment wpd-field"></textarea>
+                <div id="wpd-editor-0_0"></div>
+                        <div id="wpd-editor-toolbar-0_0">
+                            <button title="Bold"
+                        class="ql-bold"  ></button>
+                                <button title="Italic"
+                        class="ql-italic"  ></button>
+                                <button title="Underline"
+                        class="ql-underline"  ></button>
+                                <button title="Strike"
+                        class="ql-strike"  ></button>
+                                <button title="Ordered List"
+                        class="ql-list" value='ordered' ></button>
+                                <button title="Unordered List"
+                        class="ql-list" value='bullet' ></button>
+                                <button title="Blockquote"
+                        class="ql-blockquote"  ></button>
+                                <button title="Code Block"
+                        class="ql-code-block"  ></button>
+                                <button title="Link"
+                        class="ql-link"  ></button>
+                                <button title="Source Code"
+                        class="ql-sourcecode"  data-wpde_button_name='sourcecode'>{}</button>
+                                <button title="Spoiler"
+                        class="ql-spoiler"  data-wpde_button_name='spoiler'>[+]</button>
+                            <div class="wpd-editor-buttons-right">
+                <span class='wmu-upload-wrap' wpd-tooltip='Attach an image to this comment' wpd-tooltip-position='left'><label class='wmu-add'><i class='far fa-image'></i><input style='display:none;' class='wmu-add-files' type='file' name='wmu_files'  accept='image/*'/></label></span>            </div>
+        </div>
+                    </div>
+                                        </div>
+                        </div>
+                    </div>
+                    <div class="wpd-form-foot" style='display:none;'>
+                        <div class="wpdiscuz-textarea-foot">
+                                                        <div class="wpdiscuz-button-actions"><div class='wmu-action-wrap'><div class='wmu-tabs wmu-images-tab wmu-hide'></div><div class='wmu-tabs wmu-videos-tab wmu-hide'></div><div class='wmu-tabs wmu-files-tab wmu-hide'></div></div></div>
+                        </div>
+                                <div class="wpd-form-row">
+                    <div class="wpd-form-col-left">
+                        <div class="wpdiscuz-item wc_name-wrapper wpd-has-icon">
+                                    <div class="wpd-field-icon"><i
+                            class="fas fa-user"></i>
+                    </div>
+                                    <input id="wc_name-0_0" value="" required='required' aria-required='true'                       class="wc_name wpd-field" type="text"
+                       name="wc_name"
+                       placeholder="Name*"
+                       maxlength="50" pattern='.{3,50}'                       title="">
+                <label for="wc_name-0_0"
+                       class="wpdlb">Name*</label>
+                            </div>
+                        <div class="wpdiscuz-item wc_email-wrapper wpd-has-icon">
+                                    <div class="wpd-field-icon"><i
+                            class="fas fa-at"></i>
+                    </div>
+                                    <input id="wc_email-0_0" value="" required='required' aria-required='true'                       class="wc_email wpd-field" type="email"
+                       name="wc_email"
+                       placeholder="Email*"/>
+                <label for="wc_email-0_0"
+                       class="wpdlb">Email*</label>
+                            </div>
+                    </div>
+                <div class="wpd-form-col-right">
+                        <div class="wpd-field-captcha wpdiscuz-item">
+                <div class="wpdiscuz-recaptcha" id='wpdiscuz-recaptcha-0_0'></div>
+                <input id='wpdiscuz-recaptcha-field-0_0' type='hidden' name='wc_captcha'
+                       value="" required="required" aria-required='true' class="wpdiscuz_reset"/>
+                <div class="clearfix"></div>
+            </div>
+                    <div class="wc-field-submit">
+                                                <label class="wpd_label"
+                           wpd-tooltip="Notify of new replies to this comment">
+                        <input id="wc_notification_new_comment-0_0"
+                               class="wc_notification_new_comment-0_0 wpd_label__checkbox"
+                               value="comment" type="checkbox"
+                               name="wpdiscuz_notification_type" />
+                        <span class="wpd_label__text">
+                                <span class="wpd_label__check">
+                                    <i class="fas fa-bell wpdicon wpdicon-on"></i>
+                                    <i class="fas fa-bell-slash wpdicon wpdicon-off"></i>
+                                </span>
+                            </span>
+                    </label>
+                            <input id="wpd-field-submit-0_0"
+                   class="wc_comm_submit wpd_not_clicked wpd-prim-button" type="submit"
+                   name="submit" value="Post Comment"
+                   aria-label="Post Comment"/>
+        </div>
+                </div>
+                    <div class="clearfix"></div>
+        </div>
+                            </div>
+                                        <input type="hidden" class="wpdiscuz_unique_id" value="0_0"
+                           name="wpdiscuz_unique_id">
+                                    </form>
+                        </div>
+                <div id="wpdiscuz_hidden_secondary_form" style="display: none;">
+                    <div
+            class="wpd-form wpd-form-wrapper wpd-secondary-form-wrapper" id='wpd-secondary-form-wrapper-wpdiscuzuniqueid' style='display: none;'>
+                            <div class="wpd-secondary-forms-social-content"></div>
+                <div class="clearfix"></div>
+                                        <form  method="post" enctype="multipart/form-data" data-uploading="false" class="wpd_comm_form wpd-secondary-form-wrapper"                >
+                                        <div class="wpd-field-comment">
+                        <div class="wpdiscuz-item wc-field-textarea">
+                            <div class="wpdiscuz-textarea-wrap ">
+                                                                                                        <div class="wpd-avatar">
+                                        <img alt='guest' src='https://secure.gravatar.com/avatar/2d8c84432b7abaa6ae231348ce1523c920633090d132d0f8aaa29ed0efd16091?s=56&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/2d8c84432b7abaa6ae231348ce1523c920633090d132d0f8aaa29ed0efd16091?s=112&#038;d=mm&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>                                    </div>
+                                                <div id="wpd-editor-wraper-wpdiscuzuniqueid" style="display: none;">
+                <div id="wpd-editor-char-counter-wpdiscuzuniqueid"
+                     class="wpd-editor-char-counter"></div>
+                <label style="display: none;" for="wc-textarea-wpdiscuzuniqueid">Label</label>
+                <textarea id="wc-textarea-wpdiscuzuniqueid" name="wc_comment"
+                          class="wc_comment wpd-field"></textarea>
+                <div id="wpd-editor-wpdiscuzuniqueid"></div>
+                        <div id="wpd-editor-toolbar-wpdiscuzuniqueid">
+                            <button title="Bold"
+                        class="ql-bold"  ></button>
+                                <button title="Italic"
+                        class="ql-italic"  ></button>
+                                <button title="Underline"
+                        class="ql-underline"  ></button>
+                                <button title="Strike"
+                        class="ql-strike"  ></button>
+                                <button title="Ordered List"
+                        class="ql-list" value='ordered' ></button>
+                                <button title="Unordered List"
+                        class="ql-list" value='bullet' ></button>
+                                <button title="Blockquote"
+                        class="ql-blockquote"  ></button>
+                                <button title="Code Block"
+                        class="ql-code-block"  ></button>
+                                <button title="Link"
+                        class="ql-link"  ></button>
+                                <button title="Source Code"
+                        class="ql-sourcecode"  data-wpde_button_name='sourcecode'>{}</button>
+                                <button title="Spoiler"
+                        class="ql-spoiler"  data-wpde_button_name='spoiler'>[+]</button>
+                            <div class="wpd-editor-buttons-right">
+                <span class='wmu-upload-wrap' wpd-tooltip='Attach an image to this comment' wpd-tooltip-position='left'><label class='wmu-add'><i class='far fa-image'></i><input style='display:none;' class='wmu-add-files' type='file' name='wmu_files'  accept='image/*'/></label></span>            </div>
+        </div>
+                    </div>
+                                        </div>
+                        </div>
+                    </div>
+                    <div class="wpd-form-foot" style='display:none;'>
+                        <div class="wpdiscuz-textarea-foot">
+                                                        <div class="wpdiscuz-button-actions"><div class='wmu-action-wrap'><div class='wmu-tabs wmu-images-tab wmu-hide'></div><div class='wmu-tabs wmu-videos-tab wmu-hide'></div><div class='wmu-tabs wmu-files-tab wmu-hide'></div></div></div>
+                        </div>
+                                <div class="wpd-form-row">
+                    <div class="wpd-form-col-left">
+                        <div class="wpdiscuz-item wc_name-wrapper wpd-has-icon">
+                                    <div class="wpd-field-icon"><i
+                            class="fas fa-user"></i>
+                    </div>
+                                    <input id="wc_name-wpdiscuzuniqueid" value="" required='required' aria-required='true'                       class="wc_name wpd-field" type="text"
+                       name="wc_name"
+                       placeholder="Name*"
+                       maxlength="50" pattern='.{3,50}'                       title="">
+                <label for="wc_name-wpdiscuzuniqueid"
+                       class="wpdlb">Name*</label>
+                            </div>
+                        <div class="wpdiscuz-item wc_email-wrapper wpd-has-icon">
+                                    <div class="wpd-field-icon"><i
+                            class="fas fa-at"></i>
+                    </div>
+                                    <input id="wc_email-wpdiscuzuniqueid" value="" required='required' aria-required='true'                       class="wc_email wpd-field" type="email"
+                       name="wc_email"
+                       placeholder="Email*"/>
+                <label for="wc_email-wpdiscuzuniqueid"
+                       class="wpdlb">Email*</label>
+                            </div>
+                    </div>
+                <div class="wpd-form-col-right">
+                        <div class="wpd-field-captcha wpdiscuz-item">
+                <div class="wpdiscuz-recaptcha" id='wpdiscuz-recaptcha-wpdiscuzuniqueid'></div>
+                <input id='wpdiscuz-recaptcha-field-wpdiscuzuniqueid' type='hidden' name='wc_captcha'
+                       value="" required="required" aria-required='true' class="wpdiscuz_reset"/>
+                <div class="clearfix"></div>
+            </div>
+                    <div class="wc-field-submit">
+                                                <label class="wpd_label"
+                           wpd-tooltip="Notify of new replies to this comment">
+                        <input id="wc_notification_new_comment-wpdiscuzuniqueid"
+                               class="wc_notification_new_comment-wpdiscuzuniqueid wpd_label__checkbox"
+                               value="comment" type="checkbox"
+                               name="wpdiscuz_notification_type" />
+                        <span class="wpd_label__text">
+                                <span class="wpd_label__check">
+                                    <i class="fas fa-bell wpdicon wpdicon-on"></i>
+                                    <i class="fas fa-bell-slash wpdicon wpdicon-off"></i>
+                                </span>
+                            </span>
+                    </label>
+                            <input id="wpd-field-submit-wpdiscuzuniqueid"
+                   class="wc_comm_submit wpd_not_clicked wpd-prim-button" type="submit"
+                   name="submit" value="Post Comment"
+                   aria-label="Post Comment"/>
+        </div>
+                </div>
+                    <div class="clearfix"></div>
+        </div>
+                            </div>
+                                        <input type="hidden" class="wpdiscuz_unique_id" value="wpdiscuzuniqueid"
+                           name="wpdiscuz_unique_id">
+                                    </form>
+                        </div>
+                </div>
+                    </div>
+                        <div id="wpd-threads" class="wpd-thread-wrapper">
+                <div class="wpd-thread-head">
+                    <div class="wpd-thread-info "
+                         data-comments-count="2">
+                        <span class='wpdtc' title='2'>2</span> Comments                    </div>
+                                        <div class="wpd-space"></div>
+                    <div class="wpd-thread-filter">
+                                                    <div class="wpd-filter wpdf-reacted wpd_not_clicked "
+                                 wpd-tooltip="Most reacted comment">
+                                <i class="fas fa-bolt"></i></div>
+                                                        <div class="wpd-filter wpdf-hottest wpd_not_clicked "
+                                 wpd-tooltip="Hottest comment thread">
+                                <i class="fas fa-fire"></i></div>
+                                                        <div class="wpd-filter wpdf-sorting ">
+                                                                        <span class="wpdiscuz-sort-button wpdiscuz-date-sort-asc wpdiscuz-sort-button-active"
+                                              data-sorting="oldest">Oldest</span>
+                                                                        <i class="fas fa-sort-down"></i>
+                                <div class="wpdiscuz-sort-buttons">
+                                                                            <span class="wpdiscuz-sort-button wpdiscuz-date-sort-desc"
+                                              data-sorting="newest">Newest</span>
+                                                                                <span class="wpdiscuz-sort-button wpdiscuz-vote-sort-up"
+                                              data-sorting="by_vote">Most Voted</span>
+                                                                        </div>
+                            </div>
+                                                </div>
+                </div>
+                <div class="wpd-comment-info-bar">
+                    <div class="wpd-current-view"><i
+                            class="fas fa-quote-left"></i> Inline Feedbacks                    </div>
+                    <div class="wpd-filter-view-all">View all comments</div>
+                </div>
+                                <div class="wpd-thread-list">
+                    <div id='wpd-comm-388_0' class='comment byuser comment-author-mary even thread-even depth-1 wpd-comment wpd_comment_level-1'><div class="wpd-comment-wrap wpd-blog-user wpd-blog-author">
+    <div class="wpd-comment-left ">
+    <div class="wpd-avatar ">
+    <a href='https://aiopsschool.com/blog/author/mary/' target='_blank' rel='noreferrer ugc'><img alt='Mary' src='https://secure.gravatar.com/avatar/b8669884faa6e2be288caf5d08252f6bba1cf394a36d38b75a19e511e91dced5?s=64&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/b8669884faa6e2be288caf5d08252f6bba1cf394a36d38b75a19e511e91dced5?s=128&#038;d=mm&#038;r=g 2x' class='avatar avatar-64 photo' height='64' width='64' decoding='async'/></a>
+</div>
+    
+    
+</div>
+    <div id="comment-388" class="wpd-comment-right">
+    <div class="wpd-comment-header">
+    <div class="wpd-comment-author ">
+    <a href='https://aiopsschool.com/blog/author/mary/' rel='noreferrer ugc' target='_blank'>Mary</a>
+</div>
+    <div class="wpd-comment-date" title="April 10, 2026 5:37 am">
+    <i class='far fa-clock' aria-hidden='true'></i>
+    4 months ago
+</div>
+    
+    <div class="wpd-comment-share wpd-hidden wpd-tooltip wpd-top">
+    <i class='fas fa-share-alt' aria-hidden='true'></i>
+    <div class="wpd-tooltip-content">
+        <a class='wc_tw' rel='noreferrer' target='_blank' href='https://twitter.com/intent/tweet?text=Great explanation of ROCm! I really liked how you broke down the architecture into simple ... &url=http%3A%2F%2Faiopsschool.com%2Fblog%2Frocm%2F%23comment-388' title='Share On X'><i class='wpf-cta' aria-hidden='true'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'/></svg></i></a>
+    </div>
+</div>
+    <div class="wpd-space"></div>
+    <div class="wpd-comment-link wpd-hidden">
+    <span wpd-tooltip='Comment Link' wpd-tooltip-position='left'><i class='fas fa-link' aria-hidden='true' data-wpd-clipboard='http://aiopsschool.com/blog/rocm/#comment-388'></i></span>
+</div>
+</div>
+    
+    <div class="wpd-comment-text">
+    <p>Great explanation of ROCm! I really liked how you broke down the architecture into simple components like drivers, runtime, and libraries—it makes understanding GPU computing much easier for beginners.</p>
+
+</div>
+    <div class="wpd-comment-footer">
+    <div class="wpd-vote">
+    <div class="wpd-vote-up wpd_not_clicked">
+        <svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='plus' class='svg-inline--fa fa-plus fa-w-14' role='img' xmlns='https://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'></path></svg>
+    </div>
+    <div class='wpd-vote-result' title='0'>0</div>
+    <div class="wpd-vote-down wpd_not_clicked">
+        <svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='minus' class='svg-inline--fa fa-minus fa-w-14' role='img' xmlns='https://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'></path></svg>
+    </div>
+</div>
+    <div class="wpd-reply-button">
+    <svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'/><path d='M0 0h24v24H0z' fill='none'/></svg>
+    <span>Reply</span>
+</div>
+    <div class="wpd-space"></div>
+    
+    
+</div>
+</div>
+</div><div id='wpdiscuz_form_anchor-388_0'></div></div><div id='wpd-comm-871_0' class='comment odd alt thread-odd thread-alt depth-1 wpd-comment wpd_comment_level-1'><div class="wpd-comment-wrap wpd-blog-guest">
+    <div class="wpd-comment-left ">
+    <div class="wpd-avatar ">
+    <img alt='Evangeline Harper' src='https://secure.gravatar.com/avatar/f508c4efc63b640391d763c47d563bdef0ec3d4dcb83d2c7d3a0445259da5585?s=64&#038;d=mm&#038;r=g' srcset='https://secure.gravatar.com/avatar/f508c4efc63b640391d763c47d563bdef0ec3d4dcb83d2c7d3a0445259da5585?s=128&#038;d=mm&#038;r=g 2x' class='avatar avatar-64 photo' height='64' width='64' decoding='async'/>
+</div>
+    
+    
+</div>
+    <div id="comment-871" class="wpd-comment-right">
+    <div class="wpd-comment-header">
+    <div class="wpd-comment-author ">
+    Evangeline Harper
+</div>
+    <div class="wpd-comment-date" title="June 3, 2026 4:51 am">
+    <i class='far fa-clock' aria-hidden='true'></i>
+    3 months ago
+</div>
+    
+    <div class="wpd-comment-share wpd-hidden wpd-tooltip wpd-top">
+    <i class='fas fa-share-alt' aria-hidden='true'></i>
+    <div class="wpd-tooltip-content">
+        <a class='wc_tw' rel='noreferrer' target='_blank' href='https://twitter.com/intent/tweet?text=The overview of ROCm is clear and informative, helping readers understand its role in acce... &url=http%3A%2F%2Faiopsschool.com%2Fblog%2Frocm%2F%23comment-871' title='Share On X'><i class='wpf-cta' aria-hidden='true'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><path d='M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z'/></svg></i></a>
+    </div>
+</div>
+    <div class="wpd-space"></div>
+    <div class="wpd-comment-link wpd-hidden">
+    <span wpd-tooltip='Comment Link' wpd-tooltip-position='left'><i class='fas fa-link' aria-hidden='true' data-wpd-clipboard='http://aiopsschool.com/blog/rocm/#comment-871'></i></span>
+</div>
+</div>
+    
+    <div class="wpd-comment-text">
+    <p>The overview of ROCm is clear and informative, helping readers understand its role in accelerating AI, HPC, and GPU computing workloads.</p>
+
+</div>
+    <div class="wpd-comment-footer">
+    <div class="wpd-vote">
+    <div class="wpd-vote-up wpd_not_clicked">
+        <svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='plus' class='svg-inline--fa fa-plus fa-w-14' role='img' xmlns='https://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'></path></svg>
+    </div>
+    <div class='wpd-vote-result' title='0'>0</div>
+    <div class="wpd-vote-down wpd_not_clicked">
+        <svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='minus' class='svg-inline--fa fa-minus fa-w-14' role='img' xmlns='https://www.w3.org/2000/svg' viewBox='0 0 448 512'><path d='M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z'></path></svg>
+    </div>
+</div>
+    <div class="wpd-reply-button">
+    <svg xmlns='https://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z'/><path d='M0 0h24v24H0z' fill='none'/></svg>
+    <span>Reply</span>
+</div>
+    <div class="wpd-space"></div>
+    
+    
+</div>
+</div>
+</div><div id='wpdiscuz_form_anchor-871_0'></div></div><!-- // From wpDiscuz's Caches // -->                    <div class="wpdiscuz-comment-pagination">
+                                            </div>
+                </div>
+            </div>
+                </div>
+        </div>
+    <div id="wpdiscuz-loading-bar"
+         class="wpdiscuz-loading-bar-unauth"></div>
+    <div id="wpdiscuz-comment-message"
+         class="wpdiscuz-comment-message-unauth"></div>
+    
+                    </main><!-- #main -->
+                </div><!-- #primary -->
+            </div>
+            <div class="col-md-3 col-sm-4">
+				
+<aside id="secondary" class="widget-area">
+	<section id="block-2" class="widget widget_block widget_search"><form role="search" method="get" action="https://aiopsschool.com/blog/" class="wp-block-search__button-outside wp-block-search__text-button wp-block-search"    ><label class="wp-block-search__label" for="wp-block-search__input-1" >Search</label><div class="wp-block-search__inside-wrapper" ><input class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required /><button aria-label="Search" class="wp-block-search__button wp-element-button" type="submit" >Search</button></div></form></section><section id="block-4" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading">Popular Posts</h2>
+
+
+<ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/lets-compare-deepseek-vs-chatgpt/">Lets Compare DeepSeek Vs ChatGPT</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/what-is-deepseek-r1/">What is DeepSeek R1?</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/what-is-an-ai-agent/">What is an AI Agent?</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/what-is-openrouter/">What is OpenRouter?</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/step-by-step-guide-setting-up-implementing-openrouter-for-ai-model-selection/">Step-by-Step Guide: Setting Up &amp; Implementing OpenRouter for AI Model Selection</a></li>
+</ul></div></div>
+</section><section id="block-3" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading">Recent Tutorials</h2>
+
+
+<ul class="wp-block-latest-posts__list wp-block-latest-posts"><li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/enterprise-ai-agents-development-security-scalability-and-implementation-strategies/">Enterprise AI Agents: Development, Security, Scalability, and Implementation Strategies</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/from-manual-deployments-to-automation-with-devops-consulting-services/">From Manual Deployments to Automation with DevOps Consulting Services</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/understanding-ai-software-development-for-digital-transformation-projects/">Understanding AI Software Development for Digital Transformation Projects</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/website-development-company-in-india-a-practical-selection-guide/">Website Development Company in India: A Practical Selection Guide</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/best-things-to-do-in-amaravati-for-a-memorable-local-trip/">Best Things to Do in Amaravati for a Memorable Local Trip</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/dataops-training-building-reliable-data-workflows-for-modern-teams/">DataOps Training: Building Reliable Data Workflows for Modern Teams</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/securing-application-secrets-using-ephemeral-tokens-in-ci-cd-workflows/">Securing Application Secrets Using Ephemeral Tokens in CI/CD Workflows</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/strategic-cloud-modernization-why-engineering-leaders-hire-a-devops-freelancer/">Strategic Cloud Modernization: Why Engineering Leaders Hire a DevOps Freelancer</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/implementing-aiops-in-legacy-it-systems-a-practical-guide/">Implementing AIOps in Legacy IT Systems: A Practical Guide</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/the-complete-guide-to-aiops-incident-prediction-for-devops-and-sre-teams/">The Complete Guide to AIOps Incident Prediction for DevOps and SRE Teams</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/transforming-infrastructure-reliability-with-proactive-cloud-operations/">Transforming Infrastructure Reliability with Proactive Cloud Operations</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/understanding-crypto-wallets-and-how-they-secure-your-digital-assets/">Understanding Crypto Wallets and How They Secure Your Digital Assets</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/discovering-products-near-me-the-ultimate-guide-to-local-shopping/">Discovering Products Near Me: The Ultimate Guide to Local Shopping</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/a-caregivers-guide-to-evaluating-the-best-cancer-hospitals/">A Caregiver’s Guide to Evaluating the Best Cancer Hospitals</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-parental-control-with-ml-monitoring-tools-features-pros-cons-comparison/">Top 10 AI Parental Control with ML Monitoring Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-fitness-plan-generators-features-pros-cons-comparison/">Top 10 AI Fitness Plan Generators: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-wellness-coaching-apps-features-pros-cons-comparison/">Top 10 AI Wellness Coaching Apps: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-home-automation-assistants-features-pros-cons-comparison/">Top 10 AI Home Automation Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-photo-organization-with-auto-tagging-tools-features-pros-cons-comparison/">Top 10 AI Photo Organization with Auto-Tagging Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-travel-planning-assistants-features-pros-cons-comparison/">Top 10 AI Travel Planning Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-shopping-assistants-features-pros-cons-comparison/">Top 10 AI Shopping Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-budgeting-with-transaction-insights-tools-features-pros-cons-comparison/">Top 10 AI Budgeting with Transaction Insights Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-personal-finance-advisors-features-pros-cons-comparison/">Top 10 AI Personal Finance Advisors: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-career-coaching-platforms-features-pros-cons-comparison/">Top 10 AI Career Coaching Platforms: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-resume-cover-letter-builders-features-pros-cons-comparison/">Top 10 AI Resume &amp; Cover Letter Builders: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-grammar-writing-coaches-features-pros-cons-comparison/">Top 10 AI Grammar &amp; Writing Coaches: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-translation-apps-features-pros-cons-comparison/">Top 10 AI Translation Apps: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-document-summarization-apps-features-pros-cons-comparison/">Top 10 AI Document Summarization Apps: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-personal-knowledge-base-copilots-features-pros-cons-comparison/">Top 10 AI Personal Knowledge Base Copilots: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-note-taking-auto-organization-tools-features-pros-cons-comparison/">Top 10 AI Note-Taking &amp; Auto-Organization Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-meeting-summarization-apps-features-pros-cons-comparison/">Top 10 AI Meeting Summarization Apps: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-calendar-scheduling-assistants-features-pros-cons-comparison/">Top 10 AI Calendar Scheduling Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-email-drafting-assistant-tools-features-pros-cons-comparison/">Top 10 AI Email Drafting Assistant Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-personal-assistant-tools-features-pros-cons-comparison/">Top 10 AI Personal Assistant Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-simulation-to-real-transfer-toolkits-features-pros-cons-comparison/">Top 10 AI Simulation-to-Real Transfer Toolkits: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-hpc-job-scheduling-optimization-tools-features-pros-cons-comparison/">Top 10 AI HPC Job Scheduling Optimization Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-reproducibility-provenance-tooling-features-pros-cons-comparison/">Top 10 AI Reproducibility &amp; Provenance Tooling: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-benchmark-dataset-curation-tools-features-pros-cons-comparison/">Top 10 AI Benchmark Dataset Curation Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-grant-writing-assistants-features-pros-cons-comparison/">Top 10 AI Grant Writing Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-patent-landscape-analysis-tools-features-pros-cons-comparison/">Top 10 AI Patent Landscape Analysis Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-lab-notebook-search-summarization-tools-features-pros-cons-comparison/">Top 10 AI Lab Notebook Search &amp; Summarization Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-code-generation-for-scientific-computing-tools-features-pros-cons-comparison/">Top 10 AI Code Generation for Scientific Computing Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-computer-aided-engineering-assistants-features-pros-cons-comparison/">Top 10 AI Computer-Aided Engineering Assistants: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-materials-informatics-platforms-features-pros-cons-comparison/">Top 10 AI Materials Informatics Platforms: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-cfd-acceleration-toolkits-features-pros-cons-comparison/">Top 10 AI CFD Acceleration Toolkits: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-physics-informed-neural-network-pinn-frameworks-features-pros-cons-comparison/">Top 10 Physics-Informed Neural Network (PINN) Frameworks: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-surrogate-modeling-tools-features-pros-cons-comparison/">Top 10 AI Surrogate Modeling Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-anomaly-detection-for-sensors-tools-features-pros-cons-comparison/">Top 10 AI Anomaly Detection for Sensors Tools: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-time-series-forecasting-platforms-features-pros-cons-comparison/">Top 10 AI Time-Series Forecasting Platforms: Features, Pros, Cons &amp; Comparison</a></li>
+<li><a class="wp-block-latest-posts__post-title" href="https://aiopsschool.com/blog/top-10-ai-scientific-data-cleaning-tools-features-pros-cons-comparison/">Top 10 AI Scientific Data Cleaning Tools: Features, Pros, Cons &amp; Comparison</a></li>
+</ul></div></div>
+</section><section id="block-5" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading">Archives</h2>
+
+
+<div class="wp-block-archives-dropdown wp-block-archives"><label for="wp-block-archives-2" class="wp-block-archives__label screen-reader-text">Archives</label>
+		<select id="wp-block-archives-2" name="archive-dropdown">
+		<option value="">Select Month</option>	<option value='https://aiopsschool.com/blog/2026/09/'> September 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/08/'> August 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/07/'> July 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/06/'> June 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/05/'> May 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/04/'> April 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/03/'> March 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/02/'> February 2026 </option>
+	<option value='https://aiopsschool.com/blog/2026/01/'> January 2026 </option>
+	<option value='https://aiopsschool.com/blog/2025/12/'> December 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/11/'> November 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/10/'> October 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/09/'> September 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/08/'> August 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/07/'> July 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/06/'> June 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/04/'> April 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/03/'> March 2025 </option>
+	<option value='https://aiopsschool.com/blog/2025/01/'> January 2025 </option>
+</select><script>
+( ( [ dropdownId, homeUrl ] ) => {
+		const dropdown = document.getElementById( dropdownId );
+		function onSelectChange() {
+			setTimeout( () => {
+				if ( 'escape' === dropdown.dataset.lastkey ) {
+					return;
+				}
+				if ( dropdown.value ) {
+					location.href = dropdown.value;
+				}
+			}, 250 );
+		}
+		function onKeyUp( event ) {
+			if ( 'Escape' === event.key ) {
+				dropdown.dataset.lastkey = 'escape';
+			} else {
+				delete dropdown.dataset.lastkey;
+			}
+		}
+		function onClick() {
+			delete dropdown.dataset.lastkey;
+		}
+		dropdown.addEventListener( 'keyup', onKeyUp );
+		dropdown.addEventListener( 'click', onClick );
+		dropdown.addEventListener( 'change', onSelectChange );
+	} )( ["wp-block-archives-2","https://aiopsschool.com/blog"] );
+//# sourceURL=block_core_archives_build_dropdown_script
+</script>
+</div></div></div>
+</section><section id="block-6" class="widget widget_block">
+<div class="wp-block-group"><div class="wp-block-group__inner-container is-layout-flow wp-block-group-is-layout-flow">
+<h2 class="wp-block-heading">Categories</h2>
+
+
+<ul class="wp-block-categories-list wp-block-categories-taxonomy-category wp-block-categories">	<li class="cat-item cat-item-916"><a href="https://aiopsschool.com/blog/category/claude/">Claude</a> (4)
+</li>
+	<li class="cat-item cat-item-1023"><a href="https://aiopsschool.com/blog/category/databricks/">Databricks</a> (5)
+</li>
+	<li class="cat-item cat-item-2"><a href="https://aiopsschool.com/blog/category/deepseek/">Deepseek</a> (2)
+</li>
+	<li class="cat-item cat-item-1025"><a href="https://aiopsschool.com/blog/category/prompts/">Prompts</a> (2)
+</li>
+	<li class="cat-item cat-item-242"><a href="https://aiopsschool.com/blog/category/training/">Training</a> (268)
+</li>
+	<li class="cat-item cat-item-1"><a href="https://aiopsschool.com/blog/category/uncategorized/">Uncategorized</a> (908)
+</li>
+	<li class="cat-item cat-item-1026"><a href="https://aiopsschool.com/blog/category/vibe-coding/">Vibe Coding</a> (1)
+</li>
+	<li class="cat-item cat-item-239"><a href="https://aiopsschool.com/blog/category/what-is-series/">What is Series?</a> (1,000)
+</li>
+</ul></div></div>
+</section></aside><!-- #secondary -->
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+</div><!-- #content -->
+
+<footer id="colophon" class="site-footer pd_mag_footer_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="pd_mag_footer_logo_wrap">
+											<h1 class="site-title">
+							<a href="https://aiopsschool.com/blog/" class="footer_brand" rel="home">
+								<span class="pd-mag-brand-title">AiOps School</span>
+							</a>
+						</h1>
+					                </div>
+                <div class="pd_mag_footer_social_wrap">
+					<ul class="social-media-links footer_social_link"><li class="social-email"><a href="mailto:" title="Email" data-toggle="tooltip"><i class="fa fa-envelope"></i><span>Email</span></a></li></ul>                </div>
+                <div class="pd_mag_footer_links_wrap clearfix">
+					<ul id="footer-menu" class="footer_links"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-534"><a href="https://aiopsschool.com/">Home</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-532"><a href="https://aiopsschool.com/storify/">DailyLogs</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1779"><a href="https://aiopsschool.com/forum/">Forum</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1780"><a href="https://aiopsschool.com/certifications/">Certifications</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1781"><a href="https://aiopsschool.com/courses/">Courses</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1782"><a href="https://aiopsschool.com/services/">Services</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1783"><a href="https://aiopsschool.com/consulting/">Consulting</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1784"><a href="https://aiopsschool.com/freelancers/">Freelancers</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1785"><a href="https://aiopsschool.com/contact/">Contact</a></li>
+</ul>                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="site-info">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+                    <div class="pd_mag_footer_content">
+						                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pd_mag_footer_copyright_wrap">
+                        <div class="copyright_contnet">
+							&copy; Copyrights 2026,                            AiOps School	                            <span class="swm-themeby">
+	                                Website developed by	                                <a href="https://www.cmsgalaxy.com/">
+										CMSGalaxy	                                </a>
+	                                 - Website &amp; WordPress Development Company	                                <br>
+	                                SEO, Digital Marketing &amp; Influencer Platform by	                                <a href="https://www.wizbrand.com/">
+										Wizbrand	                                </a>
+	                                 - SEO &amp; Influencer Marketing Platform	                                <br>
+	                                Software Development, Agile &amp; DevOps Services by	                                <a href="https://www.cotocus.com/">
+										Cotocus	                                </a>
+	                                 - Agile &amp; DevOps Software Development Company	                            </span>
+                        </div>
+	                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- .site-info -->
+    <a id="back-to-top" href="#" class="back-to-top" title="Back to Top" role="button" >
+        <span class="fa fa-angle-up"></span>
+    </a>
+</footer><!-- #colophon -->
+</div><!-- #page -->
+
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/blog/*"},{"not":{"href_matches":["/blog/wp-*.php","/blog/wp-admin/*","/blog/wp-content/uploads/*","/blog/wp-content/*","/blog/wp-content/plugins/*","/blog/wp-content/themes/wp-mint-magazine/*","/blog/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<span id='wpdUserContentInfoAnchor' style='display:none;' rel='#wpdUserContentInfo' data-wpd-lity>wpDiscuz</span><div id='wpdUserContentInfo' style='overflow:auto;background:#FDFDF6;padding:20px;width:600px;max-width:100%;border-radius:6px;' class='lity-hide'></div><div id='wpd-bubble-wrapper'><span id='wpd-bubble-all-comments-count' title='2'>2</span><div id='wpd-bubble-count'><svg xmlns='https://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path class='wpd-bubble-count-first' d='M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/><path class='wpd-bubble-count-second' d='M0 0h24v24H0z' /></svg><span class='wpd-new-comments-count'>0</span></div><div id='wpd-bubble'><svg xmlns='https://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path class='wpd-bubble-plus-first' d='M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z'/><path class='wpd-bubble-plus-second' d='M0 0h24v24H0z' /></svg><div id='wpd-bubble-add-message'>Would love your thoughts, please comment.<span id='wpd-bubble-add-message-close'><a href='#'>x</a></span></div></div><div id='wpd-bubble-notification'><svg xmlns='https://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path class='wpd-bubble-notification-first' d='M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z'/><path class='wpd-bubble-notification-second' d='M0 0h24v24H0z' /></svg><div id='wpd-bubble-notification-message'><div id='wpd-bubble-author'><div><span id='wpd-bubble-author-avatar'></span><span id='wpd-bubble-author-name'></span><span id='wpd-bubble-comment-date'>(<span class='wpd-bubble-spans'></span>)</span></div><span id='wpd-bubble-comment-close'><a href='#'>x</a></span></div><div id='wpd-bubble-comment'><span id='wpd-bubble-comment-text'></span><span id='wpd-bubble-comment-reply-link'>| <a href='#'>Reply</a></span></div></div></div></div><div id='wpd-editor-source-code-wrapper-bg'></div><div id='wpd-editor-source-code-wrapper'><textarea id='wpd-editor-source-code'></textarea><button id='wpd-insert-source-code'>Insert</button><input type='hidden' id='wpd-editor-uid' /></div><script id="bootstrap-js" src="https://aiopsschool.com/blog/wp-content/themes/wp-mint-magazine/js/bootstrap.js?ver=7.0.2"></script>
+<script id="wp-mint-magazine-custom-js-js" src="https://aiopsschool.com/blog/wp-content/themes/wp-mint-magazine/js/custom.js?ver=7.0.2"></script>
+<script async data-wp-strategy="async" fetchpriority="low" id="comment-reply-js" src="https://aiopsschool.com/blog/wp-includes/js/comment-reply.min.js?ver=7.0.2"></script>
+<script id="wpdiscuz-combo-js-js-extra">
+var wpdiscuzAjaxObj = {"wc_hide_replies_text":"Hide Replies","wc_show_replies_text":"View Replies","wc_msg_required_fields":"Please fill out required fields","wc_invalid_field":"Some of field value is invalid","wc_error_empty_text":"please fill out this field to comment","wc_error_url_text":"url is invalid","wc_error_email_text":"email address is invalid","wc_invalid_captcha":"Invalid Captcha Code","wc_login_to_vote":"You Must Be Logged In To Vote","wc_deny_voting_from_same_ip":"You are not allowed to vote for this comment","wc_self_vote":"You cannot vote for your comment","wc_vote_only_one_time":"You've already voted for this comment","wc_voting_error":"Voting Error","wc_banned_user":"You are banned","wc_rate_limit_exceeded":"Too many requests. Please slow down.","wc_comment_edit_not_possible":"Sorry, this comment is no longer possible to edit","wc_comment_not_updated":"Sorry, the comment was not updated","wc_comment_not_edited":"You've not made any changes","wc_msg_input_min_length":"Input is too short","wc_msg_input_max_length":"Input is too long","wc_spoiler_title":"Spoiler Title","wc_cannot_rate_again":"You cannot rate again","wc_not_allowed_to_rate":"You're not allowed to rate here","wc_confirm_rate_edit":"Are you sure you want to edit your rate?","wc_follow_user":"Follow this user","wc_unfollow_user":"Unfollow this user","wc_follow_success":"You started following this comment author","wc_follow_canceled":"You stopped following this comment author.","wc_follow_email_confirm":"Please check your email and confirm the user following request.","wc_follow_email_confirm_fail":"Sorry, we couldn't send confirmation email.","wc_follow_login_to_follow":"Please login to follow users.","wc_follow_impossible":"We are sorry, but you can't follow this user.","wc_follow_not_added":"Following failed. Please try again later.","is_user_logged_in":"","commentListLoadType":"0","commentListUpdateType":"0","commentListUpdateTimer":"60","liveUpdateGuests":"0","wordpressThreadCommentsDepth":"5","wordpressIsPaginate":"","commentTextMaxLength":"0","replyTextMaxLength":"0","commentTextMinLength":"1","replyTextMinLength":"1","storeCommenterData":"100000","socialLoginAgreementCheckbox":"1","enableFbLogin":"0","fbUseOAuth2":"0","enableFbShare":"0","facebookAppID":"","facebookUseOAuth2":"0","enableGoogleLogin":"0","googleClientID":"","googleClientSecret":"","cookiehash":"55989d281bd17b319d517cc2a7c2a6eb","isLoadOnlyParentComments":"0","scrollToComment":"1","commentFormView":"collapsed","enableDropAnimation":"1","isNativeAjaxEnabled":"1","userInteractionCheck":"1","enableBubble":"1","bubbleLiveUpdate":"0","bubbleHintTimeout":"45","bubbleHintHideTimeout":"10","cookieHideBubbleHint":"wpdiscuz_hide_bubble_hint","bubbleHintShowOnce":"1","bubbleHintCookieExpires":"7","bubbleShowNewCommentMessage":"1","bubbleLocation":"content_left","firstLoadWithAjax":"0","wc_copied_to_clipboard":"Copied to clipboard!","inlineFeedbackAttractionType":"blink","loadRichEditor":"1","wpDiscuzReCaptchaSK":"6LdNCtosAAAAAGPNbWi5bc_SvgipVt09dvbC_1qS","wpDiscuzReCaptchaTheme":"light","wpDiscuzReCaptchaVersion":"2.0","wc_captcha_show_for_guest":"1","wc_captcha_show_for_members":"0","wpDiscuzIsShowOnSubscribeForm":"0","wmuEnabled":"1","wmuInput":"wmu_files","wmuMaxFileCount":"1","wmuMaxFileSize":"2097152","wmuPostMaxSize":"41943040","wmuIsLightbox":"1","wmuMimeTypes":{"jpg":"image/jpeg","jpeg":"image/jpeg","jpe":"image/jpeg","gif":"image/gif","png":"image/png","bmp":"image/bmp","tiff":"image/tiff","tif":"image/tiff","ico":"image/x-icon"},"wmuPhraseConfirmDelete":"Are you sure you want to delete this attachment?","wmuPhraseNotAllowedFile":"Not allowed file type","wmuPhraseMaxFileCount":"Maximum number of uploaded files is 1","wmuPhraseMaxFileSize":"Maximum upload file size is 2MB","wmuPhrasePostMaxSize":"Maximum post size is 40MB","wmuPhraseDoingUpload":"Uploading in progress! Please wait.","msgEmptyFile":"File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini or by post_max_size being defined as smaller than upload_max_filesize in php.ini.","msgPostIdNotExists":"Post ID not exists","msgUploadingNotAllowed":"Sorry, uploading not allowed for this post","msgPermissionDenied":"You do not have sufficient permissions to perform this action","wmuKeyImages":"images","wmuSingleImageWidth":"auto","wmuSingleImageHeight":"200","wmuIconVideo":"https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/img/file-icons/video-audio-type.png","wmuIconFile":"https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/img/file-icons/file-type.png","previewTemplate":"\u003Cdiv class=\"wmu-preview [PREVIEW_TYPE_CLASS]\" title=\"[PREVIEW_TITLE]\" data-wmu-type=\"[PREVIEW_TYPE]\" data-wmu-attachment=\"[PREVIEW_ID]\" data-wmu-index=\"[PREVIEW_INDEX]\"\u003E\r\n    \u003Cdiv class=\"wmu-preview-remove\"\u003E\r\n        \u003Cimg class=\"wmu-preview-img\" src=\"[PREVIEW_ICON]\"\u003E\r\n        \u003Cdiv class=\"wmu-file-name\"\u003E[PREVIEW_FILENAME]\u003C/div\u003E\r\n        \u003Cdiv class=\"wmu-preview-delete\" title=\"Delete\"\u003E\u2715\u003C/div\u003E\r\n        \u003Clabel class=\"wmu-preview-replace\" title=\"Replace\"\u003E\u21bb\u003Cinput type=\"file\" style=\"display:none\" class=\"wmu-replace-input\"\u003E\u003C/label\u003E\r\n    \u003C/div\u003E\r\n\u003C/div\u003E\r\n","isUserRated":"0","version":"7.6.54","wc_post_id":"1716","isCookiesEnabled":"1","loadLastCommentId":"0","dataFilterCallbacks":[],"phraseFilters":[],"scrollSize":"32","url":"https://aiopsschool.com/blog/wp-admin/admin-ajax.php","customAjaxUrl":"https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/utils/ajax/wpdiscuz-ajax.php","bubbleUpdateUrl":"https://aiopsschool.com/blog/wp-json/wpdiscuz/v1/update","restNonce":"0a496a5683","is_rate_editable":"0","menu_icon":"https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/img/plugin-icon/wpdiscuz-svg.svg","menu_icon_hover":"https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/img/plugin-icon/wpdiscuz-svg_hover.svg","isUpdateNonceWithAjax":"1","nonceName":"wpdiscuz_nonce","postAttachmentsAsGallery":"","wmuPhraseNotAllowedFileType":"File type is not allowed","is_email_field_required":"1"};
+var wpdiscuzUCObj = {"msgConfirmDeleteComment":"Are you sure you want to delete this comment?","msgConfirmCancelSubscription":"Are you sure you want to cancel this subscription?","msgConfirmCancelFollow":"Are you sure you want to cancel this follow?","additionalTab":"0"};
+//# sourceURL=wpdiscuz-combo-js-js-extra
+</script>
+<script id="wpdiscuz-combo-js-js-before">
+var wpdiscuzEditorOptions = {
+        modules: {
+        toolbar: "",
+        counter: {
+        uniqueID: "",
+        commentmaxcount : 0,
+        replymaxcount : 0,
+        commentmincount : 1,
+        replymincount : 1,
+        },
+                },
+        wc_be_the_first_text: "Be the First to Comment!",
+        wc_comment_join_text: "Join the discussion",
+        theme: 'snow',
+        debug: 'error'
+        };
+        
+//# sourceURL=wpdiscuz-combo-js-js-before
+</script>
+<script id="wpdiscuz-combo-js-js" src="https://aiopsschool.com/blog/wp-content/plugins/wpdiscuz/assets/js/wpdiscuz-combo.min.js?ver=7.6.54"></script>
+<script id="wpdiscuz-google-recaptcha-js" src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&#038;render=explicit&#038;ver=1.0.0"></script>
+
+</body>
+</html>

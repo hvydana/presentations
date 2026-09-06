@@ -1,0 +1,20 @@
+C110	L1	ROS 2 C++ client library	OSS	rclcpp	https://github.com/orgs/ros2/repositories	Core node/executor API
+C111	L1	ROS 2 Python client library	OSS	rclpy	https://github.com/orgs/ros2/repositories
+C112	L1	Middleware abstraction layer for ROS 2	OSS	rmw	https://github.com/orgs/ros2/repositories	Vendor-swap interface; rmw_implementation selects at runtime
+C113	L1	DDS transport implementation for ROS 2	eProsima	Fast DDS	https://github.com/eProsima/Fast-DDS	Default rmw for most ROS 2 distros via rmw_fastrtps
+C114	L1	DDS transport implementation for ROS 2	Eclipse Foundation	Cyclone DDS	https://github.com/eclipse-cyclonedds/cyclonedds	rmw_cyclonedds_cpp; alternate default in some distros
+C115	L1	Zenoh-based ROS 2 middleware layer	OSS	rmw_zenoh	https://github.com/orgs/ros2/repositories	Official ROS 2 rmw removing DDS discovery cost
+C116	L1	Pub/sub and query protocol across edge	Eclipse Foundation	Zenoh	https://github.com/eclipse-zenoh/zenoh	Found via https://github.com/topics/ros2
+C117	L1	True zero-copy inter-process transport	Eclipse Foundation	iceoryx2	https://github.com/eclipse-iceoryx/iceoryx	Shared-memory IPC; iceoryx v1 in maintenance, iceoryx2 is Rust rewrite
+C118	L1	ROS 2 client stack for microcontrollers	OSS	micro-ROS	https://micro.ros.org/	Runs on Zephyr/FreeRTOS/NuttX over XRCE-DDS
+C119	L1	Coordinate frame transform tracking	OSS	tf2	https://github.com/ros2/geometry2	Ships as geometry2 repo
+C120	L1	Camera rectification and stereo processing	OSS	image_pipeline	https://github.com/ros-perception/image_pipeline
+C121	L1	Point cloud message and filter integration	OSS	perception_pcl	https://github.com/ros-perception/perception_pcl	PCL bindings for ROS 2
+C123	L1	Deep learning compiler and autotuner	Apache	Apache TVM	https://github.com/apache/tvm
+C125	L1	Quantized model inference on CPU/GPU	OSS	llama.cpp	https://github.com/ggml-org/llama.cpp	ggml tensor library underneath
+C126	L1	Edge CPU/iGPU/NPU inference toolkit	Intel	OpenVINO	https://github.com/openvinotoolkit/openvino	Found via awesome-robotic-tooling ML section
+C127	L1	MLIR ahead-of-time compiler and runtime	OSS	IREE	https://github.com/iree-org/iree	Targets embedded and heterogeneous deployment
+C128	L1	High-throughput LLM/VLM serving engine	OSS	vLLM	https://github.com/vllm-project/vllm	Used to serve VLA backbones
+C129	L1	Tensor framework with graph capture	Meta / PyTorch Foundation	PyTorch (torch.compile)	https://github.com/pytorch/pytorch	TorchInductor is the codegen path most policies rely on
+C130	L1	Visual-inertial SLAM front and back end	OSS	ORB-SLAM3	https://github.com/UZ-SLAMLab/ORB_SLAM3	Research-grade; sparse maintenance
+C131	L1	RGB-D graph SLAM and appearance mapping	OSS	RTAB-Map	https://github.com/introlab/rtabmap	Found via https://github.com/topics/ros2

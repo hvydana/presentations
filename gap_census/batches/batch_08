@@ -1,0 +1,20 @@
+C182	L5	Formal safety envelope for motion decisions	Intel / OSS	ad-rss-lib	https://github.com/intel/ad-rss-lib	Responsibility Sensitive Safety model implementation
+C183	L5	Package quality-level declaration process	Open Robotics	REP-2004 Quality Levels	https://ros.org/reps/rep-2004.html	Prerequisite artifact for any ROS 2 safety argument
+C184	L6	Multi-package build and test orchestration	OSS	colcon	https://colcon.readthedocs.io/	Standard ROS 2 build tool
+C185	L6	System dependency resolution across distros	Open Robotics	rosdep	https://github.com/ros-infrastructure/rosdep
+C186	L6	Release automation into binary distributions	Open Robotics	bloom / ros_buildfarm	https://github.com/ros-infrastructure/bloom	Feeds packages.ros.org debian builds
+C187	L6	Conda-based cross-platform ROS distribution	OSS	RoboStack	https://robostack.github.io/	ROS 2 on conda-forge for macOS/Windows/Linux without apt
+C188	L6	Canonical package and API index for ROS 2	Open Robotics	index.ros.org	https://index.ros.org/packages/	Discovery surface for the entire ROS 2 package set
+C189	L6	Model and dataset hosting and distribution	HuggingFace	Hugging Face Hub	https://huggingface.co/lerobot	Primary distribution channel for VLA weights and LeRobot datasets
+C190	L0	Certified microkernel RTOS for robot controllers	BlackBerry QNX	QNX Neutrino RTOS 8.0	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	POSIX microkernel, dominant in automotive/robotics safety
+C191	L0	Hard real-time OS for industrial controllers	Wind River	VxWorks	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Proprietary; aerospace and industrial robot arms
+C193	L0	Minimal kernel for motor and sensor MCUs	Amazon / OSS	FreeRTOS	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	MIT licensed
+C195	L0	Separation-kernel RTOS for certified systems	Green Hills Software	INTEGRITY-178 tuMP	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Time/space partitioning
+C198	L0	Deterministic fieldbus for servo drives	EtherCAT Technology Group	EtherCAT	https://www.ethercat.org/en/technology.html	Distributed clocks, cycle times under 100 us
+C201	L0	Time-scheduled deterministic Ethernet	IEEE	TSN 802.1AS / 802.1Qbv / 802.1Qbu	https://en.wikipedia.org/wiki/Time-Sensitive_Networking	Time sync plus traffic shaping
+C202	L0	CAN device profile for drives and motion	CAN in Automation	CANopen CiA 402 drive profile	https://www.can-cia.org/canopen	Standard servo drive state machine
+C203	L0	Isochronous industrial Ethernet for cells	PROFIBUS and PROFINET International	PROFINET IRT	https://www.profibus.com/technology/profinet	Isochronous real-time class
+C205	L0	Real-time component framework for robots	OSS	OROCOS Real-Time Toolkit	https://orocos.org/	Pre-ROS real-time component model
+C206	L0	Real-time CNC motion control on Linux	OSS	LinuxCNC	https://linuxcnc.org/	HAL plus stepgen realtime threads
+C208	L0	Lockstep safety co-processor MCU	Infineon	AURIX TC4x	https://www.infineon.com/cms/en/product/microcontroller/32-bit-tricore-microcontroller/	ASIL-D lockstep cores for safety island
+C209	L0	Static partitioning hypervisor for mixed criticality	Siemens / OSS	Jailhouse	https://github.com/siemens/jailhouse	Bare-metal partitioning, no scheduler

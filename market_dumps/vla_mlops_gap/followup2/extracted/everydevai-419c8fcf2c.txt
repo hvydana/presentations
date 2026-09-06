@@ -1,0 +1,68 @@
+Calibra
+Dataset observability and coreset selection tool for robotics imitation learning that audits integrity, measures quality and coverage, and builds quality-aware training sets to reduce GPU compute costs.
+At a Glance
+Free for research and internal use under Business Source License 1.1. Converts to Apache 2.0 on 2030-06-30. Commercial hosting requires a separate license.
+Engagement
+Available On
+Alternatives
+Listed Aug 2026
+About Calibra
+Calibra is a Python CLI and library for robotics teams that need to audit and curate robot demonstration datasets before training imitation learning policies. Built by omerTT and published under a Business Source License 1.1 (converting to Apache 2.0 on 2030-06-30), it runs entirely locally with no upload, account, or API key required, and produces deterministic, CI-friendly results.
+What It Is
+Calibra addresses a specific problem in robot learning: most robotics datasets contain two distinct failure modes — bad episodes (jerk spikes, dropped frames, sync errors) and redundant episodes (near-duplicate demonstrations of the same behavior). The tool runs a four-step pipeline — Integrity, Quality, Coverage, and Optimization — to identify and remove both categories, then selects a quality-aware coreset of episodes for training. The result, according to the project's own benchmark data, is a dramatically smaller training set that matches or exceeds full-dataset policy performance.
+Benchmark Results
+The project publishes benchmark results across multiple public robotics datasets and policy families:
+- On LeRobot PushT (lerobot/pusht ): retaining 25% of episodes (41 of 165) produced a test MSE of 422.77 vs. 420.93 for the full 165-episode baseline — a 0.5% difference — while achieving 56.0% tail-behavior coverage vs. 33.6% for random coreset selection at the same retention level.
+- On DROID-100 (lerobot/droid_100 ): the project reports outperforming the full-data baseline by +3% at 75% retention.
+- Across three datasets and three policy families (BC-MLP, ACT, Diffusion Policy) at 30% retention, Calibra's full pipeline improves over random selection by a mean of +24.5%.
+- Method rankings are reported as stable across all three policy families (Spearman ρ ≥ 0.86).
+All benchmark claims are sourced from the project's own published benchmark tables and should be verified against the full benchmark documentation before production use.
+Four-Step Pipeline
+The core workflow maps to four explicit CLI commands:
+- calibra integrity — checks timestamps, sync, episode completeness, duplicate/frozen/blurry camera frames, and jittery motion; outputs a scored integrity report with per-episode root causes and CI-friendly exit codes.
+- calibra audit — full diagnostic report with bootstrap confidence intervals and per-episode outlier detection.
+- calibra review — ranked episode review queue separating anomaly, quality-risk, and coverage-value signals.
+- calibra prune — two-stage coreset: quality filter followed by greedy max-coverage selection.
+- calibra analyze — one-command report composing all four steps into a single integrity, Calibra Score, redundancy estimate, and training-set recommendation.
+Additional commands include calibra certify, calibra predict, calibra watch (real-time feedback during teleoperation), calibra sim2real, calibra transfer, calibra cure (automatic remediation), and calibra serve (local REST API and web dashboard).
+Dataset Format Support
+Calibra supports a broad range of robotics dataset formats via optional install extras:
+- LeRobot v1 / v2 / v3 (Parquet and HuggingFace Hub IDs)
+- HDF5 (Isaac Lab, Robomimic)
+- RLDS / TF Datasets
+- MCAP / ROS2 bags
+Camera-frame integrity checks work out of the box on HDF5 datasets and LeRobot v1 (with --decode-images); LeRobot v2/v3 video-encoded support is listed on the roadmap.
+Update: v0.8.0 — Measured Training Results
+The current release is v0.8.0, published on 2026-08-12. This release introduced calibra experiment record/list/report for logging real training-run outcomes (GPU-hours, evaluation success rates), and extended calibra benchmark --sweep to fold measured numbers into benchmark reports, tagging every value as (measured) or (simulated). The calibra analyze one-command report and calibra case-study partner-facing report renderer were also added in this cycle. The next planned milestone is Vision Integrity support for video-backed LeRobot v2/v3 datasets. A research paper describing the coreset selection methodology is listed as coming soon.
+Community Discussions
+Be the first to start a conversation about Calibra
+Share your experience with Calibra, ask questions, or help others learn from your insights.
+Pricing
+Open Source
+Free for research and internal use under Business Source License 1.1. Converts to Apache 2.0 on 2030-06-30. Commercial hosting requires a separate license.
+- Full CLI access (calibra integrity, audit, review, prune, analyze, etc.)
+- Python API
+- LeRobot, HDF5, RLDS, MCAP format support
+- Local execution, no upload or account required
+- CI-friendly exit codes
+Capabilities
+Key Features
+- Dataset integrity auditing (timestamps, sync, duplicate/frozen/blurry frames, jitter)
+- Quality scoring with bootstrap confidence intervals and per-episode outlier detection
+- Coverage and diversity analysis across behavioral space
+- Quality-aware coreset selection via two-stage quality filter + greedy max-coverage
+- One-command pipeline report (calibra analyze)
+- CI-friendly exit codes and deterministic local execution
+- Real-time quality feedback during teleoperation (calibra watch)
+- Sim-to-real distribution gap quantification (calibra sim2real)
+- Cross-embodiment compatibility scoring (calibra transfer)
+- Automatic data remediation: smoothing, resampling, trimming (calibra cure)
+- Measured training result logging and reporting (calibra experiment)
+- Partner-facing case-study report generation (calibra case-study)
+- Static leaderboard website generation (calibra site)
+- Local REST API server and web dashboard (calibra serve)
+- HuggingFace dataset quality card generation (calibra card)
+- Synthetic corruption injection for metric validation (calibra corrupt)
+- Bulk org-wide audit (calibra audit-all)
+- HTML report output
+- Python API for programmatic pipeline access

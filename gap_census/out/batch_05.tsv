@@ -1,0 +1,20 @@
+C110	n/a	-	high	-	-	-	-	-	-	-	https://github.com/ros2/rclcpp
+C111	n/a	-	high	-	-	-	-	-	-	-	https://github.com/ros2/rclpy
+C112	n/a	-	high	-	-	-	-	-	-	-	https://github.com/ros2/rmw
+C113	n/a	-	high	-	-	-	-	-	-	-	https://github.com/eProsima/Fast-DDS
+C114	n/a	-	high	-	-	-	-	-	-	-	https://github.com/eclipse-cyclonedds/cyclonedds
+C115	n/a	-	high	-	-	-	-	-	-	-	https://github.com/ros2/rmw_zenoh
+C116	n/a	-	high	-	-	-	-	-	-	-	https://github.com/eclipse-zenoh/zenoh
+C117	n/a	-	med	-	-	-	-	-	-	-	https://github.com/eclipse-iceoryx/iceoryx
+C118	partial	AMD Kria SOM real-time cores plus Ryzen AI Embedded X100 running ROS 2 on Linux	low	3	3	2	1	No AMD-maintained micro-ROS board support package for Zynq/Versal Cortex-R5 or MicroBlaze real-time cores	Safety-island and motor-control firmware teams on AMD adaptive SoCs who must hand-roll XRCE-DDS bring-up	Publish and upstream a micro-ROS BSP for the Kria KR260 R5 cores with a CI job in the micro-ROS build farm	https://newsroom.amd.com/news/aai-2026-robotics-partner-network/
+C119	n/a	-	high	-	-	-	-	-	-	-	https://github.com/ros2/geometry2
+C120	partial	AMD ROS 2 Perception Node accelerated application plus Vitis Vision libraries	med	3	3	3	3	No drop-in GPU/FPGA-accelerated replacement for the standard image_proc and stereo_image_proc nodes on AMD silicon	ROS 2 perception developers porting Isaac ROS image pipelines who lose rectification and disparity acceleration	Ship ROCm and Vitis backed image_proc and stereo_image_proc nodes with identical topic and parameter contracts to image_pipeline	https://newsroom.amd.com/news/aai-2026-robotics-partner-network/
+C121	none	-	med	3	3	3	2	No AMD accelerated point cloud primitive library equivalent to cuPCL for voxel filter ICP segmentation and normals	Mobile robot and 3D perception stacks that bottleneck on CPU PCL filters in the ROS 2 point cloud path	Port the four hottest PCL kernels voxel grid passthrough NDT and ICP to HIP and expose them behind perception_pcl nodelet APIs	https://github.com/ros-perception/perception_pcl
+C123	community	TVM ROCm and Vulkan targets plus AMD ROCm CI for MLC-LLM built on TVM Unity	med	3	2	2	2	No AMD-maintained TVM ROCm backend or autotuning schedule database so ROCm targets lag CUDA in tuned kernels	Edge robotics teams compiling perception models AOT for Ryzen AI and Radeon rather than serving them	Stand up a public AMD-hosted TVM ROCm CI runner and publish pre-tuned schedule logs for gfx1100 and gfx942	https://github.com/apache/tvm
+C125	native	llama.cpp HIP and ROCm backend with AMD-authored optimization work and Lemonade packaging	high	-	-	-	-	-	-	-	https://rocm.blogs.amd.com/blog/2025.html
+C126	partial	AMD Ryzen AI Software with ONNX Runtime Vitis AI EP for NPU plus MIGraphX EP for Radeon	med	2	3	3	2	AMD edge inference is split across three toolchains Ryzen AI Vitis AI and MIGraphX with no single OpenVINO-style CPU iGPU NPU device selector	Embedded robotics integrators who want one model artifact that retargets across AMD CPU iGPU and NPU without rebuilds	Publish one unified device-string API over the Vitis AI and MIGraphX execution providers with a single quantization flow	https://github.com/openvinotoolkit/openvino
+C127	native	IREE HIP and ROCm HAL driver with sustained AMD engineering investment	high	-	-	-	-	-	-	-	https://github.com/iree-org/iree
+C128	native	vLLM ROCm builds officially supported and co-maintained by AMD on Instinct and Radeon	high	-	-	-	-	-	-	-	https://rocm.blogs.amd.com/blog/2025.html
+C129	native	PyTorch ROCm wheels with TorchInductor codegen through Triton on the LLVM AMDGPU backend	high	-	-	-	-	-	-	-	https://siliconanalysts.com/analysis/amd-vs-nvidia-ai-gpu-market-share-2026
+C130	n/a	-	med	-	-	-	-	-	-	-	https://github.com/UZ-SLAMLab/ORB_SLAM3
+C131	none	-	low	3	2	2	1	RTAB-Map optional acceleration paths assume OpenCV CUDA modules with no HIP or ROCm equivalent build	Warehouse and service robot teams running RGB-D SLAM on AMD APUs who fall back to CPU-only odometry and dense depth	Provide a ROCm-enabled OpenCV container plus an rtabmap build flag validated on Ryzen AI Embedded X100	https://github.com/introlab/rtabmap

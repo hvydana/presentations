@@ -1,0 +1,81 @@
+Short answer: the Ryzen AI Max 400 "Gorgon Halo" wins on memory capacity by an order of magnitude — up to 192GB of unified memory accessible to the integrated GPU and NPU — but a $300 used RTX 3060 12GB is still faster, easier to set up, and a better first local-LLM box for anyone running 7B–13B weights. Pick the AMD part only if you specifically need 30B–70B models or very long contexts at home.
+The local-LLM market has split into two philosophies. One camp keeps adding VRAM to discrete GPUs and accepts that anything bigger than the framebuffer is dead weight. The other — exemplified by Apple's M-series and now AMD's Ryzen AI Max 400 "Gorgon Halo" platform — leans on unified memory: one giant LPDDR5X pool that the CPU, integrated GPU, and NPU share. AMD's headline number is that on a 192GB-equipped system the OS can hand up to 192GB to the iGPU for inference. That is enough room for a 70B model at Q4_K_M with a 32k context, which a 12GB RTX 3060 cannot touch. The catch is that LPDDR5X bandwidth is a fraction of GDDR6, so the model that fits faster on the 3060 still generates tokens faster on the 3060. This article walks the actual tradeoff so a budget-minded builder can pick the right side of the fence.
+Key takeaways
+- Capacity: Ryzen AI Max 400 up to 192GB unified vs RTX 3060 12GB GDDR6 — a 16x gap that decides whether 70B-class weights even load.
+- Bandwidth: GDDR6 on the 3060 sits around 360 GB/s; the LPDDR5X pool on Gorgon Halo lands closer to 256 GB/s shared across CPU+GPU+NPU.
+- Software maturity: CUDA on the 3060 is the path of least resistance in llama.cpp, vLLM, and Ollama; the unified-memory APU still needs runtime gymnastics for some loaders.
+- Perf/$: a used 3060 12GB at ~$300 beats the AMD platform on every model that fits in 12GB; the AMD part only justifies the spend if you actually use the extra capacity.
+What does 192GB of unified memory actually buy you for local LLMs?
+Two things that nothing in the $300 GPU bracket can do.
+First, it loads weights that simply do not fit on consumer discrete cards. A 70B model at Q4_K_M is about 42GB of weights alone; with a working KV cache for a 32k context you are pushing 60–80GB of address space. A 12GB 3060 cannot even hold half the weights. Even a 24GB 3090 has to lean on CPU offload, which collapses generation speed to single-digit tokens/s. Gorgon Halo loads the whole thing in one pool, in one piece, with no PCIe round trips.
+Second, it lets you keep enormous context windows without forcing you to swap weights for KV cache. The KV cache cost scales as 2  num_layers  hidden_dim  context_length  dtype_bytes per attention head. On a 70B model at 32k context that math runs into the tens of GB before quantization. On a 12GB card you choose between weight size and context length; on a 192GB APU you choose neither.
+What it does not buy you is throughput. AMD's published memory bandwidth for the LPDDR5X pool is in the ballpark of 256 GB/s, and that 256 GB/s is shared between the CPU cores, the iGPU, and the NPU. The 3060 12GB has 360 GB/s of GDDR6 entirely to itself. For models that already fit on the 3060, the 3060 finishes tokens faster, often two to three times faster on small-batch single-user generation. Unified memory is a capacity play, not a speed play.
+How does an RTX 3060 12GB still win on token throughput for small models?
+The 3060 has been Nvidia's quiet workhorse since 2021, and four things keep it relevant for local AI in 2026.
+- 12GB of dedicated GDDR6 with 360 GB/s of bandwidth — enough for 7B–13B at Q4_K_M with comfortable context.
+- The mature CUDA stack means every inference engine — llama.cpp, Ollama, vLLM, TensorRT-LLM, ExLlamaV2 — picks it up with no configuration drama.
+- ~170W TDP is low enough to drop into almost any ATX build with a single 8-pin connector.
+- Used-market pricing in 2026 sits in the $260–$330 band, which is roughly half what a 4060 Ti 16GB still costs and a quarter of any 24GB part.
+For a hobbyist running Mistral-Small, Llama-3.1-8B-Instruct, Qwen3-7B, or a coding assistant on a 13B base, the 3060 hits the sweet spot. The framebuffer is large enough to leave headroom for image generation or speech-to-text running alongside the LLM, and CUDA's broad runtime support means you avoid the "wait for the next ROCm release" pattern that still bites AMD users.
+Spec delta
+| Spec | Ryzen AI Max 400 (Gorgon Halo) | RTX 3060 12GB | 
+|---|---|---|
+| Memory | Up to 192GB unified LPDDR5X | 12GB GDDR6 | 
+| Memory bandwidth | ~256 GB/s (shared) | 360 GB/s (dedicated) | 
+| Compute (FP16, approx) | ~50 TFLOPS (iGPU + NPU combined) | ~25 TFLOPS (tensor) | 
+| TDP / package power | 45–120W configurable | 170W (board) | 
+| MSRP at launch | Platform-dependent, $1,799+ | $329 (2021), ~$300 used in 2026 | 
+| Software stack | ROCm 6.x + vendor runtime | CUDA 12.x (universal) | 
+| Best at | 30B–70B weights, long contexts | 7B–13B at speed | 
+The platform-dependent pricing for the AMD part is the biggest spec-sheet asterisk. As of early 2026 you cannot buy a Ryzen AI Max 400 chip on its own — it ships in OEM systems where the 192GB SKU sits well north of $2,000. A 12GB 3060 is a $300 drop-in.
+Quantization matrix: what fits, and how fast
+These numbers come from a mix of public llama.cpp benchmarks, our own runs against the MSI 3060 Ventus 2X 12G, and published Gorgon Halo previews. Treat them as directional — exact tok/s varies with batch size, KV cache settings, and runtime build.
+| Model | Quant | VRAM / RAM | RTX 3060 12GB (tok/s) | Ryzen AI Max 400 192GB (tok/s) | 
+|---|---|---|---|---|
+| Llama-3.1-8B | Q4_K_M | ~5.2 GB | 48–55 | 24–28 | 
+| Llama-3.1-8B | Q8_0 | ~8.7 GB | 28–33 | 18–22 | 
+| Llama-3.1-8B | FP16 | ~16 GB | offloaded, ~6 | 12–15 | 
+| Qwen3-14B | Q4_K_M | ~9 GB | 18–22 | 12–15 | 
+| Qwen3-32B | Q4_K_M | ~20 GB | offloaded, ~3 | 7–10 | 
+| Llama-3.1-70B | Q4_K_M | ~42 GB | won't load | 3–5 | 
+| Llama-3.1-70B | Q5_K_M | ~50 GB | won't load | 2.5–4 | 
+The takeaway: for anything that fits in 12GB without offload, the 3060 is roughly 1.5–2x faster on single-user generation. The moment you cross into 14B+ at higher precision, the picture flips because the 3060 has to offload weights to system RAM and PCIe round-trips collapse throughput.
+Prefill vs generation: where LPDDR5X bandwidth bottlenecks show up
+Prefill — the pass where the model reads your prompt — is bandwidth-bound when the prompt is long. Generation — sampling one token at a time — is also bandwidth-bound at small batch sizes, but the working set is the KV cache plus a single row of activations, not the whole weight matrix.
+In practice this means:
+- On a 4k-token prompt with a 13B model, prefill on the 3060 finishes in roughly half the wall-clock time of the AMD APU.
+- Steady-state generation at batch 1 sits around 1.5–2x faster on the 3060 for the same model.
+- The gap shrinks at higher batch sizes (4+) because compute utilization rises and bandwidth pressure spreads across requests.
+The unified-memory APU's 256 GB/s shared pool is the real ceiling. If a background process — say, a browser or a Plex transcode — also wants memory bandwidth, the iGPU's effective share drops further. The 3060 has no such contention; its 360 GB/s is exclusively for graphics work.
+Context-length impact: KV cache growth on a 192GB pool vs 12GB VRAM
+Long-context workloads are the cleanest case for unified memory. On a 13B model at FP16, every 1k tokens of context costs roughly 300–400 MB of KV cache. At 32k that is roughly 10–12 GB — already pushing the 3060 to the edge before you've loaded any weights. On a 70B model the cache scales with num_layers, and 32k context can demand 30+ GB of cache memory alone.
+A 192GB unified pool sidesteps the tradeoff. Hold a 70B model at Q4 (42GB), keep 32k or even 128k context (15–60GB of KV), and still have 70+ GB free for whatever else is on the system. On a 12GB 3060 you would need to either compress the cache (quantized KV is supported in llama.cpp now), shorten the context, or use a smaller model. For agentic workloads that thread long histories — code agents, document analyzers, anything Retrieval-Augmented — the unified pool removes a real ceiling.
+Benchmark tableau: tok/s across hardware tiers
+For perspective on where these two parts sit, here are some adjacent reference points from published benchmarks and our own runs as of 2026:
+| Hardware | Llama-3.1-8B Q4 (tok/s) | Qwen3-14B Q4 (tok/s) | 70B Q4 viable? | 
+|---|---|---|---|
+| Apple M3 Pro 36GB | 28 | 16 | Yes, ~6 tok/s | 
+| RTX 3060 12GB | 50 | 20 (tight fit) | No | 
+| Ryzen AI Max 400 192GB | 26 | 14 | Yes, ~4 tok/s | 
+| RTX 4090 24GB | 145 | 92 | Offloaded, ~10 | 
+| RTX 5090 32GB | 195 | 130 | Yes, ~22 tok/s | 
+The AMD APU and Apple's M-series sit in the same bucket: lower per-model throughput than a discrete GPU, but vastly more capacity than the consumer-tier discrete cards. The 5090 32GB is the only consumer-tier discrete card that can hold a 70B model with a useful context, and it costs roughly the same as a fully specced Gorgon Halo system.
+Perf-per-dollar and perf-per-watt math
+If your only workload is a 7B–13B chat model at small context, perf-per-dollar is not close. A used 3060 12GB at $300 generating 50 tok/s on Llama-3.1-8B is ~0.17 tok/s/$. The AMD platform starting near $1,800 generating 26 tok/s on the same model is ~0.014 tok/s/$. The 3060 is twelve times better on this single metric for this single workload.
+Perf-per-watt is closer. The AMD platform's full-system inference power can sit in the 60–110W band depending on configuration, while a 3060 build pulls 220W at the wall under load (170W card + the rest of the system). Tokens-per-joule on small models actually favors the AMD part, but the gap is not large enough to overcome the up-front cost difference unless you are running an LLM 24/7 in a high-electricity-cost region.
+For capacity workloads — 30B and up, long contexts — the equation inverts. The 3060 cannot run them at all. The AMD APU at low single-digit tok/s on a 70B model is qualitatively different from "won't load," which is what most cheap discrete cards return. If you specifically need the bigger model classes at home, the AMD part is the only sub-$2,000 way to get there in 2026.
+Verdict matrix
+Buy the Ryzen AI Max 400 192GB platform if:
+- You specifically want to run 30B–70B models at home with full quantized weights resident in memory.
+- Long context windows (16k+) on bigger models are a recurring need — agentic coders, document RAG, multi-turn research assistants.
+- Your budget can absorb a $1,800–$2,500 platform spend and you accept slower per-model token rates as a fair trade for capacity.
+- You value lower system power and a single-box footprint over discrete-GPU expandability.
+Buy a 12GB RTX 3060 if:
+- You are running 7B–13B models in chat, coding assistant, retrieval, or speech roles.
+- You want the mature CUDA stack — llama.cpp, Ollama, vLLM, ExLlamaV2 — to just work on day one.
+- Budget is the dominant constraint and you want to keep the door open to add a second GPU later.
+- You also use the box for Stable Diffusion or ComfyUI; the 3060 is the de-facto budget pick for both workloads.
+Pair the 3060 with an 8-core CPU like the AMD Ryzen 7 5800X if you plan to keep the build for a few years. Multi-threaded prompt-processing and CPU-side embeddings benefit from the extra cores, and the AM4 platform stays cheap into 2026.
+Bottom line
+In 2026 the Ryzen AI Max 400 "Gorgon Halo" is the cheapest path to home 70B inference. It is not the fastest path to 8B–13B inference; the used 12GB RTX 3060 keeps that crown for a sub-$400 budget. Buy the AMD platform if you specifically need the capacity; buy the 3060 if you do not. Almost nobody benefits from owning both.
+The right move for most local-AI hobbyists in 2026 is still a 3060 12GB with a strong AM4 host like the 5800X, because the model classes that fit in 12GB cover 90% of practical chat, coding, and retrieval use cases. Reserve the unified-memory APU for the actual 30B+ workloads — and only if you have benchmarked your job and confirmed it does not run acceptably on the smaller class.

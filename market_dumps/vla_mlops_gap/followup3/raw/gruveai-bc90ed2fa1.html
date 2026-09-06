@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v28.1 - https://yoast.com/product/yoast-seo-wordpress/ -->
+	<title>Policy Drift: Definition and Key Concepts</title>
+	<meta name="description" content="Find out about Policy Drift and its role in modern AI security. Understanding Policy Drift In cybersecurity, policy drift often manifests in server." />
+	<link rel="canonical" href="https://gruve.ai/in/ai-security-essentials/policy-drift/" />
+	<meta property="og:locale" content="en_US" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Policy Drift: Definition and Key Concepts" />
+	<meta property="og:description" content="Find out about Policy Drift and its role in modern AI security. Understanding Policy Drift In cybersecurity, policy drift often manifests in server." />
+	<meta property="og:url" content="https://gruve.ai/in/ai-security-essentials/policy-drift/" />
+	<meta property="og:site_name" content="Gruve India" />
+	<meta property="article:modified_time" content="2026-04-21T08:59:55+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:label1" content="Est. reading time" />
+	<meta name="twitter:data1" content="2 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"https:\/\/gruve.ai\/in\/ai-security-essentials\/policy-drift\/","url":"https:\/\/gruve.ai\/in\/ai-security-essentials\/policy-drift\/","name":"Policy Drift: Definition and Key Concepts","isPartOf":{"@id":"https:\/\/gruve.ai\/in\/#website"},"datePublished":"2026-04-06T12:21:43+00:00","dateModified":"2026-04-21T08:59:55+00:00","description":"Find out about Policy Drift and its role in modern AI security. Understanding Policy Drift In cybersecurity, policy drift often manifests in server.","breadcrumb":{"@id":"https:\/\/gruve.ai\/in\/ai-security-essentials\/policy-drift\/#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["https:\/\/gruve.ai\/in\/ai-security-essentials\/policy-drift\/"]}]},{"@type":"BreadcrumbList","@id":"https:\/\/gruve.ai\/in\/ai-security-essentials\/policy-drift\/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https:\/\/gruve.ai\/in\/"},{"@type":"ListItem","position":2,"name":"Glossary","item":"https:\/\/gruve.ai\/in\/ai-security-essentials\/"},{"@type":"ListItem","position":3,"name":"Policy Drift"}]},{"@type":"WebSite","@id":"https:\/\/gruve.ai\/in\/#website","url":"https:\/\/gruve.ai\/in\/","name":"Gruve India","description":"","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https:\/\/gruve.ai\/in\/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='dns-prefetch' href='//cdnjs.cloudflare.com' />
+<link rel='dns-prefetch' href='//cdn.jsdelivr.net' />
+<link rel='dns-prefetch' href='//fonts.googleapis.com' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://gruve.ai/in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgruve.ai%2Fin%2Fai-security-essentials%2Fpolicy-drift%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://gruve.ai/in/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fgruve.ai%2Fin%2Fai-security-essentials%2Fpolicy-drift%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='font-awesome-css' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css' media='all' />
+<link rel='stylesheet' id='owl-css-css' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css' media='all' />
+<link rel='stylesheet' id='owl-theme-css-css' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css' media='all' />
+<link rel='stylesheet' id='theme-style-css' href='https://gruve.ai/in/wp-content/themes/gruveai/style.css?ver=1748957588' media='all' />
+<link rel='stylesheet' id='theme-design-style-css' href='https://gruve.ai/in/wp-content/themes/gruveai/assets/css/design.css?ver=1778128640' media='all' />
+<link rel='stylesheet' id='contact-form-7-css' href='https://gruve.ai/in/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.1.6' media='all' />
+<link rel='stylesheet' id='gruve-mega-menu-css' href='https://gruve.ai/in/wp-content/themes/gruveai/IMEA/assets/css/mega-menu.css?ver=1.0' media='all' />
+<link rel='stylesheet' id='gruve-glossary-css' href='https://gruve.ai/in/wp-content/themes/gruveai/assets/css/glossary.css?ver=1787728271' media='all' />
+<link rel='stylesheet' id='gruve-geo-topbar-css' href='https://gruve.ai/in/wp-content/themes/gruveai/assets/css/geo-topbar.css?ver=1785679349' media='all' />
+<link rel='stylesheet' id='gruve-geo-suggest-css' href='https://gruve.ai/in/wp-content/themes/gruveai/assets/css/geo-suggest.css?ver=1785679113' media='all' />
+<link rel='stylesheet' id='searchwp-live-search-css' href='https://gruve.ai/in/wp-content/plugins/searchwp-live-ajax-search/assets/styles/style.min.css?ver=1.8.7' media='all' />
+<style id="searchwp-live-search-inline-css">
+.searchwp-live-search-result .searchwp-live-search-result--title a {
+  font-size: 16px;
+}
+.searchwp-live-search-result .searchwp-live-search-result--price {
+  font-size: 14px;
+}
+.searchwp-live-search-result .searchwp-live-search-result--add-to-cart .button {
+  font-size: 14px;
+}
+
+/*# sourceURL=searchwp-live-search-inline-css */
+</style>
+<link rel='stylesheet' id='gruve-v2-font-inter-css' href='https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&#038;display=swap' media='all' />
+<link rel='stylesheet' id='gruve-v2-bs-grid-css' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-grid.min.css?ver=5.3.3' media='all' />
+<link rel='stylesheet' id='gruve-v2-bs-utils-css' href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap-utilities.min.css?ver=5.3.3' media='all' />
+<link rel='stylesheet' id='gruve-v2-header-css' href='https://gruve.ai/in/wp-content/themes/gruveai/v2/assets/css/new-header.css?ver=1787207326' media='all' />
+<link rel='stylesheet' id='gruve-v2-footer-css' href='https://gruve.ai/in/wp-content/themes/gruveai/v2/assets/css/new-footer.css?ver=1782733596' media='all' />
+<link rel='stylesheet' id='gruve-v2-css-css' href='https://gruve.ai/in/wp-content/themes/gruveai/v2/assets/css/v2.css?ver=1787304009' media='all' />
+<script id="gruve-geo-suggest-js-extra">
+var gruveGeoConfig = {"suppress":"","currentPath":"/in"};
+//# sourceURL=gruve-geo-suggest-js-extra
+</script>
+<script id="gruve-geo-suggest-js" src="https://gruve.ai/in/wp-content/themes/gruveai/assets/js/geo-suggest.js?ver=1787556896"></script>
+<script id="jquery-core-js" src="https://gruve.ai/in/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://gruve.ai/in/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<link rel="https://api.w.org/" href="https://gruve.ai/in/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://gruve.ai/in/wp-json/wp/v2/gruve_glossary/994459" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://gruve.ai/in/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.1" />
+<link rel='shortlink' href='https://gruve.ai/in/?p=994459' />
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"DefinedTerm","@id":"https://gruve.ai/in/ai-security-essentials/policy-drift/#term","name":"Policy Drift","description":"Policy drift refers to the gradual or sudden deviation of a system's actual security configuration from its established, approved baseline. This can happen due to manual changes, updates, or misconfigurations over time. It weakens an organization's security posture by creating vulnerabilities that were not intended&hellip;","url":"https://gruve.ai/in/ai-security-essentials/policy-drift/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"SecurView Security Glossary","url":"https://gruve.ai/in/ai-security-essentials/"}},{"@type":"FAQPage","@id":"https://gruve.ai/in/ai-security-essentials/policy-drift/#faq","mainEntity":[{"@type":"Question","name":"What is policy drift in cybersecurity?","acceptedAnswer":{"@type":"Answer","text":"Policy drift occurs when the actual configuration of systems, networks, or applications deviates from their intended, approved security policies or baseline configurations. This deviation can happen gradually over time due to manual changes, updates, or misconfigurations. It essentially means that what is supposed to be secure is no longer in its defined secure state, creating potential vulnerabilities and compliance risks."}},{"@type":"Question","name":"Why is policy drift a problem for organizations?","acceptedAnswer":{"@type":"Answer","text":"Policy drift poses significant risks by creating security gaps that attackers can exploit. It leads to non-compliance with regulatory standards, which can result in hefty fines and reputational damage. Managing systems becomes more complex and error-prone when configurations are inconsistent. Ultimately, drift undermines an organization&#8217;s overall security posture, making it harder to detect and respond to threats effectively."}},{"@type":"Question","name":"How can organizations prevent policy drift?","acceptedAnswer":{"@type":"Answer","text":"Organizations can prevent policy drift by implementing robust configuration management tools and processes. These tools automate the enforcement of baseline configurations and continuously monitor for deviations. Regular audits and automated checks help identify and remediate drift quickly. Establishing clear change management procedures ensures that all configuration modifications are documented, reviewed, and approved before implementation, maintaining alignment with security policies."}},{"@type":"Question","name":"What are the common causes of policy drift?","acceptedAnswer":{"@type":"Answer","text":"Common causes of policy drift include manual configuration changes made without proper oversight or documentation. Emergency fixes or quick workarounds can bypass standard procedures, leading to unapproved alterations. Software updates or patches might introduce new configurations that conflict with existing policies. Additionally, a lack of automated monitoring and enforcement allows minor deviations to accumulate, gradually moving systems away from their secure baseline."}}]}]}</script>
+<link rel="icon" href="https://gruve.ai/in/wp-content/uploads/sites/3/2026/07/favicon-icon-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://gruve.ai/in/wp-content/uploads/sites/3/2026/07/favicon-icon.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://gruve.ai/in/wp-content/uploads/sites/3/2026/07/favicon-icon.png" />
+<meta name="msapplication-TileImage" content="https://gruve.ai/in/wp-content/uploads/sites/3/2026/07/favicon-icon.png" />
+        <script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  dataLayer.push({ 'region': 'in' });
+</script>    </script>
+    
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-5FQ846HN');
+    </script>
+    <!-- End Google Tag Manager -->
+
+        <!-- Warmly Script -->
+    <script id="warmly-script-loader" src="https://opps-widget.getwarmly.com/warmly.js?clientId=caef9f111410e29f9f8578a9ec63bfa8" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.9.6/lottie.min.js"></script>
+
+</head>
+
+<body class="wp-singular gruve_glossary-template-default single single-gruve_glossary postid-994459 wp-theme-gruveai design-v2">
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FQ846HN"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    
+    <header class="header-main sticky-top " >
+                <div class="container">
+            <nav class="navbar d-flex navbar-expand">
+                <div class="inner--bunch">
+                                            <a href="https://gruve.ai/in" class="navbar-brand">
+                            <div class="logo">
+                                <img src="https://gruve.ai/in/wp-content/uploads/2025/12/Logo.svg" alt="gruve-logo" />
+                            </div>
+                        </a>
+                    
+                    <!-- Mobile Menu Toggle -->
+                    <button class="navbar-toggler d-lg-none mobile-menu-btn">
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                        <span class="hamburger-line"></span>
+                    </button>
+
+                                        <!-- Desktop Menu (no collapse) -->
+                    <div class="desktop-menu">
+                        <ul id="menu-new-header-menu" class="navbar-nav mx-auto main-nav"><li class="nav-item"><a class="nav-link" href="#">What we do</a></li><li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Who we are<span class="menu-arrow menu-arrow--top"><img src="https://gruve.ai/wp-content/uploads/2025/12/Vector-1.svg" alt="submenu arrow"></span></a><ul class="sub-menu"><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/about-us/">About Us</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/leadership/">Leadership</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/life-at-gruve/">Life @ Gruve</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/careers/">Careers</a></li></ul></li><li class="nav-item dropdown"><a class="nav-link" href="https://gruve.ai/in/what-we-think/">What We Think<span class="menu-arrow menu-arrow--top"><img src="https://gruve.ai/wp-content/uploads/2025/12/Vector-1.svg" alt="submenu arrow"></span></a><ul class="sub-menu"><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/news/">News</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/blog/">Blog</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/video/">Videos</a></li><li class="nav-item submenu-item"><a class="nav-link" href="https://gruve.ai/in/success-stories/">Success Stories</a></li></ul></li><li class="nav-item"><a class="nav-link" href="https://gruve.ai/in/where-we-will-be/">Where we&#8217;ll be</a></li></ul>                    </div>
+                                        <!-- Mobile Drawer Menu -->
+                    <div class="mobile-menu-wrapper">
+                        <button class="close-mobile-menu">&times;</button>
+
+                        <!-- Mobile Region — collapsible accordion (driven by existing .submenu-toggle JS) -->
+                        <div class="mobile-menu-item has-children mobile-region-item">
+                            <button class="submenu-toggle">
+                                <span class="menu-text">Select Region</span>
+                                <span class="arrow"></span>
+                            </button>
+                            <ul class="mobile-submenu mobile-region-submenu">
+                                                                    <li>
+                                        <a href="https://gruve.ai/" data-geo-global>
+                                                                                            <i class="fa-solid fa-globe geo-flag-icon"></i>
+                                                                                        Global                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://gruve.ai/in/">
+                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/in.png" width="20" alt="" class="geo-flag">
+                                                                                        India                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://gruve.ai/sg/">
+                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/sg.png" width="20" alt="" class="geo-flag">
+                                                                                        Singapore                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://gruve.ai/ae/">
+                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/ae.webp" width="20" alt="" class="geo-flag">
+                                                                                        UAE                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://kr.gruve.ai/">
+                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/kr.png" width="20" alt="" class="geo-flag">
+                                                                                        Korea                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://gruve.jp/">
+                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/jp.png" width="20" alt="" class="geo-flag">
+                                                                                        Japan                                        </a>
+                                    </li>
+                                                            </ul>
+                        </div>
+
+                        <ul id="menu-mobile-menu" class="mobile-nav"><li class="mobile-menu-item"><a href="#" class="mobile-menu-link">What we do</a></li><li class="mobile-menu-item has-children"><a href="#" class="mobile-menu-link">Who we are
+                <button type="button" class="submenu-toggle" aria-label="Toggle submenu" aria-expanded="false">
+                    <span class="arrow"></span>
+                </button>
+            </a><ul class="mobile-submenu"><li class="mobile-menu-item"><a href="https://gruve.ai/in/about-us/" class="mobile-menu-link">About Us</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/leadership/" class="mobile-menu-link">Leadership</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/life-at-gruve/" class="mobile-menu-link">Life @ Gruve</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/careers/" class="mobile-menu-link">Careers</a></li></ul></li><li class="mobile-menu-item has-children"><a href="https://gruve.ai/in/what-we-think/" class="mobile-menu-link">What We Think
+                <button type="button" class="submenu-toggle" aria-label="Toggle submenu" aria-expanded="false">
+                    <span class="arrow"></span>
+                </button>
+            </a><ul class="mobile-submenu"><li class="mobile-menu-item"><a href="https://gruve.ai/news/" class="mobile-menu-link">News</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/blog/" class="mobile-menu-link">Blog</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/video/" class="mobile-menu-link">Videos</a></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/success-stories/" class="mobile-menu-link">Success Stories</a></li></ul></li><li class="mobile-menu-item"><a href="https://gruve.ai/in/where-we-will-be/" class="mobile-menu-link">Where we&#8217;ll be</a></li></ul>                    </div>
+
+                    <!-- Overlay -->
+                    <div class="mobile-overlay"></div>
+                </div>
+                                <div class="right-icon-header">
+                                            <div class="right-icons flex">
+                            <div class="flex globe-search-menu">
+                                <div class="search-menu-icon flex">
+                                    <img src="https://gruve.ai/wp-content/uploads/2025/12/icons-7.svg" alt="Search Icon" class="search-icon-white">
+                                    <img src="https://gruve.ai/wp-content/uploads/2025/12/icons-7.svg" alt="Search Icon" class="search-icon-green">
+                                </div>
+                                <div class="flex click-globe-icon geo-globe-trigger">
+                                    <img src="https://gruve.ai/wp-content/uploads/2025/12/icons-6.svg" alt="Globe Icon" class="click-globe-icon-green">
+                                    <img src="https://gruve.ai/wp-content/uploads/2025/12/icons-6.svg" alt="Globe Icon" class="click-globe-icon-white">
+                                    <img src="" alt="" class="current-region-flag" style="display:none;">
+                                    <span class="current-region-label">Global</span>
+                                </div>
+                                <div class="header-search-form">
+                                                                    </div>
+                                <div class="header-global-menu">
+                                    <ul>
+                                                                                    <li>
+                                                <a href="https://gruve.ai/" data-geo-global>
+                                                                                                            <i class="fa-solid fa-globe geo-flag-icon"></i>
+                                                                                                        Global                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a href="https://gruve.ai/in/">
+                                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/in.png" width="20" alt="" class="geo-flag">
+                                                                                                        India                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a href="https://gruve.ai/sg/">
+                                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/sg.png" width="20" alt="" class="geo-flag">
+                                                                                                        Singapore                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a href="https://gruve.ai/ae/">
+                                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/ae.webp" width="20" alt="" class="geo-flag">
+                                                                                                        UAE                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a href="https://kr.gruve.ai/">
+                                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/kr.png" width="20" alt="" class="geo-flag">
+                                                                                                        Korea                                                </a>
+                                            </li>
+                                                                                    <li>
+                                                <a href="https://gruve.jp/">
+                                                                                                            <img src="https://gruve.ai/in/wp-content/themes/gruveai/assets/img/jp.png" width="20" alt="" class="geo-flag">
+                                                                                                        Japan                                                </a>
+                                            </li>
+                                                                            </ul>
+                                </div>
+                            </div>
+                        </div>
+                                        <a href="https://gruve.ai/in/contact-us/"
+                        target="_self"
+                        class="btn btn-yellow header-btn">
+                        Let&#039;s talk                    </a>
+                </div>
+                            </nav>
+        </div>
+
+        
+<div class="gruve-mega" id="gruveMega" aria-hidden="true" data-mm-view="pillars">
+
+    <!-- Mobile-only top bar (hidden >= 992px) -->
+    <div class="gruve-mega__mobilebar">
+        <button type="button" class="gruve-mega__back" aria-label="Back">
+            <span aria-hidden="true">&lsaquo;</span> Back        </button>
+        <span class="gruve-mega__mobilebar-title">What we do</span>
+        <button type="button" class="gruve-mega__close" aria-label="Close menu">&times;</button>
+    </div>
+
+    <div class="gruve-mega__main">
+
+        <!-- Column 1: Pillars -->
+        <div class="gruve-mega__pillars">
+            <span class="gruve-mega__eyebrow">Our Pillars</span>
+            <ul class="gruve-mega__pillar-list" role="tablist">
+                                                        <li>
+                                                    <div class="gruve-mega__pillar-card">                            <button type="button"
+                                class="gruve-mega__pillar is-active"
+                                data-mm-pillar="0"
+                                role="tab"
+                                aria-selected="true">
+                                <span class="gruve-mega__pillar-top">
+                                    <span class="gruve-mega__pillar-label">Cybersecurity</span>
+                                                                            <span class="gruve-mega__badge">AI-POWERED</span>
+                                                                    </span>
+                                                                    <span class="gruve-mega__pillar-sub">Secure AI</span>
+                                                            </button>
+                                                            <a class="gruve-mega__learn-more" href="https://gruve.ai/in/cybersecurity/">
+                                    Learn More                                    <span class="mm-arrow" aria-hidden="true">&rarr;</span>
+                                </a>
+                            </div>
+                                                                        </li>
+                                                        <li>
+                                                    <a class="gruve-mega__pillar gruve-mega__pillar--link" href="https://gruve.ai/in/pulseai">
+                                <span class="gruve-mega__pillar-top">
+                                    <span class="gruve-mega__pillar-label">AI Platform</span>
+                                                                        <span class="gruve-mega__pillar-go" aria-hidden="true">&#8599;</span>
+                                </span>
+                                                                    <span class="gruve-mega__pillar-sub">Secured data sovereignty</span>
+                                                            </a>
+                                            </li>
+                            </ul>
+        </div>
+
+        <!-- Column 2: Grouped items (one list per pillar) -->
+        <div class="gruve-mega__groups">
+                            <div class="gruve-mega__group-set is-active"
+                    data-mm-group-set="0">
+
+                                                                                <span class="gruve-mega__eyebrow">SECURE YOUR AI</span>
+                            
+                                                            <ul class="gruve-mega__item-list">
+                                                                                                                    <li>
+                                                                                            <a class="gruve-mega__item is-active"
+                                                    href="https://gruve.ai/in/ai-security-india/"
+                                                    data-mm-item="0-0">
+                                                    <span class="gruve-mega__item-label">AI Security</span>
+                                                                                                            <span class="gruve-mega__badge gruve-mega__badge--new">NEW</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                            </ul>
+                                                                                                                    <span class="gruve-mega__eyebrow">UNDERSTAND YOUR RISK</span>
+                            
+                                                            <ul class="gruve-mega__item-list">
+                                                                                                                    <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/risk-exposure/"
+                                                    data-mm-item="0-1">
+                                                    <span class="gruve-mega__item-label">Risk &amp; Exposure</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                                                                            <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/governance-risk-compliance/"
+                                                    data-mm-item="0-2">
+                                                    <span class="gruve-mega__item-label">Governance, Risk &amp; Compliance</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                            </ul>
+                                                                                                                    <span class="gruve-mega__eyebrow">Protect what matters</span>
+                            
+                                                            <ul class="gruve-mega__item-list">
+                                                                                                                    <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/identity-access-management/"
+                                                    data-mm-item="0-3">
+                                                    <span class="gruve-mega__item-label">Identity Security</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                                                                            <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/data-security/"
+                                                    data-mm-item="0-4">
+                                                    <span class="gruve-mega__item-label">Data Security &amp; Privacy</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                                                                            <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/cloud-application-security/"
+                                                    data-mm-item="0-5">
+                                                    <span class="gruve-mega__item-label">Cloud &amp; Application</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                                                                            <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/network-security/"
+                                                    data-mm-item="0-6">
+                                                    <span class="gruve-mega__item-label">Network Security</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                            </ul>
+                                                                                                                    <span class="gruve-mega__eyebrow">Detect &amp; Respond</span>
+                            
+                                                            <ul class="gruve-mega__item-list">
+                                                                                                                    <li>
+                                                                                            <a class="gruve-mega__item"
+                                                    href="https://gruve.ai/in/detection-response/"
+                                                    data-mm-item="0-7">
+                                                    <span class="gruve-mega__item-label">Detection &amp; Response</span>
+                                                                                                        <span class="gruve-mega__chev" aria-hidden="true">&rsaquo;</span>
+                                                </a>
+                                                                                    </li>
+                                                                                                            </ul>
+                                                                        </div>
+                            <div class="gruve-mega__group-set"
+                    data-mm-group-set="1">
+
+                                    </div>
+                    </div>
+
+        <!-- Column 3: Detail panels (one per item) -->
+        <div class="gruve-mega__panels">
+                                                        <div class="gruve-mega__panel is-active"
+                                data-mm-panel="0-0">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">AI Security</h3>
+                                        <a href="https://gruve.ai/in/ai-security-india/" target="_self" class="gruve-mega__view-all">View all ai security <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Secure your AI agents, MCP servers, LLM data pipelines and AI SOC.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/ai-security-assessment/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">AI Security Assessment</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Find AI risks early</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-ai-runtime-security/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed AI Runtime Security</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Real-time AI guardrails</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-ai-agent-mcp-security/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed AI Agent &amp; MCP Security</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Autonomous agents and tool access</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-shadow-ai-governance/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed Shadow AI Governance</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Govern AI used outside IT</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-ai-data-security/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed AI Data Security</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Protect AI data end to end</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/ai-governance-compliance-programme/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">AI Governance &amp; Compliance</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Make AI risk accountable</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-1">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Risk &amp; Exposure</h3>
+                                        <a href="https://gruve.ai/in/risk-exposure/" target="_self" class="gruve-mega__view-all">View all risk &amp; exposure <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Preempt the attackers </p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/penetration-testing/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Penetration Testing</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Test every attack surface</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/vulnerability-management-as-a-service/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Vulnerability Management &amp; VMaaS</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Find, fix, and verify</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/external-attack-surface-management/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Attack Surface Management (EASM)</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Continuously map your exposure</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/red-team-purple-team-bas/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Red Team, Purple Team &amp; BAS</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Prove your defences work</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/security-posture-third-party-risk-assessment/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Security Posture &amp; Third-Party Risk Assessment</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Assess internal and vendor risk</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-2">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Governance, Risk &amp; Compliance</h3>
+                                        <a href="https://gruve.ai/in/governance-risk-compliance/" target="_self" class="gruve-mega__view-all">View all governance, risk &amp; compliance <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Continuous compliance across DPDP, MAS TRM and NESA.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Access</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/compliance-readiness/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Compliance Readiness &amp; Certification</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Get audit-ready faster</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/grc-platform-implementation/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">GRC Platform Implementation</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Tooling that fits your control set</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/continuous-compliance-monitoring/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Continuous Compliance Monitoring</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Evidence that stays current</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/ciso-as-a-service/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">CISO as a Service (vCISO)</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Expert security leadership on demand</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/privacy-ai-governance-readiness/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Privacy &amp; AI Governance Readiness</span>
+                                                                                                                    <span class="gruve-mega__card-sub">DPDP, and what comes after it</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-3">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Identity Security</h3>
+                                        <a href="https://gruve.ai/in/identity-access-management/" target="_self" class="gruve-mega__view-all">View all identity security <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Control every identity. Secure every access.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-identity-operations/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed Identity Operations</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Run Identity Securely</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/pam-as-a-service/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">PAM as a Service</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Contain your highest-risk accounts</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/iam-iga-ciam-implementation/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">IAM / IGA / CIAM Implementation</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Secure workforce and customer identity</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/zero-trust-access-enablement/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Zero Trust Access Enablement</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Verify every access request</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/identity-migration-maturity-assessment/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Identity Migration &amp; Maturity Assessment</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Assess identity. Plan the next step.</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-4">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Data Security &amp; Privacy</h3>
+                                        <a href="https://gruve.ai/in/data-security/" target="_self" class="gruve-mega__view-all">View all data security &amp; privacy <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Know your data. Protect what matters.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-dspm-ai-data-governance/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed DSPM &amp; AI Data Governance</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Protect sensitive data across cloud and AI</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-data-protection-dlp/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed Data Protection &amp; DLP</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Stop sensitive data from leaving</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-insider-threat/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed Insider Threat</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Risk from inside the badge line</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/dlp-dspm-implementation/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">DLP / DSPM Implementation</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Deploy data protection right</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/data-security-edrm-assessment/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Data Security &amp; EDRM Assessment</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Discover where your data lives</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-5">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Cloud &amp; Application</h3>
+                                        <a href="https://gruve.ai/in/cloud-application-security/" target="_self" class="gruve-mega__view-all">View all Cloud &amp; Application <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Secure cloud, apps, and APIs from build to run.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-cnapp/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed CNAPP</span>
+                                                                                                                    <span class="gruve-mega__card-sub">See and prioritize cloud risk</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-cloud-security-posture-management/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed CSPM</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Continuously secure your cloud posture</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-kubernetes-runtime-security/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed Kubernetes &amp; Runtime Security</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Secure containers at runtime</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/cloud-security-architecture-landing-zone/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Cloud Security Architecture &amp; Landing Zone</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Build a secure cloud foundation</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/cloud-container-security-assessment/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Cloud &amp; Container Security Assessment</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Find risks before deployment</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-6">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Network Security</h3>
+                                        <a href="https://gruve.ai/in/network-security/" target="_self" class="gruve-mega__view-all">View all Network Security <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Secure every connection, from cloud to factory</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/ngfw-lifecycle-services/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">NGFW Management Services</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Run firewalls securely, 24/7</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/sase-sse/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">SASE &amp; SSE</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Secure users wherever they work</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/microsegmentation-zero-trust-network/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Microsegmentation &amp; Zero Trust Network</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Limit lateral movement</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/ddos-waap-email-security/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">DDoS, WAAP &amp; Email Security</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Keep critical services online</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/network-detection-response-implementation/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Network Detection &amp; Response (NDR)</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Detect threats in network traffic</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/otiot-nac-cloud-ngfw-sd-wan/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">OT/IoT, NAC, Cloud NGFW &amp; SD-WAN</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Secure every connected environment</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                        <div class="gruve-mega__panel"
+                                data-mm-panel="0-7">
+
+                                <div class="gruve-mega__topbar">
+                                    <span>New here?</span>
+                                    <a href="/in/cybersecurity/" target="_self" class="gruve-mega__topbar-link"> Start with the Cybersecurity overview, how our 8 domains work together <span class="mm-arrow" aria-hidden="true">→</span></a>
+                                </div>
+
+                                <div class="gruve-mega__panel-body">
+                                    <div class="gruve-mega__panel-head">
+                                        <h3 class="gruve-mega__panel-title">Detection &amp; Response</h3>
+                                        <a href="https://gruve.ai/in/detection-response" target="_self" class="gruve-mega__view-all">View All Detection &amp; Response <span class="mm-arrow" aria-hidden="true">&rarr;</span></a>                                    </div>
+
+                                                                            <p class="gruve-mega__panel-desc">Detect threats faster. Respond in minutes.</p>
+                                    
+                                                                            <div class="gruve-mega__tags">
+                                                                                                                                                <span class="gruve-mega__tag">Assess</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Build</span>
+                                                                                                                                                                                                <span class="gruve-mega__tag">Operate</span>
+                                                                                                                                    </div>
+                                    
+                                                                            <div class="gruve-mega__cards">
+                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-ai-soc/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed AI SOC</span>
+                                                                                                                    <span class="gruve-mega__card-sub">AI-powered detection, managed 24/7</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/co-managed-soc/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Co-Managed SOC</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Extend your team with SOC expertise</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-xdr-edr/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed XDR/EDR</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Detect and contain endpoint threats</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-threat-hunting/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Threat Hunting &amp; Detection Engineering</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Find threats your rules miss</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/managed-ndr/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">Managed NDR</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Detect threats across network traffic</span>
+                                                                                                            </a>
+                                                                                                                                                                                                <a class="gruve-mega__card"
+                                                        href="https://gruve.ai/in/soc-advisory-siem-migration-implementation/"
+                                                        target="_self">
+                                                        <span class="gruve-mega__card-title">SOC Advisory, SIEM Migration &amp; Implementation</span>
+                                                                                                                    <span class="gruve-mega__card-sub">Build, migrate, and optimize your SOC</span>
+                                                                                                            </a>
+                                                                                                                                    </div>
+                                                                    </div>
+                            </div>
+                                                                            </div>
+    </div>
+
+    <!-- Industries strip -->
+            <div class="gruve-mega__industries">
+            <div class="gruve-mega__industries-head">
+                                    <span class="gruve-mega__eyebrow">INDUSTRY WE SERVE</span>
+                                            </div>
+            <div class="gruve-mega__industry-grid">
+                                                            <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">BFSI</span>
+                                                            <span class="gruve-mega__industry-sub">RBI and DPDP-ready operations</span>
+                                                    </a>
+                                                                                <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">Healthcare</span>
+                                                            <span class="gruve-mega__industry-sub">Protect patient data, stay audit-ready</span>
+                                                    </a>
+                                                                                <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">Technology</span>
+                                                            <span class="gruve-mega__industry-sub">Secure fast-moving product teams</span>
+                                                    </a>
+                                                                                <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">Telecom</span>
+                                                            <span class="gruve-mega__industry-sub">Reliable, protected, always-on</span>
+                                                    </a>
+                                                                                <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">Manufacturing</span>
+                                                            <span class="gruve-mega__industry-sub">Defend OT, IT and supply chains</span>
+                                                    </a>
+                                                                                <a class="gruve-mega__industry"
+                            href="#"
+                            target="_self">
+                            <span class="gruve-mega__industry-title">Government</span>
+                                                            <span class="gruve-mega__industry-sub">Sovereign, compliant, resilient</span>
+                                                    </a>
+                                                </div>
+        </div>
+    
+    <!-- Footer bar -->
+    </div>    </header>
+<main class="gl gl--entry" id="main">
+
+	<article class="gl-entry">
+
+		<header class="gl-entry__head">
+
+			<nav class="gl-crumb" aria-label="Breadcrumb">
+				<a href="https://gruve.ai/in/ai-security-essentials/">AI Security Essentials</a>
+									<span aria-hidden="true">&rarr;</span>
+					<a href="https://gruve.ai/in/ai-security-essentials/browse/p/">P</a>
+							</nav>
+
+			<h1 class="gl-headword">Policy Drift</h1>
+
+							<div class="gl-sense">
+					<span class="gl-sense__mark" aria-hidden="true">&mdash;</span>
+					<div class="gl-sense__text"><p>Policy drift refers to the gradual or sudden deviation of a system&#8217;s actual security configuration from its established, approved baseline. This can happen due to manual changes, updates, or misconfigurations over time. It weakens an organization&#8217;s security posture by creating vulnerabilities that were not intended or accounted for in the original design.</p>
+</div>
+				</div>
+			
+		</header>
+
+		<div class="gl-entry__grid">
+
+							<aside class="gl-apparatus">
+					<nav aria-label="In this entry">
+						<p class="gl-apparatus__label">In this entry</p>
+						<ol>
+															<li><a href="#understanding">Understanding</a></li>
+															<li><a href="#mechanism">How it works</a></li>
+															<li><a href="#usage">Where it appears</a></li>
+															<li><a href="#practice">In practice</a></li>
+															<li><a href="#misread">Commonly misread</a></li>
+															<li><a href="#questions">Questions</a></li>
+													</ol>
+					</nav>
+				</aside>
+			
+			<div class="gl-entry__body">
+
+									<section class="gl-fold" id="understanding">
+						<h2 class="gl-eyebrow">Understanding</h2>
+						<div class="gl-prose"><p>In <a href="/in/ai-security-essentials/cybersecurity/">cybersecurity</a>, policy drift often manifests in server configurations, network device settings, or cloud environment policies. For example, an administrator might temporarily open a <a href="/in/ai-security-essentials/firewall/">firewall</a> port for troubleshooting and forget to close it, or a new software installation might alter system permissions. Automated configuration management tools are crucial for detecting such deviations by continuously comparing current states against defined baselines. These tools can alert <a href="/in/ai-security-essentials/security/">security</a> teams to unauthorized changes, allowing for prompt remediation and ensuring systems remain compliant with security policies. Regular audits and automated checks are essential practices to identify and correct drift before it leads to security incidents.</p>
+<p>Managing policy drift is a shared responsibility, involving IT operations, security teams, and governance bodies. Effective governance requires clear policies, documented baselines, and a change management process. Uncontrolled drift significantly increases an organization&#8217;s attack surface and compliance risks. It can lead to data breaches, regulatory fines, and operational disruptions. Strategically, preventing policy drift ensures consistent security enforcement, reduces operational overhead from reactive fixes, and strengthens overall cyber resilience against evolving threats.</p>
+</div>
+					</section>
+				
+									<section class="gl-fold" id="mechanism">
+						<h2 class="gl-eyebrow">How it works</h2>
+						<div class="gl-prose"><p>Policy drift occurs when the current state of a system&#8217;s configuration no longer matches its approved baseline. This deviation often starts with small, unrecorded changes made during troubleshooting, updates, or routine operations. Without automated enforcement or regular checks, these changes accumulate. Tools designed to detect drift continuously monitor system configurations, comparing them against a predefined golden image or policy template. When a discrepancy is found, it flags the deviation, indicating a potential security gap or compliance violation. This mechanism helps identify unauthorized modifications that could introduce vulnerabilities or weaken security posture.</p>
+<p>Managing policy drift is an ongoing lifecycle process. It involves defining clear policies, establishing baselines, continuously monitoring for deviations, and then remediating any detected drift. Effective governance requires clear roles and responsibilities for policy definition and enforcement. Integration with configuration management databases CMDBs and security information and event management SIEM systems enhances visibility. This allows for automated alerts and streamlined incident response when drift is detected, ensuring policies remain consistent across the environment.</p>
+</div>
+					</section>
+				
+									<section class="gl-fold" id="usage">
+						<h2 class="gl-eyebrow">Where it appears</h2>
+													<p class="gl-lede">Organizations commonly use policy drift detection to maintain consistent security postures and ensure compliance across their diverse IT infrastructure.</p>
+												<ul class="gl-cases">
+																							<li>Ensuring server configurations remain compliant with internal security standards and regulatory mandates.</li>
+																							<li>Detecting unauthorized changes to critical network device settings that could create backdoors.</li>
+																							<li>Validating cloud resource configurations against defined security blueprints to prevent misconfigurations.</li>
+																							<li>Monitoring database access controls and schema changes to prevent data exfiltration risks.</li>
+																							<li>Automating alerts for deviations in endpoint security software settings across user devices.</li>
+													</ul>
+					</section>
+				
+									<section class="gl-fold" id="practice">
+						<h2 class="gl-eyebrow">In practice</h2>
+						<ul class="gl-rules">
+																							<li>Regularly define and update your security baselines to reflect current best practices and requirements.</li>
+																							<li>Implement automated tools for continuous monitoring to detect policy drift in real-time.</li>
+																							<li>Establish a clear process for reviewing and approving any necessary configuration changes to prevent unauthorized drift.</li>
+																							<li>Integrate drift detection with your incident response plan to quickly address and remediate deviations.</li>
+													</ul>
+					</section>
+				
+									<section class="gl-fold" id="misread">
+						<h2 class="gl-eyebrow">Commonly misread</h2>
+						<div class="gl-misreads">
+															<div class="gl-misread">
+																			<p class="gl-misread__claim">
+											<span class="gl-misread__tag" aria-hidden="true">&times;</span>
+											Policy drift is only about security.										</p>
+																												<div class="gl-misread__fix"><p>While critical for security, policy drift also impacts compliance, operational stability, and performance. Deviations can break applications, cause outages, or lead to audit failures, extending beyond just security vulnerabilities.</p>
+</div>
+																	</div>
+															<div class="gl-misread">
+																			<p class="gl-misread__claim">
+											<span class="gl-misread__tag" aria-hidden="true">&times;</span>
+											Manual checks are sufficient for drift detection.										</p>
+																												<div class="gl-misread__fix"><p>Manual checks are prone to human error and are not scalable for complex environments. Automated tools provide continuous, consistent monitoring, significantly reducing the time to detect and respond to policy deviations across many systems.</p>
+</div>
+																	</div>
+															<div class="gl-misread">
+																			<p class="gl-misread__claim">
+											<span class="gl-misread__tag" aria-hidden="true">&times;</span>
+											Fixing drift is always about reverting changes.										</p>
+																												<div class="gl-misread__fix"><p>Remediation isn&#8217;t always a simple rollback. Sometimes, the &#8220;drifted&#8221; state is a necessary, approved change that was not updated in the baseline. The process should involve validating the change before deciding to revert or update the policy.</p>
+</div>
+																	</div>
+													</div>
+					</section>
+				
+									<section class="gl-fold" id="questions">
+						<h2 class="gl-eyebrow">Questions</h2>
+												<div class="gl-qa">
+																							<details class="gl-q" open>
+									<summary>
+										<span class="gl-q__text">What is policy drift in cybersecurity?</span>
+										<span class="gl-q__toggle" aria-hidden="true"></span>
+									</summary>
+									<div class="gl-q__a"><p>Policy drift occurs when the actual configuration of systems, networks, or applications deviates from their intended, approved security policies or baseline configurations. This deviation can happen gradually over time due to manual changes, updates, or misconfigurations. It essentially means that what is supposed to be secure is no longer in its defined secure state, creating potential vulnerabilities and compliance risks.</p>
+</div>
+								</details>
+																							<details class="gl-q">
+									<summary>
+										<span class="gl-q__text">Why is policy drift a problem for organizations?</span>
+										<span class="gl-q__toggle" aria-hidden="true"></span>
+									</summary>
+									<div class="gl-q__a"><p>Policy drift poses significant risks by creating security gaps that attackers can exploit. It leads to non-compliance with regulatory standards, which can result in hefty fines and reputational damage. Managing systems becomes more complex and error-prone when configurations are inconsistent. Ultimately, drift undermines an organization&#8217;s overall security posture, making it harder to detect and respond to threats effectively.</p>
+</div>
+								</details>
+																							<details class="gl-q">
+									<summary>
+										<span class="gl-q__text">How can organizations prevent policy drift?</span>
+										<span class="gl-q__toggle" aria-hidden="true"></span>
+									</summary>
+									<div class="gl-q__a"><p>Organizations can prevent policy drift by implementing robust configuration management tools and processes. These tools automate the enforcement of baseline configurations and continuously monitor for deviations. Regular audits and automated checks help identify and remediate drift quickly. Establishing clear change management procedures ensures that all configuration modifications are documented, reviewed, and approved before implementation, maintaining alignment with security policies.</p>
+</div>
+								</details>
+																							<details class="gl-q">
+									<summary>
+										<span class="gl-q__text">What are the common causes of policy drift?</span>
+										<span class="gl-q__toggle" aria-hidden="true"></span>
+									</summary>
+									<div class="gl-q__a"><p>Common causes of policy drift include manual configuration changes made without proper oversight or documentation. Emergency fixes or quick workarounds can bypass standard procedures, leading to unapproved alterations. Software updates or patches might introduce new configurations that conflict with existing policies. Additionally, a lack of automated monitoring and enforcement allows minor deviations to accumulate, gradually moving systems away from their secure baseline.</p>
+</div>
+								</details>
+													</div>
+					</section>
+				
+			</div>
+		</div>
+	</article>
+
+				<aside class="gl-crossref">
+				<div class="gl-crossref__inner">
+					<h2 class="gl-eyebrow">See also</h2>
+					<ul class="gl-crossref__list">
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/process-hollowing/">
+									Process Hollowing								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/perimeter-breach/">
+									Perimeter Breach								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/persistence-techniques/">
+									Persistence Techniques								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/privileged-credential-exposure/">
+									Privileged Credential Exposure								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/proxy-security/">
+									Proxy Security								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/privileged-role-definition/">
+									Privileged Role Definition								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/posture-drift/">
+									Posture Drift								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/public-key-trust-model/">
+									Public Key Trust Model								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/protocol-fingerprinting/">
+									Protocol Fingerprinting								</a>
+							</li>
+													<li>
+								<a href="https://gruve.ai/in/ai-security-essentials/process-trust-validation/">
+									Process Trust Validation								</a>
+							</li>
+											</ul>
+					<a class="gl-crossref__more" href="https://gruve.ai/in/ai-security-essentials/browse/p/">
+						All 122 terms under P					</a>
+				</div>
+			</aside>
+		
+</main>
+
+<footer class="footer-container footer-layout-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-xs-12 col-sm-12 col-md-3">
+                
+                <div class="footer-left-section">
+
+                    <a href="https://gruve.ai/in/" class="footer-brand">
+                        <img src="https://gruve.ai/in/wp-content/uploads/2026/01/gruve-logo-white-tagline.svg" alt="" class="footer-logo"/>                    </a>
+
+                                            <div class="footer--subsidairies--box">
+                                                            <div class="footer--innersubsd-box">
+                                    <a href="https://gruve.ai/pulseai/" target="_blank" rel="noopener">
+                                        <img src="https://gruve.ai/in/wp-content/uploads/2026/06/Pulse-2.svg" alt=""/>                                    </a>
+                                </div>
+                                                            <div class="footer--innersubsd-box">
+                                    <a href="https://www.securview.com/" target="_blank" rel="noopener">
+                                        <img src="https://gruve.ai/in/wp-content/uploads/2026/06/Gruve-Logo-White-1.svg" alt=""/>                                    </a>
+                                </div>
+                                                    </div>
+                    
+                </div>
+
+                
+                                    <div class="footer-social-list">
+                                                    <a href="https://www.linkedin.com/company/gruveai/" target="_blank" rel="noopener" class="footer-social-item">
+                                <div class="footer-social-icon">
+                                    <img src="https://gruve.ai/in/wp-content/uploads/2025/04/linkedin.svg" alt="LinkedIn"/>                                </div>
+                            </a>
+                                                    <a href="https://x.com/Gruve_ai" target="_blank" rel="noopener" class="footer-social-item">
+                                <div class="footer-social-icon">
+                                    <img src="https://gruve.ai/in/wp-content/uploads/2025/04/x.svg" alt="X"/>                                </div>
+                            </a>
+                                                    <a href="https://www.youtube.com/@Gruve-AI" target="_blank" rel="noopener" class="footer-social-item">
+                                <div class="footer-social-icon">
+                                    <img src="https://gruve.ai/in/wp-content/uploads/2026/01/youtube-icon.svg" alt=""/>                                </div>
+                            </a>
+                                            </div>
+                
+            </div>
+            <div class="col-lg-6 col-xs-12 col-sm-12 col-md-6">
+                <div class="footer-list-main-container">
+                    <div class="footer-menu-list">
+                        <a href="https://gruve.ai/in/pulseai/" class="footer-menu-link">PulseAI</a></li>
+<a href="https://gruve.ai/in/ai-security-india/" class="footer-menu-link">AI Security</a></li>
+<a href="https://gruve.ai/in/managed-ai-soc/" class="footer-menu-link">Managed AI SOC</a></li>
+<a href="https://gruve.ai/in/detection-response/" class="footer-menu-link">Detection and Response</a></li>
+<a href="https://gruve.ai/in/risk-exposure/" class="footer-menu-link">Risk &amp; Exposure</a></li>
+                    </div>
+
+                    <div class="footer-menu-list">
+                        <a href="https://gruve.ai/in/about-us/" class="footer-menu-link">About Us</a></li>
+<a href="https://gruve.ai/in/gruve-frequently-asked-questions/" class="footer-menu-link">FAQs</a></li>
+<a href="https://gruve.ai/blog/" class="footer-menu-link">Blog</a></li>
+<a href="https://gruve.ai/in/careers/" class="footer-menu-link">Careers</a></li>
+<a href="https://gruve.ai/in/partners/" class="footer-menu-link">Partners</a></li>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-xs-12 col-sm-12 col-md-3">
+                                    <div class="footer-button-talk">
+                        <a href="https://gruve.ai/in/contact-us/"
+                            target="_self"
+                            class="btn btn-transparent">
+                            Contact us                        </a>
+                    </div>
+                            </div>
+        </div>
+
+        <div class="footer-bottom-box">
+            <div class="footer-bottom-list">
+                <a href="https://gruve.ai/in/privacy-policy/" class="footer-legal-link">Privacy Policy</a></li>
+<a href="https://gruve.ai/in/terms-of-service/" class="footer-legal-link">Terms of Service</a></li>
+<a href="https://trust.gruve.ai/" class="footer-legal-link">Trust center</a></li>
+            </div>
+                            <div class="footer-copyright">
+                    © 2026 Gruve Inc. All rights reserved.                </div>
+            
+        </div>
+    </div>
+</footer>
+<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/in/*"},{"not":{"href_matches":["/in/wp-*.php","/in/wp-admin/*","/in/wp-content/uploads/sites/3/*","/in/wp-content/*","/in/wp-content/plugins/*","/in/wp-content/themes/gruveai/*","/in/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+        <style>
+            .searchwp-live-search-results {
+                opacity: 0;
+                transition: opacity .25s ease-in-out;
+                -moz-transition: opacity .25s ease-in-out;
+                -webkit-transition: opacity .25s ease-in-out;
+                height: 0;
+                overflow: hidden;
+                z-index: 9999995; /* Exceed SearchWP Modal Search Form overlay. */
+                position: absolute;
+                display: none;
+            }
+
+            .searchwp-live-search-results-showing {
+                display: block;
+                opacity: 1;
+                height: auto;
+                overflow: auto;
+            }
+
+            .searchwp-live-search-no-results {
+                padding: 3em 2em 0;
+                text-align: center;
+            }
+
+            .searchwp-live-search-no-min-chars:after {
+                content: "Continue typing";
+                display: block;
+                text-align: center;
+                padding: 2em 2em 0;
+            }
+        </style>
+                <script>
+            var _SEARCHWP_LIVE_AJAX_SEARCH_BLOCKS = true;
+            var _SEARCHWP_LIVE_AJAX_SEARCH_ENGINE = 'default';
+            var _SEARCHWP_LIVE_AJAX_SEARCH_CONFIG = 'default';
+        </script>
+        <script id="rocket-browser-checker-js-after">
+"use strict";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||!1,descriptor.configurable=!0,"value"in descriptor&&(descriptor.writable=!0),Object.defineProperty(target,descriptor.key,descriptor)}}return function(Constructor,protoProps,staticProps){return protoProps&&defineProperties(Constructor.prototype,protoProps),staticProps&&defineProperties(Constructor,staticProps),Constructor}}();function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor))throw new TypeError("Cannot call a class as a function")}var RocketBrowserCompatibilityChecker=function(){function RocketBrowserCompatibilityChecker(options){_classCallCheck(this,RocketBrowserCompatibilityChecker),this.passiveSupported=!1,this._checkPassiveOption(this),this.options=!!this.passiveSupported&&options}return _createClass(RocketBrowserCompatibilityChecker,[{key:"_checkPassiveOption",value:function(self){try{var options={get passive(){return!(self.passiveSupported=!0)}};window.addEventListener("test",null,options),window.removeEventListener("test",null,options)}catch(err){self.passiveSupported=!1}}},{key:"initRequestIdleCallback",value:function(){!1 in window&&(window.requestIdleCallback=function(cb){var start=Date.now();return setTimeout(function(){cb({didTimeout:!1,timeRemaining:function(){return Math.max(0,50-(Date.now()-start))}})},1)}),!1 in window&&(window.cancelIdleCallback=function(id){return clearTimeout(id)})}},{key:"isDataSaverModeOn",value:function(){return"connection"in navigator&&!0===navigator.connection.saveData}},{key:"supportsLinkPrefetch",value:function(){var elem=document.createElement("link");return elem.relList&&elem.relList.supports&&elem.relList.supports("prefetch")&&window.IntersectionObserver&&"isIntersecting"in IntersectionObserverEntry.prototype}},{key:"isSlowConnection",value:function(){return"connection"in navigator&&"effectiveType"in navigator.connection&&("2g"===navigator.connection.effectiveType||"slow-2g"===navigator.connection.effectiveType)}}]),RocketBrowserCompatibilityChecker}();
+//# sourceURL=rocket-browser-checker-js-after
+</script>
+<script id="rocket-preload-links-js-extra">
+var RocketPreloadLinksConfig = {"excludeUris":"/(?:.+/)?feed(?:/(?:.+/?)?)?$|/(?:.+/)?embed/|http://(/%5B/%5D+)?/(index.php/)?(.*)wp-json(/.*|$)|/refer/|/go/|/recommend/|/recommends/","usesTrailingSlash":"1","imageExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php","fileExt":"jpg|jpeg|gif|png|tiff|bmp|webp|avif|pdf|doc|docx|xls|xlsx|php|html|htm","siteUrl":"https://gruve.ai/in","onHoverDelay":"100","rateThrottle":"3"};
+//# sourceURL=rocket-preload-links-js-extra
+</script>
+<script id="rocket-preload-links-js-after">
+(function() {
+"use strict";var r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},e=function(){function i(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(e,t,n){return t&&i(e.prototype,t),n&&i(e,n),e}}();function i(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}var t=function(){function n(e,t){i(this,n),this.browser=e,this.config=t,this.options=this.browser.options,this.prefetched=new Set,this.eventTime=null,this.threshold=1111,this.numOnHover=0}return e(n,[{key:"init",value:function(){!this.browser.supportsLinkPrefetch()||this.browser.isDataSaverModeOn()||this.browser.isSlowConnection()||(this.regex={excludeUris:RegExp(this.config.excludeUris,"i"),images:RegExp(".("+this.config.imageExt+")$","i"),fileExt:RegExp(".("+this.config.fileExt+")$","i")},this._initListeners(this))}},{key:"_initListeners",value:function(e){-1<this.config.onHoverDelay&&document.addEventListener("mouseover",e.listener.bind(e),e.listenerOptions),document.addEventListener("mousedown",e.listener.bind(e),e.listenerOptions),document.addEventListener("touchstart",e.listener.bind(e),e.listenerOptions)}},{key:"listener",value:function(e){var t=e.target.closest("a"),n=this._prepareUrl(t);if(null!==n)switch(e.type){case"mousedown":case"touchstart":this._addPrefetchLink(n);break;case"mouseover":this._earlyPrefetch(t,n,"mouseout")}}},{key:"_earlyPrefetch",value:function(t,e,n){var i=this,r=setTimeout(function(){if(r=null,0===i.numOnHover)setTimeout(function(){return i.numOnHover=0},1e3);else if(i.numOnHover>i.config.rateThrottle)return;i.numOnHover++,i._addPrefetchLink(e)},this.config.onHoverDelay);t.addEventListener(n,function e(){t.removeEventListener(n,e,{passive:!0}),null!==r&&(clearTimeout(r),r=null)},{passive:!0})}},{key:"_addPrefetchLink",value:function(i){return this.prefetched.add(i.href),new Promise(function(e,t){var n=document.createElement("link");n.rel="prefetch",n.href=i.href,n.onload=e,n.onerror=t,document.head.appendChild(n)}).catch(function(){})}},{key:"_prepareUrl",value:function(e){if(null===e||"object"!==(void 0===e?"undefined":r(e))||!1 in e||-1===["http:","https:"].indexOf(e.protocol))return null;var t=e.href.substring(0,this.config.siteUrl.length),n=this._getPathname(e.href,t),i={original:e.href,protocol:e.protocol,origin:t,pathname:n,href:t+n};return this._isLinkOk(i)?i:null}},{key:"_getPathname",value:function(e,t){var n=t?e.substring(this.config.siteUrl.length):e;return n.startsWith("/")||(n="/"+n),this._shouldAddTrailingSlash(n)?n+"/":n}},{key:"_shouldAddTrailingSlash",value:function(e){return this.config.usesTrailingSlash&&!e.endsWith("/")&&!this.regex.fileExt.test(e)}},{key:"_isLinkOk",value:function(e){return null!==e&&"object"===(void 0===e?"undefined":r(e))&&(!this.prefetched.has(e.href)&&e.origin===this.config.siteUrl&&-1===e.href.indexOf("?")&&-1===e.href.indexOf("#")&&!this.regex.excludeUris.test(e.href)&&!this.regex.images.test(e.href))}}],[{key:"run",value:function(){"undefined"!=typeof RocketPreloadLinksConfig&&new n(new RocketBrowserCompatibilityChecker({capture:!0,passive:!0}),RocketPreloadLinksConfig).init()}}]),n}();t.run();
+}());
+
+//# sourceURL=rocket-preload-links-js-after
+</script>
+<script id="owl-js-js" src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+<script id="wp-hooks-js" src="https://gruve.ai/in/wp-includes/js/dist/hooks.min.js?ver=f0f188028580e8dc1255"></script>
+<script id="wp-i18n-js" src="https://gruve.ai/in/wp-includes/js/dist/i18n.min.js?ver=1dfe7db3940c23ea9216"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://gruve.ai/in/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.1.6"></script>
+<script id="contact-form-7-js" src="https://gruve.ai/in/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.1.6"></script>
+<script id="gruve-mega-menu-js" src="https://gruve.ai/in/wp-content/themes/gruveai/IMEA/assets/js/mega-menu.js?ver=1.0"></script>
+<script id="mixed-loadmore-js-extra">
+var MixedLoadMore = {"ajax_url":"https://gruve.ai/in/wp-admin/admin-ajax.php","nonce":"6a6164a085"};
+//# sourceURL=mixed-loadmore-js-extra
+</script>
+<script id="mixed-loadmore-js" src="https://gruve.ai/in/wp-content/themes/gruveai/v2/assets/js/mixedposts-loadmore.js?ver=1778562668"></script>
+<script id="gruve-geo-topbar-js-extra">
+var gruveGeoConfig = {"suppress":"","currentPath":"/in"};
+//# sourceURL=gruve-geo-topbar-js-extra
+</script>
+<script id="gruve-geo-topbar-js" src="https://gruve.ai/in/wp-content/themes/gruveai/assets/js/geo-topbar.js?ver=1787557282"></script>
+<script id="swp-live-search-client-js-extra">
+var searchwp_live_search_params = [];
+searchwp_live_search_params = {"ajaxurl":"https:\/\/gruve.ai\/in\/wp-admin\/admin-ajax.php","origin_id":994459,"config":{"default":{"engine":"default","input":{"delay":300,"min_chars":3},"results":{"position":"bottom","width":"auto","offset":{"x":0,"y":5}},"spinner":{"lines":12,"length":8,"width":3,"radius":8,"scale":1,"corners":1,"color":"#424242","fadeColor":"transparent","speed":1,"rotate":0,"animation":"searchwp-spinner-line-fade-quick","direction":1,"zIndex":2000000000,"className":"spinner","top":"50%","left":"50%","shadow":"0 0 1px transparent","position":"absolute"}}},"msg_no_config_found":"No valid SearchWP Live Search configuration found!","aria_instructions":"When autocomplete results are available use up and down arrows to review and enter to go to the desired page. Touch device users, explore by touch or with swipe gestures."};;
+//# sourceURL=swp-live-search-client-js-extra
+</script>
+<script id="swp-live-search-client-js" src="https://gruve.ai/in/wp-content/plugins/searchwp-live-ajax-search/assets/javascript/dist/script.min.js?ver=1.8.7"></script>
+<script id="gruve-mobile-menu-js" defer src="https://gruve.ai/in/wp-content/themes/gruveai/v2/assets/js/mobile-menu.js?ver=1785575401"></script>
+<script id="gruve-v2-bs-js-js" defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js?ver=5.3.3"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://gruve.ai/in/wp-includes/js/wp-emoji-release.min.js?ver=7.1"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://gruve.ai/in/wp-includes/js/wp-emoji-loader.min.js
+</script>
+
+</body>
+
+</html>
+<!-- This website is like a Rocket, isn't it? Performance optimized by WP Rocket. Learn more: https://wp-rocket.me -->

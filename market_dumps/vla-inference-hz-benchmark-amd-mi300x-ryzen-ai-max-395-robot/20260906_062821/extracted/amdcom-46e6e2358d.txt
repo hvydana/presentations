@@ -1,0 +1,29 @@
+Competitive performance claims and industry leading Inference performance on AMD Instinct MI300X
+Dec 15, 2023
+On December 6th, AMD launched our AMD Instinct MI300X and MI300A accelerators and introduced ROCm 6 software stack at the Advancing AI event.
+Since then, Nvidia published a set of benchmarks comparing the performance of H100 compared to the AMD Instinct MI300X accelerator in a select set of inferencing workloads.
+The new benchmarks:
+- Used TensorRT-LLM on H100 instead of vLLM used in AMD benchmarks
+- Compared performance of FP16 datatype on AMD Instinct MI300X GPUs to FP8 datatype on H100
+- Inverted the AMD published performance data from relative latency numbers to absolute throughput
+We are at a stage in our product ramp where we are consistently identifying new paths to unlock performance with our ROCM software and AMD Instinct MI300 accelerators. The data that was presented in our launch event was recorded in November. We have made a lot of progress since we recorded data in November that we used at our launch event and are delighted to share our latest results highlighting these gains.
+The following chart uses the latest MI300X performance data running Llama 70B to compare:
+- MI300X to H100 using vLLM for both. 
+  
+  - At our launch event in early December, we highlighted a 1.4x performance advantage for MI300X vs H100 using equivalent datatype and library setup. With the latest optimizations we have made, this performance advantage has increased to 2.1x.
+  - We selected vLLM based on broad adoption by the user and developer community and supports both AMD and Nvidia GPUs.
+- MI300X using vLLM vs H100 using Nvidia's optimized TensorRT-LLM 
+  
+  - Even when using TensorRT-LLM for H100 as our competitor outlined, and vLLM for MI300X, we still show a 1.3x improvement in latency.
+- Measured latency results for MI300X FP16 dataset vs H100 using TensorRT-LLM and FP8 dataset. 
+  
+  - MI300X continues to demonstrate a performance advantage when measuring absolute latency, even when using lower precisions FP8 and TensorRT-LLM for H100 vs. vLLM and the higher precision FP16 datatype for MI300X.
+  - We use FP16 datatype due to its popularity, and today, vLLM does not support FP8.
+These results again show MI300X using FP16 is comparable to H100 with its best performance settings recommended by Nvidia even when using FP8 and TensorRT-LLM.
+We look forward to sharing more performance data, including new datatypes, additional throughput-specific benchmarks beyond the Bloom 176B data we presented at launch and additional performance tuning as we continue working with our customer and ecosystem partners to broadly deploy Instinct MI300 accelerators.
+###
+- 
+  2P Intel Xeon Platinum 8480C CPU server with 8x AMD Instinct™ MI300X (192GB, 750W) GPUs, ROCm® 6.0 pre-release, PyTorch 2.2.0 pre-release, vLLM for ROCm, using FP16 Ubuntu® 22.04.3. vs. An Nvidia DGX H100 with 2x Intel Xeon Platinum 8480CL Processors, 8x Nvidia H100 (80GB, 700W) GPUs, CUDA 12.1., PyTorch 2.1.0., vLLM v.02.2.2 (most recent), using FP16, Ubuntu 22.04.3
+- 
+  2P Intel Xeon Platinum 8480C CPU server with 8x AMD Instinct™ MI300X (192GB, 750W) GPUs, ROCm® 6.0 pre-release, PyTorch 2.2.0 pre-release, vLLM for ROCm, using FP16 Ubuntu® 22.04.3 vs. An Nvidia DGX H100 with 2x Intel Xeon Platinum 8480CL Processors, 8x Nvidia H100 (80GB, 700W) GPUs, CUDA 12.2.2, PyTorch 2.1.0, TensorRT-LLM v.0.6.1, using FP16, Ubuntu 22.04.3.
+- 2P Intel Xeon Platinum 8480C CPU server with 8x AMD Instinct™ MI300X (192GB, 750W) GPUs, ROCm® 6.0 pre-release, PyTorch 2.2.0 pre-release, vLLM for ROCm, using FP16 Ubuntu® 22.04.3. vs. An Nvidia DGX H100 with 2x Intel Xeon Platinum 8480CL Processors, 8x Nvidia H100 (80GB, 700W) GPUs, CUDA 12.2.2, PyTorch 2.2.2., TensorRT-LLM v.0.6.1, using FP8, Ubuntu 22.04.3.

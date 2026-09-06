@@ -1,0 +1,49 @@
+cuRobo: GPU-Accelerated Motion Planning
+- cuRobo is a GPU-accelerated motion planning library that formulates and solves collision-free, minimum-jerk trajectory optimization problems for high-dimensional manipulators.
+- It leverages parallel numerical optimization, continuous collision-checking, and fast inverse kinematics via custom CUDA kernels to enable real-time performance.
+- Empirical benchmarks demonstrate significant speedups—up to 60x faster than CPU planners—and reduced jerk, making it ideal for industrial automation and dynamic environments.
+cuRobo is a GPU-accelerated robot motion generation library that formulates and solves collision-free, minimum-jerk trajectory optimization problems for high-dimensional manipulators. It combines parallel numerical optimization methods with continuous collision-checking and fast inverse kinematics to enable real-time, robust planning required in industrial automation, mobile manipulation, and dynamic environments.
+1. Mathematical Formulation of Motion Generation
+cuRobo casts manipulator motion planning as a global trajectory optimization problem. Given a start joint configuration and a desired end-effector pose , the goal is to compute a trajectory that is smooth, collision-free, and reaches the goal:
+Subject to box-constraints on joint positions, velocities, accelerations, and jerk. The terms include:
+- (pose-reaching cost): combines translation and rotation penalties (log-cosh loss in both pose and quaternion space).
+- : penalizes velocity, acceleration, and jerk to produce minimum-jerk trajectories.
+- (self-collision penalty): for sphere pairs on the robot, penalizes overlap.
+- (world collision penalty): employs a novel continuous, swept collision-checking, incorporating speed and proximity.
+Collision cost smoothing, e.g.
+is used to provide gradients near obstacles for stable optimization.
+2. Parallel Optimization and Infrastructure
+cuRobo exploits massive GPU parallelism to solve the highly non-convex optimization by:
+- Batched quasi-Newton (L-BFGS) steps; Hessians and search directions estimated in parallel over many seeds.
+- Particle-based sampling initialization; multiple candidates are nudged toward promising regions before gradient refinement.
+- Parallel "noisy line search": Backtracking step sizes tested in parallel to satisfy Armijo/Wolfe conditions, providing substantial speedup over serial line search.
+- CUDA Graphs record and batch memory launches for minimal latency.
+- Forward and backward kinematics, cost evaluations, and collision checking are implemented as custom CUDA kernels for maximal efficiency.
+3. Geometric Planner and Collision-Free IK
+cuRobo's planning stack includes:
+- GPU-accelerated geometric planner: Builds roadmaps of collision-free configurations using parallel sampling, nearest-neighbor search, and a "parallel steering" algorithm (discretized, batched path checking). Finds geometric paths in ~20ms.
+- Collision-free inverse kinematics (IK) solver: Combines particle seeding with optimization, and is capable of up to 7000 queries/s (plain mode) and up to 80x faster than TracIK (when collision checking is included).
+4. Performance Metrics and Benchmarks
+Empirical benchmarks highlight:
+- End-to-end pipeline average runtime: 30ms on RTX 4090 desktop, up to 60x faster than traditional CPU planners (e.g. Tesseract).
+- Trajectory optimization itself: ~10ms; geometric planner: ~20ms.
+- IK: Up to 37,000/s in unconstrained mode.
+- Achieves 4–12x lower jerk compared to alternative planners.
+- Reactive planning and obstacle avoidance in real time.
+On low-power devices (Jetson AGX Orin, 15–60W), cuRobo maintains tens-of-milliseconds latency suitable for battery-powered, deployable settings.
+5. Continuous Collision Checking and Robustness
+Continuous swept collision terms (using signed distance functions and activation distance smoothing) allow the planner to guarantee collision avoidance not only at discrete time-steps but through the entire trajectory. This, combined with parallel evaluation, provides robustness against both self-collision and dynamic world obstacles.
+cuRobo supports collision checking against complex geometry (OBB, mesh BVH, voxel ESDF via nvblox) and efficient data structures for on-the-fly evaluations.
+6. Real-World Integration and Applications
+cuRobo is integrated into industrial and research platforms, enabling:
+- Rapid collision-free motion generation and re-planning for Universal Robots (UR5e, UR10e), including environments with extended DOF (e.g. gantry axes).
+- Dual-arm coordination (simulated and physical platforms), where both arms must avoid mutual collision.
+- Mobile manipulation tasks: navigation in cluttered, uncertain environments.
+- Embedded deployment for edge devices.
+- Used as a high-speed subroutine within task-and-motion planning (TAMP) frameworks.
+- Dynamic obstacle adjustment: Model Predictive Control enabling replanning every ~50ms for moving parts.
+- Automated tuning and collision sphere generation, reducing setup time in industrial workflow by up to 60%.
+7. Limitations, Impact, and Future Directions
+While cuRobo's GPU dependence provides dramatic speedups, it can be resource-intensive on legacy or extremely constrained hardware (as indicated by follow-on work optimizing memory bandwidth via variable-precision tensor techniques (Hsiao et al., 2023)). Additionally, recent benchmarks show that, while cuRobo outperforms traditional planners in speed and jerk minimization, neural-policy approaches trained on large datasets (e.g., ARMOR (Kim et al., 2024), DiffusionSeeder (Huang et al., 2024)) can surpass it in highly cluttered, partially observed environments, especially for humanoid robots and non-convex tasks.
+Further research aims to refine cost terms, expand hardware compatibility, and explore integration with learned seed generators and transformer-based policies for higher success rates and reduced local minima stagnation.
+In summary, cuRobo represents a state-of-the-art approach for collision-free, minimum-jerk, GPU-accelerated motion planning, supporting both high-DOF industrial manipulators and dynamic environments. It achieves substantial improvements in speed, robustness, and real-time applicability across a broad spectrum of robotics applications.

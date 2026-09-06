@@ -1,0 +1,23 @@
+The future of physical AI will be built through collaboration.🤝
+ 
+Today at #AdvancingAI 2026, AMD announced the AMD Robotics Partner Network, bringing together an expanded, open ecosystem of robotics software developers, AI model providers, and hardware partners to help accelerate the development and deployment of autonomous robotics on AMD platforms.
+Explore the announcement: newsroom.amd.com/news/aai-2026-…
+7:30 PM · Jul 23, 2026!function(options){var element=document.getElementById(options.targetId);if(!element)return;var cached=document.querySelector('[data-timezone]');var timeZone=cached&&cached.dataset.timezone||Intl.DateTimeFormat().resolvedOptions().timeZone;element.dataset.timezone=timeZone;element.textContent=(function formatFullTimestamp({ timestamp, lang = "en", timeZone }) {
+	const date = new Date(timestamp);
+	let zone = timeZone;
+	if (zone) try {
+		new Intl.DateTimeFormat("en", { timeZone: zone }).format();
+	} catch {
+		zone = "UTC";
+	}
+	return `${new Intl.DateTimeFormat(lang, {
+		hour: "numeric",
+		minute: "2-digit",
+		timeZone: zone
+	}).format(date)} · ${new Intl.DateTimeFormat(lang, {
+		month: "short",
+		day: "numeric",
+		year: "numeric",
+		timeZone: zone
+	}).format(date)}`;
+})({timestamp:options.timestamp,lang:options.lang,timeZone:timeZone})}({"lang":"en","targetId":"_R_melj4p8j6_","timestamp":1784835010000}); 866Views

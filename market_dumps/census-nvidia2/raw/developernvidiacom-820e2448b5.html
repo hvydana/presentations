@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang='en' class='h-100' data-color-scheme='light'>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="csrf-param" content="authenticity_token" />
+<meta name="csrf-token" content="dkUhAS5qOoYNCkq0tUINZqFDEVuSgZ_ze-uhGBI3xDwqxq_xQn7PNeGIp91k0qtqGKTFiohXTnuytRXjWJ26Aw" />
+    <meta name="csp-nonce" />
+    <title>Metropolis for Developers | NVIDIA Developer</title>
+<meta name="description" content="NVIDIA Metropolis is an advanced collection of developer workflows and tools for building, deploying, and scaling vision AI and generative AI from the edge to the cloud.">
+<meta name="keywords" content="metropolis, generative ai, vision ai, video analytics, nvidia">
+<link rel="canonical" href="https://developer.nvidia.com/metropolis">
+<link rel="alternate" href="https://developer.nvidia.com/metropolis" hreflang="x-default">
+<link rel="alternate" href="https://developer.nvidia.com/metropolis" hreflang="en-us">
+<link rel="alternate" href="https://developer.nvidia.com/ja-jp/metropolis" hreflang="ja-jp">
+<link rel="alternate" href="https://developer.nvidia.cn/metropolis" hreflang="zh-cn">
+<meta property="og:site_name" content="NVIDIA Developer">
+<meta property="og:title" content="Metropolis for Developers">
+<meta property="og:description" content="Build, deploy, and scale vision AI and genAI from the edge to the cloud.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://developer.download.nvidia.com/images/products/og-metropolis-1200x630.jpg">
+<meta property="og:url" content="https://developer.nvidia.com/metropolis">
+<meta name="twitter:title" content="NVIDIA Metropolis for Developers">
+<meta name="twitter:description" content="Discover this advanced collection of developer workflows and tools to build, deploy, and scale vision AI and generative AI from the edge to the cloud.">
+<meta name="twitter:image" content="https://developer.download.nvidia.com/images/products/og-metropolis-1200x630.jpg">
+<meta name="twitter:site" content="@NVIDIA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@NVIDIAAI">
+<meta property="interest" content="Computer Vision / Video Analytics">
+      <link rel="alternate" type="text/markdown" title="Page Markdown" href="https://developer.nvidia.com/metropolis.md">
+
+    <link rel="stylesheet" href="https://developer.nvidia.com/assets/application-9e4a823de8771e59cf1ae04de333e5e14d86a990b878d196a65779d7140a6415.css" media="all" />
+
+    <script>
+  const NvAssets = {
+    CSS: {
+      highlightJs: "https://developer.nvidia.com/assets/highlight-7c6157fe69da4cc401cddeb387737d6991b2012dc14e90f3d52764a3a58fd3da.css",
+    }
+  }
+</script>
+
+
+    
+  <link rel="stylesheet" href="https://developer.nvidia.com/assets/one-trust-bea625cf16a072ce5fdb0707a19f2645daf63c05eb1a016db72773eba008fc07.css" />
+  <script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js" charset="UTF-8" data-document-language="true" data-domain-script="3e2b62ff-7ae7-4ac5-87c8-d5949ecafff5"></script>
+
+<script src="https://images.nvidia.com/aem-dam/Solutions/ot-js/ot-custom.js"></script>
+
+<script>
+  function OptanonWrapper() {
+    let event = new Event('bannerLoaded');
+    window.dispatchEvent(event);
+
+      if (window.OnetrustActiveGroups && window.OnetrustActiveGroups.includes("C0002")) {
+        window.DD_RUM && window.DD_RUM.init({
+          clientToken: 'pub0430c74fae5d2b467bcb8d48b13e5b32',
+          applicationId: '9fc963c7-14e6-403d-bdec-ee671550bb7f',
+          site: 'datadoghq.com',
+          service: 'devzone',
+          env: 'prod',
+          version: 'v2.60.0',
+          sessionSampleRate: 10,
+          sessionReplaySampleRate: 5,
+          trackUserInteractions: true,
+          trackResources: true,
+          trackLongTasks: true,
+          defaultPrivacyLevel: 'mask-user-input',
+        });
+      }
+  }
+</script>
+
+
+    <script>
+  (function() {
+    var didInit = false;
+    function initMunchkin() {
+      if(didInit === false) {
+        didInit = true;
+        Munchkin.init('156-OFN-742');
+      }
+    }
+    function loadMunchkin() {
+      // Munchkin falls under the OneTrust "Advertising" category (C0004); only
+      // load it once the user has consented to that category.
+      if (!window.OnetrustActiveGroups || !window.OnetrustActiveGroups.includes("C0004")) {
+        return;
+      }
+      // bannerLoaded re-fires on every consent change; once we have consent we
+      // only need to inject the script tag once.
+      window.removeEventListener('bannerLoaded', loadMunchkin);
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.async = true;
+      s.src = '//munchkin.marketo.net/munchkin.js';
+      s.onreadystatechange = function() {
+        if (this.readyState == 'complete' || this.readyState == 'loaded') {
+          initMunchkin();
+        }
+      };
+      s.onload = initMunchkin;
+      document.getElementsByTagName('head')[0].appendChild(s);
+    }
+    // OnetrustActiveGroups is populated asynchronously after the OneTrust SDK
+    // loads, which dispatches "bannerLoaded" (see layouts/_one_trust). Wait for
+    // that signal so consenting users still get Munchkin, then re-check on each
+    // consent change (the didInit guard keeps init idempotent).
+    window.addEventListener('bannerLoaded', loadMunchkin);
+})();
+</script>
+
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "NVIDIA Developer",
+    "url": "https://developer.nvidia.com",
+    "logo": "https://www.nvidia.com/en-us/about-nvidia/legal-info/logo-brand-usage/_jcr_content/root/responsivegrid/nv_container_392921705/nv_container_412055486/nv_image.coreimg.100.630.png/1703060329095/nvidia-logo-horz.png",
+    "sameAs": [
+      "https://github.com/nvidia",
+      "https://www.linkedin.com/company/nvidia/",
+      "https://x.com/nvidiadeveloper"
+    ]
+  }
+</script>
+
+    
+    <meta name='typesense-host' content='typesense.svc.nvidia.com'>
+<meta name='typesense-key' content='uFs9XGl9BWS7af7eAIbKNQ49sJnjEfQk'>
+<script src="https://developer.download.nvidia.com/scripts/typesense.js"></script>
+
+
+    <script src="https://assets.adobedtm.com/5d4962a43b79/c1061d2c5e7b/launch-191c2462b890.min.js" data-ot-ignore="true"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://developer.nvidia.com/assets/bootstrap/5.1.3/bootstrap.bundle.min-51ad1d8cab4ebd9873a0429f5e67ca717a71fd96daf8025bc04a88848e5b375c.js"></script>
+
+
+    <link rel="icon" type="image/x-icon" href="https://developer.nvidia.com/assets/favicon-81bff16cada05fcff11e5711f7e6212bdc2e0a32ee57cd640a8cf66c87a6cbe6.ico" />
+  </head>
+
+  <body class='d-flex flex-column h-100'>
+    
+    
+
+      <div id='header'></div>
+
+
+
+
+    
+
+
+
+
+
+
+
+    <div id='page-mobile-nav-container'></div>
+    <div class='page'>
+      <div class="product-page">
+<div class="container breadcrumb-container"><div class="col"><ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="/" id="ivemf6-2">Home<br></a></li>
+<div id="irsh5h-2" class="breadcrumb-item active">Metropolis</div>
+</ol></div></div>
+<div class="container page"><div class="row">
+<div class="col-xl-2 col-lg-3 col-md-12 col-sm-12 col-sidebar"><aside class="page__sidebar with-sticky-nav"><div class="page-navigation-container"><div data-react-class="PageNavigation" data-react-props='{"draggable":"true","editable":"true","id":"i2twu"}' data-react-cache-id="PageNavigation-i2twu"></div></div></aside></div>
+<div class="col-xl-1 col-lg-1 col-separator with-border"></div>
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-main-content"><main class="page__content"><section class="page__section page__first-section"><h1 title="Introduction" class="h--large section__heading">NVIDIA Metropolis </h1>
+<p class="p--large text-color-gray">NVIDIA Metropolis is a collection of models, libraries, and blueprints that  provides everything you need to build, deploy, and scale <a href="https://www.nvidia.com/en-us/use-cases/video-analytics-ai-agents/" id="iunthf" target="_blank">video analytics AI agents</a> and applications, from the edge to the cloud. You can now easily transform raw video and sensor data from real-world environments into real-time, actionable insights. This helps your organization understand what’s happening in your physical spaces and respond intelligently, while delivering exceptional scale, throughput, cost-effectiveness, and faster time to production. </p>
+<p class="mb-0"><a href="https://build.nvidia.com/explore/vision" title="Get Started" class="btn btn-cta me-2 mt-2">Get Started<br><br></a><a href="https://forums.developer.nvidia.com/c/accelerated-computing/intelligent-video-analytics/13" title="Join the Forum" class="btn btn-cta me-2 mt-2 btn-cta--light">Join the Forum</a></p></section><hr class="separator separator--md">
+<section class="page__section page__second-section pt-0 pb-0"><h2 title="How it Works" class="h--medium section__heading toc-item">How Metropolis Works </h2>
+<div data-react-class="Accordion" data-react-props='{"id":"i9btvl-3-3-3"}' data-react-cache-id="Accordion-i9btvl-3-3-3"></div>
+<p id="idd61k-2-2">Metropolis offers a cohesive, end-to-end stack of software building blocks that handle everything from video ingestion to insight generation to advanced agentic AI-powered analytics. These components can be deployed consistently across the whole compute spectrum—on the edge, in on-prem servers, or in the cloud—so the same applications can run close to where data is generated or centrally at scale.</p>
+<p title=" A diagram showing NVIDIA Metropolis with a host of SDKs and developer tools" class="mb-0"><img alt="img-alt-text" src="https://developer.download.nvidia.com/images/metropolis/gtc26-metropolis-stack-update-r2.png" class="img-fluid"></p>
+<div class="separator separator--30"></div>
+<div class="row cards__list">
+<div id="ic4exo-2-2-3-5-2" class="col-sm-12 col-md-12 col-xl-3 col-lg-3"><div class="card-wrapper"><div class="card"><div class="card__content">
+<h3 class="txt-clr--blck h--smallest">
+<span id="docs-internal-guid-1b73ac93-7fff-98aa-bbdc-af9edc339e3a-2-3-2-2"><span id="imolkg-2-3-2-2">Agentic Video Search at Scale With NVIDIA VSS Blueprint and Skills</span></span><br>
+</h3>
+<p id="i3t3yb-2-2">Dive into the details of the new VSS 3.0 skills in agentic search, modular design, reference workflows, and more.</p>
+<div class="card__cta">
+<a href="https://github.com/NVIDIA-AI-Blueprints/video-search-and-summarization/tree/main/skills" target="_blank" id="iffvbz-4-2-3-5-2" class="link-cta text-transform-unset fw-bold">Try VSS Skills</a><a href="/blog/transform-video-into-instantly-searchable-actionable-intelligence-with-ai-agents-and-skills/" target="_blank" id="iffvbz-4-2-3-5-2-3" class="link-cta text-transform-unset fw-bold">Read the Blog</a>
+</div>
+</div></div></div></div>
+<div id="ic4exo-2-2-3-5-4" class="col-sm-12 col-md-12 col-xl-3 col-lg-3"><div class="card-wrapper"><div class="card"><div class="card__content">
+<h3 class="txt-clr--blck h--smallest">
+<span id="docs-internal-guid-1b73ac93-7fff-98aa-bbdc-af9edc339e3a-2-3-2-4"><span id="imolkg-2-3-2-4">Create Vision AI Applications With NVIDIA DeepStream Skills</span></span><br>
+</h3>
+<p id="i3t3yb-2-4">Learn how to generate complete, GPU-accelerated NVIDIA DeepStream video analytics pipelines using simple natural language prompts.</p>
+<a href="https://github.com/NVIDIA-AI-IOT/DeepStream_Coding_Agent" target="_blank" id="iffvbz-4-2-3-5-2-3-2" class="link-cta text-transform-unset fw-bold pe-4">Try DeepStream Skills</a><div id="icmzl" class="card__cta"><div class="card__cta"><a href="https://developer.nvidia.com/blog/build-a-multi-camera-3d-tracking-application-with-nvidia-deepstream-9-1-skills/" target="_blank" id="iffvbz-4-2-3-5-2-4" class="link-cta text-transform-unset fw-bold">Read the Blog</a></div></div>
+</div></div></div></div>
+<div id="ic4exo-2-2-3-5-3" class="col-sm-12 col-md-12 col-xl-3 col-lg-3"><div class="card-wrapper"><div class="card"><div class="card__content">
+<h3 class="txt-clr--blck h--smallest">
+<span id="docs-internal-guid-1b73ac93-7fff-98aa-bbdc-af9edc339e3a-2-3-2-3"><span id="imolkg-2-3-2-3">Fine-Tune Vision AI Models With NVIDIA TAO Skills</span></span><br>
+</h3>
+<p id="i3t3yb-2-3">Try a suite of agent skills and tools for fine-tuning vision AI models with natural language prompts.</p>
+<div class="card__cta">
+<a href="https://github.com/NVIDIA-TAO/tao-skills-bank" target="_blank" id="iffvbz-4-2-3-5-3" class="link-cta text-transform-unset fw-bold">Try TAO Skills</a><a href="https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-in-one-day-using-agent-skills/" target="_blank" id="iffvbz-4-2-3-5-2-4-2" class="link-cta text-transform-unset fw-bold">Read the Blog</a>
+</div>
+</div></div></div></div>
+<div id="ic4exo-2-2-3-5-2-2" class="col-sm-12 col-md-12 col-xl-3 col-lg-3"><div class="card-wrapper"><div class="card"><div class="card__content">
+<h3 class="txt-clr--blck h--smallest">
+<span id="docs-internal-guid-1b73ac93-7fff-98aa-bbdc-af9edc339e3a-2-3-2-2-2"><span id="imolkg-2-3-2-2-2">Solve the Training Data Challenge With Agent Skills </span></span><br>
+</h3>
+<p id="i3t3yb-2-2-2">Use agent skills to quickly generate synthetic data for visual inspection  or augment videos for edge-cases.</p>
+<div class="card__cta">
+<a href="https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3DMiyRSFam5te8UXrCniX9QCu3x" target="_blank" id="iffvbz-4-2-3-5-2-2" class="link-cta text-transform-unset fw-bold">Try Defect Image Generation Skill</a><a href="https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3DH5QPdLRWBABdW9Lxn4vQBK5mW" target="_blank" id="iffvbz-4-2-3-5-2-2-2" class="link-cta text-transform-unset fw-bold">Try  Video Augmentation Skill</a>
+</div>
+</div></div></div></div>
+</div></section><hr class="separator separator--md">
+<section class="page__section pt-0 pb-0"><h2 title="Get Started" class="h--medium section__heading toc-item">Get Started With Metropolis</h2>
+<div id="i2o59g">
+<h3 id="i1990a" class="h--small">Start using the latest Metropolis vision language and vision foundation models. </h3>
+<div class="row cards__list">
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/m48-cosmos.svg" id="i11juy-3-2-2" alt="Build And explore with NVIDIA Rivermax SDK" class="svg-icon mw-6-rem"><h3 id="i2tdz3-3-3-2-2" class="h--smallest">NVIDIA Cosmos</h3>
+<p id="i998ul-3-2-2">Meet the first OmniModel that sees, reasons, generates many outcomes, and teaches physical agents how to act in the real world.</p>
+<p id="iownqx-2"><a href="https://build.nvidia.com/nvidia/cosmos-reason2-8b" target="_blank" id="igi24f" class="nv-cta-secondary nv-cta-secondary--small">Try It Now</a></p>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/nim.svg" id="i11juy-3-2-2-3" alt="Build And explore with NVIDIA Rivermax SDK" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-3" class="h--smallest">Vision AI NIMs</h3>
+<p id="i998ul-3-2-2-3">Discover GPU-optimized microservices that bring ready-to-use vision and multimodal models through simple APIs. <br></p>
+<a href="https://build.nvidia.com/explore/vision" id="ikcaol" class="nv-cta-secondary nv-cta-secondary--small">Try NVIDIA NIM™ APIs </a>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/m48-neural-network-3.svg" id="i11juy-2-2-2" alt="icon representing neural network" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-2-2-2" class="h--smallest">Embeddings </h3>
+<p id="i998ul-2-2-2">Turn images, videos, and text into vector representations for physical AI and multimodal understanding using NVIDIA models like Cosmos Embed, C-RADIO, and NV-CLIP.</p>
+<p id="iownqx"><a href="https://docs.nvidia.com/nim/cosmos-embed1/latest/introduction.html" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Explore Cosmos Embed </a></p>
+<p id="ihw1j9"><a href="https://huggingface.co/nvidia/C-RADIOv4-H" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Explore C-RADIO</a></p>
+<p id="iyfytr"><a href="https://catalog.ngc.nvidia.com/orgs/nim/teams/nvidia/containers/nvclip?version=2.0.0" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Explore NV-CLIP</a></p>
+</div>
+</div>
+</div>
+<div id="i2o59g-2" class="pt-5">
+<h3 id="i1990a-2" class="h--small">Post-train your vision AI models with domain-specific data to boost accuracy.</h3>
+<div class="row cards__list">
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/m48-cosmos.svg" id="i11juy-3-2-2-2" alt="Build And explore with NVIDIA Rivermax SDK" class="svg-icon mw-6-rem"><h3 id="i2tdz3-3-3-2-2-2" class="h--smallest">Cosmos Cookbook</h3>
+<p id="i998ul-3-2-2-2">Access recipes to post-train Cosmos WFMs with supervised fine-tuning and reinforcement learning.</p>
+<a href="https://github.com/nvidia-cosmos/cosmos-cookbook" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Learn More </a>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/m48-custom-data-256px-blk.svg" id="i11juy-3-2-2-2-2" alt="icon representing TAO Toolkit" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-2" class="h--smallest">TAO</h3>
+<p id="i998ul-3-2-2-2-2">Explore a suite of agent skills and tools for fine-tuning vision AI models with coding agents and natural language prompts.<br></p>
+<a href="https://developer.nvidia.com/tao-toolkit" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Learn More </a>
+</div>
+</div>
+</div>
+<div id="i2o59g-2-2" class="pt-5">
+<h3 id="i1990a-2-2" class="h--small">Start developing vision AI applications with foundational Metropolis frameworks.</h3>
+<div class="row cards__list">
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/building-agentic-ai-application-with-large-language-model.svg" id="i11juy-3-2-2-2-3" alt="https://developer.downicon representing building agentic ai application with large language model" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-3" class="h--smallest">NVIDIA Metropolis Blueprint For Video Search and Summarization (VSS)</h3>
+<p id="i998ul-3-2-2-2-3">The VSS blueprint lets you build customizable video analytics AI agents to deliver powerful insights with seamless edge-to-cloud integration. VSS also brings skills to build these agents from simple natural language prompts using coding agents.Î</p>
+<a href="https://build.nvidia.com/nvidia/video-search-and-summarization" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Try It Now </a>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/video-processing-streaming.svg" id="i11juy-3-2-2-2-2-2" alt="icon representing video processing streaming" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-2-2" class="h--smallest">NVIDIA DeepStream </h3>
+<p id="i998ul-3-2-2-2-2-2">This is a complete streaming analytics toolkit for AI-based multi-sensor processing, video, audio, and image understanding. </p>
+<a href="https://developer.nvidia.com/deepstream-sdk" target="" class="nv-cta-secondary nv-cta-secondary--small">Learn More </a>
+</div>
+</div>
+</div>
+<div id="i2o59g-2-2-2" class="pt-5">
+<h3 id="i1990a-2-2-2" class="h--small">Generate high-quality synthetic data to safely and efficiently train your AI models.</h3>
+<div class="row cards__list">
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/data-files.svg" id="i11juy-3-2-2-2-3-2" alt="Icon representing data files" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-3-2" class="h--smallest">Physical AI Dataset</h3>
+<p id="i998ul-3-2-2-2-3-2">Unblock data bottlenecks with an open-source, validated dataset for training vision AI in industries, cities, robotics, and autonomous systems—now free on Hugging Face.</p>
+<a href="https://huggingface.co/collections/nvidia/physicalai-67c643edbb024053dcbcd6d8" target="_blank" class="nv-cta-secondary nv-cta-secondary--small pe-4">Explore the NVIDIA Physical AI Dataset</a>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/m48-neural-network-3.svg" id="i11juy-3-2-2-2-2-2-2" alt="Icon representing neural network" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-2-2-2" class="h--smallest">Agent Skills for Synthetic Data Generation</h3>
+<p id="i998ul-3-2-2-2-2-2-2">Build a synthetic data generation pipeline with your own video or image data. Then, curate, augment, and evaluate it with Cosmos open WFMs to accelerate vision AI model development.</p>
+<p id="i9cy06"><a href="https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3DMiyRSFam5te8UXrCniX9QCu3x" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Try Defect Image Generation Skill</a></p>
+<p id="i9cy06-2"><a href="https://brev.nvidia.com/launchable/deploy/now?launchableID=env-3DH5QPdLRWBABdW9Lxn4vQBK5mW" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Try  Video Augmentation Skill</a></p>
+</div>
+<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+<img src="https://developer.download.nvidia.com/icons/simulation-2.svg" id="i11juy-3-2-2-2-2-2-2-2" alt="Icon representing visual data simulation" class="mw-6-rem svg-icon"><h3 id="i2tdz3-3-3-2-2-2-2-2-2-2" class="h--smallest">Isaac Sim</h3>
+<p id="i998ul-3-2-2-2-2-2-2-2">Enable developers to create realistic synthetic data from complex 3D environments to train vision AI models.<br><br></p>
+<a href="https://docs.isaacsim.omniverse.nvidia.com/latest/action_and_event_data_generation/index.html" target="_blank" class="nv-cta-secondary nv-cta-secondary--small">Get Started With Event and Actor Generation on Isaac SIM™</a>
+</div>
+</div>
+</div>
+<div id="ioo6qo-2-3-2"></div></section><hr class="separator separator--md">
+<section class="page__section pt-0 pb-0"><h2 title="Starter Kits" class="h--medium section__heading toc-item">Starter Kits</h2>
+<div id="ioo6qo-2-2-2-2"><div class="row cards__list">
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2" class="h--smaller">Develop Video Analytics AI Agents </h3>
+<p id="ibtaqj-3-2">Build intelligent systems that can see, understand, and interact with the world through computer vision and real-time visual reasoning.<br></p>
+<ul id="ieevaj-3-2" class="nv-list">
+<li id="i0dvwm-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2" target="_blank"></a><a href="https://github.com/NVIDIA-AI-Blueprints/video-search-and-summarization" id="iktucvf-2" target="_blank">VSS Blueprint  Github</a></p></div></li>
+<li id="i0dvwm-4-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-4" target="_blank"></a><a href="https://docs.nvidia.com/vss/latest/" id="iktucvf-4" target="_blank">VSS Documentation</a></p></div></li>
+<li id="i0dvwm-2-2" data-icon="play"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2" target="_blank"></a><a href="https://www.youtube.com/watch?v=SzvKhAs0XJ8" id="iktucvf-2-2" target="_blank">VSS Agentic Search Video Tutorial</a></p></div></li>
+<li id="i0dvwm-2-2-4" data-icon="play"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2-4" target="_blank"></a><a href="https://www.youtube.com/watch?v=SzvKhAs0XJ8" id="iktucvf-2-2-4" target="_blank">VSS Agentic Search Demo video</a></p></div></li>
+<li id="i0dvwm-2-2-3" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2-3" target="_blank"></a><a href="/blog/transform-video-into-instantly-searchable-actionable-intelligence-with-ai-agents-and-skills/" id="iktucvf-2-2-3" target="">VSS 3 Tech Blog (NEW) </a></p></div></li>
+<li id="i0dvwm-2-2-3-3" data-icon="play"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2-3-3" target="_blank"></a><a href="https://www.youtube.com/watch?v=U1D4ZhSHHd0" id="iktucvf-2-2-3-3" target="_blank">VSS Skills Livestream Recording </a></p></div></li>
+<li id="i0dvwm-2-2-3-2" data-icon="play"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2-3-2" target="_blank"></a><a href="https://www.youtube.com/watch?v=0FWZwMum7bw" id="iktucvf-2-2-3-2" target="_blank">VSS Event Reviewer Demo video </a></p></div></li>
+<li id="i0dvwm-2-2-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-2-2" target="_blank"></a><a href="https://brev.nvidia.com/launchable/deploy?launchableID=env-2tYIjRXL4eMCbH9Az8mJC5WPAI4" id="iktucvf-2-2-2" target="_blank">Deploy VSS on Cloud</a></p></div></li>
+</ul>
+</div>
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2-2" class="h--smaller">Build a Vision Inference Pipeline</h3>
+<p id="ibtaqj-3-2-2">Develop a streaming pipeline with DeepStream that ingests videos, preprocesses frames, and runs optimized vision AI models.</p>
+<ul id="ieevaj-3-2-2" class="nv-list">
+<li id="i0dvwm-2-3" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-3" target="_blank"></a><a href="https://developer.nvidia.com/blog/build-a-multi-camera-3d-tracking-application-with-nvidia-deepstream-9-1-skills/" id="iktucvf-2-3" target="_blank">DeepStream 9.1 Multi-Cemera Tracking Tech Blog</a></p></div></li>
+<li id="i0dvwm-2-3-3" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-3-3" target="_blank"></a><a href="https://docs.nvidia.com/metropolis/deepstream/dev-guide/" id="iktucvf-2-3-3" target="_blank">DeepStream Developer Guide</a></p></div></li>
+<li id="i0dvwm-4-2-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-4-2" target="_blank"></a><a href="https://github.com/NVIDIA-AI-IOT/inference_builder?ncid=so-yout-238844" id="iktucvf-4-2" target="_blank">DeepStream inference Builder Github </a></p></div></li>
+<li id="i0dvwm-3-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-3-2" target="_blank"></a><a href="https://www.youtube.com/watch?v=yj11L8rFC30" id="iktucvf-3-2" target="_blank">DeepStream Inference Builder Video Tutorial</a></p></div></li>
+<li id="i0dvwm-3-2-2" data-icon="file"><div id="irtmok"><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-3-2-2" target="_blank"></a><a href="/blog/how-to-build-vision-ai-pipelines-using-deepstream-coding-agents/" id="iktucvf-3-2-2" target="">DeepStream Coding Agent Tech Blog</a></p></div></li>
+<li id="i0dvwm-3-2-3" data-icon="play"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-3-2-3" target="_blank"></a><a href="https://www.youtube.com/watch?v=3NyCYgP4_AY" id="iktucvf-3-2-3" target="_blank">Coding Agents Livestream Recording</a></p></div></li>
+</ul>
+</div>
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2-2-2" class="h--smaller">Build Agents for Smart City and Warehouse Operation<br>
+</h3>
+<p id="ibtaqj-3-2-2-2">Explore examples for optimized VSS blueprint configuration with sample data, tailored prompts, and report templates. <br></p>
+<ul id="ieevaj-3-2-2-2" class="nv-list">
+<li id="i0dvwm-2-3-2" data-icon="file"><div><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-3-2" target="_blank"></a><a href="https://docs.nvidia.com/vss/3.1.0/warehouse-docs/index.html" id="iktucvf-2-3-2" target="_blank"></a><a href="https://docs.nvidia.com/vss/3.1.0/smartcity-docs/smartcity-toc.html" id="iaog12" target="_blank">VSS smart city example</a></p></div></li>
+<li id="i0dvwm-2-3-2-2" data-icon="file"><div id="ip8zhq"><p class="mb-0"><a href="https://github.com/NVIDIA/accelerated-computing-hub" id="iyv9lg-2-2-3-2-2" target="_blank"></a><a href="https://docs.nvidia.com/vss/3.1.0/warehouse-docs/warehouse-toc.html" id="iktucvf-2-3-2-2" target="_blank">VSS warehouse operation example</a></p></div></li>
+</ul>
+</div>
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2-2-2-2" class="h--smaller">Post-Train NVIDIA Cosmos 3</h3>
+<p id="ibtaqj-3-2-2-2-2">Boost accuracy for your use cases with automated LoRA fine-tuning and AutoML using NVIDIA TA0 agent skills<br></p>
+<ul id="i29u6k" class="nv-list">
+<li id="ix0fqj" data-icon="file"><div><p class="mb-0">GIthub: <a href="https://github.com/NVIDIA-TAO/tao-tutorials/blob/main/tutorials/tao_agent_skills_examples/post_train_cosmos3/post_train_cosmos3_lora.md" id="ijm3b7" target="_blank">Post-train Cosmos 3 on WTS with TAO agent skills</a></p></div></li>
+<li id="ix0fqj-4" data-icon="file"><div><p class="mb-0">Tech Blog: <a href="https://developer.nvidia.com/blog/post-train-nvidia-cosmos-3-in-one-day-using-agent-skills/" id="ikwxor" target="_blank">Post-Train NVIDIA Cosmos 3 in One Day Using Agent Skills</a> </p></div></li>
+<li id="ix0fqj-3" data-icon="play"><div><p class="mb-0">Tutorial: <a href="https://www.youtube.com/watch?v=9AQkVbx3fKA" id="ibn4kk" target="_blank">Post-Train NVIDIA Cosmos 3 With TAO 7 Agent Skills</a> </p></div></li>
+<li id="ix0fqj-2" data-icon="play"><div id="i4v5kp"><p class="mb-0">Livestream:<br><a href="https://www.youtube.com/watch?v=lKaqbYa0HUE" id="i7po4r" target="_blank">Post-Train NVIDIA Cosmos 3 In a Day with NVIDIA TAO Agent Skills</a>  <br></p></div></li>
+</ul>
+</div>
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2-2-2-2-2" class="h--smaller">Fine-Tune Vision Foundation Models</h3>
+<p id="ibtaqj-3-2-2-2-2-2">Adapt powerful pre-trained vision backbones with targeted domain data so they specialize on your tasks while retaining their broad visual understanding.<br></p>
+<ul id="ieevaj-3-2-2-2-2-2" class="nv-list">
+<li id="iy6011-3" data-icon="file"><div id="il6b8x-3"><p class="mb-0"><a href="https://docs.nvidia.com/tao/tao-toolkit/latest/text/tao_toolkit_api/index.html" id="iqzyhi" target="_blank">Get Started With NVIDIA TAO Fine-Tuning Microservices </a></p></div></li>
+<li id="iy6011-2-3" data-icon="file"><div id="il6b8x-2-3"><p class="mb-0">Tech Blog :<a href="https://developer.nvidia.com/blog/build-a-real-time-visual-inspection-pipeline-with-nvidia-tao-6-and-nvidia-deepstream-8/" id="i3g3a9" target="_blank"> Build a Real-Time Visual Inspection Pipeline</a></p></div></li>
+<li id="iy6011-2-2-2" data-icon="file"><div id="il6b8x-2-2-2"><p class="mb-0">Tech Blog: <a href="https://developer.nvidia.com/blog/optimizing-semiconductor-defect-classification-with-generative-ai-and-vision-foundation-models/" id="ih9jij" target="_blank">Optimizing Semiconductor Defect Classification With Generative AI and Vision Foundation Models</a></p></div></li>
+</ul>
+</div>
+<div class="col-md-12 col-sm-12 col-lg-4 col-xl-4">
+<h3 id="i2tdz3-4-2-2-2-2-2-2" class="h--smaller">Generate Synthetic Data</h3>
+<p id="ibtaqj-3-2-2-2-2-2-2">Create synthetic images and videos to expand training datasets, reduce collection costs, and improve vision model robustness across diverse scenarios.</p>
+<ul id="ieevaj-3-2-2-2-2-2-2" class="nv-list">
+<li id="iy6011-2-3-2" data-icon="file"><div id="il6b8x-2-3-2"><p class="mb-0"><a href="https://github.com/NVIDIA/skills/tree/main/skills/physical-ai-defect-image-generation" id="igvdhy" target="_blank">Agent Skill for Defect Image Generation  on GitHub</a></p></div></li>
+<li id="iy6011-2-3-2-3" data-icon="file"><div id="il6b8x-2-3-2-3"><p class="mb-0"><a href="https://github.com/NVIDIA/skills/tree/main/skills/physical-ai-video-data-augmentation" id="igvdhy-3" target="_blank">Agent Skills for Video Augmentation on Github</a></p></div></li>
+<li id="iy6011-2-3-2-2" data-icon="file"><div id="il6b8x-2-3-2-2"><p class="mb-0">Recipe: <a href="https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/inference/transfer1/inference-its-weather-augmentation/inference.html" id="igvdhy-2" target="_blank">Generating Synthetic Data for Multi-View Warehouse Detection and Tracking With Cosmos Transfer</a></p></div></li>
+<li id="iy6011-2-2-2-2" data-icon="file"><div id="il6b8x-2-2-2-2"><p class="mb-0">Recipe: <a href="https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/inference/transfer2_5/inference-carla-sdg-augmentation/inference.html" id="ile60j" target="_blank">CARLA Simulator-to-Real Augmentation for Traffic Anomaly Scenarios With Cosmos Transfer</a></p></div></li>
+<li id="iy6011-2-2-2-2-2" data-icon="file"><div id="il6b8x-2-2-2-2-2"><p class="mb-0">Recipe: <a href="https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/inference/transfer2_5/inference-image-prompt/inference.html" id="i1t1uo" target="_blank">Style-Guided Video Generation With Cosmos Transfer 2.5</a></p></div></li>
+<li id="iy6011-2-2-2-2-2-2" data-icon="file"><div id="il6b8x-2-2-2-2-2-2"><p class="mb-0">Recipe: <a href="https://nvidia-cosmos.github.io/cosmos-cookbook/recipes/post_training/predict2_5/sports/post_training.html" id="iw7tza" target="_blank">LoRA Post-Training for Sports Video Generation</a></p></div></li>
+</ul>
+</div>
+</div></div></section><hr class="separator separator--md">
+<section class="page__section page__last-section pb-0 pt-0"><h2 class="h--medium section__heading toc-item tablet-45">More Resources</h2>
+<div id="iedinv-2-2-2-2"><div class="row cards__list">
+<div id="ibgu4h-2-2-2-2" class="col-lg-4 col-md-4 col-sm-12"><div class="card-wrapper">
+<a href="https://forums.developer.nvidia.com/c/accelerated-computing/intelligent-video-analytics/13" id="ibllhc-2-2-2-2" target="_blank"></a><div class="card extra-resource">
+<img src="https://developer.download.nvidia.com/icons/m48-people-group.svg" id="ifszp9-2-2-2-2" alt="Decorative image representing Developer Community" class="img-fluid mw-6-rem mx-auto svg-icon"><h3 class="txt-clr--blck mb-0 text-center h--smallest">Explore Developer Forums</h3>
+<a href="https://forums.developer.nvidia.com/c/accelerated-computing/intelligent-video-analytics/13" target="_blank" id="i462f2-2-2-2-2"></a>
+</div>
+</div></div>
+<div id="ir7h78-2-2-2-2" class="col-lg-4 col-md-4 col-sm-12"><div class="card-wrapper">
+<a href="https://developer.nvidia.com/email-signup" id="i7lwq8-2-2-2-2" target="_blank"></a><div class="card extra-resource">
+<img src="https://developer.download.nvidia.com/icons/m48-email-settings.svg" id="i9pjs2-2-2-2-2" alt="Decorative image representing Developer Newsletter" class="img-fluid mw-6-rem mx-auto svg-icon"><h3 class="txt-clr--blck mb-0 text-center h--smallest">Sign up for the Developer Newsletter</h3>
+<a href="https://developer.nvidia.com/email-signup" target="" id="i16c9u-2-2-2-2"></a>
+</div>
+</div></div>
+<div id="iucjy8-2-2-2-2" class="col-lg-4 col-md-4 col-sm-12"><div class="card-wrapper">
+<a href="https://developer.nvidia.com/developer-program" id="ib782k-2-2-2-2" target="_blank"></a><div class="card extra-resource">
+<img alt="Decorative image representing Developer Community" src="https://developer.download.nvidia.com/icons/m48-developer-1.svg" id="ia0mj5-2-2" class="img-fluid mw-6-rem mx-auto svg-icon"><h3 id="iuxh6x-2-2" class="txt-clr--blck mb-0 text-center h--smallest">Join the NVIDIA Developer Program</h3>
+<a href="https://developer.nvidia.com/developer-program" id="ib782k-2-2-2-2-2" target="_blank"></a>
+</div>
+</div></div>
+</div></div></section><section class="page__section page__second-section pt-0"><hr class="separator separator--md">
+<h2 title="" class="h--medium section__heading">Ethical AI </h2>
+<div data-react-class="Accordion" data-react-props='{"id":"i9btvl-2-2"}' data-react-cache-id="Accordion-i9btvl-2-2"></div>
+<p id="ig3n8ea-2" class="p--large">NVIDIA believes Trustworthy AI is a shared responsibility and we have established policies and practices to enable development for a wide array of AI applications. When downloaded or used in accordance with our terms of service, developers should work with their supporting model team to ensure this model meets requirements for the relevant industry and use case and addresses unforeseen product misuse. <br><br>For more detailed information on ethical considerations for this model, please see the Model Card++ Explainability, Bias, Safety &amp; Security, and Privacy Subcards. Please report security vulnerabilities or NVIDIA AI Concerns <a href="https://www.nvidia.com/en-us/support/submit-security-vulnerability/" id="ie1poi" target="_blank">here</a>.</p></section><section class="page__section page__section--light-gray page__last-section page__cta-section"><p class="p--large text-center fw-bold">Develop, deploy, and scale AI-enabled video analytics applications with <br>NVIDIA Metropolis.</p>
+<p class="text-center mb-0"><a href="https://build.nvidia.com/explore/vision" target="_blank" class="btn btn-cta">Get Started</a></p></section></main></div>
+</div></div>
+<div class="separator separator--90 phone-0"></div>
+</div>
+    </div>
+
+
+
+
+
+
+          <script type="text/javascript">
+  (() => {
+    const handleQuotesBlock = (quotesBlock, idx) => {
+      const blockquotes = quotesBlock.querySelectorAll('blockquote');
+      if (blockquotes.length < 1) {
+        return;
+      }
+
+      const navContainer = document.createElement('ul');
+      navContainer.classList.add('quotes-list-navigation');
+      for (let i = 0; i < blockquotes.length; i++) {
+        let navItem = document.createElement('li');
+        let btn = document.createElement('button');
+        btn.type = 'button';
+        btn.dataset['group'] = idx.toString();
+        btn.dataset['length'] = blockquotes.length.toString();
+        btn.value = i.toString();
+
+        btn.addEventListener('click', (e) => {
+          const group = e.target.dataset['group'];
+          const groupActiveButtons = document.querySelectorAll(`button[data-group="${group}"].active`);
+          groupActiveButtons.forEach((activeButton) => {
+            activeButton.classList.remove('active');
+          });
+          e.target.classList.add('active');
+          const viewPortWidth = quotesBlock.getBoundingClientRect().width;
+          const clickedSlide = parseInt(e.target.value);
+          quotesBlock.querySelector('.quotes-list').style.transform = `translate(-${viewPortWidth * clickedSlide}px)`;
+        });
+        navItem.appendChild(btn);
+        navContainer.appendChild(navItem);
+
+        if (i === 0) {
+          btn.click();
+        }
+      }
+      quotesBlock.appendChild(navContainer);
+    };
+
+    const refreshQuotesBlock = () => {
+      document.querySelectorAll('.quotes-list-navigation button.active').forEach((b) => {
+        const currentItem = parseInt(b.value);
+        const maxItem = parseInt(b.dataset['length']);
+        const group = parseInt(b.dataset['group']);
+        const next = currentItem + 1;
+        if (next < maxItem) {
+          document.querySelectorAll(`button[data-group="${group}"]`)[next].click();
+        } else {
+          document.querySelectorAll(`button[data-group="${group}"]`)[0].click();
+        }
+      });
+    };
+
+    const refreshInterval = 4000;
+    const quotesBlocks = document.querySelectorAll('.quotes-list-viewport');
+
+    if (quotesBlocks.length) {
+      quotesBlocks.forEach(handleQuotesBlock);
+      setInterval(refreshQuotesBlock, refreshInterval);
+    }
+  })();
+</script>
+
+      <script type="text/javascript" charset="utf-8">
+  (() => {
+    const doInit = (accordionRoot, idx) => {
+      const baseID = `page-accordion-${idx}`;
+      accordionRoot.id = baseID;
+      const headings = accordionRoot.querySelectorAll('.accordion-header');
+      if (!headings.length) {
+        return;
+      }
+
+      const collapseElements = accordionRoot.querySelectorAll('.accordion-collapse');
+
+      headings.forEach((headingElement, idx) => {
+        const headingID = `${baseID}-heading-${idx}`;
+        const targetID = `${baseID}-target-${idx}`;
+        headingElement.id = headingID;
+        const headingButton = headingElement.querySelector('.accordion-button');
+        if (!headingButton) {
+          return;
+        }
+        headingButton.type = 'button';
+        headingButton.dataset['bsToggle'] = 'collapse';
+        headingButton.dataset['bsTarget'] = `#${targetID}`;
+        headingButton.setAttribute('aria-expanded', true);
+        headingButton.setAttribute('aria-controls', targetID);
+        headingButton.setAttribute('role', 'button');
+
+        if (!collapseElements[idx].classList.contains('show')) {
+          headingButton.classList.add('collapsed');
+        }
+
+        collapseElements[idx].id = targetID;
+        collapseElements[idx].setAttribute('aria-labelledby', headingID);
+      });
+
+      new bootstrap.Collapse(accordionRoot);
+    };
+
+    const initAccordions = () => {
+      const accordions = document.querySelectorAll('section.page__section div.accordion');
+      if (!accordions.length) {
+        return;
+      }
+
+      let accordionIndex = 0;
+      accordions.forEach((accordion) => {
+        doInit(accordion, accordionIndex);
+        accordionIndex += 1;
+      });
+    };
+    
+    document.addEventListener('DOMContentLoaded', initAccordions)
+  })();
+</script>
+
+      <script src="https://developer.nvidia.com/assets/grapesjs-tabs-f0b094476ecf56695b765f533e437303138b1e0824d993c50ff672e16dcccd8f.js"></script>
+      <script src="https://developer.nvidia.com/assets/grapesjs-code-container-d9f9220defaa8a53ba3e8b7a6b1d155f6a1e5e5b37b9fa2282a7ace75bc60ae2.js"></script>
+      <script src="https://developer.nvidia.com/assets/legacy-chart/d3.v4.min-41cfecdf7c41476e805de7afacf4aacdd1a4be6947fbecf95217e947ebc2faf5.js"></script>
+      <script src="https://developer.nvidia.com/assets/legacy-chart/visualize-d-6a082dca95b2facd89f05ef138213cffea2419e9195042f6ceed4aa706943cb1.js"></script>
+      <script src="https://developer.nvidia.com/assets/momentjs/moment-b955adb4137f92dd932ff2c3179ce60cb5e1daed5fcc4423f95cf17df02b4d68.js"></script>
+      <script src="https://developer.nvidia.com/assets/momentjs/moment-timezone-with-data-10-year-range-dd05517070a46fa0052f9e706803d57a4fc38c1a223137ab480369e6308ba8d4.js"></script>
+      <script src="https://developer.nvidia.com/assets/calendar-256ba38a1da92b24c057388ff6623eddd4cf1498f51d1a389cc4dfac501ab87c.js"></script>
+      <script src="https://developer.nvidia.com/assets/hoverable-tooltip-06658c1c074450575999f586a2be4df71fb000fa8fbc3eec0955c1484012c593.js"></script>
+
+    <script src="https://developer.nvidia.com/assets/nv-developer-menu-8ae864e49d5d53c328146a66e7ad6d73242af7511f642a7d1aa1ffedd496f826.js"></script>
+  <div id='footer' class='mt-auto'></div>
+  <script src="https://www.nvidia.com/content/dam/en-zz/Solutions/librarian/bundle-search-prod-pub-v3.1.js"></script>
+  <div id="librarian-overlay"></div>
+  <script defer>
+    setTimeout(() => {
+      LIBRARIAN.Home.mount({
+        elementId: 'librarian-overlay',
+        searchPage: false,
+        placeholder: '',
+        site: 'https://developer.nvidia.com',
+        retainFilters: true,
+        overlay: true,
+        pillsOpen: true,
+        suggestedSearchPills: []
+      })
+    }, 1000)
+  </script>
+<script>
+  let menuLocale = 'en';
+
+  if (menuLocale == 'en') {
+    menuLocale = 'en-US';
+  }
+
+  function mountHeader(data = false) {
+    const headerTarget = document.getElementById('header');
+    if (!headerTarget) {
+      return;
+    }
+    let options = {
+      baseURL: window.location.origin,
+      signedIn: false,
+      locale: menuLocale
+    };
+
+    if (data) {
+      options.secondaryMenu = data;
+    }
+
+
+    options.showMembershipCardLink = true;
+
+    new NVDeveloperHeader({
+      target: headerTarget,
+      props: options
+    });
+  }
+
+  function mountFooter(data = false) {
+    const footerTarget = document.getElementById('footer');
+    if (!footerTarget) {
+      return;
+    }
+    let options = {
+      menu: data,
+      locale: menuLocale
+    };
+
+    new NVDeveloperFooter({
+      target: document.getElementById('footer'),
+      props: options
+    });
+  }
+
+  let url = 'd29g4g2dyqv443.cloudfront.net';
+  let headerMenuURL = "https://d29g4g2dyqv443.cloudfront.net/menu/en-US/header-secondary.json";
+
+  if (headerMenuURL) {
+    fetch(headerMenuURL)
+      .then(response => response.json())
+      .then(data => {
+        mountHeader(data);
+      })
+      .catch((error) => {
+        mountHeader();
+        window.nv.tracing.addError('menu', error);
+      });
+  } else {
+    mountHeader();
+  }
+
+  fetch(`https://${url}/menu/${menuLocale}/footer.json`)
+    .then(response => response.json())
+    .then(data => {
+      mountFooter(data);
+    })
+    .catch((error) => {
+      mountFooter();
+      window.nv.tracing.addError('menu', error);
+    });
+</script>
+
+      <script src="https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js"></script>
+
+    
+    
+      <script>
+  let silentAuthHost = 'www.nvidia.com';
+  let crossOriginPageUrl = `https://${silentAuthHost}/auth/hints/`;
+
+  function readHint() {
+    return new Promise((resolve) => {
+      const { origin: targetOrigin } = new URL(crossOriginPageUrl);
+
+      const iframe = document.createElement('iframe');
+      iframe.hidden = true;
+      iframe.src = crossOriginPageUrl;
+
+      function responseHandler(event) {
+        if (event.origin === targetOrigin) {
+          iframe.parentNode.removeChild(iframe);
+          return resolve(event.data);
+        }
+      }
+
+      window.addEventListener('message', responseHandler, { once: true });
+
+      iframe.onload = () => {
+        iframe.contentWindow.postMessage({ type: 'read' }, targetOrigin);
+      }
+
+      document.body.appendChild(iframe);
+    });
+  }
+
+  function writeHint(login_hint, idp_id, timestamp, sub) {
+    const { origin: targetOrigin } = new URL(crossOriginPageUrl);
+
+    const iframe = document.createElement('iframe');
+    iframe.hidden = true;
+    iframe.src = crossOriginPageUrl;
+
+    iframe.onload = () => {
+      const message = { type: 'write', login_hint, idp_id, timestamp, sub };
+      iframe.contentWindow.postMessage(message, targetOrigin);
+    }
+
+    document.body.appendChild(iframe);
+  }
+
+  function deleteHint() {
+    const { origin: targetOrigin } = new URL(crossOriginPageUrl);
+
+    const iframe = document.createElement('iframe');
+    iframe.hidden = true;
+    iframe.src = crossOriginPageUrl;
+
+    iframe.onload = () => {
+      iframe.contentWindow.postMessage({ type: 'delete' }, targetOrigin);
+    }
+
+    document.body.appendChild(iframe);
+  }
+
+
+</script>
+
+    <script>_satellite.pageBottom();</script>
+    <script src="https://api-prod.nvidia.com/search/nvidia-search-library.js"></script>
+
+    <script src="https://developer.nvidia.com/assets/nv-gallery-widget-d1571cad15d961fd3ba013f57119be04a2adf32aa31b16be44a0f10f4671c37b.js"></script>
+    <script src="https://developer.nvidia.com/packs/js/runtime-f904b50470fcb0ec9bf4.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/4692-e2ed051c68e93113bb58.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/2681-6ac336ff34441936c0fb.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/2778-e8f3c5f27fbb1956fdb2.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/9878-baa65d618824b708a55b.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/8465-f321c9c28242e4383fa8.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/4622-1cd0dbd2a0f0b5243900.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/3566-c56dfeed5cc4ed4a9b8f.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/486-1ddc749b634c231b0122.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/8311-71b2da0387dad11f356f.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/1252-6d8bb3f37b33aca41843.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/8823-bac8f579788282b3f2cd.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/2104-29621183e9a96bb055ad.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/6900-b1b00a8ef19d3868862c.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/application-afbb46c9b6cc3093d8f1.js" defer="defer"></script>
+<script src="https://developer.nvidia.com/packs/js/ls_track-d4505a41101e752062c8.js" defer="defer"></script>
+  </body>
+</html>

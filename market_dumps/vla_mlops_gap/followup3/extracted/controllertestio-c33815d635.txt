@@ -1,0 +1,52 @@
+Free Online PS5 Controller Calibration Tool
+The only browser-based tool that calibrates DualShock 4 and DualSense analog sticks at the firmware level — using the same factory commands Sony uses during manufacturing. Fix stick drift without opening your controller.
+Firmware-Level Fix
+Unlike software deadzones that mask the problem, this tool rewrites the center and range calibration data stored in your controller's non-volatile memory — the same data Sony writes during factory assembly.
+Zero Software Install
+Runs entirely in your browser via WebHID API. No drivers, no desktop apps, no admin permissions. Just plug in via USB and click Connect. Works on Chrome and Edge.
+Zero Network Access
+All calibration data is processed locally between your browser and controller. No telemetry, no cloud storage, no data ever leaves your machine. Fully offline-capable.
+How It Works
+Our guided wizard walks you through the complete calibration process with real-time visual feedback at every step.
+Connect via USB
+Plug your DualShock 4 or DualSense into your computer with a USB cable. Bluetooth does not expose the HID Feature Reports required for calibration.
+Center Calibration
+Push both sticks to each corner and release. The tool samples the resting position to establish the true analog center — eliminating neutral drift.
+Range Calibration
+Slowly rotate both sticks in full circles. The tool records the maximum deflection in all directions to map your controller's complete analog range.
+Verify Results
+Calibration is applied temporarily so you can test immediately. Move the sticks around to confirm drift is gone and full range is preserved before committing.
+Save Permanently
+Type SAVE to write calibration data to the controller's NVS (Non-Volatile Storage). This persists across reboots — your controller remembers the fix.
+Built-In Protection
+We take firmware modifications seriously. Multiple safety layers protect your controller throughout the process.
+Battery Check
+Permanent save is blocked if battery level is below 30% to prevent write corruption from power loss during NVS operations.
+Clone Detection
+Third-party clone controllers are detected and blocked automatically. Calibration commands on non-genuine hardware may cause unpredictable behavior.
+USB Enforcement
+Bluetooth connections are rejected — USB provides the stable, low-latency link required for reliable HID Feature Report communication.
+Write Confirmation
+Permanent save requires typing SAVE as explicit confirmation. Temporary calibration can be tested first and undone by simply restarting the controller.
+Compatible PlayStation Hardware
+This tool supports genuine Sony controllers that expose factory calibration HID commands over USB.
+-   DualShock 4 (CUH-ZCT1 / CUH-ZCT2)Both V1 and V2 models. The most common stick drift candidates due to aging ALPS potentiometers.
+-   DualSense (CFI-ZCT1)Standard DualSense with full calibration support. The most frequently requested controller for this tool.
+-   Not SupportedDualSense Edge, DualShock 3, and third-party clones are blocked for safety. Edge requires hardware-level modification.
+USB · WEBHID · CHROME/EDGE
+Frequently Asked Questions
+Common questions about PS controller calibration and stick drift repair
+Q Will this void my warranty?
+This tool uses the same undocumented HID commands that Sony uses during factory calibration. However, since it modifies NVS data, Sony may consider it an unauthorized modification. If your controller is still under warranty, consider contacting Sony support first.
+Q Can this brick my controller?
+The calibration commands are identical to those Sony uses in the factory. The primary risk is interrupting the NVS write process — which is why we enforce battery checks, USB-only connections, and explicit SAVE confirmation. In the worst case, you can recalibrate again.
+Q Why USB only? Can't I use Bluetooth?
+Calibration requires HID Feature Reports (0x02, 0x05, 0x09) which are only available over USB. Bluetooth HID does not expose these low-level commands. Additionally, USB provides a more stable connection for firmware-level operations.
+Q How is this different from adjusting deadzones?
+In-game deadzone settings add a software buffer that masks drift but reduces your effective analog range. This tool actually rewrites the center and range values in the controller's firmware — fixing the root cause rather than hiding the symptom.
+Q What if calibration makes things worse?
+If you save permanently and results are bad, simply run the calibration again. If you haven't saved yet, just restart your controller — temporary calibration is discarded automatically. The tool also offers backup export before any permanent write.
+Q Does this work on PS5 / PS4 console?
+This is a browser-based tool that requires a computer with Chrome or Edge. You connect your PS controller to your PC via USB for calibration, then use it normally on your console afterward. The calibration persists in the controller's firmware.
+Stop Masking Drift — Fix It at the Source
+Software deadzones are band-aids. This tool writes directly to your controller's firmware calibration data — the same way Sony calibrates brand-new controllers at the factory. Plug in via USB and fix your stick drift in under 2 minutes.

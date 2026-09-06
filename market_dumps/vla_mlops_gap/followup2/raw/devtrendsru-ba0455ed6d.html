@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="IASRTdtDKVtRdNpTpE6W2E0ttJJjZN8rROnOhDvZ">
+
+        <script>
+            window.App = {
+                isAuthenticated: false
+            };
+        </script>
+
+        <script>
+            // Свёрнутость сайдбара (только десктоп) применяем к <html> синхронно,
+            // до первой отрисовки — иначе развёрнутое меню мигало бы при загрузке.
+            (function () {
+                try {
+                    if (localStorage.getItem('sidebarCollapsed') === '1') {
+                        document.documentElement.classList.add('sidebar-collapsed');
+                    }
+                } catch (e) {}
+            })();
+            function syncSidebarAria() {
+                var expanded = document.documentElement.classList.contains('sidebar-collapsed') ? 'false' : 'true';
+                document.querySelectorAll('[aria-controls="main-sidebar"]').forEach(function (btn) {
+                    btn.setAttribute('aria-expanded', expanded);
+                });
+            }
+            function toggleSidebar() {
+                var html = document.documentElement;
+                // Ширина анимируется только на время осознанного переключения: иначе
+                // transition по width срабатывал бы и при ресайзе окна через брейкпоинты.
+                html.classList.add('sidebar-animating');
+                var collapsed = html.classList.toggle('sidebar-collapsed');
+                setTimeout(function () { html.classList.remove('sidebar-animating'); }, 250);
+                try { localStorage.setItem('sidebarCollapsed', collapsed ? '1' : '0'); } catch (e) {}
+                syncSidebarAria();
+                // Нажатая кнопка прячется (display:none) — без передачи фокуса встречной
+                // кнопке клавиатурный фокус проваливается в <body> и Tab начинает сначала.
+                var counterpart = document.getElementById(collapsed ? 'sidebar-expand' : 'sidebar-toggle');
+                if (counterpart) counterpart.focus({ preventScroll: true });
+            }
+            document.addEventListener('DOMContentLoaded', syncSidebarAria);
+        </script>
+
+        <title>Проекты по тегу #lerobot | DevTrends</title>
+
+                    <meta name="description" content="Все о LeRobot: открытые проекты в робототехнике, сборка манипуляторов, применение нейросетей, интеграция с Python API и управление роботами.">
+        
+        
+        
+        
+                <!-- Canonical URL -->
+        <link rel="canonical" href="https://devtrends.ru/tag/lerobot" />
+        
+        <!-- Open Graph -->
+        <meta property="og:title" content="Проекты по тегу #lerobot | DevTrends" />
+        <meta property="og:url" content="https://devtrends.ru/tag/lerobot" />
+        
+        <meta property="og:type" content="website" />
+                <meta property="og:description" content="Все о LeRobot: открытые проекты в робототехнике, сборка манипуляторов, применение нейросетей, интеграция с Python API и управление роботами." />
+                
+        <meta property="og:image" content="https://devtrends.ru/apple-touch-icon.png" />
+
+        <!-- Favicons -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
+        <!-- Fonts -->
+        <link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/fonts/jetbrains-mono/jetbrains-mono-cyrillic-400-normal.woff2">
+
+<style>
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-400-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-ext-400-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-400-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-ext-400-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-greek-400-normal.woff2) format('woff2');unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-vietnamese-400-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-500-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-ext-500-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-500-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-ext-500-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-greek-500-normal.woff2) format('woff2');unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-vietnamese-500-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-600-normal.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-latin-ext-600-normal.woff2) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-600-normal.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-cyrillic-ext-600-normal.woff2) format('woff2');unicode-range:U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-greek-600-normal.woff2) format('woff2');unicode-range:U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/jetbrains-mono/jetbrains-mono-vietnamese-600-normal.woff2) format('woff2');unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;}
+</style>
+
+        <meta name="yandex-verification" content="be5bf47cea15694e" />
+
+        <!-- Scripts -->
+        <link rel="preload" as="style" href="https://devtrends.ru/build/assets/app-BOltHH3n.css" /><link rel="modulepreload" href="https://devtrends.ru/build/assets/app-DDH3ahtG.js" /><link rel="modulepreload" href="https://devtrends.ru/build/assets/index-Dq7h7Pqt.js" /><link rel="stylesheet" href="https://devtrends.ru/build/assets/app-BOltHH3n.css" /><script type="module" src="https://devtrends.ru/build/assets/app-DDH3ahtG.js"></script>    </head>
+    <body class="font-sans antialiased bg-gray-50 text-gray-800">
+        <div class="min-h-screen" x-data="{ sidebarOpen: false }">
+                        <header class="bg-white shadow-sm sticky top-0 z-40">
+                <div class="w-full mx-auto px-4">
+                    <div class="flex justify-between items-center py-3">
+                        <!-- Left side: Hamburger and Logo -->
+                        <div class="flex items-center">
+                            <button @click="sidebarOpen = !sidebarOpen" class="lg:hidden mr-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                                    <path :class="{'hidden': sidebarOpen, 'inline-flex': !sidebarOpen }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                    <path :class="{'hidden': !sidebarOpen, 'inline-flex': sidebarOpen }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            <a href="https://devtrends.ru">
+                                <img src="https://devtrends.ru/images/logo.png" alt="DevTrends Logo" class="h-6 sm:h-8 w-auto">
+                            </a>
+                        </div>
+
+                        <!-- Center: Desktop Search -->
+                        <div class="hidden sm:flex flex-1 justify-end px-4">
+                            <div x-data @click.prevent="$dispatch('open-modal', 'search-modal')" class="w-full max-w-xs">
+                                <div class="flex items-center w-full bg-gray-100 hover:bg-gray-200 rounded-md px-3 py-2 text-sm text-gray-500 cursor-pointer transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-2 text-gray-400">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                    </svg>
+                                    <span>Найти проект...</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right side: Mobile Search and Telegram -->
+                        <div class="flex items-center gap-x-4 sm:gap-x-6">
+                            <!-- Mobile Search -->
+                            <button x-data @click.prevent="$dispatch('open-modal', 'search-modal')" class="sm:hidden text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                </svg>
+                            </button>
+                            <button x-data @click="$dispatch('assistant-toggle')" type="button" title="Dev-ассистент" aria-label="Dev-ассистент" class="inline-flex text-gray-400 hover:text-purple-600 transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16">
+                                    <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                                    <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+                                </svg>
+                            </button>
+                            <a target="_blank" href="https://t.me/devtrends_ru" title="Будь в курсе всех новинок в IT" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+                                </svg>
+                            </a>
+                            <a target="_blank" href="https://www.youtube.com/@devtrends_ru?sub_confirmation=1" title="DevTrends на YouTube" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="h-6 w-6" viewBox="0 0 16 16">
+                                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105c-.003.034-.006.068-.01.104l-.022.26-.008.105c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
+                                </svg>
+                            </a>
+                                                            <a href="https://devtrends.ru/login" title="Войти в систему" class="text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-6 h-6">
+                                        <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4"/>
+                                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1.5a.5.5 0 0 0 1 0V11a.5.5 0 0 0-.5-.5m0 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+                                    </svg>
+                                </a>
+                                                    </div>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="w-full mx-auto lg:flex">
+                                <!-- Sidebar -->
+                
+                <aside id="main-sidebar" :class="{'translate-x-0': sidebarOpen, '-translate-x-full': !sidebarOpen}" class="fixed inset-y-0 left-0 z-30 w-72 bg-white shadow-lg transform -translate-x-full lg:translate-x-0 lg:sticky lg:top-[60px] lg:bottom-auto lg:left-auto lg:h-[calc(100vh-60px)] lg:z-auto lg:w-[260px] 2xl:w-[300px] min-[2000px]:w-[340px] lg:flex-shrink-0 transition-transform duration-200 ease-in-out pt-14 lg:pt-0 flex flex-col">
+                    <div id="sidebar-expanded" class="flex-grow overflow-y-auto thin-scrollbar">
+                        <div class="px-2.5 py-6">
+                            <div x-data>
+    <button @click="$dispatch('open-modal', { id: 'add-project-modal' })" class="w-full flex items-center justify-center px-4 py-2 mb-2 text-sm font-medium rounded-md shadow-sm border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-0 transition-colors duration-300">
+        <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
+            <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
+        </svg>
+        Добавить проект
+    </button>
+
+    <a href="https://devtrends.ru/login" class="w-full flex items-center justify-center px-4 py-2 mb-2 text-sm font-medium rounded-md shadow-sm border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-0 transition-colors duration-300">
+        <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+        </svg>
+        Личный кабинет&nbsp;
+    </a>
+
+    <button @click="$dispatch('assistant-toggle')" class="w-full flex items-center justify-center px-4 py-2 mb-2 text-sm font-medium rounded-md shadow-sm border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-0 transition-colors duration-300">
+        <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+            <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+        </svg>
+        Dev-ассистент&nbsp;&nbsp;
+    </button>
+
+    <a href="https://devtrends.ru/favorites" id="favorites-link"
+       class="flex justify-between items-center px-3 py-2 my-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+        <span class="flex items-center">
+            <svg class="w-5 h-5 mr-2 text-red-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+            Избранное
+        </span>
+        <span class="favorites-count ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">0</span>
+    </a>
+
+    <a href="https://devtrends.ru/login"
+       class="flex justify-between items-center px-3 py-2 my-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+        <span class="flex items-center">
+            <svg class="w-5 h-5 mr-2 hover:text-purple-500 transition-colors duration-200 fill-current text-purple-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+            </svg>
+            Мои коллекции
+        </span>
+        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">0</span>
+    </a>
+
+    <a href="https://devtrends.ru/collections"
+       class="flex justify-between items-center px-3 py-2 my-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+        <span class="flex items-center">
+            <svg class="w-5 h-5 mr-2 fill-current text-teal-500" fill="currentColor" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5z"/>
+            </svg>
+            Все коллекции
+        </span>
+        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">6</span>
+    </a>
+
+    <a href="https://devtrends.ru/news"
+       class="flex justify-between items-center px-3 py-2 my-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+        <span class="flex items-center">
+            <svg class="w-5 h-5 mr-2 fill-current text-gray-400" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25 25 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009l.496.008a64 64 0 0 1 1.51.048m1.39 1.081q.428.032.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a66 66 0 0 1 1.692.064q.491.026.966.06"/>
+            </svg>
+            IT-новости
+        </span>
+        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">30</span>
+    </a>
+
+    <a href="https://devtrends.ru/tools"
+       class="flex justify-between items-center px-3 py-2 my-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+        <span class="flex items-center">
+            <svg class="w-5 h-5 mr-2 fill-current text-amber-500" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242l-.914.305-.968-.968 2.617-2.654A3.003 3.003 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814z"/>
+            </svg>
+            IT-инструменты
+        </span>
+        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-gray-200 text-gray-800">712</span>
+    </a>
+
+    <hr class="mb-2">
+
+    
+
+    
+    
+
+            
+                    <div class="mb-2 flex items-baseline justify-between">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">IT Разделы</h3>
+                <a href="https://devtrends.ru/sections" class="text-xs font-medium text-purple-600 hover:underline">Все разделы →</a>
+            </div>
+
+            <nav class="flex flex-col space-y-1" aria-label="Sections">
+                                    <a href="https://devtrends.ru/sections/frontend"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #61DAFB;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m18 16 4-4-4-4"/>
+  <path d="m6 8-4 4 4 4"/>
+  <path d="m14.5 4-5 16"/>
+</svg>                                                <span>Frontend</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/backend"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #339933;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+  <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+  <line x1="6" x2="6.01" y1="6" y2="6"/>
+  <line x1="6" x2="6.01" y1="18" y2="18"/>
+</svg>                                                <span>Backend</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/mobile"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #FF6B6B;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+  <path d="M12 18h.01"/>
+</svg>                                                <span>Mobile</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/devops"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #1E88E5;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+  <circle cx="12" cy="12" r="3"/>
+</svg>                                                <span>DevOps</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/aiml"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #7C3AED;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+  <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+  <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+  <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
+  <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
+  <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
+  <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
+  <path d="M6 18a4 4 0 0 1-1.967-.516"/>
+  <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
+</svg>                                                <span>AI/ML</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/gamedev"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #FF6B35;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="6" x2="10" y1="11" y2="11"/>
+  <line x1="8" x2="8" y1="9" y2="13"/>
+  <line x1="15" x2="15.01" y1="12" y2="12"/>
+  <line x1="18" x2="18.01" y1="10" y2="10"/>
+  <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>
+</svg>                                                <span>GameDev</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/blockchain"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #F7931A;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+</svg>                                                <span>Blockchain</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/embedded"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #00D4FF;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="16" height="16" x="4" y="4" rx="2"/>
+  <rect width="6" height="6" x="9" y="9" rx="1"/>
+  <path d="M15 2v2"/>
+  <path d="M15 20v2"/>
+  <path d="M2 15h2"/>
+  <path d="M2 9h2"/>
+  <path d="M20 15h2"/>
+  <path d="M20 9h2"/>
+  <path d="M9 2v2"/>
+  <path d="M9 20v2"/>
+</svg>                                                <span>Embedded</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/cybersecurity"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #E63946;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+  <path d="m9 12 2 2 4-4"/>
+</svg>                                                <span>Cybersec</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/qa"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #06D6A0;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+  <path d="m9 11 3 3L22 4"/>
+</svg>                                                <span>QA</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/datascience"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #4ECDC4;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="18" x2="18" y1="20" y2="10"/>
+  <line x1="12" x2="12" y1="20" y2="4"/>
+  <line x1="6" x2="6" y1="20" y2="14"/>
+</svg>                                                <span>Data Sci</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/dataeng"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #FFB703;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+  <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+  <path d="M3 12A9 3 0 0 0 21 12"/>
+</svg>                                                <span>Data Eng</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/design"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #FF006E;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+</svg>                                                <span>Design</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/tools"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #6366F1;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+</svg>                                                <span>Tools</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/cli"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #14B8A6;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="4 17 10 11 4 5"/>
+  <line x1="12" x2="20" y1="19" y2="19"/>
+</svg>                                                <span>CLI</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/opensource"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #0EA5E9;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="6" x2="6" y1="3" y2="15"/>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <path d="M18 9a9 9 0 0 1-9 9"/>
+</svg>                                                <span>Open Source</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/learning"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #8B5CF6;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
+</svg>                                                <span>Learning</span>
+                    </a>
+                                    <a href="https://devtrends.ru/sections/osint"
+                       class="flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150 text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                                                    <svg style="color: #4A90E2;" class="w-4 h-4 mr-2 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="11" cy="11" r="8"/>
+  <path d="m21 21-4.3-4.3"/>
+</svg>                                                <span>OSINT</span>
+                    </a>
+                            </nav>
+
+            <hr class="my-4">
+        
+        
+                    <div class="mb-2 flex items-baseline justify-between">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Популярные языки</h3>
+                <a href="https://devtrends.ru/categories" class="text-xs font-medium text-purple-600 hover:underline">Все языки →</a>
+            </div>
+
+            <nav class="flex flex-col space-y-1" aria-label="Categories">
+                                    <a href="https://devtrends.ru/c"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>C</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-fuchsia-200 text-fuchsia-900">624</span>
+                    </a>
+                                    <a href="https://devtrends.ru/c-sharp"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>C#</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-pink-100 text-pink-800">91</span>
+                    </a>
+                                    <a href="https://devtrends.ru/c-plus-plus"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>C++</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-emerald-200 text-emerald-900">313</span>
+                    </a>
+                                    <a href="https://devtrends.ru/go"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Go</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-lime-100 text-lime-800">882</span>
+                    </a>
+                                    <a href="https://devtrends.ru/html"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>HTML</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-pink-200 text-pink-900">292</span>
+                    </a>
+                                    <a href="https://devtrends.ru/java"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Java</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-lime-100 text-lime-800">512</span>
+                    </a>
+                                    <a href="https://devtrends.ru/javascript"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>JavaScript</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-violet-200 text-violet-900">780</span>
+                    </a>
+                                    <a href="https://devtrends.ru/jupyter-notebook"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Jupyter Notebook</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-cyan-200 text-cyan-900">311</span>
+                    </a>
+                                    <a href="https://devtrends.ru/kotlin"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Kotlin</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-green-100 text-green-800">392</span>
+                    </a>
+                                    <a href="https://devtrends.ru/php"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>PHP</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-indigo-200 text-indigo-900">312</span>
+                    </a>
+                                    <a href="https://devtrends.ru/python"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Python</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800">1810</span>
+                    </a>
+                                    <a href="https://devtrends.ru/rust"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Rust</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-cyan-200 text-cyan-900">722</span>
+                    </a>
+                                    <a href="https://devtrends.ru/shell"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Shell</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-indigo-200 text-indigo-900">359</span>
+                    </a>
+                                    <a href="https://devtrends.ru/swift"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>Swift</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-lime-200 text-lime-900">59</span>
+                    </a>
+                                    <a href="https://devtrends.ru/typescript"
+                       class="flex justify-between items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-150
+                              text-gray-600 hover:bg-gray-100 hover:text-gray-900">
+                        <span>TypeScript</span>
+                        <span class="ml-2 inline-block py-0.5 px-2.5 rounded-full text-xs font-medium bg-blue-200 text-blue-900">1233</span>
+                    </a>
+                            </nav>
+            
+    <hr class="my-4">
+
+    
+    
+                    <div class="text-center" data-impression-slot="A">
+            <a href="#ad-6a9d402d519f6" rel="nofollow">
+                <img src="https://devtrends.ru/cpa/banners/placeholder/240x240-2.webp"
+                     alt="Реклама" width="240" height="240" loading="lazy"
+                     class="mx-auto rounded-md shadow-md">
+            </a>
+        </div>
+
+        <hr class="my-4">
+    
+    <div class="mb-2">
+        <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">DevTrends в Telegram</h3>
+    </div>
+
+    <div class="flex justify-center items-center p-2">
+        <a target="_blank" href="https://t.me/devtrends_ru"><img class="rounded-md shadow-md" src="https://devtrends.ru/images/qr-code-channel.png" alt="DevTrends в Telegram"></a>
+    </div>
+
+    </div>
+                        </div>
+                    </div>
+
+                    
+                    <button onclick="toggleSidebar()" type="button" id="sidebar-toggle" title="Свернуть меню" aria-label="Свернуть меню" aria-controls="main-sidebar" aria-expanded="true"
+                            class="hidden lg:flex absolute left-full top-4 z-10 w-4 h-14 items-center justify-center rounded-r-2xl shadow-xl border border-l-0 border-gray-200 bg-white text-gray-400 hover:text-gray-600 hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus-visible:ring-0">
+                        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                        </svg>
+                    </button>
+
+                    <nav id="sidebar-rail" x-data class="flex-col items-center gap-1 px-2 py-3 flex-grow overflow-y-auto scrollbar-hide" aria-label="Свёрнутое меню">
+    <button onclick="toggleSidebar()" type="button" id="sidebar-expand" title="Развернуть меню" aria-label="Развернуть меню" aria-controls="main-sidebar" aria-expanded="false" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
+            <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
+        </svg>
+    </button>
+
+    <hr class="w-8 my-1 border-gray-200">
+
+    <button @click="$dispatch('open-modal', { id: 'add-project-modal' })" type="button" title="Добавить проект" aria-label="Добавить проект" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
+            <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
+        </svg>
+    </button>
+
+    <a href="https://devtrends.ru/login" title="Личный кабинет" aria-label="Личный кабинет" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+        </svg>
+    </a>
+
+    <button @click="$dispatch('assistant-toggle')" type="button" title="Dev-ассистент" aria-label="Dev-ассистент" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+            <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+        </svg>
+    </button>
+
+    <a href="https://devtrends.ru/favorites" title="Избранное" aria-label="Избранное" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 text-red-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+    </a>
+
+    <a href="https://devtrends.ru/login" title="Мои коллекции" aria-label="Мои коллекции" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 fill-current text-purple-500" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path>
+        </svg>
+    </a>
+
+    <a href="https://devtrends.ru/collections" title="Все коллекции" aria-label="Все коллекции" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 fill-current text-teal-500" fill="currentColor" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.5 3.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1zm2-2a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1zM0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6zm1.5.5A.5.5 0 0 1 1 13V6a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5z"/>
+        </svg>
+    </a>
+
+    <a href="https://devtrends.ru/news" title="IT-новости" aria-label="IT-новости" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 fill-current text-gray-400" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0zm-1 .724c-2.067.95-4.539 1.481-7 1.656v6.237a25 25 0 0 1 1.088.085c2.053.204 4.038.668 5.912 1.56zm-8 7.841V4.934c-.68.027-1.399.043-2.008.053A2.02 2.02 0 0 0 0 7v2c0 1.106.896 1.996 1.994 2.009l.496.008a64 64 0 0 1 1.51.048m1.39 1.081q.428.032.85.078l.253 1.69a1 1 0 0 1-.983 1.187h-.548a1 1 0 0 1-.916-.599l-1.314-2.48a66 66 0 0 1 1.692.064q.491.026.966.06"/>
+        </svg>
+    </a>
+
+    <a href="https://devtrends.ru/tools" title="IT-инструменты" aria-label="IT-инструменты" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 fill-current text-amber-500" fill="currentColor" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242l-.914.305-.968-.968 2.617-2.654A3.003 3.003 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814z"/>
+        </svg>
+    </a>
+
+    <hr class="w-8 my-1 border-gray-200">
+
+    <a href="https://devtrends.ru/sections" title="Все разделы" aria-label="Все разделы" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M1 2.5A1.5 1.5 0 0 1 2.5 1h3A1.5 1.5 0 0 1 7 2.5v3A1.5 1.5 0 0 1 5.5 7h-3A1.5 1.5 0 0 1 1 5.5zM2.5 2a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 1h3A1.5 1.5 0 0 1 15 2.5v3A1.5 1.5 0 0 1 13.5 7h-3A1.5 1.5 0 0 1 9 5.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zM1 10.5A1.5 1.5 0 0 1 2.5 9h3A1.5 1.5 0 0 1 7 10.5v3A1.5 1.5 0 0 1 5.5 15h-3A1.5 1.5 0 0 1 1 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5zm6.5.5A1.5 1.5 0 0 1 10.5 9h3a1.5 1.5 0 0 1 1.5 1.5v3a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 13.5zm1.5-.5a.5.5 0 0 0-.5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 0-.5-.5z"/>
+        </svg>
+    </a>
+
+    <a href="https://devtrends.ru/categories" title="Все языки" aria-label="Все языки" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10.478 1.647a.5.5 0 1 0-.956-.294l-4 13a.5.5 0 0 0 .956.294zM4.854 4.146a.5.5 0 0 1 0 .708L1.707 8l3.147 3.146a.5.5 0 0 1-.708.708l-3.5-3.5a.5.5 0 0 1 0-.708l3.5-3.5a.5.5 0 0 1 .708 0m6.292 0a.5.5 0 0 0 0 .708L14.293 8l-3.147 3.146a.5.5 0 0 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0"/>
+        </svg>
+    </a>
+
+    <hr class="w-8 my-1 border-gray-200">
+
+    <a target="_blank" href="https://t.me/devtrends_ru" title="DevTrends в Telegram" aria-label="DevTrends в Telegram" class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-900 transition-colors duration-150">
+        <svg class="w-5 h-5 text-sky-500" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"/>
+        </svg>
+    </a>
+</nav>
+                </aside>
+                
+                <!-- Page Content -->
+                
+                <main class="w-full min-w-0 flex-1 py-5 px-5">
+                    <script type="application/ld+json">
+    {"@context":"https:\/\/schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"\u0413\u043b\u0430\u0432\u043d\u0430\u044f","item":"https:\/\/devtrends.ru"},{"@type":"ListItem","position":2,"name":"#lerobot"}]},{"@type":"ItemList","numberOfItems":1,"itemListElement":[{"@type":"ListItem","position":1,"name":"\u041a\u0430\u043a \u0441\u043e\u0431\u0440\u0430\u0442\u044c \u0447\u0435\u0441\u0442\u043d\u044b\u0439 \u0448\u0435\u0441\u0442\u0438\u043e\u0441\u0435\u0432\u043e\u0439 \u0440\u043e\u0431\u043e\u0442-\u043c\u0430\u043d\u0438\u043f\u0443\u043b\u044f\u0442\u043e\u0440 \u043d\u0430 3D-\u043f\u0440\u0438\u043d\u0442\u0435\u0440\u0435","url":"https:\/\/devtrends.ru\/html\/source-robotics-parol6-desktop-robot-arm"}]}]}</script>
+
+    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+        <h1 class="text-2xl font-bold text-gray-900">#lerobot</h1>
+                    <p class="mt-2 text-gray-600">Всё о библиотеке LeRobot от Hugging Face и практической робототехнике: разработка манипуляторов, интеграция с ROS 2, PyTorch и алгоритмами компьютерного зрения. Изучайте подробные гайды по сборке открытых устройств, обучению нейросетей для роботов и автоматизации сложных задач.</p>
+            </div>
+
+    <div id="sort-controls" class="mb-6 md:flex md:items-center md:justify-end md:space-x-2">
+    <span class="block text-sm font-medium text-gray-600 mb-2 md:mb-0 md:inline">Сортировать по:</span>
+    <div class="grid grid-cols-3 gap-2">
+        <button data-sort="date" class="sort-button w-full px-3 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none flex items-center justify-center">
+            <svg class="w-4 h-4 sm:mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <span class="hidden sm:inline">Дате</span>
+        </button>
+        <button data-sort="stars" class="sort-button w-full px-3 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none flex items-center justify-center">
+            <svg class="w-4 h-4 sm:mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+            <span class="hidden sm:inline">Звездам</span>
+        </button>
+        <button data-sort="forks" class="sort-button w-full px-3 py-1 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none flex items-center justify-center">
+            <svg class="w-4 h-4 sm:mr-1.5" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zM10.5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"></path>
+            </svg>
+            <span class="hidden sm:inline">Форкам</span>
+        </button>
+    </div>
+</div>
+
+    <!-- Posts Grid -->
+    <div id="posts-grid"
+         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 min-[1600px]:grid-cols-4 min-[2000px]:grid-cols-5 gap-6"
+         data-has-more-pages="false"
+         data-tag-name="lerobot">
+                    <!-- Full Post Card -->
+    
+        <div  class="bg-white rounded-lg shadow-md overflow-hidden transform hover:scale-105 hover:shadow-lg transition-transform duration-300 flex flex-col">
+        <div class="p-6 flex-grow">
+            <div class="flex justify-between items-start mb-4">
+                
+                                <a href="https://devtrends.ru/html"
+                   class="text-xs font-semibold px-2 py-1 rounded-full bg-pink-200 text-pink-900 hover:underline">
+                    HTML
+                </a>
+                                <div class="flex items-center space-x-2">
+                                            <span class="text-sm text-gray-500">3 недели назад</span>
+                        <button class="favorite-button text-gray-400 hover:text-red-500 transition-colors duration-200" data-post-id="9805">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                                                            </div>
+            </div>
+
+            <a href="https://devtrends.ru/html/source-robotics-parol6-desktop-robot-arm" title="Как собрать честный шестиосевой робот-манипулятор на 3D-принтере"  class="block">
+                <h3 class="font-bold text-gray-900 line-clamp-3 leading-5 hover:underline">
+                    Как собрать честный шестиосевой робот-манипулятор на 3D-принтере
+                </h3>
+                <p class="mt-2 text-gray-600 text-sm leading-relaxed h-24 overflow-hidden">
+                    Обзор открытого проекта PAROL6: 3D-печатный шестиосевой робот-манипулятор промышленного уровня с поддержкой Python API, ROS 2 и компьютерного зрения.
+                </p>
+            </a>
+        </div>
+
+                <div class="p-6 pt-0 mt-auto">
+            <div class="flex items-center justify-between text-sm text-gray-500">
+                <span class="flex items-center mr-4">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                    3147
+                </span>
+                <span class="flex items-center">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    363
+                </span>
+            </div>
+        </div>
+            </div>
+                </div>
+
+    <!-- Loader -->
+    <div id="loader" class="text-center py-8" style="display: none;">
+        <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600"></div>
+    </div>
+                </main>
+            </div>
+
+            <button
+    type="button"
+    data-scroll-top
+    x-data="scrollTop"
+    x-cloak
+    x-show="visible && ! cookieBar && ! (sidebarOpen && ! desktop)"
+    @cookie-bar.window="cookieBar = $event.detail"
+    @click="toTop()"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 translate-y-2 scale-90"
+    x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+    x-transition:leave="transition ease-in duration-150"
+    x-transition:leave-start="opacity-100 translate-y-0 scale-100"
+    x-transition:leave-end="opacity-0 translate-y-2 scale-90"
+    title="Наверх"
+    aria-label="Наверх"
+    class="scroll-top-btn group fixed right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-white shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 sm:right-6 sm:h-12 sm:w-12"
+>
+    
+    <svg class="pointer-events-none absolute inset-0 h-full w-full -rotate-90" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <circle cx="24" cy="24" r="22" stroke-width="2" class="stroke-gray-200" />
+        <circle
+            cx="24"
+            cy="24"
+            r="22"
+            stroke-width="2"
+            stroke-linecap="round"
+            pathLength="100"
+            stroke-dasharray="100"
+            :stroke-dashoffset="100 - progress * 100"
+            class="stroke-purple-600"
+        />
+    </svg>
+
+    <svg class="pointer-events-none relative h-4 w-4 text-gray-600 transition-colors group-hover:text-purple-600 sm:h-5 sm:w-5" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+        <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"/>
+    </svg>
+</button>
+        </div>
+
+        <link rel="modulepreload" href="https://devtrends.ru/build/assets/infinite-scroll-ClSP20Ul.js" /><link rel="modulepreload" href="https://devtrends.ru/build/assets/index-Dq7h7Pqt.js" /><script type="module" src="https://devtrends.ru/build/assets/infinite-scroll-ClSP20Ul.js"></script>
+        
+        
+        <div
+    x-data="{
+        show: false,
+        message: '',
+        type: 'success',
+        timeout: null,
+        showToast(detail) {
+            this.message = detail.message;
+            this.type = detail.type || 'success';
+            this.show = true;
+            clearTimeout(this.timeout);
+            this.timeout = setTimeout(() => {
+                this.show = false;
+            }, 5000);
+        }
+    }"
+    @toast.window="showToast($event.detail)"
+    x-show="show"
+    x-cloak
+    x-transition:enter="transform ease-out duration-300 transition"
+    x-transition:enter-start="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+    x-transition:enter-end="translate-y-0 opacity-100 sm:translate-x-0"
+    x-transition:leave="transition ease-in duration-100"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+    class="fixed top-5 right-5 z-[9999] max-w-xs w-full bg-white shadow-lg rounded-lg pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden"
+>
+    <div class="p-4">
+        <div class="flex items-start">
+            <div class="flex-shrink-0">
+                <svg x-show="type === 'success'" class="h-6 w-6 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg x-show="type === 'error'" class="h-6 w-6 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <svg x-show="type === 'warning'" class="h-6 w-6 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <svg x-show="type === 'locked'" class="h-6 w-6 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+            </div>
+            <div class="ml-3 w-0 flex-1 pt-0.5">
+                <p class="text-sm font-medium text-gray-900" x-text="message"></p>
+            </div>
+            <div class="ml-4 flex-shrink-0 flex">
+                <button @click="show = false" class="bg-white rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    <span class="sr-only">Close</span>
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+        <div
+    id="add-project-modal"
+    x-data="addProjectModal()"
+    x-init="init()"
+    @keydown.escape.window="show = false"
+    x-show="show"
+    x-cloak
+    class="fixed inset-0 z-50 overflow-y-auto"
+    aria-labelledby="modal-title"
+    role="dialog"
+    aria-modal="true"
+>
+    <div class="flex items-start justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:items-center sm:p-0">
+        <div x-show="show" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" @click="show = false" aria-hidden="true"></div>
+
+        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        <div
+            x-show="show"
+            x-transition:enter="ease-out duration-300"
+            x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+            x-transition:leave="ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+            x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+            class="inline-block w-full max-w-lg p-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-lg"
+        >
+            <div class="flex items-center justify-between pb-4 border-b">
+                <h3 class="text-lg font-medium leading-6 text-gray-900 flex items-center" id="modal-title">
+                    <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0"/>
+                        <path d="M12.096 6.223A5 5 0 0 0 13 5.698V7c0 .289-.213.654-.753 1.007a4.5 4.5 0 0 1 1.753.25V4c0-1.007-.875-1.755-1.904-2.223C11.022 1.289 9.573 1 8 1s-3.022.289-4.096.777C2.875 2.245 2 2.993 2 4v9c0 1.007.875 1.755 1.904 2.223C4.978 15.71 6.427 16 8 16c.536 0 1.058-.034 1.555-.097a4.5 4.5 0 0 1-.813-.927Q8.378 15 8 15c-1.464 0-2.766-.27-3.682-.687C3.356 13.875 3 13.373 3 13v-1.302c.271.202.58.378.904.525C4.978 12.71 6.427 13 8 13h.027a4.6 4.6 0 0 1 0-1H8c-1.464 0-2.766-.27-3.682-.687C3.356 10.875 3 10.373 3 10V8.698c.271.202.58.378.904.525C4.978 9.71 6.427 10 8 10q.393 0 .774-.024a4.5 4.5 0 0 1 1.102-1.132C9.298 8.944 8.666 9 8 9c-1.464 0-2.766-.27-3.682-.687C3.356 7.875 3 7.373 3 7V5.698c.271.202.58.378.904.525C4.978 6.711 6.427 7 8 7s3.022-.289 4.096-.777M3 4c0-.374.356-.875 1.318-1.313C5.234 2.271 6.536 2 8 2s2.766.27 3.682.687C12.644 3.125 13 3.627 13 4c0 .374-.356.875-1.318 1.313C10.766 5.729 9.464 6 8 6s-2.766-.27-3.682-.687C3.356 4.875 3 4.373 3 4"/>
+                    </svg>
+                    Добавить проект
+                </h3>
+                <button @click="show = false" class="text-gray-400 hover:text-gray-500">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <form @submit.prevent="submit" class="mt-4">
+                <div class="flex items-start">
+                    <div class="flex-1">
+                        <input type="url" x-model="url" name="url" id="url" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-0 focus:border-gray-300 placeholder-gray-500 focus:placeholder-gray-300 text-sm rounded-e-none border-e-0" placeholder="https://github.com/owner/repo" required>
+                        <div x-show="error" class="flex items-center mt-2 text-xs text-red-600">
+                            <svg class="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path></svg>
+                            <p x-text="error"></p>
+                        </div>
+                    </div>
+                    <button type="submit" :disabled="loading" class="inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md shadow-sm border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-0 transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-s-none">
+                        <svg x-show="loading" class="w-5 h-5 mr-2 -ml-1 text-gray-700 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span x-text="loading ? 'Отправка...' : 'Отправить'"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+        <div x-data="{
+    show: false,
+    focusables() {
+        // All focusable element types...
+        let selector = 'a, button, input:not([type=\'hidden\']), textarea, select, details, [tabindex]:not([tabindex=\'-1\'])'
+        return [...$el.querySelectorAll(selector)]
+            // All non-disabled elements...
+            .filter(el => !el.hasAttribute('disabled'))
+    },
+    firstFocusable() { return this.focusables()[0] },
+    lastFocusable() { return this.focusables().slice(-1)[0] },
+    nextFocusable() { return this.focusables()[this.nextFocusableIndex()] || this.firstFocusable() },
+    prevFocusable() { return this.focusables()[this.prevFocusableIndex()] || this.lastFocusable() },
+    nextFocusableIndex() { return (this.focusables().indexOf(document.activeElement) + 1) % (this.focusables().length + 1) },
+    prevFocusableIndex() { return Math.max(0, this.focusables().indexOf(document.activeElement)) - 1 },
+}" x-init="$watch('show', value => {
+    if (value) {
+        document.body.classList.add('overflow-y-hidden');
+        setTimeout(() =&gt; firstFocusable().focus(), 100)
+    } else {
+        document.body.classList.remove('overflow-y-hidden');
+    }
+})"
+    x-on:open-modal.window="$event.detail == 'search-modal' ? show = true : null"
+    x-on:close-modal.window="$event.detail == 'search-modal' ? show = false : null" x-on:close.stop="show = false"
+    x-on:keydown.escape.window="show = false" x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"
+    x-on:keydown.shift.tab.prevent="prevFocusable().focus()" x-show="show"
+    class="fixed inset-0 overflow-y-auto px-0 py-0 z-50 sm:flex sm:items-center sm:justify-center"
+    style="display: none;">
+    <div x-show="show" class="fixed inset-0 transform transition-all" x-on:click="show = false"
+        x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+        x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+
+    <div x-show="show"
+        class="w-full h-full bg-white sm:h-auto sm:rounded-lg overflow-hidden shadow-xl transform transition-all sm:max-w-5xl sm:mx-4" focusable="focusable"
+        x-transition:enter="ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
+        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+        x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+        <div class="p-4 flex flex-col h-full sm:h-[90dvh]" x-data="searchModal(JSON.parse('[\u0022frontend\u0022,\u0022backend\u0022,\u0022mobile\u0022,\u0022devops\u0022,\u0022aiml\u0022,\u0022gamedev\u0022,\u0022blockchain\u0022,\u0022embedded\u0022,\u0022cybersecurity\u0022,\u0022qa\u0022,\u0022datascience\u0022,\u0022dataeng\u0022,\u0022design\u0022,\u0022tools\u0022,\u0022cli\u0022,\u0022opensource\u0022,\u0022learning\u0022,\u0022osint\u0022]'))" x-init="init()">
+        <div class="flex items-center justify-between">
+            <h3 class="text-lg font-medium text-gray-900 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                </svg>
+                Поиск проектов
+            </h3>
+            <button @click="show = false" class="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-0">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="md:col-span-2 relative">
+                <input type="text"
+                       x-ref="queryInput"
+                       x-model="query"
+                       @input.debounce.500ms="search"
+                       @paste="setTimeout(() => search(), 100)"
+                       class="block w-full pl-4 pr-10 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-300 focus:ring-0 focus:border-gray-300 text-sm"
+                       placeholder="Введите название или описание...">
+                
+                <button x-show="query.length > 0" :disabled="query.length === 0" @click="query = ''; search(); $refs.queryInput.focus()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="relative"
+                 @click.outside="sectionsOpen = false"
+                 @keydown.escape="if (sectionsOpen) { closeSections(); $event.stopPropagation() }"
+                 @keydown.arrow-down.prevent="moveSectionFocus(1)"
+                 @keydown.arrow-up.prevent="moveSectionFocus(-1)">
+                <button type="button"
+                        x-ref="sectionsTrigger"
+                        @click="sectionsOpen = !sectionsOpen"
+                        aria-haspopup="listbox"
+                        :aria-expanded="sectionsOpen"
+                        class="flex w-full items-center gap-2 pl-3 pr-2 py-2 text-sm text-left bg-white border rounded-md cursor-pointer hover:bg-gray-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                        :class="sectionsOpen ? 'border-purple-300' : 'border-gray-300'">
+                    
+                    <span class="sr-only">Направления:</span>
+                    <span class="flex-1 min-w-0 flex items-center gap-1 overflow-hidden">
+                        <span x-show="selectedSections.length === 0" class="text-gray-500 truncate">Все направления</span>
+                        
+                                                    <span x-show="isChipVisible('frontend')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #61DAFB20; color: #61DAFB">Frontend</span>
+                                                    <span x-show="isChipVisible('backend')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #33993320; color: #339933">Backend</span>
+                                                    <span x-show="isChipVisible('mobile')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #FF6B6B20; color: #FF6B6B">Mobile</span>
+                                                    <span x-show="isChipVisible('devops')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #1E88E520; color: #1E88E5">DevOps</span>
+                                                    <span x-show="isChipVisible('aiml')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #7C3AED20; color: #7C3AED">AI/ML</span>
+                                                    <span x-show="isChipVisible('gamedev')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #FF6B3520; color: #FF6B35">GameDev</span>
+                                                    <span x-show="isChipVisible('blockchain')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #F7931A20; color: #F7931A">Blockchain</span>
+                                                    <span x-show="isChipVisible('embedded')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #00D4FF20; color: #00D4FF">Embedded</span>
+                                                    <span x-show="isChipVisible('cybersecurity')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #E6394620; color: #E63946">Cybersec</span>
+                                                    <span x-show="isChipVisible('qa')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #06D6A020; color: #06D6A0">QA</span>
+                                                    <span x-show="isChipVisible('datascience')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #4ECDC420; color: #4ECDC4">Data Sci</span>
+                                                    <span x-show="isChipVisible('dataeng')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #FFB70320; color: #FFB703">Data Eng</span>
+                                                    <span x-show="isChipVisible('design')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #FF006E20; color: #FF006E">Design</span>
+                                                    <span x-show="isChipVisible('tools')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #6366F120; color: #6366F1">Tools</span>
+                                                    <span x-show="isChipVisible('cli')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #14B8A620; color: #14B8A6">CLI</span>
+                                                    <span x-show="isChipVisible('opensource')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #0EA5E920; color: #0EA5E9">Open Source</span>
+                                                    <span x-show="isChipVisible('learning')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #8B5CF620; color: #8B5CF6">Learning</span>
+                                                    <span x-show="isChipVisible('osint')" x-cloak
+                                  class="min-w-0 max-w-[6rem] truncate text-xs font-semibold px-2 py-0.5 rounded-full"
+                                  style="background-color: #4A90E220; color: #4A90E2">OSINT</span>
+                                                <span x-show="hiddenChipCount > 0" x-cloak x-text="`+${hiddenChipCount}`"
+                              class="flex-shrink-0 text-xs font-semibold px-1.5 py-0.5 rounded-full bg-gray-100 text-gray-600"></span>
+                    </span>
+                    <svg class="w-4 h-4 flex-shrink-0 text-gray-400 transition-transform duration-150" :class="sectionsOpen && 'rotate-180'"
+                         fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                    </svg>
+                </button>
+
+                
+                <div x-show="sectionsOpen" x-cloak
+                     x-transition:enter="transition ease-out duration-150"
+                     x-transition:enter-start="opacity-0 -translate-y-1"
+                     x-transition:enter-end="opacity-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-100"
+                     x-transition:leave-start="opacity-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 -translate-y-1"
+                     class="absolute left-0 right-0 top-full z-50 mt-1 bg-white border border-gray-200 rounded-md shadow-xl overflow-hidden"
+                     role="listbox" aria-multiselectable="true" aria-label="Направления">
+                    <div class="flex items-center justify-between gap-2 px-3 py-2 border-b border-gray-100">
+                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-400">Направления</span>
+                        <button type="button" x-show="selectedSections.length > 0" x-cloak
+                                :disabled="!sectionsOpen || selectedSections.length === 0"
+                                @click="clearSections()"
+                                class="flex-shrink-0 text-xs font-medium text-purple-600 hover:text-purple-700 focus:outline-none focus-visible:underline">
+                            Сбросить
+                        </button>
+                    </div>
+                    
+                    <div x-ref="sectionOptions" class="max-h-[min(18rem,40vh)] overflow-y-auto thin-scrollbar py-1">
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('frontend')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('frontend')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('frontend') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('frontend') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('frontend')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #61DAFB;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="m18 16 4-4-4-4"/>
+  <path d="m6 8-4 4 4 4"/>
+  <path d="m14.5 4-5 16"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Frontend</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">1253</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('backend')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('backend')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('backend') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('backend') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('backend')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #339933;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="20" height="8" x="2" y="2" rx="2" ry="2"/>
+  <rect width="20" height="8" x="2" y="14" rx="2" ry="2"/>
+  <line x1="6" x2="6.01" y1="6" y2="6"/>
+  <line x1="6" x2="6.01" y1="18" y2="18"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Backend</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">2331</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('mobile')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('mobile')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('mobile') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('mobile') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('mobile')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #FF6B6B;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="14" height="20" x="5" y="2" rx="2" ry="2"/>
+  <path d="M12 18h.01"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Mobile</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">854</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('devops')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('devops')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('devops') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('devops') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('devops')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #1E88E5;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/>
+  <circle cx="12" cy="12" r="3"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">DevOps</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">2194</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('aiml')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('aiml')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('aiml') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('aiml') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('aiml')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #7C3AED;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/>
+  <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/>
+  <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/>
+  <path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/>
+  <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/>
+  <path d="M3.477 10.896a4 4 0 0 1 .585-.396"/>
+  <path d="M19.938 10.5a4 4 0 0 1 .585.396"/>
+  <path d="M6 18a4 4 0 0 1-1.967-.516"/>
+  <path d="M19.967 17.484A4 4 0 0 1 18 18"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">AI/ML</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">3271</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('gamedev')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('gamedev')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('gamedev') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('gamedev') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('gamedev')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #FF6B35;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="6" x2="10" y1="11" y2="11"/>
+  <line x1="8" x2="8" y1="9" y2="13"/>
+  <line x1="15" x2="15.01" y1="12" y2="12"/>
+  <line x1="18" x2="18.01" y1="10" y2="10"/>
+  <path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">GameDev</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">603</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('blockchain')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('blockchain')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('blockchain') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('blockchain') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('blockchain')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #F7931A;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Blockchain</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">132</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('embedded')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('embedded')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('embedded') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('embedded') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('embedded')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #00D4FF;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <rect width="16" height="16" x="4" y="4" rx="2"/>
+  <rect width="6" height="6" x="9" y="9" rx="1"/>
+  <path d="M15 2v2"/>
+  <path d="M15 20v2"/>
+  <path d="M2 15h2"/>
+  <path d="M2 9h2"/>
+  <path d="M20 15h2"/>
+  <path d="M20 9h2"/>
+  <path d="M9 2v2"/>
+  <path d="M9 20v2"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Embedded</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">566</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('cybersecurity')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('cybersecurity')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('cybersecurity') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('cybersecurity') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('cybersecurity')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #E63946;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+  <path d="m9 12 2 2 4-4"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Cybersec</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">1043</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('qa')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('qa')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('qa') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('qa') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('qa')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #06D6A0;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+  <path d="m9 11 3 3L22 4"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">QA</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">202</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('datascience')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('datascience')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('datascience') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('datascience') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('datascience')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #4ECDC4;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="18" x2="18" y1="20" y2="10"/>
+  <line x1="12" x2="12" y1="20" y2="4"/>
+  <line x1="6" x2="6" y1="20" y2="14"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Data Sci</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">364</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('dataeng')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('dataeng')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('dataeng') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('dataeng') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('dataeng')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #FFB703;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+  <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+  <path d="M3 12A9 3 0 0 0 21 12"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Data Eng</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">239</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('design')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('design')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('design') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('design') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('design')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #FF006E;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+  <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Design</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">210</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('tools')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('tools')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('tools') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('tools') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('tools')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #6366F1;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Tools</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">3671</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('cli')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('cli')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('cli') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('cli') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('cli')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #14B8A6;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="4 17 10 11 4 5"/>
+  <line x1="12" x2="20" y1="19" y2="19"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">CLI</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">1413</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('opensource')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('opensource')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('opensource') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('opensource') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('opensource')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #0EA5E9;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <line x1="6" x2="6" y1="3" y2="15"/>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+  <path d="M18 9a9 9 0 0 1-9 9"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Open Source</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">1505</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('learning')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('learning')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('learning') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('learning') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('learning')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #8B5CF6;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">Learning</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">1469</span>
+                            </button>
+                                                    <button type="button" role="option"
+                                    :aria-selected="isSectionSelected('osint')"
+                                    :disabled="!sectionsOpen"
+                                    @click="toggleSection('osint')"
+                                    class="w-full flex items-center gap-2.5 px-3 py-2 text-left text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-purple-400 transition-colors duration-150"
+                                    :class="isSectionSelected('osint') ? 'bg-purple-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50'">
+                                <span class="flex-shrink-0 w-4 h-4 rounded border flex items-center justify-center transition-colors duration-150"
+                                      :class="isSectionSelected('osint') ? 'bg-purple-600 border-purple-600' : 'bg-white border-gray-300'">
+                                    <svg x-show="isSectionSelected('osint')" x-cloak class="w-3 h-3 text-white"
+                                         fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </span>
+                                <svg style="color: #4A90E2;" class="w-4 h-4 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <circle cx="11" cy="11" r="8"/>
+  <path d="m21 21-4.3-4.3"/>
+</svg>                                <span class="flex-1 min-w-0 truncate">OSINT</span>
+                                <span class="flex-shrink-0 text-xs text-gray-400 tabular-nums">151</span>
+                            </button>
+                                            </div>
+                </div>
+            </div>
+        </div>
+
+        <div x-show="loading" class="mt-4 flex-grow flex justify-center items-center">
+            <svg class="animate-spin h-[150px] w-[150px] text-gray-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1"></circle>
+                <path class="opacity-75" d="M22 12a10 10 0 0 0-10-10" stroke="currentColor" stroke-width="1"></path>
+            </svg>
+        </div>
+
+        <!-- Результаты поиска -->
+        <div id="search-results"
+             x-show="!loading && results.length > 0"
+             class="mt-4 flex-grow space-y-2 overflow-y-auto thin-scrollbar"
+             x-ref="resultsContainer">
+            <template x-for="post in results" :key="post.id">
+                <a :href="post.url" class="block p-3 bg-white rounded-lg shadow hover:bg-gray-50 transition relative">
+                    <div class="relative z-10">
+                        <h3 class="font-semibold text-gray-800 pr-9" x-text="post.title"></h3>
+                        <p class="text-sm text-gray-600" x-text="post.description"></p>
+                        <div class="flex items-center justify-between mt-2 text-xs text-gray-500">
+                            <div class="flex items-center flex-wrap gap-1">
+                                <span class="mr-3" x-text="`⭐ ${post.stars}`"></span>
+                                <span x-show="post.category_name" class="font-semibold px-2 py-0.5 rounded-full" :class="getCategoryColorClass(post.category_name)" x-text="post.category_name"></span>
+                                <template x-for="section in (post.sections || [])" :key="section.slug">
+                                    <span class="font-semibold px-2 py-0.5 rounded-full text-white" :style="`background-color: ${section.color}20; color: ${section.color}`" x-text="section.short_name"></span>
+                                </template>
+                            </div>
+                            <span x-text="new Date(post.created_at).toLocaleDateString()"></span>
+                        </div>
+                    </div>
+                    <div class="absolute top-2 right-2 z-20 flex items-center gap-1">
+                                                <button @click.prevent.stop="toggleFavorite(post.id)" class="favorite-button text-gray-400 hover:text-red-500 transition-colors duration-200" :data-post-id="post.id">
+                            <svg class="w-5 h-5" :class="{ 'text-red-500 fill-current': isFavorite(post.id) }" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
+                        </button>
+                    </div>
+                </a>
+            </template>
+        </div>
+
+        <!-- Анимация при отсутствии результатов -->
+        <div x-show="!loading && results.length === 0" class="mt-4 flex-grow flex justify-center items-center">
+            <style>
+    .sa-animation-block {
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+        position: relative;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        perspective: 1000px;
+    }
+
+    .sa-scene-3d {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        transform-style: preserve-3d;
+        animation: sa-rotate-3d 20s linear infinite;
+    }
+
+    .sa-cube {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-style: preserve-3d;
+        transform: translate(-50%, -50%);
+        animation: sa-float-cube 4s ease-in-out infinite;
+    }
+
+    .sa-cube-face {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background: rgba(240, 240, 240, 0.9);
+        border: 2px solid #e0e0e0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 13px;
+        color: #666;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+    }
+
+    .sa-front  { transform: rotateY(0deg) translateZ(50px); }
+    .sa-back   { transform: rotateY(180deg) translateZ(50px); }
+    .sa-right  { transform: rotateY(90deg) translateZ(50px); }
+    .sa-left   { transform: rotateY(-90deg) translateZ(50px); }
+    .sa-top    { transform: rotateX(90deg) translateZ(50px); }
+    .sa-bottom { transform: rotateX(-90deg) translateZ(50px); }
+
+    .sa-search-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 48px;
+        z-index: 100;
+        animation: sa-search-pulse 2s ease-in-out infinite;
+        filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.1));
+    }
+
+    @keyframes sa-search-pulse {
+        0%, 100% {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.8;
+        }
+        50% {
+            transform: translate(-50%, -50%) scale(1.1);
+            opacity: 1;
+        }
+    }
+
+    .sa-ring {
+        position: absolute;
+        border: 2px solid #e0e0e0;
+        border-radius: 50%;
+        animation: sa-ring-rotate 8s linear infinite;
+    }
+
+    .sa-ring-1 {
+        width: 85px;
+        height: 85px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateX(60deg);
+    }
+
+    .sa-ring-2 {
+        width: 280px;
+        height: 180px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateY(60deg);
+        animation-direction: reverse;
+        animation-duration: 12s;
+    }
+
+    .sa-ring-3 {
+        width: 300px;
+        height: 300px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotateX(30deg) rotateY(30deg);
+        animation-duration: 16s;
+    }
+
+    @keyframes sa-rotate-3d {
+        from {
+            transform: rotateX(0deg) rotateY(0deg);
+        }
+        to {
+            transform: rotateX(360deg) rotateY(360deg);
+        }
+    }
+
+    @keyframes sa-float-cube {
+        0%, 100% {
+            transform: translate(-50%, -50%) translateY(0) rotateX(0deg) rotateY(0deg);
+        }
+        50% {
+            transform: translate(-50%, -50%) translateY(-20px) rotateX(180deg) rotateY(180deg);
+        }
+    }
+
+    @keyframes sa-ring-rotate {
+        from {
+            transform: translate(-50%, -50%) rotateX(60deg) rotateZ(0deg);
+        }
+        to {
+            transform: translate(-50%, -50%) rotateX(60deg) rotateZ(360deg);
+        }
+    }
+</style>
+
+<div class="sa-animation-block">
+    <div class="sa-scene-3d">
+        <div class="sa-ring sa-ring-1"></div>
+        <div class="sa-ring sa-ring-2"></div>
+        <div class="sa-ring sa-ring-3"></div>
+
+        <div class="sa-cube">
+            <div class="sa-cube-face sa-front">Python</div>
+            <div class="sa-cube-face sa-back">React</div>
+            <div class="sa-cube-face sa-right">Rust</div>
+            <div class="sa-cube-face sa-left">Docker</div>
+            <div class="sa-cube-face sa-top">AI</div>
+            <div class="sa-cube-face sa-bottom">TypeScript</div>
+        </div>
+
+        <div class="sa-search-icon">🔍</div>
+    </div>
+</div>
+        </div>
+
+        <div class="mt-3 flex items-center justify-end gap-2">
+                            
+                <button type="button"
+                        @click="$dispatch('close'); window.dispatchEvent(new CustomEvent('assistant-open'))"
+                        title="Спросить Dev-ассистента"
+                        class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 bg-white border border-purple-200 rounded-md font-semibold text-xs text-purple-700 shadow-sm hover:bg-purple-50 hover:border-purple-300 focus:outline-none focus:ring-0 transition ease-in-out duration-150">
+                    <svg class="w-4 h-4 flex-shrink-0 text-purple-600" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+                        <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                        <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+                    </svg>
+                    <span class="sm:hidden">Ассистент</span>
+                    <span class="hidden sm:inline">Спросить Dev-ассистента</span>
+                </button>
+                        <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-0 disabled:opacity-25 transition ease-in-out duration-150" x-on:click="$dispatch('close')">
+    Закрыть
+</button>
+        </div>
+    </div>
+    </div>
+</div>
+        <script>
+(function () {
+    var PREFIX = '#ad-';
+    var loading = false;          // защита от дабл-кликов: запрос уже в полёте
+    var prevOverflow = '';
+    var loaderEl = null;
+    var revealTimer = null;
+
+    function isAdHash() { return location.hash.indexOf(PREFIX) === 0; }
+
+    function onKeydown(e) { if (e.key === 'Escape') closeModal(); }
+
+    function lockScroll() {
+        prevOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+    }
+
+    function unlockScroll() {
+        document.body.style.overflow = prevOverflow;
+    }
+
+    // Клик сразу блокирует страницу (перехват кликов + скролл), но визуально — невидимо.
+    // Обычно ответ приходит <0.5с, и пользователь так и не увидит фон/спиннер: сразу модалка.
+    // Если запрос затянулся — через 0.5с фон и лоадер плавно проявляются.
+    function showLoader() {
+        if (loaderEl) return;
+        loaderEl = document.createElement('div');
+        loaderEl.className = 'dt-adloader-overlay';   // стартует прозрачным, но уже перекрывает страницу
+        loaderEl.setAttribute('aria-busy', 'true');
+        loaderEl.innerHTML = '<div class="dt-adloader-spinner" role="status" aria-label="Загрузка"></div>';
+        document.body.appendChild(loaderEl);
+        revealTimer = setTimeout(function () {
+            if (loaderEl) loaderEl.classList.add('dt-adloader-overlay--visible');
+        }, 500);
+    }
+
+    function removeLoader() {
+        if (revealTimer) { clearTimeout(revealTimer); revealTimer = null; }
+        if (loaderEl) { loaderEl.remove(); loaderEl = null; }
+    }
+
+    function closeModal() {
+        var root = document.getElementById('ad-modal-root');
+        if (root) root.remove();
+        removeLoader();
+        document.removeEventListener('keydown', onKeydown);
+        unlockScroll();
+        if (isAdHash()) history.replaceState(null, '', location.pathname + location.search);
+    }
+
+    function openModal() {
+        // защита от дабл-кликов и повторного показа
+        if (loading || document.getElementById('ad-modal-root')) return;
+        loading = true;
+        lockScroll();
+        showLoader();              // блокировку вешаем сразу, до сетевого запроса
+
+        var controller = new AbortController();
+        // страховка от зависшего соединения: чтобы блокировка не осталась навсегда
+        var timer = setTimeout(function () { controller.abort(); }, 15000);
+
+        fetch('/api/ad-modal', { headers: { 'X-Requested-With': 'XMLHttpRequest' }, signal: controller.signal })
+            .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+            .then(function (html) {
+                removeLoader();
+                // пользователь успел уйти с якоря или модалка уже есть — снимаем блокировку
+                if (!isAdHash() || document.getElementById('ad-modal-root')) { unlockScroll(); return; }
+                var root = document.createElement('div');
+                root.id = 'ad-modal-root';
+                root.innerHTML = html;
+                document.body.appendChild(root);
+                // прокрутка остаётся заблокированной, пока открыта модалка
+                root.addEventListener('click', function (e) {
+                    if (e.target.closest('[data-ad-close]') || e.target.hasAttribute('data-ad-overlay')) closeModal();
+                });
+                document.addEventListener('keydown', onKeydown);
+            })
+            .catch(function () {
+                // запрос отпал (ошибка/таймаут) — снимаем лоадер и блокировку страницы
+                removeLoader();
+                unlockScroll();
+            })
+            .finally(function () { clearTimeout(timer); loading = false; });
+    }
+
+    window.addEventListener('hashchange', function () { if (isAdHash()) openModal(); });
+    if (isAdHash()) openModal();   // прямой заход по ссылке с якорем
+})();
+</script>
+<style>
+.dt-adloader-overlay{position:fixed;inset:0;z-index:59;display:flex;align-items:center;justify-content:center;background:rgba(17,24,39,.55);opacity:0;transition:opacity .25s ease;}
+.dt-adloader-overlay--visible{opacity:1;}
+.dt-adloader-spinner{width:48px;height:48px;border-radius:50%;border:4px solid rgba(255,255,255,.35);border-top-color:#fff;animation:dt-adloader-spin .7s linear infinite;}
+@keyframes dt-adloader-spin{to{transform:rotate(360deg);}}
+</style>
+        <div
+    x-data="{
+        show: false,
+        version: 'v1',
+        init() {
+            if (localStorage.getItem('cookie_consent') !== this.version) {
+                this.$nextTick(() => { this.show = true; });
+            }
+        },
+        accept() {
+            localStorage.setItem('cookie_consent', this.version);
+            this.show = false;
+        }
+    }"
+    
+    x-effect="$dispatch('cookie-bar', show)"
+    x-show="show"
+    x-cloak
+    x-transition:enter="transform ease-out duration-300 transition"
+    x-transition:enter-start="translate-y-full opacity-0"
+    x-transition:enter-end="translate-y-0 opacity-100"
+    x-transition:leave="transform ease-in duration-200 transition"
+    x-transition:leave-start="translate-y-0 opacity-100"
+    x-transition:leave-end="translate-y-full opacity-0"
+    class="fixed inset-x-0 bottom-0 z-50 bg-white border-t border-gray-200 shadow-[0_-2px_10px_rgba(0,0,0,0.06)]"
+    role="region"
+    aria-label="Уведомление об использовании файлов cookie"
+>
+    <div class="max-w-5xl mx-auto px-4 py-3 sm:py-2.5 flex flex-col sm:flex-row sm:items-center gap-3">
+        <p class="flex-1 text-sm leading-snug text-gray-600">
+            🍪 Мы используем файлы cookie и сервис аналитики Яндекс.Метрика, чтобы сайт работал лучше.
+            Продолжая пользоваться <span class="font-medium text-gray-800">devtrends.ru</span>, вы соглашаетесь с обработкой данных согласно
+            <a href="https://devtrends.ru/privacy-policy.pdf" target="_blank" rel="noopener"
+               class="text-blue-800 underline hover:text-blue-900">Политике конфиденциальности</a>.
+        </p>
+        <button
+            type="button"
+            @click="accept()"
+            class="inline-flex w-full flex-shrink-0 items-center justify-center rounded-md border border-transparent bg-gray-800 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900 sm:w-auto"
+        >
+            Принять
+        </button>
+    </div>
+</div>
+                    <div
+    x-data="assistantWindow"
+    @assistant-toggle.window="toggle()"
+    
+    @assistant-open.window="if (!open) toggle()"
+    @assistant-tool-status.window="toolStatus = $event.detail"
+    @keydown.escape.window="if (dialogsOpen) { dialogsOpen = false } else if (open) close()"
+>
+    <div
+        x-show="open"
+        x-transition:enter="transition ease-out duration-200"
+        x-transition:enter-start="opacity-0 scale-90"
+        x-transition:enter-end="opacity-100 scale-100"
+        x-transition:leave="transition ease-in duration-150"
+        x-transition:leave-start="opacity-100 scale-100"
+        x-transition:leave-end="opacity-0 scale-90"
+        x-cloak
+        class="fixed z-60 flex flex-col bg-white shadow-2xl border border-gray-200 overflow-hidden origin-center"
+        :class="{ 'inset-0': isFullscreen, 'rounded-lg': !isFullscreen, 'select-none': dragging }"
+        :style="panelStyle()"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Dev-ассистент"
+    >
+        
+        <div
+            class="flex items-center justify-between ps-3 pe-2 py-2 border-b border-gray-200 bg-gray-50 flex-shrink-0 select-none touch-none"
+            :class="{ 'cursor-move': !isFullscreen }"
+            @pointerdown="startDrag($event)"
+        >
+            <span class="flex items-center min-w-0 flex-1 text-sm font-semibold text-gray-700">
+                <svg class="w-5 h-5 text-purple-600 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                    <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+                </svg>
+                
+                <span x-show="dialogTitle && !renamingTitle" x-cloak class="flex items-center min-w-0">
+                    <span class="mx-1.5 text-gray-400 font-normal flex-shrink-0">›</span>
+                    <button type="button" @click="startTitleRename()" @pointerdown.stop x-text="dialogTitle"
+                            title="Переименовать диалог"
+                            class="truncate min-w-0 text-left font-medium text-gray-600 hover:text-purple-700"></button>
+                </span>
+                <span x-show="renamingTitle" x-cloak class="flex items-center min-w-0 flex-1">
+                    <span class="mx-1.5 text-gray-400 font-normal flex-shrink-0">›</span>
+                    <span class="relative flex items-center w-full min-w-0 max-w-sm">
+                        <input x-ref="titleInput" x-model="titleDraft" maxlength="100" @pointerdown.stop
+                               @keydown.enter.prevent="saveTitleRename()" @keydown.escape.stop="renamingTitle = false"
+                               @blur="saveTitleRename()"
+                               class="w-full min-w-0 pl-2 pr-7 mr-1.5 py-0.5 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-gray-300">
+                        
+                        <button type="button" @mousedown.prevent @pointerdown.stop @click="saveTitleRename()"
+                                title="Сохранить" aria-label="Сохранить"
+                                class="absolute right-2 p-0.5 text-green-600 hover:text-green-700">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                            </svg>
+                        </button>
+                    </span>
+                </span>
+            </span>
+            <div class="flex items-center gap-2 relative z-30 flex-shrink-0">
+                
+                <button @click="toggleDialogs()" type="button" class="text-gray-400 hover:text-gray-600 p-0.5" title="Диалоги" aria-label="Диалоги">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 7v5l3 2"/>
+                    </svg>
+                </button>
+                
+                <button x-show="showMaximize" @click="maximize()" type="button" class="text-gray-400 hover:text-gray-600 p-0.5" title="Развернуть на весь экран" aria-label="Развернуть на весь экран">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 8.25V3.75h4.5M20.25 8.25V3.75h-4.5M3.75 15.75v4.5h4.5M20.25 15.75v4.5h-4.5"/>
+                    </svg>
+                </button>
+                
+                <button x-show="showRestore" @click="restoreSize()" type="button" class="text-gray-400 hover:text-gray-600 p-0.5" title="Свернуть к прежнему размеру" aria-label="Свернуть к прежнему размеру">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v3.75H5.25M15 4.5v3.75h3.75M9 19.5v-3.75H5.25M15 19.5v-3.75h3.75"/>
+                    </svg>
+                </button>
+                <button @click="close()" type="button" class="text-gray-400 hover:text-gray-600 p-0.5" title="Закрыть" aria-label="Закрыть">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        
+        <div x-show="dialogsOpen" x-cloak x-transition.opacity.duration.150ms
+             @click.outside="dialogsOpen = false"
+             class="absolute left-2 right-2 top-11 z-30 flex flex-col max-h-[70%] bg-white border border-gray-200 rounded-lg shadow-xl overflow-hidden">
+            <div class="p-2 border-b border-gray-100 flex-shrink-0">
+                <input x-model="dialogSearch" type="text" placeholder="Поиск по диалогам…"
+                       class="w-full px-2.5 py-1.5 text-sm bg-white placeholder-gray-500 border border-gray-300 rounded-md focus:outline-none focus:placeholder-gray-300 focus:ring-0 focus:border-gray-300">
+            </div>
+            <div class="flex-1 overflow-y-auto py-1">
+                <div x-show="dialogsLoading" class="px-3 py-4 text-sm text-gray-400 text-center">Загрузка…</div>
+                <div x-show="!dialogsLoading && filteredDialogs.length === 0"
+                     class="px-3 py-4 text-sm text-gray-400 text-center"
+                     x-text="dialogSearch ? 'Ничего не найдено' : 'Диалогов пока нет'"></div>
+                <template x-for="d in filteredDialogs" :key="d.id">
+                    <div class="px-1.5">
+                        
+                        <div x-show="editId !== d.id"
+                             class="flex items-center gap-0.5 rounded-md px-1.5 py-1"
+                             :class="confirmDeleteId === d.id ? 'bg-red-50' : (d.id === dialogId ? 'bg-purple-50' : 'hover:bg-gray-50')">
+                            <button type="button"
+                                    @click="confirmDeleteId === d.id ? confirmDeleteId = null : switchTo(d)"
+                                    x-text="d.title" :title="confirmDeleteId === d.id ? 'Отменить удаление' : d.title"
+                                    class="flex-1 min-w-0 truncate text-left text-sm py-0.5"
+                                    :class="confirmDeleteId === d.id ? 'text-red-600' : 'text-gray-700'"></button>
+                            
+                            <template x-if="confirmDeleteId !== d.id">
+                                <span class="flex items-center gap-0.5 flex-shrink-0">
+                                    <span class="px-1 text-[11px] text-gray-400 tabular-nums" x-text="timeShort(d.createdAt)"></span>
+                                    <button type="button" @click="startEdit(d)" title="Переименовать"
+                                            class="p-1 text-gray-400 hover:text-purple-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M16.86 4.49a1.9 1.9 0 0 1 2.65 2.65L7.5 19.14 3 20.25l1.11-4.5L16.86 4.49z"/>
+                                        </svg>
+                                    </button>
+                                    <button type="button" @click="askDelete(d)" title="Удалить"
+                                            class="p-1 text-gray-400 hover:text-red-600">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>
+                                        </svg>
+                                    </button>
+                                </span>
+                            </template>
+                            
+                            <template x-if="confirmDeleteId === d.id">
+                                <span class="flex items-center gap-1 flex-shrink-0">
+                                    <button type="button" @click="confirmDelete(d)"
+                                            class="px-2 py-0.5 text-xs font-medium text-white bg-red-600 hover:bg-red-700 rounded">Удалить</button>
+                                    <button type="button" @click="confirmDeleteId = null"
+                                            class="px-2 py-0.5 text-xs font-medium text-gray-600 bg-white border border-gray-300 hover:bg-gray-50 rounded">Отмена</button>
+                                </span>
+                            </template>
+                        </div>
+                        
+                        <div x-show="editId === d.id" class="flex items-center rounded-md px-1.5 py-1">
+                            <span class="relative flex items-center flex-1 min-w-0">
+                                <input x-model="editDraft" maxlength="100"
+                                       x-effect="if (editId === d.id) $nextTick(() => $el.focus())"
+                                       @keydown.enter.prevent="saveEdit(d)" @keydown.escape.stop="editId = null"
+                                       @blur="saveEdit(d)"
+                                       class="w-full min-w-0 pl-2 pr-7 py-1 text-sm text-gray-700 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-0 focus:border-gray-300">
+                                <button type="button" @mousedown.prevent @click="saveEdit(d)"
+                                        title="Сохранить" aria-label="Сохранить"
+                                        class="absolute right-1 p-0.5 text-green-600 hover:text-green-700">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+
+        
+        <div class="flex-1 min-h-0 relative">
+            
+            <deep-chat id="assistant-chat" data-max-chars="16000" data-transcribe-max-seconds="180" :class="{ 'pointer-events-none': dragging }" style="position: absolute; inset: 0; width: 100%; height: 100%; border: none; background-color: #ffffff;">
+                
+                <div style="display:none; max-width:88%; margin:auto; padding:18px 20px; text-align:center; background-color:#f3f4f6; border-radius:14px; color:#4b5563;">
+                    <svg style="width:32px; height:32px; margin:0 auto 8px; color:#7c3aed; display:block;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M6 12.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5M3 8.062C3 6.76 4.235 5.765 5.53 5.886a26.6 26.6 0 0 0 4.94 0C11.765 5.765 13 6.76 13 8.062v1.157a.93.93 0 0 1-.765.935c-.845.147-2.34.346-4.235.346s-3.39-.2-4.235-.346A.93.93 0 0 1 3 9.219zm4.542-.827a.25.25 0 0 0-.217.068l-.92.9a25 25 0 0 1-1.871-.183.25.25 0 0 0-.068.495c.55.076 1.232.149 2.02.193a.25.25 0 0 0 .189-.071l.754-.736.847 1.71a.25.25 0 0 0 .404.062l.932-.97a25 25 0 0 0 1.922-.188.25.25 0 0 0-.068-.495c-.538.074-1.207.145-1.98.189a.25.25 0 0 0-.166.076l-.754.785-.842-1.7a.25.25 0 0 0-.182-.135"/>
+                        <path d="M8.5 1.866a1 1 0 1 0-1 0V3h-2A4.5 4.5 0 0 0 1 7.5V8a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1v1a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-1a1 1 0 0 0 1-1V9a1 1 0 0 0-1-1v-.5A4.5 4.5 0 0 0 10.5 3h-2zM14 7.5V13a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V7.5A3.5 3.5 0 0 1 5.5 4h5A3.5 3.5 0 0 1 14 7.5"/>
+                    </svg>
+                    <div style="font-weight:600; font-size:0.95rem; color:#111827; margin-bottom:6px;">Чем могу помочь?</div>
+                    <div style="font-size:0.85rem; line-height:1.5;">Привет! Я DevTrends Ассистент. Подберу проекты из нашей базы под вашу задачу и&nbsp;стек, расскажу о&nbsp;любом подробнее, помогу с&nbsp;кодом, установкой и&nbsp;настройкой.</div>
+                    
+                    <div class="intro-suggestions" data-intro-suggestions></div>
+                </div>
+            </deep-chat>
+
+            
+            <div x-show="toolStatus" x-cloak x-transition.opacity.duration.150ms
+                 class="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 max-w-[85%] pointer-events-none">
+                <div class="flex items-center gap-2 px-3 py-1.5 bg-gray-800/85 text-white text-xs rounded-full shadow-lg">
+                    <span class="inline-block w-3 h-3 border-2 border-white/40 border-t-white rounded-full animate-spin flex-shrink-0"></span>
+                    <span class="truncate" x-text="toolStatus"></span>
+                </div>
+            </div>
+        </div>
+
+        
+        <div x-show="!isFullscreen" class="absolute inset-0 pointer-events-none z-20" aria-hidden="true">
+            <div class="absolute top-0 left-5 right-5 h-2 pointer-events-auto touch-none cursor-ns-resize" @pointerdown.prevent="startResize($event, 'n')"></div>
+            <div class="absolute bottom-0 left-5 right-5 h-2 pointer-events-auto touch-none cursor-ns-resize" @pointerdown.prevent="startResize($event, 's')"></div>
+            <div class="absolute left-0 top-5 bottom-5 w-2 pointer-events-auto touch-none cursor-ew-resize" @pointerdown.prevent="startResize($event, 'w')"></div>
+            <div class="absolute right-0 top-5 bottom-5 w-2 pointer-events-auto touch-none cursor-ew-resize" @pointerdown.prevent="startResize($event, 'e')"></div>
+            <div class="absolute top-0 left-0 w-5 h-5 pointer-events-auto touch-none cursor-nwse-resize" @pointerdown.prevent="startResize($event, 'nw')"></div>
+            <div class="absolute top-0 right-0 w-5 h-5 pointer-events-auto touch-none cursor-nesw-resize" @pointerdown.prevent="startResize($event, 'ne')"></div>
+            <div class="absolute bottom-0 left-0 w-5 h-5 pointer-events-auto touch-none cursor-nesw-resize" @pointerdown.prevent="startResize($event, 'sw')"></div>
+            <div class="absolute bottom-0 right-0 w-5 h-5 pointer-events-auto touch-none cursor-nwse-resize" @pointerdown.prevent="startResize($event, 'se')"></div>
+        </div>
+    </div>
+</div>
+                
+                
+                
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript" >
+   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+   m[i].l=1*new Date();
+   for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+   k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+   (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+   ym(103387995, "init", {
+        clickmap:true,
+        trackLinks:true,
+        accurateTrackBounce:true
+   });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/103387995" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+            </body>
+</html>

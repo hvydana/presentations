@@ -1,0 +1,34 @@
+IEC 61508 – Tool qualification – When? Why? How?
+The term tool qualification triggers an unpleasant feeling and uncertainty in many people who deal with functional safety. IEC61508 requires the certification of software tools used for software development. Other functional safety standards also require similar measures. Unfortunately, however, the same terms are not always used. IEC61508 uses the term “certified tools”, often the term “qualified tools” or tool qualification is also used.
+Besides the different terms, there are also very different, partly very individual, interpretations of what exactly is to be understood by the topic. The following article attempts to contribute to the clarification of open questions in this complex of topics. The following 3 questions will be answered:
+- Why do functional safety standards require the tool qualification?
+- What are the requirements of IEC61508?
+- How to deal with the topic in a meaningful way?
+Why do functional safety standards require the tool qualification?
+In the area of development processes, all functional safety standards can be generalized to the use of the 4-eye principle. Each activity should be reviewed by a second instance/person. When using software tools, this principle may be violated. The static code analysis tools can be used to illustrate this. Such a tool is used to check compliance with the defined coding guidelines in the source code. If such a tool contains an error, violations of corresponding coding guidelines may not be detected, as no further checking takes place. This is exactly where the tool qualification or certification of software tools comes in. This also restores the 4-eye principle for software tools.
+What are the requirements of IEC61508?
+Unfortunately, compared to other functional safety standards, IEC 61508 gives little indication of exactly what needs to be done. In Part 3 of the standard, the following two procedures/measures are defined in Table A.3 Software Design and Software Development – Tools and Programming Languages, which are described further in Part 7 in Chapters C.4.3 and C.4.4:
+- Certified tools and compiler
+- Tools and compiler: increased confidence from use
+With regard to certification, the standard says the following:
+“The certification of a tool is generally carried out by an independent, mostly national institution according to independent criteria […]. is executed. Ideally, the tools used in all development phases (specification, design, coding, testing and validation, configuration management) should be certified”.
+With regard to the second measure mentioned above, the standard provides the following:
+“Objective: Avoid all difficulties caused by a compiler failure that can occur during the development, verification and maintenance of a software package.
+Description: A compiler is used which did not show any signs of incorrect execution in many previous projects. […]. Also, as known, there is currently no method to prove the correctness for all parts of the tools or compilers”.
+Furthermore, in part 3 chapter 7.4.4 Requirements for tools, including programming languages, you will find some hints on which tools to deal with. In principle, the tools should be classified in classes T1, T2 or T2. Unfortunately, a consistent argumentation in this chapter is difficult to see.
+How to deal with the topic in a meaningful way?
+Since the procedures/measures mentioned by IEC61508 are not very helpful in practice, I will argue for the following procedure:
+- Answer the question: Can the tool in question insert an error into the operational software (example: compiler)?
+- if not, the tool in question may not find errors in the operational software (example: static code analysis tools, etc.)
+- if one of the questions has to be answered with “Yes”, then select one of the following procedures/measures:
+  - Analysis of data from historical application of the tool
+  - Assessment of the development process of the tool
+  - Testing the functionality of the tool
+  - Development of the tool according to a functional safety standard
+- if question 1 is answered with “Yes” and a higher SIL level must be maintained, then one of the last two measures is to be used.
+If question 2 is answered with “Yes” and a low SIL level must be maintained, then one of the first two measures is to be used. The above procedure results from applying the approach of the aerospace and automotive industry in this area to IEC61508.
+Further HEICON Blog Posts related to Tool Qualification
+- Importance of Tool Qualification in the FuSa (part 1)!
+- Tool qualification – The phantom pain of functional safety (part 2)!
+- EN50128 and EN50657 support tools
+I’ll be glad to help you also with any specific questions about your project. Send an email to: info [at] heicon-ulm.de. An overview of the HEICON services can also be found on the HEICON Homepage.

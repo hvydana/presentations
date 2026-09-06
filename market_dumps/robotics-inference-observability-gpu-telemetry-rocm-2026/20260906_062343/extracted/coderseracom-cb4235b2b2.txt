@@ -1,0 +1,112 @@
+Quick answer. Install Ollama and run ollama run qwen3.8 — the default tag is the 27B at q4_K_M, an 18GB download with 256K context and vision. On smaller GPUs, grab a 17.1GB Q4_K_M or 13.4GB Q3 GGUF instead. Before you do anything else, drop reasoning_effort from the default xhigh to medium or low — otherwise your first prompt can think for 20 minutes.
+Qwen3.8-27B landed on August 14, 2026 with open weights under Apache-2.0, and it is the most capable model yet released at a size that fits a single consumer GPU. This guide covers the three ways to run it locally — Ollama, LM Studio, and llama.cpp with MTP speculative decoding — plus real, tested configs for 16GB and 24GB cards and Apple Silicon, with honest speed numbers for each.
+What are you actually running?
+Qwen3.8-27B is a dense 27B vision-language model: text, images, and video (including hour-scale video) in one checkpoint, Apache-2.0 licensed. Native context is 262,144 tokens — the "extensible up to 1,000,000" line on the card refers to a Qwen Cloud hosted feature that is "coming soon", so plan around 256K locally. The architecture is identical to Qwen3.6-27B (every gain came from post-training), which is why llama.cpp, Ollama, and LM Studio all worked on day one. One architectural detail matters a lot for local use: it's a hybrid design where only 16 of the 64 layers are full attention and grow KV cache with sequence length — the rest use Gated DeltaNet recurrent state. Full 256K context costs only about 4.25 GiB of KV cache at Q4, which is remarkably cheap. For what the model can actually do, see the full Qwen3.8-27B guide.
+Fix the overthinking default first
+This is the #1 gotcha, and it will ruin your first impression if you skip it. Qwen3.8-27B ships with thinking on and reasoning_effort defaulting to xhigh. On consumer hardware that default is brutal: Simon Willison's pelican-SVG test took 21 minutes and 22,276 reasoning tokens at xhigh, an M4 Pro user's "svg owl" prompt ran 17m12s, and "draw an svg of a circle" produced an unrequested animated "geometric study". Willison's own advice: "Run Qwen 3.8 27B on low or even no reasoning levels at first."
+The mechanics are simpler than they sound. The effort levels are one-sentence system-prompt additions the model was post-trained on — medium injects nothing at all (it's the native default), while xhigh prepends "Reasoning effort is set to xhigh. Please think carefully…". So the fix is two settings:
+- Set reasoning_effort tomedium orlow .
+- Set a reasoning budget (~5,000 tokens) if your runtime supports one, as a hard ceiling.
+Don't turn thinking off entirely by reflex: on genuinely complex work it earns its keep — Willison's bounding-box vision tool worked with thinking on and broke with it off. Medium plus a budget is the sane default; escalate deliberately.
+Path 1 — Ollama (the easiest way)
+One command:
+ollama run qwen3.8
+The latest tag is the 27B at q4_K_M — an 18GB download with the full 256K context and image input enabled. Other tags:
+| Tag | Size | Notes | 
+|---|---|---|
+| qwen3.8 (latest) | 18GB | 27B q4_K_M, 256K ctx, text + image | 
+| qwen3.8:27b-mtp-q8_0 | 30GB | Q8 with MTP speculative decoding | 
+| qwen3.8:27b-mtp-bf16 | 56GB | Full precision + MTP | 
+| qwen3.8:27b-mlx | 18GB | MLX build for Apple Silicon | 
+| qwen3.8:27b-mlx-bf16 | 56GB | MLX full precision | 
+Ollama's library page also documents one-line harness launchers, which drop the model straight into a coding agent:
+ollama launch claude --model qwen3.8     # Claude Code
+ollama launch opencode --model qwen3.8
+ollama launch hermes --model qwen3.8
+ollama launch openclaw --model qwen3.8
+If you have 24GB of VRAM, the default tag just works. At 16–18GB it will still load but leaves little headroom for context — read the 16GB config below instead.
+Path 2 — LM Studio
+LM Studio ships Qwen3.8-27B at Q4_K_M (17GB) at lmstudio.ai/models/qwen3.8. Two traps:
+- The 8,192-context trap. LM Studio defaults to 8,192 tokens of context, and this model's thinking phase will happily consume all of it before emitting a single answer token — Willison hit exactly this. Raise the context length (the model supports 262,144) before your first prompt.
+- The xhigh default survives. The LM Studio GGUF preserves the model's xhigh reasoning default, so apply the overthinking fix above here too.
+Path 3 — llama.cpp + MTP speculative decoding (the speed unlock)
+Qwen3.8-27B was trained with multi-token prediction (MTP): a small draft head that proposes several tokens per step, which the main model then verifies in one pass — speculative decoding with a drafter that was trained alongside the target. The MTP head ships as a separate GGUF in the ggml-org repo (Q4_0 1.68GB, Q8_0 3.16GB, BF16 5.95GB), and llama.cpp wires it up with two flags. Georgi Gerganov's exact command:
+llama-server -hf ggml-org/Qwen3.8-27B-GGUF:Q4_K_M \
+  -hfd ggml-org/Qwen3.8-27B-GGUF:Q4_0 \
+  --spec-default --spec-type draft-mtp --reasoning-preserve
+On his DGX Spark this measured roughly +72% throughput versus the LM Studio default. Two counterintuitive findings from the community's tuning:
+- Q4_0 is the best-accepting drafter quant. At 40K context with draft length 3, Q4_0 hit 44.95 t/s at 80.4% acceptance, versus 34.4 for IQ4_XS and 26.2 for Q4_K_M. And a higher-quality drafter quant made things worse — a Q5/Q6 mix cost 26.6% throughput. Drafter and target behave as one system; don't "upgrade" the draft head.
+- MTP breaks bitwise determinism versus target-only decoding (llama.cpp #25618). If you need reproducible outputs, set --spec-draft-n-max 1 .
+How much VRAM do you need?
+Unsloth GGUF file sizes (the quants nearly everyone actually runs — 2.7M downloads versus 415K for the base repo):
+| Quant | File size | 
+|---|---|
+| UD-IQ2_XXS | 9.0GB | 
+| UD-Q2_K_XL | 10.7GB | 
+| UD-Q3_K_XL | 13.4GB | 
+| Q4_0 | 16.1GB | 
+| Q4_K_M | 17.1GB | 
+| UD-Q4_K_XL | 17.9GB | 
+| Q5_K_M | 19.8GB | 
+| Q6_K | 22.9GB | 
+| Q8_0 | 29.1GB | 
+| BF16 (ggml-org) | 53.8GB | 
+Budget on top of the model file: ~0.9GB for the mmproj vision projector (if you want image input), 1.7–6GB for the MTP draft head if you run it separately, and KV cache. The KV number is the pleasant surprise: because only 16 of 64 layers grow with sequence length, a completely full 256K context costs only ~4.25 GiB at Q4 KV. Quality-wise, Unsloth publishes KL-divergence per quant; practitioner reports put the eval drop between UD-Q6 and UD-Q3 at 0–5%. Blackwell owners also get NVFP4 builds (~1.2–1.5× over FP8 in one production report), and FP8 safetensors run ~27–28GB for vLLM-class stacks.
+Real configs by budget
+16GB — RTX 5060 Ti class
+The most-upvoted 16GB recipe (826 points on Reddit, running on a 5060 Ti 16GB attached to an Intel N100 box): UD-Q3_K_XL (13.44GB), 73,728 context, KV cache at q4_1 (main) / q5_1 (MTP draft), spec-type ngram-mod,draft-mtp with spec-draft-n-max 2, sampling at temp 0.4 / top_p 0.90 / top_k 15 / min_p 0.02. The flags that make or break it:
+- fit = off — prevents llama.cpp from mistakenly offloading layers to CPU
+- ctx-checkpoints = 0 — avoids reprocessing issues with the hybrid architecture
+- chat-template-kwargs {"preserve_thinking": true, "reasoning_effort": "medium"} plusreasoning-budget 5000 — the overthinking fix, baked into the server
+Adding ngram speculation alongside MTP got this rig to ~46 t/s on JavaScript generation — and its owner ran a 1M-token, 3-prompt autonomous NestJS+MCP build through OpenCode on it in about two hours. Honest caveat: it's a Q3, and not everyone trusts one ("I don't trust a q3, I'll stick to my q6 offloaded moes" was the top skeptical reply). Q3 held up in this workload, but for correctness-critical code review, prefer Q4+ on a bigger card. AMD works too: an RX 6800 via Vulkan at IQ4-MIX with 86,784 context measured 39.9 t/s (40.6 on ROCm).
+24GB — full 256K context, with caveats
+The deepest 24GB writeup (piszczek.pl, RTX PRO 4000 Blackwell) got the entire 256K context resident on-card:
+llama-server --model Qwen3.8-27B-iMatrix-NVFP4-MTP.gguf \
+  --device CUDA0 --n-gpu-layers 999 --fit off \
+  --ctx-size 262144 --parallel 1 --ctx-checkpoints 4 --flash-attn on \
+  --cache-type-k q4_0 --cache-type-v q4_0 \
+  --batch-size 512 --ubatch-size 256 --temp 0.6 \
+  --spec-type draft-mtp --spec-default --spec-draft-n-max 8 \
+  --spec-draft-type-k f16 --spec-draft-type-v f16 --spec-draft-backend-sampling \
+  --mmproj mmproj-Qwen3.8-27B-F16.gguf --reasoning-preserve --jinja --metrics
+Results: 50.4 t/s mean across 10 runs, 226.75 t/s full-context prefill, 23,952/24,467 MiB VRAM used — a ~515 MiB margin. Two things keep this from being a copy-paste config: it uses a custom iMatrix NVFP4 quant (huggingface.co/cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF) and a llama.cpp build with six cherry-picked PRs, including #27173 (chained MTP, worth +22% on its own). And the headline number needs its footnote: with the 261.5K cache genuinely full, decode drops to 12.6 t/s. Long-context agentic sessions on 24GB are possible, not magic. The draft-length sweep is jagged — n=3 → 43.1 t/s, n=8 → 49.3 (best), n=20 → 30.6 — so tune it, and note ctx-checkpoints 4: it's the useful minimum for DeltaNet state checkpoints, while the default of 32 wastes memory.
+Mac — Apple Silicon
+Use the MLX tag: ollama run qwen3.8:27b-mlx (18GB), or LM Studio's Q4. Expect 15–30 t/s on an M5 Max — the model is memory-bandwidth-bound, and Macs feel that more than discrete GPUs. Usable for chat and short agentic loops; patience-testing for xhigh reasoning (that M4 Pro owl took 17 minutes — fix the reasoning default).
+How fast is it, honestly?
+| Hardware | Quant | Speed | 
+|---|---|---|
+| RTX 5090 | Q4 | ~200 t/s | 
+| 2× RTX 4090 | Q8 | 85–113 t/s | 
+| RTX 4090 | Q4_K_M | ~48 t/s (60–80 with MTP) | 
+| RTX 3090 | Q4 | ~39 t/s | 
+| M5 Max / DGX Spark (LM Studio, no MTP) | Q4 | 15–30 t/s | 
+| Laptop APU (~100GB/s bandwidth) | Q4 | ~4 t/s | 
+| CPU-only (i5-1334U) | Q4 | ~0.9 t/s | 
+The pattern is simple: this is a dense 27B, so decode speed tracks memory bandwidth almost linearly. A 17GB file fitting in your RAM does not make it usable — "fits ≠ usable" is the honest summary for low-bandwidth machines. If you're on CPU or an integrated GPU, the MoE Qwen3.6-35B-A3B is still ~5× faster (and ~80 t/s on an M4 Pro) because only 3B parameters are active per token; our Qwen 3.6 local guide covers it. Take the intelligence hit and keep the speed, or accept single-digit t/s for the smarter model — on weak hardware you can't have both.
+Known bugs and gotchas
+- llama.cpp Vulkan #27237 — the hybrid DeltaNet layers produce garbage output at batch size 512 (1024 and 4096 are fine). Avoid -b 512 on Vulkan.
+- llama.cpp #27282 — native MTP allocates a separate CUDA arena and can OOM; still open at time of writing.
+- LM Studio's 8,192 default context — gets eaten entirely by thinking. Raise it before first use.
+- Reasoning-effort variants misbehaving on some quants — community reports of the high-effort variant failing SVG tasks a low-effort run passed. If output quality looks wrong, try a different effort level before blaming the quant.
+- MTP vs determinism — --spec-draft-n-max 1 if you need bitwise-reproducible output.
+Wiring it into coding agents
+This model was post-trained as an agentic executor, and the local-harness story is unusually good for a week-old release. Confirmed working in the wild:
+- Claude Code — ollama launch claude --model qwen3.8 , one command.
+- OpenCode — the 16GB rig above ran a fully autonomous NestJS+MCP project build: 1M tokens across 3 prompts, ~2 hours, unattended.
+- Pi — Willison drove it via LM Studio + tailscale serve with the openai-responses provider.
+- Cursor Agent Local — one-shotting tasks in the piszczek 24GB setup.
+- Hermes / OpenClaw — both have Ollama launchers.
+If you're building out a full local agent stack — model, harness, sandboxing, cost math — start with our self-hosted AI coding agent guide, then read the dedicated deep dive on whether Qwen3.8-27B can replace Claude Code locally.
+FAQ
+What is the minimum VRAM to run Qwen 3.8 locally?
+Realistically 16GB for a good experience: UD-Q3_K_XL (13.4GB) plus KV cache and the MTP draft head fits with ~73K context and runs ~46 t/s tuned. The UD-Q2 quants (9–10.7GB) load on 12GB cards, but quality degradation at Q2 is significant. 24GB runs the standard Q4_K_M comfortably; 24GB with a custom build can hold the full 256K context.
+Can I get 1M context locally?
+No. Native context is 262,144 tokens. The "extensible up to 1,000,000" figure refers to a Qwen Cloud hosted feature marked "coming soon" — it is not available in the open weights, in Ollama, or in llama.cpp. Plan around 256K.
+Why is it so slow on my laptop?
+It's a dense 27B, so every token touches all 27B parameters — decode speed is bound by memory bandwidth. A ~100GB/s laptop APU manages ~4 t/s and CPU-only about 0.9 t/s regardless of how much RAM you have. On that class of hardware, run the MoE Qwen3.6-35B-A3B instead — roughly 5× faster on CPU.
+Is Q3 usable?
+For agentic coding, evidence says yes: the UD-Q3_K_XL config completed a 1M-token autonomous build, and practitioner KL-divergence reports put the eval drop between UD-Q6 and UD-Q3 at 0–5%. Skeptics remain, and they have a point for correctness-critical work — if you have the VRAM for Q4_K_M or better, use it.
+Does vision work in Ollama?
+Yes — the default qwen3.8 tag ships with image input enabled (the vision projector is bundled). In llama.cpp you must pass the separate mmproj GGUF (~0.9GB) via --mmproj; skip it and the model runs text-only.
+Go deeper
+This guide covers running the model. For what Qwen3.8-27B actually is — benchmarks, architecture, and how it stacks up against the frontier — read the complete Qwen3.8-27B guide. For the full Qwen family context, see our Qwen pillar guide.

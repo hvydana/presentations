@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="comprehensive survey of Vision-Language-Action (VLA) models for robotics. Explore the latest research on VLA architectures, learning paradigms, and real-world applications in robotic systems.">
+    <meta name="keywords" content="Vision-Language-Action models, VLA models, robotics, machine learning, computer vision, natural language processing, robot learning, AI robotics, survey paper">
+    <meta name="author" content="Kento Kawaharazuka, Jihoon Oh, Jun Yamada, Ingmar Posner, Yuke Zhu">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://vla-survey.github.io/">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1XJ0NHR591"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-1XJ0NHR591');
+    </script>
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications">
+    <meta property="og:description" content="A comprehensive review of Vision-Language-Action models for robotics, covering architectures, learning paradigms, and real-world applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://vla-survey.github.io/">
+    <meta property="og:image" content="https://vla-survey.github.io/data/overview.png">
+    <meta property="og:site_name" content="VLA Models Survey">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications">
+    <meta name="twitter:description" content="A comprehensive review of Vision-Language-Action models for robotics, covering architectures, learning paradigms, and real-world applications.">
+    <meta name="twitter:image" content="https://vla-survey.github.io/data/overview.png">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications",
+      "description": "A systematic review of Vision-Language-Action (VLA) models, covering their strategy and architectural transition, architectures and building blocks, modality-specific processing techniques, and learning paradigms.",
+      "author": [
+        {
+          "@type": "Person",
+          "name": "Kento Kawaharazuka",
+          "affiliation": "The University of Tokyo"
+        },
+        {
+          "@type": "Person",
+          "name": "Jihoon Oh",
+          "affiliation": "The University of Tokyo"
+        },
+        {
+          "@type": "Person",
+          "name": "Jun Yamada",
+          "affiliation": "University of Oxford"
+        },
+        {
+          "@type": "Person",
+          "name": "Ingmar Posner",
+          "affiliation": "University of Oxford"
+        },
+        {
+          "@type": "Person",
+          "name": "Yuke Zhu",
+          "affiliation": "The University of Texas at Austin"
+        }
+      ],
+      "datePublished": "2025",
+      "keywords": "Vision-Language-Action models, VLA models, robotics, machine learning, computer vision, natural language processing",
+      "url": "https://vla-survey.github.io/"
+    }
+    </script>
+    
+    <title>Vision-Language-Action Models Survey</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* arXiv button style */
+        .arxiv-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: #343a3f;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+        
+        .arxiv-button:hover {
+            background-color: #5a6268;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .arxiv-button img {
+            height: 20px;
+            width: auto;
+            margin-right: 8px;
+        }
+        
+        .arxiv-button i {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 col-md-12">
+
+                <div class="text-center">
+                    <h2 class="mt-5"><b>Vision-Language-Action Models for Robotics:<br>A Review Towards Real-World Applications</b></h2>
+                    <h4 class="mt-4 conf"><b>IEEE Access 2025</b></h4>
+
+                    <ul class="list-inline mt-4">
+                        <li class="list-inline-item">
+                            <a href="https://haraduka.github.io/" target="_blank">Kento Kawaharazuka</a><sup>(a)</sup>
+                        </li>
+                        <li class="list-inline-item ml-4">
+                            <a href="#" target="_blank">Jihoon Oh</a><sup>(a)</sup>
+                        </li>
+                        <li class="list-inline-item ml-4">
+                            <a href="https://junjungoal.github.io/" target="_blank">Jun Yamada</a><sup>(b)</sup>
+                        </li>
+                        <li class="list-inline-item ml-4">
+                            <a href="https://eng.ox.ac.uk/people/ingmar-posner/" target="_blank">Ingmar Posner</a><sup>(b)*</sup>
+                        </li>
+                        <li class="list-inline-item ml-4">
+                            <a href="https://yukezhu.me/" target="_blank">Yuke Zhu</a><sup>(c)*</sup>
+                        </li>
+                        <li class="mt-2">
+                            <sup>(a)</sup> The University of Tokyo, <sup>(b)</sup> University of Oxford, <sup>(c)</sup> The University of Texas at Austin
+                        </li>
+                        <li class="mt-1">
+                            <sup>*</sup> Equal advising
+                        </li>
+                    </ul>
+
+                    <!-- Paper Download Buttons -->
+                    <div class="mt-4">
+                        <a href="https://ieeexplore.ieee.org/document/11164279" target="_blank" class="arxiv-button">
+                            <i class="bi bi-journal-text"></i>
+                            IEEE Access
+                        </a>
+                        <a href="https://arxiv.org/abs/2510.07077" target="_blank" class="arxiv-button">
+                          <img src="css/arxiv-logomark-small@2x.png"
+                               alt="arXiv"
+                               style="height: 1em; margin-right: 6px; vertical-align: middle;">
+                          arXiv
+                        </a>
+                        <a href="https://www.techrxiv.org/doi/full/10.36227/techrxiv.175502755.53627529/v1" target="_blank" class="arxiv-button">
+                            <i class="bi bi-journal-text"></i>
+                            TechRxiv
+                        </a>
+                        <a href="data/paper.pdf" target="_blank" class="arxiv-button">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                            Paper
+                        </a>
+                        <a href="data/paper_1column.pdf" target="_blank" class="arxiv-button">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                            Paper (one column ver.)
+                        </a>
+                        <a href="https://x.com/KKawaharazuka/status/1955420025680171322" target="_blank" class="arxiv-button">
+                            <i class="bi bi-twitter"></i>
+                            Post (X)
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Overview Figure Section -->
+                <div class="row mt-4">
+                    <div class="col-lg-10 offset-lg-1">
+                        <h4 class="text-center">Overview</h4>
+                        <figure class="figure w-100 text-center">
+                            <img src="data/overview.png" class="figure-img img-fluid" alt="Overview of Vision-Language-Action Models Survey showing the transition from separate vision, language, and action models to unified VLA architectures for robotics applications">
+                            <figcaption class="figure-caption">Figure: Overview of Vision-Language-Action Models Survey</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-lg-10 offset-lg-1">
+                        <p>
+                Amid growing efforts to leverage advances in large language models (LLMs) and vision-language models (VLMs) for robotics, Vision-Language-Action (VLA) models have recently gained significant attention.
+                By unifying vision, language, and action data at scale, which have traditionally been studied separately, VLA models aim to learn policies that generalise across diverse tasks, objects, embodiments, and environments.
+                This generalisation capability is expected to enable robots to solve novel downstream tasks with minimal or no additional task-specific data, facilitating more flexible and scalable real-world deployment.
+                To better understand the foundations and progress towards this goal, this paper provides a systematic review of VLAs, covering their strategy and architectural transition, architectures and building blocks, modality-specific processing techniques, and learning paradigms.
+                In addition, to support the deployment of VLAs in real-world robotic applications, we also review commonly used robot platforms, data collection strategies, publicly available datasets, data augmentation methods, and evaluation benchmarks.
+                Throughout this comprehensive survey, this paper aims to offer practical guidance for the robotics community in applying VLAs to real-world robotic systems.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Method Figure Section -->
+                <div class="row mt-4">
+                    <div class="col-lg-10 offset-lg-1">
+                        <figure class="figure w-100 text-center">
+                            <img src="data/method.png" class="figure-img img-fluid" alt="VLA modality processing, architecture design, and learning paradigms including vision encoders, language models, and action decoders">
+                            <figcaption class="figure-caption">Figure: Modality, Architecture and Learning Paradigm of VLA</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Data Figure Section -->
+                <div class="row mt-4">
+                    <div class="col-lg-10 offset-lg-1">
+                        <figure class="figure w-100 text-center">
+                            <img src="data/data.png" class="figure-img img-fluid" alt="Robot platforms, data collection methods, datasets, and evaluation benchmarks for Vision-Language-Action models">
+                            <figcaption class="figure-caption">Figure: Robot, Data Collection, Dataset and Evaluation for VLA</figcaption>
+                        </figure>
+                    </div>
+                </div>
+
+                <!-- Interactive Table Section -->
+                <div class="col-lg-12"><hr class="mt-4 mb-4"></div>
+                <div class="col-lg-12">
+                    <h4>Interactive Survey Table</h4>
+                    <p>
+                        Explore our comprehensive database of VLA models. Use the filters below to search by category,
+                        task type, modality, or robot platform. Click on column headers to sort.
+                    </p>
+
+                    <div class="filters mt-4">
+                        <div class="row">
+                            <div class="col-md-3 mb-3">
+                                <label for="searchInput">Search</label>
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search all fields...">
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label for="categoryFilter">Category</label>
+                                <select id="categoryFilter" class="form-control">
+                                    <option value="">All Categories</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label for="taskFilter">Task</label>
+                                <select id="taskFilter" class="form-control">
+                                    <option value="">All Tasks</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 mb-3">
+                                <label for="modalityFilter">Modality</label>
+                                <select id="modalityFilter" class="form-control">
+                                    <option value="">All Modalities</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-1 mb-3">
+                                <label for="robotFilter">Robot</label>
+                                <select id="robotFilter" class="form-control">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-1 mb-3">
+                                <label for="backboneFilter">Backbone</label>
+                                <select id="backboneFilter" class="form-control">
+                                    <option value="">All</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-1 mb-3">
+                                <label>&nbsp;</label>
+                                <button class="btn btn-danger btn-block" onclick="clearAllFilters()">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive mt-4">
+                        <table id="surveyTable" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="sortable" data-column="0">Category</th>
+                                    <th class="sortable" data-column="1">Abbreviation</th>
+                                    <th class="sortable" data-column="2">Title</th>
+                                    <th class="sortable" data-column="3">Conference</th>
+                                    <th>Paper</th>
+                                    <th>Website</th>
+                                    <th class="sortable" data-column="7">Task</th>
+                                    <th class="sortable" data-column="8">Domain</th>
+                                    <th class="sortable" data-column="9">Robot</th>
+                                    <th class="sortable" data-column="10">Training</th>
+                                    <th class="sortable" data-column="11">Evaluation</th>
+                                    <th class="sortable" data-column="12">Modality</th>
+                                    <th class="sortable" data-column="13">Dataset</th>
+                                    <th class="sortable" data-column="14">Backbone</th>
+                                    <th class="sortable" data-column="15">Action Gen</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colspan="15" class="text-center loading">Loading CSV data...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination-wrapper mt-4">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="records-info">
+                                    Showing <span id="startRecord">0</span>-<span id="endRecord">0</span> of <span id="totalRecords">0</span> records
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <div class="pagination-controls">
+                                    <button id="firstPage" class="btn btn-sm btn-outline-primary">⏮</button>
+                                    <button id="prevPage" class="btn btn-sm btn-outline-primary">◀</button>
+                                    <span class="mx-3">Page <span id="currentPage">1</span> of <span id="totalPages">1</span></span>
+                                    <button id="nextPage" class="btn btn-sm btn-outline-primary">▶</button>
+                                    <button id="lastPage" class="btn btn-sm btn-outline-primary">⏭</button>
+                                    <select id="recordsPerPage" class="form-control form-control-sm d-inline-block ml-3" style="width: auto;">
+                                        <option value="10">10 per page</option>
+                                        <option value="25">25 per page</option>
+                                        <option value="50">50 per page</option>
+                                        <option value="100">100 per page</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BibTeX -->
+                <div class="col-lg-10 offset-lg-1"><hr class="mt-5 mb-4"></div>
+                <div class="col-lg-10 offset-lg-1">
+                    <h4 id="bibtex">BibTeX</h4>
+                    <pre>
+@article{kawaharazuka2025vla-survey,
+  author={Kento Kawaharazuka and Jihoon Oh and Jun Yamada and Ingmar Posner and Yuke Zhu},
+  journal={IEEE Access},
+  title={Vision-Language-Action Models for Robotics: A Review Towards Real-World Applications},
+  volume={13},
+  pages={162467--162504},
+  year={2025},
+  doi={10.1109/ACCESS.2025.3609980},
+}
+                    </pre>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-lg-10 offset-lg-1"><hr class="mt-4 mb-4"></div>
+                <div class="col-lg-10 offset-lg-1 mb-5">
+                    <h4 id="contact">Contact</h4>
+                    <p>
+                        If you have any questions or suggestions, please feel free to contact
+                        <a href="https://haraduka.github.io/" target="_blank">Kento Kawaharazuka</a>.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

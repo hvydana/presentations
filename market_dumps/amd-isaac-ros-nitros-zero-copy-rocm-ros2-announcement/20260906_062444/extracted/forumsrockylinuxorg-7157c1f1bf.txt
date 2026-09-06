@@ -1,0 +1,65 @@
+Hey!
+I just installed RL version 8.8 on a new PC. Problem was the resolution was set to 800x600 and I couldn’t (still can’t) change it due to missing drivers. I have lscpi says it’s a Radeon 8490
+When I try it by using the fglrx*.rpm file that I downloaded I get a bunch of messages like
+compat-libstdc+±33 is needed by fglrx[…].x86-64
+gcc is needed by fglrx[…].x86-64
+But when I now try to install gcc, or to be precise try to use the ‘dnf install’ command in general, I get the very same error about then amdgpu repo being unreachable. How did I manage to fuck up like that and how can I fix it?
+The amdgpu drivers are part of the kernel, together with mesa they should be all you need to make your of your gpu. Unless you have a very specific reason to be needing the amdgpu pro drivers(could be that the amdgpu driver in the kernel doesn’t support your gpu anymore) then you can always try to install the RHEL driver from the following link.
+The Fedora community found the drivers required for OpenCL on an AMD Radeon 6700 XT in this case. Perhaps if you installed the RHEL/Rocky equivalent of some of these packages your GPU will behave as expected:
+I’m using a RX 6700 XT and I have Resolve running perfectly.
+Even before anything it is running at UHD.
+The only thing I had to add to the default install was…
+dnf install ROCm
+If you have tried to install the AMD driver from the AMD site is has a few wrong paths in the install you need to fix.
+If that IS what you did then I’ll talk you through the fix from what I remember.
+I don’t know if AMD have updated the file to be correct yet or why the hell it is OK to leave it up with wrong paths. That will be you problem if you have installed the drivers from AMD.
+You likely didn’t need to do that AMD install and were seeking the ROCm files by default.
+then you can always try to install the RHEL driver from the following link.
+I did this and it’s when the needed libraries weren’t installed, but I also can’t install them since dnf now pulls everything from amd’s website and doesn’t find anything
+It wasn’t called $distrovar but something else. Anyway; That $distrovar was dependent on the installed OS version, which is RL 8.8, but the path in the link doesn’t exist for 8.8 but only 8.7 instead. Changing this allowed me to run the amdgpu-install command and it’s currently doing its thing
+if that card is around 2013 as tech powerup says it is it may be that it wont run on the amdgpu driver and needs the prior radeon driver.
+this may be why you appear to be having issues.
+update, just checked the amd web site and they confirm its the 15.9 driver thats required, since the amdgpu driver is now around the 22.xxx i believe that means its the fglrx64 or radeon driver thats required, so my suggestion above should be the fix.
+I think you are trying too hard… I say that only as that was what I did.
+The default driver installed by Rocky 9.2 is fine. You likely only needed the ROCm files.
+If you did what I did you installed the driver from AMD. In which case it is a script and the script is WRONG and points to directories that don’t exist.
+You have to correct the script if that is what has happened and rerun the install.
+The is where the script comes from…
+If you download the script and edit it, you will see the paths that are being used. Some of those are wrong. From memory, specifically their are files for 9.2 but they are either not in the install script or they are wrong.
+The download library as AMD you can access. I tried for 15 minute to search for the link and failed.
+If you used the AMD install script you have this issue for sure.
+I really don’t want to download that script as it caused me much grief. But if you want to copy it into here I’ll see about remembering the issues.
+The other option is to revert, reinstall Linux, reset to the default driver of the install by some means, then just add what is missing.
+We get a bit sucked into “install the latest drivers from AMD”. When perhaps better advice is “trust the distro on important drivers”.
+Becuase mine was a new install, I was OK with just reformat and start again… I’m past that now.
+Trick 2
+Use KDE! Just a lot more useful tools out of the box.
+I’ll copy-paste my post from the AMD forums on what I’ve tried;
+The default resolution is 800x600 and therefore unusable. First I played around with xrandr and created a 1920x1080 resolution, but switching to that in the settings didn’t actually change the resolution, but just extended it beyond the monitor, with me seeing the same 800x600 window stretched to full screen anyway.
+Then I tried installing the 7.0 drivers as per this link but that only resulted in a bunch of errors like this when executing the sudo rpm -Uvh fglrx.rpm* command as told in the Installation Notes:
+[florian@dc105162 Downloads]$ sudo rpm -Uvh fglrx*.rpm
+[sudo] Password for florian:
+Error: Failed dependencies:
+compat-libstdc+±33 is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+gcc is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+kernel-devel is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+ld-linux.so.2 is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+ld-linux.so.2(GLIBC_2.3) is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libX11.so.6 is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libXext.so.6 is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libc.so.6 is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libc.so.6(GLIBC_2.0) is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libc.so.6(GLIBC_2.1) is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libc.so.6(GLIBC_2.1.3) is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+libc.so.6(GLIBC_2.2) is needed by fglrx64_p_i_c-15.201.1151-1.x86_64
+…
+So what I tried next was to get amdgpu-install to do it’s thing. For that I downloaded it from here, as it wasn’t installed by default, and changed the baseurl in etc/yum.repos.d/amdgpu.repo to baseurl=Index of /amdgpu/5.4.5/rhel/8.7/main/x86_64/ and that part worked without error. Now however running this command requires omitting nomodeset from my grub config and without that the system only boots to black screen and I can’t run the actual amdgpu-install command
+I tried putting the nomodeset back in in the boot menu and also pressed CTRL + X to save that, but it still doesn’t boot correctly now with everything being black screen but I can at least move my cursor that now is just a big “X” symbol
+There’s no issues with the AMD cards, it is AMD install is broken. The script isn’t uptodate but the files are on the server.
+I think your real issue sounds like mine. You don’t need to install drivers from AMD, you should have install a few things from the distro.
+But hey, you have 2 graphics cards. I got an idea for you. Run a Windows VM and dedicate the AMD card to that. It will only need Windows drivers then.
+Once I used that AMD script everything was broken. It doesn’t load the drivers for 9.2 even though those drivers exist on the server.
+I’d have done for you but it is a PITA.
+The easy solution if to use the distro which has the right drivers but doesn’t install a few dependencies. But those dependencies exist on the distro.
+There’s nothing fancy in the AMD driver, not the control panel you get for Windows, at least none that I’ve found.
+The problem is what you call “ridiculous”! The solution is hidden, I think in an AMD forum. The time it would take at AMD to fix the script is less than an hour. Why Redhat CEO isn’t on the phone to AMD having a scream by now is a mystery.

@@ -1,0 +1,59 @@
+Cosmos 3
+The first omni-model with native reasoning, world and action generation. Built on Mixture-of-Transformers.
+Use as a vision language model (VLM) to reason over objects, interactions, and intent across complex real-world scenarios.
+For real-time alerts and dense captioning across quality inspection, public safety, traffic monitoring, logistics, and autonomous driving.
+Accelerate robot policy learning with NVIDIA Cosmos™ 3 as the backbone for World Action Models (WAMs).
+Post-train the generalized world foundation model on specialized camera and embodiment data. The policy model adapts pre-learned actions to specific tasks, domains, and behaviors at scale.
+Run as a controllable, physics-grounded world simulator to predict multiple approaches, evaluate outcomes in a closed loop, and converge on the right behavior.
+Scale the loop across environments, tasks, and conditions to continuously improve without real-world risk.
+Generate infinite plausible futures from text, image, video, ambient sound and action input.
+Use video generation as imagination to train physical AI without being constrained by what's been physically captured.
+Video
+Meet NVIDIA Cosmos—the frontier of physical AI. Built on a new mixture-of-transformers architecture, this open omnimodel brings together pixels, actions, sound, and language to reason, plan, and generate what comes next.
+Starting Options
+Build on the same technology powering Cosmos 3. Open frameworks and skills so developers worldwide can customize, extend, and contribute to physical AI.
+Quickly filter, annotate, and deduplicate large amounts of sensor data with Cosmos Curator.
+Review and score generative video outputs at scale using Cosmos Evaluator.
+Quickly build, post-train or deploy world models using open post-training, evaluation, optimization frameworks, and inference scripts and skills.
+Turn coding agents into synthetic data experts for physical AI development.
+Use Cases
+- 
+            Robot Learning
+- 
+            Autonomous Vehicle Training
+- 
+            Video Analytics AI Agents
+Build a robot learning policy that enables embodied agents to operate in real-world environments under both seen and unseen conditions.
+- Post-train Cosmos 3 on embodiment-specific tasks, environments, camera or sensor layouts, and policies
+- Run physically accurate closed-loop simulations
+- Create an end-to-end synthetic data augmentation and evaluation pipeline using agent skills built on Cosmos
+Generate custom, diverse, and high-fidelity sensor data to safely train, test, and validate autonomous vehicles.
+- Amplify existing data diversity with new weather, lighting, and geolocation data
+- Post-train to expand into multi-sensor views
+- Create an end-to-end synthetic data augmentation and evaluation pipeline using agent skills built on Cosmos
+Enhance automation, safety, and operational efficiency across industrial and urban environments.
+With Cosmos, AI agents can analyze, summarize, and interact with real-time or recorded video streams to:
+- Deliver real-time contextual alerts
+- Talk to your videos and extract insights from live camera feeds or large-scale video libraries
+- Build video analytics AI agents with NVIDIA Metropolis Blueprint for video search and summarization
+- Generate synthetic training data to further boost understanding accuracy
+Performance
+Cosmos 3 is optimized for the best performance on NVIDIA hardware. NVIDIA RTX PRO™ 6000 Blackwell Series Servers accelerate physical AI development for robots, autonomous vehicles, and AI agents across training, synthetic data generation, simulation, and inference.
+Unlock peak performance for Cosmos world foundation models on NVIDIA Blackwell GB200 for industrial post-training and inference workloads.
+Ecosystem
+Model developers from the robotics, autonomous vehicles, and vision AI industries are using Cosmos to accelerate physical AI development.
+Connect with Cosmos experts, engage with fellow developers, provide model feedback, and access continued learning through livestreams and recipes.
+A comprehensive guide for working with the NVIDIA Cosmos ecosystem for real-world, domain-specific applications across robotics, simulation, autonomous systems, and physical scene understanding.
+NVIDIA Cosmos Lab pioneers large-scale world foundation models that simulate the physical world — the foundation for breakthrough Physical AI.
+Resources
+Cosmos 3 is built on Mixture of Transformers architecture. Reasoning and generator modules use different transformers for efficient generation and performance. The model therefore reasons first and then generates, resulting in leading physics accuracy across capabilities. Learn more about the architecture here.
+Cosmos WFMs are available under the OpenMDW1.1 license from Linux Foundation.
+Cosmos 3 is openly available with post-training scripts on GitHub for each modality and module. In addition, NVIDIA TAO 7 provides a suite of agent skills and tools for fine-tuning vision AI models, including Cosmos 3, with coding agents and natural language prompts.
+Yes, you can leverage Cosmos to build from scratch with your preferred foundation model or model architecture. You can start by using Cosmos Curator for video data preprocessing. Then compress and decode your data with Cosmos tokenizer. Once you have processed the data, you can train or fine-tune your model.
+Using NVIDIA NIM™ microservices, you can easily integrate your physical AI models into your applications across cloud, data centers, and workstations.
+You can also use NVIDIA DGX Cloud to train AI models and deploy them at scale anywhere.
+Cosmos 3 is an omni-model it can generate across text, image, video, sound and action. While Cosmos 2.5 and Cosmos 2 kept perception and generation as separate models and modalities were limited to text, image and video.
+Omniverse creates realistic 3D simulations of real-world tasks by using different generative APIs, SDKs, and NVIDIA RTX rendering technology.
+Developers can input Omniverse simulations as instructional videos into Cosmos Transfer models to generate controllable, photorealistic synthetic data.
+Together, Omniverse provides the simulation environment before and after training, while Cosmos provides the foundation models for generating video data and training physical AI models.
+Learn more about NVIDIA Omniverse.

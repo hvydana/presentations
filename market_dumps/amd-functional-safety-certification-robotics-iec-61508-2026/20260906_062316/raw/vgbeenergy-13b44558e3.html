@@ -1,0 +1,1558 @@
+<!DOCTYPE html><html lang="en-US"><head >	<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Issue 8-2026 &#8211; vgbe energy</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel="alternate" hreflang="en" href="https://www.vgbe.energy/en/pt-journal/issue-8-2026/" />
+<link rel="alternate" hreflang="de" href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" />
+<link rel="alternate" hreflang="x-default" href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" />
+<script id="omgf-pro-remove-async-google-fonts" type="text/javascript" src="data:text/javascript;base64,dmFyIGhlYWQ9ZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoImhlYWQiKVswXSxpbnNlcnRCZWZvcmU9aGVhZC5pbnNlcnRCZWZvcmUsYXBwZW5kQ2hpbGQ9aGVhZC5hcHBlbmRDaGlsZCxhcHBlbmQ9aGVhZC5hcHBlbmQ7ZnVuY3Rpb24gcnVuSW50ZXJjZXB0aW9uKG5ld0VsZW0scmVmRWxlbSxjYWxsYmFjayl7aWYodm9pZCAwIT09bmV3RWxlbS5ocmVmJiYobmV3RWxlbS5ocmVmLmluY2x1ZGVzKCIvL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzcyIpfHxuZXdFbGVtLmhyZWYuaW5jbHVkZXMoIi8vZm9udHMuZ3N0YXRpYy5jb20vcy8iKXx8bmV3RWxlbS5ocmVmLmluY2x1ZGVzKCIvL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2ljb24iKXx8bmV3RWxlbS5ocmVmLmluY2x1ZGVzKCIvL2FqYXguZ29vZ2xlYXBpcy5jb20vYWpheC9saWJzL3dlYmZvbnQiKSkpY29uc29sZS5sb2coIk9NR0YgUHJvIGJsb2NrZWQgcmVxdWVzdCB0byAiK25ld0VsZW0uaHJlZik7ZWxzZXtpZih2b2lkIDA9PT1uZXdFbGVtLnRhZ05hbWV8fCJTVFlMRSIhPT1uZXdFbGVtLnRhZ05hbWV8fHZvaWQgMD09PW5ld0VsZW0uaW5uZXJIVE1MfHwhKG5ld0VsZW0uaW5uZXJIVE1MLmluY2x1ZGVzKCIvL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzcyIpfHxuZXdFbGVtLmlubmVySFRNTC5pbmNsdWRlcygiLy9mb250cy5nc3RhdGljLmNvbS9zLyIpfHxuZXdFbGVtLmlubmVySFRNTC5pbmNsdWRlcygiLy9mb250cy5nb29nZWxhcGlzLmNvbS9pY29uIikpKXJldHVybiBldmFsKGNhbGxiYWNrKS5jYWxsKGhlYWQsbmV3RWxlbSxyZWZFbGVtKTtjb25zb2xlLmxvZygiT01HRiBQcm8gYmxvY2tlZCBpbmxpbmUgc3R5bGUgYmxvY2s6ICIrbmV3RWxlbS5pbm5lckhUTUwpfX1oZWFkLmluc2VydEJlZm9yZT1mdW5jdGlvbihuZXdFbGVtLHJlZkVsZW0pe3JldHVybiBydW5JbnRlcmNlcHRpb24obmV3RWxlbSxyZWZFbGVtLCJpbnNlcnRCZWZvcmUiKX0saGVhZC5hcHBlbmRDaGlsZD1mdW5jdGlvbihuZXdFbGVtLHJlZkVsZW0pe3JldHVybiBydW5JbnRlcmNlcHRpb24obmV3RWxlbSxyZWZFbGVtLCJhcHBlbmRDaGlsZCIpfSxoZWFkLmFwcGVuZD1mdW5jdGlvbihuZXdFbGVtLHJlZkVsZW0pe3JldHVybiBydW5JbnRlcmNlcHRpb24obmV3RWxlbSxyZWZFbGVtLCJhcHBlbmQiKX07"></script>
+<link rel='dns-prefetch' href='//ccm.vgbe.net' />
+<link rel="alternate" type="application/rss+xml" title="vgbe energy &raquo; Feed" href="https://www.vgbe.energy/en/feed/" />
+<link rel="alternate" type="application/rss+xml" title="vgbe energy &raquo; Comments Feed" href="https://www.vgbe.energy/en/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.vgbe.energy/en/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.vgbe.energy%2Fen%2Fpt-journal%2Fissue-8-2026%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.vgbe.energy/en/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.vgbe.energy%2Fen%2Fpt-journal%2Fissue-8-2026%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+img.wp-smiley, img.emoji {
+display: inline !important;
+border: none !important;
+box-shadow: none !important;
+height: 1em !important;
+width: 1em !important;
+margin: 0 0.07em !important;
+vertical-align: -0.1em !important;
+background: none !important;
+padding: 0 !important;
+}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+<style id="wp-block-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the block styles printed at wp_footer." }
+/*# sourceURL=wp-block-styles-placeholder-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='jet-engine-frontend-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-engine/assets/css/frontend.css?ver=3.8.13' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/kp1buki5/c1n47.css" media="all"/>
+<style id="wp-global-styles-placeholder-inline-css">
+:root { --wp-internal-comment: "Placeholder for wp_hoist_late_printed_styles() to replace with the global-styles printed at wp_footer." }
+/*# sourceURL=wp-global-styles-placeholder-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='vgbe-frontend-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/vgbe/assets/css/vgbe.css?ver=1.0.0' media='all' /> -->
+<!-- <link rel='stylesheet' id='wpml-legacy-horizontal-list-0-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/legacy-list-horizontal/style.min.css?ver=1' media='all' /> -->
+<!-- <link rel='stylesheet' id='wpml-menu-item-0-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/sitepress-multilingual-cms/templates/language-switchers/menu-item/style.min.css?ver=1' media='all' /> -->
+<!-- <link rel='stylesheet' id='jupiterx-popups-animation-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jupiterx-core/includes/extensions/raven/assets/lib/animate/animate.min.css?ver=4.14.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='jupiterx-css' href='https://www-vgbe-e.b-cdn.net/wp-content/uploads/jupiterx/compiler/jupiterx/style.css?ver=967248d' media='all' /> -->
+<!-- <link rel='stylesheet' id='jet-menu-public-styles-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-menu/assets/public/css/public.css?ver=3.0.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='jupiterx-elements-dynamic-styles-css' href='https://www-vgbe-e.b-cdn.net/wp-content/uploads/jupiterx/compiler/jupiterx-elements-dynamic-styles/style.css?ver=11c3216' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-frontend-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.2.1' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/8jllt7cz/c1n47.css" media="all"/>
+<style id="elementor-frontend-inline-css">
+.elementor-kit-8094{--e-global-color-primary:#375F78;--e-global-color-secondary:#F08700;--e-global-color-text:#333333;--e-global-color-accent:#FFC300;--e-global-color-b63c444:#375F78;--e-global-color-ed60c02:#000000;--e-global-color-75f1325:#FFFFFF;--e-global-color-a113ebf:#555555;--e-global-color-4775091:#B4B4B4;--e-global-color-c7c1d66:#BEE6FA;--e-global-color-4db3af0:#FFC300;--e-global-color-f7a00e9:#F08700;--e-global-color-a9a17b9:#E62D0A;--e-global-color-c36c5db:#AF0A05;--e-global-color-422aee3:#D7007D;--e-global-color-a564de3:#69196E;--e-global-color-afb7a58:#A0C80F;--e-global-color-488c9f3:#00828C;--e-global-color-6b216f9:#008CD2;--e-global-color-322bbab:#004187;--e-global-color-346aedf:#5F7F93;--e-global-color-aec0b56:#879FAE;--e-global-color-039fce0:#AFBFC9;--e-global-color-57b026d:#D7DFE4;--e-global-color-4d340a7:#333333;--e-global-color-7c91bb8:#666666;--e-global-color-a427884:#999999;--e-global-color-2c7c9fc:#CCCCCC;--e-global-color-750c689:#F59B00;--e-global-color-e3cfb2a:#EB4B0A;--e-global-color-4ee264b:#00687C;--e-global-color-c0bb576:#003F61;--e-global-color-0340344:#072658;--e-global-color-e357081:#FFF101;--e-global-color-8fc418a:#DFE6EE;--e-global-color-e07427f:#718DA7;}.elementor-kit-8094 e-page-transition{background-color:#FFBC7D;}.elementor-section.elementor-section-boxed > .elementor-container{max-width:1140px;}.e-con{--container-max-width:1140px;}.elementor-widget:not(:last-child){margin-block-end:20px;}.elementor-element{--widgets-spacing:20px 20px;--widgets-spacing-row:20px;--widgets-spacing-column:20px;}{}h1.entry-title{display:var(--page-title-display);}@media(max-width:1024px){.elementor-section.elementor-section-boxed > .elementor-container{max-width:1024px;}.e-con{--container-max-width:1024px;}}@media(max-width:767px){.elementor-section.elementor-section-boxed > .elementor-container{max-width:767px;}.e-con{--container-max-width:767px;}}
+.elementor-37479 .elementor-element.elementor-element-c21fd7d .elementor-repeater-item-67a3195.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-37479 .elementor-element.elementor-element-00079a3 > .elementor-widget-container{padding:15px 15px 0px 15px;}.elementor-37479 .elementor-element.elementor-element-00079a3{text-align:center;}.elementor-37479 .elementor-element.elementor-element-91cc835 > .elementor-widget-container{padding:0px 15px 15px 15px;}.elementor-37479 .elementor-element.elementor-element-91cc835 .elementor-icon-list-icon i{transition:color 0.3s;}.elementor-37479 .elementor-element.elementor-element-91cc835 .elementor-icon-list-icon svg{transition:fill 0.3s;}.elementor-37479 .elementor-element.elementor-element-91cc835{--e-icon-list-icon-size:14px;--icon-vertical-offset:0px;}.elementor-37479 .elementor-element.elementor-element-91cc835 .elementor-icon-list-text{transition:color 0.3s;}.elementor-37479 .elementor-element.elementor-element-c21fd7d{margin-top:0px;margin-bottom:70px;}.elementor-37479 .elementor-element.elementor-element-fde5751 .elementor-repeater-item-9d64f73.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-37479 .elementor-element.elementor-element-23dd8f7 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-a0020ed > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-ccf3ce3 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-ace604e > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-06d6371 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-045e10c > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-4b8ec7c > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-2b24218 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-24cd872 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-2778427 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-84a32d4 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-a257081 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-340fb31 > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-e2dac4f > .elementor-widget-container{margin:0px 0px 25px 0px;}.elementor-37479 .elementor-element.elementor-element-7431775{--spacer-size:50px;}.elementor-37479 .elementor-element.elementor-element-de08e65 > .elementor-container{min-height:300px;}.elementor-37479 .elementor-element.elementor-element-de08e65 > .elementor-background-overlay{opacity:0.6;transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-37479 .elementor-element.elementor-element-de08e65{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;}.elementor-37479 .elementor-element.elementor-element-67d16c2 .elementor-repeater-item-e5cb45c.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-37479 .elementor-element.elementor-element-20ccfd8 .elementor-heading-title{font-size:2.9em;font-weight:600;text-transform:uppercase;letter-spacing:2.8px;}.elementor-37479 .elementor-element.elementor-element-686586c{padding:0px 0px 80px 0px;}.elementor-37479 .elementor-element.elementor-element-de94b19 > .elementor-widget-container{margin:-100px 0px 0px 0px;border-style:solid;border-width:5px 5px 0px 5px;border-color:#FFFFFF;}.elementor-37479 .elementor-element.elementor-element-de94b19 img{filter:brightness( 100% ) contrast( 100% ) saturate( 65% ) blur( 0px ) hue-rotate( 27deg );}.elementor-37479 .elementor-element.elementor-element-138a758 .elementor-heading-title{font-size:1.2em;color:#375F78;}.elementor-37479 .elementor-element.elementor-element-71f3e3e > .elementor-widget-container{margin:-10px 0px 0px 0px;}.elementor-37479 .elementor-element.elementor-element-71f3e3e .elementor-heading-title{font-size:1em;}@media(min-width:768px){.elementor-37479 .elementor-element.elementor-element-3592da8{width:2.082%;}.elementor-37479 .elementor-element.elementor-element-df8e237{width:64.25%;}}@media(max-width:1024px){.elementor-37479 .elementor-element.elementor-element-c0f49a2 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-92d08b0 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-be5ddaf .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-1c6f98c .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-65763c6 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-66da51e .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-af46126 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-44f45dc .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-7fe3603 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-96bddf6 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-c925b87 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-947a0f4 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-c033512 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-2c8fcff .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-e5ce5d1 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-bac7af9 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-22b3cbc .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-b1b2106 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-aa0f83f .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-446f31f .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-aafbae9 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-1fcabf8 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-2d9231a .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-4a13438 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-7b2bd12 .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-913c2d9 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-e3d463b .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-50d9977 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-0be222f .elementor-heading-title{font-size:21px;}.elementor-37479 .elementor-element.elementor-element-632517a .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-138a758 .elementor-heading-title{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-71f3e3e .elementor-heading-title{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-8dc39b0 .elementor-heading-title{font-size:21px;}}@media(max-width:767px){.elementor-37479 .elementor-element.elementor-element-c0f49a2 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-92d08b0 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-d7dd13b{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-be5ddaf .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-1c6f98c .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-23dd8f7{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-65763c6 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-66da51e .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-a0020ed{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-af46126 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-44f45dc .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-ccf3ce3{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-7fe3603 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-96bddf6 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-c925b87 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-947a0f4 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-06d6371{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-c033512 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-2c8fcff .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-045e10c{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-e5ce5d1 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-bac7af9 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-4b8ec7c{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-22b3cbc .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-b1b2106 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-2b24218{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-aa0f83f .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-446f31f .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-24cd872{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-aafbae9 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-1fcabf8 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-2778427{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-2d9231a .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-4a13438 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-84a32d4{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-7b2bd12 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-913c2d9 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-a257081{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-e3d463b .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-50d9977 .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-340fb31{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-0be222f .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-632517a .elementor-heading-title{font-size:16px;}.elementor-37479 .elementor-element.elementor-element-e2dac4f{font-size:14px;}.elementor-37479 .elementor-element.elementor-element-de08e65 > .elementor-container{min-height:231px;}.elementor-37479 .elementor-element.elementor-element-20ccfd8 .elementor-heading-title{font-size:34px;}.elementor-37479 .elementor-element.elementor-element-8dc39b0 .elementor-heading-title{font-size:18px;}.elementor-37479 .elementor-element.elementor-element-af6d415{font-size:14px;}}
+.elementor-14048 .elementor-element.elementor-element-4ce99dd .elementor-repeater-item-829d01c.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-14048 .elementor-element.elementor-element-eb82285{text-align:start;}.elementor-14048 .elementor-element.elementor-element-eb82285 img{width:240px;}.elementor-14048 .elementor-element.elementor-element-9b61466 > .elementor-widget-container{padding:10px 0px 0px 0px;}.elementor-14048 .elementor-element.elementor-element-9b61466 .elementor-icon-list-icon i{transition:color 0.3s;}.elementor-14048 .elementor-element.elementor-element-9b61466 .elementor-icon-list-icon svg{transition:fill 0.3s;}.elementor-14048 .elementor-element.elementor-element-9b61466{--e-icon-list-icon-size:14px;--icon-vertical-offset:0px;}.elementor-14048 .elementor-element.elementor-element-9b61466 .elementor-icon-list-item > .elementor-icon-list-text, .elementor-14048 .elementor-element.elementor-element-9b61466 .elementor-icon-list-item > a{font-size:16px;font-weight:300;line-height:32px;}.elementor-14048 .elementor-element.elementor-element-9b61466 .elementor-icon-list-text{color:rgba(255,255,255,0.6);transition:color 0.3s;}.elementor-14048 .elementor-element.elementor-element-32dda84 > .elementor-widget-container{padding:0px 60px 0px 0px;}.elementor-14048 .elementor-element.elementor-element-32dda84{text-align:start;font-size:16px;font-weight:300;line-height:32px;color:rgba(255, 255, 255, 0.6);}.elementor-14048 .elementor-element.elementor-element-787dd51{--grid-template-columns:repeat(0, auto);--icon-size:24px;--grid-column-gap:15px;--grid-row-gap:0px;}.elementor-14048 .elementor-element.elementor-element-787dd51 .elementor-widget-container{text-align:left;}.elementor-14048 .elementor-element.elementor-element-787dd51 .elementor-social-icon{background-color:rgba(68, 68, 68, 0);border-style:solid;border-width:1px 1px 1px 1px;}.elementor-14048 .elementor-element.elementor-element-787dd51 .elementor-icon{border-radius:40px 40px 40px 40px;}.elementor-14048 .elementor-element.elementor-element-4ce99dd{padding:120px 0px 40px 0px;}.elementor-14048 .elementor-element.elementor-element-7312075 > .elementor-container > .elementor-column > .elementor-widget-wrap{align-content:center;align-items:center;}.elementor-14048 .elementor-element.elementor-element-7312075 .elementor-repeater-item-1576931.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-14048 .elementor-element.elementor-element-2a45b09{font-size:14px;font-weight:300;color:rgba(255,255,255,0.6);}.elementor-14048 .elementor-element.elementor-element-7312075 > .elementor-container{min-height:70px;}.elementor-theme-builder-content-area{height:400px;}.elementor-location-header:before, .elementor-location-footer:before{content:"";display:table;clear:both;}@media(max-width:1024px){.elementor-14048 .elementor-element.elementor-element-787dd51{--grid-column-gap:10px;}}@media(max-width:767px){.elementor-14048 .elementor-element.elementor-element-eb82285{text-align:center;}.elementor-14048 .elementor-element.elementor-element-eb82285 img{width:205px;}.elementor-14048 .elementor-element.elementor-element-9b61466 > .elementor-widget-container{padding:30px 0px 0px 0px;}.elementor-14048 .elementor-element.elementor-element-32dda84 > .elementor-widget-container{padding:30px 0px 0px 0px;}.elementor-14048 .elementor-element.elementor-element-32dda84{text-align:center;}.elementor-14048 .elementor-element.elementor-element-787dd51 .elementor-widget-container{text-align:center;}.elementor-14048 .elementor-element.elementor-element-787dd51{--grid-column-gap:10px;}.elementor-14048 .elementor-element.elementor-element-4ce99dd{padding:60px 0px 0px 0px;}.elementor-14048 .elementor-element.elementor-element-2a45b09{text-align:center;}}
+.elementor-14022 .elementor-element.elementor-element-3101379e .elementor-repeater-item-9128f72.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-14022 .elementor-element.elementor-element-f3be030 .elementor-heading-title{font-weight:400;color:var( --e-global-color-75f1325 );}.elementor-14022 .elementor-element.elementor-element-3101379e:not(.elementor-motion-effects-element-type-background), .elementor-14022 .elementor-element.elementor-element-3101379e > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-image:url("https://www-vgbe-e.b-cdn.net/wp-content/uploads/2021/08/slider-www-vgbe-ej-einzelausgabe-1900x300-1.png");background-position:center center;background-size:cover;}.elementor-14022 .elementor-element.elementor-element-3101379e > .elementor-background-overlay{opacity:0.5;transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-14022 .elementor-element.elementor-element-3101379e{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;padding:120px 0px 120px 0px;}.elementor-14022 .elementor-element.elementor-element-2f5dde8c .elementor-repeater-item-e39efcb.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-14022 .elementor-element.elementor-element-68cd3e25{--spacer-size:15px;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b > .elementor-widget-container{background-color:#879FAE;padding:9px 0px 9px 0px;border-radius:10px 10px 10px 10px;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:last-child){padding-block-end:calc(12px/2);}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-items:not(.elementor-inline-items) .elementor-icon-list-item:not(:first-child){margin-block-start:calc(12px/2);}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item{margin-inline:calc(12px/2);}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-items.elementor-inline-items{margin-inline:calc(-12px/2);}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-items.elementor-inline-items .elementor-icon-list-item:after{inset-inline-end:calc(-12px/2);}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-icon i{color:var( --e-global-color-75f1325 );transition:color 0.3s;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-icon svg{fill:var( --e-global-color-75f1325 );transition:fill 0.3s;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-item:hover .elementor-icon-list-icon i{color:var( --e-global-color-accent );}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-item:hover .elementor-icon-list-icon svg{fill:var( --e-global-color-accent );}.elementor-14022 .elementor-element.elementor-element-1dd8c4b{--e-icon-list-icon-size:13px;--e-icon-list-icon-align:left;--e-icon-list-icon-margin:0 calc(var(--e-icon-list-icon-size, 1em) * 0.25) 0 0;--icon-vertical-offset:0px;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-item > .elementor-icon-list-text, .elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-item > a{font-weight:500;text-transform:uppercase;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-text{color:var( --e-global-color-75f1325 );transition:color 0.3s;}.elementor-14022 .elementor-element.elementor-element-1dd8c4b .elementor-icon-list-item:hover .elementor-icon-list-text{color:var( --e-global-color-accent );}.elementor-14022 .elementor-element.elementor-element-47d92849 .elementor-repeater-item-b53c9c8.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-14022 .elementor-element.elementor-element-225c41d9{--spacer-size:25px;}@media(min-width:768px){.elementor-14022 .elementor-element.elementor-element-d961822{width:79.7%;}.elementor-14022 .elementor-element.elementor-element-9a1f738{width:20.3%;}}@media(max-width:1024px) and (min-width:768px){.elementor-14022 .elementor-element.elementor-element-d961822{width:70%;}.elementor-14022 .elementor-element.elementor-element-9a1f738{width:30%;}}
+.elementor-8485 .elementor-element.elementor-element-c025d39 > .elementor-container > .elementor-column > .elementor-widget-wrap{align-content:center;align-items:center;}.elementor-8485 .elementor-element.elementor-element-c025d39 .elementor-repeater-item-983a39c.jet-parallax-section__layout .jet-parallax-section__image{background-size:auto;}.elementor-8485 .elementor-element.elementor-element-2f31733d{text-align:start;}.elementor-8485 .elementor-element.elementor-element-2f31733d img{width:150px;}.elementor-bc-flex-widget .elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column:not(.raven-column-flex-vertical) .elementor-widget-wrap{align-items:flex-start;}.elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column.elementor-element[data-element_type="column"]:not(.raven-column-flex-vertical) > .elementor-widget-wrap.elementor-element-populated{align-content:flex-start;align-items:flex-start;}.elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column.elementor-element[data-element_type="column"].raven-column-flex-vertical > .elementor-widget-wrap.elementor-element-populated{justify-content:flex-start;}.elementor-8485 .elementor-element.elementor-element-555b704e > .elementor-element-populated{margin:20px 0px 0px 0px;--e-column-margin-right:0px;--e-column-margin-left:0px;}.elementor-8485 .elementor-element.elementor-element-86d4747 .elementor-menu-toggle{margin-left:auto;}.elementor-8485 .elementor-element.elementor-element-86d4747 .elementor-nav-menu--main .elementor-item{color:#333333;fill:#333333;}.elementor-8485 .elementor-element.elementor-element-86d4747{--e-nav-menu-horizontal-menu-item-margin:calc( 24px / 2 );}.elementor-8485 .elementor-element.elementor-element-86d4747 .elementor-nav-menu--main:not(.elementor-nav-menu--layout-horizontal) .elementor-nav-menu > li:not(:last-child){margin-bottom:24px;}.elementor-8485 .elementor-element.elementor-element-86d4747 .elementor-nav-menu--dropdown{background-color:var( --e-global-color-c7c1d66 );}.elementor-bc-flex-widget .elementor-8485 .elementor-element.elementor-element-71fd5cfc.elementor-column:not(.raven-column-flex-vertical) .elementor-widget-wrap{align-items:flex-start;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc.elementor-column.elementor-element[data-element_type="column"]:not(.raven-column-flex-vertical) > .elementor-widget-wrap.elementor-element-populated{align-content:flex-start;align-items:flex-start;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc.elementor-column.elementor-element[data-element_type="column"].raven-column-flex-vertical > .elementor-widget-wrap.elementor-element-populated{justify-content:flex-start;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc > .elementor-element-populated{margin:20px 0px 0px 0px;--e-column-margin-right:0px;--e-column-margin-left:0px;}.elementor-8485 .elementor-element.elementor-element-82bf0f8 .elementor-menu-toggle{margin:0 auto;}.elementor-8485 .elementor-element.elementor-element-82bf0f8 .elementor-nav-menu--main .elementor-item{color:var( --e-global-color-text );fill:var( --e-global-color-text );padding-left:16px;padding-right:16px;}.elementor-8485 .elementor-element.elementor-element-ee0bb84 .elementor-menu-toggle{margin-left:auto;}.elementor-8485 .elementor-element.elementor-element-c025d39:not(.elementor-motion-effects-element-type-background), .elementor-8485 .elementor-element.elementor-element-c025d39 > .elementor-motion-effects-container > .elementor-motion-effects-layer{background-color:rgba(255, 255, 255, 0.34);}.elementor-8485 .elementor-element.elementor-element-c025d39 > .elementor-container{min-height:90px;}.elementor-8485 .elementor-element.elementor-element-c025d39{transition:background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;}.elementor-8485 .elementor-element.elementor-element-c025d39 > .elementor-background-overlay{transition:background 0.3s, border-radius 0.3s, opacity 0.3s;}.elementor-theme-builder-content-area{height:400px;}.elementor-location-header:before, .elementor-location-footer:before{content:"";display:table;clear:both;}@media(max-width:1024px){.elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column{order:2;}.elementor-8485 .elementor-element.elementor-element-c025d39{padding:0px 20px 0px 20px;}}@media(min-width:768px){.elementor-8485 .elementor-element.elementor-element-3a763102{width:18%;}.elementor-8485 .elementor-element.elementor-element-555b704e{width:48.996%;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc{width:33%;}}@media(max-width:1024px) and (min-width:768px){.elementor-8485 .elementor-element.elementor-element-3a763102{width:30%;}.elementor-8485 .elementor-element.elementor-element-555b704e{width:10%;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc{width:70%;}}@media(max-width:767px){.elementor-8485 .elementor-element.elementor-element-3a763102{width:40%;}.elementor-8485 .elementor-element.elementor-element-2f31733d > .elementor-widget-container{margin:0px 0px 0px 0px;}.elementor-8485 .elementor-element.elementor-element-2f31733d img{width:150px;}.elementor-8485 .elementor-element.elementor-element-555b704e{width:60%;}.elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column > .elementor-widget-wrap{justify-content:flex-end;}.elementor-8485 .elementor-element.elementor-element-555b704e.elementor-column{order:0;}.elementor-8485 .elementor-element.elementor-element-71fd5cfc{width:60%;}}
+/*# sourceURL=elementor-frontend-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='widget-image-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-icon-list-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-animation-pulse-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/animations/styles/e-animation-pulse.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-social-icons-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-social-icons.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='e-apple-webkit-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/conditionals/apple-webkit.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-heading-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-spacer-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/eicons/css/elementor-icons.min.css?ver=5.53.0' media='all' /> -->
+<!-- <link rel='stylesheet' id='font-awesome-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0' media='all' /> -->
+<!-- <link rel='stylesheet' id='jupiterx-core-raven-frontend-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jupiterx-core/includes/extensions/raven/assets/css/frontend.min.css?ver=7.0.4' media='all' /> -->
+<!-- <link rel='stylesheet' id='jet-tricks-frontend-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-tricks/assets/css/jet-tricks-frontend.css?ver=2.0.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='flatpickr-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/flatpickr/flatpickr.min.css?ver=4.6.13' media='all' /> -->
+<!-- <link rel='stylesheet' id='widget-menu-anchor-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css?ver=4.2.1' media='all' /> -->
+<!-- <link rel='stylesheet' id='jet-smart-filters-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-smart-filters/assets/css/public.css?ver=3.8.3.1' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/d3ovtoih/c1oh1.css" media="all"/>
+<style id="jet-smart-filters-inline-css">
+.jet-filter {
+--tabindex-color: #0085f2;
+--tabindex-shadow-color: rgba(0,133,242,0.4);
+}
+/*# sourceURL=jet-smart-filters-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='vgbe20_style-css' href='https://www-vgbe-e.b-cdn.net/wp-content/themes/vgbe20/style.css?ver=7.0.4' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-shared-0-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/fontawesome.min.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-fa-solid-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/solid.min.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-fa-brands-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/brands.min.css?ver=5.15.3' media='all' /> -->
+<!-- <link rel='stylesheet' id='elementor-icons-fa-regular-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/font-awesome/css/regular.min.css?ver=5.15.3' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/fgwcflkd/c1oh1.css" media="all"/>
+<script src='https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/esr5hbh1/c1n47.js' type="text/javascript"></script>
+<!-- <script id="jquery-core-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script> -->
+<!-- <script id="jquery-migrate-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script> -->
+<!-- <script id="jupiterx-webfont-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/host-google-fonts-pro/assets/js/lib/webfont.js?ver=1.6.26"></script> -->
+<script id="jupiterx-webfont-js-after">
+WebFont.load({ custom: { families: [ 'Open Sans:100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic' ], urls: [ '//www.vgbe.energy/wp-content/uploads/omgf/webfont-loader-0/webfont-loader-0.css' ] } });
+//# sourceURL=jupiterx-webfont-js-after
+</script>
+<script src='https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/7v2x0qyg/c1n47.js' type="text/javascript"></script>
+<!-- <script id="jupiterx-utils-js" src="https://www-vgbe-e.b-cdn.net/wp-content/themes/jupiterx/lib/assets/dist/js/utils.min.js?ver=4.14.1"></script> -->
+<script id="ccm19-js" src="https://ccm.vgbe.net/ccm19/public/ccm19.js?apiKey=50633bdbd46c2d5d742f2e67cc8b6371dfea7c4bb7b1b59d&#038;domain=52ea437&#038;lang=en_US&#038;ver=1"></script>
+<link rel="https://api.w.org/" href="https://www.vgbe.energy/en/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.vgbe.energy/en/wp-json/wp/v2/pt-journal/37479" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.vgbe.energy/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 7.0.4" />
+<link rel="canonical" href="https://www.vgbe.energy/en/pt-journal/issue-8-2026/" />
+<link rel='shortlink' href='https://www.vgbe.energy/en/?p=37479' />
+<meta name="generator" content="WPML ver:4.9.5 stt:1,3;" />
+<meta name="generator" content="Elementor 4.2.1; features: additional_custom_breakpoints; settings: css_print_method-internal, google_font-enabled, font_display-block">
+<style>
+.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+@media screen and (max-height: 1024px) {
+.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+}
+@media screen and (max-height: 640px) {
+.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+.e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+background-image: none !important;
+}
+}
+</style>
+<link rel="icon" href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2021/08/cropped-favicon-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2021/08/cropped-favicon-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2021/08/cropped-favicon-180x180.png" />
+<meta name="msapplication-TileImage" content="https://www.vgbe.energy/wp-content/uploads/2021/08/cropped-favicon-270x270.png" />
+<style id="wp-custom-css">
+/** Start Block Kit CSS: 105-3-0fb64e69c49a8e10692d28840c54ef95 **/
+.envato-kit-102-phone-overlay {
+position: absolute !important;
+display: block !important;
+top: 0%;
+left: 0%;
+right: 0%;
+margin: auto;
+z-index: 1;
+}
+/** End Block Kit CSS: 105-3-0fb64e69c49a8e10692d28840c54ef95 **/
+/** Start Block Kit CSS: 33-3-f2d4515681d0cdeb2a000d0405e47669 **/
+.envato-kit-30-phone-overlay {
+position: absolute !important;
+display: block !important;
+top: 0%;
+left: 0%;
+right: 0%;
+margin: auto;
+z-index: 1;
+}
+.envato-kit-30-div-rotate{
+transform: rotate(90deg);
+}
+/** End Block Kit CSS: 33-3-f2d4515681d0cdeb2a000d0405e47669 **/
+/** Start Block Kit CSS: 72-3-34d2cc762876498c8f6be5405a48e6e2 **/
+.envato-block__preview{overflow: visible;}
+/*Kit 69 Custom Styling for buttons */
+.envato-kit-69-slide-btn .elementor-button,
+.envato-kit-69-cta-btn .elementor-button,
+.envato-kit-69-flip-btn .elementor-button{
+border-left: 0px !important;
+border-bottom: 0px !important;
+border-right: 0px !important;
+padding: 15px 0 0 !important;
+}
+.envato-kit-69-slide-btn .elementor-slide-button:hover,
+.envato-kit-69-cta-btn .elementor-button:hover,
+.envato-kit-69-flip-btn .elementor-button:hover{
+margin-bottom: 20px;
+}
+.envato-kit-69-menu .elementor-nav-menu--main a:hover{
+margin-top: -7px;
+padding-top: 4px;
+border-bottom: 1px solid #FFF;
+}
+/* Fix menu dropdown width */
+.envato-kit-69-menu .elementor-nav-menu--dropdown{
+width: 100% !important;
+}
+/** End Block Kit CSS: 72-3-34d2cc762876498c8f6be5405a48e6e2 **/
+/** Start Block Kit CSS: 69-3-4f8cfb8a1a68ec007f2be7a02bdeadd9 **/
+.envato-kit-66-menu .e--pointer-framed .elementor-item:before{
+border-radius:1px;
+}
+.envato-kit-66-subscription-form .elementor-form-fields-wrapper{
+position:relative;
+}
+.envato-kit-66-subscription-form .elementor-form-fields-wrapper .elementor-field-type-submit{
+position:static;
+}
+.envato-kit-66-subscription-form .elementor-form-fields-wrapper .elementor-field-type-submit button{
+position: absolute;
+top: 50%;
+right: 6px;
+transform: translate(0, -50%);
+-moz-transform: translate(0, -50%);
+-webmit-transform: translate(0, -50%);
+}
+.envato-kit-66-testi-slider .elementor-testimonial__footer{
+margin-top: -60px !important;
+z-index: 99;
+position: relative;
+}
+.envato-kit-66-featured-slider .elementor-slides .slick-prev{
+width:50px;
+height:50px;
+background-color:#ffffff !important;
+transform:rotate(45deg);
+-moz-transform:rotate(45deg);
+-webkit-transform:rotate(45deg);
+left:-25px !important;
+-webkit-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+-moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+}
+.envato-kit-66-featured-slider .elementor-slides .slick-prev:before{
+display:block;
+margin-top:0px;
+margin-left:0px;
+transform:rotate(-45deg);
+-moz-transform:rotate(-45deg);
+-webkit-transform:rotate(-45deg);
+}
+.envato-kit-66-featured-slider .elementor-slides .slick-next{
+width:50px;
+height:50px;
+background-color:#ffffff !important;
+transform:rotate(45deg);
+-moz-transform:rotate(45deg);
+-webkit-transform:rotate(45deg);
+right:-25px !important;
+-webkit-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+-moz-box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+box-shadow: 0px 1px 2px 1px rgba(0,0,0,0.32);
+}
+.envato-kit-66-featured-slider .elementor-slides .slick-next:before{
+display:block;
+margin-top:-5px;
+margin-right:-5px;
+transform:rotate(-45deg);
+-moz-transform:rotate(-45deg);
+-webkit-transform:rotate(-45deg);
+}
+.envato-kit-66-orangetext{
+color:#f4511e;
+}
+.envato-kit-66-countdown .elementor-countdown-label{
+display:inline-block !important;
+border:2px solid rgba(255,255,255,0.2);
+padding:9px 20px;
+}
+/** End Block Kit CSS: 69-3-4f8cfb8a1a68ec007f2be7a02bdeadd9 **/
+/** Start Block Kit CSS: 142-3-a175df65179b9ef6a5ca9f1b2c0202b9 **/
+.envato-block__preview{
+overflow: visible;
+}
+/* Border Radius */
+.envato-kit-139-accordion .elementor-widget-container{
+border-radius: 10px !important;
+}
+.envato-kit-139-map iframe,
+.envato-kit-139-slider .slick-slide,
+.envato-kit-139-flipbox .elementor-flip-box div{
+border-radius: 10px !important;
+}
+/** End Block Kit CSS: 142-3-a175df65179b9ef6a5ca9f1b2c0202b9 **/
+/** Start Block Kit CSS: 71-3-d415519effd9e11f35d2438c58ea7ebf **/
+.envato-block__preview{overflow: visible;}
+/** End Block Kit CSS: 71-3-d415519effd9e11f35d2438c58ea7ebf **/
+/** Start Block Kit CSS: 144-3-3a7d335f39a8579c20cdf02f8d462582 **/
+.envato-block__preview{overflow: visible;}
+/* Envato Kit 141 Custom Styles - Applied to the element under Advanced */
+.elementor-headline-animation-type-drop-in .elementor-headline-dynamic-wrapper{
+text-align: center;
+}
+.envato-kit-141-top-0 h1,
+.envato-kit-141-top-0 h2,
+.envato-kit-141-top-0 h3,
+.envato-kit-141-top-0 h4,
+.envato-kit-141-top-0 h5,
+.envato-kit-141-top-0 h6,
+.envato-kit-141-top-0 p {
+margin-top: 0;
+}
+.envato-kit-141-newsletter-inline .elementor-field-textual.elementor-size-md {
+padding-left: 1.5rem;
+padding-right: 1.5rem;
+}
+.envato-kit-141-bottom-0 p {
+margin-bottom: 0;
+}
+.envato-kit-141-bottom-8 .elementor-price-list .elementor-price-list-item .elementor-price-list-header {
+margin-bottom: .5rem;
+}
+.envato-kit-141.elementor-widget-testimonial-carousel.elementor-pagination-type-bullets .swiper-container {
+padding-bottom: 52px;
+}
+.envato-kit-141-display-inline {
+display: inline-block;
+}
+.envato-kit-141 .elementor-slick-slider ul.slick-dots {
+bottom: -40px;
+}
+/** End Block Kit CSS: 144-3-3a7d335f39a8579c20cdf02f8d462582 **/
+/** Start Block Kit CSS: 135-3-c665d4805631b9a8bf464e65129b2f58 **/
+.envato-block__preview{overflow: visible;}
+/** End Block Kit CSS: 135-3-c665d4805631b9a8bf464e65129b2f58 **/
+/** Start Block Kit CSS: 143-3-7969bb877702491bc5ca272e536ada9d **/
+.envato-block__preview{overflow: visible;}
+/* Material Button Click Effect */
+.envato-kit-140-material-hit .menu-item a,
+.envato-kit-140-material-button .elementor-button{
+background-position: center;
+transition: background 0.8s;
+}
+.envato-kit-140-material-hit .menu-item a:hover,
+.envato-kit-140-material-button .elementor-button:hover{
+background: radial-gradient(circle, transparent 1%, #fff 1%) center/15000%;
+}
+.envato-kit-140-material-hit .menu-item a:active,
+.envato-kit-140-material-button .elementor-button:active{
+background-color: #FFF;
+background-size: 100%;
+transition: background 0s;
+}
+/* Field Shadow */
+.envato-kit-140-big-shadow-form .elementor-field-textual{
+box-shadow: 0 20px 30px rgba(0,0,0, .05);
+}
+/* FAQ */
+.envato-kit-140-faq .elementor-accordion .elementor-accordion-item{
+border-width: 0 0 1px !important;
+}
+/* Scrollable Columns */
+.envato-kit-140-scrollable{
+height: 100%;
+overflow: auto;
+overflow-x: hidden;
+}
+/* ImageBox: No Space */
+.envato-kit-140-imagebox-nospace:hover{
+transform: scale(1.1);
+transition: all 0.3s;
+}
+.envato-kit-140-imagebox-nospace figure{
+line-height: 0;
+}
+.envato-kit-140-slide .elementor-slide-content{
+background: #FFF;
+margin-left: -60px;
+padding: 1em;
+}
+.envato-kit-140-carousel .slick-active:not(.slick-current)  img{
+padding: 20px !important;
+transition: all .9s;
+}
+/** End Block Kit CSS: 143-3-7969bb877702491bc5ca272e536ada9d **/
+/** Start Block Kit CSS: 136-3-fc37602abad173a9d9d95d89bbe6bb80 **/
+.envato-block__preview{overflow: visible !important;}
+/** End Block Kit CSS: 136-3-fc37602abad173a9d9d95d89bbe6bb80 **/
+/** Start Block Kit CSS: 141-3-1d55f1e76be9fb1a8d9de88accbe962f **/
+.envato-kit-138-bracket .elementor-widget-container > *:before{
+content:"[";
+color:#ffab00;
+display:inline-block;
+margin-right:4px;
+line-height:1em;
+position:relative;
+top:-1px;
+}
+.envato-kit-138-bracket .elementor-widget-container > *:after{
+content:"]";
+color:#ffab00;
+display:inline-block;
+margin-left:4px;
+line-height:1em;
+position:relative;
+top:-1px;
+}
+/** End Block Kit CSS: 141-3-1d55f1e76be9fb1a8d9de88accbe962f **/
+</style>
+</head><body class="wp-singular pt-journal-template-default single single-pt-journal postid-37479 wp-theme-jupiterx wp-child-theme-vgbe20 no-js jet-mega-menu-location elementor-page-14022 elementor-default elementor-template-full-width elementor-kit-8094 elementor-page elementor-page-37479 vgbe20 energetic" itemscope="itemscope" itemtype="http://schema.org/WebPage"><a class="jupiterx-a11y jupiterx-a11y-skip-navigation-link" href="#jupiterx-main">Skip to content</a><div class="jupiterx-site"><header class="jupiterx-header jupiterx-header-custom" data-jupiterx-settings="{&quot;breakpoint&quot;:&quot;767.98&quot;,&quot;template&quot;:&quot;8485&quot;}" role="banner" itemscope="itemscope" itemtype="http://schema.org/WPHeader">		<header data-elementor-type="header" data-elementor-id="8485" class="elementor elementor-8485" data-elementor-post-type="elementor_library">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-c025d39 elementor-section-height-min-height elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="c025d39" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;_id&quot;:&quot;983a39c&quot;,&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}],&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-3a763102" data-id="3a763102" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-2f31733d elementor-widget elementor-widget-image" data-id="2f31733d" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<a href="https://www.vgbe.energy/en/">
+<img src="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2021/08/vgbe-Logo_energiegeladen.svg" title="vgbe-Logo_energiegeladen.svg" alt="vgbe-Logo_energiegeladen.svg" loading="lazy" />								</a>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-555b704e elementor-hidden-tablet elementor-hidden-mobile" data-id="555b704e" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-86d4747 elementor-nav-menu__align-center elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="86d4747" data-element_type="widget" data-e-type="widget" data-settings="{&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&quot;,&quot;library&quot;:&quot;&quot;},&quot;layout&quot;:&quot;horizontal&quot;,&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+<div class="elementor-widget-container">
+<nav aria-label="Menü" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-none">
+<ul id="menu-1-86d4747" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13080"><a href="#" class="elementor-item elementor-item-anchor">Events</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21249"><a href="https://event-calendar.vgbe.energy/" class="elementor-sub-item">vgbe events</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24565"><a href="https://www.vgbe.energy/en/technical-exhibitions/" class="elementor-sub-item">Technical exhibitions</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21270"><a href="https://www.vgbe.energy/en/industry-events/" class="elementor-sub-item">Industry events</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21478"><a href="https://gallery.vgbe.energy/" class="elementor-sub-item">Pitcure Gallery</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-28432"><a href="#" class="elementor-item elementor-item-anchor">Topics</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13325"><a href="https://www.vgbe.energy/en/hydrogen-ptx/" class="elementor-sub-item">Hydrogen</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13441"><a href="https://www.vgbe.energy/en/hydropower/" class="elementor-sub-item">Hydro Power</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13708"><a href="https://www.vgbe.energy/en/wind-power/" class="elementor-sub-item">Wind Energy</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27551"><a href="https://www.vgbe.energy/en/photovoltaics/" class="elementor-sub-item">Photovoltaics</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30361"><a href="https://www.vgbe.energy/en/storage-technologies/" class="elementor-sub-item">Storage Technologies</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33859"><a href="https://www.vgbe.energy/en/carbon-capture-technology/" class="elementor-sub-item">Carbon Capture Technology</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-27091"><a href="#" class="elementor-sub-item elementor-item-anchor">Thermal Power</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13709"><a href="https://www.vgbe.energy/en/gas/" class="elementor-sub-item">Gas</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14607"><a href="https://www.vgbe.energy/en/solid-fuels/" class="elementor-sub-item">Solid fuels</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13977"><a href="https://www.vgbe.energy/en/nuclear-energy/" class="elementor-sub-item">Nuclear Power</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17874"><a href="https://www.vgbe.energy/en/health-and-safety/" class="elementor-sub-item">Health and Safety</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37365"><a href="https://www.vgbe.energy/en/mental-health-wellbeing/" class="elementor-sub-item">Mental Health &#038; Wellbeing</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18812"><a href="https://www.vgbe.energy/en/flexibility-in-the-energy-system/" class="elementor-sub-item">Flexibility</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14608"><a href="https://www.vgbe.energy/en/vgbe-awards/" class="elementor-sub-item">vgbe Awards</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13083"><a href="#" class="elementor-item elementor-item-anchor">Services</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13084"><a href="https://www.vgbe.energy/en/databases/" class="elementor-sub-item">Databases</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14609"><a href="https://www.vgbe.energy/en/coordination-of-research/" class="elementor-sub-item">Coordination of research</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14610"><a href="https://www.vgbe.energy/en/quality-label/" class="elementor-sub-item">Quality label</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-35919"><a href="https://www.vgbe.energy/en/certified-companies-sesam/" class="elementor-sub-item">Certified companies &#8220;SeSaM</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-35920"><a href="https://www.vgbe.energy/en/certified-companies-offshore-medical/" class="elementor-sub-item">Certified companies ‘Offshore Medical’</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22675"><a href="https://www.vgbe.energy/en/identification-system/" class="elementor-sub-item">Labelling Systems</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13086"><a href="#" class="elementor-sub-item elementor-item-anchor">Publications</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13087"><a href="https://www.vgbe.energy/en/vgbe-energy-journal/" class="elementor-sub-item">vgbe energy journal</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13088"><a href="https://www.vgbe.energy/en/vgbe-pulse/" class="elementor-sub-item">vgbe PULSE<br>Digital rules &#038; regulations</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28473"><a href="https://www.vgbe.energy/en/facts-and-figures/" class="elementor-sub-item">Facts and figures</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13089"><a href="/news/" class="elementor-sub-item">News</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13090"><a href="https://www.vgbe.energy/en/vgbe-newsletter-archive/" class="elementor-sub-item">vgbe Newsletter</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33175"><a href="https://www.vgbe.energy/en/newsletter-subscribe/" class="elementor-sub-item">Newsletter subscribe</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13091"><a href="https://www.vgbe.energy/en/media-catalogue/" class="elementor-sub-item">Media catalogue</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13092"><a href="https://service.vgb.org" class="elementor-sub-item">Technical services</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-28431"><a href="#" class="elementor-item elementor-item-anchor">vgbe</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13093"><a href="https://www.vgbe.energy/en/vgbe/" class="elementor-sub-item">About us</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17986"><a href="https://www.vgbe.energy/en/the-association/" class="elementor-sub-item">Organization &#038; Structure</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13094"><a href="https://www.vgbe.energy/en/bodies/" class="elementor-sub-item">Bodies and committees</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22652"><a href="https://www.vgbe.energy/en/highlights/" class="elementor-sub-item">Highlights</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13095"><a href="https://www.vgbe.energy/en/benefits/" class="elementor-sub-item">Benefits</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14612"><a href="https://www.vgbe.energy/en/become-part-of-the-vgbe-community/" class="elementor-sub-item">Become part of the vgbe community</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14611"><a href="https://www.vgbe.energy/en/list-of-our-members/" class="elementor-sub-item">Our members</a></li>
+</ul>
+</li>
+</ul>			</nav>
+<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open eicon-menu-bar"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close eicon-close"></i>		</div>
+<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+<ul id="menu-2-86d4747" class="elementor-nav-menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13080"><a href="#" class="elementor-item elementor-item-anchor" tabindex="-1">Events</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21249"><a href="https://event-calendar.vgbe.energy/" class="elementor-sub-item" tabindex="-1">vgbe events</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-24565"><a href="https://www.vgbe.energy/en/technical-exhibitions/" class="elementor-sub-item" tabindex="-1">Technical exhibitions</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21270"><a href="https://www.vgbe.energy/en/industry-events/" class="elementor-sub-item" tabindex="-1">Industry events</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-21478"><a href="https://gallery.vgbe.energy/" class="elementor-sub-item" tabindex="-1">Pitcure Gallery</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-28432"><a href="#" class="elementor-item elementor-item-anchor" tabindex="-1">Topics</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13325"><a href="https://www.vgbe.energy/en/hydrogen-ptx/" class="elementor-sub-item" tabindex="-1">Hydrogen</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13441"><a href="https://www.vgbe.energy/en/hydropower/" class="elementor-sub-item" tabindex="-1">Hydro Power</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13708"><a href="https://www.vgbe.energy/en/wind-power/" class="elementor-sub-item" tabindex="-1">Wind Energy</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-27551"><a href="https://www.vgbe.energy/en/photovoltaics/" class="elementor-sub-item" tabindex="-1">Photovoltaics</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-30361"><a href="https://www.vgbe.energy/en/storage-technologies/" class="elementor-sub-item" tabindex="-1">Storage Technologies</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33859"><a href="https://www.vgbe.energy/en/carbon-capture-technology/" class="elementor-sub-item" tabindex="-1">Carbon Capture Technology</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-27091"><a href="#" class="elementor-sub-item elementor-item-anchor" tabindex="-1">Thermal Power</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13709"><a href="https://www.vgbe.energy/en/gas/" class="elementor-sub-item" tabindex="-1">Gas</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14607"><a href="https://www.vgbe.energy/en/solid-fuels/" class="elementor-sub-item" tabindex="-1">Solid fuels</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13977"><a href="https://www.vgbe.energy/en/nuclear-energy/" class="elementor-sub-item" tabindex="-1">Nuclear Power</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-17874"><a href="https://www.vgbe.energy/en/health-and-safety/" class="elementor-sub-item" tabindex="-1">Health and Safety</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37365"><a href="https://www.vgbe.energy/en/mental-health-wellbeing/" class="elementor-sub-item" tabindex="-1">Mental Health &#038; Wellbeing</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-18812"><a href="https://www.vgbe.energy/en/flexibility-in-the-energy-system/" class="elementor-sub-item" tabindex="-1">Flexibility</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14608"><a href="https://www.vgbe.energy/en/vgbe-awards/" class="elementor-sub-item" tabindex="-1">vgbe Awards</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13083"><a href="#" class="elementor-item elementor-item-anchor" tabindex="-1">Services</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13084"><a href="https://www.vgbe.energy/en/databases/" class="elementor-sub-item" tabindex="-1">Databases</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14609"><a href="https://www.vgbe.energy/en/coordination-of-research/" class="elementor-sub-item" tabindex="-1">Coordination of research</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-14610"><a href="https://www.vgbe.energy/en/quality-label/" class="elementor-sub-item" tabindex="-1">Quality label</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-35919"><a href="https://www.vgbe.energy/en/certified-companies-sesam/" class="elementor-sub-item" tabindex="-1">Certified companies &#8220;SeSaM</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-35920"><a href="https://www.vgbe.energy/en/certified-companies-offshore-medical/" class="elementor-sub-item" tabindex="-1">Certified companies ‘Offshore Medical’</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22675"><a href="https://www.vgbe.energy/en/identification-system/" class="elementor-sub-item" tabindex="-1">Labelling Systems</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-13086"><a href="#" class="elementor-sub-item elementor-item-anchor" tabindex="-1">Publications</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13087"><a href="https://www.vgbe.energy/en/vgbe-energy-journal/" class="elementor-sub-item" tabindex="-1">vgbe energy journal</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13088"><a href="https://www.vgbe.energy/en/vgbe-pulse/" class="elementor-sub-item" tabindex="-1">vgbe PULSE<br>Digital rules &#038; regulations</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28473"><a href="https://www.vgbe.energy/en/facts-and-figures/" class="elementor-sub-item" tabindex="-1">Facts and figures</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13089"><a href="/news/" class="elementor-sub-item" tabindex="-1">News</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-has-children menu-item-13090"><a href="https://www.vgbe.energy/en/vgbe-newsletter-archive/" class="elementor-sub-item" tabindex="-1">vgbe Newsletter</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-33175"><a href="https://www.vgbe.energy/en/newsletter-subscribe/" class="elementor-sub-item" tabindex="-1">Newsletter subscribe</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13091"><a href="https://www.vgbe.energy/en/media-catalogue/" class="elementor-sub-item" tabindex="-1">Media catalogue</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13092"><a href="https://service.vgb.org" class="elementor-sub-item" tabindex="-1">Technical services</a></li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-28431"><a href="#" class="elementor-item elementor-item-anchor" tabindex="-1">vgbe</a>
+<ul class="sub-menu elementor-nav-menu--dropdown">
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13093"><a href="https://www.vgbe.energy/en/vgbe/" class="elementor-sub-item" tabindex="-1">About us</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-17986"><a href="https://www.vgbe.energy/en/the-association/" class="elementor-sub-item" tabindex="-1">Organization &#038; Structure</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13094"><a href="https://www.vgbe.energy/en/bodies/" class="elementor-sub-item" tabindex="-1">Bodies and committees</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-22652"><a href="https://www.vgbe.energy/en/highlights/" class="elementor-sub-item" tabindex="-1">Highlights</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13095"><a href="https://www.vgbe.energy/en/benefits/" class="elementor-sub-item" tabindex="-1">Benefits</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14612"><a href="https://www.vgbe.energy/en/become-part-of-the-vgbe-community/" class="elementor-sub-item" tabindex="-1">Become part of the vgbe community</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-14611"><a href="https://www.vgbe.energy/en/list-of-our-members/" class="elementor-sub-item" tabindex="-1">Our members</a></li>
+</ul>
+</li>
+</ul>			</nav>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-71fd5cfc" data-id="71fd5cfc" data-element_type="column" data-e-type="column" id="header-subnav-container">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-82bf0f8 elementor-nav-menu__align-end elementor-hidden-tablet elementor-hidden-mobile elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="82bf0f8" data-element_type="widget" data-e-type="widget" data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+<div class="elementor-widget-container">
+<nav aria-label="Menü" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-none">
+<ul id="menu-1-82bf0f8" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21331"><a href="https://www.vgbe.energy/en/search/" class="elementor-item"> Search</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10618"><a href="https://shop.vgbe.energy/" class="elementor-item">Shop</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11263"><a href="https://connect.vgbe.net/users/auth/vgb" class="elementor-item">eNet</a></li>
+<li class="menu-item wpml-ls-slot-77 wpml-ls-item wpml-ls-item-de wpml-ls-menu-item wpml-ls-first-item wpml-ls-last-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item menu-item-wpml-ls-77-de"><a href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" title="Switch to Deutsch" aria-label="Switch to Deutsch" class="elementor-item"><span class="wpml-ls-native" lang="de">Deutsch</span></a></li>
+</ul>			</nav>
+<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open eicon-menu-bar"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close eicon-close"></i>		</div>
+<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+<ul id="menu-2-82bf0f8" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-21331"><a href="https://www.vgbe.energy/en/search/" class="elementor-item" tabindex="-1"> Search</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-10618"><a href="https://shop.vgbe.energy/" class="elementor-item" tabindex="-1">Shop</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-11263"><a href="https://connect.vgbe.net/users/auth/vgb" class="elementor-item" tabindex="-1">eNet</a></li>
+<li class="menu-item wpml-ls-slot-77 wpml-ls-item wpml-ls-item-de wpml-ls-menu-item wpml-ls-first-item wpml-ls-last-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item menu-item-wpml-ls-77-de"><a href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" title="Switch to Deutsch" aria-label="Switch to Deutsch" class="elementor-item" tabindex="-1"><span class="wpml-ls-native" lang="de">Deutsch</span></a></li>
+</ul>			</nav>
+</div>
+</div>
+<div class="elementor-element elementor-element-ee0bb84 elementor-nav-menu__align-end elementor-hidden-desktop elementor-nav-menu--dropdown-tablet elementor-nav-menu__text-align-aside elementor-nav-menu--toggle elementor-nav-menu--burger elementor-widget elementor-widget-nav-menu" data-id="ee0bb84" data-element_type="widget" data-e-type="widget" data-settings="{&quot;layout&quot;:&quot;horizontal&quot;,&quot;submenu_icon&quot;:{&quot;value&quot;:&quot;&lt;i class=\&quot;fas fa-caret-down\&quot; aria-hidden=\&quot;true\&quot;&gt;&lt;\/i&gt;&quot;,&quot;library&quot;:&quot;fa-solid&quot;},&quot;toggle&quot;:&quot;burger&quot;}" data-widget_type="nav-menu.default">
+<div class="elementor-widget-container">
+<nav aria-label="Menü" class="elementor-nav-menu--main elementor-nav-menu__container elementor-nav-menu--layout-horizontal e--pointer-none">
+<ul id="menu-1-ee0bb84" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28812"><a href="https://www.vgbe.energy/en/events/" class="elementor-item">Events</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13187"><a href="https://www.vgbe.energy/en/topics/" class="elementor-item">Topics</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13710"><a href="https://www.vgbe.energy/en/services/" class="elementor-item">Services</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37447"><a href="https://www.vgbe.energy/en/vgbe-energy/" class="elementor-item">vgbe</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13189"><a href="https://www.vgb.org/shop/?___store=en&#038;___from_store=default" class="elementor-item">Shop</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13190"><a href="https://connect.vgbe.net/users/auth/vgb" class="elementor-item">eNet</a></li>
+<li class="menu-item wpml-ls-slot-91 wpml-ls-item wpml-ls-item-de wpml-ls-menu-item wpml-ls-first-item wpml-ls-last-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item menu-item-wpml-ls-91-de"><a href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" title="Switch to Deutsch" aria-label="Switch to Deutsch" class="elementor-item"><span class="wpml-ls-native" lang="de">Deutsch</span></a></li>
+</ul>			</nav>
+<div class="elementor-menu-toggle" role="button" tabindex="0" aria-label="Menu Toggle" aria-expanded="false">
+<i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--open eicon-menu-bar"></i><i aria-hidden="true" role="presentation" class="elementor-menu-toggle__icon--close eicon-close"></i>		</div>
+<nav class="elementor-nav-menu--dropdown elementor-nav-menu__container" aria-hidden="true">
+<ul id="menu-2-ee0bb84" class="elementor-nav-menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-28812"><a href="https://www.vgbe.energy/en/events/" class="elementor-item" tabindex="-1">Events</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13187"><a href="https://www.vgbe.energy/en/topics/" class="elementor-item" tabindex="-1">Topics</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-13710"><a href="https://www.vgbe.energy/en/services/" class="elementor-item" tabindex="-1">Services</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-37447"><a href="https://www.vgbe.energy/en/vgbe-energy/" class="elementor-item" tabindex="-1">vgbe</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13189"><a href="https://www.vgb.org/shop/?___store=en&#038;___from_store=default" class="elementor-item" tabindex="-1">Shop</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-13190"><a href="https://connect.vgbe.net/users/auth/vgb" class="elementor-item" tabindex="-1">eNet</a></li>
+<li class="menu-item wpml-ls-slot-91 wpml-ls-item wpml-ls-item-de wpml-ls-menu-item wpml-ls-first-item wpml-ls-last-item menu-item-type-wpml_ls_menu_item menu-item-object-wpml_ls_menu_item menu-item-wpml-ls-91-de"><a href="https://www.vgbe.energy/pt-journal/ausgabe-8-2026/" title="Switch to Deutsch" aria-label="Switch to Deutsch" class="elementor-item" tabindex="-1"><span class="wpml-ls-native" lang="de">Deutsch</span></a></li>
+</ul>			</nav>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</header>
+</header><main id="jupiterx-main" class="jupiterx-main">		<div data-elementor-type="single-post" data-elementor-id="14022" class="elementor elementor-14022 elementor-8150 elementor-location-single post-37479 pt-journal type-pt-journal status-publish has-post-thumbnail hentry" data-elementor-post-type="elementor_library">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-3101379e elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="3101379e" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;_id&quot;:&quot;9128f72&quot;,&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}],&quot;background_background&quot;:&quot;classic&quot;}">
+<div class="elementor-background-overlay"></div>
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-36fd100a" data-id="36fd100a" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-f3be030 elementor-widget elementor-widget-theme-post-title elementor-page-title elementor-widget-heading" data-id="f3be030" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-title.default">
+<div class="elementor-widget-container">
+<h1 class="elementor-heading-title elementor-size-default">Issue 8-2026</h1>				</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-d1fb224" data-id="d1fb224" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap">
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-2f5dde8c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2f5dde8c" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;_id&quot;:&quot;e39efcb&quot;,&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-415bec9b" data-id="415bec9b" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-68cd3e25 elementor-widget elementor-widget-spacer" data-id="68cd3e25" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-897ec97 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="897ec97" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-d961822" data-id="d961822" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap">
+</div>
+</div>
+<div class="elementor-column elementor-col-50 elementor-inner-column elementor-element elementor-element-9a1f738" data-id="9a1f738" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-1dd8c4b elementor-icon-list--layout-inline elementor-align-center elementor-mobile-align-center elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="1dd8c4b" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items elementor-inline-items">
+<li class="elementor-icon-list-item elementor-inline-item">
+<a href="/en/pt-journal/">
+<span class="elementor-icon-list-icon">
+<i aria-hidden="true" class="far fa-copy"></i>						</span>
+<span class="elementor-icon-list-text">Issue archive</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-47d92849 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="47d92849" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;_id&quot;:&quot;b53c9c8&quot;,&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-b02c324" data-id="b02c324" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-225c41d9 elementor-widget elementor-widget-spacer" data-id="225c41d9" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+<div class="elementor-element elementor-element-5da48b03 elementor-widget elementor-widget-theme-post-content" data-id="5da48b03" data-element_type="widget" data-e-type="widget" data-widget_type="theme-post-content.default">
+<div class="elementor-widget-container">
+<div data-elementor-type="wp-post" data-elementor-id="37479" class="elementor elementor-37479 elementor-37455 elementor-37455" data-elementor-post-type="pt-journal">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-c21fd7d elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="c21fd7d" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;_id&quot;:&quot;67a3195&quot;,&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-8b0a9a4" data-id="8b0a9a4" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-c0f49a2 elementor-widget elementor-widget-heading" data-id="c0f49a2" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Health and safety in the energy transition</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-92d08b0 elementor-widget elementor-widget-heading" data-id="92d08b0" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Dirk Richling </h3>				</div>
+</div>
+<div class="elementor-element elementor-element-d7dd13b elementor-widget elementor-widget-text-editor" data-id="d7dd13b" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>The effects of the energy transition are clearly felt across all sectors of the energy industry. Requirements from both the political sphere and industry are driving profound changes designed to ensure a sustainable energy supply in the long term, not only in Germany but across Europe. This is accompanied by the expansion of renewable energies, the rapid growth of which presents numerous challenges. Increasingly complex technology, often combined with hard-to-reach locations, creates a demanding working environment that places the greatest strain on those who are tasked with implementing the energy transition and are at its very heart. It makes no difference where the energy is generated, whether on land or at sea.    </p><p>Within this context, vgbe energy is increasingly focusing on developing new standards and updating existing ones in the field of occupational safety. The aim is to establish uniform rules and standards for the safe operation of power plants, thereby focusing on the core purpose of the technical association. The protection of human life is the top priority at every stage of the energy industry’s value chain.  </p><p><a class="storyLink" title="Editorial Issue 8/2026" href="#editorial826">[more&#8230;]</a></p>								</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-cd64934" data-id="cd64934" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-00079a3 elementor-widget elementor-widget-image" data-id="00079a3" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<a href="https://www.vgbe.energy/en/vgbe-energy-journal/#abo">
+<img fetchpriority="high" fetchpriority="high" decoding="async" width="768" height="1086" src="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08U-768x1086.jpg" class="attachment-medium_large size-medium_large wp-image-37457" alt="" srcset="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08U-768x1086.jpg 768w, https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08U-212x300.jpg 212w, https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08U-724x1024.jpg 724w, https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08U.jpg 990w" sizes="(max-width: 768px) 100vw, 768px" />								</a>
+</div>
+</div>
+<div class="elementor-element elementor-element-91cc835 elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="91cc835" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items">
+<li class="elementor-icon-list-item">
+<a href="https://www.vgbe.energy/en/vgbe-energy-journal/#abo">
+<span class="elementor-icon-list-icon">
+<i aria-hidden="true" class="fas fa-angle-double-right"></i>						</span>
+<span class="elementor-icon-list-text">Subscribe to our vgbe energy journal!</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://shop.vgbe.energy/fachzeitschrift.html">
+<span class="elementor-icon-list-icon">
+<i aria-hidden="true" class="fas fa-angle-double-right"></i>						</span>
+<span class="elementor-icon-list-text">In our Online Shop you can order individual issues.</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-fde5751 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="fde5751" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;_id&quot;:&quot;9d64f73&quot;,&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-2af40e2" data-id="2af40e2" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-be5ddaf elementor-widget elementor-widget-heading" data-id="be5ddaf" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Welcome address – vgbe Congress 2026
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-1c6f98c elementor-widget elementor-widget-heading" data-id="1c6f98c" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Dr. Georg Stamatelopoulos and Dr. Oliver Then</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-23dd8f7 elementor-widget elementor-widget-text-editor" data-id="23dd8f7" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>The energy sector is undergoing a period of fundamental change. The expansion of renewable energies has progressed further and is placing new demands on grids and storage facilities. At the same time, industry, the heating sector and mobility are set to become increasingly electrified. And all this against a backdrop of ongoing geopolitical tensions, cyber threats and new dependencies – challenges that we must take into account from the very outset as we transform our energy supply.   </p><p>The vgbe Congress 2026 is therefore themed ‘Security and resilience of power generation’. A resilient energy system must be able to withstand disruptions from both internal and external sources, adapt to changing conditions and remain capable of functioning even under heavy strain. This requires robust technology and effective protective measures, as well as clear responsibilities and a reliable regulatory framework.  </p><p><a href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08-001-002-Welcome-vgbe-Congress-2026-QHD-RGB-SPEC-1134.pdf" target="_blank" rel="noopener">Download article [0.5 MB]</a></p>								</div>
+</div>
+<div class="elementor-element elementor-element-65763c6 elementor-widget elementor-widget-heading" data-id="65763c6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Climate-neutral industrial sites: technological strategies for flexible, market-driven and low-carbon energy systems</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-66da51e elementor-widget elementor-widget-heading" data-id="66da51e" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Klaus Görner, Margit Thomeczek, Carsten Kolligs, Simon Wenzel, Rocco Altieri, Torsten Buddenberg, Tobias Hirsch, Steffen Klöppel and Jana Stengler</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-a0020ed elementor-widget elementor-widget-text-editor" data-id="a0020ed" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+Industrial process sites and chemical parks such as Marl Chemical Park are internationally competitive, particularly with regard to energy and feedstock prices. At the same time, the transformation towards sustainable industrial sites must be achieved in line with the European Union’s climate targets. Even today, a wide range of technologies enables the use of fossil fuels with reduced emissions and the optimum integration of fluctuating renewable energy sources. Further innovative and disruptive technological developments will be required to achieve the complete decarbonisation of sites such as Marl Chemical Park by the mid-2040s.   								</div>
+</div>
+<div class="elementor-element elementor-element-af46126 elementor-widget elementor-widget-heading" data-id="af46126" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">OT-security in substation automation: Effective attack detection</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-44f45dc elementor-widget elementor-widget-heading" data-id="44f45dc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Frank Stummer</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-ccf3ce3 elementor-widget elementor-widget-text-editor" data-id="ccf3ce3" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Substations and substation automation systems are regarded as robust and durable. It is precisely this that makes them a vulnerability today: devices with lifecycles of 20 to 30 years communicate via protocols that were designed without authentication or encryption, yet are now connected to the outside world via remote maintenance access points and control system interfaces. Real-world incidents, in which attacks were detected early and thwarted through monitoring, demonstrate that the security gap can be closed.  </p>								</div>
+</div>
+<div class="elementor-element elementor-element-7fe3603 elementor-widget elementor-widget-heading" data-id="7fe3603" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Convergence of IT/OT and cyber security: How organisations can reconcile regulatory requirements, risks and reality in operational technology
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-96bddf6 elementor-widget elementor-widget-heading" data-id="96bddf6" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">John-Erik Horn</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-ace604e elementor-widget elementor-widget-text-editor" data-id="ace604e" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>The convergence of IT and OT in the context of cyber security presents organisations with new challenges. This article analyses practical solutions through the implementation of the IEC 62443 standard, in particular the Purdue model for network segmentation, network detection and the use of secure remote maintenance. It also examines the role of the Chief Information Security Officer (CISO) as a critical stakeholder within the organisation. A specific practical example from the energy sector demonstrates how standardisation and certification can measurably improve security and how synergies between compliance requirements can be harnessed.   </p><p><a href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08-035-037-HORN-QHD-RGB-SPEC-1134.pdf" target="_blank" rel="noopener">Download article [0.5 MB]</a></p>								</div>
+</div>
+<div class="elementor-element elementor-element-c925b87 elementor-widget elementor-widget-heading" data-id="c925b87" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">The stability of OT network traffic as the basis for effective anomaly detection in industrial control systems</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-947a0f4 elementor-widget elementor-widget-heading" data-id="947a0f4" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Asya Mitseva, Marco Lewandowsky and Andriy Panchenko
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-06d6371 elementor-widget elementor-widget-text-editor" data-id="06d6371" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+The increasing connectivity of industrial control systems to external networks makes them vulnerable to cyber attacks. Therefore, a major line of research focuses on the development of industrial intrusion detection systems (IIDS), particularly designed to detect anomalies in normal system operation. In contrast to previous, complex, and protocol-dependent methods for characterizing network traffic of industrial control systems, this work proposes simple, easy-to-implement, and effective rules.    								</div>
+</div>
+<div class="elementor-element elementor-element-c033512 elementor-widget elementor-widget-heading" data-id="c033512" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Contribution to system stability – Preventing unintended shutdown of steam turbines during overfrequency</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-2c8fcff elementor-widget elementor-widget-heading" data-id="2c8fcff" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Martin Bennauer, Johannes Lips, Hendrik Lens, David Maier, Philipp Priwitzer, Steffen Flieger and Joachim Lehner</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-045e10c elementor-widget elementor-widget-text-editor" data-id="045e10c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>A reverse power protection function is typically implemented in the unit protection system of steam power plants. However, reverse power protection may also operate unintentionally during major overfrequency disturbances. If the grid frequency rises above 50.2 Hz, for example after a system split, turbine power is reduced according to LFSM-O requirements. Although active power must decrease, power plants should remain connected to the grid. Simulation studies were used to identify critical conditions and develop countermeasures, which were implemented and optimized at the Altbach/Deizisau power plant. Successful overfrequency tests in March 2025 demonstrated compliance with current grid connection requirements.    </p><p><a href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08-044-048-BENNAUER-QHD-RGB-SPEC-1134.pdf" target="_blank" rel="noopener">Download [1.0 MB]</a></p>								</div>
+</div>
+<div class="elementor-element elementor-element-e5ce5d1 elementor-widget elementor-widget-heading" data-id="e5ce5d1" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Large-scale heat pump – integration at power station sites from the perspective of the master planner – Case study: WPA2 at the Grosskraftwerk Mannheim
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-bac7af9 elementor-widget elementor-widget-heading" data-id="bac7af9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Olaf Thun
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-4b8ec7c elementor-widget elementor-widget-text-editor" data-id="4b8ec7c" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Large-scale heat pumps are regarded as a key technology for the decarbonisation of district heating. At existing power station sites, however, it is not the heat pump alone that determines the success of a project, but above all its safe and reliable integration into existing technical systems. The WPA2 project at the Mannheim large-scale power station serves as a prime example of how river water, district heating, electrical connections, control systems, safety, availability, construction and commissioning must be brought together to form a coordinated overall system.  </p>								</div>
+</div>
+<div class="elementor-element elementor-element-22b3cbc elementor-widget elementor-widget-heading" data-id="22b3cbc" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Commissioning and operation for first of its kind large steam generating heat pump under commercial conditions
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-b1b2106 elementor-widget elementor-widget-heading" data-id="b1b2106" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Rocco Altieri and Paolo Lazzarini</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-2b24218 elementor-widget elementor-widget-text-editor" data-id="2b24218" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+High-temperature heat pumps (HTHPs) for generating process steam are becoming increasingly important in industry. Against this backdrop, the project implemented by Turboden for the delfort Group holds a special place. The plant is the first of its kind to combine a large-scale hydrocarbon heat pump with a steam compressor in a series configuration, delivering 12 MW of thermal output in the form of high-quality process steam. Following commissioning in the summer of 2025, extensive operational data will enable a robust evaluation under real-world conditions.    								</div>
+</div>
+<div class="elementor-element elementor-element-aa0f83f elementor-widget elementor-widget-heading" data-id="aa0f83f" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">From electrolysis to salt caverns: measurement technology for a safe hydrogen economy
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-446f31f elementor-widget elementor-widget-heading" data-id="446f31f" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Jens Hundrieser
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-24cd872 elementor-widget elementor-widget-text-editor" data-id="24cd872" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+Green hydrogen is regarded as a key pillar of a climate-neutral energy supply and, within the context of power-to-gas, links renewable electricity generation with industrial use, storage and future hydrogen networks. As the hydrogen economy develops, the demands placed on measurement and automation technology along the entire value chain are increasing. From water treatment and electrolysis, through storage in salt caverns, to grid injection, precise measurement methods and analytical solutions are required to continuously monitor process parameters, gas quality and material flows. 								</div>
+</div>
+<div class="elementor-element elementor-element-aafbae9 elementor-widget elementor-widget-heading" data-id="aafbae9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">The BEW decommissioning project Lichterfelde is actively driving forward Berlin’s heating transition
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-1fcabf8 elementor-widget elementor-widget-heading" data-id="1fcabf8" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Sascha Urban and Dustin Fitzner
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-2778427 elementor-widget elementor-widget-text-editor" data-id="2778427" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+The “Lichterfelde Decommissioning” project by BEW Berliner Energie und Wärme (BEW) demonstrates how a historic energy site is being transformed into a key component of Berlin’s future climate-neutral heat supply. Between 2010 and 2019, a modern combined heat and power plant was built, comprising hot water generators, a district heating pump station and a combined cycle gas turbine (CCGT) plant. Since August 2023, obsolete plant no longer required has been systematically decommissioned, making way for the next stages of the heating transition.  								</div>
+</div>
+<div class="elementor-element elementor-element-2d9231a elementor-widget elementor-widget-heading" data-id="2d9231a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">A network for health and safety – vgbe energy as a centre of expertise for occupational health and safety in energy companies
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-4a13438 elementor-widget elementor-widget-heading" data-id="4a13438" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Lukas Biesen and Gregor Lipinski
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-84a32d4 elementor-widget elementor-widget-text-editor" data-id="84a32d4" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Reliable energy generation has always depended not only on technical performance but also on the safe operation of complex industrial systems. For this reason, occupational safety and health have long been central issues in the energy sector. The Health &amp; Safety division plays a particularly important interdisciplinary role within the activities of vgbe energy.  </p><p><a href="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2026/08/vgbe-ej-2026-08-067-072-BIESEN-QHD-RGB-SPEC-1134.pdf" target="_blank" rel="noopener">Download [1.0 MB]</a></p>								</div>
+</div>
+<div class="elementor-element elementor-element-7b2bd12 elementor-widget elementor-widget-heading" data-id="7b2bd12" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Periodic inspections – Guidance and practical experience
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-913c2d9 elementor-widget elementor-widget-heading" data-id="913c2d9" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Patrick Kozlowski, Stephanie Tappe and Marcel Koch
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-a257081 elementor-widget elementor-widget-text-editor" data-id="a257081" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+Periodic inspections of work equipment and installations requiring monitoring are a fundamental part of maintaining the safety and cost-effectiveness of commercially used installations. Periodic inspections are not an end in themselves, as they are required by various legal frameworks. This article discusses the fundamental requirements under the Industrial Safety Regulation (BetrSichV) and the Act on Installations Requiring Monitoring (ÜAnlG).  								</div>
+</div>
+<div class="elementor-element elementor-element-e3d463b elementor-widget elementor-widget-heading" data-id="e3d463b" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Regular HAZOP reviews to maintain ongoing machinery safety – IEC 61508 Requirements
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-50d9977 elementor-widget elementor-widget-heading" data-id="50d9977" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Wilfried Blotenberg
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-340fb31 elementor-widget elementor-widget-text-editor" data-id="340fb31" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>On January 20, 2027, the new EU Machinery Regulation 2023/1230 will come into force in all member states and fully replace the previous Machinery Directive 2006/42/EC. The regulation stipulates that machinery must be designed in such a way that it does not pose risks to persons or the environment that exceed generally accepted levels. The IEC 61508 standard is the most widely used basis for functional safety.  </p>								</div>
+</div>
+<div class="elementor-element elementor-element-0be222f elementor-widget elementor-widget-heading" data-id="0be222f" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h2 class="elementor-heading-title elementor-size-default">Extended heat utilization of the flue gas after the boiler – Causes of corrosion and possible countermeasures
+</h2>				</div>
+</div>
+<div class="elementor-element elementor-element-632517a elementor-widget elementor-widget-heading" data-id="632517a" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Marie Kaiser, Werner Schmidl and Gabriele Magel
+</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-e2dac4f elementor-widget elementor-widget-text-editor" data-id="e2dac4f" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Recent developments in power plant technology indicate that flue gas energy will increasingly be utilized at the cold end of the boiler, resulting in lower flue gas temperatures. This article examines changes in flue gas composition downstream of the boiler for different fuels and plant configurations. It provides an overview of relevant corrosive species, practical examples, and available material protection measures. Finally, possible options for reducing flue gas temperatures in existing plants are assessed. </p>								</div>
+</div>
+<div class="elementor-element elementor-element-7431775 elementor-widget elementor-widget-spacer" data-id="7431775" data-element_type="widget" data-e-type="widget" data-widget_type="spacer.default">
+<div class="elementor-widget-container">
+<div class="elementor-spacer">
+<div class="elementor-spacer-inner"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-de08e65 elementor-section-height-min-height elementor-section-stretched bg-energyfield-fixed neutral elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="de08e65" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;,&quot;jet_parallax_layout_list&quot;:[],&quot;stretch_section&quot;:&quot;section-stretched&quot;}">
+<div class="elementor-background-overlay"></div>
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-337a5df" data-id="337a5df" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-92c9dcc elementor-widget elementor-widget-menu-anchor" data-id="92c9dcc" data-element_type="widget" data-e-type="widget" data-widget_type="menu-anchor.default">
+<div class="elementor-widget-container">
+<div class="elementor-menu-anchor" id="editorial826"></div>
+</div>
+</div>
+<section class="elementor-section elementor-inner-section elementor-element elementor-element-67d16c2 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="67d16c2" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;_id&quot;:&quot;e5cb45c&quot;,&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-3592da8" data-id="3592da8" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap">
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-df8e237" data-id="df8e237" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-20ccfd8 elementor-widget elementor-widget-heading" data-id="20ccfd8" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h1 class="elementor-heading-title elementor-size-default">Editorial</h1>				</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-inner-column elementor-element elementor-element-ff16ede" data-id="ff16ede" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap">
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-686586c elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="686586c" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[]}">
+<div class="elementor-container elementor-column-gap-wider">
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-bcb8b8a" data-id="bcb8b8a" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-de94b19 elementor-widget elementor-widget-image" data-id="de94b19" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<img decoding="async" src="https://www-vgbe-e.b-cdn.net/wp-content/uploads/elementor/thumbs/RICHLING-rsgwevyu4cexztxp9dvpaui48jtian47bc0tgs1jls.jpg" title="RICHLING" alt="RICHLING" loading="lazy" />															</div>
+</div>
+<div class="elementor-element elementor-element-138a758 elementor-widget elementor-widget-heading" data-id="138a758" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Dipl.-Ing. Dirk Richling</h3>				</div>
+</div>
+<div class="elementor-element elementor-element-71f3e3e elementor-widget elementor-widget-heading" data-id="71f3e3e" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h3 class="elementor-heading-title elementor-size-default">Safety Engineer<br />EnBW Energie Baden-Württemberg AG<br />Karlsruhe, Germany<br />Chair of the vgbe committees “Occupational Health and Safety” and “Wind Health &amp; Safety”</h3>				</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-66 elementor-top-column elementor-element elementor-element-32eade9" data-id="32eade9" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-8dc39b0 elementor-widget elementor-widget-heading" data-id="8dc39b0" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+<div class="elementor-widget-container">
+<h1 class="elementor-heading-title elementor-size-default">Health and safety in the energy transition</h1>				</div>
+</div>
+<div class="elementor-element elementor-element-af6d415 elementor-widget elementor-widget-text-editor" data-id="af6d415" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Dear readers of the vgbe energy journal,</p><p>The effects of the energy transition are clearly felt across all sectors of the energy industry. Requirements from both the political sphere and industry are driving profound changes designed to ensure a sustainable energy supply in the long term, not only in Germany but across Europe. This is accompanied by the expansion of renewable energies, the rapid growth of which presents numerous challenges. Increasingly complex technology, often combined with hard-to-reach locations, creates a demanding working environment that places the greatest strain on those who are tasked with implementing the energy transition and are at its very heart. It makes no difference where the energy is generated, whether on land or at sea.    </p><p>Within this context, vgbe energy is increasingly focusing on developing new standards and updating existing ones in the field of occupational safety. The aim is to establish uniform rules and standards for the safe operation of power plants, thereby focusing on the core purpose of the technical association. The protection of human life is the top priority at every stage of the energy industry’s value chain.  </p><p>Fundamentally, issues such as the rescue chain play a central role here. Operators are obliged to draw up suitable rescue plans to ensure the safety of workers in case of emergency. Depending on the workplace, ensuring medical care can involve considerable planning effort. In particular, when working on wind turbines, rescuing employees in emergencies is difficult due to the work being carried out at great heights and in confined spaces. In this context, the training of staff who work on wind turbines is also very important. Their qualifications must be continuously developed and ensured in order to keep pace with developments in the industry. Establishing minimum training standards for the entire industry is therefore essential.      </p><p>However, occupational safety is undergoing a transformation not only due to the demands of the energy transition, but also as a result of the technological advancements of recent years. The use of drones and multicopters has become an increasingly important component of occupational safety. Drones enable inspections at power stations and wind turbines (onshore and offshore) that previously involved considerable risk. These risks can be reduced through the targeted use of unmanned systems. At the same time, the use of new technologies raises new questions that occupational safety must address.    </p><p>The requirements for drone operation, such as the suitability of remote pilots and the necessary checks prior to operation, must be clearly regulated to ensure their safe use. It is also recommended that a standard for working with drones, in the form of drone operating procedures, be established. </p><p>All the topics mentioned here form part of vgbe energy’s committee work and will in future be addressed by the newly established WG Wind “Health &amp; Safety”. This committee brings together experts specialising in occupational health &amp; safety and environmental protection from operators, manufacturers, suppliers and service providers. The diverse composition of the committee is also its great strength. It enables challenges to be viewed from different perspectives and practical solutions to be developed.   </p><p>The energy transition can only be successfully achieved if occupational health and safety is viewed and practised as a key component of this process. The adaptation of existing concepts to current developments by health and safety experts in the relevant field is just as important here as the integration of new technologies and scientific findings. This makes it all the more important for energy plant and grid operators, manufacturers, service providers and public authorities to work together to keep pace with the expansion and to pursue a common strategy on key occupational health and safety issues.  </p>								</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main><footer class="jupiterx-footer" role="contentinfo" itemscope="itemscope" itemtype="http://schema.org/WPFooter">		<footer data-elementor-type="footer" data-elementor-id="14048" class="elementor elementor-14048 elementor-65 elementor-location-footer" data-elementor-post-type="elementor_library">
+<section class="elementor-section elementor-top-section elementor-element elementor-element-4ce99dd elementor-section-stretched dark footer elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="4ce99dd" data-element_type="section" data-e-type="section" data-settings="{&quot;stretch_section&quot;:&quot;section-stretched&quot;,&quot;jet_parallax_layout_list&quot;:[{&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;_id&quot;:&quot;829d01c&quot;,&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}]}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-2ce7b53" data-id="2ce7b53" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-eb82285 elementor-widget elementor-widget-image" data-id="eb82285" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
+<div class="elementor-widget-container">
+<img src="https://www-vgbe-e.b-cdn.net/wp-content/uploads/2020/04/vgbe-Logo_Graustufen.svg" title="vgbe-grey" alt="vgbe-grey" loading="lazy" />															</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-264baf5" data-id="264baf5" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-9b61466 elementor-mobile-align-center elementor-icon-list--layout-traditional elementor-list-item-link-full_width elementor-widget elementor-widget-icon-list" data-id="9b61466" data-element_type="widget" data-e-type="widget" data-widget_type="icon-list.default">
+<div class="elementor-widget-container">
+<ul class="elementor-icon-list-items">
+<li class="elementor-icon-list-item">
+<a href="https://www.vgbe.energy/en/contact-us/">
+<span class="elementor-icon-list-text">Contact</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.vgbe.energy/en/legal-notice/">
+<span class="elementor-icon-list-text">Legal Notice</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://www.vgbe.energy/en/data-protection-notice/">
+<span class="elementor-icon-list-text">Data Protection Notice</span>
+</a>
+</li>
+<li class="elementor-icon-list-item">
+<a href="https://app.whistle.law/whistle/#/e5fb56a4-1264-41f7-9115-1f76f26b3f71">
+<span class="elementor-icon-list-text">Whistleblower Portal</span>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="elementor-column elementor-col-33 elementor-top-column elementor-element elementor-element-982459c" data-id="982459c" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-32dda84 elementor-widget elementor-widget-text-editor" data-id="32dda84" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+<p>Deilbachtal 173<br />45257 Essen, Germany<br />Phone: +49 201 8128 0<br />Email: <a href="mailto:info@vgbe.energy">info@vgbe.energy</a></p>
+</div>
+</div>
+<div class="elementor-element elementor-element-787dd51 e-grid-align-left e-grid-align-mobile-center elementor-shape-rounded elementor-grid-0 elementor-widget elementor-widget-social-icons" data-id="787dd51" data-element_type="widget" data-e-type="widget" data-widget_type="social-icons.default">
+<div class="elementor-widget-container">
+<div class="elementor-social-icons-wrapper elementor-grid" role="list">
+<span class="elementor-grid-item" role="listitem">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-linkedin elementor-animation-pulse elementor-repeater-item-67311c9" href="https://de.linkedin.com/company/vgb-powertech-e-v-" target="_blank">
+<span class="elementor-screen-only">Linkedin</span>
+<i aria-hidden="true" class="fab fa-linkedin"></i>					</a>
+</span>
+<span class="elementor-grid-item" role="listitem">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-xing elementor-animation-pulse elementor-repeater-item-570a6e4" href="https://www.xing.com/pages/vgbe-energy-e-v" target="_blank">
+<span class="elementor-screen-only">Xing</span>
+<i aria-hidden="true" class="fab fa-xing"></i>					</a>
+</span>
+<span class="elementor-grid-item" role="listitem">
+<a class="elementor-icon elementor-social-icon elementor-social-icon-youtube elementor-animation-pulse elementor-repeater-item-c112b93" href="https://www.youtube.com/channel/UCZBwiwoS2dBmN8av2ej4oKg" target="_blank">
+<span class="elementor-screen-only">Youtube</span>
+<i aria-hidden="true" class="fab fa-youtube"></i>					</a>
+</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="elementor-section elementor-top-section elementor-element elementor-element-7312075 elementor-section-height-min-height elementor-section-content-middle elementor-section-stretched darker elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="7312075" data-element_type="section" data-e-type="section" data-settings="{&quot;jet_parallax_layout_list&quot;:[{&quot;jet_parallax_layout_image&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;_id&quot;:&quot;1576931&quot;,&quot;jet_parallax_layout_image_tablet&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_image_mobile&quot;:{&quot;url&quot;:&quot;&quot;,&quot;id&quot;:&quot;&quot;,&quot;size&quot;:&quot;&quot;},&quot;jet_parallax_layout_speed&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;jet_parallax_layout_type&quot;:&quot;scroll&quot;,&quot;jet_parallax_layout_direction&quot;:&quot;1&quot;,&quot;jet_parallax_layout_fx_direction&quot;:null,&quot;jet_parallax_layout_z_index&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x&quot;:50,&quot;jet_parallax_layout_bg_x_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_x_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y&quot;:50,&quot;jet_parallax_layout_bg_y_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_y_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size&quot;:&quot;auto&quot;,&quot;jet_parallax_layout_bg_size_tablet&quot;:&quot;&quot;,&quot;jet_parallax_layout_bg_size_mobile&quot;:&quot;&quot;,&quot;jet_parallax_layout_animation_prop&quot;:&quot;transform&quot;,&quot;jet_parallax_layout_on&quot;:[&quot;desktop&quot;,&quot;tablet&quot;]}],&quot;stretch_section&quot;:&quot;section-stretched&quot;}">
+<div class="elementor-container elementor-column-gap-default">
+<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-eaa3598" data-id="eaa3598" data-element_type="column" data-e-type="column">
+<div class="elementor-widget-wrap elementor-element-populated">
+<div class="elementor-element elementor-element-2a45b09 elementor-widget elementor-widget-text-editor" data-id="2a45b09" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
+<div class="elementor-widget-container">
+©2021 vgbe energy e.V. | 45257 Essen | Germany | <a href="#"  onclick="CCM.openWidget();return false;">Cookies</a>								</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</footer>
+</footer><div class="jupiterx-corner-buttons" data-jupiterx-scroll="{&quot;offset&quot;:1000}"><button class="jupiterx-scroll-top jupiterx-icon-angle-up" data-jupiterx-scroll-target="0" aria-label="Scroll to top"></button></div></div><script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/en/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/vgbe20/*","/wp-content/themes/jupiterx/*","/en/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/x-template" id="mobile-menu-item-template"><li
+:id="'jet-mobile-menu-item-'+itemDataObject.itemId"
+:class="itemClasses"
+>
+<div
+class="jet-mobile-menu__item-inner"
+:style="itemInnerStyle"
+v-on:click="itemSubHandler"
+v-on:focusin="handleFocusIn"
+v-on:focusout="handleFocusOut"
+>
+<a
+:class="itemLinkClasses"
+:href="itemDataObject.url"
+:rel="itemDataObject.xfn || null"
+:title="itemDataObject.attrTitle || null"
+:target="itemDataObject.target || null"
+:style="itemLinkStyle"
+:aria-haspopup="isSub && 'item' === effectiveSubTrigger ? 'true' : null"
+:aria-expanded="isSub && 'item' === effectiveSubTrigger ? submenuExpandedState : null"
+v-on:keydown.space.prevent="itemSpaceHandler"
+>
+<div class="jet-menu-item-wrapper">
+<div
+class="jet-menu-icon"
+v-if="isIconVisible"
+v-html="itemIconHtml"
+></div>
+<div class="jet-menu-name">
+<span
+class="jet-menu-label"
+v-if="isLabelVisible"
+v-html="itemDataObject.name"
+></span>
+<small
+class="jet-menu-desc"
+v-if="isDescVisible"
+v-html="itemDataObject.description"
+></small>
+</div>
+<div
+class="jet-menu-badge"
+v-if="isBadgeVisible"
+>
+<div class="jet-menu-badge__inner" v-html="itemDataObject.badgeContent"></div>
+</div>
+</div>
+</a>
+<button
+class="jet-dropdown-arrow"
+v-if="isSub && !templateLoadStatus && showSubmenuButton"
+v-html="dropdownIconHtml"
+type="button"
+:style="submenuButtonStyle"
+:aria-label="'Toggle submenu for ' + itemDataObject.name"
+:aria-expanded="submenuExpandedState"
+:aria-haspopup="isSub ? 'true' : null"
+v-on:click="markerSubHandler"
+>
+</button>
+<span
+class="jet-dropdown-arrow"
+v-else-if="isSub && !templateLoadStatus"
+v-html="dropdownIconHtml"
+aria-hidden="true"
+>
+</span>
+<div
+class="jet-mobile-menu__template-loader"
+v-if="templateLoadStatus"
+>
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="24px" height="25px" viewBox="0 0 128 128" xml:space="preserve">
+<g>
+<linearGradient :id="'linear-gradient-'+itemDataObject.itemId">
+<stop offset="0%" :stop-color="loaderColor" stop-opacity="0"/>
+<stop offset="100%" :stop-color="loaderColor" stop-opacity="1"/>
+</linearGradient>
+<path d="M63.85 0A63.85 63.85 0 1 1 0 63.85 63.85 63.85 0 0 1 63.85 0zm.65 19.5a44 44 0 1 1-44 44 44 44 0 0 1 44-44z" :fill="'url(#linear-gradient-'+itemDataObject.itemId+')'" fill-rule="evenodd"/>
+<animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1080ms" repeatCount="indefinite"></animateTransform>
+</g>
+</svg>
+</div>
+</div>
+<transition name="menu-container-expand-animation">
+<mobile-menu-list
+v-if="isDropdownLayout && subDropdownVisible"
+:depth="depth+1"
+:children-object="itemDataObject.children"
+></mobile-menu-list>
+</transition>
+</li>
+</script><script type="text/x-template" id="mobile-menu-list-template"><div
+class="jet-mobile-menu__list"
+role="navigation"
+>
+<ul class="jet-mobile-menu__items">
+<mobile-menu-item
+v-for="(item, index) in childrenObject"
+:key="item.id"
+:item-data-object="item"
+:depth="depth"
+></mobile-menu-item>
+</ul>
+</div>
+</script><script type="text/x-template" id="mobile-menu-template"><div
+:class="instanceClass"
+v-on:keyup.esc="escapeKeyHandler"
+v-on:keydown="handleMenuKeydown"
+>
+<div
+class="jet-mobile-menu__toggle"
+role="button"
+ref="toggle"
+tabindex="0"
+aria-label="Open/Close Menu"
+aria-expanded="false"
+v-on:click="menuToggle"
+v-on:keyup.enter="menuToggle"
+v-on:keydown.space.prevent="menuToggle"
+>
+<div
+class="jet-mobile-menu__template-loader"
+v-if="toggleLoaderVisible"
+>
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="24px" height="25px" viewBox="0 0 128 128" xml:space="preserve">
+<g>
+<linearGradient :id="'linear-gradient-'+itemDataObject.itemId">
+<stop offset="0%" :stop-color="loaderColor" stop-opacity="0"/>
+<stop offset="100%" :stop-color="loaderColor" stop-opacity="1"/>
+</linearGradient>
+<path d="M63.85 0A63.85 63.85 0 1 1 0 63.85 63.85 63.85 0 0 1 63.85 0zm.65 19.5a44 44 0 1 1-44 44 44 44 0 0 1 44-44z" :fill="'url(#linear-gradient-'+itemDataObject.itemId+')'" fill-rule="evenodd"/>
+<animateTransform attributeName="transform" type="rotate" from="0 64 64" to="360 64 64" dur="1080ms" repeatCount="indefinite"></animateTransform>
+</g>
+</svg>
+</div>
+<div
+class="jet-mobile-menu__toggle-icon"
+v-if="!menuOpen && !toggleLoaderVisible"
+v-html="toggleClosedIcon"
+></div>
+<div
+class="jet-mobile-menu__toggle-icon"
+v-if="menuOpen && !toggleLoaderVisible"
+v-html="toggleOpenedIcon"
+></div>
+<span
+class="jet-mobile-menu__toggle-text"
+v-if="toggleText"
+v-html="toggleText"
+></span>
+</div>
+<transition name="cover-animation">
+<div
+class="jet-mobile-menu-cover"
+v-if="menuContainerVisible && coverVisible"
+v-on:click="closeMenu"
+></div>
+</transition>
+<transition
+:name="showAnimation"
+@before-enter="onContainerBeforeEnter"
+@after-enter="onContainerAfterEnter"
+@enter-cancelled="onContainerAfterEnter"
+@after-leave="onContainerAfterLeave"
+@leave-cancelled="onContainerAfterLeave"
+>
+<div
+class="jet-mobile-menu__container"
+ref="container"
+:style="containerStyle"
+v-if="menuContainerVisible"
+>
+<div
+class="jet-mobile-menu__container-inner"
+ref="menu-container-inner"
+tabindex="-1"
+:style="containerInnerStyle"
+>
+<div
+class="jet-mobile-menu__header-template"
+v-if="headerTemplateVisible"
+>
+<div
+class="jet-mobile-menu__header-template-content"
+ref="header-template-content"
+v-html="headerContent"
+></div>
+</div>
+<div
+class="jet-mobile-menu__controls"
+v-if="isBreadcrumbs || isBack || isClose"
+>
+<div
+class="jet-mobile-menu__breadcrumbs"
+v-if="isBreadcrumbs"
+>
+<div
+class="jet-mobile-menu__breadcrumb"
+v-for="(item, index) in breadcrumbsPathData"
+:key="index"
+>
+<button
+v-if="isBreadcrumbInteractive(index)"
+class="breadcrumb-label"
+type="button"
+style="background: transparent; border: 0; padding: 0; margin: 0; appearance: none; -webkit-appearance: none;"
+v-on:click="breadcrumbHandle(index+1)"
+v-html="item"
+></button>
+<span
+v-else
+class="breadcrumb-label"
+v-html="item"
+></span>
+<div
+class="breadcrumb-divider"
+v-html="breadcrumbIcon"
+v-if="(breadcrumbIcon && index !== breadcrumbsPathData.length-1)"
+></div>
+</div>
+</div>
+<div
+class="jet-mobile-menu__back"
+role="button"
+ref="back"
+tabindex="0"
+aria-label="Close Menu"
+aria-expanded="false"
+v-if="!isBack && isClose"
+v-html="closeIcon"
+v-on:click="menuToggle"
+v-on:keyup.enter="menuToggle"
+v-on:keydown.space.prevent="menuToggle"
+></div>
+<div
+class="jet-mobile-menu__back"
+role="button"
+ref="back"
+tabindex="0"
+aria-label="Back to Prev Items"
+aria-expanded="false"
+v-if="isBack"
+v-html="backIcon"
+v-on:click="goBack"
+v-on:keyup.enter="goBack"
+v-on:keydown.space.prevent="goBack"
+></div>
+</div>
+<div
+class="jet-mobile-menu__before-template"
+v-if="beforeTemplateVisible"
+>
+<div
+class="jet-mobile-menu__before-template-content"
+ref="before-template-content"
+v-html="beforeContent"
+></div>
+</div>
+<div class="jet-mobile-menu__body" ref="menu-body">
+<transition :name="animation">
+<mobile-menu-list
+v-if="!templateVisible"
+:key="'list-' + depth"
+:depth="depth"
+:children-object="itemsList"
+></mobile-menu-list>
+<div v-else
+:key="'tpl-' + depth"
+class="jet-mobile-menu__template"
+ref="template-content"
+>
+<div
+class="jet-mobile-menu__template-content"
+v-html="itemTemplateContent"
+></div>
+</div>
+</transition>
+</div>
+<div
+class="jet-mobile-menu__after-template"
+v-if="afterTemplateVisible"
+>
+<div
+class="jet-mobile-menu__after-template-content"
+ref="after-template-content"
+v-html="afterContent"
+></div>
+</div>
+</div>
+</div>
+</transition>
+</div>
+</script>			<script>
+( () => {
+const lazyloadRunObserver = () => {
+const lazyloadBackgrounds = document.querySelectorAll( `.e-con.e-parent:not(.e-lazyloaded)` );
+const lazyloadBackgroundObserver = new IntersectionObserver( ( entries ) => {
+entries.forEach( ( entry ) => {
+if ( entry.isIntersecting ) {
+let lazyloadBackground = entry.target;
+if( lazyloadBackground ) {
+lazyloadBackground.classList.add( 'e-lazyloaded' );
+}
+lazyloadBackgroundObserver.unobserve( entry.target );
+}
+});
+}, { rootMargin: '200px 0px 200px 0px' } );
+lazyloadBackgrounds.forEach( ( lazyloadBackground ) => {
+lazyloadBackgroundObserver.observe( lazyloadBackground );
+} );
+};
+const events = [
+'DOMContentLoaded',
+'elementor/lazyload/observe',
+];
+events.forEach( ( event ) => {
+document.addEventListener( event, lazyloadRunObserver );
+} );
+} )();
+</script>
+<!-- <link rel='stylesheet' id='widget-nav-menu-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.2.1' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/2439fosl/c1n47.css" media="all"/>
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+<!-- <link rel='stylesheet' id='jet-elements-css' href='https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-elements/assets/css/jet-elements.css?ver=2.9.1.2' media='all' /> -->
+<link rel="stylesheet" type="text/css" href="https://www-vgbe-e.b-cdn.net/wp-content/cache/wpfc-minified/7iqbdixq/c1n47.css" media="all"/>
+<script id="vgbe-frontend-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/vgbe/assets/js/vgbe.min.js?ver=1.0.0"></script>
+<script id="jupiterx-wc-quickview-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jupiterx-core/includes/woocommerce/wc-quick-view.js?ver=4.14.1"></script>
+<script id="underscore-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/underscore.min.js?ver=1.13.8"></script>
+<script id="jupiterx-js-extra">
+var jupiterxOptions = {"smoothScroll":"1","videMedia":"0","quantityFieldSwitch":"undefined"};
+//# sourceURL=jupiterx-js-extra
+</script>
+<script id="jupiterx-js" src="https://www-vgbe-e.b-cdn.net/wp-content/themes/jupiterx/lib/assets/dist/js/frontend.min.js?ver=4.14.1"></script>
+<script id="wp-hooks-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/dist/hooks.min.js?ver=7496969728ca0f95732d"></script>
+<script id="jet-menu-public-scripts-js-extra">
+var jetMenuPublicSettings = {"version":"3.0.3","ajaxUrl":"https://www.vgbe.energy/wp-admin/admin-ajax.php","isMobile":"false","getElementorTemplateApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-elementor-template-content","getBlocksTemplateApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-blocks-template-content","menuItemsApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-menu-items","mobileMenuScriptUrl":"https://www.vgbe.energy/wp-content/plugins/jet-menu/assets/public/js/jet-menu-mobile-menu-public-scripts.js?ver=3.0.3","restNonce":"1ea89f0879","devMode":"false","wpmlLanguageCode":"en","menuSettings":{"jetMenuRollUp":"true","jetMenuMouseleaveDelay":500,"jetMenuMegaWidthType":"container","jetMenuMegaWidthSelector":"","jetMenuMegaOpenSubType":"hover","jetMenuMegaAjax":"false"}};
+var jetMenuPublicSettings = {"version":"3.0.3","ajaxUrl":"https://www.vgbe.energy/wp-admin/admin-ajax.php","isMobile":"false","getElementorTemplateApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-elementor-template-content","getBlocksTemplateApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-blocks-template-content","menuItemsApiUrl":"https://www.vgbe.energy/en/wp-json/jet-menu-api/v2/get-menu-items","mobileMenuScriptUrl":"https://www.vgbe.energy/wp-content/plugins/jet-menu/assets/public/js/jet-menu-mobile-menu-public-scripts.js?ver=3.0.3","restNonce":"1ea89f0879","devMode":"false","wpmlLanguageCode":"en","menuSettings":{"jetMenuRollUp":"true","jetMenuMouseleaveDelay":500,"jetMenuMegaWidthType":"container","jetMenuMegaWidthSelector":"","jetMenuMegaOpenSubType":"hover","jetMenuMegaAjax":"false"}};
+//# sourceURL=jet-menu-public-scripts-js-extra
+</script>
+<script id="jet-menu-public-scripts-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-menu/assets/public/js/jet-menu-public-scripts.js?ver=3.0.3"></script>
+<script id="jet-menu-public-scripts-js-after">
+function CxCSSCollector(){"use strict";var t,e=window.CxCollectedCSS;void 0!==e&&((t=document.createElement("style")).setAttribute("title",e.title),t.setAttribute("type",e.type),t.textContent=e.css,document.head.appendChild(t))}CxCSSCollector();
+//# sourceURL=jet-menu-public-scripts-js-after
+</script>
+<script id="elementor-webpack-runtime-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/js/webpack.runtime.min.js?ver=4.2.1"></script>
+<script id="elementor-frontend-modules-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/js/frontend-modules.min.js?ver=4.2.1"></script>
+<script id="jquery-ui-core-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/jquery/ui/core.min.js?ver=1.13.3"></script>
+<script id="elementor-frontend-js-before">
+var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false,"isScriptDebug":false},"i18n":{"shareOnFacebook":"Share on Facebook","shareOnX":"Share on X","pinIt":"Pin it","download":"Download","downloadImage":"Download image","fullscreen":"Fullscreen","zoom":"Zoom","share":"Share","playVideo":"Play Video","previous":"Previous","next":"Next","close":"Close","a11yCarouselPrevSlideMessage":"Previous slide","a11yCarouselNextSlideMessage":"Next slide","a11yCarouselFirstSlideMessage":"This is the first slide","a11yCarouselLastSlideMessage":"This is the last slide","a11yCarouselPaginationBulletMessage":"Go to slide"},"is_rtl":false,"breakpoints":{"xs":0,"sm":480,"md":768,"lg":1025,"xl":1440,"xxl":1600},"responsive":{"breakpoints":{"mobile":{"label":"Mobile Portrait","value":767,"default_value":767,"direction":"max","is_enabled":true},"mobile_extra":{"label":"Mobile Landscape","value":880,"default_value":880,"direction":"max","is_enabled":false},"tablet":{"label":"Tablet Portrait","value":1024,"default_value":1024,"direction":"max","is_enabled":true},"tablet_extra":{"label":"Tablet Landscape","value":1200,"default_value":1200,"direction":"max","is_enabled":false},"laptop":{"label":"Laptop","value":1366,"default_value":1366,"direction":"max","is_enabled":false},"widescreen":{"label":"Widescreen","value":2400,"default_value":2400,"direction":"min","is_enabled":false}},"hasCustomBreakpoints":false},"version":"4.2.1","is_static":false,"experimentalFeatures":{"additional_custom_breakpoints":true,"container":true,"e_panel_promotions":true,"theme_builder_v2":true,"nested-elements":true,"global_classes_should_enforce_capabilities":true,"e_variables":true,"e_opt_in_v4_page":true,"e_components":true,"e_interactions":true,"e_widget_creation":true,"import-export-customization":true,"e_pro_atomic_form":true,"e_pro_collection_loop":true,"e_pro_variables":true,"e_pro_interactions":true},"urls":{"assets":"https:\/\/www.vgbe.energy\/wp-content\/plugins\/elementor\/assets\/","ajaxurl":"https:\/\/www.vgbe.energy\/wp-admin\/admin-ajax.php","uploadUrl":"https:\/\/www.vgbe.energy\/wp-content\/uploads"},"nonces":{"floatingButtonsClickTracking":"53a85f15c5","atomicFormsSendForm":"ab7ff882c5"},"swiperClass":"swiper","settings":{"page":[],"editorPreferences":[]},"kit":{"active_breakpoints":["viewport_mobile","viewport_tablet"],"global_image_lightbox":"yes","lightbox_enable_counter":"yes","lightbox_enable_fullscreen":"yes","lightbox_enable_zoom":"yes","lightbox_enable_share":"yes","lightbox_title_src":"title","lightbox_description_src":"description"},"post":{"id":37479,"title":"Issue%208-2026%20%E2%80%93%20vgbe%20energy","excerpt":"Electrical, control and information technology\nOccupational health and safety\nClimate-neutral industrial sites: technological strategies for flexible, market-driven and low-carbon energy systems\nConvergence of IT\/OT and cyber security\nPreventing unintended shutdown of steam turbines during overfrequency\nLarge-scale heat pump \u2013 integration at power station sites ","featuredImage":"https:\/\/www-vgbe-e.b-cdn.net\/wp-content\/uploads\/2026\/08\/vgbe-ej-2026-08U-724x1024.jpg"}};
+//# sourceURL=elementor-frontend-js-before
+</script>
+<script id="elementor-frontend-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/js/frontend.min.js?ver=4.2.1"></script>
+<script id="vgbe20_page_script-js" src="https://www-vgbe-e.b-cdn.net/wp-content/themes/vgbe20/js/page.js?ver=1.2"></script>
+<script id="smartmenus-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor-pro/assets/lib/smartmenus/jquery.smartmenus.min.js?ver=1.2.1"></script>
+<script id="jet-tween-js-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-elements/assets/js/lib/tweenjs/tweenjs.min.js?ver=2.0.2"></script>
+<script id="jet-elements-js-extra">
+var jetElements = {"ajaxUrl":"https://www.vgbe.energy/wp-admin/admin-ajax.php","isMobile":"false","templateApiUrl":"https://www.vgbe.energy/en/wp-json/jet-elements-api/v1/elementor-template","devMode":"false","mapboxToken":"","messages":{"invalidMail":"Please specify a valid e-mail"}};
+//# sourceURL=jet-elements-js-extra
+</script>
+<script id="jet-elements-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-elements/assets/js/jet-elements.min.js?ver=2.9.1.2"></script>
+<script id="elementor-pro-webpack-runtime-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor-pro/assets/js/webpack-pro.runtime.min.js?ver=4.2.1"></script>
+<script id="wp-i18n-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/dist/i18n.min.js?ver=781d11515ad3d91786ec"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="elementor-pro-frontend-js-before">
+var ElementorProFrontendConfig = {"ajaxurl":"https:\/\/www.vgbe.energy\/wp-admin\/admin-ajax.php","nonce":"15f21501a6","urls":{"assets":"https:\/\/www.vgbe.energy\/wp-content\/plugins\/elementor-pro\/assets\/","rest":"https:\/\/www.vgbe.energy\/en\/wp-json\/"},"settings":{"lazy_load_background_images":true},"popup":{"hasPopUps":false},"shareButtonsNetworks":{"facebook":{"title":"Facebook","has_counter":true},"twitter":{"title":"Twitter"},"linkedin":{"title":"LinkedIn","has_counter":true},"pinterest":{"title":"Pinterest","has_counter":true},"reddit":{"title":"Reddit","has_counter":true},"vk":{"title":"VK","has_counter":true},"odnoklassniki":{"title":"OK","has_counter":true},"tumblr":{"title":"Tumblr"},"digg":{"title":"Digg"},"skype":{"title":"Skype"},"stumbleupon":{"title":"StumbleUpon","has_counter":true},"mix":{"title":"Mix"},"telegram":{"title":"Telegram"},"pocket":{"title":"Pocket","has_counter":true},"xing":{"title":"XING","has_counter":true},"whatsapp":{"title":"WhatsApp"},"email":{"title":"Email"},"print":{"title":"Print"},"x-twitter":{"title":"X"},"threads":{"title":"Threads"}},"facebook_sdk":{"lang":"en_US","app_id":""},"lottie":{"defaultAnimationUrl":"https:\/\/www.vgbe.energy\/wp-content\/plugins\/elementor-pro\/modules\/lottie\/assets\/animations\/default.json"}};
+//# sourceURL=elementor-pro-frontend-js-before
+</script>
+<script id="elementor-pro-frontend-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor-pro/assets/js/frontend.min.js?ver=4.2.1"></script>
+<script id="pro-elements-handlers-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor-pro/assets/js/elements-handlers.min.js?ver=4.2.1"></script>
+<script id="jet-menu-elementor-widgets-scripts-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-menu/includes/elementor/assets/public/js/widgets-scripts.js?ver=3.0.3"></script>
+<script id="jet-plugins-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-tricks/assets/lib/jet-plugins/jet-plugins.js?ver=1.1.0"></script>
+<script id="jet-tricks-popperjs-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-tricks/assets/js/lib/tippy/popperjs.js?ver=2.11.8"></script>
+<script id="jet-tricks-tippy-bundle-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-tricks/assets/js/lib/tippy/tippy-bundle.js?ver=6.3.7"></script>
+<script id="jet-tricks-frontend-js-extra">
+var JetTricksSettings = {"elements_data":{"sections":{"c025d39":{"view_more":false,"particles":"false","particles_json":""},"3101379e":{"view_more":false,"particles":"false","particles_json":""},"2f5dde8c":{"view_more":false,"particles":"false","particles_json":""},"897ec97":{"view_more":false,"particles":"false","particles_json":""},"47d92849":{"view_more":false,"particles":"false","particles_json":""},"c21fd7d":{"view_more":false,"particles":"false","particles_json":""},"fde5751":{"view_more":false,"particles":"false","particles_json":""},"de08e65":{"view_more":false,"particles":"false","particles_json":""},"67d16c2":{"view_more":false,"particles":"false","particles_json":""},"686586c":{"view_more":false,"particles":"false","particles_json":""},"4ce99dd":{"view_more":false,"particles":"false","particles_json":""},"7312075":{"view_more":false,"particles":"false","particles_json":""}},"columns":[],"widgets":{"c025d39":[],"3a763102":[],"2f31733d":[],"555b704e":[],"86d4747":[],"71fd5cfc":[],"82bf0f8":[],"ee0bb84":[],"3101379e":[],"36fd100a":[],"f3be030":[],"d1fb224":[],"2f5dde8c":[],"415bec9b":[],"68cd3e25":[],"897ec97":[],"d961822":[],"9a1f738":[],"1dd8c4b":[],"47d92849":[],"b02c324":[],"225c41d9":[],"5da48b03":[],"c21fd7d":[],"8b0a9a4":[],"c0f49a2":[],"92d08b0":[],"d7dd13b":[],"cd64934":[],"00079a3":[],"91cc835":[],"fde5751":[],"2af40e2":[],"be5ddaf":[],"1c6f98c":[],"23dd8f7":[],"65763c6":[],"66da51e":[],"a0020ed":[],"af46126":[],"44f45dc":[],"ccf3ce3":[],"7fe3603":[],"96bddf6":[],"ace604e":[],"c925b87":[],"947a0f4":[],"06d6371":[],"c033512":[],"2c8fcff":[],"045e10c":[],"e5ce5d1":[],"bac7af9":[],"4b8ec7c":[],"22b3cbc":[],"b1b2106":[],"2b24218":[],"aa0f83f":[],"446f31f":[],"24cd872":[],"aafbae9":[],"1fcabf8":[],"2778427":[],"2d9231a":[],"4a13438":[],"84a32d4":[],"7b2bd12":[],"913c2d9":[],"a257081":[],"e3d463b":[],"50d9977":[],"340fb31":[],"0be222f":[],"632517a":[],"e2dac4f":[],"7431775":[],"de08e65":[],"337a5df":[],"92c9dcc":[],"67d16c2":[],"3592da8":[],"df8e237":[],"20ccfd8":[],"ff16ede":[],"686586c":[],"bcb8b8a":[],"de94b19":[],"138a758":[],"71f3e3e":[],"32eade9":[],"8dc39b0":[],"af6d415":[],"4ce99dd":[],"2ce7b53":[],"eb82285":[],"264baf5":[],"9b61466":[],"982459c":[],"32dda84":[],"787dd51":[],"7312075":[],"eaa3598":[],"2a45b09":[]}}};
+//# sourceURL=jet-tricks-frontend-js-extra
+</script>
+<script id="jet-tricks-frontend-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-tricks/assets/js/jet-tricks-frontend.js?ver=2.0.1"></script>
+<script id="wp-util-js-extra">
+var _wpUtilSettings = {"ajax":{"url":"/wp-admin/admin-ajax.php"}};
+//# sourceURL=wp-util-js-extra
+</script>
+<script id="wp-util-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/wp-util.min.js?ver=7.0.4"></script>
+<script id="jupiterx-core-raven-frontend-js-extra">
+var ravenFormsTranslations = {"validation":{"required":"Please fill in this field","invalidEmail":"The value is not a valid email address","invalidPhone":"The value should only consist numbers and phone characters (-, +, (), etc)","invalidNumber":"The value is not a valid number","invalidMaxValue":"Value must be less than or equal to MAX_VALUE","invalidMinValue":"Value must be greater than or equal to MIN_VALUE"},"itiValidation":{"invalidCountryCode":"Invalid country code","tooShort":"Phone number is too short","tooLong":"Phone number is too long","areaCodeMissing":"Area code is required.","invalidLength":"Phone number has an invalid length","invalidGeneral":"Invalid phone number","forceMinLength":"Phone number must be more than X digits","typeMismatch":["Phone number must be of type: Fixed Line","Phone number must be of type: Mobile","Phone number must be of type: Fixed Line or Mobile","Phone number must be of type: Toll Free","Phone number must be of type: Premium Rate","Phone number must be of type: Shared Cost","Phone number must be of type: VOIP","Phone number must be of type: Personal Number","Phone number must be of type: Pager","Phone number must be of type: UAN","Phone number must be of type: Voicemail"]}};
+var ravenTools = {"nonce":"cb5fc115f5","activeElements":["nav-menu","post-comments","post-content","post-meta","site-logo","alert","breadcrumbs","button","categories","countdown","counter","divider","flex-spacer","forms","heading","icon","image","image-gallery","photo-album","photo-roller","posts","tabs","video","charts","loop-grid","loop-carousel","loop-filter","timeline","instagram-feed","product-stock-status"],"globalTypography":{"fontFamily":"","fontSize":{"size":"","unit":""},"lineHeight":{"size":"","unit":""},"color":""},"wc":{"wcAjaxAddToCart":"yes","disableAjaxToCartInArchive":true},"maxFileUploadSize":"83886080"};
+//# sourceURL=jupiterx-core-raven-frontend-js-extra
+</script>
+<script id="jupiterx-core-raven-frontend-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jupiterx-core/includes/extensions/raven/assets/js/frontend.min.js?ver=7.0.4"></script>
+<script id="flatpickr-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/elementor/assets/lib/flatpickr/flatpickr.min.js?ver=4.6.13"></script>
+<script id="jquery-ui-datepicker-js" src="https://www-vgbe-e.b-cdn.net/wp-includes/js/jquery/ui/datepicker.min.js?ver=1.13.3"></script>
+<script id="jet-smart-filters-js-extra">
+var JetSmartFilterSettings = {"ajaxurl":"https://www.vgbe.energy/wp-admin/admin-ajax.php","siteurl":"https://www.vgbe.energy","sitepath":"/en/","baseurl":"/en/pt-journal/issue-8-2026/","selectors":{"epro-archive-products":{"selector":".elementor-widget-wc-archive-products .elementor-widget-container","action":"replace","inDepth":false,"idPrefix":"#","list":".products","item":".product"},"epro-loop-builder":{"selector":".elementor-loop-container","action":"replace","inDepth":true,"idPrefix":"#"},"epro-portfolio":{"selector":".elementor-portfolio","action":"insert","inDepth":true,"idPrefix":"#","item":".elementor-portfolio-item"},"epro-posts":{"selector":".elementor-widget-posts .elementor-widget-container","action":"replace","inDepth":false,"idPrefix":"#","list":".elementor-posts","item":".elementor-post"},"epro-products":{"selector":".elementor-widget-woocommerce-products .elementor-widget-container","action":"replace","inDepth":false,"idPrefix":"#","list":".products","item":".product"},"jet-engine-calendar":{"selector":".jet-listing-calendar","action":"replace","inDepth":true,"idPrefix":"#"},"jet-engine":{"selector":".jet-listing-grid.jet-listing","action":"replace","inDepth":true,"idPrefix":"#","list":".jet-listing-grid__items"},"jet-woo-products-list":{"selector":".elementor-jet-woo-products-list.jet-woo-builder","action":"insert","inDepth":true,"idPrefix":"#","list":".jet-woo-products-list","item":".jet-woo-builder-product"},"jsf-listing":{"selector":".jsf-listing","action":"replace","inDepth":true,"idPrefix":"#","item":".jsf-listing__item"},"default-woo-archive":{"selector":".woocommerce .products","action":"insert","inDepth":false,"idPrefix":"#","list":".products","item":".product"},"woocommerce-shortcode":{"selector":".woocommerce[class*=\"columns\"]","action":"replace","inDepth":false,"idPrefix":".","list":".products","item":".product"},"jet-engine-multiday-calendar":{"selector":".jet-md-calendar","action":"replace","inDepth":true,"idPrefix":"#"}},"queries":[],"settings":[],"misc":{"week_start":"1","url_type":"plain","valid_url_params":["jsf","tax","meta","date","sort","alphabet","_s","_sm","pagenum","plain_query","jet-smart-filters","jet_paged","search","_tax_query_","_meta_query_","_date_query_","_sort_","__s_"]},"props":[],"extra_props":{},"templates":{"active_tag":{"label":"\u003Cdiv class=\"jet-active-tag__label\"\u003E/% $value %/\u003Cspan class=\"jet-active-tag__label-separator\"\u003E:\u003C/span\u003E\u003C/div\u003E","value":"\u003Cdiv class=\"jet-active-tag__val\"\u003E/% $value %/\u003C/div\u003E","remove":"\u003Cdiv class=\"jet-active-tag__remove\"\u003E&times;\u003C/div\u003E"},"active_filter":{"label":"\u003Cdiv class=\"jet-active-filter__label\"\u003E/% $value %/\u003Cspan class=\"jet-active-filter__label-separator\"\u003E:\u003C/span\u003E\u003C/div\u003E","value":"\u003Cdiv class=\"jet-active-filter__val\"\u003E/% $value %/\u003C/div\u003E","remove":"\u003Cdiv class=\"jet-active-filter__remove\"\u003E&times;\u003C/div\u003E"},"pagination":{"item":"\u003Cdiv class=\"jet-filters-pagination__link\"\u003E/% $value %/\u003C/div\u003E","dots":"\u003Cdiv class=\"jet-filters-pagination__dots\"\u003E&hellip;\u003C/div\u003E","load_more":"\u003Cdiv class=\"jet-filters-pagination__link\"\u003E/% $value %/\u003C/div\u003E"}},"plugin_settings":{"use_tabindex":false,"use_url_aliases":false,"url_aliases":[],"provider_preloader":{"template":"","fixed_position":false,"fixed_edge_gap":80},"url_custom_symbols":""},"datePickerData":{"closeText":"Done","prevText":"Prev","nextText":"Next","currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"],"monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesMin":["Su","Mo","Tu","We","Th","Fr","Sa"],"weekHeader":"Wk"}};
+//# sourceURL=jet-smart-filters-js-extra
+</script>
+<script id="jet-smart-filters-js" src="https://www-vgbe-e.b-cdn.net/wp-content/plugins/jet-smart-filters/assets/js/public.js?ver=3.8.3.1"></script>
+<script type="text/javascript">
+(function() {
+document.body.className = document.body.className.replace('no-js','js');
+}());
+</script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://www.https://www-vgbe-e.b-cdn.net/wp-includes/js/wp-emoji-release.min.js?ver=7.0.4"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
+//# sourceURL=https://www.vgbe.energy/wp-includes/js/wp-emoji-loader.min.js
+</script>
+<script>
+(function() {
+'use strict';
+var parentSelector = '.menu-item.wpml-ls-current-language.menu-item-has-children';
+function toggleSubmenu(link, forceClose) {
+var isExpanded = link.getAttribute('aria-expanded') === 'true';
+if (forceClose || isExpanded) {
+link.setAttribute('aria-expanded', 'false');
+} else {
+link.setAttribute('aria-expanded', 'true');
+}
+}
+function handleKeydown(e) {
+var key = e.key || e.keyCode;
+if (key === 'Enter' || key === ' ' || key === 13 || key === 32) {
+e.preventDefault();
+toggleSubmenu(this);
+} else if (key === 'Escape' || key === 'Esc' || key === 27) {
+if (this.getAttribute('aria-expanded') === 'true') {
+e.preventDefault();
+toggleSubmenu(this, true);
+}
+}
+}
+function handleBlur(e) {
+var link = this;
+var parent = link.closest(parentSelector);
+if (!parent) return;
+setTimeout(function() {
+if (!parent.contains(document.activeElement)) {
+toggleSubmenu(link, true);
+}
+}, 100);
+}
+function init() {
+var parents = document.querySelectorAll(parentSelector);
+for (var i = 0; i < parents.length; i++) {
+var link = parents[i].querySelector('a[aria-expanded]');
+if (link) {
+link.addEventListener('keydown', handleKeydown);
+link.addEventListener('blur', handleBlur);
+}
+}
+}
+if (document.readyState === 'loading') {
+document.addEventListener('DOMContentLoaded', init);
+} else {
+init();
+}
+})();
+</script>
+</body></html><!--
+Performance optimized by Redis Object Cache. Learn more: https://wprediscache.com
+Retrieved 19204 objects (6 MB) from Redis using PhpRedis (v6.3.0).
+-->
+<!-- WP Fastest Cache file was created in 1.177 seconds, on 6. September 2026 @ 7:04 -->

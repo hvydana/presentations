@@ -1,0 +1,147 @@
+ROCm vs CUDA, short answer: ROCm reaches 90-95% of H100 throughput for standard LLM inference with PyTorch, vLLM, and SGLang on MI300X and MI355X. It breaks where code depends on CUDA-only libraries: TensorRT-LLM and FlashAttention 3 have no ROCm equivalent, and custom PTX kernels need manual porting. Pick CUDA for custom kernels and mature profiling. Pick ROCm for memory-bound inference, where AMD's larger VRAM per GPU and lower hourly rate do the work.
+The rest of this guide is the evidence behind that answer: the framework compatibility matrix, MLPerf and vLLM benchmarks, live per-hour cost math, and a step-by-step migration path.
+For the NVIDIA-only version of this decision, weighing H100, H200, and B200 against each other rather than against AMD, see best GPU for AI inference in 2026. ROCm has closed a lot of ground on CUDA over the past 18 months. AMD's MI355X posted record MLPerf Inference 6.0 results in April 2026. The AMD-Meta deal signals a serious production commitment. But "catching up on benchmarks" and "works for your production workload" are different claims. This guide covers what ROCm actually supports, where CUDA still wins, and how the costs compare on GPU cloud in 2026. For GPU hardware specs comparing AMD and NVIDIA silicon, see our AMD MI350X vs NVIDIA B200 comparison, and for what those AMD chips actually rent for across providers, the MI300X and MI355X pricing survey.
+The 2026 AMD-NVIDIA GPU Cloud Landscape
+AMD's competitive position has shifted materially since 2024. The MI355X delivered the strongest-ever AMD showing at MLPerf Inference 6.0 (results published April 1, 2026), posting results within single-digit percentage points of B200 on server inference workloads. That result matters because MLPerf is the one benchmark that uses standardized submission rules across vendors, making direct comparison meaningful.
+The AMD-Meta deal adds a different kind of signal. A 6-gigawatt GPU commitment from Meta's infrastructure team means Meta is planning production-scale ROCm deployments. Meta's ML infrastructure team does not take software stack risk lightly. If they are committing to AMD at that scale, the ROCm ecosystem has reached a level of reliability that justifies it.
+Looking ahead, AMD MI450 is on track to ship in H2 2026. Cloud availability will trail the hardware release by roughly 3-6 months as providers qualify the new silicon.
+Where CUDA still dominates: workloads using TensorRT-LLM, FlashAttention 3 (H100 Hopper-specific), NVIDIA NIM containers, and any pipeline with CUDA-specific custom kernels. NVIDIA's 15-year head start on the software ecosystem shows most clearly in tooling depth and documentation quality. For the latest in CUDA kernel development, see our CUDA 13 Tile programming guide.
+Where ROCm is genuinely competitive: memory-bandwidth-heavy inference (large model prefill, long-context generation), workloads running PyTorch plus vLLM or SGLang with no custom kernels, and teams already running AMD hardware on-premises who want cloud parity.
+For MI300X context and how the memory-versus-throughput tradeoff plays out against H100 specifically, see our AMD MI300X vs NVIDIA H100 guide, plus the earlier-generation AMD MI300X vs NVIDIA H200 guide.
+ROCm vs CUDA: Framework and Library Compatibility Matrix
+This is the most practical question for cloud users. Which frameworks actually work on ROCm?
+| Framework / Library | CUDA Support | ROCm Support | Notes | 
+|---|---|---|---|
+| PyTorch | Full (native) | Full (official AMD wheel) | --device rocm flag; MIOpen replaces cuDNN | 
+| vLLM | Full | Full (ROCm wheel required) | Use --extra-index-url for ROCm builds | 
+| SGLang | Full | Full (ROCm 6.x) | Performance within 5-10% of CUDA on MI300X; official AMD GPU support with active upstream maintenance | 
+| TensorRT-LLM | Full | Not supported | NVIDIA-only; no ROCm port planned | 
+| FlashAttention 3 | Full | Not available | AMD has Flash Attention 2 via MIOpen; FA3 is NVIDIA Hopper+ only | 
+| Triton | Full | Partial (AMD backend) | Most kernels compile; custom PTX not supported | 
+| ONNX Runtime | Full | Experimental | ROCm EP available; limited operator coverage | 
+| Hugging Face Transformers | Full (via PyTorch) | Full (via ROCm PyTorch) | No code changes for standard inference | 
+| DeepSpeed | Full | Full | ROCm support added in v0.6+ | 
+| Megatron-LM | Full | Partial | Training works; some fused kernels not ported | 
+The practical summary: if your stack is PyTorch plus vLLM or SGLang, ROCm parity is close. If you rely on TensorRT-LLM or FlashAttention 3, stay on CUDA. For a head-to-head of vLLM, TensorRT-LLM, and SGLang performance, see our inference framework benchmark.
+An under-appreciated advantage of AMD's HBM3 capacity: MI300X ships with 192 GB of HBM3 on a single GPU. Models that need 2x H100s in FP16 may fit on a single MI300X, which simplifies the serving architecture and removes NVLink/interconnect complexity for those workloads. Both Ollama and vLLM work on ROCm through this same PyTorch compatibility layer.
+Real-World Benchmarks: MI355X vs H100 vs B300 for LLM Inference
+The numbers below are derived from vendor benchmark documentation, MLPerf Inference 6.0 Llama 2 70B results (the model tested in that submission), and published scaling data. These are not Spheron internal measurements and should be treated as indicative estimates. Real performance varies based on batch size, sequence length, quantization, and framework version.
+| Model | GPU | Throughput (tokens/sec) | Notes | 
+|---|---|---|---|
+| Llama 3.1 70B (FP16, batch 32) | MI355X | ~18,000 (est.) | Derived from MLPerf Llama 2 70B results and published scaling data; not a direct MLPerf submission for this model | 
+| Llama 3.1 70B (FP16, batch 32) | H100 SXM5 | ~19,500 (est.) | Derived from MLPerf Llama 2 70B reference and scaling data; not a direct MLPerf submission for this model | 
+| Llama 3.1 70B (FP16, batch 32) | B300 SXM6 | ~28,000 (est.) | Blackwell architecture uplift estimate | 
+| DeepSeek R1 671B (INT4, single node, 8x GPU) | MI355X 8x | ~4,200 (est.) | AMD benchmark, 8x GPU | 
+| DeepSeek R1 671B (INT4, single node, 8x GPU) | H100 SXM5 8x | ~4,500 (est.) | vLLM reference | 
+| Qwen 3 72B (FP8, batch 64) | MI355X | ~22,000 (est.) | Derived from published scaling data | 
+| Qwen 3 72B (FP8, batch 64) | H100 SXM5 | ~23,000 (est.) | vLLM FP8 benchmark | 
+Note: All figures are estimates derived from published TFLOPS gains and scaling data, not direct measurements of these specific workloads. MLPerf Inference 6.0 (April 2026) tested Llama 2 70B server inference; the Llama 3.1 70B numbers above are extrapolated from those results. Treat them as order-of-magnitude comparisons, not precise numbers.
+Memory bandwidth vs compute throughput
+LLM inference splits into two phases: prefill (processing the input tokens, compute-bound) and decode (generating output tokens, memory-bandwidth-bound). AMD's MI355X has a memory bandwidth advantage over H100 SXM5 in the decode phase, which is why it performs closer to parity on throughput-optimized workloads than the raw FLOPS gap would suggest.
+For prefill-heavy workloads (long-context inputs, large batch sizes with many input tokens), CUDA's software optimizations (FlashAttention 3, CUDA Graphs) provide a larger advantage than the hardware numbers alone predict.
+Batch size sensitivity
+AMD MI355X tends to close the gap with CUDA at larger batch sizes. At batch size 1-4 (low-latency, single-user inference), H100 with TensorRT-LLM holds a 20-30% throughput advantage. At batch size 64-128 (high-throughput serving, many concurrent users), the gap narrows to 5-10% for PyTorch and vLLM workloads.
+Cost Comparison: AMD GPU Cloud Pricing vs NVIDIA GPU Cloud Pricing
+CUDA (NVIDIA) pricing from Spheron API, fetched 02 Aug 2026:
+| GPU | On-Demand ($/hr) | Spot ($/hr) | Memory | 
+|---|---|---|---|
+| H100 SXM5 | $3.38 | $1.46 | 80 GB HBM3 | 
+| H200 SXM5 | $4.79 | $3.31 | 141 GB HBM3e | 
+| B200 SXM6 | $7.50 | $2.74 | 180 GB HBM3e | 
+| B300 SXM6 | $10.21 | $5.81 | 288 GB HBM3e | 
+| A100 80G SXM4 | $1.82 | $0.82 | 80 GB HBM2e | 
+AMD GPU cloud pricing: AMD MI-series GPUs are expanding on cloud marketplaces. Market rates for MI300X (192 GB HBM3) run approximately $1.50-2.50/hr on-demand from various providers, which is 15-40% below H100 SXM5 pricing for comparable inference throughput. Check current GPU pricing → for AMD GPU availability on Spheron. The A100 80G row in that table is worth a second look too: for teams deciding between SXM and PCIe form factors or spot versus dedicated tiers on that card specifically, our A100 deployment guide covers the practical tradeoffs. For a closer look at how the newer Hopper and Blackwell NVIDIA tiers stack up against each other on the same cost-per-token basis, see our H200 vs B200 vs GB200 comparison.
+Pricing fluctuates based on GPU availability. The prices above are based on 02 Aug 2026 and may have changed. Check current GPU pricing → for live rates.
+Cost per token: AMD vs NVIDIA
+A concrete example for Llama 3.1 70B inference at 1M tokens:
+- H100 SXM5 at $3.38/hr, throughput ~19,500 tokens/sec: approximately $0.0000000482 per token (~$0.048 per million tokens)
+- MI300X at $1.75/hr (mid-market estimate), throughput ~18,000 tokens/sec: approximately $0.0000000270 per token (~$0.027 per million tokens)
+At these numbers, MI300X is cheaper per token: the price gap more than offsets the modest throughput advantage of the H100. The AMD cost advantage strengthens further when factoring in that a single MI300X (192 GB) can replace a 2x H100 setup for large models, cutting the node cost in half.
+The math changes significantly at the hardware level for on-premises deployments, where AMD GPU list prices are lower than comparable NVIDIA hardware. Cloud economics and on-premises economics are different.
+For broader inference cost analysis, see our AI inference cost economics guide.
+What Works Out of the Box on ROCm (and What Doesn't Yet)
+Works without modification
+- PyTorch model inference: any model that runs on CUDA works on ROCm via the device="cuda" alias (HIP compatibility) or explicitdevice="rocm"
+- vLLM with ROCm wheel: the API is identical to the CUDA version; swap the install command and the model serves the same way
+- Hugging Face pipeline() calls: no code changes; works through PyTorch
+- Standard quantization: GPTQ and AWQ work via ROCm-compatible auto-gptq
+- DeepSpeed ZeRO for training: full support since DeepSpeed v0.6+
+- Hugging Face transformers.Trainer for fine-tuning standard models
+That list skews almost entirely PyTorch, which isn't a coincidence: AMD's ROCm engineering effort has gone into matching CUDA parity for PyTorch first, while TensorFlow's ROCm build lags noticeably in operator coverage and update cadence. The PyTorch vs TensorFlow comparison covers this gap in more detail if framework choice, not just GPU vendor, is still an open question for your stack.
+Needs changes or workarounds
+- Custom CUDA kernels: require HIP port via hipify-perl or manual rewrite; most API calls map 1:1 but PTX assembly does not
+- FlashAttention 3: not available on ROCm; AMD's MIOpen provides Flash Attention 2-level support; FA3 is Hopper-specific
+- TensorRT-LLM: NVIDIA-only, no ROCm port planned; no workaround
+- CUDA-specific PTX assembly: must be rewritten in HIP assembly
+- bitsandbytes quantization: partial ROCm support; prefer GPTQ or AWQ instead
+- torch.compile() on ROCm: works but compiles slower than CUDA; more INDUCTOR backend misses mean more fallback to eager mode
+That PTX-to-raw-assembly gap is the specific problem HipKittens targets: it shipped as an official AITER backend in March 2026, and it closes or matches AMD's own hand-tuned assembly on GEMM and GQA/MHA attention kernels, the operators that used to force a manual rewrite.
+Migration Guide: Moving CUDA Workloads to ROCm on GPU Cloud
+Step 1: Start from the ROCm Docker image
+docker pull rocm/pytorch:rocm6.2_ubuntu22.04_py3.10_pytorch_2.4.0
+docker run --device=/dev/kfd --device=/dev/dri --security-opt seccomp=unconfined \
+  -it rocm/pytorch:rocm6.2_ubuntu22.04_py3.10_pytorch_2.4.0
+The --device=/dev/kfd --device=/dev/dri flags expose the AMD GPU to the container. This replaces the NVIDIA --gpus all flag.
+Step 2: Verify GPU visibility
+rocm-smi
+# Equivalent to nvidia-smi; shows GPU, memory, utilization
+If your AMD GPU does not appear in rocm-smi, check that the host has the ROCm kernel module loaded (lsmod | grep amdgpu) and that the device files exist (ls /dev/kfd /dev/dri).
+Step 3: Install ROCm-compatible vLLM
+pip install vllm --extra-index-url https://download.pytorch.org/whl/rocm6.2
+Do not run pip install vllm without the extra index URL. The default wheel is linked against CUDA and will fail on an AMD GPU.
+Step 4: Update device strings in PyTorch code
+# Works on both CUDA and ROCm (HIP compatibility layer)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# Explicit ROCm targeting (HIP compatibility exposes AMD GPUs under "cuda" alias)
+device = torch.device("cuda")  # routes to HIP on ROCm builds
+Most PyTorch code needs no changes. ROCm's HIP layer intercepts cuda device calls and routes them to the AMD driver. Only custom kernel code that references CUDA APIs directly needs modification.
+Step 5: Hipify custom CUDA kernels
+hipify-perl my_cuda_kernel.cu > my_hip_kernel.hip
+# Review the output: most CUDA API calls map 1:1, PTX assembly does not
+After hipifying, compile with hipcc and review the diff. Functions using __syncthreads(), atomicAdd(), and most compute intrinsics translate cleanly. PTX-level inline assembly requires manual rewriting.
+Step 6: Run benchmarks before switching production traffic
+python benchmarks/benchmark_throughput.py \
+  --backend vllm \
+  --model meta-llama/Llama-3.1-70B-Instruct \
+  --num-prompts 1000
+Validate numerical correctness with torch.allclose() between CUDA and ROCm outputs before moving traffic. For production validation patterns, see our MoE inference optimization guide.
+When to Choose AMD GPUs: Cost-Optimized Inference, Training, and Fine-Tuning Use Cases
+Choose AMD (ROCm) when:
+- Your stack is PyTorch plus vLLM or SGLang with no custom CUDA kernels
+- You are running memory-bandwidth-heavy workloads: large model inference, long-context generation, models that push past 80 GB VRAM
+- Cost is the primary constraint and you can absorb the additional integration effort
+- You are running AMD on-premises and want cloud parity for hybrid setups
+- Your models fit on a single MI300X (192 GB) but would need 2x H100s in FP16
+For a full walkthrough of from-scratch pretraining on AMD, including what Zyphra's ZAYA1 proved about production viability, see training LLMs from scratch on AMD GPU cloud.
+Choose NVIDIA (CUDA) when:
+- You rely on TensorRT-LLM, FlashAttention 3, or CUDA-specific kernel optimizations
+- You need maximum throughput at single-digit batch sizes (latency-critical, single-request inference)
+- Your team has CUDA expertise and no capacity to port custom kernels
+- You are using NVIDIA-proprietary tooling: NeMo, NIM, Dynamo, NIXL
+- You need production-grade, battle-tested inference with minimal setup friction
+GPU Cloud Provider Support: Where to Run ROCm Workloads in 2026
+AMD GPU capacity is growing on cloud marketplaces. Spheron's marketplace model means AMD GPU capacity appears as data center partners globally add MI-series hardware. The practical reality today is that NVIDIA GPU options (H100, H200, B200, B300, A100) have broader availability than AMD MI-series on most cloud platforms, including Spheron.
+For current AMD GPU availability, check current GPU pricing →. Spheron gives you access to both AMD and NVIDIA GPU capacity in a single marketplace, so you can compare actual costs rather than relying on provider-specific pricing pages.
+For a full comparison of GPU cloud providers including pricing and availability across AMD and NVIDIA hardware, see our top GPU cloud providers comparison.
+Future Outlook: MI450, Helios, and the ROCm Roadmap
+MI450 (H2 2026): AMD's next-generation data center GPU is expected to arrive in the second half of 2026. Based on AMD's publicly stated roadmap, MI450 will use an improved version of the CDNA architecture with higher memory bandwidth and better FP8/FP4 throughput. Cloud availability typically trails hardware release by 3-6 months. Expect MI450 GPU rental options to appear in early 2027 for most cloud providers.
+AMD Helios rack-scale platform: Helios is a full rack-scale architecture, not just a GPU interconnect. A Helios rack integrates 72 MI455X accelerators, EPYC Venice CPUs, Pensando networking, and the UALink interconnect, delivering 260 TB/s of scale-up interconnect bandwidth per rack. It is designed for large-scale training workloads where tight GPU-to-GPU communication is the bottleneck. Comparing it directly to NVLink understates what it is: NVLink connects GPUs within a node, while Helios is the entire rack infrastructure. For a detailed look at Helios architecture and how to deploy MI455X inference on a GPU cloud, see the AMD Helios rack-scale guide. AMD's planned UALink-based scale-up fabric for the MI400 series, and how it compares to NVIDIA's NVLink, is covered in the UALink vs NVLink comparison guide.
+ROCm 7.x roadmap: AMD's ROCm 7.x releases show active work on closing the attention kernel gap, a better Triton AMD backend, and improved torch.compile() graph compilation on ROCm. The attention kernel gap is the most significant remaining limitation for inference performance on memory-bound workloads.
+AMD-Meta and ecosystem investment: The AMD-Meta production commitment creates a virtuous cycle. When a major ML infrastructure team runs ROCm in production, they file bugs, contribute fixes, and build internal tooling that eventually flows back into the open-source ecosystem. The ROCm stack today is meaningfully better than it was 18 months ago in part because of similar production pressure from hyperscalers.
+The short version: ROCm is not going to close the CUDA ecosystem gap overnight, but the trajectory is clear. Teams that invest in ROCm compatibility now will be in a better position when MI450 cloud capacity comes online.
+For a deeper look at non-CUDA silicon beyond AMD, see our Tenstorrent vs NVIDIA comparison, which covers how Tenstorrent's RISC-V Tensix cores and open ISA differ from both CUDA and ROCm.
+ROCm has reached production-ready status for PyTorch and vLLM workloads in 2026. If your stack doesn't depend on TensorRT-LLM or FlashAttention 3, AMD GPUs are worth benchmarking - the cost difference is real. Spheron gives you access to both AMD and NVIDIA GPU capacity so you can test both and pick based on actual performance, not vendor claims.
+View NVIDIA GPU pricing → | On-demand H100 → | H200 SXM5 on Spheron →
+Quick Setup Guide
+- Start from AMD's official ROCm PyTorch image: docker pull rocm/pytorch:latest. This image ships with ROCm drivers, HIP, and a pre-built PyTorch wheel that uses the MIOpen backend instead of cuDNN.
+- Run rocm-smi inside the container to confirm your AMD GPU is visible and ROCm is initialized. The equivalent of nvidia-smi, it shows GPU utilization, memory usage, and temperature.
+- Install vLLM from the ROCm wheel: pip install vllm --extra-index-url https://download.pytorch.org/whl/rocm6.2. Do not use the default pip install vllm, which pulls a CUDA-linked binary.
+- Start the vLLM inference server: python -m vllm.entrypoints.openai.api_server --model meta-llama/Llama-3.1-70B-Instruct --dtype float16. ROCm is detected automatically via the HIP backend when using the ROCm-linked vLLM wheel. The API is identical to the CUDA version.
+- Use vLLM's benchmark script: python benchmarks/benchmark_throughput.py --backend vllm --model meta-llama/Llama-3.1-70B-Instruct --num-prompts 1000. Compare results against the same script on a CUDA GPU.
+- Run rocm-smi --showmeminfo vram to see VRAM usage per GPU. AMD MI300X has 192 GB HBM3, so large models that require multi-GPU NVIDIA setups may fit on a single MI300X.
+Frequently Asked Questions
+For standard LLM inference with PyTorch and vLLM, ROCm on MI300X or MI355X reaches 90-95% of H100 throughput. The gap is larger for workloads that rely on CUDA-specific libraries like TensorRT-LLM or FlashAttention 3, which do not have full ROCm equivalents yet.
+PyTorch, vLLM, and SGLang all have official ROCm support as of 2026. TensorRT-LLM and Triton Inference Server have limited ROCm support. Hugging Face Transformers works via PyTorch. ONNX Runtime has experimental ROCm support.
+Market pricing for AMD MI300X on-demand is typically 15-30% lower than H100 SXM5. The gap widens further on spot markets. The actual cost-per-token advantage depends on your framework, batch size, and whether your workload is memory-bandwidth-bound or compute-bound.
+AMD's HIP translation layer (hipify) converts most CUDA code automatically, but complex custom CUDA kernels (especially those using PTX assembly or CUDA-specific intrinsics) require manual porting. Standard PyTorch workflows work with minimal changes: swap the CUDA device string for the ROCm device and rebuild from the ROCm Docker image.
+AMD MI450 is expected to ship in H2 2026. Cloud availability typically follows hardware release by 3-6 months as providers qualify hardware and integrate drivers. Check your cloud provider's roadmap for specifics.

@@ -1,0 +1,20 @@
+C159	L3	Flow-matching VLA model and training code	Physical Intelligence	openpi	https://github.com/Physical-Intelligence/openpi	pi0 and pi05 open weights; also mirrored on HF lerobot org
+C160	L3	Compact VLA for low-cost hardware	HuggingFace	SmolVLA	https://huggingface.co/lerobot	450M params; ships inside lerobot
+C161	L3	Transformer imitation policy for bimanual tasks	Stanford	ACT	https://github.com/tonyzhaozh/act	Action Chunking Transformer; ALOHA baseline
+C162	L3	Denoising diffusion visuomotor policy	Columbia / Stanford	Diffusion Policy	https://github.com/real-stanford/diffusion_policy
+C163	L3	Diffusion foundation policy for bimanual manipulation	OSS	RDT-1B	https://github.com/thu-ml/RoboticsDiffusionTransformer
+C165	L3	Cross-embodiment transformer control models	Google DeepMind	RT-1-X / RT-2-X	https://robotics-transformer-x.github.io/	RT-1-X checkpoints open; RT-2-X not released
+C166	L3	Aggregated cross-embodiment demonstration corpus	Open X-Embodiment Collaboration	Open X-Embodiment	https://robotics-transformer-x.github.io/	1M+ trajectories, 60 datasets, 22 embodiments
+C167	L3	Standard episodic robot dataset format	Google Research	RLDS	https://github.com/google-research/rlds	Format underlying Open X-Embodiment
+C168	L3	Large in-the-wild manipulation dataset	DROID Collaboration	DROID	https://droid-dataset.github.io/	76k trajectories, Franka platform
+C169	L3	Large-scale real-robot manipulation dataset	OpenDriveLab / AgiBot	AgiBot World	https://github.com/OpenDriveLab/AgiBot-World	Found via https://github.com/topics/vision-language-action-model
+C172	L4	Multi-fleet task allocation and traffic control	Open Robotics	Open-RMF	https://github.com/orgs/open-rmf/repositories	Heterogeneous fleet interoperability
+C173	L4	Basic fleet manager for ROS robots	Open-RMF	free_fleet	https://github.com/orgs/open-rmf/repositories
+C174	L4	Time-series recording and replay of ROS topics	OSS	rosbag2	https://github.com/orgs/ros2/repositories
+C175	L4	Serialization-agnostic multimodal log container	Foxglove	MCAP	https://github.com/foxglove/mcap	Default rosbag2 storage plugin
+C176	L4	Robotics data visualization and telemetry	Foxglove	Foxglove SDK	https://github.com/foxglove	Foxglove Studio desktop app was discontinued in favor of SDK/web
+C177	L4	Multimodal time-aware data logging and viewer	Rerun	rerun	https://github.com/rerun-io/rerun	Found via https://github.com/topics/robotics
+C178	L4	Live timeseries plotting and log inspection	OSS	PlotJuggler	https://github.com/facontidavide/PlotJuggler
+C179	L4	Runtime tracing of node and executor latency	OSS	ros2_tracing / CARET	https://github.com/orgs/ros2/repositories	LTTng-based; CARET adds callback-chain analysis
+C180	L5	Safety-certifiable Linux enablement	Linux Foundation	ELISA	https://elisa.tech/	Enabling Linux in Safety Applications; process and evidence work
+C181	L5	Open safety-certified vehicle software platform	Eclipse Foundation	Eclipse S-CORE	https://projects.eclipse.org/projects/automotive.score	Targets ISO 26262 ASIL-B; ROS-adjacent middleware

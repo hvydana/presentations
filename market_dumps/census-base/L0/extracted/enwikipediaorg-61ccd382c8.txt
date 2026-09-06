@@ -1,0 +1,122 @@
+Comparison of real-time operating systems
+Appearance
+	
+	
+This is a list of real-time operating systems (RTOSs). This is an operating system in which the time taken to process an input stimulus is less than the time lapsed until the next input stimulus of the same type.
+| Name | License | Source model | Target uses | Status | Platforms | 
+|---|---|---|---|---|---|
+| Apache Mynewt | Apache 2.0 | open source | embedded | active | ARM Cortex-M, MIPS32, Microchip PIC32, RISC-V | 
+| BeRTOS | Modified GNU GPL | open source | embedded | archived | ARM, Cortex-M3, ARM ARM7TDMI, Atmel AVR, PowerPC (emu), x86 (emu), x86-64 (emu) | 
+| ChibiOS/RT | Dual, GNU GPL or proprietary | open source | embedded, small footprint | active | x86, ARM7, ARM9, Cortex-M0-M3-M4, PowerPC e200z, STM8, STM32, AVR, MSP430, ColdFire, H8S | 
+| ChorusOS | ? | ? | ? | defunct | SPARC, x86, PowerPC | 
+| Contiki | BSD | open source | embedded, WSN | active | MSP430, AVR, ARM | 
+| Data General RDOS | Proprietary | ? | general purpose | defunct | Data General Nova, Data General Eclipse | 
+| Deos | Proprietary | closed | safety critical | active | x86, PowerPC, ARM, MIPS | 
+| DioneOS | Proprietary | available for licensee | embedded |  | MSP430, MSP430x | 
+| DNIX | Proprietary | closed | general purpose | defunct | 68000 | 
+| Embox | BSD | open source | embedded | active | x86, ARM, Microblaze, SPARC, PPC, MIPS | 
+| GEC DOS | Proprietary | closed | process control | defunct | GEC 4000 series | 
+| DSOS | Proprietary | closed | ? | defunct | TI-980A minicomputer | 
+| DSP/BIOS | Proprietary | closed, available with license | general purpose | maintenance only | Mostly Texas Instruments C2800, C5500, C6000 and OMAP DSP cores. Replaced by TI-RTOS, but available for download. | 
+| eCos | Modified GNU GPL | open source | embedded | inactive | ARM-XScale-Cortex-M, CalmRISC, 680x0-ColdFire, fr30, FR-V, H8, IA-32, MIPS, MN10300, OpenRISC, PowerPC, SPARC, SuperH, V8xx | 
+| eCosPro | Modified GNU GPL or eCosPro license | open source with non-free portions |  | active | ARM7-9, Cortex-A5-A9-M3-M4-M7, 680x0-ColdFire, H8-H8S, IA-32, MIPS32, MIPS64, microMIPS, NIOS II, OpenRISC, PowerPC, SPARC, SH4/4A, TILE-Gx, XScale | 
+| embOS | Proprietary | closed, available to customers, free object code for non-commercial use | embedded, industrial, IoT, safety critical | active | ARM7/9/11, ARM Cortex-A/R/M, AVR, AVR32, C16x, CR16C, ColdFire, H8, HCS12, M16C, M32C, MSP430, NIOS2, PIC18/24/32, R32C, R8C, RISC-V, RL78, RH850, RX100/200/600/700, RZ, SH2A, STM8, ST7, V850, 78K0, 8051 | 
+| ERIKA Enterprise | GPL and GPL linking exception | open source | embedded |  | ARM7, ARM Cortex-M, ARM Cortex-A (on Jailhouse hypervisor), Hitachi H8, Altera Nios2, Microchip dsPIC (including dsPIC30, dsPIC33, and PIC24), Microchip PIC32, ST Microelectronics ST10, Infineon C167, Infineon Tricore, Freescale PPC e200 (MPC 56xx) (including PPC e200 z0, z6, z7), Freescale S12XS, EnSilica eSi-RISC, AVR, Lattice Mico32, MSP430, Renesas RX200, x86-64 (on Jailhouse hypervisor) | 
+| EROS | Modified GNU GPL | open source | experimental research use | dormant | IA-32 | 
+| FlexOS | Proprietary | closed | general purpose, industrial, POS | defunct | 186, 286, 386, V60, V70, 68000 | 
+| FreeRTOS | MIT | open source | embedded | active | ARM, AVR, AVR32, ColdFire, ESP32, HCS12, IA-32, Cortex-M3-M4-M7, Infineon XMC4000, MicroBlaze, MSP430, PIC, PIC32, Renesas H8/S, RISC-V, RX100-200-600-700, 8052, STM32, TriCore, EFM32 | 
+| Fuchsia | Varies |  | embedded |  | AArch64, x86-64 | 
+| Keil RTX | Apache 2.0 | open source | embedded |  | Arm Cortex-M | 
+| FunkOS | Modified Sleepycat License | open source | embedded |  | AVR, MSP430, Cortex-M3 | 
+| HeartOS | Proprietary | closed | safety critical |  | x86, PowerPC, ARM | 
+| Huawei LiteOS | BSD | open source | embedded | defunct | ARM (M0/3/4/7, A7/17/53, ARM9/11), x86, RISC-V | 
+| HarmonyOS | Proprietary | closed | embedded | active | AArch64, x86-64, RISC-V, LingxiISA | 
+| IBM 4680 OS | Proprietary | closed | general purpose, industrial, POS | defunct | 286 | 
+| IBM 4690 OS | Proprietary |  |  | active | 286, 386 | 
+| INTEGRITY | Proprietary |  | embedded |  | ARM, XScale, Blackfin, ColdFire, MIPS, PowerPC, x86 | 
+| INtime | Proprietary |  |  |  | x86 | 
+| ITRON | T-License | varies | embedded |  | ARM, MIPS, x86, Renesas RX100-200-600-700-others | 
+| Kaspersky OS | Proprietary | open source | safety critical, virtualization |  | x86, x86_64, ARMV5, ARMV7, ARMV8, MIPS32 | 
+| KolibriOS | GNU GPL |  | embeddable |  | x86 | 
+| LynxOS | Proprietary | source available | embedded |  | Motorola 68010, x86/IA-32, ARM, Freescale PowerPC, PowerPC 970, LEON | 
+| Mbed OS | Apache 2.0 | open source | embedded | abandoned [1] | Arm Cortex-M | 
+| MenuetOS | GNU GPL | open source | active | ? | IA-32 | 
+| MERT | Proprietary(Bell Labs) | closed | OS for long-distance telephone switching systems | inactive | PDP-11 | 
+| MicroC/OS-III | Apache 2.0 | open source | embedded | active | ARM7-9-11/Cortex-M1-3-4-A8/9, AVR, HC11/12/S12, ColdFire, Blackfin, MicroBlaze, NIOS, 8051, x86, Win32, H8S, M16C, M32C, MIPS, 68000, PIC24/dsPIC33/PIC32, MSP430, PowerPC, SH, StarCore, Renesas RX100-200-600-700, RL; STM32, ... | 
+| MontaVista Linux | GNU GPL | open source | embedded | active | x86, ARM, PowerPC, MIPS, RISC-V[2] | 
+| MP/M | Proprietary | closed (meanwhile: open source) | general purpose, industrial | defunct | 8080, Z80, 8086 | 
+| MQX | Proprietary | complimentary source available | embedded | active | Freescale Power, ColdFire, Kinetis Cortex ARM, List of Freescale products | 
+| Multiuser DOS | Proprietary | closed | general-purpose, industrial | defunct | 386 | 
+| Nano-RK | Dual, GPL or commercial | open source | embedded, WSN | defunct | AVR, MSP430 | 
+| Neutrino | Proprietary | some source provided | microkernel, embedded, industrial | active | ARM, ARM64, MIPS, PPC, SH, x86, x86-64, XScale | 
+| Nucleus RTOS | Proprietary | source provided | embedded |  | ARM (Cortex-M3-M4-R4-R4F-A8-A9, ARM7-9-11), PowerPC, MIPS32-16e, microMIPS, ColdFire, SuperH | 
+| NUT | Proprietary | open source | embedded, industrial |  | ARM-M0, ARM-M0+, ARM Cortex-M3, ARM9, ARM Cortex-M7, Cortex-M3 | 
+| Nut/OS | BSD |  | embedded, industrial |  | AVR, AVR32, ARM7, ARM9, Cortex-M3 | 
+| NuttX | Apache 2.0 | open source | embedded, small footprint |  | Linux user mode, ARM7-9, Cortex-A5-A8-A9-M0-M3-M4-M7, 8052, Espressif ESP32, Lattice LM32, Renesas MC16C/26/SH-1, RISC-V, Zilog Z16F, Zilog eZ80 Acclaim!, Zilog Z8Encore!, Z80, MIPS PIC32MX, PIC32MZ | 
+| OpenComRTOS | Proprietary | source provided | embedded |  | Freescale PowerPC, Texas Instruments C66xxx DSP, ARM, XMOS, MicroBlaze, LEON, NXP CoolFlux DSP, Melexis MLX16, Win32, Linux | 
+| OS2000 | Proprietary | ? | embedded | active | MIPS (Baget variant), KOMDIV-32, KOMDIV-64, Intel BSPs (x86) | 
+| OS4000 | Proprietary | closed | process control | maintenance only | GEC 4000 series | 
+| OSE | Proprietary | available to customers | general purpose | active | ARM, PowerPC, x86, TI OMAP, ... | 
+| OS-9 | Proprietary | available to customers | embedded |  | ARM-strongARM, MIPS, PowerPC, SuperH, x86/Pentium, XSCALE, Motorola 6809, 680x0, SPARC | 
+| OSEK | Dual, GPL or commercial | specification |  |  | engine control units | 
+| Phoenix-RTOS | BSD | open source | embedded | active | ARMv7 Cortex-M, ARMv7 Cortex-A, IA-32, RISC-V | 
+| PikeOS | Proprietary | available to customers | certifiable safety & security, embedded virtualisation |  | PPC, x86, ARM, MIPS, SPARC-LEON, RISC-V | 
+| Protothreads | BSD | open source | general purpose | active | Architecture independent | 
+| pSOS | Proprietary | ? | ? | discontinued | 680x0 | 
+| PX5 RTOS | Proprietary | royalty-free licensing | embedded | active | Embedded MCU and MPU architectures. ARM's Cortex-M, Cortex-R, Cortex-A, RISC-V. AMP and SMP configurations. | 
+| QNX | Proprietary | ? | microkernel, embedded, industrial |  | active | 
+| QP | Dual, GPL or commercial | dual | MCU, DSC, DSP SoC |  | ARM7/9, ARM Cortex-M3-M0, MSP430, TMS320C28x, AVR, AVRXmega, ColdFire, 68HC08, M16C/R8C, H8, 8051, 80251, PIC18, PIC24/dsPIC33, Nios II, PSoC1 | 
+| REAL/32 | Proprietary | closed | general-purpose, industrial |  | 386 | 
+| Real-time Linux (PREEMPT RT) | GNU GPLv2 | open source | general purpose |  | x86, x86_64, RISC-V, ARM64 and LoongArch (ARM and POWER in the -rt branch)[3] | 
+| REX OS | Proprietary | closed, available with license | embedded | inactive | ARM | 
+| RIOT | GNU LGPL | open source |  | active | ARM7, ARM Cortex M, MSP430, AVR, RISC-V, Xtensa | 
+| RMX | Proprietary | closed |  | defunct | Intel 8080, 8086, 80386, higher | 
+| RODOS | BSD | source provided |  | active | ARMv7 (M3, A8, A9), AVR32, PowerPC 405, SPARC64 Platforms: SmartFusion2, RaspberryPi, STM32 On an OS: Linux, Windows, macOS, FreeRTOS, RTEMS | 
+| RSX-11 | Proprietary | ? | ? | historic | PDP-11 | 
+| RT-11 | Proprietary | ? | general purpose | defunct | PDP-11 | 
+| RTAI | GNU GPL | open source | general purpose | active | x86 (with and without FPU and TSC), x86-64, PowerPC, ARM (StrongARM; ARM7: clps711x-family, Cirrus Logic EP7xxx, CS89712, PXA25x), m68k (supporting both MMU and NOMMU cpus) | 
+| RTEMS | BSD |  | embedded |  | AArch64, ARM, Blackfin, ColdFire, TI C3x/C4x, H8/300, x86, x86_64, 68k, Microblaze, Milkymist SoC, MIPS, Nios II, PowerPC, SuperH, SPARC, ERC32, LEON, Mongoose-V | 
+| RTLinux | GNU GPL |  | general purpose | inactive | same as Linux | 
+| RT-Thread | Apache 2.0 | open source | embedded | active | ARM, ARM Cortex-M0-M3-R4-M4-M7, IA-32, AVR32, Blackfin, nios, PPC, M16C, MIPS (loongson-1b-1c, PIC32，xburst), MicroBlaze, V850, unicore32, | 
+| RTXC Quadros | Proprietary | source available | embedded |  | ARM - Atmel/Freescale/NXP/ST/TI, Blackfin, 680x0-ColdFire, PowerPC, StarCore, TI-Luminary Stellaris, TI OMAP, XScale | 
+| RTX, RTX64 | Proprietary | closed | MS Windows extension |  | x86, x86-64 | 
+| RX116 | ? | ? | embedded, industrial | defunct | NEC V20, NEC V30, NEC V40, NEC V50 | 
+| RX616 | ? | ? | safety critical, embedded, industrial |  | NEC V60, NEC V70 | 
+| RX-UX832 | ? | ? | embedded, industrial, general-purpose |  | NEC V60, NEC V70 | 
+| SafeRTOS | Proprietary | source code & Design Assurance Pack available | embedded, safety critical | active | Same as FreeRTOS | 
+| SuperTinyKernel RTOS | MIT | open source | embedded, IoT, safety critical | active | ARM Cortex-M (ARMv6-M through ARMv8.1-M: M0, M3, M4, M7, M33, M55), RISC-V (RV32I, RV32E), x86 (Simulator mode) | 
+| SHaRK | GNU GPL | open source | ? | inactive | ? | 
+| Simulink Real-Time | Proprietary | closed | real-time testing-embedded | active | x86 | 
+| SINTRAN III | Proprietary | ? | ? | ? | Norsk Data computers | 
+| Symbian OS | Eclipse | open source | embedded | defunct | ARM | 
+| T-Kernel | T-License | source available | embedded RTOS | active | ARM, MIPS, SH, more | 
+| THEOS | Proprietary | ? | ? | ? | ? | 
+| ThreadX | MIT | open source | embedded, IoT, safety critical | active | ARC, ARM/Thumb, AVR32, BlackFin, 680x0-ColdFire, H8-300H, Luminary Micro Stellaris, M-CORE, MicroBlaze, PIC24-dsPIC, PIC32, MIPS, V8xx, Nios II, PowerPC, Renesas RX100, RX200, RX600, RX700, Synergy, SH, SHARC, StarCore, STM32, StrongARM, TMS320C54x, TMS320C6x, x86/x386, XScale, Xtensa/Diamond, ZSP | 
+| TI-RTOS Kernel (SYS/BIOS) | BSD | open source | embedded |  | Mostly Texas Instruments: MSP430-432, C2000-5000-6000, TI's ARM families (Cortex M3-4F-R4-A8-A15), SimpleLink Wireless CC2xxx-CC3xxx | 
+| TizenRT | Apache 2.0 | open source | embedded | active |  | 
+| Transaction Processing Facility | Proprietary | mixed | general purpose | active | IBM Z series | 
+| TRON project | Free | mixed | mixed | active | any: is a specification, not an implementation | 
+| UNIX-RTR | ? | ? | ? | defunct | PDP-11 | 
+| UNOS | ? | ? | ? | historic | 680x0 | 
+| μITRON | T-License | open source | embedded | active | ARM, MIPS, x86, Renesas RX100-200-600-700-others | 
+| μ-velOSity | Proprietary | ? | microkernel | active | ? | 
+| velOSity | Proprietary | ? | ? |  | Power ISA, ARM/XScale, MIPS, x86/Pentium, ColdFire, Blackfin, OMAP, DaVinci | 
+| VAXELN | Proprietary | closed source | ? | historic | VAX | 
+| VRTX | Proprietary | ? | ? | superseded by Nucleus RTOS | ARM, MIPS, PowerPC, RISC | 
+| VxWorks | Proprietary | ? | embedded | active | ARM, IA-32, Intel 64, MIPS, PowerPC, SH-4, StrongARM, xScale | 
+| Windows CE | Proprietary | Microsoft Shared Source |  |  | x86, MIPS, ARM, SuperH | 
+| Windows 10 IoT | Proprietary | ? |  |  | Intel Atom, Celeron, Pentium; Qualcomm Snapdragon, Broadcom, NXP i.MX | 
+| Xenomai | GNU GPLv2 | open source | general |  | x86, x86-64, PowerPC, ARM, Analog Devices Blackfin BF52x, BF53x, BF54x and BF56x | 
+| XINU | Free |  | embedded | active | x86, MIPS, ARM, AVR | 
+| XMK | BSD | open source | embedded | inactive |  | 
+| Zephyr | Apache 2.0 | open source | embedded | active | ARM (Cortex-M0, -M3, -M4, -M23, -M33, -R4, -R5, -A53), x86, ARC, RISC-V, Nios II, Xtensa, SPARC | 
+References
+[edit]
+- ↑ "Important Update on Mbed". Retrieved 2024-07-16.
+- ↑ "MontaVista Unveils CGX 5.0 – An AI-Ready Embedded Linux Platform Secured by Design" (Press release). San Jose, CA: MontaVista. April 9, 2024. Retrieved June 26, 2026.
+- ↑ PREEMPT_RT patch versions
+External links
+[edit]
+- 2024 RTOS Performance Report (FreeRTOS / ThreadX / PX5 / Zephyr) - Beningo Embedded Group
+- 2013 RTOS Comparison (Nucleus / ThreadX / ucOS / Unison) - Embedded Magazine
+- Timing Comparison of the Real-Time Operating Systems for STM32 Microcontrollers (FreeRTOS, RT-Thread, RTX, uC/OS-II, uC/OS-III) - Symmetry in 2020

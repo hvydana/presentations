@@ -1,0 +1,20 @@
+C090	L4	Rosbag inspection and conversion	NVIDIA	isaac_ros_data_tools	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C091	L4	Video search summarization agents	NVIDIA	Metropolis VSS Blueprint	https://developer.nvidia.com/metropolis
+C092	L5	Integrated functional safety compute	NVIDIA	Jetson AGX Thor functional safety	https://developer.nvidia.com/isaac/gr00t	Safety island in Thor silicon
+C093	L5	Medical-grade edge platform compliance	NVIDIA	IGX + Holoscan platform	https://docs.nvidia.com/holoscan/	Regulated medical device pipelines
+C094	L5	Safety laser scanner integration	NVIDIA	sick_safetyscanners_isaac	https://github.com/orgs/NVIDIA-ISAAC/repositories	Archived
+C095	L5	Latency verification and validation tooling	NVIDIA	Holoscan Sensor Bridge Latency Measurement Tool	https://docs.nvidia.com/holoscan/	Sub-millisecond camera-to-display timing
+C096	L6	Dev environment management CLI	NVIDIA	isaac-ros-cli	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Replaced run_dev.sh Docker workflow
+C097	L6	Multi-GEM composition examples	NVIDIA	isaac_ros_examples	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C098	L6	ROS 2 graph performance benchmarking	NVIDIA	ros2_benchmark	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	isaac_ros_benchmark adds Isaac-specific plugins
+C099	L6	Cloud deployment of simulation workstations	NVIDIA	IsaacAutomator	https://github.com/isaac-sim/IsaacAutomator	AWS, GCP, Azure, Alibaba; isaac-launchable covers Brev
+C100	L0	Real-time OS for MCU-class compute	OSS	Zephyr	https://github.com/zephyrproject-rtos/zephyr	Found via https://github.com/topics/rtos; used by micro-ROS and ros-controls zephyr-zenoh-integration
+C101	L0	Real-time OS for flight/motor control	OSS	Apache NuttX	https://github.com/apache/nuttx	Default RTOS under PX4-Autopilot
+C102	L0	Deterministic scheduling in Linux kernel	OSS	PREEMPT_RT	https://wiki.linuxfoundation.org/realtime/start	Mainlined into Linux kernel; basis for RT ROS 2 control loops
+C103	L0	Hard real-time Linux co-kernel	OSS	Xenomai	https://xenomai.org/	Used where PREEMPT_RT latency is insufficient
+C104	L0	EtherCAT fieldbus master stack	OSS	IgH EtherCAT Master	https://gitlab.com/etherlab.org/ethercat	De-facto open EtherCAT master for industrial servo drives
+C105	L0	Lightweight EtherCAT master library	OSS	SOEM	https://github.com/OpenEtherCATsociety/SOEM	Simple Open EtherCAT Master; embeddable alternative to IgH
+C106	L0	Hardware interface and controller execution	OSS	ros2_control	https://github.com/orgs/ros-controls/repositories	Real-time controller manager loop for ROS 2
+C107	L0	Stock joint and mobile base controllers	OSS	ros2_controllers	https://github.com/orgs/ros-controls/repositories
+C108	L0	Real-time safe threading primitives	OSS	realtime_tools	https://github.com/orgs/ros-controls/repositories	Lock-free buffers, RT thread setup
+C109	L0	Open-hardware low-cost manipulator arm	HuggingFace	SO-101	https://github.com/huggingface/lerobot	Reference arm for LeRobot data collection; SO-100 predecessor

@@ -1,0 +1,74 @@
+- 
+                Notifications
+    You must be signed in to change notification settings
+- Fork 5.6k
+[ROCm] NotImplementedError for bilinear interpolate on uint8 tensor in SmolVLA resize_with_pad during manual inference #4205
+Description
+Describe the bug
+When manually constructing an inference batch with uint8 image tensors and calling SmolVLA policy.forward() on the AMD ROCm backend, resize_with_pad internally invokes torch.nn.functional.interpolate(mode='bilinear') which raises NotImplementedError. The same code path works on CUDA.
+This was discovered during the AMD Radeon Hackathon 2026 while running SmolVLA fine-tuning + closed-loop evaluation on ROCm 7.2.1.
+Environment
+- OS: Linux (Radeon Cloud GPU instance)
+- Python: 3.10
+- PyTorch: 2.9.1+rocm7.2.1
+- ROCm: 7.2.1
+- GPU: AMD Radeon Graphics (48GB)
+- LeRobot: 0.6.0
+- Model: SmolVLA (pretrained, fine-tuned on custom Franka fruit sorting dataset)
+Steps to reproduce
+- Fine-tune SmolVLA on a custom dataset with uint8 images (e.g.observation.images.world andobservation.images.wrist keys).
+- After training, manually construct an inference batch from a raw observation dict where image arrays remain as torch.uint8 tensors in[0, 255] range.
+- Call policy.forward(batch) directly.
+- Observe NotImplementedError raised fromtorch.nn.functional.interpolate(mode='bilinear') insideresize_with_pad .
+Minimal reproduction snippet
+import torch
+from lerobot.common.policies.smolvla.modeling_smolvla import SmolVLAConfig, SmolVLAPolicy
+# Load fine-tuned SmolVLA policy
+policy = SmolVLAPolicy.from_pretrained("path/to/checkpoint")
+# Manually build an inference batch with uint8 images (this is what a naive eval loop does)
+batch = {
+    "observation.state": torch.zeros(1, 9, dtype=torch.float32),
+    "observation.images.world": torch.randint(0, 255, (1, 224, 224, 3), dtype=torch.uint8),
+    "observation.images.wrist": torch.randint(0, 255, (1, 224, 224, 3), dtype=torch.uint8),
+    "action": torch.zeros(1, 7, dtype=torch.float32),  # placeholder
+}
+# This raises NotImplementedError on ROCm, works on CUDA
+action = policy.forward(batch)
+Expected behavior
+policy.forward() should either:
+- (Preferred) Cast uint8 →float32 in[0, 1] range automatically beforeF.interpolate , so the same code works on both ROCm and CUDA.
+- Or raise a clear TypeError documenting that manual batch construction is unsupported andpredict_action helper must be used.
+Actual behavior
+NotImplementedError from PyTorch ROCm backend, with no actionable hint pointing to predict_action helper.
+Root cause
+PyTorch's ROCm backend lacks a uint8 kernel for bilinear interpolate. CUDA backend has one. When users manually construct inference batches (a natural pattern for closed-loop evaluation), they unknowingly pass uint8 tensors to SmolVLA's resize_with_pad, which calls F.interpolate(mode='bilinear') and triggers the missing kernel.
+Workaround
+Use the official lerobot.common.control_utils.predict_action helper, which calls prepare_observation_for_inference to cast uint8 → float32 in [0, 1] range before policy.forward():
+from lerobot.common.control_utils import predict_action
+action = predict_action(
+    observation=raw_obs,
+    policy=policy,
+    device=device,
+    fps=30,
+    transform=transform,
+    latency=0.0,
+)
+The helper silently normalizes the image dtype, masking the underlying ROCm limitation.
+Suggested fix
+One of:
+- Cast at entry: Add an explicit uint8 → float32 cast at the entry ofresize_with_pad orprepare_observation_for_inference , so the same code works on both ROCm and CUDA. This is the most user-friendly fix.
+- Document: If the cast is intentionally left to the helper, document prominently that:
+  - Manual batch construction is unsupported
+  - predict_action helper MUST be used, especially on ROCm
+  - SmolVLA's resize_with_pad requiresfloat32 input
+- Add ROCm CI: Add a ROCm matrix entry to LeRobot's CI to catch such backend-specific gaps earlier.
+Impact
+This bug silently blocks SmolVLA closed-loop evaluation on AMD ROCm. New users running SmolVLA on Radeon Cloud / ModelScope DSW ROCm instances will hit this on their first eval attempt and have no documentation to guide them.
+Context
+- Discovered during AMD Radeon Hackathon 2026 (Track 3 - Physical AI)
+- SmolVLA fine-tuned on a custom Franka multi-fruit sorting dataset in Genesis simulator
+- Training succeeded (2000 steps, final loss 0.073), only inference via manual batch construction failed
+- The bug is ROCm-specific; the same eval code runs on CUDA without issue
+Related issues
+- Inference lerobot/smolvla_base with so-101 failed #2210 — SmolVLA inference failure on ROCm (torch 2.7.1+rocm6.3), but a different root cause (AssertionError: mean is infinity from missing normalization stats), not theuint8 bilinear kernel gap reported here.
+- image pad value in pi0/pi05 #2218 — Discusses resize_with_pad /F.interpolate(mode='bilinear') anduint8 handling, but focuses on the pad constant value (-1 vs0 ) forfloat32 images, not the ROCmNotImplementedError foruint8 tensors reported here.

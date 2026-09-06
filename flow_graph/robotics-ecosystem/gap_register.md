@@ -1,5 +1,17 @@
 # AMD Opportunity Gap Register — Robotics & Physical AI
-*Last updated: 2026-08-13 (FINALIZED — Iteration 4 complete; 20 agents total across 4 iterations; max-iteration cap reached)*
+*Last updated: 2026-09-06 (RESUMED — Iteration 5: 2 new seed reports ingested + 5 additional research agents dispatched; 26 confirmed gaps total across 5 iterations)*
+
+---
+
+## Iteration 5 Update (2026-09-06)
+
+Two previously-unread seed reports were ingested (`l1-l2-hardware-simtoreal-amd-gap-analysis.md`, `physical-ai-robotics-inference-pipeline-commercial-layers-market-analysis.md`), both already written in the technological-stack-layer framing the user asked for. Their named gaps are extracted below as **GAP-14 through GAP-27** (14 new entries). Five additional research agents were dispatched to fill evidentiary gaps and check staleness against the original 13 gaps (dated 2026-08-13, now 3+ weeks old):
+
+- **Motion-planning/sim status** → found `rocRobo` (embryonic ROCm cuRobo analog) and two AMD-authored PRs (#1770, #1865) upstreaming HIP/ROCm groundwork into NVIDIA's own `nvidia/warp` repo. **This upgrades GAP-1's status** from "no community effort" to "early-stage upstream-in-progress" — AMD is already acting, not merely eligible to act.
+- **AMD announcements status-check** → confirmed all 5 prior top-ranked actions remain unactioned as of Sept 2026; surfaced GitHub issue `lerobot#4205`, filed during AMD's own "AI DevMaster Hackathon" (Jul 10–Aug 6 2026), explicitly requesting a ROCm CI matrix for LeRobot — independent community confirmation that GAP-10 (MLC-LLM CI) is AMD's most shovel-ready action. Also: Digital Twin Consortium joined the AMD Robotics Partner Network.
+- **Inference observability** → confirmed zero RocProfiler/ROCm integration exists in any robotics observability platform (Foxglove, Formant, InOrbit, Cogniteam) or in `ros-opentelemetry` (ROSCon 2025) — the closest extensible building block for GAP-25.
+- **Robot MLOps whitespace** → independently confirmed no integrated, hardware-agnostic VLA policy-lifecycle platform exists for any vendor; Ketryx (safety QMS) is the closest counter-candidate but is pre-deployment/documentation-only — reinforces GAP-27 as the single highest-conviction whitespace in the entire register.
+- **Safety certification path** → found AMD is not starting from zero: TÜV SÜD-certified Versal/Zynq design-flow (IEC 61508+ISO 26262) already exists (FPGA fabric only, not AI-inference tiles), plus active QNX and Green Hills RTOS partnerships — the fastest path for GAP-19 is extending these, not a new certification program.
 
 ---
 
@@ -32,6 +44,7 @@
 
 ### GAP-1 (N42) — No Warp ROCm Backend; Linux Foundation Path Available
 **Rank: 1** | AMD fit: H | Ecosystem benefit: H | Openness: H | Evidence strength: H
+**STATUS UPDATE (2026-09-06, N100/N105 Pivot):** Upgraded from "no community effort" to "early-stage upstream-in-progress." A motion-planning/sim research agent found `rocRobo` — an embryonic ROCm analog to cuRobo — already exists, and separately found two **AMD-authored PRs (#1770, #1865) upstreaming HIP/ROCm groundwork directly into NVIDIA's own `nvidia/warp` repository**. AMD engineering is already acting on this gap, not merely eligible to act. The action reframes from "commit to build" to "resource to completion and announce" — the highest-leverage next action is now to prioritize merging #1770/#1865 and pair the announcement with a public rocRobo roadmap (see GAP-14).
 
 **What's missing:** No entity — NVIDIA, AMD, or Linux Foundation — has committed to a ROCm backend for NVIDIA Warp, despite Warp being the substrate for Newton (Linux Foundation), MuJoCo-Warp, and cuRobo. Every developer using these three stacks on AMD hardware is categorically excluded from the GPU-accelerated simulation tier.
 
@@ -281,6 +294,210 @@
 
 ---
 
+## New GAP-AMD Entries (14 additional, from Iteration 5 — resumed 2026-09-06)
+
+*Extracted from the 2 newly-ingested seed reports plus 5 new research agents. Organized under the same evidence-backed format as GAP-1–13; ranks continue the existing sequence (relative ordering approximate — see updated Ranking Methodology table below for scores).*
+
+---
+
+### GAP-14 (N86) — No AMD Path into GPU-Accelerated Motion Planning (cuRobo)
+**Fit: H** | **Ecosystem: H** | **Openness: H** | **Evidence: H**
+
+**What's missing:** cuRobo (NVIDIA, Apache-2.0, embedded in Isaac ROS cuMotion, 30ms motion planning) has no ROCm/AMD equivalent. Distinct from GAP-1 (Warp = simulation substrate) — cuRobo is the motion-planning application layer built on top of it.
+
+**AMD angle:** The motion-planning agent found `rocRobo`, an embryonic ROCm analog, already exists — this is an early inflection point, not a from-scratch build.
+
+**Evidence:** rocRobo project confirmed to exist (early-stage); AMD PRs #1770/#1865 upstreaming HIP/ROCm into `nvidia/warp` confirm active AMD engineering investment in the adjacent substrate. [motion-planning agent]
+
+**Confidence: High** — gap confirmed; early AMD activity confirmed.
+
+**Highest-leverage next action:** Identify rocRobo's maintainers/roadmap and evaluate whether AMD should sponsor/upstream it as the official cuRobo-equivalent, timed with the Warp PR merges (GAP-1).
+
+---
+
+### GAP-15 (N87) — No AMD Equivalent to Isaac Sim as an Integrated Platform
+**Fit: M** | **Ecosystem: H** | **Openness: M** | **Evidence: M**
+
+**What's missing:** Isaac Sim bundles authoring UI + PhysX physics + RTX photoreal rendering + Omniverse into one integrated platform. Genesis AI (GAP-2/N44) and Warp/Newton (GAP-1/N42) each cover a slice, but no AMD-aligned project bundles all three the way Isaac Sim does.
+
+**AMD angle:** Platform-completeness gap, not a single-component port — likely closed via ecosystem assembly (Genesis + an open rendering layer) rather than one engineering effort.
+
+**Confidence: Medium** — gap is real but the fix is compound/multi-party, not a single bounded action.
+
+**Highest-leverage next action:** Scope whether Genesis + an open rendering stack (Blender Cycles or equivalent) could be positioned as "Isaac Sim equivalent" within 12 months, as a follow-on to the Genesis Partner Network enrollment (GAP-2).
+
+---
+
+### GAP-16 (N88) — ONNX Runtime ROCm EP Deprecated; AMD Inference Path Fragmented
+**Fit: H** | **Ecosystem: H** | **Openness: H** | **Evidence: H**
+
+**What's missing:** ONNX Runtime's ROCm Execution Provider was deprecated, fragmenting AMD's inference path across MIGraphX EP, DirectML, and Vitis AI VOE with no single recommended default. This is a regression — something that existed and was removed — a different remediation shape than "never built" gaps.
+
+**Who's affected:** Directly complicates GAP-12/N78's vendor-neutral SDK effort, since several of its building blocks assume a stable ONNX RT ROCm path.
+
+**Confidence: High** — deprecation and fragmentation confirmed in the seed report.
+
+**Highest-leverage next action:** Publish a clear AMD-recommended inference-path decision tree (MIGraphX EP vs. DirectML vs. Vitis AI VOE by use case) to stop the fragmentation from compounding across dependent efforts like GAP-12.
+
+---
+
+### GAP-17 (N89) — AMD Edge Hardware (X100/Kria) Ships with No Validated Robotics SDK Stack
+**Fit: H** | **Ecosystem: H** | **Openness: M** | **Evidence: H**
+
+**What's missing:** AMD's Ryzen AI Embedded X100 and Kria launched (July 2026) into a market where the SDK layer is "nearly empty" — no validated, benchmarked, third-party-confirmed robotics software stack ships with the silicon at launch, unlike Jetson's day-one Isaac ROS/JetPack maturity.
+
+**Note:** This is the umbrella gap that GAP-6/N18 (FPGA control API), GAP-11/N77 (embedded NPU inference compiler), and GAP-19/N91 (safety cert) are specific instances of — kept as a separate top-level entry because it's the framing a hardware buyer encounters first.
+
+**Confidence: High** — launch-timing gap directly confirmed.
+
+**Highest-leverage next action:** Prioritize which single SDK component (FPGA control API vs. embedded NPU inference vs. safety cert) most changes buyer perception at launch, and ship that first as a flagship reference.
+
+---
+
+### GAP-18 (N90) — No AMD GPU Benchmark Visibility in Sim-to-Real Literature (MJX/Warp Docs)
+**Fit: M** | **Ecosystem: M** | **Openness: H** | **Evidence: M**
+
+**What's missing:** MJX and Warp documentation, benchmarks, and community sim-to-real writeups cite only NVIDIA GPU numbers — AMD hardware is invisible in the literature even where it would technically run. Compounds GAP-13/N79's VLA-inference benchmark gap with an equivalent gap at the simulation-throughput layer (different audience: sim/RL researchers choosing training hardware, vs. commercial teams choosing inference hardware).
+
+**Confidence: Medium** — absence confirmed; impact on researcher hardware defaults unverified.
+
+**Highest-leverage next action:** Publish MJX/Warp throughput benchmarks on MI300X as a ROCm Blog post, targeting the same researcher audience GAP-13's Hz benchmark targets for commercial teams.
+
+---
+
+### GAP-19 (N91) — No Certified Safety Envelope for AMD AI-Inference Compute
+**Fit: H** | **Ecosystem: H** | **Openness: M** | **Evidence: H**
+
+**What's missing:** AMD has zero certified functional-safety path (IEC 61508/ISO 26262) for AI-inference compute. Its existing certifications (TÜV SÜD design flow, TÜV Rheinland SIL3 study) cover Versal/Zynq **FPGA fabric only** — not the AI-engine/XDNA tiles actually running robot control policies.
+
+**Why it's open:** AMD is not starting from zero. The dispatched safety-certification research agent confirmed AMD already has: (a) a TÜV SÜD-certified design-flow solution for Versal adaptive SoCs (IEC 61508 + ISO 26262); (b) a prior TÜV Rheinland SIL3 concept-design study on Zynq 7000; (c) active RTOS partnerships with **QNX** ("robotic system performance" collaboration, extended through 2026) and **Green Hills** (Versal AI Edge Gen 2, "safety certified AI edge growth"). None of these have been extended to cover AI-inference silicon specifically.
+
+**Who's affected:** Every AMD robotics deployment competing against NVIDIA Halos-certified systems (Agility Robotics/Digit is Halos's first adopter) in safety-critical collaborative or industrial environments.
+
+**AMD angle:** Extend existing relationships rather than build new ones — the fastest path is extending the TÜV SÜD design-flow certification and QNX partnership onto Kria X100/Versal AI Edge Gen 2, not launching a new certification program.
+
+**Evidence:** AMD Functional Safety page confirms TÜV SÜD certified design flow (Versal, IEC 61508+ISO 26262) and TÜV Rheinland SIL3 Zynq 7000 study; no IEC 61508/X100-specific certification found; ROCm's "ROCm Certified" program (July 2026) is a developer-skills program, unrelated to functional safety; QNX-AMD collaboration press releases (Mar 2025–2026) confirm active partnership; AMD-Green Hills Alliance confirmed targeting Versal AI Edge Gen 2. [safety-certification agent, sources 1,4,5,6,7]
+
+**Confidence: High** — existing certification infrastructure confirmed; gap (AI-inference tile coverage) confirmed; extension path is well-defined.
+
+**Highest-leverage next action:** Scope a TÜV SÜD design-flow certification extension covering Kria X100's AI-engine tiles, run in parallel with formalizing whether the existing QNX collaboration's "robotic system performance" scope already includes a safety-certified OS roadmap or is purely deterministic/non-safety.
+
+---
+
+### GAP-20 (N92) — No AMD Equivalent to NVIDIA Halos AI Systems Inspection Lab
+**Fit: M** | **Ecosystem: H** | **Openness: L** | **Evidence: H**
+
+**What's missing:** NVIDIA Halos bundles IGX Thor hardware + Functional Safety Island + Holoscan Sensor Bridge SIL2 + an **ANAB-accredited AI Systems Inspection Lab** + a 40+ company ecosystem (first adopter: Agility Robotics/Digit) into one full-stack safety program. AMD has no equivalent inspection-lab/ecosystem construct at any maturity stage.
+
+**Why it's distinct from GAP-19:** GAP-19 is about certifying AMD's own compute; this gap is about the accredited third-party inspection infrastructure and partner ecosystem that Halos also provides — a moat that outlasts any single certification.
+
+**Confidence: High** — Halos's structure confirmed; AMD's absence in this specific category confirmed.
+
+**Highest-leverage next action:** Evaluate partnering with an existing ANAB-accredited body (TÜV SÜD, exida) to replicate Halos's inspection-lab function faster than building one from scratch.
+
+---
+
+### GAP-21 (N93) — ISO 25785 Humanoid Safety Standard — Uncontested Participation Window
+**Fit: H** | **Ecosystem: M** | **Openness: H** | **Evidence: M**
+
+**What's missing:** ISO/CD 25785-1 (humanoid/dynamically-balanced-robot safety) remains at committee-draft stage as of mid-2026 — an uncontested standards-participation window. No public source lists AMD as a named ISO TC 299 participant (though the safety-certification agent notes AMD or its Alliance Partners could be present in non-public rosters).
+
+**AMD angle:** This is the cheapest, longest-horizon gap in the entire register — standards-body participation costs headcount-hours, not engineering, and shapes the certification requirements every future AMD safety product will need to meet.
+
+**Confidence: Medium** — draft status confirmed; AMD's public non-participation confirmed; private/Alliance-Partner participation unconfirmed either way.
+
+**Highest-leverage next action:** Confirm whether any AMD employee or Alliance Partner is already on ISO TC 299 rosters; if not, nominate a participant — this is a near-zero-cost, high-optionality action.
+
+---
+
+### GAP-22 (N94) — GR00T Fine-Tuning Workflow Locked to NVIDIA Hardware
+**Fit: M** | **Ecosystem: M** | **Openness: M** | **Evidence: M**
+
+**What's missing:** NVIDIA GR00T's fine-tuning workflow (data prep, training scripts, deployment tooling) is documented and supported only on NVIDIA hardware/Isaac Lab. No AMD-validated equivalent fine-tuning path is published for GR00T-class foundation models on ROCm, even though other VLA models (SmolVLA, Pi0, ACT) already run on AMD (GAP-5/N22, GAP-10/N76).
+
+**AMD angle:** GR00T specifically is NVIDIA's flagship foundation model — its lock-in is a stronger commercial signal than the smaller open-weight models AMD already supports.
+
+**Confidence: Medium** — lock-in confirmed; scope of porting effort (just the fine-tuning recipe vs. deeper Isaac Lab integration) unverified.
+
+**Highest-leverage next action:** Scope whether porting just the GR00T fine-tuning recipe (without the full Isaac Lab stack) to ROCm is sufficient for a "GR00T on AMD" reference guide.
+
+---
+
+### GAP-23 (N95) — Isaac Teleop Data-Collection Integration in LeRobot Excludes AMD
+**Fit: M** | **Ecosystem: M** | **Openness: M** | **Evidence: L**
+
+**What's missing:** Isaac Teleop's data-collection integration path into LeRobot is built and documented for NVIDIA hardware only — teams collecting teleoperation demonstration data through this specific pipeline are implicitly steered onto NVIDIA compute even though the resulting LeRobot dataset itself is hardware-agnostic. Compounds GAP-5/N22 (no AMD model card in LeRobot hub) at an earlier pipeline stage — data collection, not just inference.
+
+**Confidence: Low-Medium** — gap confirmed in the seed report; not independently re-verified by a dispatched agent this round.
+
+**Highest-leverage next action:** Document whether an AMD-compatible teleop data-collection path already exists outside Isaac Teleop that could be published as the ROCm-native alternative.
+
+---
+
+### GAP-24 (N96) — VLA Training Cluster Market: AMD MI300X Capacity Unclaimed
+**Fit: M** | **Ecosystem: M** | **Openness: H** | **Evidence: M**
+
+**What's missing:** A VLA training cluster market is emerging (teams renting/buying GPU capacity specifically to train foundation-model-scale robot policies), and NVIDIA DGX/HGX are the default assumption in nearly all public training writeups — despite MI300X's 192GB HBM3 being well-suited to the large-batch, memory-bound training regime VLA models require. No public case study yet documents an AMD-based VLA training cluster at production scale.
+
+**Note:** Training-side counterpart to GAP-13/N79 (which covers inference Hz benchmarking, not training capacity).
+
+**Confidence: Medium** — market emergence and MI300X technical fit confirmed; no case study exists yet either way.
+
+**Highest-leverage next action:** Publish a "VLA foundation model trained end-to-end on MI300X cluster" case study, following the same playbook as the LeRobot pipeline blog that shifted defaults for smaller models.
+
+---
+
+### GAP-25 (N97) — No Robot Inference Observability & Monitoring Layer
+**Fit: H** | **Ecosystem: H** | **Openness: H** | **Evidence: H**
+
+**What's missing:** No product unifies per-joint-latency, Hz, VLA action-drift, and model-provenance monitoring for deployed robot fleets. Existing tools (Foxglove, Formant, InOrbit, Cogniteam, Arize, Langfuse, generic OpenTelemetry) each cover a slice but none is robotics-inference-Hz-aware.
+
+**Why it's open:** The dispatched inference-observability research agent confirmed **zero RocProfiler or ROCm-specific integration exists anywhere in this ecosystem**, including in `ros-opentelemetry` (ROSCon 2025 project, maintainer szobov) — the closest extensible building block, since it's OpenTelemetry-based and vendor-neutral by design. AMD's own Robotics Partner Network (30+ members) has zero observability-category partners.
+
+**Who's affected:** Every fleet operator running AMD hardware who currently has no way to monitor inference health, latency, or drift specific to their accelerator.
+
+**AMD angle:** Cheap, high-leverage move (~4-week effort per the seed report) — contribute a RocProfiler↔ROS 2 telemetry exporter into `ros-opentelemetry` rather than build a competing product; partner with Foxglove for visualization.
+
+**Evidence:** No robotics observability platform (Foxglove, Formant, InOrbit, Cogniteam) or generic AI-observability platform (Arize, Langfuse) has any RocProfiler integration; `ros-opentelemetry` confirmed OpenTelemetry-based and vendor-neutral; AMD Robotics Partner Network confirmed to have zero observability partners. [observability agent]
+
+**Confidence: High** — absence confirmed across the entire named ecosystem; fix is bounded and cheap.
+
+**Highest-leverage next action:** Contribute a RocProfiler exporter to `ros-opentelemetry`, then approach Foxglove for a visualization partnership — a 4-week engineering effort with no competing product to displace.
+
+---
+
+### GAP-26 (N98) — No Commercial Data-Intelligence / Fleet-Curation Layer
+**Fit: M** | **Ecosystem: M** | **Openness: M** | **Evidence: M**
+
+**What's missing:** Scale AI + Universal Robots (Mar 2026), HuggingFace + NVIDIA LeRobot (58,000+ datasets by May 2026), NVIDIA GR00T N1/N1.6, and HuggingFace's Pollen Robotics acquisition are all consolidating around a data-flywheel narrative — but no commercial "data intelligence layer" exists yet for fleet-scale curation specifically (dedup, quality scoring, active-learning selection across a fleet's raw perception-action stream).
+
+**AMD angle:** Compute-only play (already ROCm-compatible) plus sponsoring an open fleet-curation toolchain — AMD has no natural data-asset position to compete on directly, so the value-add is infrastructure, not data ownership.
+
+**Confidence: Medium** — market consolidation trend confirmed; whether any named player has an unannounced internal product is unverified.
+
+**Highest-leverage next action:** Sponsor or seed an open-source fleet-scale data curation toolchain, positioned as hardware-agnostic but ROCm-default — lower commitment than the MLOps lifecycle platform in GAP-27.
+
+---
+
+### GAP-27 (N99) — No Integrated VLA-Specific Safety-Gated MLOps/Lifecycle Platform — Highest-Conviction Whitespace
+**Fit: H** | **Ecosystem: H** | **Openness: H** | **Evidence: H**
+
+**What's missing:** No vendor — general-purpose MLOps platforms (W&B, MLflow, Kubeflow, SageMaker, Azure ML, ClearML, JFrog ML, Domino) or robotics-specific tools (LeRobot, Calibra) — offers an integrated VLA-specific lifecycle platform combining: model registry, safety-gated A/B testing on physical hardware, safe rollback, OTA delivery with certification tracking, and action-level drift detection. Explicitly called **"no vendor owns this layer today"** in the seed report — the single strongest whitespace finding across both new reports.
+
+**Why it's open:** The dispatched MLOps-whitespace research agent independently confirmed this in Sept 2026: point solutions exist for adjacent slices only — Calibra (BSL-1.1 OSS, dataset/embodiment auditing, but pre-deployment on training data, not runtime policies), LeRobot v0.6.0's "Imagine, Evaluate, Improve" sim2real workflow (no registry/rollback), and **Ketryx** (QMS/traceability platform, the closest counter-candidate — traces hazard analysis → SIL requirements → verification evidence with AI-driven change-impact flagging, but this is safety documentation/impact-analysis, not runtime A/B testing, OTA rollback, or action-level drift detection). IDC (May 2026) independently flags "runtime assurance" and "post-incident learning" as unmet governance needs in physical AI.
+
+**Who's affected:** Robotics OEMs and Tier-1 integrators building fleets >50 units, currently stitching together generic MLOps + custom safety scripts.
+
+**AMD angle:** High — this is a software/tooling layer, not silicon-bound, so AMD can anchor it via a ROCm-native reference implementation without competing on GPU FLOPS; owning the registry/rollback/drift schema creates a durable dependency independent of accelerator choice. The agent's suggested entry point: seed a "robotics extension" to MLflow/Kubeflow rather than founding a new framework, since LeRobot/Calibra already have OSS mindshare in the data layer.
+
+**Evidence:** growthmarketreports.com Robotics MLOps Platforms Market 2033 report lists only general-purpose players; Calibra v0.8.0 (Aug 2026) confirmed pre-deployment-only scope; LeRobot v0.6.0 (Jul 2026) confirmed no registry/OTA/safety-gating; Ketryx confirmed as documentation/impact-analysis, not runtime; IDC (May 2026) and Cathay Innovation's May 2026 practitioner survey (n=135, safety/regulation ranked last among current deployment priorities) both independently confirm the tooling layer is unbuilt. [MLOps-whitespace agent, sources 1-6]
+
+**Confidence: High** — this is the single highest-conviction gap in the register: independently confirmed by both the original seed report and a fresh Sept 2026 research pass, with an explicit "no vendor owns this" framing and a named AMD-favorable entry point.
+
+**Highest-leverage next action:** Seed an open-source "robotics extension" to MLflow or Kubeflow implementing VLA-specific model registry + safety-gated rollback + action-level drift detection, ROCm-default but hardware-agnostic — positioning AMD as the founder of the layer rather than a later entrant, before Ketryx or a similar QMS vendor pivots into runtime scope.
+
+---
+
 ## Ranking Methodology
 
 Full entries scored by: **AMD fit × ecosystem benefit × openness × evidence strength** (H=3, M=2, L=1, max=12)
@@ -292,11 +509,27 @@ Full entries scored by: **AMD fit × ecosystem benefit × openness × evidence s
 | VLA Hz benchmark gap | N79 | 3 | 3 | 3 | 3 | **12** |
 | Differentiable Newton co-architect | N60 | 3 | 3 | 3 | 3 | **12** |
 | Genesis Eno silicon selection | N61 | 3 | 3 | 3 | 3 | **12** |
-| Warp ROCm backend | N42 | 3 | 3 | 3 | 3 | **12** |
+| Warp ROCm backend (upgraded — in-progress) | N42 | 3 | 3 | 3 | 3 | **12** |
 | Genesis Partner Network | N44 | 3 | 3 | 3 | 3 | **12** |
 | Windows IPC certification | N46 | 3 | 3 | 3 | 3 | **12** |
 | LeRobot model hub | N22 | 3 | 3 | 3 | 3 | **12** |
 | Fleet edge data center | N48/N62 | 3 | 3 | 3 | 3 | **12** ← *upgraded from M via N62 Pivot* |
+| No MLOps/lifecycle whitespace platform (NEW) | N99 | 3 | 3 | 3 | 3 | **12** |
+| No robot inference observability layer (NEW) | N97 | 3 | 3 | 3 | 3 | **12** |
+| cuRobo motion planning gap (NEW) | N86 | 3 | 3 | 3 | 3 | **12** |
+| No certified safety envelope for AI compute (NEW) | N91 | 3 | 3 | 2 | 3 | **11** |
 | AMD embedded NPU no open inference compiler | N77 | 3 | 3 | 2 | 3 | **11** |
 | FPGA control loop API | N18 | 3 | 3 | 2 | 3 | **11** |
 | Synthetic data pipeline | N27 | 3 | 3 | 3 | 2 | **11** |
+| ONNX Runtime ROCm EP deprecated (NEW) | N88 | 3 | 3 | 3 | 3 | **12** |
+| AMD edge hardware no validated SDK stack (NEW) | N89 | 3 | 3 | 2 | 3 | **11** |
+| ISO 25785 participation window (NEW) | N93 | 3 | 2 | 3 | 2 | **10** |
+| Halos Inspection Lab equivalent (NEW) | N92 | 2 | 3 | 1 | 3 | **9** |
+| Data-flywheel/fleet-curation layer (NEW) | N98 | 2 | 2 | 2 | 2 | **8** |
+| No AMD equivalent to Isaac Sim (NEW) | N87 | 2 | 3 | 2 | 2 | **9** |
+| No AMD GPU visibility in sim-to-real lit (NEW) | N90 | 2 | 2 | 3 | 2 | **9** |
+| GR00T fine-tuning locked to NVIDIA (NEW) | N94 | 2 | 2 | 2 | 2 | **8** |
+| Isaac Teleop excludes AMD (NEW) | N95 | 2 | 2 | 2 | 1 | **7** |
+| VLA training cluster MI300X unclaimed (NEW) | N96 | 2 | 2 | 3 | 2 | **9** |
+
+*Note: "New" scores were assigned during Iteration 5 integration using the same rubric applied by prior iterations' agents; they have not been independently agent-verified via the frontier-scoring dispatch process, so treat as director-assigned estimates pending further verification.*

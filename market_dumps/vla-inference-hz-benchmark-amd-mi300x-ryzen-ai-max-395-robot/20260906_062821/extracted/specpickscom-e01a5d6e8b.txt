@@ -1,0 +1,75 @@
+For most home users in 2026, an RTX 3060 12GB rig outruns the Ryzen AI Max+ 395 mini-PC for any model that fits in 12GB at q4_K_M — typically 7B–13B class. The 395 only wins when you must load a 70B+ model in a quiet, low-watt box; even then, the unified-memory bandwidth ceiling means generation is slow. Buy the 395 for capacity, not speed; buy the 3060 for everyday local LLM throughput.
+Who this is for
+You are shopping a 128GB unified-memory mini-PC because the Reddit thread "Corsair desktop with Ryzen 395 and 128GB unified RAM, has anyone tested it for LLM?" lit up your feed and the $3,999 price tag made you pause. Maybe you already run llama.cpp on a workstation and want a second always-on inference box. Maybe you are building a personal assistant stack and need 70B-class reasoning at home without paying frontier-API rates. Either way, the question is concrete: per-dollar and per-watt, does Strix Halo's giant unified memory beat a discrete RTX 3060 12GB rig for the models you actually run?
+The home local-LLM audience splits cleanly into two camps. Camp A runs sub-13B models all day — coding copilots, RAG retrievers, lightweight chat — and cares about tokens per second at low latency. Camp B wants to load 70B Llama or Qwen at q4 to chew on hard reasoning prompts overnight. The RTX 3060 12GB serves Camp A well; the 395 mini-PC was built for Camp B. The grey zone in the middle — 30B–34B class — is where most people are now landing, and that is exactly where the two platforms compete most directly.
+This guide gives you the numbers, not the marketing. We will line up VRAM versus unified memory, walk a quantization matrix from q2 to fp16, look at where prefill versus generation actually break, and finish with a verdict matrix you can match your workload against.
+Key takeaways
+- VRAM ≠ unified memory. The 395's 128GB pool is shared LPDDR5X around ~256 GB/s, while the RTX 3060 12GB has 360 GB/s of dedicated GDDR6.
+- Model-size ceiling on the 395: roughly 70B at q4_K_M with headroom for KV cache; 120B at q3/q2 with tight context.
+- Real-world tok/s: the 3060 generates 30–55 tok/s on 7B–13B models at q4; the 395 lands at 8–15 tok/s on the same models and falls to 2–4 tok/s on 70B.
+- Price per practical model: RTX 3060 12GB rig ≈ $900–$1,100 all-in. 395 mini-PC ≈ $3,000–$3,999.
+- Watts: 3060 rig idles ~50W and pulls ~280W under load. The 395 mini-PC idles under 20W and tops out near 120W.
+- Buy the 3060 rig if your daily driver is 7B–13B and you care about latency. Buy the 395 if your daily driver is 70B+ and you cannot stomach the noise or footprint of a multi-GPU build.
+What does 128GB of unified memory actually let you load?
+Capacity is the 395's headline feature, so start there. Below is a model-size ceiling reference at common quants. "Fits with KV" assumes 4K context for generation models, 8K for long-context use.
+| Model class | q4_K_M weights | q4 + 4K KV | q4 + 8K KV | q8 weights | fp16 weights | 
+|---|---|---|---|---|---|
+| 7B | ~4.4 GB | ~5.2 GB | ~6.0 GB | ~7.5 GB | ~14 GB | 
+| 13B | ~7.9 GB | ~9.2 GB | ~10.5 GB | ~13.5 GB | ~26 GB | 
+| 32B | ~19 GB | ~22 GB | ~25 GB | ~34 GB | ~64 GB | 
+| 70B | ~42 GB | ~48 GB | ~54 GB | ~74 GB | ~140 GB | 
+| 120B | ~72 GB | ~82 GB | ~92 GB | ~126 GB | ~240 GB | 
+What this means in practice: a 395 with 128GB of unified memory can host any model in the table up through 120B at q4_K_M with comfortable KV headroom, and can comfortably run 70B at q8 with long context. The RTX 3060 12GB stops dead at roughly 13B q4_K_M with 4K context, or 7B q8 with 8K context. Anything bigger requires GPU+CPU split-tensor offload, which collapses tokens-per-second to single digits regardless of how much system RAM you throw at it.
+There is one important asterisk: ROCm-based runtimes on Strix Halo still leave 8–12 GB of headroom for the OS and runtime overhead. If you allocate 120GB to the iGPU, the rest of the system gets very small very fast. Realistic working ceiling is closer to 110GB usable.
+How fast is Strix Halo really?
+Bandwidth wins generation contests. The 395's memory subsystem runs at roughly 256 GB/s in published synthesis (manufacturer figures plus the Phoronix Strix Halo review), while a single RTX 3060 12GB sits at 360 GB/s on its dedicated GDDR6. For generation throughput, which is memory-bandwidth-bound, that delta translates directly to tokens per second per parameter loaded.
+Public llama.cpp figures cluster like this. For a 7B model at q4_K_M, the 3060 12GB lands in the 50–65 tok/s range under llama.cpp's CUDA path, and the 395 lands at 12–18 tok/s under llama.cpp's ROCm path. Scaling down to 13B q4_K_M, the 3060 stays comfortably above 30 tok/s; the 395 drops to 8–12 tok/s. Once you cross 32B q4_K_M, the 3060 cannot host the model in VRAM and falls off a cliff (3–5 tok/s with offload); the 395 keeps running, but its own bandwidth ceiling pulls it down to 4–6 tok/s.
+The 70B q4_K_M number is where the 395 finally earns its keep: it sustains roughly 2–4 tok/s, which is slow but usable for batch-style work. An RTX 3060 cannot realistically run that model at q4 at all.
+Quantization matrix
+This is the table to keep open while you size your hardware. "Tok/s ranges" come from synthesizing the public llama.cpp performance threads, the TechPowerup RTX 3060 spec page, and the Phoronix Strix Halo review noted above.
+| Quant | Memory factor (7B/13B/32B/70B) | RTX 3060 tok/s (7B/13B) | 395 tok/s (7B/13B/32B/70B) | Quality loss | 
+|---|---|---|---|---|
+| q2_K | 2.6 / 4.7 / 11 / 24 GB | 60 / 36 | 16 / 11 / 7 / 4.5 | Noticeable on reasoning tasks | 
+| q3_K_M | 3.3 / 6.0 / 14 / 31 GB | 56 / 34 | 15 / 10 / 6.5 / 4 | Mild on chat, visible on code | 
+| q4_K_M | 4.4 / 7.9 / 19 / 42 GB | 55 / 32 | 14 / 9 / 5.5 / 3.5 | Good sweet spot | 
+| q5_K_M | 5.3 / 9.3 / 22 / 49 GB | 48 / 27 | 12 / 8 / 5 / 3 | Near-fp16 quality | 
+| q6_K | 6.1 / 11 / 26 / 57 GB | 44 / 24 | 11 / 7 / 4.5 / 2.7 | Indistinguishable on most tasks | 
+| q8_0 | 7.5 / 13.5 / 34 / 74 GB | 38 / 20 | 9.5 / 6 / 3.8 / 2.2 | Effectively fp16 | 
+| fp16 | 14 / 26 / 64 / 140 GB | n/a (won't fit) | 6 / 3.5 / 2 / n/a | Reference | 
+Read the row left to right and stop at the rightmost column that fits your platform. On the 3060 the realistic ceiling is the 13B q4_K_M row. On the 395 you can ride q4_K_M up through 70B and even peek at 120B at q3 if you have to.
+Prefill versus generation: where bandwidth helps and hurts
+Local-LLM throughput has two regimes. Prefill (the prompt-processing pass that builds the KV cache for the input) is compute-bound and benefits from raw TFLOPs. Generation (the per-token loop after that) is memory-bandwidth-bound — every new token requires reading the full model weights from memory once.
+The RTX 3060 12GB's GDDR6 has roughly 40% more bandwidth than the 395's unified pool. For generation, that delta is roughly the per-token delta you will measure. For prefill, the 3060's better matrix-multiply throughput pulls ahead by an even larger margin on long prompts. If your workload is "send a 4K prompt and read a 200-token answer", the 3060 looks great. If your workload is "send 50-token prompts and stream 4K answers", the gap narrows considerably and the 395's capacity advantage starts paying off at the high end.
+Context-length impact on a unified-memory budget
+KV cache scales linearly with context. A 70B model at q4_K_M weights costs roughly 42 GB; its KV cache at 4K context adds another 5–6 GB, and at 32K context that climbs to 40 GB or more. On a 395 with 110 GB usable, a 70B + 32K context build leaves headroom; on any 12 GB GPU that scenario is not even reachable.
+Where this bites the RTX 3060 is exactly the modern-agent use case — long system prompts, tool outputs, retrieved documents. You can pick a smaller model and use the 8K window comfortably, or you can pick a bigger model with a tiny window. You cannot do both. The 395 lets you do both, just slowly.
+Spec delta
+| Spec | Ryzen AI Max+ 395 mini-PC | RTX 3060 12GB rig (Ryzen 7 5700X host) | 
+|---|---|---|
+| Memory available to model | ~110 GB unified | 12 GB VRAM (+ host RAM for offload) | 
+| Memory bandwidth | ~256 GB/s LPDDR5X | 360 GB/s GDDR6 | 
+| TDP under inference load | ~120 W | ~250–280 W (GPU 170 W + 5700X 65 W + platform) | 
+| Typical street price | $3,000–$3,999 mini-PC | $900–$1,100 all-in (GPU $659, CPU $209, board+RAM+SSD+PSU) | 
+| Practical model ceiling | 120B q3 / 70B q4 / 32B q8 | 13B q4 | 
+Benchmark table: tokens per second at q4_K_M
+Synthesized from the public sources cited. Numbers are mid-points of reported ranges and are bandwidth-bound for generation.
+| Model | RTX 3060 12GB | Ryzen AI Max+ 395 | 
+|---|---|---|
+| Llama-3 8B q4_K_M | 55 tok/s | 14 tok/s | 
+| Qwen2.5 14B q4_K_M | 28 tok/s | 8 tok/s | 
+| Llama-3 70B q4_K_M | n/a (won't fit) | 3 tok/s | 
+| Mixtral 8x7B q4_K_M | 22 tok/s (with offload, slow) | 12 tok/s | 
+Performance-per-dollar and per-watt math
+At a Camp A workload (Llama-3 8B q4_K_M, 55 tok/s on 3060, 14 tok/s on 395), the 3060 rig delivers ~50 tok/s per $1,000 and ~0.2 tok/s per watt. The 395 mini-PC delivers ~3.5 tok/s per $1,000 and ~0.12 tok/s per watt. The discrete GPU wins both ratios by roughly an order of magnitude.
+Flip to a Camp B workload (Llama-3 70B q4_K_M). The 3060 cannot run the model. The 395 delivers a real tokens-per-second number, which is infinitely better than zero. In other words, perf-per-dollar math only meaningfully includes the 395 when the alternative is a multi-GPU build. Two RTX 3090s used at ~$1,500 reach about 18 tok/s on the same 70B q4_K_M, drawing roughly 600W. The 395 trades 5x lower throughput for half the price and a quarter of the power, in a box you can put on a shelf.
+Verdict matrix
+Get the Ryzen AI Max+ 395 mini-PC if you specifically need 70B-class local inference, you cannot host a multi-GPU desktop, you value silence and footprint, and you are okay with 2–4 tok/s on your heaviest workload. The 395 is the only compact, low-power consumer box that can host that model class without offload.
+Build the RTX 3060 12GB rig instead if your daily driver is 7B–13B, you want responsive coding-assistant latency, you have a desk for a tower, and you want to keep the budget under $1,200. The 3060 paired with a Ryzen 7 5700X on AM4 still delivers more tokens per dollar than any APU-only solution in 2026, and you can drop a WD Blue SN550 1TB NVMe in for model storage without breaking the budget.
+Recommended pick
+For 9 of 10 readers shopping a local-LLM rig in 2026, the answer is the discrete 3060 build. Spend the saved $2,500 on a second 3060 12GB later, a 64GB RAM kit for big retrieval indexes, or a separate Strix Halo box when prices fall. The MSI GeForce RTX 3060 Ventus 2X 12G is the proven SKU we keep returning to because its 12GB framebuffer is what unlocks the meaningful local-LLM tier; the 8GB cards in this price band are dead-ends.
+Bottom line
+The Ryzen AI Max+ 395 with 128GB of unified memory is real, impressive, and aimed at a small slice of buyers. For everyone else, the RTX 3060 12GB is still the easiest on-ramp to local LLMs in 2026: cheaper, faster on the models you actually use, and a building block you can scale with a second card later. Treat the 395 as a Camp B specialty tool and the 3060 as the daily driver — that framing matches the numbers, not the launch headlines.
+Related guides
+- Is the RTX 3060 12GB still worth it for 1080p gaming in 2026?
+- Ryzen 5 5600G vs Ryzen 7 5700X for budget 1080p gaming in 2026
+- AMD Ryzen AI Max 400 'Gorgon Halo' and 192GB of unified memory

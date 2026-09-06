@@ -1,0 +1,20 @@
+C210	L0	Type-1 hypervisor for mixed-criticality SoCs	Xen Project	Xen on Arm	https://xenproject.org/	Dom0-less real-time configurations
+C211	L0	Safety-certified hypervisor for robot SoCs	BlackBerry QNX	QNX Hypervisor for Safety	https://blackberry.qnx.com/en/products/foundation-software/qnx-hypervisor	Guest isolation with certified host
+C212	L4	Cloud fleet observability and teleoperation	Formant	Formant Platform	https://formant.ai/	Data platform, video, remote intervention
+C213	L4	AMR fleet operations and interoperability	InOrbit	InOrbit RobOps Platform	https://github.com/Airbotics/awesome-cloud-robotics	Focused on autonomous mobile robot fleets
+C214	L4	Robot monitoring and remote control SaaS	Freedom Robotics	Freedom Robotics	https://github.com/Airbotics/awesome-cloud-robotics	Self-serve ROS 1 / ROS 2 agent
+C216	L4	Full-stack robot capability streaming	Transitive Robotics	Transitive	https://transitiverobotics.com/	Open-core video streaming and config management
+C218	L4	Robust OTA update for embedded Linux	Northern.tech	Mender	https://mender.io/	A/B partition updates with server
+C219	L4	Atomic A/B system update framework	Pengutronix / OSS	RAUC	https://rauc.io/	Yocto meta-rauc layer
+C220	L4	Embedded Linux software update agent	OSS	SWUpdate	https://sbabic.github.io/swupdate/	Suricatta backend for update servers
+C221	L4	Container-based device fleet deployment	Balena	balenaCloud / balenaOS	https://www.balena.io/	Docker-based delivery to edge devices
+C222	L4	Commercial Yocto OTA for edge devices	Toradex	Torizon OS / Torizon Cloud	https://www.toradex.com/torizon	Uptane-based secure OTA
+C223	L4	Experiment tracking and model registry	OSS / Databricks	MLflow	https://github.com/topics/mlops	Runs, artifacts, model registry
+C224	L4	Training run tracking and dataset lineage	Weights and Biases	W&B	https://github.com/topics/mlops	Sweeps, artifacts, reports
+C225	L4	MLOps orchestration and experiment manager	ClearML	ClearML	https://github.com/topics/mlops	Agent-based remote execution
+C226	L4	Kubernetes-native ML pipeline orchestration	Kubeflow / CNCF	Kubeflow Pipelines	https://landscape.cncf.io/	Training operators and pipeline DAGs
+C227	L4	LLM and agent trace observability	Langfuse	Langfuse	https://github.com/topics/mlops	Prompt/trace logging for policy stacks
+C228	L4	Vendor-neutral traces metrics and logs	CNCF	OpenTelemetry	https://opentelemetry.io/docs/what-is-opentelemetry/	SDKs plus OTLP collector
+C230	L4	Metrics scraping and dashboarding	CNCF / Grafana Labs	Prometheus + Grafana	https://landscape.cncf.io/	De facto edge telemetry backend
+C231	L4	GPU utilization metrics export to Prometheus	NVIDIA	dcgm-exporter	https://github.com/NVIDIA/dcgm-exporter	Per-GPU SM, memory, power counters
+C233	L4	Lightweight Kubernetes for edge robots	SUSE / CNCF	K3s	https://landscape.cncf.io/	Single-binary K8s for on-robot compute

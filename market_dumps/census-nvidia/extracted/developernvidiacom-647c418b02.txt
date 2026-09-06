@@ -1,0 +1,59 @@
+NVIDIA Isaac Lab
+NVIDIA Isaac™ Lab is an open-source, GPU-accelerated, agent-ready simulation framework for robot learning designed to train robot policies at scale. 
+It supports flexible integration across physics engines, renderers, and learning algorithms, including Newton and NVIDIA Omniverse™ libraries. This helps to accelerate vision and perception training for real-world robot applications, from desktop to cloud.
+How Isaac Lab Works
+Isaac Lab’s modular architecture and NVIDIA GPU-based parallelization make it ideal for building robot policies that cover a wide range of embodiments, including humanoid robots, manipulators, and autonomous mobile robots (AMRs). 
+This gives you a comprehensive framework for robot learning, covering everything from environment setup to policy training. It supports both imitation and reinforcement learning methods. Plus, you can further customize and extend Isaac Lab capabilities with a variety of physics engines, such as Newton, NVIDIA® PhysX®, NVIDIA Warp, and MuJoCo. 
+Isaac Lab is also the foundational robot learning framework of the NVIDIA Isaac GR00T platform.
+Introductory Resources
+Isaac Lab Whitepaper
+See how the combination of advanced simulation capabilities and data center scale execution unlock breakthroughs in robotics research.
+NVIDIA Isaac Lab-Arena
+Built on Isaac Lab, Isaac Lab-Arena is an open-source framework for scalable policy evaluation in simulation.
+Isaac Lab Courses
+Explore our reference workflow that packages supported models, libraries, frameworks, and a task into a single reproducible workflow for a humanoid robot.
+Isaac Lab Office Hours
+Stay informed with our recurring office hours that cover in-depth topics with experts answering questions about Isaac Lab.
+Key Features
+Flexible Robot Learning
+Customize workflows with robot training environments, tasks, learning techniques, and the ability to integrate custom libraries (e.g., skrl, RLLib, rl_games, and more).
+Reduced Sim-to-Real Gap
+Train policies with higher-fidelity physics using Newton, PhysX, or any physics engine, enabling stronger contact modeling and more realistic interactions for a broader class of tasks.
+Scale Training Anywhere
+Run fast, large-scale training with GPU-optimized simulation paths built on Warp and NVIDIA® CUDA®-graphable environments, and deploy easily with standalone headless operation, from workstation to data center.
+Get Started With Isaac Lab
+Download
+Get started with the latest version of Isaac Lab by following the installation guides on GitHub.
+Tutorials
+Access the step-by-step guide to help understand and use various features of the framework.
+Start Your Learning Path
+Explore advanced concepts in robot learning, gain practical skills, and learn how you can streamline your development processes with Isaac Lab.
+Starter Kits
+View more tutorials and how-to guides in the documentation.
+Accelerate Robot Learning
+Choose from reinforcement learning and imitation learning to train AI robots. Easily bring your custom libraries and use the direct agent-environment or hierarchical-manager development workflows.
+Enable Perception in the Loop
+Tiled rendering reduces rendering time by consolidating input from multiple cameras into a single large image. With a streamlined API for handling vision data, the rendered output directly serves as observational data for simulation learning.
+Scale With Multi-GPU and Multi-Node Training
+Scale up training of cross-embodied models for complex reinforcement learning environments across multiple GPUs and nodes. Deploy locally and on the cloud (AWS, GCP, Azure, and Alibaba Cloud) by integrating with NVIDIA OSMO.
+Accurate High-Fidelity Physics Simulation and Rendering in Omniverse
+Tap into the latest GPU-accelerated PhysX version through Isaac Lab, including support for deformables, ensuring quick and accurate physics simulations augmented by domain randomizations. 
+Isaac Lab Learning Library
+Streamline Robot Learning with Whole-Body Control and Enhanced Teleoperation in NVIDIA Isaac Lab 2.3
+NVIDIA Isaac Lab
+The latest version of Isaac Lab 2.3, in early developer preview, improves humanoid robot capabilities with advanced whole-body control, enhanced imitation learning, and better locomotion.
+Quadruped Robot Locomotion and Multiphysics Simulation Using Newton in NVIDIA Isaac Lab
+NVIDIA Isaac Lab
+Walks through how to train a quadruped robot to move from one point to another and how to set up a multiphysics simulation with an industrial manipulator to fold clothes. This tutorial uses Newton within NVIDIA Isaac Lab.
+Ecosystem
+Our industry partners and collaborators are integrating NVIDIA Isaac Lab and accelerated computing into their platforms and solutions.
+More Resources
+Latest Isaac Lab News
+Get started with NVIDIA Isaac Lab today.
+FAQs
+The Isaac Lab framework is open-sourced under the BSD-3-Clause license.
+Isaac Sim™ is a comprehensive robotics simulation platform built on NVIDIA Omniverse that provides high-fidelity simulation with advanced physics and photorealistic rendering. It focuses on synthetic data generation (SDG) and testing and validation (SIL/HIL) and is a reference template for custom robotics simulators.
+ 
+In contrast, Isaac Lab is a lightweight, open-source framework built on top of Isaac Sim, specifically optimized for robot learning workflows and designed to simplify common tasks in robotics research like reinforcement learning, imitation learning, and motion planning.
+If you’re an existing NVIDIA Isaac Gym (predecessor of Isaac Lab) user, we recommend migrating to Isaac Lab to ensure you have access to the latest advancements in robot learning and a powerful development environment to accelerate your robot training efforts. Check out the migration guide from Isaac Gym environments to Isaac Lab.
+Yes, Isaac Lab and MuJoCo are complementary. MuJoCo's ease of use and lightweight design allow for rapid prototyping and deployment of policies and Isaac Lab can complement it when you want to create more complex scenes, scaling massively parallel environments with GPUs and high-fidelity sensor simulations with RTX rendering. NVIDIA and MuJoCo are actively exploring advancing technical collaborations, stay tuned for future announcements.

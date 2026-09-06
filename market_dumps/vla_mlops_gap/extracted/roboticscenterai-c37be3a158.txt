@@ -1,0 +1,56 @@
+Best VLA Models 2026: Complete Vision-Language-Action Guide
+The 8 best Vision-Language-Action models for robotics in 2026 — OpenVLA, Octo, pi0, RT-X, Diffusion Policy, ACT — ranked with license, hardware, and fit notes.
+The 8 Vision-Language-Action and imitation-learning models we actually recommend in 2026 — with honest notes on licensing, hardware footprint, language fidelity, and production deployment fit.
+Updated April 2026 8 models ranked Open weights prioritized
+Browse All Models Get a Recommendation
+TL;DR Our 2026 top picks, ranked: 1. OpenVLA (best all-round open-weight VLA) · 2. Octo (best compact diffusion policy) · 3. pi0 (best Physical Intelligence release) · 4. RT-1-X (best small historical baseline) · 5. Diffusion Policy (best imitation learning algorithm for multi-modal demos) · 6. ACT (best for bimanual teleop) · 7. InternVLA-M1 (best spatially-grounded VLA from Shanghai AI Lab) · 8. SmolVLA (best lightweight VLA under the LeRobot umbrella).
+What makes a VLA model "best" in 2026?
+The VLA landscape has matured fast. Two years ago, "best" meant "any model that works at all." Today, with OpenVLA, Octo, pi0, InternVLA-M1, and a dozen research variants all shipping open weights, the question is which model fits your deployment. We rank models across five practical axes:
+- Open weights & license. Can you download it, fine-tune it, and ship it commercially? MIT and Apache 2.0 are the safe licenses.
+- Hardware footprint. Does it run on a single A100? A 4090? An edge box? This decides your BOM.
+- Language fidelity. How well does it follow free-form instructions versus collapse to training-time phrasings?
+- Fine-tune cost. Can you adapt it to your robot in a day or does it require multi-node training?
+- Production maturity. Are there LoRA recipes, quantized variants, and a community that ships fixes?
+The 2026 ranking
+- OpenVLA — best open-weight foundation VLA7B paramsMITOpen X-EmbodimentA100-class GPU The default VLA for 2026. Llama-2 7B backbone, DINOv2 + SigLIP vision, discretized action tokens, trained on 970K Open X-Embodiment trajectories. Outperforms RT-2-X on LIBERO with 7× fewer parameters. Active community shipping LoRA adapters and quantized variants. See the OpenVLA model page or the OpenVLA vs Octo comparison.
+- Octo — best compact diffusion VLA27M / 93MMITOpen X-EmbodimentConsumer GPU Transformer diffusion policy trained from scratch on ~800K Open X trajectories. Runs on a single RTX 4090 at 20–30 Hz. Flexible action space, goal-image conditioning, and straightforward fine-tuning. The lean alternative when you cannot afford a 7B model. See Octo.
+- pi0 (Physical Intelligence) — best next-gen generalistMulti-billionPartial open releaseCustom corpus Physical Intelligence's flagship generalist VLA introduced a flow-matching action head and a focus on dexterous, long-horizon tasks. Portions of the stack and checkpoints have been released to the community. Strong on laundry-folding and household-class manipulation in published demos. A model worth watching for any dexterous or humanoid deployment.
+- RT-1-X — best small historical baseline~35MApache 2.0Open X-EmbodimentSingle GPU The Open X-Embodiment retraining of RT-1. Small, fast, cross-embodiment. A credible lightweight baseline for research papers. For product deployments, prefer Octo — but RT-1-X remains the canonical historical reference. See RT-X.
+- Diffusion Policy — best imitation learning for multi-modal demosCNN/transformer backboneMITDDPM action head Columbia's Diffusion Policy is the go-to baseline when expert demonstrations are multi-modal. 46.9% average improvement over prior imitation learning methods at publication. Natural fit for contact-rich manipulation and any setting where averaging strategies would collapse behavior. See Diffusion Policy or our Diffusion Policy vs ACT comparison.
+- ACT — best imitation learning for bimanual teleopCVAE transformerMITAction chunking From Mobile ALOHA. Chunked action prediction with temporal ensembling. Trains in minutes on a single GPU, works with as few as 50 demonstrations, and remains the dominant starting point for bimanual teleop training. Shipped in LeRobot as a reference policy. See the ACT policy explainer.
+- InternVLA-M1 — best spatially-grounded open VLAOpen weightsMITGrounding + action Shanghai AI Lab's two-stage VLA that uses spatial grounding as an intermediate representation before action prediction. Reported 71–81% on Google Robot and 95.9% on LIBERO, among the strongest open-weight numbers published in 2025. See InternVLA-M1.
+- SmolVLA — best lightweight VLA in the LeRobot ecosystem450MApache 2.0Hugging Face Hugging Face's compact VLA released under the LeRobot framework. Designed to run on laptops and hobby-grade robots, with integrated data loading and training via LeRobot's pipelines. A good entry point if you want a VLA that runs without a datacenter GPU. See LeRobot.
+Side-by-side summary
+| Model | Params | License | Action head | Hardware | Best for | 
+|---|---|---|---|---|---|
+| OpenVLA | 7B | MIT | Discretized tokens | A100/H100 | Language-grounded manipulation | 
+| Octo | 27M / 93M | MIT | Diffusion | RTX 4090 | Cross-embodiment, high freq | 
+| pi0 | Multi-B | Partial | Flow matching | Multi-GPU | Dexterous long-horizon | 
+| RT-1-X | ~35M | Apache 2.0 | Discretized tokens | Single GPU | Small historical baseline | 
+| Diffusion Policy | Configurable | MIT | DDPM chunks | Single GPU | Multi-modal imitation | 
+| ACT | Configurable | MIT | CVAE chunks | Single GPU | Bimanual teleop | 
+| InternVLA-M1 | Open | MIT | Grounded action | A100 | Spatially precise tasks | 
+| SmolVLA | 450M | Apache 2.0 | Chunked | Laptop GPU | Hobby / edge robots | 
+How to choose for your deployment
+The honest answer is that most teams in 2026 run two models: a foundation VLA as the language-to-task front end, and a narrow imitation learning policy as the precise action head. OpenVLA + Diffusion Policy, or Octo + ACT, are common combinations. For a decision tree keyed on task type and hardware, see our guide on how to choose a robot model.
+If you are still collecting teleop data, partner with our teleoperation data services — the demo format matters more than the algorithm choice. If you already have demonstrations, drop us a note with the format and we will tell you which of the eight models above to start with.
+What changed between 2024 and 2026
+Three shifts define the current VLA landscape. First, open weights caught up with closed weights. In 2023 the conversation was dominated by RT-2 and other proprietary DeepMind models. By 2026 OpenVLA, Octo, pi0 partial releases, and InternVLA-M1 together cover most capabilities a production team would actually use. Closed models still lead on the frontier, but the gap for deployable open checkpoints has narrowed dramatically.
+Second, imitation-learning primitives became foundation-model backbones. Diffusion Policy's action head is now inside Octo. ACT's chunking-and-ensembling strategy is standard across the field. The clean split between "research IL" and "deployment VLA" has blurred into a layered stack where every tier borrows tricks from the tier below.
+Third, data became the bottleneck. With so many capable open models, the differentiator is the quality and coverage of your own teleop corpus. Teams that invested in disciplined data collection through 2025 — consistent camera placement, clean annotations, a sensible taxonomy of subtasks — unlocked dramatically better downstream fine-tunes than teams that treated data as an afterthought. Our custom-collection and annotation services exist precisely because this is where the actual leverage now lives.
+Notable models we intentionally left off the list
+A few models appear in every survey but did not earn a top-eight slot for 2026. RoboFlamingo and BridgeVLA are research-notable but narrower in deployment scope than the picks above. RT-2-X is not downloadable, so it cannot rank against models you can actually use. Gemini Robotics and other DeepMind successors are closed. Proprietary offerings from several commercial labs are interesting but lock you into specific cloud endpoints — we rank those separately in our enterprise advisory.
+If any of those match your use case better than our top eight, we would rather you pick the right model than the ranked one. The rankings above reflect the median team's needs: a small-to-mid research group or startup shipping a manipulation product on commodity hardware under a permissive license.
+Frequently asked questions
+What is a Vision-Language-Action (VLA) model?
+A Vision-Language-Action (VLA) model is a neural network that ingests camera images and a natural-language instruction and produces robot actions (joint or end-effector commands). Modern VLAs typically combine a large vision-language backbone such as Llama-2, PaLI-X, or a dedicated transformer with an action head that discretizes or diffuses continuous control outputs. OpenVLA, Octo, and RT-2-X are the canonical examples.
+Which VLA model should I start with in 2026?
+For most open-source teams in 2026, OpenVLA (7B, MIT license, trained on Open X-Embodiment) is the default starting point. If you are deploying on consumer hardware, Octo-Base (93M) is a strong lighter alternative. If you are doing pure imitation learning on teleop data, start with ACT for bimanual tasks or Diffusion Policy for multi-modal single-arm tasks.
+What hardware do I need to run OpenVLA?
+OpenVLA in bfloat16 needs roughly 16 GB of GPU memory. In practice, teams deploy on a single A100 (40 or 80 GB), H100, or L40S for real-time inference at 5–10 Hz. A 4-bit quantized variant can run on a 24 GB RTX 4090 with modest speed penalties. Edge deployments typically prefer Octo or a smaller distilled policy.
+Are RT-X model weights available?
+RT-1-X weights are released under Apache 2.0 and are on Hugging Face. RT-2-X weights are not publicly released and have never been made available outside Google DeepMind. For this reason, most practical deployments that want RT-2-class behavior use OpenVLA, which is MIT-licensed and publicly hosted.
+Can I fine-tune a VLA model on my own data?
+Yes. OpenVLA ships with LoRA and full fine-tune recipes that adapt the policy to a new robot or task in hours on a single A100. Octo supports full fine-tuning on a single 24 GB GPU. ACT and Diffusion Policy are commonly trained from scratch on 50–200 teleop demonstrations and do not require a foundation model at all. RCSV's teleoperation data services can help you collect the demonstration corpus.
+Related reading OpenVLA vs Octo → RT-X vs OpenVLA → Diffusion Policy vs ACT → VLA model directory → Open X-Embodiment dataset → LIBERO benchmark → Teleop data collection →
+Every VLA here can be fine-tuned on your own demonstrations.

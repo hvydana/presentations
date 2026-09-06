@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026)</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+
+    <link rel="preload" as="style" href="/blog/assets/built/screen.css?v=a94921390b" />
+    <link rel="preload" as="script" href="/blog/assets/built/casper.js?v=a94921390b" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/built/screen.css?v=a94921390b" />
+    <link rel="stylesheet" type="text/css" href="/blog/assets/css/codersera.css?v=a94921390b" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300;1,400&display=swap" />
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W1N0NMH6RL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W1N0NMH6RL');
+    </script>
+    <script async src="https://analytics.ahrefs.com/analytics.js" data-key="3bQVU000CV/+IngkylNo7g"></script>
+
+
+    <meta name="description" content="Run Qwen3.8-27B locally with Ollama, LM Studio, or llama.cpp + MTP speculative decoding. VRAM tables, 16GB/24GB/Mac configs, and the overthinking fix.">
+    <link rel="icon" href="https://codersera.com/blog/content/images/size/w256h256/2024/02/logo-1.png" type="image/png">
+    <link rel="canonical" href="https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="amphtml" href="https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/amp/">
+    
+    <meta property="og:site_name" content="Codersera Blogs">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026 Guide)">
+    <meta property="og:description" content="Run Qwen3.8-27B on your own GPU: Ollama one-liner, LM Studio, llama.cpp with MTP speculative decoding, VRAM tables, tested 16GB/24GB/Mac configs, and the overthinking fix.">
+    <meta property="og:url" content="https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/">
+    <meta property="og:image" content="https://static.ghost.org/v4.0.0/images/publication-cover.jpg">
+    <meta property="article:published_time" content="2026-08-18T04:28:57.000Z">
+    <meta property="article:modified_time" content="2026-08-18T04:28:57.000Z">
+    <meta property="article:tag" content="Qwen">
+    <meta property="article:tag" content="Local LLMs">
+    <meta property="article:tag" content="Ollama">
+    <meta property="article:tag" content="AI Models">
+    
+    <meta property="article:publisher" content="https://www.facebook.com/ghost">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026 Guide)">
+    <meta name="twitter:description" content="Run Qwen3.8-27B on your own GPU: Ollama one-liner, LM Studio, llama.cpp with MTP speculative decoding, VRAM tables, tested 16GB/24GB/Mac configs, and the overthinking fix.">
+    <meta name="twitter:url" content="https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/">
+    <meta name="twitter:image" content="https://static.ghost.org/v4.0.0/images/publication-cover.jpg">
+    
+    <meta name="twitter:data1" content="John">
+    
+    <meta name="twitter:data2" content="Qwen, Local LLMs, Ollama, AI Models">
+    <meta name="twitter:site" content="@ghost">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="482">
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Codersera Blogs",
+        "url": "https://codersera.com/blog/",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://codersera.com/blog/content/images/size/w256h256/2024/02/logo-1.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "John",
+        "url": "https://codersera.com/blog/author/john/",
+        "sameAs": []
+    },
+    "headline": "How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026)",
+    "url": "https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/",
+    "datePublished": "2026-08-18T04:28:57.000Z",
+    "dateModified": "2026-08-18T04:28:57.000Z",
+    "keywords": "Qwen, Local LLMs, Ollama, AI Models",
+    "description": "Run Qwen3.8-27B on your own GPU: Ollama one-liner, LM Studio, llama.cpp with MTP speculative decoding, VRAM tables, tested 16GB/24GB/Mac configs, and the overthinking fix.",
+    "mainEntityOfPage": "https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/"
+}
+    </script>
+
+    <meta name="generator" content="Ghost 5.130">
+    <link rel="alternate" type="application/rss+xml" title="Codersera Blogs" href="https://codersera.com/blog/rss/">
+    <script defer src="https://cdn.jsdelivr.net/ghost/portal@~2.51/umd/portal.min.js" data-i18n="true" data-ghost="https://codersera.com/blog/" data-key="f64764eecbe16d1132083bb5f4" data-api="https://codersera.com/blog/ghost/api/content/" data-locale="en" crossorigin="anonymous"></script><style id="gh-members-styles">.gh-post-upgrade-cta-content,
+.gh-post-upgrade-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    text-align: center;
+    width: 100%;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.gh-post-upgrade-cta-content {
+    border-radius: 8px;
+    padding: 40px 4vw;
+}
+
+.gh-post-upgrade-cta h2 {
+    color: #ffffff;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+    margin: 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta p {
+    margin: 20px 0 0;
+    padding: 0;
+}
+
+.gh-post-upgrade-cta small {
+    font-size: 16px;
+    letter-spacing: -0.2px;
+}
+
+.gh-post-upgrade-cta a {
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a:hover {
+    color: #ffffff;
+    opacity: 0.8;
+    box-shadow: none;
+    text-decoration: underline;
+}
+
+.gh-post-upgrade-cta a.gh-btn {
+    display: block;
+    background: #ffffff;
+    text-decoration: none;
+    margin: 28px 0 0;
+    padding: 8px 18px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.gh-post-upgrade-cta a.gh-btn:hover {
+    opacity: 0.92;
+}</style>
+    <script defer src="https://cdn.jsdelivr.net/ghost/sodo-search@~1.8/umd/sodo-search.min.js" data-key="f64764eecbe16d1132083bb5f4" data-styles="https://cdn.jsdelivr.net/ghost/sodo-search@~1.8/umd/main.css" data-sodo-search="https://codersera.com/blog/" data-locale="en" crossorigin="anonymous"></script>
+    
+    <link href="https://codersera.com/blog/webmentions/receive/" rel="webmention">
+    <script defer src="/blog/public/cards.min.js?v=a94921390b"></script>
+    <link rel="stylesheet" type="text/css" href="/blog/public/cards.min.css?v=a94921390b">
+    <script defer src="/blog/public/member-attribution.min.js?v=a94921390b"></script><style>:root {--ghost-accent-color: #011034;}</style>
+    <!-- Prism Section Starts -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/themes/prism-tomorrow.min.css" integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/line-numbers/prism-line-numbers.min.css" integrity="sha512-cbQXwDFK7lj2Fqfkuxbo5iD1dSbLlJGXGpfTDqbggqjHJeyzx88I3rfwjS38WJag/ihH7lzuGlGHpDBymLirZQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- Prism Section ENDS -->
+
+<!-- FAQ Section CSS -->
+<style>
+.faqs-ques {
+  cursor: pointer;
+  margin-bottom: 8px;
+  display: block;
+  }
+  
+ .faqs-h3 {
+    color: #34598b;
+    font-weight: 500;
+    font-size: 18px;
+  }
+
+.faqs-ans {
+    color: #666;
+    display: none;
+    padding: 10px;
+    width: 90%;
+    font-size: 16px;
+    white-space: pre-line;
+  }
+
+.faqs-input {
+    display: none;
+    }
+.faqs-input:checked ~ .faqs-ans {
+      display: block;
+    }
+</style>
+
+<!-- FAQ Section CSS Ends -->
+
+</head>
+<body class="post-template tag-qwen tag-local-llms tag-ollama tag-ai-models">
+<div class="viewport">
+
+    <header class="cs-navbar" id="cs-navbar">
+        <div class="cs-navbar-inner">
+            <a class="cs-brand" href="https://codersera.com">
+                <svg width="36" height="31" viewBox="0 0 46 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M28.2774 0.233584L39.2712 0.600645L31.8747 12.3604L20.8808 11.9933L28.2774 0.233584Z" fill="#5885FF"/>
+                    <path d="M26.0605 21.6979L20.8814 11.9934L39.3685 12.6729L44.5475 22.3774L26.0605 21.6979Z" fill="#A9C0FF"/>
+                    <path d="M5.90559 12.2963L-1.63317e-05 21.5766L13.8821 22.1134L19.7877 12.8331L5.90559 12.2963Z" fill="#5885FF"/>
+                    <path d="M24.8718 22.5896L19.7876 12.8351L9.90829 28.4758L14.9925 38.2304L24.8718 22.5896Z" fill="#A9C0FF"/>
+                </svg>
+                <span class="cs-brand-name">Codersera</span>
+            </a>
+
+            <nav class="cs-nav" aria-label="Main navigation">
+                <a href="https://codersera.com/about-us">About</a>
+                <a href="https://codersera.com/our-services">Services</a>
+                <a href="https://codersera.com/contact-us">Contact</a>
+                <a href="https://codersera.com/blog">Blog</a>
+                <a href="https://codersera.com/tools">Tools</a>
+                <a href="https://codersera.com/guides">Guides</a>
+            </nav>
+
+            <div class="cs-nav-actions">
+                <a href="https://codersera.com/apply" class="cs-btn-outline" data-auth-hide>Apply as a Freelancer</a>
+                <a href="https://codersera.com/hire" class="cs-btn-primary">Hire Developers</a>
+            </div>
+
+            <a href="https://codersera.com/hire" class="cs-mobile-hire-button" aria-label="Hire developers">Hire</a>
+
+            <button class="cs-mobile-search-button" type="button" data-ghost-search aria-label="Search posts">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+                    <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+            <button class="cs-burger" id="cs-burger" aria-label="Toggle menu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+
+        <div class="cs-mobile-menu" id="cs-mobile-menu" aria-hidden="true">
+            <nav class="cs-mobile-nav">
+                <a href="https://codersera.com/about-us">About us</a>
+                <a href="https://codersera.com/our-services">Services</a>
+                <a href="https://codersera.com/contact-us">Contact</a>
+                <a href="https://codersera.com/blog">Blog</a>
+                <a href="https://codersera.com/tools">Tools</a>
+                <a href="https://codersera.com/guides">Guides</a>
+            </nav>
+            <div class="cs-mobile-actions">
+                <a href="https://codersera.com/apply" class="cs-btn-outline cs-mobile-btn" data-auth-hide>Apply as a Freelancer</a>
+                <a href="https://codersera.com/hire" class="cs-btn-primary cs-mobile-btn">Hire Developers</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="cs-search-band" aria-label="Search Codersera blog" data-nosnippet>
+        <div class="cs-search-band-inner">
+            <button class="cs-search-panel" type="button" data-ghost-search aria-label="Search posts">
+                <span class="cs-search-panel-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="2"/>
+                        <path d="M16 16L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </span>
+                <span class="cs-search-panel-placeholder">Search articles, topics, and guides</span>
+                <span class="cs-search-panel-button">Search</span>
+            </button>
+        </div>
+    </section>
+
+    <div class="site-content">
+        
+
+
+<main id="site-main" class="site-main">
+<article class="article post tag-qwen tag-local-llms tag-ollama tag-ai-models no-image ">
+
+    <header class="article-header gh-canvas">
+
+        <div class="article-tag post-card-tags cs-article-tags">
+                <a class="cs-card-tag cs-card-tag-link" href="/blog/tag/qwen/">Qwen</a>
+        </div>
+
+        <h1 class="article-title">How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026 Guide)</h1>
+
+            <p class="article-excerpt">Run Qwen3.8-27B on your own GPU: Ollama one-liner, LM Studio, llama.cpp with MTP speculative decoding, VRAM tables, tested 16GB/24GB/Mac configs, and the overthinking fix.</p>
+
+        <div class="article-byline">
+        <section class="article-byline-content">
+            <div class="article-byline-meta">
+                <div class="byline-meta-content">
+                    <span class="cs-article-meta-item">
+                        Published
+                        <time class="byline-meta-date" datetime="2026-08-18">18 Aug 2026</time>
+                    </span>
+                    <span class="cs-article-meta-item">
+                        <span class="bull">&bull;</span>
+                        Updated
+                        <time class="byline-meta-date cs-updated-time" datetime="2026-08-18T04:28:57+00:00" data-updated-at="2026-08-18T04:28:57+00:00">18 Aug 2026</time>
+                    </span>
+                        <span class="byline-reading-time"><span class="bull">&bull;</span> 9 min read</span>
+                </div>
+            </div>
+        </section>
+        </div>
+
+
+    </header>
+
+    <div class="cs-post-layout">
+        <section class="gh-content gh-canvas cs-post-content">
+            
+<!--kg-card-begin: html-->
+<div class="quick-answer"><p><strong>Quick answer.</strong> Install Ollama and run <code>ollama run qwen3.8</code> — the default tag is the 27B at q4_K_M, an 18GB download with 256K context and vision. On smaller GPUs, grab a 17.1GB Q4_K_M or 13.4GB Q3 GGUF instead. Before you do anything else, drop <code>reasoning_effort</code> from the default xhigh to medium or low — otherwise your first prompt can think for 20 minutes.</p></div>
+<!--kg-card-end: html-->
+<p>Qwen3.8-27B landed on August 14, 2026 with open weights under Apache-2.0, and it is the most capable model yet released at a size that fits a single consumer GPU. This guide covers the three ways to run it locally — Ollama, LM Studio, and llama.cpp with MTP speculative decoding — plus real, tested configs for 16GB and 24GB cards and Apple Silicon, with honest speed numbers for each.</p><h2 id="what-are-you-actually-running">What are you actually running?</h2><p>Qwen3.8-27B is a <strong>dense 27B vision-language model</strong>: text, images, and video (including hour-scale video) in one checkpoint, Apache-2.0 licensed. Native context is <strong>262,144 tokens</strong> — the "extensible up to 1,000,000" line on the card refers to a Qwen Cloud hosted feature that is "coming soon", so plan around 256K locally. The architecture is identical to Qwen3.6-27B (every gain came from post-training), which is why llama.cpp, Ollama, and LM Studio all worked on day one. One architectural detail matters a lot for local use: it's a hybrid design where only 16 of the 64 layers are full attention and grow KV cache with sequence length — the rest use Gated DeltaNet recurrent state. Full 256K context costs only about 4.25 GiB of KV cache at Q4, which is remarkably cheap. For what the model can actually do, see the <a href="https://codersera.com/blog/qwen-3-8-27b-complete-guide-2026/">full Qwen3.8-27B guide</a>.</p><h2 id="fix-the-overthinking-default-first">Fix the overthinking default first</h2><p>This is the #1 gotcha, and it will ruin your first impression if you skip it. Qwen3.8-27B ships with thinking on and <code>reasoning_effort</code> defaulting to <strong>xhigh</strong>. On consumer hardware that default is brutal: Simon Willison's pelican-SVG test took <strong>21 minutes and 22,276 reasoning tokens</strong> at xhigh, an M4 Pro user's "svg owl" prompt ran 17m12s, and "draw an svg of a circle" produced an unrequested animated "geometric study". Willison's own advice: "Run Qwen 3.8 27B on low or even no reasoning levels at first."</p><p>The mechanics are simpler than they sound. The effort levels are <strong>one-sentence system-prompt additions</strong> the model was post-trained on — <code>medium</code> injects nothing at all (it's the native default), while xhigh prepends "Reasoning effort is set to xhigh. Please think carefully…". So the fix is two settings:</p><ul><li>Set <code>reasoning_effort</code> to <code>medium</code> or <code>low</code>.</li><li>Set a reasoning budget (~5,000 tokens) if your runtime supports one, as a hard ceiling.</li></ul><p>Don't turn thinking off entirely by reflex: on genuinely complex work it earns its keep — Willison's bounding-box vision tool worked with thinking on and broke with it off. Medium plus a budget is the sane default; escalate deliberately.</p><h2 id="path-1-%E2%80%94-ollama-the-easiest-way">Path 1 — Ollama (the easiest way)</h2><p>One command:</p><pre><code>ollama run qwen3.8</code></pre><p>The <code>latest</code> tag is the 27B at q4_K_M — an <strong>18GB</strong> download with the full 256K context and image input enabled. Other tags:</p>
+<!--kg-card-begin: html-->
+<table>
+<thead><tr><th>Tag</th><th>Size</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>qwen3.8</code> (latest)</td><td>18GB</td><td>27B q4_K_M, 256K ctx, text + image</td></tr>
+<tr><td><code>qwen3.8:27b-mtp-q8_0</code></td><td>30GB</td><td>Q8 with MTP speculative decoding</td></tr>
+<tr><td><code>qwen3.8:27b-mtp-bf16</code></td><td>56GB</td><td>Full precision + MTP</td></tr>
+<tr><td><code>qwen3.8:27b-mlx</code></td><td>18GB</td><td>MLX build for Apple Silicon</td></tr>
+<tr><td><code>qwen3.8:27b-mlx-bf16</code></td><td>56GB</td><td>MLX full precision</td></tr>
+</tbody>
+</table>
+<!--kg-card-end: html-->
+<p>Ollama's library page also documents one-line harness launchers, which drop the model straight into a coding agent:</p><pre><code>ollama launch claude --model qwen3.8     # Claude Code
+ollama launch opencode --model qwen3.8
+ollama launch hermes --model qwen3.8
+ollama launch openclaw --model qwen3.8</code></pre><p>If you have 24GB of VRAM, the default tag just works. At 16–18GB it will still load but leaves little headroom for context — read the 16GB config below instead.</p><h2 id="path-2-%E2%80%94-lm-studio">Path 2 — LM Studio</h2><p>LM Studio ships Qwen3.8-27B at Q4_K_M (<strong>17GB</strong>) at <code>lmstudio.ai/models/qwen3.8</code>. Two traps:</p><ul><li><strong>The 8,192-context trap.</strong> LM Studio defaults to 8,192 tokens of context, and this model's thinking phase will happily consume all of it before emitting a single answer token — Willison hit exactly this. Raise the context length (the model supports 262,144) before your first prompt.</li><li><strong>The xhigh default survives.</strong> The LM Studio GGUF preserves the model's xhigh reasoning default, so apply the overthinking fix above here too.</li></ul><h2 id="path-3-%E2%80%94-llamacpp-mtp-speculative-decoding-the-speed-unlock">Path 3 — llama.cpp + MTP speculative decoding (the speed unlock)</h2><p>Qwen3.8-27B was trained with <strong>multi-token prediction (MTP)</strong>: a small draft head that proposes several tokens per step, which the main model then verifies in one pass — speculative decoding with a drafter that was trained alongside the target. The MTP head ships as a <em>separate GGUF</em> in the ggml-org repo (Q4_0 1.68GB, Q8_0 3.16GB, BF16 5.95GB), and llama.cpp wires it up with two flags. Georgi Gerganov's exact command:</p><pre><code>llama-server -hf ggml-org/Qwen3.8-27B-GGUF:Q4_K_M \
+  -hfd ggml-org/Qwen3.8-27B-GGUF:Q4_0 \
+  --spec-default --spec-type draft-mtp --reasoning-preserve</code></pre><p>On his DGX Spark this measured roughly <strong>+72% throughput versus the LM Studio default</strong>. Two counterintuitive findings from the community's tuning:</p><ul><li><strong>Q4_0 is the best-accepting drafter quant.</strong> At 40K context with draft length 3, Q4_0 hit 44.95 t/s at 80.4% acceptance, versus 34.4 for IQ4_XS and 26.2 for Q4_K_M. And a <em>higher-quality</em> drafter quant made things worse — a Q5/Q6 mix cost 26.6% throughput. Drafter and target behave as one system; don't "upgrade" the draft head.</li><li><strong>MTP breaks bitwise determinism</strong> versus target-only decoding (llama.cpp #25618). If you need reproducible outputs, set <code>--spec-draft-n-max 1</code>.</li></ul><h2 id="how-much-vram-do-you-need">How much VRAM do you need?</h2><p>Unsloth GGUF file sizes (the quants nearly everyone actually runs — 2.7M downloads versus 415K for the base repo):</p>
+<!--kg-card-begin: html-->
+<table>
+<thead><tr><th>Quant</th><th>File size</th></tr></thead>
+<tbody>
+<tr><td>UD-IQ2_XXS</td><td>9.0GB</td></tr>
+<tr><td>UD-Q2_K_XL</td><td>10.7GB</td></tr>
+<tr><td>UD-Q3_K_XL</td><td>13.4GB</td></tr>
+<tr><td>Q4_0</td><td>16.1GB</td></tr>
+<tr><td>Q4_K_M</td><td>17.1GB</td></tr>
+<tr><td>UD-Q4_K_XL</td><td>17.9GB</td></tr>
+<tr><td>Q5_K_M</td><td>19.8GB</td></tr>
+<tr><td>Q6_K</td><td>22.9GB</td></tr>
+<tr><td>Q8_0</td><td>29.1GB</td></tr>
+<tr><td>BF16 (ggml-org)</td><td>53.8GB</td></tr>
+</tbody>
+</table>
+<!--kg-card-end: html-->
+<p>Budget on top of the model file: <strong>~0.9GB</strong> for the mmproj vision projector (if you want image input), <strong>1.7–6GB</strong> for the MTP draft head if you run it separately, and KV cache. The KV number is the pleasant surprise: because only 16 of 64 layers grow with sequence length, <strong>a completely full 256K context costs only ~4.25 GiB at Q4 KV</strong>. Quality-wise, Unsloth publishes KL-divergence per quant; practitioner reports put the eval drop between UD-Q6 and UD-Q3 at 0–5%. Blackwell owners also get NVFP4 builds (~1.2–1.5× over FP8 in one production report), and FP8 safetensors run ~27–28GB for vLLM-class stacks.</p><h2 id="real-configs-by-budget">Real configs by budget</h2><h3 id="16gb-%E2%80%94-rtx-5060-ti-class">16GB — RTX 5060 Ti class</h3><p>The most-upvoted 16GB recipe (826 points on Reddit, running on a 5060 Ti 16GB attached to an Intel N100 box): <strong>UD-Q3_K_XL</strong> (13.44GB), 73,728 context, KV cache at q4_1 (main) / q5_1 (MTP draft), <code>spec-type ngram-mod,draft-mtp</code> with <code>spec-draft-n-max 2</code>, sampling at temp 0.4 / top_p 0.90 / top_k 15 / min_p 0.02. The flags that make or break it:</p><ul><li><code>fit = off</code> — prevents llama.cpp from mistakenly offloading layers to CPU</li><li><code>ctx-checkpoints = 0</code> — avoids reprocessing issues with the hybrid architecture</li><li><code>chat-template-kwargs {"preserve_thinking": true, "reasoning_effort": "medium"}</code> plus <code>reasoning-budget 5000</code> — the overthinking fix, baked into the server</li></ul><p>Adding ngram speculation alongside MTP got this rig to <strong>~46 t/s on JavaScript generation</strong> — and its owner ran a 1M-token, 3-prompt autonomous NestJS+MCP build through OpenCode on it in about two hours. Honest caveat: it's a Q3, and not everyone trusts one ("I don't trust a q3, I'll stick to my q6 offloaded moes" was the top skeptical reply). Q3 held up in this workload, but for correctness-critical code review, prefer Q4+ on a bigger card. AMD works too: an RX 6800 via Vulkan at IQ4-MIX with 86,784 context measured 39.9 t/s (40.6 on ROCm).</p><h3 id="24gb-%E2%80%94-full-256k-context-with-caveats">24GB — full 256K context, with caveats</h3><p>The deepest 24GB writeup (piszczek.pl, RTX PRO 4000 Blackwell) got the <em>entire</em> 256K context resident on-card:</p><pre><code>llama-server --model Qwen3.8-27B-iMatrix-NVFP4-MTP.gguf \
+  --device CUDA0 --n-gpu-layers 999 --fit off \
+  --ctx-size 262144 --parallel 1 --ctx-checkpoints 4 --flash-attn on \
+  --cache-type-k q4_0 --cache-type-v q4_0 \
+  --batch-size 512 --ubatch-size 256 --temp 0.6 \
+  --spec-type draft-mtp --spec-default --spec-draft-n-max 8 \
+  --spec-draft-type-k f16 --spec-draft-type-v f16 --spec-draft-backend-sampling \
+  --mmproj mmproj-Qwen3.8-27B-F16.gguf --reasoning-preserve --jinja --metrics</code></pre><p>Results: <strong>50.4 t/s mean</strong> across 10 runs, 226.75 t/s full-context prefill, 23,952/24,467 MiB VRAM used — a ~515 MiB margin. Two things keep this from being a copy-paste config: it uses a <strong>custom iMatrix NVFP4 quant</strong> (huggingface.co/cdiamond/Qwen3.8-27B-iMatrix-NVFP4-MTP-GGUF) and a llama.cpp build with <strong>six cherry-picked PRs</strong>, including #27173 (chained MTP, worth +22% on its own). And the headline number needs its footnote: with the 261.5K cache <em>genuinely full</em>, decode drops to <strong>12.6 t/s</strong>. Long-context agentic sessions on 24GB are possible, not magic. The draft-length sweep is jagged — n=3 → 43.1 t/s, n=8 → 49.3 (best), n=20 → 30.6 — so tune it, and note <code>ctx-checkpoints 4</code>: it's the useful minimum for DeltaNet state checkpoints, while the default of 32 wastes memory.</p><h3 id="mac-%E2%80%94-apple-silicon">Mac — Apple Silicon</h3><p>Use the MLX tag: <code>ollama run qwen3.8:27b-mlx</code> (18GB), or LM Studio's Q4. Expect <strong>15–30 t/s on an M5 Max</strong> — the model is memory-bandwidth-bound, and Macs feel that more than discrete GPUs. Usable for chat and short agentic loops; patience-testing for xhigh reasoning (that M4 Pro owl took 17 minutes — fix the reasoning default).</p><h2 id="how-fast-is-it-honestly">How fast is it, honestly?</h2>
+<!--kg-card-begin: html-->
+<table>
+<thead><tr><th>Hardware</th><th>Quant</th><th>Speed</th></tr></thead>
+<tbody>
+<tr><td>RTX 5090</td><td>Q4</td><td>~200 t/s</td></tr>
+<tr><td>2× RTX 4090</td><td>Q8</td><td>85–113 t/s</td></tr>
+<tr><td>RTX 4090</td><td>Q4_K_M</td><td>~48 t/s (60–80 with MTP)</td></tr>
+<tr><td>RTX 3090</td><td>Q4</td><td>~39 t/s</td></tr>
+<tr><td>M5 Max / DGX Spark (LM Studio, no MTP)</td><td>Q4</td><td>15–30 t/s</td></tr>
+<tr><td>Laptop APU (~100GB/s bandwidth)</td><td>Q4</td><td>~4 t/s</td></tr>
+<tr><td>CPU-only (i5-1334U)</td><td>Q4</td><td>~0.9 t/s</td></tr>
+</tbody>
+</table>
+<!--kg-card-end: html-->
+<p>The pattern is simple: this is a <strong>dense</strong> 27B, so decode speed tracks memory bandwidth almost linearly. A 17GB file fitting in your RAM does not make it usable — "fits ≠ usable" is the honest summary for low-bandwidth machines. If you're on CPU or an integrated GPU, the MoE <strong>Qwen3.6-35B-A3B is still ~5× faster</strong> (and ~80 t/s on an M4 Pro) because only 3B parameters are active per token; our <a href="https://codersera.com/blog/how-to-run-qwen-3-6-locally-2026/">Qwen 3.6 local guide</a> covers it. Take the intelligence hit and keep the speed, or accept single-digit t/s for the smarter model — on weak hardware you can't have both.</p><h2 id="known-bugs-and-gotchas">Known bugs and gotchas</h2><ul><li><strong>llama.cpp Vulkan #27237</strong> — the hybrid DeltaNet layers produce garbage output at batch size 512 (1024 and 4096 are fine). Avoid <code>-b 512</code> on Vulkan.</li><li><strong>llama.cpp #27282</strong> — native MTP allocates a separate CUDA arena and can OOM; still open at time of writing.</li><li><strong>LM Studio's 8,192 default context</strong> — gets eaten entirely by thinking. Raise it before first use.</li><li><strong>Reasoning-effort variants misbehaving on some quants</strong> — community reports of the high-effort variant failing SVG tasks a low-effort run passed. If output quality looks wrong, try a different effort level before blaming the quant.</li><li><strong>MTP vs determinism</strong> — <code>--spec-draft-n-max 1</code> if you need bitwise-reproducible output.</li></ul><h2 id="wiring-it-into-coding-agents">Wiring it into coding agents</h2><p>This model was post-trained as an agentic executor, and the local-harness story is unusually good for a week-old release. Confirmed working in the wild:</p><ul><li><strong>Claude Code</strong> — <code>ollama launch claude --model qwen3.8</code>, one command.</li><li><strong>OpenCode</strong> — the 16GB rig above ran a fully autonomous NestJS+MCP project build: 1M tokens across 3 prompts, ~2 hours, unattended.</li><li><strong>Pi</strong> — Willison drove it via LM Studio + <code>tailscale serve</code> with the openai-responses provider.</li><li><strong>Cursor Agent Local</strong> — one-shotting tasks in the piszczek 24GB setup.</li><li><strong>Hermes / OpenClaw</strong> — both have Ollama launchers.</li></ul><p>If you're building out a full local agent stack — model, harness, sandboxing, cost math — start with our <a href="https://codersera.com/blog/self-hosted-ai-coding-agent-2026/">self-hosted AI coding agent guide</a>, then read the dedicated deep dive on <a href="https://codersera.com/blog/qwen-3-8-27b-local-claude-code-replacement-2026/">whether Qwen3.8-27B can replace Claude Code locally</a>.</p><h2 id="faq">FAQ</h2><h3 id="what-is-the-minimum-vram-to-run-qwen-38-locally">What is the minimum VRAM to run Qwen 3.8 locally?</h3><p>Realistically 16GB for a good experience: UD-Q3_K_XL (13.4GB) plus KV cache and the MTP draft head fits with ~73K context and runs ~46 t/s tuned. The UD-Q2 quants (9–10.7GB) load on 12GB cards, but quality degradation at Q2 is significant. 24GB runs the standard Q4_K_M comfortably; 24GB with a custom build can hold the full 256K context.</p><h3 id="can-i-get-1m-context-locally">Can I get 1M context locally?</h3><p>No. Native context is 262,144 tokens. The "extensible up to 1,000,000" figure refers to a Qwen Cloud hosted feature marked "coming soon" — it is not available in the open weights, in Ollama, or in llama.cpp. Plan around 256K.</p><h3 id="why-is-it-so-slow-on-my-laptop">Why is it so slow on my laptop?</h3><p>It's a dense 27B, so every token touches all 27B parameters — decode speed is bound by memory bandwidth. A ~100GB/s laptop APU manages ~4 t/s and CPU-only about 0.9 t/s regardless of how much RAM you have. On that class of hardware, run the MoE Qwen3.6-35B-A3B instead — roughly 5× faster on CPU.</p><h3 id="is-q3-usable">Is Q3 usable?</h3><p>For agentic coding, evidence says yes: the UD-Q3_K_XL config completed a 1M-token autonomous build, and practitioner KL-divergence reports put the eval drop between UD-Q6 and UD-Q3 at 0–5%. Skeptics remain, and they have a point for correctness-critical work — if you have the VRAM for Q4_K_M or better, use it.</p><h3 id="does-vision-work-in-ollama">Does vision work in Ollama?</h3><p>Yes — the default <code>qwen3.8</code> tag ships with image input enabled (the vision projector is bundled). In llama.cpp you must pass the separate mmproj GGUF (~0.9GB) via <code>--mmproj</code>; skip it and the model runs text-only.</p>
+<!--kg-card-begin: html-->
+<div style="border-left:4px solid #8b5cf6;background:#f7f5ff;padding:18px 22px;margin:28px 0;border-radius:8px;">
+<p style="margin:0 0 6px 0;font-size:0.8rem;letter-spacing:0.05em;text-transform:uppercase;color:#6d28d9;"><strong>Go deeper</strong></p>
+<p style="margin:0;">This guide covers running the model. For what Qwen3.8-27B actually is — benchmarks, architecture, and how it stacks up against the frontier — read the <a href="https://codersera.com/blog/qwen-3-8-27b-complete-guide-2026/">complete Qwen3.8-27B guide</a>. For the full Qwen family context, see our <a href="https://codersera.com/blog/qwen-3-5-complete-guide-2026/">Qwen pillar guide</a>.</p>
+</div>
+<!--kg-card-end: html-->
+
+        </section>
+        <aside class="cs-post-sidebar">
+            <div class="cs-sidebar-sticky">
+                <div class="cs-cta-card">
+                    <p class="cs-cta-eyebrow">Hire top talent</p>
+                    <h4>Try Codersera Free for 7 Days</h4>
+                    <p>Connect with vetted remote developers instantly. No commitment, no risk.</p>
+                    <div class="cs-cta-benefits">
+                        <span>&#x2713; 7-day free trial</span>
+                        <span>&#x2713; No credit card required</span>
+                        <span>&#x2713; Cancel anytime</span>
+                    </div>
+                    <a href="https://codersera.com/hire" class="cs-cta-btn">Start Free Trial</a>
+                </div>
+                <div class="cs-partner-card">
+                    <p class="cs-partner-eyebrow">Work with us</p>
+                    <h4>Partner with Codersera</h4>
+                    <p>Co-marketing, guest posts, featured listings and more. We reply within 24 hours.</p>
+                    <a href="https://codersera.com/partner-with-codersera#partner-form" class="cs-partner-btn"><span class="cs-partner-btn-text">Explore partnerships <span class="cs-partner-arrow">→</span></span></a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+
+</article>
+</main>
+
+<script>
+    (function () {
+        var updatedTimes = document.querySelectorAll('.cs-updated-time[data-updated-at]');
+
+        function formatRelativeTime(value) {
+            var timestamp = new Date(value).getTime();
+            if (Number.isNaN(timestamp)) return '';
+
+            var diffInSeconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
+            if (diffInSeconds < 60) return 'just a moment ago';
+
+            var minutes = Math.floor(diffInSeconds / 60);
+            if (minutes < 60) return minutes + ' ' + (minutes === 1 ? 'minute' : 'minutes') + ' ago';
+
+            var hours = Math.floor(minutes / 60);
+            if (hours < 24) return hours + ' ' + (hours === 1 ? 'hour' : 'hours') + ' ago';
+
+            var days = Math.floor(hours / 24);
+            if (days < 30) return days + ' ' + (days === 1 ? 'day' : 'days') + ' ago';
+
+            var months = Math.floor(days / 30);
+            if (months < 12) return months + ' ' + (months === 1 ? 'month' : 'months') + ' ago';
+
+            var years = Math.floor(months / 12);
+            return years + ' ' + (years === 1 ? 'year' : 'years') + ' ago';
+        }
+
+        updatedTimes.forEach(function (time) {
+            var relativeTime = formatRelativeTime(time.getAttribute('data-updated-at'));
+            if (relativeTime) {
+                time.textContent = relativeTime;
+            }
+        });
+    })();
+</script>
+
+
+<script>
+(function(){
+    try {
+        var scope = document.querySelector('.cs-post-content')
+                 || document.querySelector('article .gh-content')
+                 || document.querySelector('article')
+                 || document;
+        var faqH2 = Array.from(scope.querySelectorAll('h2')).find(function(h){
+            return /^(faq|frequently asked questions|faqs?)$/i.test(h.textContent.trim());
+        });
+        if (!faqH2) return;
+        var pairs = [];
+        var node = faqH2.nextElementSibling;
+        while (node && node.tagName !== 'H2') {
+            if (node.tagName === 'H3') {
+                var question = node.textContent.trim();
+                var answerParts = [];
+                var ansNode = node.nextElementSibling;
+                while (ansNode && ansNode.tagName !== 'H3' && ansNode.tagName !== 'H2') {
+                    if (ansNode.textContent && ansNode.textContent.trim()) {
+                        answerParts.push(ansNode.textContent.trim());
+                    }
+                    ansNode = ansNode.nextElementSibling;
+                }
+                if (question && answerParts.length) {
+                    pairs.push({ q: question, a: answerParts.join(' ') });
+                }
+            }
+            node = node.nextElementSibling;
+        }
+        if (!pairs.length) return;
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": pairs.map(function(p){
+                return {
+                    "@type": "Question",
+                    "name": p.q,
+                    "acceptedAnswer": { "@type": "Answer", "text": p.a }
+                };
+            })
+        };
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+<script>
+(function(){
+    try {
+        var scope = document.querySelector('.cs-post-content')
+                 || document.querySelector('article .gh-content')
+                 || document.querySelector('article')
+                 || document;
+        var howH2 = Array.from(scope.querySelectorAll('h2')).find(function(h){
+            var t = h.textContent.trim();
+            return /^(steps|how to\b.*|how does it work\??)$/i.test(t);
+        });
+        if (!howH2) return;
+
+        var steps = [];
+        var node = howH2.nextElementSibling;
+
+        // Prefer an <ol> directly under the H2 (skipping non-element siblings)
+        var olNode = null;
+        var probe = node;
+        while (probe && probe.tagName !== 'H2') {
+            if (probe.tagName === 'OL') { olNode = probe; break; }
+            if (probe.tagName === 'H3') break; // fall through to h3 mode
+            probe = probe.nextElementSibling;
+        }
+
+        if (olNode) {
+            var lis = olNode.querySelectorAll(':scope > li');
+            for (var i = 0; i < lis.length; i++) {
+                var li = lis[i];
+                var text = (li.textContent || '').trim();
+                if (!text) continue;
+                // Step name: first line / first sentence (cap length); text: full
+                var firstLine = text.split(/[\n\.]/)[0].trim();
+                var name = firstLine.length > 0 && firstLine.length <= 100 ? firstLine : ('Step ' + (i + 1));
+                steps.push({ name: name, text: text });
+            }
+        } else {
+            // h3 mode: each h3 under the H2 is a step
+            while (node && node.tagName !== 'H2') {
+                if (node.tagName === 'H3') {
+                    var stepName = node.textContent.trim();
+                    var partsArr = [];
+                    var sn = node.nextElementSibling;
+                    while (sn && sn.tagName !== 'H3' && sn.tagName !== 'H2') {
+                        if (sn.textContent && sn.textContent.trim()) {
+                            partsArr.push(sn.textContent.trim());
+                        }
+                        sn = sn.nextElementSibling;
+                    }
+                    if (stepName) {
+                        steps.push({ name: stepName, text: partsArr.length ? partsArr.join(' ') : stepName });
+                    }
+                }
+                node = node.nextElementSibling;
+            }
+        }
+
+        if (steps.length < 2) return;
+
+        var titleEl = document.querySelector('article h1, article .article-title');
+        var howName = titleEl ? titleEl.textContent.trim() : (document.title || '').trim();
+
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": howName,
+            "step": steps.map(function(st, idx){
+                return {
+                    "@type": "HowToStep",
+                    "position": idx + 1,
+                    "name": st.name,
+                    "text": st.text
+                };
+            })
+        };
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://codersera.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://codersera.com/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "How to Run Qwen 3.8 Locally: 27B on 16–24GB GPUs (2026 Guide)", "item": "https://codersera.com/blog/how-to-run-qwen-3-8-locally-2026/" }
+    ]
+}
+</script>
+
+<script>
+(function(){
+    try {
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "url": location.origin + location.pathname,
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [".quick-answer", "h1"]
+            }
+        };
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+<script>
+(function(){
+    try {
+        var img = document.querySelector('.article-image img, article figure.article-image img');
+        if (!img || !img.src) return;
+        var titleEl = document.querySelector('article h1, article .article-title');
+        var caption = document.querySelector('.article-image figcaption');
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "ImageObject",
+            "url": img.src,
+            "contentUrl": img.src,
+            "creditText": "Codersera",
+            "copyrightNotice": "Codersera",
+            "creator": { "@type": "Organization", "name": "Codersera", "url": location.origin + "/" },
+            "license": location.origin + "/terms-of-services",
+            "acquireLicensePage": location.origin + "/contact-us"
+        };
+        if (img.naturalWidth)  jsonld.width  = img.naturalWidth;
+        if (img.naturalHeight) jsonld.height = img.naturalHeight;
+        if (img.alt) jsonld.description = img.alt;
+        if (caption && caption.textContent.trim()) jsonld.caption = caption.textContent.trim();
+        if (titleEl) jsonld.name = titleEl.textContent.trim();
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+<script>
+(function(){
+    try {
+        var allow = [
+            'ai','llm','ai coding','ai-coding','coding','mcp',
+            'deepseek','deepseek v4','claude','claude opus','claude opus 4.7',
+            'qwen','gpt','gpt-5','gpt-5.5','gemma','llama','kimi','mistral','janus','hunyuan',
+            'open source','open-source','open source llms','open-source llms',
+            'cursor','copilot','ollama','vllm','lm studio','lmstudio','self hosting','self-hosting','local llm','local-llm',
+            'emulator','simulator','android','ios','mobile testing','mobile app testing','software testing',
+            'tutorial','install','setup','how to','how-to','guide'
+        ];
+        var allowLower = allow.map(function(s){ return s.toLowerCase(); });
+        var tagMetas = document.querySelectorAll('meta[property="article:tag"]');
+        if (!tagMetas.length) return;
+        var matched = false;
+        for (var i = 0; i < tagMetas.length; i++) {
+            var v = (tagMetas[i].getAttribute('content') || '').trim().toLowerCase();
+            if (!v) continue;
+            if (allowLower.indexOf(v) !== -1) { matched = true; break; }
+            // Substring fallback for compound tags like "deepseek v4 flash"
+            for (var j = 0; j < allowLower.length; j++) {
+                if (allowLower[j].length >= 4 && v.indexOf(allowLower[j]) !== -1) { matched = true; break; }
+            }
+            if (matched) break;
+        }
+        if (!matched) return;
+        var titleEl = document.querySelector('article h1, article .article-title');
+        var pubTime = document.querySelector('meta[property="article:published_time"]');
+        var modTime = document.querySelector('meta[property="article:modified_time"]');
+        var canonical = document.querySelector('link[rel="canonical"]');
+        var url = canonical ? canonical.href : (location.origin + location.pathname);
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "TechArticle",
+            "@id": url + "#TechArticle",
+            "headline": titleEl ? titleEl.textContent.trim() : (document.title || '').trim(),
+            "url": url,
+            "proficiencyLevel": "Intermediate",
+            "dependencies": "Software development experience"
+        };
+        if (pubTime && pubTime.getAttribute('content')) jsonld.datePublished = pubTime.getAttribute('content');
+        if (modTime && modTime.getAttribute('content')) jsonld.dateModified  = modTime.getAttribute('content');
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+<script>
+(function(){
+    try {
+        var titleEl = document.querySelector('article h1, article .article-title');
+        if (!titleEl) return;
+        var title = titleEl.textContent.trim();
+        // Match "10 Best", "Top 8", "8 Best", "The 10 Best", etc.
+        var listicleRe = /^(the\s+)?(top\s+)?\d+\s+(best|top|free|leading|popular|essential|recommended)\b|^(top|best)\s+\d+\b/i;
+        if (!listicleRe.test(title)) return;
+
+        var scope = document.querySelector('.cs-post-content')
+                 || document.querySelector('article .gh-content')
+                 || document.querySelector('article')
+                 || document;
+
+        var faqRe = /^(faq|frequently asked questions|faqs?)$/i;
+        var howRe = /^(steps|how to\b.*|how does it work\??)$/i;
+        // Numbered prefix at the start of a heading: "1. ", "1) ", "1: ", "1 - ", "1 — ", etc.
+        var numberedRe = /^\s*\d+\s*[\.\)\:\-–—]\s+\S/;
+
+        var pageOrigin = location.origin;
+        var pagePath = location.pathname.replace(/\/+$/, '') + '/';
+
+        function cleanName(raw) {
+            var n = (raw || '').trim().replace(/^\s*\d+\s*[\.\)\:\-–—]\s*/, '').trim();
+            if (!n || n.length > 140) return null;
+            if (/\?$/.test(n)) return null; // skip FAQ-style questions
+            return n;
+        }
+
+        function findItemUrl(heading) {
+            var itemUrl = heading.id ? (pageOrigin + pagePath + '#' + heading.id) : null;
+            var sib = heading.nextElementSibling;
+            while (sib && sib.tagName !== heading.tagName && sib.tagName !== 'H2' && sib.tagName !== 'H1') {
+                var firstA = sib.querySelector && sib.querySelector('a[href]');
+                if (firstA) {
+                    var href = firstA.getAttribute('href') || '';
+                    if (href && href.charAt(0) !== '#' && href.indexOf('mailto:') !== 0) {
+                        try {
+                            var resolved = new URL(href, location.href).href;
+                            // Don't link back to this same page
+                            var hereNoSlash = (pageOrigin + pagePath).replace(/\/$/, '');
+                            if (resolved.split('#')[0].replace(/\/$/, '') !== hereNoSlash) {
+                                itemUrl = resolved;
+                            }
+                        } catch (e) {}
+                        break;
+                    }
+                }
+                sib = sib.nextElementSibling;
+            }
+            return itemUrl;
+        }
+
+        var items = [];
+        var seen = {};
+
+        // Mode 1: numbered H2s (each tool is its own H2 section)
+        var h2s = Array.from(scope.querySelectorAll('h2'));
+        var numberedH2s = h2s.filter(function(h){
+            var t = (h.textContent || '').trim();
+            return numberedRe.test(t) && !faqRe.test(t) && !howRe.test(t);
+        });
+        if (numberedH2s.length >= 3) {
+            for (var i = 0; i < numberedH2s.length; i++) {
+                var name = cleanName(numberedH2s[i].textContent);
+                if (!name || seen[name.toLowerCase()]) continue;
+                seen[name.toLowerCase()] = true;
+                items.push({ name: name, url: findItemUrl(numberedH2s[i]) });
+            }
+        }
+
+        // Mode 2: H3-under-H2 (only if Mode 1 didn't fire)
+        if (items.length < 3) {
+            items = [];
+            seen = {};
+            for (var hi = 0; hi < h2s.length; hi++) {
+                var h2 = h2s[hi];
+                var h2text = (h2.textContent || '').trim();
+                if (faqRe.test(h2text) || howRe.test(h2text)) continue;
+                var node = h2.nextElementSibling;
+                var localH3s = [];
+                while (node && node.tagName !== 'H2') {
+                    if (node.tagName === 'H3') localH3s.push(node);
+                    node = node.nextElementSibling;
+                }
+                // Only accept H3 children as items when they look numbered, OR the parent H2 looks like a "list" intro heading.
+                var parentIsListIntro = /^(the\s+)?\d+\s+|^top\s+\d+|^best\s+\d+/i.test(h2text);
+                for (var h3i = 0; h3i < localH3s.length; h3i++) {
+                    var h3 = localH3s[h3i];
+                    var t = (h3.textContent || '').trim();
+                    if (!parentIsListIntro && !numberedRe.test(t)) continue;
+                    var nm = cleanName(t);
+                    if (!nm || seen[nm.toLowerCase()]) continue;
+                    seen[nm.toLowerCase()] = true;
+                    items.push({ name: nm, url: findItemUrl(h3) });
+                }
+            }
+        }
+
+        if (items.length < 3) return;
+
+        var listEls = items.map(function(it, idx){
+            var le = { "@type": "ListItem", "position": idx + 1, "name": it.name };
+            if (it.url) le.url = it.url;
+            return le;
+        });
+
+        var jsonld = {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListOrder": "https://schema.org/ItemListOrderAscending",
+            "numberOfItems": listEls.length,
+            "itemListElement": listEls
+        };
+        var s = document.createElement('script');
+        s.type = 'application/ld+json';
+        s.textContent = JSON.stringify(jsonld);
+        document.head.appendChild(s);
+    } catch (e) {}
+})();
+</script>
+
+    <section class="footer-cta outer">
+        <div class="inner">
+            <h2 class="footer-cta-title">Sign up for more like this.</h2>
+            <a class="footer-cta-button" href="#/portal" data-portal>
+                <div class="footer-cta-input">Enter your email</div>
+                <span>Subscribe</span>
+            </a>
+        </div>
+    </section>
+
+
+            <aside class="read-more-wrap outer">
+                <div class="read-more inner">
+                        <article class="cs-card">
+
+
+    <div class="cs-card-body">
+        
+
+        <a href="/blog/gpt-6-astra-safety-cyber-capabilities-2026/" class="cs-card-title-link">
+            <h3 class="cs-card-title">Why GPT-6 Astra Was Held Back: The Critical Cyber Finding</h3>
+        </a>
+
+        <p class="cs-card-excerpt">OpenAI classified GPT-6 Astra as the first model to meet the Critical cybersecurity threshold under its Preparedness Framework. What the system card actually documents, what safeguards shipped, and what the June 2026 executive order really says.</p>
+
+        <div class="cs-card-meta">
+            <time datetime="2026-09-03">03 Sep 2026</time>
+            <span>· 11 min read</span>
+        </div>
+    </div>
+
+</article>
+                        <article class="cs-card">
+
+
+    <div class="cs-card-body">
+        
+
+        <a href="/blog/gpt-6-astra-vs-gpt-5-6-sol-2026/" class="cs-card-title-link">
+            <h3 class="cs-card-title">GPT-6 Astra vs GPT-5.6 Sol: Should You Upgrade?</h3>
+        </a>
+
+        <p class="cs-card-excerpt">GPT-6 Astra launched 3 September 2026. Identical specs to GPT-5.6 Sol, a tie on the independent Artificial Analysis index, and 2.5x the price - a targeted upgrade for agentic coding and computer use, not a general one.</p>
+
+        <div class="cs-card-meta">
+            <time datetime="2026-09-03">03 Sep 2026</time>
+            <span>· 13 min read</span>
+        </div>
+    </div>
+
+</article>
+                        <article class="cs-card">
+
+
+    <div class="cs-card-body">
+        
+
+        <a href="/blog/gpt-6-astra-vs-claude-opus-5-2026/" class="cs-card-title-link">
+            <h3 class="cs-card-title">GPT-6 Astra vs Claude Opus 5: Is 2x the Price Worth It?</h3>
+        </a>
+
+        <p class="cs-card-excerpt">GPT-6 Astra lists at exactly twice Claude Opus 5. On the one independent same-harness index that has run both, Opus 5 scores higher. Here is the full cost and benchmark breakdown.</p>
+
+        <div class="cs-card-meta">
+            <time datetime="2026-09-03">03 Sep 2026</time>
+            <span>· 10 min read</span>
+        </div>
+    </div>
+
+</article>
+                </div>
+            </aside>
+
+
+    </div>
+
+    <footer class="cs-footer">
+        <div class="cs-footer-main">
+            <div class="cs-footer-inner">
+
+                <div class="cs-footer-brand-col">
+                    <a class="cs-footer-logo" href="https://codersera.com">
+                        <svg width="35" height="30" viewBox="0 0 46 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path d="M28.2774 0.233584L39.2712 0.600645L31.8747 12.3604L20.8808 11.9933L28.2774 0.233584Z" fill="#5885FF"/>
+                            <path d="M26.0605 21.6979L20.8814 11.9934L39.3685 12.6729L44.5475 22.3774L26.0605 21.6979Z" fill="#A9C0FF"/>
+                            <path d="M5.90559 12.2963L-1.63317e-05 21.5766L13.8821 22.1134L19.7877 12.8331L5.90559 12.2963Z" fill="#5885FF"/>
+                            <path d="M24.8718 22.5896L19.7876 12.8351L9.90829 28.4758L14.9925 38.2304L24.8718 22.5896Z" fill="#A9C0FF"/>
+                        </svg>
+                        <span class="cs-footer-logo-text">Codersera</span>
+                    </a>
+
+                    <div class="cs-footer-rating">
+                        <div class="cs-footer-rating-stars">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="#FFD700" xmlns="http://www.w3.org/2000/svg"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            <span class="cs-rating-value">4.9</span><span class="cs-rating-total">/5</span>
+                        </div>
+                        <p class="cs-rating-label">Based on 1095 Ratings</p>
+                    </div>
+
+                    <div class="cs-footer-ctas">
+                        <a href="https://codersera.com/hire" class="cs-footer-btn-outline">Hire a Developer</a>
+                        <a href="https://codersera.com/apply" class="cs-footer-btn-text">Apply as a developer</a>
+                    </div>
+                </div>
+
+                <div class="cs-footer-links">
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Company</h3>
+                        <a href="https://codersera.com/about-us">About</a>
+                        <a href="https://codersera.com/why-us">Why Us</a>
+                        <a href="https://codersera.com/faqs">FAQs</a>
+                        <a href="https://codersera.com/contact-us">Contact Us</a>
+                        <a href="https://codersera.com/partner-with-codersera">Partner with Us</a>
+                        <a href="https://codersera.com/blog">Blog</a>
+                    </div>
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Hire</h3>
+                        <a href="https://codersera.com/hire/hire-node-js-developer">Hire Node.JS Developer</a>
+                        <a href="https://codersera.com/hire/hire-react-developer">Hire React Developer</a>
+                        <a href="https://codersera.com/hire/hire-react-native-developer">Hire React Native Developer</a>
+                        <a href="https://codersera.com/hire/hire-express-js-developer">Hire Express.JS Developer</a>
+                        <a href="https://codersera.com/hire/hire-javascript-developer">Hire Javascript Developer</a>
+                        <a href="https://codersera.com/hire/hire-angular-developer">Hire Angular Developer</a>
+                        <a href="https://codersera.com/hire/hire-typescript-developer">Hire Typescript Developer</a>
+                    </div>
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Looking for Job</h3>
+                        <a href="https://codersera.com/apply">Java Developers</a>
+                        <a href="https://codersera.com/apply">React Developers</a>
+                        <a href="https://codersera.com/apply">Node Developers</a>
+                        <a href="https://codersera.com/apply">IOS Developers</a>
+                        <a href="https://codersera.com/apply">Python Developers</a>
+                        <a href="https://codersera.com/apply">Angular Developers</a>
+                        <a href="https://codersera.com/apply">React-native Developers</a>
+                    </div>
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Support</h3>
+                        <a href="https://codersera.com/terms-of-services">Terms of Services</a>
+                        <a href="https://codersera.com/our-7-day-risk-free-trial-policy">Risk-Free Trial Policy</a>
+                        <a href="https://codersera.com/privacy-policy">Privacy Policy</a>
+                    </div>
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Tools</h3>
+                        <a href="https://codersera.com/tools/invoice-generator">Free Invoice Generator</a>
+                        <a href="https://codersera.com/tools/todo-tracker">Task Tracker: Kanban + List + Matrix</a>
+                        <a href="https://codersera.com/tools/impact-effort-matrix">Impact-Effort Matrix</a>
+                        <a href="https://codersera.com/tools/ai-agent-task-board">AI Agent Task Manager</a>
+                        <a href="https://codersera.com/tools/directory-submission-list">Startup Directory Submission List</a>
+                        <a href="https://codersera.com/tools/domain-rating-checker">Free Domain Rating Checker</a>
+                        <a href="https://codersera.com/tools/ip-lookup">Free IP Lookup</a>
+                        <a href="https://codersera.com/tools/local-ai-model-picker">Local AI Model Picker</a>
+                        <a href="https://codersera.com/tools/focus-timer">Focus Timer: task list + timer</a>
+                        <a href="https://codersera.com/tools/interviewlab">InterviewLab: AI mock interviewer</a>
+                        <a href="https://codersera.com/tools/wingman">Wingman: AI interview copilot</a>
+                        <a href="https://clipy.online" target="_blank" rel="noopener">Clipy: screen recorder</a>
+                        <a href="https://chromewebstore.google.com/detail/clipy-%E2%80%94-screen-recorder-a/kpoeghpnpjdaglohmnemgkljahinendl" target="_blank" rel="noopener">Clipy Chrome Extension</a>
+                        <a href="https://codersera.com/tools/note-taker">Browser Note Taker</a>
+                        <a href="https://codersera.com/tools/markdown-viewer">Markdown Viewer</a>
+                        <a href="https://risecv.com" target="_blank" rel="noopener">AI Resume Builder</a>
+                    </div>
+                    <div class="cs-footer-col">
+                        <h3 class="cs-footer-col-title">Guides</h3>
+                        <a href="https://codersera.com/guides">All Developer Guides</a>
+                        <a href="https://codersera.com/blog/deepseek-v4-complete-guide-2026/">DeepSeek V4 Complete Guide</a>
+                        <a href="https://codersera.com/blog/claude-opus-4-7-complete-guide-2026/">Claude Opus Complete Guide</a>
+                        <a href="https://codersera.com/blog/gpt-5-5-complete-guide-2026/">GPT-5.5 Complete Guide</a>
+                        <a href="https://codersera.com/blog/llama-4-complete-guide-2026/">Llama 4 Complete Guide</a>
+                        <a href="https://codersera.com/blog/qwen-3-5-complete-guide-2026/">Qwen 3.5 Complete Guide</a>
+                        <a href="https://codersera.com/blog/gemma-4-complete-guide-2026/">Gemma 4 Complete Guide</a>
+                        <a href="https://codersera.com/blog/kimi-k2-6-complete-guide-2026/">Kimi K2.6 Complete Guide</a>
+                        <a href="https://codersera.com/blog/gemini-3-5-complete-guide-2026/">Gemini 3.5 Complete Guide</a>
+                        <a href="https://codersera.com/blog/open-source-llms-landscape-2026/">Open-Source LLMs Landscape</a>
+                        <a href="https://codersera.com/blog/ai-coding-agents-complete-guide-2026/">AI Coding Agents Guide</a>
+                        <a href="https://codersera.com/blog/agents-md-complete-guide-2026/">AGENTS.md Complete Guide</a>
+                        <a href="https://codersera.com/blog/cursor-ide-complete-guide-2026/">Cursor IDE Complete Guide</a>
+                        <a href="https://codersera.com/blog/self-hosting-llms-complete-guide-2026/">Self-Hosting LLMs Guide</a>
+                        <a href="https://codersera.com/blog/apple-silicon-llms-complete-guide-2026/">Apple Silicon LLMs Guide</a>
+                        <a href="https://codersera.com/blog/fine-tuning-llms-complete-guide-2026/">Fine-Tuning LLMs Guide</a>
+                        <a href="https://codersera.com/blog/self-training-small-llm-complete-guide-2026/">Train a Small LLM Guide</a>
+                        <a href="https://codersera.com/blog/android-emulators-complete-guide-2026/">Android Emulators Guide</a>
+                        <a href="https://codersera.com/blog/ios-simulators-complete-guide-2026/">iOS Simulators Guide</a>
+                        <a href="https://codersera.com/blog/mobile-app-testing-complete-guide-2026/">Mobile App Testing Guide</a>
+                        <a href="https://codersera.com/blog/software-testing-complete-guide-2026/">Software Testing Guide</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="cs-footer-bottom">
+            <div class="cs-footer-bottom-inner">
+                <span class="cs-footer-copyright">&copy; 2026 Codersera. All rights reserved.</span>
+                <div class="cs-footer-social">
+                    <a href="https://www.linkedin.com/company/codersera/" target="_blank" rel="noopener" aria-label="LinkedIn" class="cs-social-chip" style="--brand: #0A66C2;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+                    </a>
+                    <a href="https://twitter.com/codersera11" target="_blank" rel="noopener" aria-label="X (formerly Twitter)" class="cs-social-chip" style="--brand: #ffffff;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@codersera4205" target="_blank" rel="noopener" aria-label="YouTube" class="cs-social-chip" style="--brand: #FF0000;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.13C19.55 3.6 12 3.6 12 3.6s-7.55 0-9.4.47A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.13c1.85.47 9.4.47 9.4.47s7.55 0 9.4-.47a3 3 0 0 0 2.1-2.13c.34-1.91.5-3.85.5-5.8a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.27 3.6z"/></svg>
+                    </a>
+                    <a href="https://www.facebook.com/codersera11/" target="_blank" rel="noopener" aria-label="Facebook" class="cs-social-chip" style="--brand: #1877F2;">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M24 12c0-6.63-5.37-12-12-12S0 5.37 0 12c0 6 4.39 10.95 10.13 11.85V15.47H7.08V12h3.05V9.36c0-3.01 1.79-4.67 4.53-4.67 1.31 0 2.69.23 2.69.23v2.95h-1.51c-1.49 0-1.96.93-1.96 1.88V12h3.33l-.53 3.47h-2.8v8.38C19.61 22.95 24 18 24 12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+    <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="pswp__bg"></div>
+
+    <div class="pswp__scroll-wrap">
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <div class="pswp__ui pswp__ui--hidden">
+            <div class="pswp__top-bar">
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button>
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="/blog/assets/built/casper.js?v=a94921390b"></script>
+<script>
+$(document).ready(function () {
+    $(".gh-content").fitVids();
+});
+
+// Codersera mobile nav toggle
+(function () {
+    var burger = document.getElementById('cs-burger');
+    var menu   = document.getElementById('cs-mobile-menu');
+    if (!burger || !menu) return;
+    burger.addEventListener('click', function () {
+        var open = menu.classList.toggle('cs-mobile-open');
+        burger.classList.toggle('cs-burger-open', open);
+        burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        document.body.style.overflow = open ? 'hidden' : '';
+    });
+}());
+
+// Auth-aware nav: hide "Apply as Freelancer" when the visitor is signed in.
+// /blog/* is served by Ghost behind the same Nginx vhost as the Next.js app,
+// so the next-auth session cookie is in scope and /api/auth/session works
+// from this origin. Setting a class on <html> keeps the gate in CSS — no
+// flash of the Apply button for returning users on slow links.
+(function () {
+    try {
+        fetch('/api/auth/session', { credentials: 'include' })
+            .then(function (res) { return res.ok ? res.json() : null; })
+            .then(function (data) {
+                if (data && data.user) {
+                    document.documentElement.classList.add('cs-authed');
+                }
+            })
+            .catch(function () { /* anonymous — leave nav untouched */ });
+    } catch (e) { /* no fetch / blocked — leave nav untouched */ }
+}());
+
+// Keep Ghost native search focused on content results.
+(function () {
+    var searchFrameObserver = null;
+
+    function tuneSearchFrame() {
+        var root = document.getElementById('sodo-search-root');
+        if (!root) return;
+
+        var frame = root.querySelector('iframe');
+        if (!frame || !frame.contentDocument) return;
+
+        var doc = frame.contentDocument;
+        if (!doc || !doc.body) return;
+
+        var input = doc.querySelector('input');
+        if (input) {
+            input.setAttribute('placeholder', 'Search articles, topics, and guides');
+        }
+
+        Array.prototype.forEach.call(doc.querySelectorAll('h1'), function (heading) {
+            var label = (heading.textContent || '').trim().toLowerCase();
+            var section = heading.parentElement;
+            if (!section) return;
+
+            if (label === 'authors') {
+                section.style.display = 'none';
+            }
+
+            if (label === 'tags') {
+                section.style.display = '';
+                Array.prototype.forEach.call(section.children, function (child, index) {
+                    child.style.display = index <= 4 ? '' : 'none';
+                });
+            }
+        });
+
+        if (!doc.body.getAttribute('data-cs-search-observed')) {
+            doc.body.setAttribute('data-cs-search-observed', 'true');
+            if (searchFrameObserver) {
+                searchFrameObserver.disconnect();
+            }
+            searchFrameObserver = new MutationObserver(tuneSearchFrame);
+            searchFrameObserver.observe(doc.body, { childList: true, subtree: true });
+        }
+    }
+
+    document.addEventListener('click', function (event) {
+        if (!event.target.closest('[data-ghost-search]')) return;
+        setTimeout(tuneSearchFrame, 250);
+        setTimeout(tuneSearchFrame, 900);
+    });
+
+    var observer = new MutationObserver(tuneSearchFrame);
+    observer.observe(document.body, { childList: true, subtree: true });
+}());
+</script>
+
+<!-- Prism Section Starts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/prism.min.js" integrity="sha512-RDQSW3KoqJMiX0L/UBgwBmH1EmRYp8LBOiLaA8rBHIy+7OGP/7Gxg8vbt8wG4ZYd29P0Fnoq6+LOytCqx3cyoQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha512-BttltKXFyWnGZQcRWj6osIg7lbizJchuAMotOkdLxHxwt/Hyo+cl47bZU0QADg+Qt5DJwni3SbYGXeGMB5cBcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.28.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha512-fTl/qcO1VgvKtOMApX2PdZzkziyr2stM65GYPLGuYMnuMm1z2JLJG6XVU7C/mR+E7xBUqCivykuhlzfqxXBXbg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>document.body.className += ' ' + 'line-numbers';</script>
+<!-- Prism Section ENDS -->
+
+</body>
+</html>

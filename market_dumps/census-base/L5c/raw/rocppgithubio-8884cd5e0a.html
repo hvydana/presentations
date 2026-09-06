@@ -1,0 +1,249 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Qualified C++ compilers in 2026 -- which toolchain ships in regulated industries — wro.cpp Toolset</title><meta name="description" content="ISO 26262 (automotive), IEC 61508 (industrial), DO-178C (avionics), IEC 62304 (medical) all require a Software Tool Confidence Level (TCL) argument for the compiler. This page maps the 2026 vendor landscape -- GHS MULTI, IAR EWARM, LLVM Embedded Toolchain for Arm, Arm Compiler 6, GCC + GHS qualification kits, and the new TCL kits for the LLVM-based vendors -- across the four big standards. Plus a reflection-driven MISRA C++:2023 lint that shrinks your tool-qualification surface."><link rel="canonical" href="https://wrocpp.github.io/toolset/qualified-compilers/"><link rel="alternate" type="application/rss+xml" title="wro.cpp" href="/rss.xml"><meta property="og:title" content="Qualified C++ compilers in 2026 -- which toolchain ships in regulated industries — wro.cpp Toolset"><meta property="og:description" content="ISO 26262 (automotive), IEC 61508 (industrial), DO-178C (avionics), IEC 62304 (medical) all require a Software Tool Confidence Level (TCL) argument for the compiler. This page maps the 2026 vendor landscape -- GHS MULTI, IAR EWARM, LLVM Embedded Toolchain for Arm, Arm Compiler 6, GCC + GHS qualification kits, and the new TCL kits for the LLVM-based vendors -- across the four big standards. Plus a reflection-driven MISRA C++:2023 lint that shrinks your tool-qualification surface."><meta property="og:type" content="website"><meta name="theme-color" content="#EA541E"><!-- Fonts: Quicksand (brand-mandated), Source Serif 4 (body), JetBrains Mono (code) --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500;700&display=swap"><script>(function(){const gaId = "G-88H50VSPZR";
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'denied',
+        personalization_storage: 'denied',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+      gtag('js', new Date());
+      gtag('config', gaId, {
+        anonymize_ip: true,
+        send_page_view: true,
+      });
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+      document.head.appendChild(s);
+    })();</script><link rel="stylesheet" href="/_astro/BaseLayout.uZkP84gP.css"><style>.reviewed-badge[data-astro-cid-3esebuul]{background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--blue);color:var(--ink-muted);gap:.3rem;margin:0 0 1.5rem;padding:.85rem 1rem;font-family:JetBrains Mono,monospace;font-size:.78rem;display:grid}.reviewed-badge__row[data-astro-cid-3esebuul]{flex-wrap:wrap;gap:.6rem;display:flex}.reviewed-badge__label[data-astro-cid-3esebuul]{color:var(--ink-faint);text-transform:uppercase;letter-spacing:.05em;min-width:8.5rem}.reviewed-badge__row--tested[data-astro-cid-3esebuul] span[data-astro-cid-3esebuul]:not(.reviewed-badge__label){color:var(--ink)}.reviewed-badge__methodology[data-astro-cid-3esebuul]{margin-top:.3rem;font-size:.72rem}.reviewed-badge__methodology[data-astro-cid-3esebuul] a[data-astro-cid-3esebuul]{color:var(--blue-deep);text-decoration:none}.reviewed-badge__methodology[data-astro-cid-3esebuul] a[data-astro-cid-3esebuul]:hover{color:var(--orange)}
+.page-head__chips[data-astro-cid-obzrm3ze]{flex-wrap:wrap;gap:.5rem;margin-top:.5rem;display:flex}.chip[data-astro-cid-obzrm3ze]{background:var(--paper-2);border:1px solid var(--rule);color:var(--ink-muted);text-transform:uppercase;letter-spacing:.05em;padding:.2rem .55rem;font-family:JetBrains Mono,monospace;font-size:.72rem}.toolset-footer[data-astro-cid-obzrm3ze]{border-top:1px solid var(--rule);color:var(--ink-muted);margin-top:2.4rem;padding-top:1.2rem;font-family:JetBrains Mono,monospace;font-size:.78rem}.toolset-footer[data-astro-cid-obzrm3ze] code[data-astro-cid-obzrm3ze] a[data-astro-cid-obzrm3ze]{color:var(--blue-deep);text-decoration:none}.toolset-footer[data-astro-cid-obzrm3ze] code[data-astro-cid-obzrm3ze] a[data-astro-cid-obzrm3ze]:hover{color:var(--orange)}.toolset-footer__tags[data-astro-cid-obzrm3ze]{flex-wrap:wrap;gap:.35rem;margin:.6rem 0 0;padding:0;list-style:none;display:flex}.toolset-footer__tags[data-astro-cid-obzrm3ze] li[data-astro-cid-obzrm3ze]{background:var(--paper);border:1px solid var(--rule);padding:.15rem .45rem}.toolset-footer__back[data-astro-cid-obzrm3ze]{margin-top:1rem}
+</style><style>.dr-cta-group[data-astro-cid-iujzbniy]{flex-direction:column;gap:.4rem;margin:1.5rem 0;display:flex}.dr-container-badge[data-astro-cid-iujzbniy]{color:var(--ink-faint);letter-spacing:.01em;margin:0 0 .1rem .1rem;font-size:.7rem;font-style:italic;line-height:1}.dr-cta[data-astro-cid-iujzbniy]{background:var(--paper-2);border:1px solid var(--rule);border-left:3px solid var(--orange-hot,#d6481a);color:var(--ink);align-items:flex-start;gap:.85rem;padding:1.1rem 1.3rem;text-decoration:none;display:flex}.dr-cta--placeholder[data-astro-cid-iujzbniy]{border-left-color:var(--ink-faint);opacity:.85}.dr-cta__play[data-astro-cid-iujzbniy]{background:var(--orange-hot,#d6481a);color:var(--paper);border-radius:2px;flex:none;justify-content:center;align-items:center;width:1.7rem;height:1.7rem;margin-top:.1rem;font-family:JetBrains Mono,monospace;font-weight:700;display:inline-flex}.dr-cta__main[data-astro-cid-iujzbniy]{flex:auto;min-width:0}.dr-cta__eyebrow[data-astro-cid-iujzbniy]{color:var(--ink);margin-bottom:.4rem;font-family:Quicksand,system-ui,sans-serif;font-size:.95rem;font-weight:700}.dr-cta__cmd[data-astro-cid-iujzbniy]{background:var(--code-bg);color:var(--code-text);white-space:pre;border-radius:2px;margin:0 0 .4rem;padding:.7rem .9rem;font-family:JetBrains Mono,monospace;font-size:.78rem;line-height:1.45;overflow-x:auto}.dr-cta__cmd[data-astro-cid-iujzbniy] code[data-astro-cid-iujzbniy]{color:inherit;background:0 0;padding:0}.dr-cta__sub[data-astro-cid-iujzbniy]{color:var(--ink-muted);word-break:break-all;font-family:JetBrains Mono,monospace;font-size:.7rem}.dr-cta__expected[data-astro-cid-iujzbniy]{color:var(--ink-muted);margin-top:.5rem;font-family:JetBrains Mono,monospace;font-size:.75rem}.dr-cta__expected[data-astro-cid-iujzbniy] summary[data-astro-cid-iujzbniy]{cursor:pointer;color:var(--blue-deep);margin-bottom:.3rem}.dr-cta__expected[data-astro-cid-iujzbniy] pre[data-astro-cid-iujzbniy]{background:var(--paper-3);color:var(--ink);border:1px solid var(--rule);border-radius:2px;margin:0;padding:.5rem .7rem;overflow-x:auto}.dr-cta--placeholder[data-astro-cid-iujzbniy] .dr-cta__title[data-astro-cid-iujzbniy]{color:var(--ink-muted);font-family:Quicksand,system-ui,sans-serif;font-size:1.05rem;font-style:italic;font-weight:700}.dr-cta--placeholder[data-astro-cid-iujzbniy] .dr-cta__sub[data-astro-cid-iujzbniy]{color:var(--ink-muted);font-family:"Source Serif 4",Georgia,serif;font-size:.95rem}.dr-cta--placeholder[data-astro-cid-iujzbniy] .dr-cta__sub[data-astro-cid-iujzbniy] a[data-astro-cid-iujzbniy]{color:var(--orange)}
+</style><style>.ce-cta-group[data-astro-cid-utsmtibg]{flex-direction:column;gap:.5rem;margin:1.5rem 0;display:flex}.ce-cta-group[data-astro-cid-utsmtibg] .ce-cta[data-astro-cid-utsmtibg]{margin:0}.ce-cta--secondary[data-astro-cid-utsmtibg]{border-left-color:var(--blue-deep)!important}.ce-cta--secondary[data-astro-cid-utsmtibg]:hover{border-color:var(--blue-deep)!important}.ce-cta--secondary[data-astro-cid-utsmtibg] .ce-cta__play[data-astro-cid-utsmtibg]{background:var(--blue-deep)}.ce-cta--secondary[data-astro-cid-utsmtibg]:hover .ce-cta__play[data-astro-cid-utsmtibg]{background:var(--blue)}.ce-cta--secondary[data-astro-cid-utsmtibg] .ce-cta__eyebrow[data-astro-cid-utsmtibg],.ce-cta--secondary[data-astro-cid-utsmtibg]:hover .ce-cta__arrow[data-astro-cid-utsmtibg]{color:var(--blue-deep)}.ce-compiler-badge[data-astro-cid-utsmtibg]{color:var(--ink-faint);letter-spacing:.01em;margin:0 0 .1rem .1rem;font-size:.7rem;font-style:italic;line-height:1}
+</style><style>.post-link-pending[data-astro-cid-4di5hawm]{border-bottom:1px dotted var(--ink-faint);color:var(--ink-muted)}
+</style><style>.repo-file[data-astro-cid-rsnv5uwt]{text-decoration:none}.repo-file[data-astro-cid-rsnv5uwt] code[data-astro-cid-rsnv5uwt]{background:var(--paper-3);color:var(--ink);border:1px solid var(--rule);border-radius:2px;padding:.05rem .35rem;font-family:JetBrains Mono,monospace;font-size:.92em;transition:background .12s,border-color .12s,color .12s}.repo-file[data-astro-cid-rsnv5uwt]:hover code[data-astro-cid-rsnv5uwt]{background:var(--paper-2);border-color:var(--orange);color:var(--orange)}
+</style></head><body class="min-h-screen flex flex-col"><header class="site-header"><div class="site-header__inner"><a href="/" class="brand-mark" aria-label="wro.cpp home"><svg viewBox="0 0 320 320" width="40" height="40" role="img" aria-label="wro.cpp" class="brand-mark__icon " xmlns="http://www.w3.org/2000/svg"><path d="M0 0 C2.97 12.54 5.94 25.08 9 38 C0.04 41.36 0.04 41.36 -4.15 42.51 C-4.62 42.64 -4.62 42.64 -6.97 43.29 C-7.95 43.57 -8.93 43.84 -9.94 44.12 C-66.61 60.38 -66.61 60.38 -77.72 80.41 C-84.37 93.85 -86.75 108.44 -81.94 122.94 C-77.15 135.57 -68.72 146.12 -56.31 151.94 C-42.17 157.69 -28.55 158.5 -14.19 152.94 C-7.43 149.93 -1.21 146.13 5.05 142.21 C6.97 141.02 8.9 139.85 10.84 138.69 C19.49 133.46 27.64 127.73 35.71 121.65 C36.47 121.07 37.23 120.5 38.02 119.91 C38.69 119.39 39.36 118.88 40.06 118.35 C41.97 117.02 43.89 115.99 46 115 C52.09 122.19 57.98 129.48 63.68 136.99 C65.34 139.14 67.02 141.2 68.79 143.26 C71 146 71 146 71 148 C48.04 168.28 15.02 191.6 -15 199 C-15.8 199.22 -16.6 199.44 -17.43 199.67 C-40.4 204.99 -65.04 199.45 -85.31 188.16 C-106.1 174.96 -121.15 154.49 -127.25 130.55 C-132.98 103.27 -127.86 78.64 -113.06 55.12 C-101.6 38.85 -86.54 28.13 -68.14 20.85 C-65.72 19.89 -63.32 18.9 -60.91 17.91 C-16.82 0 -16.82 0 0 0 Z " fill="#414142" transform="translate(131,73)"></path><path d="M0 0 C4.29 11.22 8.58 22.44 13 34 C17.35 32.39 21.7 30.78 26.19 29.12 C27.55 28.62 28.92 28.12 30.32 27.6 C31.4 27.2 32.49 26.8 33.61 26.38 C34.71 25.97 35.82 25.57 36.95 25.15 C38.89 24.42 40.81 23.66 42.71 22.85 C45 22 45 22 48 22 C49.37 25.43 50.72 28.87 52.06 32.31 C52.45 33.29 52.84 34.27 53.24 35.27 C53.61 36.21 53.97 37.15 54.35 38.11 C54.69 38.98 55.03 39.84 55.38 40.73 C56 43 56 43 55 46 C52.63 47.12 50.36 48.04 47.9 48.92 C47.19 49.18 46.48 49.44 45.75 49.71 C43.49 50.55 41.21 51.37 38.94 52.19 C37.4 52.75 35.86 53.32 34.33 53.88 C30.56 55.27 26.78 56.64 23 58 C25.1 65.54 27.77 72.75 30.69 80 C31.51 82.04 32.32 84.08 33.14 86.12 C33.32 86.57 33.32 86.57 34.22 88.82 C35 91 35 91 35 93 C31.57 94.34 28.13 95.67 24.69 97 C23.71 97.38 22.73 97.76 21.73 98.16 C20.79 98.52 19.85 98.88 18.89 99.25 C18.45 99.42 18.45 99.42 16.27 100.27 C14 101 14 101 11 101 C9.77 97.94 8.54 94.88 7.31 91.81 C6.97 90.97 6.63 90.12 6.28 89.25 C3.45 82.19 0.72 75.1 -2 68 C-2.44 68.16 -2.44 68.16 -4.67 68.99 C-7.96 70.21 -11.25 71.43 -14.54 72.64 C-15.96 73.17 -17.39 73.7 -18.81 74.22 C-20.85 74.99 -22.9 75.74 -24.95 76.5 C-26.18 76.95 -27.41 77.41 -28.68 77.88 C-31.47 78.82 -34.1 79.52 -37 80 C-38.34 76.38 -39.67 72.75 -41 69.12 C-41.38 68.09 -41.76 67.06 -42.16 66 C-42.34 65.5 -42.34 65.5 -43.25 63.01 C-43.59 62.1 -43.92 61.19 -44.27 60.25 C-45 58 -45 58 -45 56 C-40.48 54.29 -35.96 52.58 -31.44 50.87 C-29.9 50.29 -28.36 49.71 -26.82 49.13 C-24.61 48.29 -22.41 47.46 -20.2 46.62 C-19.51 46.36 -18.82 46.1 -18.11 45.83 C-13.23 44 -13.23 44 -11 44 C-11.36 43.05 -11.73 42.1 -12.1 41.13 C-13.45 37.6 -14.79 34.08 -16.13 30.55 C-16.71 29.02 -17.29 27.5 -17.87 25.97 C-18.71 23.78 -19.54 21.59 -20.38 19.39 C-20.64 18.71 -20.9 18.03 -21.17 17.33 C-22.44 13.96 -23 11.66 -23 8 C-19.54 6.66 -16.08 5.33 -12.62 4 C-11.64 3.62 -10.66 3.24 -9.64 2.84 C-8.7 2.48 -7.76 2.12 -6.79 1.75 C-5.92 1.41 -5.05 1.08 -4.15 0.73 C-2 0 -2 0 0 0 Z " fill="#414142" transform="translate(259,110)"></path><path d="M0 0 C4.01 0.07 8 0.48 12 0.81 C12.57 0.85 12.57 0.85 15.43 1.06 C16.5 1.15 17.58 1.24 18.69 1.33 C19.68 1.41 20.68 1.49 21.7 1.57 C22.46 1.71 23.22 1.85 24 2 C25.55 5.11 24.77 8.26 24.44 11.63 C24.37 12.38 24.31 13.14 24.24 13.91 C24.02 16.32 23.79 18.72 23.56 21.12 C23.41 22.75 23.26 24.38 23.12 26.01 C22.75 30.01 22.38 34 22 38 C24.97 39.49 28.11 39.45 31.38 39.72 C32.11 39.78 32.83 39.84 33.58 39.91 C36.7 40.18 39.82 40.44 42.94 40.7 C45.21 40.89 47.48 41.08 49.75 41.28 C50.46 41.34 51.17 41.4 51.91 41.45 C56.89 41.89 56.89 41.89 58 43 C58.09 46.44 57.85 49.88 57.69 53.31 C57.65 54.28 57.62 55.24 57.58 56.23 C57.56 56.7 57.56 56.7 57.45 59.05 C57.41 59.9 57.37 60.76 57.33 61.63 C57 64 57 64 55 68 C43.45 67.01 31.9 66.02 20 65 C18.56 80.19 18.56 80.19 18.12 84.95 C18 86.2 17.88 87.45 17.75 88.73 C17.63 90 17.51 91.28 17.39 92.59 C17.06 95.44 16.62 98.19 16 101 C12.96 100.86 9.92 100.71 6.88 100.56 C6.02 100.52 5.16 100.48 4.28 100.44 C-0.22 100.22 -4.57 99.86 -9 99 C-8.39 86.62 -7.31 74.33 -6 62 C-7.16 61.95 -8.33 61.9 -9.52 61.85 C-20.75 61.34 -31.85 60.37 -43 59 C-42.69 55.02 -42.38 51.04 -42.06 47.06 C-41.98 45.93 -41.89 44.79 -41.8 43.62 C-41.71 42.54 -41.62 41.46 -41.54 40.35 C-41.46 39.35 -41.38 38.35 -41.3 37.32 C-41 35 -41 35 -40 34 C-37.53 34.04 -35.09 34.15 -32.62 34.31 C-31.88 34.36 -31.14 34.41 -30.37 34.45 C-21.55 35.04 -12.78 36.02 -4 37 C-3.91 35.91 -3.83 34.83 -3.74 33.71 C-3.42 29.7 -3.1 25.69 -2.77 21.67 C-2.63 19.93 -2.49 18.2 -2.36 16.46 C-2.16 13.96 -1.96 11.47 -1.75 8.97 C-1.72 8.58 -1.72 8.58 -1.57 6.6 C-1.11 1.11 -1.11 1.11 0 0 Z " fill="#414142" transform="translate(199,31)"></path><path d="M0 0 C4.13 3.97 7.73 8.22 11.31 12.69 C11.88 13.39 12.45 14.1 13.03 14.82 C14.16 16.23 15.3 17.64 16.43 19.05 C17.82 20.77 19.22 22.49 20.62 24.2 C21.35 25.08 22.07 25.97 22.81 26.88 C23.13 27.26 23.13 27.26 24.71 29.18 C26 31 26 31 26 33 C18.83 39.34 10.68 44.73 2.88 50.25 C2.07 50.83 1.26 51.41 0.42 52 C-5.49 56.14 -11.61 59.66 -18 63 C-18.39 62.33 -18.79 61.65 -19.19 60.96 C-21 57.84 -22.81 54.73 -24.62 51.62 C-25.24 50.56 -25.86 49.5 -26.5 48.41 C-28.33 45.27 -30.16 42.13 -32 39 C-32.57 38.03 -33.14 37.05 -33.73 36.05 C-34.26 35.15 -34.79 34.26 -35.34 33.34 C-35.8 32.54 -36.27 31.75 -36.75 30.94 C-38 29 -38 29 -40 27 C-39.13 26.5 -38.25 26 -37.35 25.49 C-27.46 19.74 -18.22 13.28 -9.02 6.49 C-6.04 4.29 -3.02 2.15 0 0 Z " fill="#3EB5E9" transform="translate(176,188)"></path><path d="M0 0 C2.97 12.54 5.94 25.08 9 38 C0.01 41.37 0.01 41.37 -4.57 42.68 C-5.57 42.97 -6.56 43.26 -7.58 43.55 C-8.61 43.84 -9.63 44.14 -10.69 44.44 C-12.82 45.05 -14.95 45.67 -17.07 46.28 C-18.09 46.58 -19.11 46.87 -20.16 47.17 C-25.46 48.72 -30.73 50.34 -36 52 C-36.33 50.93 -36.65 49.85 -36.99 48.75 C-37.43 47.31 -37.87 45.87 -38.31 44.44 C-38.53 43.73 -38.74 43.03 -38.96 42.3 C-40.01 38.89 -41.13 35.58 -42.57 32.31 C-43.82 29.42 -44.78 26.65 -45.62 23.62 C-46.89 19.11 -46.89 19.11 -48 18 C-48.04 16.33 -48.04 14.67 -48 13 C-36.52 9.05 -25.05 5.11 -13.31 2 C-12.54 1.79 -11.77 1.59 -10.98 1.37 C-7.12 0.38 -4.04 0 0 0 Z " fill="#EA541E" transform="translate(131,73)"></path></svg><span class="brand-wordmark">wro<span class="ext">.cpp</span></span></a><nav class="site-nav"><a href="/posts/">Posts</a><a href="/events/">Events</a><a href="/toolset/">Toolset</a><a href="/about/">About</a><a href="/contribute/">Contribute</a><a href="https://wrocpp.slack.com" rel="external" class="external">Slack</a><a href="https://www.meetup.com/wro-cpp/" rel="external" class="external">Meetup</a></nav></div></header><main class="flex-1"><div class="wrap" data-astro-cid-obzrm3ze><header class="page-head reveal" data-astro-cid-obzrm3ze><div class="page-head__eyebrow" data-astro-cid-obzrm3ze>// toolset / matrix</div><h1 class="page-head__title" data-astro-cid-obzrm3ze>Qualified C++ compilers in 2026 -- which toolchain ships in regulated industries</h1><p class="page-head__sub" data-astro-cid-obzrm3ze>ISO 26262 (automotive), IEC 61508 (industrial), DO-178C (avionics), IEC 62304 (medical) all require a Software Tool Confidence Level (TCL) argument for the compiler. This page maps the 2026 vendor landscape -- GHS MULTI, IAR EWARM, LLVM Embedded Toolchain for Arm, Arm Compiler 6, GCC + GHS qualification kits, and the new TCL kits for the LLVM-based vendors -- across the four big standards. Plus a reflection-driven MISRA C++:2023 lint that shrinks your tool-qualification surface.</p></header><aside class="reviewed-badge" aria-label="Page freshness signals" data-astro-cid-3esebuul><div class="reviewed-badge__row" data-astro-cid-3esebuul><span class="reviewed-badge__label" data-astro-cid-3esebuul>Reviewed</span><time datetime="2026-05-14" data-astro-cid-3esebuul>2026-05-14</time></div><div class="reviewed-badge__row" data-astro-cid-3esebuul><span class="reviewed-badge__label" data-astro-cid-3esebuul>Next review by</span><time datetime="2026-08-12" data-astro-cid-3esebuul>2026-08-12</time></div><div class="reviewed-badge__row reviewed-badge__row--tested" data-astro-cid-3esebuul><span class="reviewed-badge__label" data-astro-cid-3esebuul>Tested on</span><span data-astro-cid-3esebuul>Vendor matrix verified against public TCL/SCL kit announcements as of 2026-05-14; reflection example tested in ghcr.io/wrocpp/cpp-reflection:2026-05 on aarch64.</span></div><div class="reviewed-badge__methodology" data-astro-cid-3esebuul><a href="/toolset/#how-we-test" data-astro-cid-3esebuul>How we test &rarr;</a></div></aside><article class="prose reveal reveal-1" data-astro-cid-obzrm3ze><p>Compiler qualification is the line that separates “C++ in a side project” from “C++ in a brake controller”. ISO 26262 Part 8, Section 11 requires a <strong>Software Tool Confidence Level (TCL)</strong> argument for every tool whose output ends up in a safety-related item. IEC 61508, DO-178C, and IEC 62304 impose equivalent obligations. This page is the 2026 vendor map: which compiler ships qualified for which standard, what “qualified” actually means in each case, and the reflection-driven lint that shrinks the tool-qualification surface by moving MISRA-class rules into the language.</p>
+<h2 id="today">Today</h2>
+<h3 id="vendor-matrix">Vendor matrix</h3>
+<table>
+<thead>
+<tr>
+<th>Compiler</th>
+<th>ISO 26262 (auto)</th>
+<th>IEC 61508 (industrial)</th>
+<th>DO-178C (avionics)</th>
+<th>IEC 62304 (medical)</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Green Hills MULTI</strong></td>
+<td>ASIL D</td>
+<td>SIL 4</td>
+<td>Level A</td>
+<td>Class C</td>
+<td>Reference proprietary stack; full TCL-3 kit.</td>
+</tr>
+<tr>
+<td><strong>IAR EWARM</strong></td>
+<td>ASIL D</td>
+<td>SIL 4</td>
+<td>Level A</td>
+<td>Class C</td>
+<td>Per-target qualification; ARM/RISC-V/RH850.</td>
+</tr>
+<tr>
+<td><strong>Wind River Diab</strong></td>
+<td>ASIL D</td>
+<td>SIL 4</td>
+<td>Level A</td>
+<td>Class C</td>
+<td>TUV SUD-assessed; PowerPC + ARM.</td>
+</tr>
+<tr>
+<td><strong>ARM Compiler 6</strong></td>
+<td>ASIL D</td>
+<td>SIL 3</td>
+<td>(partner kit)</td>
+<td>–</td>
+<td>Arm Functional Safety package add-on.</td>
+</tr>
+<tr>
+<td><strong>HighTec Clang</strong></td>
+<td>ASIL D</td>
+<td>SIL 3</td>
+<td>–</td>
+<td>–</td>
+<td>LLVM-based; certified since 2024.</td>
+</tr>
+<tr>
+<td><strong>GCC + Validas CTS</strong></td>
+<td>ASIL B/D</td>
+<td>SIL 2/3</td>
+<td>–</td>
+<td>–</td>
+<td>OSS GCC + commercial test-suite kit.</td>
+</tr>
+<tr>
+<td><strong>GCC + OSADL LTS</strong></td>
+<td>(community-grade)</td>
+<td>–</td>
+<td>–</td>
+<td>(advisory)</td>
+<td>Long-term support stream; not vendor-qualified by itself.</td>
+</tr>
+<tr>
+<td><strong>Clang/LLVM (vanilla)</strong></td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+<td>No TCL kit; basis for HighTec / Linaro / vendor overlays.</td>
+</tr>
+</tbody>
+</table>
+<p>“–” means no widely-published qualification kit for that combination as of 2026-05-14. Always confirm directly with the vendor for your specific (compiler version, target triple, language subset) tuple before basing a safety case on it.</p>
+<h3 id="what-qualified-actually-means">What “qualified” actually means</h3>
+<p>Three layers, all required:</p>
+<ol>
+<li><strong>The compiler binary</strong>, pinned to a specific release + target triple. “GCC qualified for ISO 26262” is meaningless without the version (e.g., GCC 13.2 + Validas CTS 2024.4 for ARM Cortex-R5) and the qualification document.</li>
+<li><strong>The C++ language subset</strong> the qualification covers. For automotive this is typically <a href="https://misra.org.uk/product/misra-cppcoding-guidelines-for-iso-iec-cpp17-2023/">MISRA C++:2023</a> (which superseded AUTOSAR C++14 in 2023; Adaptive AUTOSAR cites MISRA C++:2023 directly). For avionics it is typically SEI CERT C++ plus DO-178C tool-output constraints.</li>
+<li><strong>The user’s tool-qualification argument</strong> (the document you ship). Even with a qualified compiler, the project must produce TCL/TCL+SCL evidence that the tool was used within its qualified envelope: same flags, same target, same subset, same version.</li>
+</ol>
+<p>The corollary: every additional tool in the toolchain (analyzer, formatter, linter) needs its own qualification argument. <strong>Moving rules from a separate analyzer into the language proper is a qualification-surface win.</strong> That’s the editorial bridge to the next section.</p>
+<h3 id="misra-c2023-vs-autosar-c14-a-brief-disambiguation">MISRA C++:2023 vs AUTOSAR C++14 (a brief disambiguation)</h3>
+<p>AUTOSAR C++14 was the de facto automotive C++ guideline from 2017 to ~2023. The MISRA C++ working group adopted AUTOSAR’s rules wholesale and re-published as <strong>MISRA C++:2023</strong> (covering ISO/IEC C++17). In 2023 AUTOSAR formally retired its standalone C++14 guideline and now references MISRA C++:2023. Many tool vendors still expose an “AUTOSAR C++14” profile name for backwards compatibility – treat it as an alias, but cite MISRA C++:2023 in new safety cases.</p>
+<h2 id="reflection-today">Reflection today</h2>
+<p>C++26 reflection lets you encode MISRA-class rules directly in the language. The example below implements MISRA C++:2023 Rule 11.0.1 (“Member data in non-POD class types should be private”) as a <code>consteval</code> predicate over a class’s nonstatic data members. The check fires at the point of declaration – no separate static analyzer, no CI stage to qualify, no annotation file to keep in sync.</p>
+<pre class="astro-code astro-code-themes github-light github-dark-dimmed" style="background-color:#fff;--shiki-dark-bg:#22272e;color:#24292e;--shiki-dark:#adbac7;overflow-x:auto" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">template</span><span style="color:#24292E;--shiki-dark:#ADBAC7"> &lt;</span><span style="color:#D73A49;--shiki-dark:#F47067">typename</span><span style="color:#6F42C1;--shiki-dark:#F69D50"> T</span><span style="color:#24292E;--shiki-dark:#ADBAC7">&gt;</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">consteval</span><span style="color:#D73A49;--shiki-dark:#F47067"> bool</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB"> meets_misra_11_0_1</span><span style="color:#24292E;--shiki-dark:#ADBAC7">() {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">    constexpr</span><span style="color:#D73A49;--shiki-dark:#F47067"> auto</span><span style="color:#24292E;--shiki-dark:#ADBAC7"> ctx </span><span style="color:#D73A49;--shiki-dark:#F47067">=</span><span style="color:#6F42C1;--shiki-dark:#F69D50"> std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">meta</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">access_context</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB">unchecked</span><span style="color:#24292E;--shiki-dark:#ADBAC7">();</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">    template </span><span style="color:#D73A49;--shiki-dark:#F47067">for</span><span style="color:#24292E;--shiki-dark:#ADBAC7"> (</span><span style="color:#D73A49;--shiki-dark:#F47067">constexpr</span><span style="color:#D73A49;--shiki-dark:#F47067"> auto</span><span style="color:#24292E;--shiki-dark:#ADBAC7"> m</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">                  : </span><span style="color:#6F42C1;--shiki-dark:#F69D50">std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB">define_static_array</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(</span></span>
+<span class="line"><span style="color:#6F42C1;--shiki-dark:#F69D50">                      std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">meta</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB">nonstatic_data_members_of</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(</span><span style="color:#D73A49;--shiki-dark:#F47067">^^</span><span style="color:#24292E;--shiki-dark:#ADBAC7">T, ctx))) {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">        static_assert</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(</span><span style="color:#6F42C1;--shiki-dark:#F69D50">std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">meta</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB">is_private</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(m),</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#96D0FF">            &quot;MISRA C++:2023 Rule 11.0.1: non-POD class data members &quot;</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#96D0FF">            &quot;must be private. Public/protected data leaks invariants &quot;</span></span>
+<span class="line"><span style="color:#032F62;--shiki-dark:#96D0FF">            &quot;and breaks the encapsulation argument in your safety case.&quot;</span><span style="color:#24292E;--shiki-dark:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">    }</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">    return</span><span style="color:#005CC5;--shiki-dark:#6CB6FF"> true</span><span style="color:#24292E;--shiki-dark:#ADBAC7">;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">}</span></span></code></pre>
+<p>Full source: <a href="https://github.com/wrocpp/wrocpp.github.io/blob/main/posts/toolset/qualified-compilers/examples/reflect-misra-rule-of-five.cpp" rel="external" class="repo-file" data-astro-cid-rsnv5uwt><code data-astro-cid-rsnv5uwt>posts/toolset/qualified-compilers/examples/reflect-misra-rule-of-five.cpp</code></a>.</p>
+<div class="ce-cta-group" data-astro-cid-utsmtibg><div class="ce-compiler-badge" aria-label="Tested: clang-p2996 only" data-astro-cid-utsmtibg><span aria-hidden="true" data-astro-cid-utsmtibg>&#9642;</span> Tested: clang-p2996 only</div><a class="ce-cta" href="https://godbolt.org/z/v3Pa5sWfh" target="_blank" rel="noopener" aria-label="Run on Compiler Explorer (clang-p2996): Reflection-driven MISRA C++:2023 Rule 11.0.1 lint (clang-p2996)" data-astro-cid-utsmtibg><span class="ce-cta__play" aria-hidden="true" data-astro-cid-utsmtibg>▸</span><span class="ce-cta__main" data-astro-cid-utsmtibg><span class="ce-cta__eyebrow" data-astro-cid-utsmtibg>Run on Compiler Explorer</span><span class="ce-cta__title" data-astro-cid-utsmtibg>Reflection-driven MISRA C++:2023 Rule 11.0.1 lint (clang-p2996)</span><span class="ce-cta__sub" data-astro-cid-utsmtibg>clang_bb_p2996 · -std=c++26 -freflection-latest -stdlib=libc++</span></span><span class="ce-cta__arrow" aria-hidden="true" data-astro-cid-utsmtibg>↗</span></a></div>
+<h3 id="reproduce-locally">Reproduce locally</h3>
+<div class="dr-cta-group" data-astro-cid-iujzbniy><div class="dr-container-badge" aria-label="wro.cpp container: ghcr.io/wrocpp/cpp-reflection:2026-05" data-astro-cid-iujzbniy><span aria-hidden="true" data-astro-cid-iujzbniy>&#9642;</span> Container: cpp-reflection</div><div class="dr-cta" data-astro-cid-iujzbniy><span class="dr-cta__play" aria-hidden="true" data-astro-cid-iujzbniy>$</span><div class="dr-cta__main" data-astro-cid-iujzbniy><div class="dr-cta__eyebrow" data-astro-cid-iujzbniy>Compile-time MISRA Rule 11.0.1 (cpp-reflection container)</div><pre class="dr-cta__cmd" data-astro-cid-iujzbniy><code data-astro-cid-iujzbniy>docker run --rm -it \
+  -v &quot;$PWD&quot;:/work -w /work \
+  ghcr.io/wrocpp/cpp-reflection:2026-05 \
+  bash -c &#39;clang++ -std=c++26 -freflection-latest -stdlib=libc++ -Wl,-rpath,/opt/p2996/clang/lib/aarch64-unknown-linux-gnu posts/toolset/qualified-compilers/examples/reflect-misra-rule-of-five.cpp -o /tmp/h &amp;&amp; /tmp/h&#39;</code></pre><div class="dr-cta__sub" data-astro-cid-iujzbniy>ghcr.io/wrocpp/cpp-reflection:2026-05 -- reflection cluster</div><details class="dr-cta__expected" data-astro-cid-iujzbniy><summary data-astro-cid-iujzbniy>expected output</summary><pre data-astro-cid-iujzbniy><code data-astro-cid-iujzbniy>MISRA C++:2023 Rule 11.0.1 check passed for SensorReading.
+Uncomment LeakedInvariant struct to see the static_assert fire.</code></pre></details></div></div></div>
+<h3 id="why-this-is-a-qualification-surface-win">Why this is a qualification-surface win</h3>
+<p>In an ISO 26262 project, every tool needing TCL-3 qualification is paid for in audit time. A <code>static_assert</code> baked into the source is part of the <strong>language toolchain’s</strong> TCL-1 argument – you qualify it once when you qualify the compiler, not separately per rule. A clang-tidy run that enforces the same rule is a TCL-3 tool: separate qualification kit, separate test corpus, separate version pinning, separate audit trail.</p>
+<p>Pattern composes for any per-member predicate:</p>
+<ul>
+<li>“No raw pointer fields” – pair with <a href="/toolset/hardened-stdlib/">hardened-stdlib</a>.</li>
+<li>“No public mutable state” – a stronger encapsulation rule.</li>
+<li>“Every field has an <code>[[asil_b]]</code> annotation” – P3394 user-defined annotations + reflection.</li>
+<li>“All struct members are structurally comparable” – the foundation for the <code>derive(Eq, Hash)</code> post.</li>
+</ul>
+<h2 id="where-this-is-heading">Where this is heading</h2>
+<p>C++29 candidate features tighten the loop further:</p>
+<p><strong>Profiles</strong> (P3081 Sutter, P3589 Dos Reis, P3984 Stroustrup) move bounds / type / lifetime rules from analyzer-checked to compiler-enforced:</p>
+<pre class="astro-code astro-code-themes github-light github-dark-dimmed" style="background-color:#fff;--shiki-dark-bg:#22272e;color:#24292e;--shiki-dark:#adbac7;overflow-x:auto" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// C++29 candidate -- pseudo-syntax. As of 2026-05-14 not in any</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// shipping toolchain. P3081/P3589/P3984 papers in WG21.</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#6CB6FF">[[ </span><span style="color:#6F42C1;--shiki-dark:#F69D50">profiles</span><span style="color:#005CC5;--shiki-dark:#6CB6FF">::</span><span style="color:#6F42C1;--shiki-dark:#6CB6FF">enforce</span><span style="color:#005CC5;--shiki-dark:#6CB6FF">(bounds, type, lifetime) ]]</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">namespace</span><span style="color:#6F42C1;--shiki-dark:#F69D50"> brake_controller</span><span style="color:#24292E;--shiki-dark:#ADBAC7"> {</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">    auto</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB"> compute_pressure</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(</span><span style="color:#6F42C1;--shiki-dark:#F69D50">std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">span</span><span style="color:#24292E;--shiki-dark:#ADBAC7">&lt;</span><span style="color:#6F42C1;--shiki-dark:#F69D50">sensor_reading</span><span style="color:#D73A49;--shiki-dark:#F47067"> const</span><span style="color:#24292E;--shiki-dark:#ADBAC7">&gt; </span><span style="color:#E36209;--shiki-dark:#F69D50">samples</span><span style="color:#24292E;--shiki-dark:#ADBAC7">)</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">        -&gt; </span><span style="color:#6F42C1;--shiki-dark:#F69D50">std</span><span style="color:#24292E;--shiki-dark:#ADBAC7">::</span><span style="color:#6F42C1;--shiki-dark:#F69D50">expected</span><span style="color:#24292E;--shiki-dark:#ADBAC7">&lt;</span><span style="color:#6F42C1;--shiki-dark:#F69D50">pressure</span><span style="color:#24292E;--shiki-dark:#ADBAC7">, </span><span style="color:#6F42C1;--shiki-dark:#F69D50">brake_error</span><span style="color:#24292E;--shiki-dark:#ADBAC7">&gt;;</span></span>
+<span class="line"><span style="color:#24292E;--shiki-dark:#ADBAC7">}</span></span></code></pre>
+<p>When ratified, vendors building qualification kits certify enforcement at the compiler level instead of re-certifying a separate analyzer pass. The TCL argument shrinks again.</p>
+<p><strong>Token injection</strong> (P3294, C++29 candidate) extends the reflection pattern to generate qualification-kit-required boilerplate at the declaration site – audit logs, traceability tags, assertion hooks – without the developer hand-writing them:</p>
+<pre class="astro-code astro-code-themes github-light github-dark-dimmed" style="background-color:#fff;--shiki-dark-bg:#22272e;color:#24292e;--shiki-dark:#adbac7;overflow-x:auto" tabindex="0" data-language="cpp"><code><span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// C++29 candidate -- pseudo-syntax. Today on clang-p2996 the same</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// intent is achievable with consteval helpers; injection makes it</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// declarative. P3294 in WG21.</span></span>
+<span class="line"><span style="color:#005CC5;--shiki-dark:#6CB6FF">[[ </span><span style="color:#6F42C1;--shiki-dark:#6CB6FF">inject</span><span style="color:#005CC5;--shiki-dark:#6CB6FF">(asil_b_traceability) ]]</span></span>
+<span class="line"><span style="color:#D73A49;--shiki-dark:#F47067">double</span><span style="color:#6F42C1;--shiki-dark:#DCBDFB"> brake_pressure</span><span style="color:#24292E;--shiki-dark:#ADBAC7">(</span><span style="color:#D73A49;--shiki-dark:#F47067">double</span><span style="color:#E36209;--shiki-dark:#F69D50"> sensor_a</span><span style="color:#24292E;--shiki-dark:#ADBAC7">, </span><span style="color:#D73A49;--shiki-dark:#F47067">double</span><span style="color:#E36209;--shiki-dark:#F69D50"> sensor_b</span><span style="color:#24292E;--shiki-dark:#ADBAC7">);</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// Auto-injects: ISO 26262 Part 6 Section 7 traceability tag,</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// auto-injects: precondition/postcondition contracts, hashed link</span></span>
+<span class="line"><span style="color:#6A737D;--shiki-dark:#768390">// to the safety-case fragment.</span></span></code></pre>
+<p>The scope discipline of C++ for safety-critical work is currently a function of (vendor toolchain) + (qualified subset) + (separate analyzers). C++26 reflection starts collapsing the third category into the first; C++29 profiles and injection take the rest.</p>
+<hr/>
+<p><strong>Cross-links:</strong> the <a href="/toolset/hardened-stdlib/">hardened-stdlib</a> entry covers the runtime side (one CMake line, ~1000 production bugs caught at Google scale – relevant for the runtime TCL argument). The <a href="/toolset/memory-safety-cpp26-and-beyond/">memory-safety in C++26 and beyond</a> entry covers profiles status honestly. The <a href="/toolset/cpp-coding-standards/">cpp-coding-standards</a> entry (launching 2026-06-13) covers MISRA C++:2023 / SEI CERT C++ / JSF AV C++ side-by-side.</p>
+<p><strong>Reviewed:</strong> 2026-05-14. Vendor matrix verified against vendor public pages. Quarterly refresh.</p></article><footer class="toolset-footer reveal reveal-2" data-astro-cid-obzrm3ze><p data-astro-cid-obzrm3ze>For AI agents: a machine-readable companion of this page is at<code data-astro-cid-obzrm3ze><a href="/toolset/qualified-compilers/llms.txt" data-astro-cid-obzrm3ze>/toolset/qualified-compilers/llms.txt</a></code>. See <a href="/llms.txt" data-astro-cid-obzrm3ze>/llms.txt</a> for the full toolset index.</p><ul class="toolset-footer__tags" role="list" data-astro-cid-obzrm3ze><li data-astro-cid-obzrm3ze>#compliance</li><li data-astro-cid-obzrm3ze>#iso26262</li><li data-astro-cid-obzrm3ze>#iec61508</li><li data-astro-cid-obzrm3ze>#do178c</li><li data-astro-cid-obzrm3ze>#iec62304</li><li data-astro-cid-obzrm3ze>#misra</li><li data-astro-cid-obzrm3ze>#autosar</li><li data-astro-cid-obzrm3ze>#qualified-compiler</li><li data-astro-cid-obzrm3ze>#reflection</li><li data-astro-cid-obzrm3ze>#cpp26</li></ul><p class="toolset-footer__back" data-astro-cid-obzrm3ze><a href="/toolset/" data-astro-cid-obzrm3ze>&larr; Back to Toolset</a></p></footer></div></main><footer class="site-footer"><div class="site-footer__inner"><div class="rule-before">© 2026 Wrocław C++ community · built with Astro<span class="site-footer__tagline">Modern C++ for production.</span></div><div style="display:flex;gap:1.25rem;flex-wrap:wrap;"><a href="/ai">how we use AI</a><a href="/rss.xml">rss</a><a href="/llms.txt">llms.txt</a><a href="https://github.com/wrocpp/wrocpp.github.io">github</a><a href="https://wrocpp.slack.com">slack</a><a href="https://www.meetup.com/wro-cpp/">meetup</a></div></div></footer><div id="cookie-consent" class="cookie-consent" hidden data-astro-cid-kror3uvh><p class="cookie-consent__text" data-astro-cid-kror3uvh>// We use Google Analytics to understand which posts get traction and how the wro.cpp community grows. Anonymised, no ads, and you can decline -- the site works either way.</p><div class="cookie-consent__actions" data-astro-cid-kror3uvh><button type="button" id="cookie-accept" class="cookie-consent__btn cookie-consent__btn--primary" data-astro-cid-kror3uvh>Accept</button><button type="button" id="cookie-reject" class="cookie-consent__btn" data-astro-cid-kror3uvh>Decline</button></div></div><script>
+    (function() {
+      var KEY = 'wrocpp:consent';
+      var el = document.getElementById('cookie-consent');
+      if (!el) return;
+      var saved = null;
+      try { saved = localStorage.getItem(KEY); } catch (e) {}
+      function update(state) {
+        if (typeof window.gtag !== 'function') return;
+        window.gtag('consent', 'update', {
+          ad_storage:        state,
+          ad_user_data:      state,
+          ad_personalization: state,
+          analytics_storage: state,
+          functionality_storage: state,
+          personalization_storage: state,
+        });
+      }
+      function set(choice) {
+        try { localStorage.setItem(KEY, choice); } catch (e) {}
+        update(choice === 'granted' ? 'granted' : 'denied');
+        el.hidden = true;
+      }
+      if (saved === 'granted') { update('granted'); return; }
+      if (saved === 'denied')  { update('denied');  return; }
+      el.hidden = false;
+      document.getElementById('cookie-accept').addEventListener('click', function(){ set('granted'); });
+      document.getElementById('cookie-reject').addEventListener('click', function(){ set('denied'); });
+    })();
+  </script><script>(function(){const siteHost = "wrocpp.github.io";
+
+    (function() {
+      function track(name, params) {
+        if (typeof window.gtag === 'function') window.gtag('event', name, params || {});
+      }
+
+      // -------- Outbound link tracking --------
+      document.addEventListener('click', function(e) {
+        var a = e.target instanceof Element ? e.target.closest('a[href]') : null;
+        if (!a) return;
+        var href = a.getAttribute('href') || '';
+        if (!/^https?:\/\//i.test(href)) return; // skip relative + mailto + tel
+        try {
+          var u = new URL(href);
+          if (u.host === window.location.host || u.host === siteHost) return; // internal absolute
+          track('click_outbound', {
+            link_url: u.href,
+            link_domain: u.host,
+            link_text: (a.textContent || '').trim().slice(0, 80),
+          });
+        } catch (_) {}
+      }, true);
+
+      // -------- Scroll depth (25 / 50 / 75 / 100) --------
+      var fired = {};
+      function onScroll() {
+        var doc = document.documentElement;
+        var scrolled = window.scrollY + window.innerHeight;
+        var height = doc.scrollHeight;
+        if (height <= window.innerHeight) return;
+        var pct = Math.floor((scrolled / height) * 100);
+        [25, 50, 75, 100].forEach(function(t) {
+          if (pct >= t && !fired[t]) {
+            fired[t] = true;
+            track('scroll_depth', { percent: t });
+          }
+        });
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('load', onScroll);
+    })();
+  })();</script></body></html>

@@ -1,0 +1,526 @@
+Quick Definition (30–60 words)
+rocm is AMD’s open-source software stack for GPU-accelerated computing on Linux. Analogy: rocm is like a GPU-aware operating toolkit that lets applications speak GPU efficiently, similar to how a database client library lets apps talk to databases. Formal: rocm implements drivers, runtime, compilers, and libraries for heterogeneous compute.
+What is rocm?
+rocm is an integrated open-source platform enabling GPU-accelerated compute on AMD hardware. It is not a single monolithic product but a suite of components: kernel drivers, runtimes, compilers, math and ML libraries, and developer tools. rocm focuses on high-performance compute, machine learning, and HPC workloads on Linux. It is not a cloud service, not a Windows-first stack, and not a proprietary closed driver set.
+Key properties and constraints:
+- Open-source modular stack maintained primarily for Linux.
+- Optimized for AMD GPUs with ROCm-compatible hardware.
+- Provides HSA-like execution model and ROC runtime APIs.
+- Integrates with common ML frameworks via adapters.
+- Kernel and driver compatibility constraints can be strict across versions.
+- Performance tuned for parallel compute not graphics rendering.
+Where it fits in modern cloud/SRE workflows:
+- As the GPU runtime layer in GPU-enabled VMs, Kubernetes nodes, or bare-metal clusters.
+- Provides the compute abstraction needed for model training, inference, and data-parallel pipelines.
+- Interacts with device plugins, container runtimes, schedulers, monitoring agents, and security tooling.
+- Requires integration with CI/CD for driver/runtime compatibility testing, and SRE practices for capacity, cost, resilience, and observability.
+A text-only diagram description readers can visualize:
+- Visualize three horizontal layers. Bottom layer: Hardware – AMD GPU cards and PCIe or CCIX fabric. Middle layer: Kernel drivers and ROCk, ROCT components plus ROC runtime. Top layer: Userland libraries and frameworks including compilers, BLAS, ML adapters, and applications. Arrows from applications down through runtime to hardware indicate job submission. Side arrows show monitoring, security, and orchestration tools connecting to runtime and apps.
+rocm in one sentence
+rocm is an open-source GPU compute stack that exposes AMD GPU capabilities to compilers, runtimes, and frameworks for high-performance compute and ML workloads on Linux.
+rocm vs related terms (TABLE REQUIRED)
+| ID | Term | How it differs from rocm | Common confusion | 
+|---|---|---|---|
+| T1 | ROCm driver | Kernel and low level components vs full stack | Confused as entire stack | 
+| T2 | ROCm runtime | Userland runtime vs kernel pieces | Mistaken for driver only | 
+| T3 | HIP | Language portability layer vs whole ecosystem | Thought to be replacement for CUDA | 
+| T4 | MIOpen | ML library for AMD vs general ML frameworks | Mistaken for full ML framework | 
+| T5 | ROCk | Kernel driver components vs entire userland | Seen as synonymous with rocm | 
+| T6 | CUDA | NVIDIA proprietary stack vs AMD open stack | Interchanged incorrectly with rocm | 
+| T7 | ROCclr | Common runtime layer vs higher libs | Overlap confusion with HIP | 
+| T8 | ROCprofiler | Profiling tools vs compute stack | Thought to be required runtime | 
+| T9 | ROCm containers | Prebuilt images vs runtime installation | Considered only deployment method | 
+| T10 | Driver package | Distribution packages vs project scope | Mistaken as only deliverable | 
+Row Details (only if any cell says “See details below”)
+Not applicable.
+Why does rocm matter?
+Business impact:
+- Revenue: Faster model training reduces time to market for AI features and shortens iteration cycles for products that monetize ML.
+- Trust: Predictable compute performance and maintained open-source stack reduce vendor lock-in and procurement risk.
+- Risk: Driver incompatibilities or unsupported GPUs create operational outages and capacity loss.
+Engineering impact:
+- Incident reduction: Well-integrated runtimes and telemetry reduce silent failures and mis-scheduled jobs.
+- Velocity: Developers can iterate on GPU-accelerated code faster when toolchains are stable and reproducible.
+- Cost control: Proper GPU utilization with rocm can reduce wasted GPU time and cloud spend.
+SRE framing:
+- SLIs/SLOs: GPU job completion rate, time to start GPU job, GPU utilization, and model throughput.
+- Error budgets: Allow controlled risk for driver upgrades or experimental kernel changes.
+- Toil: Manual driver installations and node maintenance are high-toil activities to automate.
+- On-call: On-call should own GPU node health, driver state, and job scheduling incidents.
+3–5 realistic “what breaks in production” examples:
+- Kernel-driver mismatch after host OS update causing nodes to lose GPU devices.
+- Container runs but lacks required privileged mounts so GPUs appear but are unusable.
+- Model training job stalls due to out-of-memory on GPU and no graceful retry logic.
+- Resource overcommit leads to noisy-neighbor performance degradation for multi-tenant jobs.
+- Silent numerical divergence when using incompatible math library versions.
+Where is rocm used? (TABLE REQUIRED)
+| ID | Layer/Area | How rocm appears | Typical telemetry | Common tools | 
+|---|---|---|---|---|
+| L1 | Edge devices | ROCm appears if edge AMD GPUs used | Device health and temp | Lightweight agents | 
+| L2 | Network | Used in GPU accelerated NIC offload nodes | Packet processing latency | Telemetry for fabric | 
+| L3 | Service | Backend ML inference services with GPUs | Throughput and latency | APM and logs | 
+| L4 | Application | Model training pipelines on GPU nodes | Job duration and GPU memory | Batch schedulers | 
+| L5 | Data | GPU ETL or feature extract jobs | Task completion stats | Data pipeline metrics | 
+| L6 | IaaS | GPU VMs with ROCm installed | VM and GPU metrics | Cloud provider telemetry | 
+| L7 | PaaS | Managed Kubernetes with GPU node pools | Pod GPU metrics | K8s device plugin | 
+| L8 | SaaS | Hosted ML platforms using ROCm | Tenant resource use | Multi-tenant quotas | 
+| L9 | CI CD | GPU test runners and build agents | Test pass rate and duration | CI dashboards | 
+| L10 | Observability | Profiling and traces for GPU code | Profiling traces and counters | Profilers and exporters | 
+Row Details (only if needed)
+Not applicable.
+When should you use rocm?
+When it’s necessary:
+- You have AMD GPUs in production hardware.
+- Your workload benefits from GPU parallelism e.g., deep learning training, HPC simulations, or large-scale data transforms.
+- You need an open-source GPU stack for licensing or procurement reasons.
+When it’s optional:
+- Small inference or CPU-bound workloads with negligible GPU usage.
+- When existing NVIDIA CUDA investments are entrenched and migration cost is high.
+When NOT to use / overuse it:
+- For graphics-only workloads where Vulkan or OpenGL is primary.
+- On unsupported GPUs or non-Linux environments.
+- For tiny batch jobs where GPU startup cost outweighs benefits.
+Decision checklist:
+- If you have AMD GPUs and need high-performance compute -> Use rocm.
+- If you are tied to CUDA-only libraries and no AMD hardware -> Consider other routes.
+- If you need multi-cloud portability without hardware lock-in -> Evaluate HIP portability efforts.
+Maturity ladder:
+- Beginner: Run sample workloads on single-node ROCm-enabled VM or instance.
+- Intermediate: Deploy GPUs in a Kubernetes node pool with device plugin and CI GPU tests.
+- Advanced: Full fleet management with automated driver upgrades, profiling, cost allocation, and SLOs.
+How does rocm work?
+Components and workflow:
+- Kernel components expose GPU devices and memory via drivers and kernel modules.
+- ROC runtime provides user-level APIs to load kernels, manage memory, and schedule kernels on GPU.
+- HIP provides source portability to compile CUDA-like code to run on AMD GPUs.
+- Libraries such as MIOpen provide optimized kernels for ML primitives.
+- Tooling includes profilers, debuggers, and telemetry exporters.
+Data flow and lifecycle:
+- Application compiles kernels via HIP or ROCm toolchain.
+- At runtime, application allocates GPU memory and transfers data via PCIe or fabric.
+- The runtime dispatches work to the GPU queue and schedules compute kernels.
+- GPU computes and writes results back to host memory or persists to storage.
+- Monitoring captures metrics like utilization, temperature, and kernel timings for SRE analysis.
+Edge cases and failure modes:
+- Driver version mismatch causing symbol errors.
+- Container privilege limits blocking device nodes or privileged IOCTLs.
+- Starvation when host CPU cannot feed GPU fast enough.
+- Memory leaks in long-running processes causing out-of-memory errors.
+Typical architecture patterns for rocm
+- Single-node development: Developer laptop or workstation with a single AMD GPU for local testing.
+- Bare-metal HPC cluster: Many nodes with AMD GPUs for MPI and HPC workloads with job scheduler integration.
+- Kubernetes GPU pool: Node pool of ROCm-enabled nodes using device plugin and gpu aware schedulers for ML workloads.
+- Multi-tenant inference service: Kubernetes or VM-based inference service with multi-tenant isolation and quota controls.
+- Hybrid cloud burst: On-prem ROCm cluster for baseline training, burst to cloud ROCm-enabled instances for extra capacity.
+Failure modes & mitigation (TABLE REQUIRED)
+| ID | Failure mode | Symptom | Likely cause | Mitigation | Observability signal | 
+|---|---|---|---|---|---|
+| F1 | No GPU found | Runtime error device not visible | Kernel module not loaded | Reload driver and reboot | Node device absence counter | 
+| F2 | Kernel panic | Host crash during driver init | Driver kernel incompatibility | Revert kernel or driver | System kernel crash logs | 
+| F3 | Slow kernels | High tail latency on tasks | Contention or wrong tuning | Tune kernels and isolate noisy jobs | Kernel time percentile | 
+| F4 | OOM on GPU | Job fails with out of memory | Memory leak or wrong batch size | Add limits and retries | Memory usage spikes | 
+| F5 | Silent numerical errors | Wrong model outputs | ABI or math lib mismatch | Validate with test vectors | Output validation failures | 
+| F6 | Container fails start | Missing mounts for device nodes | Container runtime policy | Adjust container spec | Pod start failure reason | 
+| F7 | Driver upgrade failure | Nodes fail to join cluster | Automation raced upgrade | Stagger upgrades and rollback | Upgrade failure rate | 
+| F8 | Thermal throttling | Performance drops under load | Cooling or power issue | Throttle detection and capping | Temperature and clock metrics | 
+Row Details (only if needed)
+Not applicable.
+Key Concepts, Keywords & Terminology for rocm
+(Glossary of 40+ terms; each line: Term — 1–2 line definition — why it matters — common pitfall)
+HSA — Heterogeneous System Architecture — CPU GPU coordination model — Defines shared memory concepts — Assumed available without checking. HIP — Heterogeneous-Compute Interface for Portability — CUDA-like portability layer for ROCm — Lets code run on AMD and NVIDIA via translation — Pitfall: performance differences require tuning. ROCm runtime — Userland runtime and APIs — Manages kernels, queues, and memory — Critical for application execution — Ensure version compatibility. ROCr — Runtime component for kernel launch — Low-level execution control — Enables queue management — Confused with ROCclr. ROCclr — Common runtime layer — Provides cross-language glue — Important for library interoperability — Naming confusion with other runtimes. ROCm driver — Kernel modules exposing devices — Base for any GPU use — Ensure driver matches kernel — Outdated drivers break nodes. ROCm stack — Collective term for driver runtime tools — Overall platform — Important for lifecycle planning — Treat as multiple components. ROCm kernel modules — Kernel side drivers like amdgpu — Enable device enumeration — Kernel updates may break modules — Pin versions. MIOpen — Machine learning primitives library — Optimized ops for AMD GPUs — Improves ML performance — Version mismatches cause crashes. ROCm compiler — ROCm-provided compilers for kernels — Compiles HIP and device code — Required for build pipelines — Different flags affect perf. HIPIFY — Tool to convert CUDA to HIP — Facilitates porting — Speeds migration — Not perfect; manual fixes needed. ROCm containers — Container images with ROCm stack — Simplifies deployment — Useful for reproducibility — Must match host kernel and drivers. ROCm device plugin — Kubernetes plugin for device allocation — Exposes GPUs to pods — Required for Kubernetes scheduling — Plugin and runtime must align. ROCprofiler — Profiling toolset — Captures kernel timing and counters — Essential for tuning — Can add overhead to runs. ROCtx — Abstraction layer in ROCm tools — Internal runtime layer — Helps interoperability — Name overlaps in docs. ROCm API — Public interfaces — For runtime control — Used by frameworks — Backwards compatibility varies. ROCm SDK — Collection of libraries and tools — For development and optimization — Used in build pipelines — Keep up with releases. ROCruntime — Alias for ROCm user runtime — Handles host side resource management — Critical for host-GPU interaction — Verify logs on errors. ROCm dispatch — Kernel submission semantics — Defines queue semantics — Important for parallel workloads — Misuse causes serialization. GPU isolation — Logical separation of GPU resources — Required for multi-tenant clusters — Ensures predictable performance — Hard to enforce for shared memory. GPU topology — Layout of GPUs in a node — Affects memory transfer speeds — Important for MPI jobs — Ignored topology causes latency. Peer-to-peer — Direct transfers between GPUs — Improves multi-GPU performance — Use when topology supports it — Not available on all platforms. NUMA — Non-uniform memory access considerations — Affects CPU-GPU data paths — Tune placement for perf — Ignored NUMA lowers throughput. Device nodes — /dev entries for GPUs — Required for containers to access GPU — Must be mounted into container — Missing mounts block workloads. PCIe lanes — Interconnect between host and GPU — Limits bandwidth — Performance dependent — Cloud instances vary widely. ROCblas — BLAS library for ROCm — Optimized linear algebra — Key for ML and HPC — Ensure ABI compatibility. ROCm debugging — Tools for debugging kernels — Critical for development — May require special privileges — Can be disruptive in prod. Apertures — GPU memory mapping ranges — For host-GPU DMA — Relevant for driver tuning — Incorrect config leads to faults. Event queues — Mechanism for async execution — Used for overlapping transfer and compute — Misuse leads to stalls. ASLR implications — Address randomization with drivers — Affects low-level debug — Rarely an issue but check on crashes. Driver signing — Kernel module signing requirements — Security constraint on hosts — May block unsigned modules. SELinux/AppArmor — Security frameworks that may block ROCm actions — Protects host but can prevent access — Need policy updates. GPU scheduler — Kernel or runtime scheduler for compute queues — Affects fairness — Poor scheduling causes noisy neighbor. GPU memory pool — Memory management strategy — Affects allocation latency — Fragmentation causes OOM. Telemetry exporter — Exposes GPU metrics to monitoring — Essential for SRE — Missing exporters cause blind spots. GPU firmware — Microcode on GPU — Impacts stability — Firmware updates may be required — Not all updates are automatic. NUMA affinity — Binding threads to CPUs near GPU — Improves throughput — Ignoring causes extra latency. Checksum/validation — Numeric correctness checks — Ensures computation validity — Omitted tests hide silent errors. Driver ABI — Binary interface contract — Compatibility across upgrades — Breaks can surface in runtime crashes. Operator pattern — Kubernetes operator to manage ROCm nodes — Automates lifecycle — Reduces toil — Requires maintenance. Device isolation plugin — Advanced plugin for sharing GPUs — Enables partitioning — Complex to configure. GPU durability — Long-term reliability considerations — Affects hardware refresh cycles — Heat cycles reduce lifespan. Profiling counters — Hardware counters for perf insights — Key for tuning — Can be noisy and require sampling. Container runtime — Docker containerd runtime interactions with ROCm — Enables encapsulation — Runtime security rules can block access. JFed tools — Not publicly stated — Use “Not publicly stated” if specifics unknown.
+How to Measure rocm (Metrics, SLIs, SLOs) (TABLE REQUIRED)
+| ID | Metric/SLI | What it tells you | How to measure | Starting target | Gotchas | 
+|---|---|---|---|---|---|
+| M1 | GPU availability | Fraction of healthy GPU nodes | Node exporter plus device checks | 99.9% weekly | Node churn hides partial failure | 
+| M2 | Job success rate | Fraction of jobs finished ok | CI or scheduler job status | 99% per job class | Transient retries inflate success | 
+| M3 | Time to GPU allocation | Delay from request to allocation | Scheduler timing events | 95th pct less than 30s | Scheduler spikes skew percentiles | 
+| M4 | GPU utilization | Percent GPU active time | Hardware counters avg over window | 60 80% for training | Single metric masks idle phases | 
+| M5 | Kernel tail latency | High percentile per kernel | Profiler traces | 95th under target latency | Sampling may miss spikes | 
+| M6 | GPU memory usage | Used memory percentage | Driver exported metrics | Keep below 85% average | Fragmentation causes OOM | 
+| M7 | Driver upgrade failure rate | Failed upgrades fraction | Automation logs | <1% per rollout | Rollout size affects blast radius | 
+| M8 | Thermal events | Throttle or temperature events | Sensor telemetry | Zero critical throttles | Sensors delayed reporting | 
+| M9 | Profiling coverage | Percent critical jobs profiled | CI and periodic profiling | 20 30% of jobs | Profiling overhead limits scale | 
+| M10 | Cost per training hour | Dollars per GPU training hour | Billing divided by hours | Varies per org | Spot instances vary cost | 
+| M11 | Resident set size | Host memory used by GPU process | Process metrics | No hard target | Host OOMs are catastrophic | 
+| M12 | CUDA to HIP parity | Functional parity checks pass | Test vector suite | 100% for critical ops | Numerical tolerance differences | 
+| M13 | Multi-tenant fairness | Variance in throughput between tenants | Per-tenant metrics | Low variance | Shared resources cause imbalance | 
+| M14 | Scheduler rejection rate | Pod/job rejections needing retries | Scheduler events | Near zero | Backpressure in control plane | 
+| M15 | Error budget burn rate | Rate of SLO violations | Error vs budget math | Alert on 50% burn | Requires historical baseline | 
+Row Details (only if needed)
+Not applicable.
+Best tools to measure rocm
+Tool — Prometheus + exporters
+- What it measures for rocm: GPU metrics, node status, driver-related counters
+- Best-fit environment: Kubernetes, VMs, on-prem clusters
+- Setup outline:
+- Install node exporter or ROCm exporter on GPU nodes.
+- Configure Prometheus scrape targets.
+- Define recording rules for GPU workload metrics.
+- Create dashboards and alerts.
+- Strengths:
+- Flexible and widely used.
+- Powerful query language for SLI calculations.
+- Limitations:
+- Requires maintenance and scale planning.
+- May need custom exporters for some counters.
+Tool — Grafana
+- What it measures for rocm: Visualization of time-series GPU metrics and traces
+- Best-fit environment: Any environment with Prometheus or other TSDB
+- Setup outline:
+- Connect to Prometheus or other data sources.
+- Import or build dashboards for GPU metrics.
+- Configure alerting rules via Grafana or external alert manager.
+- Strengths:
+- Rich visualization and alerting.
+- Pluggable panels for profiling overlays.
+- Limitations:
+- Dashboards need maintenance.
+- Large datasets can be expensive to store.
+Tool — ROCprofiler / ROCTracer
+- What it measures for rocm: Kernel timings and hardware counters
+- Best-fit environment: Development and performance labs
+- Setup outline:
+- Instrument jobs with profiler hooks.
+- Collect traces and analyze hotspots in dev.
+- Integrate with CI profiling runs.
+- Strengths:
+- Detailed low-level insights.
+- Helps optimize kernels and libraries.
+- Limitations:
+- Profiling overhead and complexity.
+- Requires expertise to interpret.
+Tool — Kubernetes device plugin
+- What it measures for rocm: Allocation and device assignment events
+- Best-fit environment: Kubernetes clusters with ROCm nodes
+- Setup outline:
+- Deploy device plugin daemonset.
+- Ensure node labels and taints for GPU pools.
+- Use resource limits to track allocation.
+- Strengths:
+- Native integration with K8s scheduling.
+- Supports automated lifecycle management.
+- Limitations:
+- Plugin and runtime compatibility issues.
+- Limited to K8s environments.
+Tool — CI systems (Jenkins/GitLab/GitHub Actions)
+- What it measures for rocm: Build and test pass rates for ROCm-enabled tests
+- Best-fit environment: Developer and release pipelines
+- Setup outline:
+- Provision GPU runners with ROCm.
+- Add tests for GPU paths and HIP parity.
+- Record test metrics and trends.
+- Strengths:
+- Detects regressions early.
+- Automates regressions across driver changes.
+- Limitations:
+- Cost of GPU CI runners.
+- Test flakiness due to hardware variance.
+Recommended dashboards & alerts for rocm
+Executive dashboard:
+- Panels: Overall GPU availability, cost per training hour, job success rate, aggregate utilization.
+- Why: Gives leadership simple indicators of capacity and cost.
+On-call dashboard:
+- Panels: Node-level GPU health, driver status, recent failures, job queue backlog, top failing jobs.
+- Why: Rapidly surface issues that need paging.
+Debug dashboard:
+- Panels: Kernel-level latencies, per-job GPU memory usage, profiler traces, temperature and clock rates.
+- Why: For deeper performance troubleshooting.
+Alerting guidance:
+- Page vs ticket: Page for node-level GPU loss, kernel panics, driver upgrade failures. Create ticket for slowdowns or cost anomalies that don’t threaten immediate availability.
+- Burn-rate guidance: If error budget burn exceeds 50% within the day for critical SLIs, trigger escalation and freeze risky changes.
+- Noise reduction tactics: Deduplicate alerts by node or job, group by cluster region, suppress transient alerts using short delays, require sustained thresholds for high-cardinality metrics.
+Implementation Guide (Step-by-step)
+1) Prerequisites – Confirm hardware compatibility list for ROCm. – Ensure Linux host kernel versions supported. – Prepare privileged access for driver install or container mounts. – CI runners or staging nodes with GPUs.
+2) Instrumentation plan – Identify SLIs and required exporter metrics. – Add profiling for critical workflows. – Instrument job lifecycle events in scheduler.
+3) Data collection – Deploy telemetry exporters on GPU nodes. – Configure centralized TSDB and retention strategy. – Capture profiler traces into an artifact store.
+4) SLO design – Map business objectives to SLIs. – Define SLOs with realistic targets and error budgets. – Stagger SLOs per workload class.
+5) Dashboards – Build executive, on-call, and debug dashboards. – Create runbook links directly from panels.
+6) Alerts & routing – Configure alert thresholds and routes. – Define paging criteria vs ticket creation. – Integrate with incident management tools.
+7) Runbooks & automation – Draft step-by-step runbooks for common faults. – Automate recurring fixes like driver restarts or node cordon/evict.
+8) Validation (load/chaos/game days) – Run load tests and measure SLO behavior. – Execute controlled failure drills for driver upgrade and node loss.
+9) Continuous improvement – Review postmortems and integrate learnings. – Automate upgrades with canary and rollback.
+Pre-production checklist:
+- Confirm kernel and driver compatibility.
+- Run full CI test matrix on staging GPUs.
+- Validate container images match host drivers.
+- Configure monitoring and alert endpoints.
+Production readiness checklist:
+- Canary driver rollout and health monitoring.
+- Capacity plan and scaling policy.
+- On-call playbooks and contact rotations.
+- Billing and quota allocations enabled.
+Incident checklist specific to rocm:
+- Check node device visibility and driver logs.
+- Verify container mounts and privileges.
+- Confirm temperatures and clocks.
+- Isolate affected jobs and evict noisy neighbors.
+- Perform staged rollback if driver upgrade suspect.
+Use Cases of rocm
+1) Distributed model training – Context: Training large models on multi-GPU nodes. – Problem: Need efficient inter-GPU transfers and optimized kernels. – Why rocm helps: Optimized libraries and peer-to-peer capabilities. – What to measure: GPU utilization, training throughput, cross-GPU bandwidth. – Typical tools: ROCprofiler, Kubernetes device plugin, MIOpen.
+2) Inference at scale – Context: Serving models to customers with low latency. – Problem: Multi-tenant latency isolation and cost control. – Why rocm helps: Dedicated GPU runtime and optimized inference kernels. – What to measure: Tail latency, per-tenant throughput, GPU memory. – Typical tools: Prometheus, Grafana, pod autoscaler.
+3) HPC simulation – Context: Physics or chemistry simulations using GPU compute. – Problem: High compute density and deterministic performance. – Why rocm helps: HPC-tuned kernels and batch runtimes. – What to measure: Job completion times, error rates, node health. – Typical tools: Slurm, MIOpen, ROCblas.
+4) Data preprocessing with GPU – Context: Heavy ETL transforms benefit from GPU acceleration. – Problem: CPU-bound ETL slows pipelines. – Why rocm helps: Accelerated kernels for transforms and reductions. – What to measure: Task latency, GPU offload rate, pipeline throughput. – Typical tools: GPU-enabled data frameworks and exporters.
+5) Porting CUDA workloads – Context: Migrating workloads from NVIDIA to AMD. – Problem: Codebase tied to CUDA. – Why rocm helps: HIP and HIPIFY tools for porting. – What to measure: Functional parity and performance delta. – Typical tools: HIPIFY, CI test runners.
+6) Edge inferencing – Context: On-prem inference with AMD accelerators. – Problem: Limited connectivity and need local compute. – Why rocm helps: Deployable stack for Linux edge devices. – What to measure: Device reliability, temperature, inference throughput. – Typical tools: Lightweight telemetry agents.
+7) CI for GPU code – Context: Ensure regressions are caught early. – Problem: GPU changes break downstream code silently. – Why rocm helps: Provides predictable runtime for tests. – What to measure: Test pass rates, flake rates, job durations. – Typical tools: CI runners with ROCm.
+8) Profiling and tuning – Context: Performance teams optimizing kernels. – Problem: Hard to find hotspots without hardware counters. – Why rocm helps: ROCprofiler and tracing utilities. – What to measure: Kernel time breakdown and counters. – Typical tools: Profilers, trace viewers.
+9) Cost optimization – Context: Reduce cloud GPU spend. – Problem: Idle GPUs billed but unused. – Why rocm helps: Better utilization and telemetry for chargeback. – What to measure: Utilization per dollar, idle hours, job packing. – Typical tools: Billing dashboards and autoscalers.
+10) Security-sensitive compute – Context: Regulated workloads requiring open stack auditability. – Problem: Need inspectable and auditable stack. – Why rocm helps: Predominantly open-source components. – What to measure: Patch compliance and binary provenance. – Typical tools: SBOM tooling and compliance scanners.
+Scenario Examples (Realistic, End-to-End)
+Scenario #1 — Kubernetes multi-tenant inference cluster
+Context: Serving multiple customers from shared GPU node pool.
+Goal: Provide predictable latency and fair resource allocation.
+Why rocm matters here: Exposes AMD GPUs to K8s with device plugin and enables per-pod GPU allocation.
+Architecture / workflow: K8s cluster with ROCm-enabled node pool, device plugin, metrics exporter, autoscaler, and per-tenant namespaces with quotas.
+Step-by-step implementation: 
+- Prepare nodes with supported kernel and ROCm drivers.
+- Deploy device plugin daemonset.
+- Configure node labels and taints for GPU scheduling.
+- Add exporters and dashboards.
+- Define quotas and admission policies. 
+What to measure: Tail latency, GPU utilization, per-tenant throughput, memory usage.
+ Tools to use and why: Kubernetes device plugin, Prometheus, Grafana, ROCprofiler.
+ Common pitfalls: Misaligned container image and host driver versions; noisy neighbor without isolation.
+ Validation: Run per-tenant load tests simulating production traffic and measure SLO compliance.
+Outcome: Predictable multi-tenant inference with observable SLIs and automated scaling.
+Scenario #2 — Serverless managed PaaS for on-demand training
+Context: Developers request short training jobs on demand from a managed platform.
+Goal: Fast startup and cost efficient GPU usage.
+Why rocm matters here: Enables AMD-backed GPU instances for managed training functions.
+Architecture / workflow: PaaS control plane schedules jobs onto ROCm-enabled nodes, uses ephemeral containers, and charges per GPU-minute.
+Step-by-step implementation: 
+- Integrate device plugin and autoscaler.
+- Build images with ROCm runtime matching host.
+- Implement fast cold-start patterns and ephemeral storage.
+- Instrument job lifecycle and billing.
+ What to measure: Cold start time, cost per job, job success rate.
+ Tools to use and why: CI for images, Prometheus for metrics, billing pipeline.
+ Common pitfalls: Long container startup when drivers not preloaded; billing mismatches.
+ Validation: Run developer acceptance tests with variable job sizes.
+Outcome: On-demand training with cost transparency and reasonable startup latency.
+Scenario #3 — Incident response after a driver upgrade
+Context: Batch of GPU nodes fail after automated driver rollout.
+Goal: Triage, rollback, and restore jobs quickly.
+Why rocm matters here: Driver compatibility is critical to GPU availability.
+Architecture / workflow: Automation deploys package updates, monitoring detects node failures, on-call triggers rollback playbook.
+Step-by-step implementation: 
+- Detect increased node GPU absence alerts.
+- Cordon affected nodes and reschedule jobs.
+- Roll back driver via automation to previous known good version.
+- Validate node rejoin and uncordon.
+ What to measure: Time to detect, time to remediation, job impact.
+ Tools to use and why: Monitoring, deployment automation, runbooks.
+ Common pitfalls: Incomplete rollback due to kernel mismatch.
+ Validation: Postmortem with RCA and improved canary rollout policy.
+Outcome: Restored capacity and improved upgrade process.
+Scenario #4 — Cost vs performance trade-off for training
+Context: Choosing between larger fewer nodes vs many smaller nodes.
+Goal: Optimize cost per epoch while meeting deadlines.
+Why rocm matters here: GPU topology affects inter-GPU bandwidth and training time.
+Architecture / workflow: Compare multi-GPU nodes with peer-to-peer topology vs distributed across nodes using fabric.
+Step-by-step implementation: 
+- Benchmark training on single node multi-GPU and multi-node setups.
+- Measure epoch time, cost, and utilization.
+- Choose configuration meeting SLAs for lowest cost.
+ What to measure: Epoch time, network transfer time, cost per hour, utilization.
+ Tools to use and why: ROCprofiler, billing dashboards.
+ Common pitfalls: Ignoring cross-node transfer overhead.
+ Validation: End-to-end training run for representative dataset.
+Outcome: Data-driven choice about node sizing and placement.
+Scenario #5 — Porting CUDA research code to HIP on ROCm
+Context: Research team wants to run models on AMD clusters.
+Goal: Port and validate correctness and performance.
+Why rocm matters here: HIP enables translation of CUDA kernels to run on AMD hardware.
+Architecture / workflow: Use HIPIFY to convert code, compile against ROCm, run CI tests and profiling.
+Step-by-step implementation: 
+- Run HIPIFY on codebase.
+- Fix edge cases and numeric tolerances.
+- Compile in CI with ROCm toolchain.
+- Run parity tests and tune kernels.
+ What to measure: Functional parity, performance delta, memory usage.
+ Tools to use and why: HIPIFY, CI GPU runners, profiler.
+ Common pitfalls: Numerical tolerance differences and unsupported CUDA intrinsics.
+ Validation: Test suite covering critical ops.
+Outcome: Functionally equivalent workloads running on AMD with performance tuning.
+Common Mistakes, Anti-patterns, and Troubleshooting
+(List of 20 common mistakes with Symptom -> Root cause -> Fix)
+- Symptom: GPUs not visible in container -> Root cause: Device nodes not mounted -> Fix: Mount /dev amdgpu and required device nodes into container.
+- Symptom: Driver module fails to load -> Root cause: Kernel mismatch -> Fix: Roll back to supported kernel or install matching driver.
+- Symptom: Jobs succeed locally but fail in cluster -> Root cause: Image runtime and host driver mismatch -> Fix: Align container image and host driver versions.
+- Symptom: Sudden host reboots during load -> Root cause: Thermal shutdown or driver kernel panic -> Fix: Check cooling, firmware, and revert driver.
+- Symptom: Extremely low GPU utilization -> Root cause: CPU or IO starvation -> Fix: Profile host CPU and data pipeline feeding GPU.
+- Symptom: Quiet numerical divergence -> Root cause: Library ABI mismatch or precision differences -> Fix: Run validation tests, pin library versions.
+- Symptom: High OOM on GPU -> Root cause: Memory leaks or incorrect batch sizes -> Fix: Add prechecks and dynamic batching.
+- Symptom: Slow kernel tail latency -> Root cause: Mixed workloads and contention -> Fix: Isolate workloads or throttle low priority jobs.
+- Symptom: Upgrade breaks many nodes -> Root cause: Non staggered rollout -> Fix: Implement canary and phased rollout.
+- Symptom: Too noisy alerts -> Root cause: High-cardinality metrics and low thresholds -> Fix: Aggregate, dedupe, and use sustained windows.
+- Symptom: Profiling causes job timeouts -> Root cause: Profiler overhead -> Fix: Use sampling and limit profiling to canary jobs.
+- Symptom: Multi-tenant unfairness -> Root cause: No per-tenant quotas -> Fix: Use quotas and fair scheduling.
+- Symptom: Container cannot access GPU firmware -> Root cause: Privilege restrictions -> Fix: Adjust security policies or use privileged init for firmware load.
+- Symptom: Failed port from CUDA -> Root cause: Unsupported intrinsic or metadata -> Fix: Manual code fixes and test vectors.
+- Symptom: Billing surprises -> Root cause: Idle GPUs billed due to poor autoscaling -> Fix: Implement autoscaler and job packing.
+- Symptom: Silent driver warnings in logs -> Root cause: Ignored telemetry -> Fix: Alert on driver warning log signatures.
+- Symptom: Fragmented GPU memory -> Root cause: Long-running allocations without pooling -> Fix: Use memory pools and restart long-running processes periodically.
+- Symptom: Slow node recovery after crash -> Root cause: Manual remediation required -> Fix: Automate health checks and auto-replace nodes.
+- Symptom: Excessive kernel retries -> Root cause: Submission errors due to driver bugs -> Fix: Apply vendor patches and test regressions in CI.
+- Symptom: Missing observability for GPU events -> Root cause: No exporter installed -> Fix: Deploy exporters and integrate traces.
+Observability pitfalls (at least 5 included above): noisy alerts, lack of exporters, profiling overhead, aggregated metrics hiding hot spots, high-cardinality causing missing signals.
+Best Practices & Operating Model
+Ownership and on-call:
+- Define clear ownership for GPU nodes and runtime components.
+- On-call rotations should include GPU specialist for critical incidents.
+- Maintain runbook owners and SLA custodians.
+Runbooks vs playbooks:
+- Runbooks: Step-by-step recovery instructions for known issues.
+- Playbooks: Higher-level decision guides for complex incidents.
+Safe deployments:
+- Use canary rollouts for driver upgrades.
+- Automate rollback triggers based on SLI impact.
+- Prefer progressive deployment across AZs or racks.
+Toil reduction and automation:
+- Automate driver installs, node reprovisioning, and image builds.
+- Use operators to manage lifecycle and reduce manual steps.
+Security basics:
+- Minimize privileged containers; only grant required capabilities.
+- Use signed kernel modules if enforced in environment.
+- Maintain SBOMs for container images and drivers.
+Weekly/monthly routines:
+- Weekly: Check node health, driver warnings, and GPU temperatures.
+- Monthly: Run full profiling on representative workloads and update performance baselines.
+- Quarterly: Review capacity and refresh hardware as needed.
+What to review in postmortems related to rocm:
+- Root cause including driver/kernel mismatch.
+- SLOs impacted and error budget usage.
+- Rollout and automation gaps.
+- Remediation and prevention actions with owners and timelines.
+Tooling & Integration Map for rocm (TABLE REQUIRED)
+| ID | Category | What it does | Key integrations | Notes | 
+|---|---|---|---|---|
+| I1 | Monitoring | Collects GPU metrics | Prometheus Grafana | Use exporters on GPU nodes | 
+| I2 | Profiling | Captures kernel traces | ROCprofiler CI | Heavyweight for dev and canaries | 
+| I3 | Scheduling | Allocates GPUs to jobs | Kubernetes Slurm | Device plugin required | 
+| I4 | CI | Runs GPU tests | Jenkins GitLab | GPU runners needed | 
+| I5 | Containers | Packaged runtime images | Container runtimes | Image-driver compatibility | 
+| I6 | Operators | Manages node lifecycle | K8s APIs | Automates upgrades | 
+| I7 | Billing | Tracks cost per GPU | Billing systems | Tagging for chargeback | 
+| I8 | Security | Policy and module signing | Kernel security | Verify signing and policies | 
+| I9 | Firmware tools | Manage GPU firmware | Host tooling | Firmware update process | 
+| I10 | Testing suites | Parity and validation tests | CI and dev | Ensures functional correctness | 
+Row Details (only if needed)
+Not applicable.
+Frequently Asked Questions (FAQs)
+What hardware does rocm support?
+Mainly AMD GPUs meeting ROCm compatibility. Specific compat lists vary by release.
+Can I run rocm on cloud GPU VMs?
+Yes when the cloud VM exposes compatible AMD GPUs and allows required kernel modules.
+Is rocm compatible with Kubernetes?
+Yes via device plugin and node configuration.
+How does HIP differ from CUDA?
+HIP is a portability layer to help port CUDA code to AMD GPUs; not identical in performance by default.
+Can I use Docker images with rocm?
+Yes, but images must match host driver and kernel expectations.
+How do driver upgrades affect production?
+Driver upgrades can impact availability; use canaries and staged rollouts.
+Is profiling safe in production?
+Profiling adds overhead; limit to canary or short runs.
+How to handle multi-tenant GPU isolation?
+Use quotas, scheduling policies, and possibly device partitioning if supported.
+What monitoring is essential?
+GPU availability, utilization, memory, temperature, and job success rates.
+Are there security concerns with ROCm?
+Yes: privileged mounts, kernel module signing, and runtime privileges must be managed.
+Can I port CUDA models to rocm easily?
+HIP and conversion tools help, but manual tuning and validation are usually required.
+What causes silent numerical differences?
+Library and ABI mismatches or precision differences; validate with test vectors.
+How do I measure cost effectiveness?
+Track cost per training hour and utilization; run benchmarks to find optimal instance types.
+How to recover a node that loses GPUs?
+Cordon, inspect driver logs, reload modules, and rollback drivers if necessary.
+What is the typical onboarding time?
+Varies by org. Depends on hardware availability and CI coverage.
+Can ROCm run on Windows?
+Not publicly stated.
+Is there an operator for ROCm lifecycle?
+Operators exist in community and enterprise; specifics vary.
+How to handle firmware updates for GPUs?
+Coordinate with maintenance windows; test on staging before production.
+Conclusion
+rocm is a robust open-source GPU compute stack for AMD hardware that fits into modern cloud-native and SRE practices when integrated with orchestration, telemetry, CI, and automation. Proper testing, observability, and staged operations reduce risk and improve velocity.
+Next 7 days plan (5 bullets):
+- Day 1: Inventory GPU hardware and confirm kernel compatibility.
+- Day 2: Stand up monitoring exporters and basic dashboards.
+- Day 3: Deploy a small ROCm node pool in staging and run validation tests.
+- Day 4: Implement CI GPU runners and parity test suite.
+- Day 5: Create runbooks for common incidents and assign owners.
+- Day 6: Run a canary driver upgrade and observe SLI impact.
+- Day 7: Schedule a game day to practice incident recovery on ROCm nodes.
+Appendix — rocm Keyword Cluster (SEO)
+Primary keywords
+- rocm
+- ROCm
+- AMD rocm
+- rocm GPU
+- rocm runtime
+Secondary keywords
+- HIP rocm
+- MIOpen rocm
+- ROCm driver
+- ROCm profiler
+- ROCm Kubernetes
+Long-tail questions
+- how to install rocm on linux
+- rocm vs CUDA performance
+- how to profile rocm kernels
+- rocm k8s device plugin setup
+- HIPIFY CUDA to HIP migration steps
+Related terminology
+- GPU compute
+- Heterogeneous compute
+- device plugin
+- GPU monitoring
+- GPU telemetry
+- kernel modules
+- GPU profiling
+- multi GPU topology
+- NUMA affinity
+- GPU memory management
+- ROCblas
+- kernel panic
+- driver compatibility
+- firmware updates
+- container runtime
+- GPU isolation
+- node pool autoscaling
+- SLO for GPU jobs
+- error budget for upgrades
+- canary rollout
+- staging GPU tests
+- profiling counters
+- job scheduling
+- batch training
+- inference latency
+- device nodes
+- PCIe bandwidth
+- peer to peer GPU
+- multi tenancy GPU
+- CI GPU runners
+- GPU cost optimization
+- runbook for GPU failure
+- thermal throttling GPUs
+- NUMA binding
+- ROCprofiler traces
+- MIOpen kernels
+- HIPIFY toolchain
+- SBOM for GPU images
+- kernel module signing
+- container image compatibility
+- GPU telemetry exporters
+- ROCm SDK
+- ROCm operator
+- driver rollback procedure
+- GPU health checks
+- training throughput metrics
+- GPU memory fragmentation
+Great explanation of ROCm! I really liked how you broke down the architecture into simple components like drivers, runtime, and libraries—it makes understanding GPU computing much easier for beginners.
+The overview of ROCm is clear and informative, helping readers understand its role in accelerating AI, HPC, and GPU computing workloads.

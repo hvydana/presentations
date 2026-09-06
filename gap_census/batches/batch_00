@@ -1,0 +1,20 @@
+C001	L0	Robot edge AI compute silicon	NVIDIA	Jetson AGX Thor	https://developer.nvidia.com/embedded/jetpack	Blackwell-based robot SoC, integrated functional safety
+C002	L0	Embedded Linux BSP real-time kernel	NVIDIA	Jetson Linux / JetPack 7	https://developer.nvidia.com/embedded/jetpack	Preemptible RT kernel, MIG, SBSA, Yocto, secure boot, OTA
+C003	L0	FPGA sensor-to-GPU data ingest	NVIDIA	Holoscan Sensor Bridge	https://docs.nvidia.com/holoscan/	UDP over Ethernet direct to GPU memory
+C004	L0	ROS 2 real-time hardware control	NVIDIA	isaac_ros_deploy_ros2_control	https://nvidia-isaac-ros.github.io/repositories_and_packages/index.html	Package inside isaac_ros_deploy
+C005	L0	Topic-based ros2_control hardware interface	NVIDIA	topic_based_ros2_control	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C006	L0	Humanoid whole-body control	NVIDIA	GR00T-WholeBodyControl	https://developer.nvidia.com/isaac/gr00t	Libraries, models and policies for WBC
+C007	L1	GPU compiler and runtime	NVIDIA	CUDA Toolkit	https://developer.nvidia.com/embedded/jetpack
+C008	L1	Deep learning kernel primitives	NVIDIA	cuDNN	https://developer.nvidia.com/embedded/jetpack
+C009	L1	Inference optimizer and runtime	NVIDIA	TensorRT	https://developer.nvidia.com/embedded/jetpack
+C010	L1	Edge LLM/VLM inference runtime	NVIDIA	TensorRT-Edge-LLM	https://github.com/NVIDIA/TensorRT-Edge-LLM	C++ inference for physical AI
+C011	L1	Multi-framework model serving	NVIDIA	Triton Inference Server	https://developer.nvidia.com/embedded/jetpack
+C012	L1	Zero-copy ROS 2 message transport	NVIDIA	NITROS (isaac_ros_nitros)	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Type adaptation and negotiation
+C013	L1	Accelerated ROS bridge	NVIDIA	isaac_ros_nitros_bridge	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C014	L1	Accelerated component graph framework	NVIDIA	GXF	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Underpins NITROS and Holoscan
+C015	L1	ROS 2 DNN inference nodes	NVIDIA	isaac_ros_dnn_inference	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	TensorRT and Triton nodes
+C016	L1	GPU camera image preprocessing	NVIDIA	isaac_ros_image_pipeline	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C017	L1	CSI camera ROS 2 driver	NVIDIA	isaac_ros_argus_camera	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	libArgus based
+C018	L1	SIPL camera ROS 2 driver	NVIDIA	isaac_ros_sipl_camera	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Zero-copy publish via NITROS
+C019	L1	GPU fiducial marker detection	NVIDIA	isaac_ros_apriltag	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C020	L1	ROS 2 visual SLAM odometry	NVIDIA	isaac_ros_visual_slam	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all

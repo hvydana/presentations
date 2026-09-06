@@ -1,0 +1,13 @@
+observability-driven-testing
+Installation
+SKILL.md
+Quick Route
+| Situation | Go to | 
+|---|---|
+| Make test execution emit traces correlated with the app | OTel test-runner setup ( references/trace-assertions.md ) | 
+| Assert which services were called / no error spans / latency | Traces as Test Evidence | 
+| Turn a Sentry/Datadog error into a test | Production Error to Test Pipeline | 
+| Decide which endpoints need tests next | Telemetry-Driven Test Prioritization | 
+| A trace assertion is flaky or a span never arrives | Failure Modes | 
+Discovery Questions
+Check .agents/qa-project-context.md first. If it exists, use it as context and skip questions already answered there.

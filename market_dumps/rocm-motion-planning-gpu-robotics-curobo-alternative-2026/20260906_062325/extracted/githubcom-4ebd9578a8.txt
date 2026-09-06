@@ -1,0 +1,47 @@
+ScheduleStream is a framework for planning & scheduling with continuous sampling operations motivated by the application of multi-arm robot Task and Motion Planning (TAMP). See the following ICRA 2026 paper for motivation & background, a tutorial on the ScheduleStream planning language, and a description of several ScheduleStream algorithms.
+ScheduleStream is domain independent and thus both supports different robotics backends and can even be applied to applications beyond robotics. The currently supported applications are:
+- cuStream: TAMP w/ cuRobo
+- IsaacLab: TAMP automated demonstration generation
+- cuMotion: TAMP w/ cuMotion
+- Trimesh 2D: TAMP in a 2D plane w/ trimesh
+- Blocksworld: Discrete sequential and temporal planning in blocksworld
+ScheduleStream: Temporal Planning with Samplers for GPU-Accelerated Multi-Arm Task and Motion Planning & Scheduling Caelan Garrett1, Fabio Ramos1,2. 1NVIDIA Research, 2University of Sydney, IEEE International Conference on Robotics and Automation (ICRA), 2026
+@article{garrett2025schedulestream,
+    title={ScheduleStream: Temporal Planning with Samplers for GPU-Accelerated Multi-Arm Task and Motion Planning & Scheduling},
+    author={Garrett, Caelan and Ramos, Fabio},
+    booktitle={2026 IEEE International Conference on Robotics and Automation (ICRA)},
+    year={2026},
+    organization={IEEE}
+}
+Minimal installation instructions:
+$ git clone git@github.com:NVlabs/ScheduleStream.git
+$ cd ScheduleStream
+ScheduleStream$ pip install -e .
+Follow the instructions per application to install application-specific dependencies
+Minimal example that serves as a tutorial (mirroring the paper):
+ScheduleStream$ ./src/schedulestream/applications/minimal.py
+The currently supported applications are:
+- cuStream: TAMP w/ cuRobo
+- IsaacLab: TAMP automated demonstration generation in IsaacLab
+- cuMotion: TAMP w/ cuMotion
+- Trimesh 2D: TAMP in a 2D plane w/ trimesh
+- Blocksworld: Discrete sequential and temporal planning in blocksworld
+TAMP with cuRobo collision and inverse kinematics primitives
+Note: This example uses cuRoboV1, pinned to tag v0.7.8.
+This is the recommended TAMP application. See cuStream for additional utility scripts for URDF visualization, collision sphere computation, and YAML robot config computation.
+Install cuRobo: instructions
+$ git clone --branch v0.7.8 https://github.com/NVlabs/curobo.git
+$ cd curobo
+curobo$ pip install -e . --no-build-isolation
+curobo$ cd ../ScheduleStream
+ScheduleStream$ pip install -e .[custream]ScheduleStream$ ./src/schedulestream/applications/custream/tutorial.pyScheduleStream$ ./src/schedulestream/applications/custream/example.py --task holdScheduleStream$ ./src/schedulestream/applications/custream/example.py --task stackScheduleStream$ ./src/schedulestream/applications/custream/example.py --task pack
+TAMP Demonstration Generation in IsaacLab
+See IsaacLab TAMP Demonstration Generation
+TAMP with cuMotion collision and inverse kinematics primitives
+See ScheduleStream with cuMotion
+TAMP and motion planning in a 2D plane with trimesh collision primitives
+ScheduleStream$ pip install -e .[trimesh2d]ScheduleStream$ ./src/schedulestream/applications/trimesh2d/tamp.pyScheduleStream$ ./src/schedulestream/applications/trimesh2d/motion.py
+Discrete blocksworld planning
+ScheduleStream$ ./src/schedulestream/applications/blocksworld/sequential.pyScheduleStream$ ./src/schedulestream/applications/blocksworld/temporal.pyScheduleStream$ pytest
+ScheduleStream is released under the NVIDIA License (non-commercial use). See LICENSE for the full terms.
+This project will download and install additional third-party open source software projects. Review the license terms of these open source projects before use.

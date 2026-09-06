@@ -1,0 +1,35 @@
+Physical Intelligence robotics has just changed how robots learn — and the implications for the entire embodied AI industry are enormous.
+A Model That Learns Like Humans Do: Mix, Match, and Master New Tasks Without Training
+On April 16, 2026, Physical Intelligence (PI)—the San Francisco embodied AI startup valued at $5.6 billion and reportedly raising at $11 billion—unveiled π0.7, a foundation model that demonstrates the ability to combine learned skills to solve tasks it has never seen before.
+The Breakthrough: Skills as Words, Tasks as Sentences
+Traditional robot training is rote: collect data on Task A → train Specialist Model A → repeat for Task B.
+π0.7 changes the paradigm.
+Real-world proof:
+- π0.7 used an air fryer it had never seen—relying on just two fragmented training episodes (closing a drawer + placing a bottle) plus web pretraining—to cook a sweet potato
+- With step-by-step verbal coaching, success jumped from 5% to 95%
+- On UR5e industrial arms (heavier, higher inertia than training hardware), it matched expert human teleoperators on first attempt
+“Any robot hardware maker will be able to buy physical intelligence, collect some data on their embodiment, and see our many capabilities transfer,” said PI researcher Kyle Vedder.
+The “Cloud-Brain” Strategy
+PI is betting that the future of robotics isn’t on-device AI—it’s cloud-hosted foundation models with real-time control pipelines:
+- Robot requests 100ms of movement from cloud API
+- Pre-fetching: While executing Chunk N, it fetches Chunk N+1
+- Algorithmic Smoothing: Ensures seamless transitions between chunks
+Result:
+“Dumb” hardware can be powered by data-center-scale intelligence—without latency-induced failures.
+Competitive Context: Research vs. Revenue
+PI’s approach stands in stark contrast to commercial-first peers:
+| Company | Strategy | Valuation | Revenue | Key Differentiator | 
+|---|---|---|---|---|
+| Physical Intelligence | Pure research; general-purpose foundation models | ~$11B (reported) | None disclosed | Compositional generalization; cross-embodiment transfer | 
+| Skild AI | Commercial deployments; “omni-bodied” Skild Brain | $14B | ~$30M (2025) | Real-world data flywheel; industrial validation | 
+| Figure AI | Vertical integration; BMW factory deployments | $39B | Undisclosed | Full-stack control; enterprise partnerships | 
+📌 Investment Takeaway:
+For institutional investors, PI represents a high-conviction, long-duration option on general-purpose embodied AI:
+✅ Bull case:
+- First-mover advantage in compositional generalization—a defensible technical moat
+- Cloud-brain strategy creates scalable, high-margin licensing potential
+- Founder team (ex-DeepMind, Berkeley, Stanford) has unmatched academic + engineering credibility
+❌ Bear case:
+- No revenue visibility = valuation relies entirely on technical milestones
+- Competitors with commercial traction may capture enterprise mindshare first
+- Hardware integration challenges could delay real-world impact

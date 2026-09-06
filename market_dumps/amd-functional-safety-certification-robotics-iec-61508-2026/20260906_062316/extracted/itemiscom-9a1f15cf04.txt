@@ -1,0 +1,29 @@
+IEC 61508 (Basic Standard for Functional Safety)
+IEC 61508 is the cross-industry basic standard for the functional safety of electrical, electronic and programmable electronic (E/E/PE) systems. It defines the safety lifecycle and the four levels SIL 1 to SIL 4 and is the basis of numerous sector standards such as ISO 26262 — which is why it is often called the “parent standard” of functional safety.
+Structure: seven parts
+The standard (current second edition, 2010) is divided into seven parts:
+| Part | Content | 
+|---|---|
+| 1 | General requirements, safety lifecycle | 
+| 2 | Requirements for safety-related E/E/PE systems (hardware) | 
+| 3 | Requirements for software | 
+| 4 | Definitions and abbreviations | 
+| 5 | Examples and methods for the determination of safety integrity levels | 
+| 6 | Guidelines on the application of Parts 2 and 3 | 
+| 7 | Overview of techniques and measures | 
+Core concepts
+IEC 61508 establishes three fundamental ideas that run through all its derivations. First, the safety lifecycle: safety does not result from a single check at the end, but from defined activities ranging from hazard and risk analysis through specification, realisation and validation to operation, modification and decommissioning. Second, the risk-based approach: from the risk of an application, it is derived how reliable a safety function must be — expressed as a Safety Integrity Level (SIL). Third, the distinction between random hardware failures, which are assessed probabilistically, and systematic faults (for example in the specification or software), which are addressed through process rigour, suitable methods and verification. For the highest levels, the method tables of Part 3 highly recommend formal methods.
+The root of the sector standards
+Industry-specific standards have been derived from IEC 61508 that tailor its principles to the respective domain:
+| Industry | Sector standard | 
+|---|---|
+| Automotive | ISO 26262 | 
+| Process industry | IEC 61511 | 
+| Machinery | IEC 62061 | 
+| Railway | EN 50129, EN 50716 | 
+| Agricultural machinery | ISO 25119 | 
+Other domains such as medical technology (IEC 62304) or aviation (DO-178C) have their own bodies of standards that follow comparable fundamental principles. Anyone who knows only a single derivation easily mistakes its peculiarities for laws of nature — looking at the common root helps to understand the intentions behind the requirements.
+When does IEC 61508 apply directly?
+If an applicable sector standard exists, it generally takes precedence. IEC 61508 is applied directly where no sector standard applies, and by manufacturers of components intended for use in safety functions across industries — such as sensors, controllers or software components declared as “suitable for use up to SIL x”.
+IEC 61508 in practice
+In practical terms, conformity means above all producing evidence: for every safety function, it must be demonstrated that the required safety integrity has been achieved — through failure analyses for the hardware, through demonstrably rigorous development for the software, and through an end-to-end derivation chain from the risk analysis through the safety requirements to verification and validation. As the SIL increases, not only the technical requirements grow, but also the required independence of the reviewing instances. Anyone who does not maintain these cross-references as digital trace links has to reconstruct them by hand with every change — with short development cycles, that does not scale.

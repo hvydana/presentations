@@ -1,0 +1,8 @@
+NVIDIA Holoscan is the AI sensor processing platform that combines hardware systems for low-latency sensor and network connectivity, optimized libraries for data processing and AI, and core microservices to run streaming, imaging, and other applications, from embedded to edge to cloud. It can be used to build streaming AI pipelines for a variety of domains, including Medical Devices, High Performance Computing at the Edge, Industrial Inspection and more.
+        NVIDIA Holoscan is the AI sensor processing platform that combines hardware systems for low-latency sensor and network connectivity, optimized libraries for data processing and AI, and core microservices to run streaming, imaging, and other applications, from embedded to edge to cloud. It can be used to build streaming AI pipelines for a variety of domains, including medical devices, high-performance computing at the edge, industrial inspection, and more.
+    
+    
+        Holoscan Sensor Bridge provides an FPGA-based interface for low-latency sensor data processing using GPUs. Peripheral device data is acquired by the Holoscan Sensor Bridge device FPGA and sent via UDP over Ethernet to the host system. In systems like IGX Devkit or DGX Spark, ConnectX SmartNIC interfaces can greatly lower latency by writing that UDP data directly into GPU memory
+    
+    
+        The Holoscan Sensor Bridge (HSB) Native Latency Measurement Tool provides precision timing analysis for real-time computer vision pipelines built with the Holoscan SDK. This FPGA-based solution eliminates input-side measurement jitter by synchronizing directly to camera frame events, delivering sub-millisecond accuracy for camera-to-display latency analysis from the camera sensor to display output.

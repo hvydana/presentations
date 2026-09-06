@@ -1,0 +1,39 @@
+Physical AI is unlocking new possibilities at the intersection of autonomy and robotics — accelerating, in particular, the development of autonomous vehicles (AVs). The right technology and frameworks are crucial to ensuring the safety of drivers, passengers and pedestrians.
+That’s why NVIDIA today announced NVIDIA Halos — a comprehensive safety system bringing together NVIDIA’s lineup of automotive hardware and software safety solutions with its cutting-edge AI research in AV safety.
+Halos spans chips and software to tools and services to help ensure safe development of AVs from the cloud to the car, with a focus on AI-based, end-to-end AV stacks.
+“With the launch of Halos, we’re empowering partners and developers to choose the state-of-the-art technology elements they need to build their own unique offerings, driving forward a shared mission to create safe and reliable autonomous vehicles,” said Riccardo Mariani, vice president of industry safety at NVIDIA. “Halos complements existing safety practices and can potentially accelerate standardization and regulatory compliance.”
+At the Heart of Halos
+Halos is a holistic safety system on three different but complementary levels.
+At the technology level, it spans platform, algorithmic and ecosystem safety. At the development level, it includes design-time, deployment-time and validation-time guardrails. And at the computational level, it spans AI training to deployment, using three powerful computers — NVIDIA DGX for AI training, NVIDIA Omniverse and NVIDIA Cosmos running on NVIDIA OVX for simulation, and NVIDIA DRIVE AGX for deployment.
+“Halos’ holistic approach to safety is particularly critical in a setting where companies want to harness the power of generative AI for increasingly capable AV systems developed end to end, which preclude traditional compositional design and verification,” said Marco Pavone, lead AV researcher at NVIDIA.
+AI Systems Inspection Lab
+Serving as an entry point to Halos is the NVIDIA AI Systems Inspection Lab, which allows automakers and developers to verify the safe integration of their products with NVIDIA technology.
+The AI Systems Inspection Lab, announced at the CES trade show earlier this year, is the first worldwide program to be accredited by the ANSI National Accreditation Board for an inspection plan integrating functional safety, cybersecurity, AI safety and regulations into a unified safety framework.
+Inaugural members of the AI Systems Inspection Lab include Ficosa, OMNIVISION, onsemi and Continental.
+“Being a member of the AI Systems Inspection Lab means working at the forefront of automotive systems innovation and integrity,” said Cristian Casorran Hontiyuelo, advanced driver-assistance system engineering and product manager at Ficosa.
+“Cars are so much more than just transportation,” said Paul Wu, head of product marketing for automotive at OMNIVISION. “They’ve also become our entertainment and information hubs. Vehicles must continually evolve in their ability to keep us safe. We are pleased to join NVIDIA’s new AI Systems Safety Lab as a demonstration of our commitment to achieving the highest levels of safety in our product offerings.”
+“We are delighted to be working with NVIDIA and included in the launch of the NVIDIA AI Systems Inspection Lab,” said Geoff Ballew, general manager of the automotive sensing division at onsemi. “This unique initiative will improve road safety in an innovative way. We look forward to the advancements it will bring.”
+“We are pleased to participate in the newly launched NVIDIA Drive AI Systems Inspection Lab and to further intensify the fruitful, ongoing collaboration between our two companies,” said Nobert Hammerschmidt, head of components business at Continental.
+Key Elements of Halos
+Halos is built on three focus areas: platform safety, algorithmic safety and ecosystem safety.
+Platform Safety
+Halos features a safety-assessed system-on-a-chip (SoC) with hundreds of built-in safety mechanisms.
+It also includes NVIDIA DriveOS software, a safety-certified operating system that extends from CPU to GPU; a safety-assessed base platform that delivers the foundational computer needed to enable safe systems for all types of applications; and DRIVE AGX Hyperion, a hardware platform that connects SoC, DriveOS and sensors in an electronic control unit architecture.
+Algorithmic Safety
+Halos includes libraries for safety data loading and accelerators, and application programming interfaces for safety data creation, curation and reconstruction to filter out, for example, undesirable behaviors and biases before training.
+It also features rich training, simulation and validation environments harnessing the NVIDIA Omniverse Blueprint for AV simulation with NVIDIA Cosmos world foundation models to train, test and validate AVs. In addition, it boasts a diverse AV stack combining modular components with end-to-end AI models to ensure safety with cutting-edge AI models in the loop.
+Ecosystem Safety
+Halos includes safety datasets with diverse, unbiased data, as well as safe deployment workflows, comprising triaging workflows and automated safety evaluations, along with a data flywheel for continual safety improvements — demonstrating leadership in AV safety standardization and regulation.
+Safety Track Record
+Halos brings together a vast amount of safety-focused technology research, development, deployment, partnerships and collaborations by NVIDIA, including:
+- 15,000+ engineering years invested in vehicle safety
+- 10,000+ hours of contributions to international standards committees
+- 1,000+ AV-safety patents filed
+- 240+ AV-safety research papers published
+- 30+ safety and cybersecurity certificates
+It also dovetails with recent significant safety certifications and assessments of NVIDIA automotive products, including:
+- The NVIDIA DriveOS 6.0 operating system conforms with ISO 26262 automotive safety integrity level (ASIL D) standards.
+- TÜV SÜD granted the ISO/SAE 21434 Cybersecurity Process certification to NVIDIA for its automotive SoC, platform and software engineering processes.
+- TÜV Rheinland performed an independent safety assessment of NVIDIA DRIVE AV for the United Nations Economic Commission for Europe related to safety requirements for complex electronic systems.
+To learn more about NVIDIA’s approach to automotive safety, attend AV Safety Day today at NVIDIA GTC, a global AI conference running through Friday, March 21.
+See notice regarding software product information.

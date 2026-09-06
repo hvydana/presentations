@@ -1,0 +1,71 @@
+C190	L0	Certified microkernel RTOS for robot controllers	BlackBerry QNX	QNX Neutrino RTOS 8.0	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	POSIX microkernel, dominant in automotive/robotics safety
+C191	L0	Hard real-time OS for industrial controllers	Wind River	VxWorks	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Proprietary; aerospace and industrial robot arms
+C193	L0	Minimal kernel for motor and sensor MCUs	Amazon / OSS	FreeRTOS	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	MIT licensed
+C195	L0	Separation-kernel RTOS for certified systems	Green Hills Software	INTEGRITY-178 tuMP	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Time/space partitioning
+C198	L0	Deterministic fieldbus for servo drives	EtherCAT Technology Group	EtherCAT	https://www.ethercat.org/en/technology.html	Distributed clocks, cycle times under 100 us
+C201	L0	Time-scheduled deterministic Ethernet	IEEE	TSN 802.1AS / 802.1Qbv / 802.1Qbu	https://en.wikipedia.org/wiki/Time-Sensitive_Networking	Time sync plus traffic shaping
+C202	L0	CAN device profile for drives and motion	CAN in Automation	CANopen CiA 402 drive profile	https://www.can-cia.org/canopen	Standard servo drive state machine
+C203	L0	Isochronous industrial Ethernet for cells	PROFIBUS and PROFINET International	PROFINET IRT	https://www.profibus.com/technology/profinet	Isochronous real-time class
+C205	L0	Real-time component framework for robots	OSS	OROCOS Real-Time Toolkit	https://orocos.org/	Pre-ROS real-time component model
+C206	L0	Real-time CNC motion control on Linux	OSS	LinuxCNC	https://linuxcnc.org/	HAL plus stepgen realtime threads
+C207	L0	FPGA motor control loop IP and kit	AMD	Kria KD240 Drives Starter Kit	https://www.amd.com/en/products/system-on-modules/kria/k24/kd240-drives-starter-kit.html	FOC, PWM, encoder interface in PL
+C208	L0	Lockstep safety co-processor MCU	Infineon	AURIX TC4x	https://www.infineon.com/cms/en/product/microcontroller/32-bit-tricore-microcontroller/	ASIL-D lockstep cores for safety island
+C209	L0	Static partitioning hypervisor for mixed criticality	Siemens / OSS	Jailhouse	https://github.com/siemens/jailhouse	Bare-metal partitioning, no scheduler
+C210	L0	Type-1 hypervisor for mixed-criticality SoCs	Xen Project	Xen on Arm	https://xenproject.org/	Dom0-less real-time configurations
+C211	L0	Safety-certified hypervisor for robot SoCs	BlackBerry QNX	QNX Hypervisor for Safety	https://blackberry.qnx.com/en/products/foundation-software/qnx-hypervisor	Guest isolation with certified host
+C212	L4	Cloud fleet observability and teleoperation	Formant	Formant Platform	https://formant.ai/	Data platform, video, remote intervention
+C213	L4	AMR fleet operations and interoperability	InOrbit	InOrbit RobOps Platform	https://github.com/Airbotics/awesome-cloud-robotics	Focused on autonomous mobile robot fleets
+C214	L4	Robot monitoring and remote control SaaS	Freedom Robotics	Freedom Robotics	https://github.com/Airbotics/awesome-cloud-robotics	Self-serve ROS 1 / ROS 2 agent
+C216	L4	Full-stack robot capability streaming	Transitive Robotics	Transitive	https://transitiverobotics.com/	Open-core video streaming and config management
+C218	L4	Robust OTA update for embedded Linux	Northern.tech	Mender	https://mender.io/	A/B partition updates with server
+C219	L4	Atomic A/B system update framework	Pengutronix / OSS	RAUC	https://rauc.io/	Yocto meta-rauc layer
+C220	L4	Embedded Linux software update agent	OSS	SWUpdate	https://sbabic.github.io/swupdate/	Suricatta backend for update servers
+C221	L4	Container-based device fleet deployment	Balena	balenaCloud / balenaOS	https://www.balena.io/	Docker-based delivery to edge devices
+C222	L4	Commercial Yocto OTA for edge devices	Toradex	Torizon OS / Torizon Cloud	https://www.toradex.com/torizon	Uptane-based secure OTA
+C223	L4	Experiment tracking and model registry	OSS / Databricks	MLflow	https://github.com/topics/mlops	Runs, artifacts, model registry
+C224	L4	Training run tracking and dataset lineage	Weights and Biases	W&B	https://github.com/topics/mlops	Sweeps, artifacts, reports
+C225	L4	MLOps orchestration and experiment manager	ClearML	ClearML	https://github.com/topics/mlops	Agent-based remote execution
+C226	L4	Kubernetes-native ML pipeline orchestration	Kubeflow / CNCF	Kubeflow Pipelines	https://landscape.cncf.io/	Training operators and pipeline DAGs
+C227	L4	LLM and agent trace observability	Langfuse	Langfuse	https://github.com/topics/mlops	Prompt/trace logging for policy stacks
+C228	L4	Vendor-neutral traces metrics and logs	CNCF	OpenTelemetry	https://opentelemetry.io/docs/what-is-opentelemetry/	SDKs plus OTLP collector
+C230	L4	Metrics scraping and dashboarding	CNCF / Grafana Labs	Prometheus + Grafana	https://landscape.cncf.io/	De facto edge telemetry backend
+C231	L4	GPU utilization metrics export to Prometheus	NVIDIA	dcgm-exporter	https://github.com/NVIDIA/dcgm-exporter	Per-GPU SM, memory, power counters
+C232	L4	AMD GPU metrics export to Prometheus	AMD	ROCm device-metrics-exporter	https://github.com/ROCm/device-metrics-exporter	amd-smi / rocprofiler-backed exporter
+C233	L4	Lightweight Kubernetes for edge robots	SUSE / CNCF	K3s	https://landscape.cncf.io/	Single-binary K8s for on-robot compute
+C234	L4	Cloud-edge orchestration for device fleets	CNCF	KubeEdge	https://kubeedge.io/	Extends K8s control plane to edge nodes
+C235	L4	Managed edge runtime and component deploy	AWS	AWS IoT Greengrass	https://aws.amazon.com/greengrass/	Component model, local Lambda/containers
+C236	L5	Generic functional safety lifecycle and SIL	IEC	IEC 61508	https://en.wikipedia.org/wiki/IEC_61508	Parent standard for SIL 1-4
+C237	L5	Road vehicle functional safety and ASIL	ISO	ISO 26262	https://en.wikipedia.org/wiki/ISO_26262	ASIL A-D; basis for AV/robot silicon claims
+C238	L5	Safety requirements for industrial robots	ISO	ISO 10218-1:2025	https://www.iso.org/standard/73933.html	2025 revision shifts to application scope
+C239	L5	Safety for robot systems and integration	ISO	ISO 10218-2:2025	https://www.iso.org/standard/73934.html	Absorbs ISO/TS 15066 contact limits
+C240	L5	Biomechanical limits for collaborative robots	ISO	ISO/TS 15066	https://www.iso.org/standard/62996.html	Power and force limiting thresholds
+C241	L5	Performance level for safety control systems	ISO	ISO 13849-1	https://www.iso.org/standard/73481.html	PL a-e for safety-related control parts
+C242	L5	Industrial automation and control system security	IEC	IEC 62443	https://webstore.iec.ch/publication/7029	Security levels for OT and robot cells
+C243	L5	Safety for dynamically stable walking robots	ISO	ISO 25785-1 (Working Draft)	https://theresarobotforthat.com/blog/humanoid-robot-safety-standards-2026/	Fall zone and balance recovery; publication 2026-2027
+C244	L5	Safety standard for service and personal robots	UL Solutions	UL 3300	https://www.ul.com/services/ul-3300-safety-standard-service-communication-and-personal-care-robots	Covers cleaning, delivery, personal care robots
+C245	L5	US national industrial robot safety standard	A3 (Association for Advancing Automation)	ANSI/A3 R15.06-2025	https://www.automate.org/robot-safety	US adoption track of ISO 10218
+C246	L5	EU market access for machinery incl. robots	European Union	Machinery Regulation (EU) 2023/1230	https://eur-lex.europa.eu/eli/reg/2023/1230/oj	Applies from Jan 2027; covers AI-enabled safety functions
+C247	L5	Risk-tier obligations for AI in machinery	European Union	AI Act (EU) 2024/1689	https://eur-lex.europa.eu/eli/reg/2024/1689/oj	High-risk classification via machinery Annex I
+C248	L5	Airborne software certification objectives	RTCA / EUROCAE	DO-178C	https://en.wikipedia.org/wiki/DO-178C	DAL A-E; drone and aerial robotics
+C249	L5	Third-party functional safety assessment	TUV SUD	Functional Safety Certification Service	https://www.tuvsud.com/en/services/functional-safety	Assesses SIL/ASIL claims for tools and products
+C250	L5	Product safety testing and certification lab	UL Solutions	UL Solutions certification services	https://www.ul.com/	Issues UL 3300 marks
+C251	L5	Vendor safety inspection lab for physical AI	NVIDIA	Halos AI Systems Inspection Lab	https://developer.nvidia.com/blog/inside-nvidia-halos-for-robotics-a-full-stack-functional-safety-system-for-physical-ai/	Full-stack functional safety program for robotics
+C252	L5	Safety-qualified C/C++ compiler toolchain	Green Hills Software	MULTI compiler with TCL-3 kit	https://wrocpp.github.io/toolset/qualified-compilers/	ASIL D / SIL 4 / DO-178C Level A
+C253	L5	Qualification kit for open-source compiler	Validas + OSS GCC	GCC + Validas Compiler Test Suite	https://wrocpp.github.io/toolset/qualified-compilers/	Brings GCC to ASIL B/D, SIL 2/3
+C254	L5	Certified RTOS variant for safety products	BlackBerry QNX	QNX OS for Safety	https://blackberry.qnx.com/en/products/safety-certified	IEC 61508 SIL 3 / ISO 26262 ASIL D
+C255	L5	Certified RTOS and hypervisor in one	SYSGO	PikeOS	https://www.sysgo.com/pikeos	DO-178C, IEC 61508, ISO 26262 evidence packages
+C256	L5	Safety certification path for open RTOS	Linux Foundation	Zephyr Safety Certification (IEC 61508 SIL 3)	https://docs.zephyrproject.org/latest/safety/safety_overview.html	Auditable subset of the Zephyr kernel
+C258	L6	Binary apt distribution of ROS packages	ros-infrastructure	packages.ros.org apt repositories	https://index.ros.org/	Debian/Ubuntu binary channel per distro
+C259	L6	Continuous build and release farm for ROS	Open Robotics / OSS	ROS 2 build farm (build.ros2.org)	https://build.ros2.org/	Devel, source, binary and doc jobs
+C261	L6	Official prebuilt container images for ROS	Docker Inc / OSRF	Docker Hub official ros images	https://hub.docker.com/_/ros	Per-distro base images
+C262	L6	Curated accelerated container and model catalog	NVIDIA	NGC Catalog	https://catalog.ngc.nvidia.com/	Containers, pretrained models, Helm charts
+C263	L6	Prebuilt accelerator runtime wheels on PyPI	AMD	ROCm PyTorch wheels index	https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html	pip-installable rocm builds
+C264	L6	Hosted ARM and GPU CI runners	GitHub	GitHub-hosted larger runners	https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners	arm64 and GPU classes for robotics CI
+C267	L6	Dynamixel-based leader-follower teaching arm	OSS (Jess Moss)	Koch v1.1 arm	https://github.com/jess-moss/koch-v1-1	More robust servo ecosystem than SO-ARM
+C268	L6	Low-cost mobile manipulation reference platform	SIGRobotics UIUC / OSS	LeKiwi	https://github.com/SIGRobotics-UIUC/LeKiwi	SO-ARM on holonomic mobile base
+C269	L6	Standard reference mobile robot for ROS 2	Clearpath Robotics / OSRF	TurtleBot 4	https://turtlebot.github.io/turtlebot4-user-manual/	Canonical ROS 2 teaching platform
+C270	L6	Vendor SDK for legged and humanoid robots	Unitree Robotics	unitree_sdk2 / unitree_ros2	https://github.com/unitreerobotics/unitree_sdk2	High/low-level joint control API
+C271	L6	Research-grade open bimanual arm platform	Enactic / WowRobo	OpenArm 2	https://openelab.io/blogs/learn/lerobot-hardware-buying-guide-so-arm101-vs-koch-v1-1-vs-openarm-vs-lekiwi-vs-xlerobot	7-DoF backdrivable QDD joints, CAN-FD
+C272	L6	Annual developer conference for the ecosystem	Open Robotics / OSRA	ROSCon	https://roscon.ros.org/	Talks archived as ecosystem reference material
+C273	L6	Primary developer forum and announcements	Open Robotics / OSS	ROS Discourse	https://discourse.ros.org/	Release announcements, working groups
+C274	L6	Open-source deployment platform listing	Airbotics / OSS	awesome-cloud-robotics curated list	https://github.com/Airbotics/awesome-cloud-robotics	Community census of RobOps tooling

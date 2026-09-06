@@ -1,0 +1,14 @@
+C256	L5	Safety certification path for open RTOS	Linux Foundation	Zephyr Safety Certification (IEC 61508 SIL 3)	https://docs.zephyrproject.org/latest/safety/safety_overview.html	Auditable subset of the Zephyr kernel
+C258	L6	Binary apt distribution of ROS packages	ros-infrastructure	packages.ros.org apt repositories	https://index.ros.org/	Debian/Ubuntu binary channel per distro
+C259	L6	Continuous build and release farm for ROS	Open Robotics / OSS	ROS 2 build farm (build.ros2.org)	https://build.ros2.org/	Devel, source, binary and doc jobs
+C261	L6	Official prebuilt container images for ROS	Docker Inc / OSRF	Docker Hub official ros images	https://hub.docker.com/_/ros	Per-distro base images
+C262	L6	Curated accelerated container and model catalog	NVIDIA	NGC Catalog	https://catalog.ngc.nvidia.com/	Containers, pretrained models, Helm charts
+C264	L6	Hosted ARM and GPU CI runners	GitHub	GitHub-hosted larger runners	https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners	arm64 and GPU classes for robotics CI
+C267	L6	Dynamixel-based leader-follower teaching arm	OSS (Jess Moss)	Koch v1.1 arm	https://github.com/jess-moss/koch-v1-1	More robust servo ecosystem than SO-ARM
+C268	L6	Low-cost mobile manipulation reference platform	SIGRobotics UIUC / OSS	LeKiwi	https://github.com/SIGRobotics-UIUC/LeKiwi	SO-ARM on holonomic mobile base
+C269	L6	Standard reference mobile robot for ROS 2	Clearpath Robotics / OSRF	TurtleBot 4	https://turtlebot.github.io/turtlebot4-user-manual/	Canonical ROS 2 teaching platform
+C270	L6	Vendor SDK for legged and humanoid robots	Unitree Robotics	unitree_sdk2 / unitree_ros2	https://github.com/unitreerobotics/unitree_sdk2	High/low-level joint control API
+C271	L6	Research-grade open bimanual arm platform	Enactic / WowRobo	OpenArm 2	https://openelab.io/blogs/learn/lerobot-hardware-buying-guide-so-arm101-vs-koch-v1-1-vs-openarm-vs-lekiwi-vs-xlerobot	7-DoF backdrivable QDD joints, CAN-FD
+C272	L6	Annual developer conference for the ecosystem	Open Robotics / OSRA	ROSCon	https://roscon.ros.org/	Talks archived as ecosystem reference material
+C273	L6	Primary developer forum and announcements	Open Robotics / OSS	ROS Discourse	https://discourse.ros.org/	Release announcements, working groups
+C274	L6	Open-source deployment platform listing	Airbotics / OSS	awesome-cloud-robotics curated list	https://github.com/Airbotics/awesome-cloud-robotics	Community census of RobOps tooling

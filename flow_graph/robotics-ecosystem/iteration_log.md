@@ -240,3 +240,64 @@ See `gap_register.md` for the finalized synthesis, 13 confirmed gaps, and top 10
 | Gap saturation (no new GAP-AMD for 2 rounds) | No (3 added) | No (4 added) | No (2 added) | No (4 added) |
 | Evidence saturation | No | No | No | No |
 | User stop | No | No | No | No |
+
+---
+
+## Iteration 5 — Resumed (2026-09-06)
+
+**Resumption context:** User re-opened the graph after the Iteration 4 cap, having authored two new detailed seed reports in the interim (`l1-l2-hardware-simtoreal-amd-gap-analysis.md`, `physical-ai-robotics-inference-pipeline-commercial-layers-market-analysis.md`) already framed in the stack-layer taxonomy (L0–L5) the user had requested. Rather than dispatch agents for questions these reports already answered, the reports were ingested directly as new Seed nodes and cross-referenced against the existing 13 GAP-AMD entries for duplicates; agents were reserved only for genuinely open questions needing fresh web evidence or a staleness/status check.
+
+**Seed reports ingested:** 2
+- `l1-l2-hardware-simtoreal-amd-gap-analysis.md` → N84
+- `physical-ai-robotics-inference-pipeline-commercial-layers-market-analysis.md` → N85
+
+**Direct extraction (no dispatch needed):** 14 new GAP-AMD nodes drawn straight from the two seed reports' own gap/layer analyses, deduplicated against the existing register:
+- N86–N99 → GAP-14 through GAP-27 (see `gap_register.md` for full entries)
+- Deduplication notes: l1-l2 report's "Gap 1" (Warp/RL lock-in) matches existing GAP-1/N42 exactly — handled as a status-update Pivot (N105), not a new gap. Pipeline report's "Layer 2" (safety cert) matches l1-l2's "L0 Gap 11" — merged into single node N91. Pipeline report's "Layer 5" (sim-to-real) overlaps l1-l2's L2 content — no separate gap assigned.
+
+**Agents dispatched (frontier — status-check / fresh-evidence questions only):**
+
+| Agent | Topic | Question | Resulting node |
+|-------|-------|----------|-----------------|
+| Agent-1 | Motion-planning/sim status | Does an AMD-side motion-planning analog to cuRobo exist anywhere, even embryonic? | N100 |
+| Agent-2 | AMD announcements status check | Has AMD shipped/announced anything since Iteration 4 that changes GAP-1 (Warp/ROCm) status? | N100/N105 (Pivot) |
+| Agent-3 | Inference observability | What robotics/AI-observability tooling exists, and does any of it integrate RocProfiler? | N102 |
+| Agent-4 | MLOps whitespace | Does any vendor offer an integrated VLA-specific safety-gated MLOps/lifecycle platform? | N103 |
+| Agent-5 | Safety certification path | What is AMD's actual current certification posture (IEC 61508/ISO 26262) for AI-inference compute vs. FPGA fabric? | N104 |
+
+Status: **COMPLETE** (all 5 returned findings, 2026-09-06)
+
+---
+
+## Iteration 5 — Results
+
+| Metric | Value |
+|--------|-------|
+| Nodes added | 22 (N84–N105) |
+| Seed nodes | 2 (N84, N85) |
+| GAP-AMD nodes confirmed (direct extraction) | 14 (N86–N99 / GAP-14–GAP-27) |
+| Finding nodes (from dispatched agents) | 5 (N100–N104) |
+| Pivot nodes | 1 (N105 — upgrades N42/GAP-1 from "no community effort" to "early-stage upstream-in-progress") |
+| Agent failures | 0 — all 5 returned findings |
+| Convergence check | Not re-triggered on a new cap — this is a user-directed resumption outside the original 3-iteration cap, run to completion at the user's explicit request rather than under frontier-scoring convergence rules |
+
+**Key findings summary:**
+- N100 (motion-planning/status agent): `rocRobo`, an embryonic ROCm analog to cuRobo, already exists; AMD-authored PRs #1770/#1865 upstreaming HIP/ROCm support into `nvidia/warp` confirm active AMD engineering investment — directly upgrades GAP-1's status (→ N105 Pivot) and seeds new GAP-14 (cuRobo path)
+- N102 (observability agent): Zero RocProfiler or ROCm-specific integration exists anywhere in the robotics/AI-observability ecosystem (Foxglove, Formant, InOrbit, Cogniteam, Arize, Langfuse); `ros-opentelemetry` (ROSCon 2025, maintainer szobov) is the closest extensible, vendor-neutral building block; AMD's own 30+-member Robotics Partner Network has zero observability-category partners
+- N103 (MLOps-whitespace agent): No vendor — general-purpose (W&B, MLflow, Kubeflow, SageMaker, Azure ML, ClearML, JFrog ML, Domino) or robotics-specific (LeRobot, Calibra) — offers an integrated VLA-specific registry + safety-gated A/B + rollback + drift-detection platform; Ketryx is the closest counter-candidate but is documentation/impact-analysis only, not runtime; independently confirmed as the single highest-conviction whitespace across both new seed reports and this fresh research pass
+- N104 (safety-certification agent): AMD already holds a TÜV SÜD-certified design flow (Versal, IEC 61508+ISO 26262) and a prior TÜV Rheinland SIL3 Zynq 7000 study, plus active QNX and Green Hills RTOS partnerships — but none of this certification infrastructure has been extended to cover AI-inference/XDNA tiles specifically; extension, not new certification, is the fastest path
+- N105 (Pivot on N42/GAP-1): Reframes the highest-ranked existing gap's next action from "commit to build a ROCm Warp backend" to "resource the in-progress upstream PRs to completion and announce" — a materially cheaper and faster action than previously registered
+
+**Files updated this iteration:** `knowledge_flow_graph.md` (Block A/B/C extended through N105), `gap_register.md` (GAP-14–GAP-27 appended, GAP-1 status-update paragraph added, Ranking Methodology table extended), `iteration_log.md` (this section).
+
+---
+
+## Convergence Tracking (Updated)
+
+| Criterion | Iteration 1 | Iteration 2 | Iteration 3 | Iteration 4 | Iteration 5 (resumed) |
+|-----------|------------|------------|------------|------------|------------------------|
+| Max iterations reached (cap=3 new) | No | No | No (2nd of 3) | **YES — TRIGGERED** | N/A — user-directed resumption outside cap |
+| Frontier starvation (<2 Q ≥ 8/12) | No | No (5 @ ≥10) | No (4 @ ≥10) | No (4 post-cap Q ≥ 10) | Not evaluated — direct extraction, not frontier-driven |
+| Gap saturation (no new GAP-AMD for 2 rounds) | No (3 added) | No (4 added) | No (2 added) | No (4 added) | No (14 added) |
+| Evidence saturation | No | No | No | No | No |
+| User stop | No | No | No | No | No — user requested full integration + master doc, not a stop |

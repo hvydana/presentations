@@ -1,0 +1,26 @@
+Skild AI recently unveiled S1, the company’s flagship robot foundation model. Since it was founded in 2023, the company has raised nearly $1.7 billion in funding to create a general-purpose robot brain.
+With S1, robots can learn new, complex tasks from watching a single video, Skild AI claimed. To do this, the company‘s model uses in-context learning, Deepak Pathak, Skild AI co-founder and CEO, told The Robot Report.
+“You just add a video of a human doing something in the prompt, also called the context of the model, and it can just follow it on the robot,” Pathak said. “The tasks we are showing are extremely complex and long horizon. They are not three-second, four-second tasks, not those tiny, simple tasks.”
+S1 pretrains on a range of data types
+Typically, when faced with new tasks, AI models on robots need to be post-trained to handle them. This can be a lengthy process, and it holds robotics back from scaling. According to Pathak, there are four kinds of robot training data, and Skild makes use of all of them.
+- Teleoperation data: This involves human directly controlling a robot’s actions. Pathak said this type is slow to capture and doesn’t provide a diverse range of data. However, its very high quality, as the data it gathers comes directly from a robot.
+- Human videos: This involves a robot learning how to do a task by watching a video of a person doing it. Human video data is abundant and diverse, but it’s difficult to apply directly to robots.
+- Simulation: Simulation is very common in robotics, and involves using a simulated environment to teach a robot a task. This is very scalable, as it all takes place on a computer, and very diverse. But there is still a gap between simulation and the real world.
+- Data-capture gloves: For this method, humans wearing special data capture gloves performs a task to teach a robot. This is slightly more scalable than teleoperation, but it is also slightly less directly applicable to robots.
+“If you look at any company out there, they are primarily focusing on one of these sources. But, if we think from first principles, we realize there is no golden path,” Pathak said. “We have to use all of them because the pros of one source compensates for the downside of another source.”
+“Human videos are diverse, but far from a robot. You can combine that with glove or teleoperation data,” he continued. “This is how we combine our data sources for pre-training.”
+Skild AI targets a range of tasks and form factors
+Right now, Skild AI said it isn’t focusing on any one specific task or industry. “Many people on social media have been asking questions, and we have been continuously replying with new tasks, because it’s pretty generalized,” Pathak said.
+Importantly, Skild is focusing on longer tasks that can take up to 10 minutes, including things like repotting a plant, making a cup of coffee, or cooking pancakes.
+“When the robot flipped the pancake, we were so paranoid that we went back and checked all of our millions of hours of data to look for any flipping example of any kind, and there was none,” Pathak said. “This flipping basically emerged by looking at how the spatula is moving and the robot could just do it.”
+The Skild brain is also “omni-bodied.” Pathak said it can work on anything from a quadruped to a humanoid or a static arm. In the future, the company does plan to spend more time improving the model’s performance on humanoids.
+“We have these results where, if a humanoid is going, its limbs can break and it can adapt on the fly,” Pathak said. However, these results came from an earlier version of the model. So far, Skild simply hasn’t has the time to scale the model to humanoids.
+Will robotics have its own ‘ChatGPT moment?’
+Its easy to compare what’s happening with robot foundation models to what happened with large language models (LLMs).
+“Language models, before this GPT-line of models, used to be fine-tuned for every single task. So, even after the transformers were discovered and invented, you still would have to fine tune that for every new benchmark, every math problem, any new scenarios,” Pathak said. “The big change in language came when you had this transition to ChatGPT, where you don’t have to fine-tune or train the network. You can just write in the prompt, and the model can follow it.”
+While Pathak said he believes this is a step in the right direction, he doesn’t think robotics is quite at its ChatGPT moment.
+“Now, the question is: Is it completely ready to be rolled out to people’s homes? Not quite. But this is the first sign of what we believe might come,” he said.
+Looking ahead, Pathak said Skild AI has more big releases coming. “You will see in the coming weeks, we’ll show how S1 is already helping in production,” he said. “It’s actually helping us move faster to acquire more customers.”
+Skild has its sights set on deployments, something its recent Fetch Robotics acquisition will help with, said Pathak. He said that acquiring Fetch was about getting the right talent to be able to deploy and scale.
+“Of course, we’ll continue scaling the frontier research, but at the same time, deployment is a high priority,” Pathak said.
+Tell Us What You Think!

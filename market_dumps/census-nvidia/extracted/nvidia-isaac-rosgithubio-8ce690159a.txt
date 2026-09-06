@@ -1,0 +1,26 @@
+Repositories and Packages#
+Use this index to find the Isaac ROS packages you need and examples on how to use them.
+| Repository | Packages | Description | 
+|---|---|---|
+| AprilTag |  | CUDA-accelerated AprilTag detection and pose estimation. | 
+| Benchmark |  | ROS 2 package which adds on top of ros2_benchmark package plugins, configuration files, and scripts to perform benchmarking on graphs of nodes using Isaac ROS. | 
+| Cloud Control |  | Receives tasks and actions from the fleet management service and updates progress, state, and errors | 
+| Common | – | Common utilities, packages, scripts, and testing infrastructure for Isaac ROS packages. | 
+| Compression |  | NVIDIA-accelerated data compression | 
+| cuMotion |  | CUDA-accelerated motion generation for robot arms | 
+| Data Tools |  | Tools for inspecting and converting data captured through Isaac ROS pipelines. | 
+| Deploy | isaac_deploy_core isaac_ros_deploy_ros2_control isaac_ros_deploy_converters isaac_ros_deploy_bringup | Deploy neural network policies (reinforcement learning and imitation learning) trained in PyTorch on real and simulated robots. | 
+| DNN Inference |  | NVIDIA-accelerated DNN model inference ROS 2 packages using NVIDIA Triton/TensorRT for both Jetson and x86_64 with CUDA-capable GPU | 
+| DNN Stereo Depth |  | Deep learned stereo disparity estimation | 
+| Image Pipeline |  | NVIDIA-accelerated ROS 2 packages for camera image processing. | 
+| Image Segmentation |  | NVIDIA-accelerated, deep learned semantic image segmentation | 
+| Jetson |  | Utility tools for NVIDIA Jetson | 
+| Mapping and Localization |  | ROS Packages for mapping and localization | 
+| NITROS |  | NVIDIA Isaac Transport for ROS package for hardware-acceleration friendly movement of messages | 
+| Nvblox |  | NVIDIA-accelerated 3D scene reconstruction and Nav2 local costmap provider using nvblox | 
+| Object Detection |  | Deep learning model support for object detection including DetectNet | 
+| Physical AI |  | Application-level bringup for whole-body control and teleoperation on humanoid robots. | 
+| Pose Estimation |  | Deep learned, NVIDIA-accelerated 3D object pose estimation | 
+| SIPL Camera |  | ROS 2 camera driver for NVIDIA SIPL cameras with zero-copy GPU-accelerated image publishing through NITROS. | 
+| Teleop |  | ROS 2 teleoperation solution using Isaac Teleop for data collection. | 
+| Visual SLAM |  | Visual odometry package based on NVIDIA-accelerated NVIDIA cuVSLAM library with world class quality and performance. |

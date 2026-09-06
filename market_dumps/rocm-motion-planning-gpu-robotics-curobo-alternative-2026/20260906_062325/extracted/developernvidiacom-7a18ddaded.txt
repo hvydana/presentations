@@ -1,0 +1,18 @@
+Real-time autonomous robot navigation powered by a fast motion-generation algorithm can enable applications in several industries such as food and services, warehouse automation, and machine tending. Motion generation for manipulators is extremely challenging, as it requires satisfying complex constraints and minimizing several cost terms.
+In addition, manipulators can have many articulations, complex link geometries, entire goal regions beyond a single configuration, task constraints, and nontrivial kinematic and torque limitations. Prior approaches mitigated this complexity by first planning collision-free geometric paths and then optimizing them locally for smoother plans.
+However, research has increasingly shown that trajectory optimization can be a powerful tool to address problems larger than just trajectory smoothing. Our modern understanding of this robot navigation problem is that it is a large global motion optimization problem.
+In the video, the steps in motion generation with cuRobo are visualized, starting with inverse kinematics iterations, followed by iterations of trajectory optimization.
+NVIDIA cuRobo formulates the motion generation problem as a global optimization problem and leverages GPUs to solve it with many parallel seeds. cuRobo first performs collision-free inverse kinematics (IK) to find collision-free final joint configurations, followed by trajectory optimization leveraging the final joint configurations as seeds (Figure 1).
+cuRobo also implements a GPU-accelerated, fast graph planner to use as a seed for trajectory optimization for use in extreme cases.
+In the video, a robot manipulator moves through space avoiding obstacles to reach targets.
+cuRobo is implemented in PyTorch, enabling you to easily implement your own cost terms for motion generation. cuRobo comes with a library of custom robotics CUDA kernels for common and time-consuming tasks. It uses several NVIDIA technologies:
+- NVIDIA Warp for mesh distance queries.
+- NVIDIA nvblox for signed distance from depth images.
+- CUDA Graphs for reducing kernel launch overheads.
+- NVIDIA Isaac Sim for rendering and examples.
+cuRobo also runs on the NVIDIA Jetson enabling embedded applications.
+Results show that cuRobo can generate motion plans within 100 ms (median) on NVIDIA AGX Orin. Figure 3 shows an example integration of cuRobo running on an NVIDIA Jetson AGX Orin on a UR10.
+In the video, cuRobo generates smooth motion for a UR10 robot rapidly for dynamically appearing targets.
+cuRobo provides CUDA-accelerated implementations of several motion generation components including kinematics, collision checking, inverse kinematics, numerical optimization solvers, trajectory optimization, and motion generation. Results show that cuRobo solves complex problems in milliseconds, significantly faster than existing approaches (Figure 4).
+More resources
+cuRobo code is available at /NVlabs/curobo. For more information, see CuRobo: CUDA Accelerated Robot Library.

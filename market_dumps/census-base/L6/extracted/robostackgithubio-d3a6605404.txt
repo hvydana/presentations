@@ -1,0 +1,20 @@
+Manage ROS with ease
+Run any ROS distro in an isolated, per-project environment. On Linux, macOS and Windows.
+The ROS setup that stays out of your way
+Run any ROS distro on Fedora, Arch, macOS with Apple Silicon or Windows. The one-Ubuntu-version-per-distro rule simply doesn't apply here.
+Each project gets its own environment. Run two distros side by side, delete a folder and it's gone. No Docker, no dual-boot, no VM.
+Every package ships as a prebuilt binary. No compiling from source, no hunting down build dependencies - install and launch rviz.
+PyTorch, Jupyter and OpenCV from conda-forge live in the same environment as ROS. Robotics and machine learning, one pixi add apart.
+Pick your ROS distro
+Every distro has a searchable package list showing exactly which packages are built for which platform - no guessing.
+Browse packages →
+A getting started guide that walks you from nothing to a running rviz, plus an FAQ for the sharp edges.
+Get started →
+Stuck on something? The maintainers hang out in the robotics channel on prefix.dev's Discord and on GitHub.
+Join the Discord →
+Missing a package? Add it in one line
+Most packages join RoboStack as a one-line pull request: put the name in a vinca.yaml and CI builds it for every platform.
+Using RoboStack in research?
+If you use RoboStack in an academic article, please cite the paper behind it.
+Your robot doesn't care what OS you run
+Four commands from an empty folder to rviz on your machine - whichever machine that is.
