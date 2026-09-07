@@ -1,0 +1,280 @@
+id	layer	capability	vendor	component	ref_url	notes
+C001	L0	Robot edge AI compute silicon	NVIDIA	Jetson AGX Thor	https://developer.nvidia.com/embedded/jetpack	Blackwell-based robot SoC, integrated functional safety
+C002	L0	Embedded Linux BSP real-time kernel	NVIDIA	Jetson Linux / JetPack 7	https://developer.nvidia.com/embedded/jetpack	Preemptible RT kernel, MIG, SBSA, Yocto, secure boot, OTA
+C003	L0	FPGA sensor-to-GPU data ingest	NVIDIA	Holoscan Sensor Bridge	https://docs.nvidia.com/holoscan/	UDP over Ethernet direct to GPU memory
+C004	L0	ROS 2 real-time hardware control	NVIDIA	isaac_ros_deploy_ros2_control	https://nvidia-isaac-ros.github.io/repositories_and_packages/index.html	Package inside isaac_ros_deploy
+C005	L0	Topic-based ros2_control hardware interface	NVIDIA	topic_based_ros2_control	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C006	L0	Humanoid whole-body control	NVIDIA	GR00T-WholeBodyControl	https://developer.nvidia.com/isaac/gr00t	Libraries, models and policies for WBC
+C007	L1	GPU compiler and runtime	NVIDIA	CUDA Toolkit	https://developer.nvidia.com/embedded/jetpack
+C008	L1	Deep learning kernel primitives	NVIDIA	cuDNN	https://developer.nvidia.com/embedded/jetpack
+C009	L1	Inference optimizer and runtime	NVIDIA	TensorRT	https://developer.nvidia.com/embedded/jetpack
+C010	L1	Edge LLM/VLM inference runtime	NVIDIA	TensorRT-Edge-LLM	https://github.com/NVIDIA/TensorRT-Edge-LLM	C++ inference for physical AI
+C011	L1	Multi-framework model serving	NVIDIA	Triton Inference Server	https://developer.nvidia.com/embedded/jetpack
+C012	L1	Zero-copy ROS 2 message transport	NVIDIA	NITROS (isaac_ros_nitros)	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Type adaptation and negotiation
+C013	L1	Accelerated ROS bridge	NVIDIA	isaac_ros_nitros_bridge	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C014	L1	Accelerated component graph framework	NVIDIA	GXF	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Underpins NITROS and Holoscan
+C015	L1	ROS 2 DNN inference nodes	NVIDIA	isaac_ros_dnn_inference	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	TensorRT and Triton nodes
+C016	L1	GPU camera image preprocessing	NVIDIA	isaac_ros_image_pipeline	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C017	L1	CSI camera ROS 2 driver	NVIDIA	isaac_ros_argus_camera	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	libArgus based
+C018	L1	SIPL camera ROS 2 driver	NVIDIA	isaac_ros_sipl_camera	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Zero-copy publish via NITROS
+C019	L1	GPU fiducial marker detection	NVIDIA	isaac_ros_apriltag	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C020	L1	ROS 2 visual SLAM odometry	NVIDIA	isaac_ros_visual_slam	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C021	L1	CUDA visual SLAM library	NVIDIA	cuVSLAM	https://github.com/orgs/NVIDIA-ISAAC/repositories	Standalone lib plus pycuVSLAM bindings
+C022	L1	GPU TSDF/ESDF 3D reconstruction library	NVIDIA	nvblox	https://github.com/nvidia-isaac/nvblox	Apache-2.0 core library; CUDA-only backend
+C023	L1	ROS 2 3D reconstruction costmap	NVIDIA	isaac_ros_nvblox	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Nav2 local costmap provider
+C024	L1	Learned stereo disparity estimation	NVIDIA	isaac_ros_dnn_stereo_depth	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C025	L1	Depth obstacle field segmentation	NVIDIA	isaac_ros_depth_segmentation	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Bi3D based
+C026	L1	Semantic image segmentation nodes	NVIDIA	isaac_ros_image_segmentation	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C027	L1	Freespace segmentation for navigation	NVIDIA	isaac_ros_freespace_segmentation	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C028	L1	2D object detection nodes	NVIDIA	isaac_ros_object_detection	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	DetectNet, RT-DETR, YOLO
+C029	L1	6D object pose estimation nodes	NVIDIA	isaac_ros_pose_estimation	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	FoundationPose, DOPE, CenterPose
+C030	L1	Global map-based localization	NVIDIA	isaac_ros_map_localization	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C031	L1	Visual mapping and relocalization	NVIDIA	isaac_ros_mapping_and_localization	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	cuSFM based
+C032	L1	GPU sensor data compression	NVIDIA	isaac_ros_compression	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	H.264 encode/decode nodes
+C033	L1	Arm manipulation workflow bringup	NVIDIA	isaac_ros_manipulation	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Isaac Manipulator reference workflow
+C034	L1	AMR perception reference workflow	NVIDIA	isaac_perceptor	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Isaac Perceptor
+C035	L1	Humanoid teleop and WBC bringup	NVIDIA	isaac_ros_physical_ai	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C036	L1	Trained policy deployment runtime	NVIDIA	isaac_ros_deploy	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Deploys Isaac Lab RL/IL policies to real robots
+C037	L1	Reference sensor suite support	NVIDIA	isaac_ros_nova	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C038	L1	Reference AMR platform packages	NVIDIA	nova_carter	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	nova_developer_kit is a sibling repo
+C039	L1	Robot description support packages	NVIDIA	isaac_ros_robots	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C040	L1	Common build and test infrastructure	NVIDIA	isaac_ros_common	https://nvidia-isaac-ros.github.io/repositories_and_packages/index.html
+C041	L1	XR teleoperation ROS 2 stack	NVIDIA	isaac_ros_teleop	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Uses Isaac Teleop for data collection
+C042	L1	Streaming sensor AI pipeline SDK	NVIDIA	Holoscan SDK	https://docs.nvidia.com/holoscan/
+C043	L1	Video analytics streaming pipelines	NVIDIA	DeepStream SDK	https://developer.nvidia.com/deepstream-sdk	40+ accelerated GStreamer plugins, now open source
+C044	L1	Jetson support ROS 2 packages	NVIDIA	isaac_ros_jetson	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Jetson utility tools
+C045	L2	OpenUSD robotics simulator	NVIDIA	Isaac Sim	https://developer.nvidia.com/isaac/sim	Apache 2.0, built on Omniverse Kit
+C046	L2	GPU-parallel robot learning framework	NVIDIA	Isaac Lab	https://developer.nvidia.com/isaac/lab	BSD-3, RL and IL at scale; requires Isaac Sim runtime
+C047	L2	Composable policy evaluation in simulation	NVIDIA	Isaac Lab-Arena	https://github.com/isaac-sim/IsaacLab-Arena
+C048	L2	GPU differentiable physics engine	NVIDIA	Newton	https://github.com/newton-physics/newton	Linux Foundation, with DeepMind and Disney Research
+C049	L2	Rigid body physics SDK	NVIDIA	PhysX	https://github.com/NVIDIA-Omniverse/PhysX
+C050	L2	GPU kernel Python DSL simulation	NVIDIA	Warp	https://github.com/NVIDIA/warp	Basis of Newton; warp-nn and warp-simdata are companions
+C051	L2	GPU parallel motion planning	NVIDIA	cuRobo	https://github.com/NVlabs/curobo	BSD-3 source but CUDA-only
+C052	L2	CUDA motion generation library	NVIDIA	cuMotion	https://github.com/nvidia-isaac/cumotion	Productized cuRobo
+C053	L2	ROS 2 arm motion planning nodes	NVIDIA	isaac_ros_cumotion	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	MoveIt 2 integration
+C054	L2	Sparse waypoint graph route planning	NVIDIA	SWAGGER	https://github.com/nvidia-isaac/SWAGGER
+C055	L2	MuJoCo ros2_control simulation interface	NVIDIA	mujoco_ros2_control	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Sensor, RGB-D and lidar plugins
+C056	L2	Extensible 3D application runtime	NVIDIA	Omniverse Kit	https://github.com/NVIDIA-Omniverse/kit-app-template	Redistribution requires Omniverse Enterprise license
+C057	L2	OpenUSD data interchange SDK	NVIDIA	OpenUSD Exchange SDK	https://github.com/NVIDIA-Omniverse/usd-exchange
+C058	L2	Neural reconstruction gaussian splat rendering	NVIDIA	Omniverse NuRec	https://developer.nvidia.com/isaac/sim	Real capture to simulation
+C059	L2	Sim to ROS 2 bridge workspaces	NVIDIA	IsaacSim-ros_workspaces	https://github.com/isaac-sim/IsaacSim-ros_workspaces
+C060	L2	Robot model format import	NVIDIA	URDF / MJCF Importer Extensions	https://github.com/isaac-sim/urdf-importer-extension	Standalone repos archived, folded into Isaac Sim
+C061	L2	Medical robot sensor physics simulation	NVIDIA	Isaac for Healthcare (i4h-physics-simulation)	https://github.com/isaac-for-healthcare/i4h-physics-simulation
+C062	L3	Humanoid VLA foundation model	NVIDIA	Isaac GR00T N1.7	https://github.com/NVIDIA/Isaac-GR00T	Open weights on Hugging Face
+C063	L3	World-model synthetic trajectory generation	NVIDIA	GR00T-Dreams (DreamGen)	https://github.com/NVIDIA/GR00T-Dreams
+C064	L3	World foundation model	NVIDIA	Cosmos 3	https://developer.nvidia.com/cosmos	Mixture-of-Transformers omni-model, WAM backbone
+C065	L3	Video dataset curation pipeline	NVIDIA	Cosmos Curator	https://github.com/NVIDIA/cosmos-curator
+C066	L3	Generated video quality evaluation	NVIDIA	Cosmos Evaluator	https://github.com/NVIDIA/cosmos-evaluator
+C067	L3	Video neural tokenization	NVIDIA	Cosmos-Tokenizer	https://github.com/NVIDIA/Cosmos-Tokenizer	Archived
+C068	L3	6D pose estimation foundation model	NVIDIA	FoundationPose	https://github.com/NVlabs/FoundationPose
+C069	L3	Zero-shot stereo matching model	NVIDIA	FoundationStereo	https://github.com/NVlabs/FoundationStereo	Fast-FoundationStereo is the real-time variant
+C070	L3	Indoor object detection model	NVIDIA	SyntheticaDETR	https://developer.nvidia.com/isaac	Front end for FoundationPose
+C071	L3	Vision-based mobility foundation model	NVIDIA	COMPASS	https://developer.nvidia.com/isaac	Cross-embodiment navigation
+C072	L3	Domain-randomized synthetic data generation	NVIDIA	Isaac Sim Replicator	https://developer.nvidia.com/isaac/sim
+C073	L3	Open robotics training dataset	NVIDIA	NVIDIA Physical AI Dataset	https://developer.nvidia.com/isaac/sim	Hosted on Hugging Face
+C074	L3	Synthetic data generation workflows	NVIDIA	physical-ai-data-factory	https://github.com/NVIDIA/physical-ai-data-factory
+C075	L3	Vision model post-training toolkit	NVIDIA	TAO	https://developer.nvidia.com/tao-toolkit	TAO 7 is agent-skill driven
+C076	L3	Teleop demonstration data collection	NVIDIA	Isaac TeleOp / IsaacTeleop	https://github.com/NVIDIA/IsaacTeleop	Real and sim teleoperation
+C077	L3	Learned humanoid control policies	NVIDIA	isaac_ros_learned_policies	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C078	L3	Humanoid loco-manipulation training workflow	NVIDIA	WBC-AGILE	https://github.com/nvidia-isaac/WBC-AGILE
+C079	L3	Spatial memory 3D action policies	NVIDIA	nvblox_mindmap	https://github.com/nvidia-isaac/nvblox_mindmap
+C080	L3	Policy benchmarking task suite	NVIDIA	IsaacLabEvalTasks	https://github.com/isaac-sim/IsaacLabEvalTasks	GR00T N1 benchmarking in Isaac Lab
+C081	L4	Physical AI workflow orchestration	NVIDIA	OSMO	https://developer.nvidia.com/osmo	YAML pipelines across cloud/on-prem/edge; not an MLOps platform per NVIDIA
+C082	L4	Cloud fleet mission dispatch	NVIDIA	isaac_mission_dispatch	https://github.com/nvidia-isaac/isaac_mission_dispatch	VDA5050 compatible
+C083	L4	Lightweight VDA5050 fleet manager	NVIDIA	isaac_mission_control	https://github.com/nvidia-isaac/isaac_mission_control
+C084	L4	Robot-side fleet mission client	NVIDIA	isaac_ros_cloud_control	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Receives tasks, reports progress and errors
+C085	L4	Remote file backup and deployment	NVIDIA	ota-file-service	https://github.com/nvidia-isaac/ota-file-service
+C086	L4	Edge AI microservice deployment	NVIDIA	Jetson Platform Services	https://github.com/NVIDIA-AI-IOT/jetson-platform-services
+C087	L4	GPU route and fleet optimization	NVIDIA	cuOpt	https://github.com/NVIDIA/cuopt
+C088	L4	ROS 2 topic health monitoring	NVIDIA	greenwave_monitor	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	r2s_gw is the companion TUI
+C089	L4	Robot data visualization tool	NVIDIA	lichtblick	https://github.com/nvidia-isaac/lichtblick
+C090	L4	Rosbag inspection and conversion	NVIDIA	isaac_ros_data_tools	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C091	L4	Video search summarization agents	NVIDIA	Metropolis VSS Blueprint	https://developer.nvidia.com/metropolis
+C092	L5	Integrated functional safety compute	NVIDIA	Jetson AGX Thor functional safety	https://developer.nvidia.com/isaac/gr00t	Safety island in Thor silicon
+C093	L5	Medical-grade edge platform compliance	NVIDIA	IGX + Holoscan platform	https://docs.nvidia.com/holoscan/	Regulated medical device pipelines
+C094	L5	Safety laser scanner integration	NVIDIA	sick_safetyscanners_isaac	https://github.com/orgs/NVIDIA-ISAAC/repositories	Archived
+C095	L5	Latency verification and validation tooling	NVIDIA	Holoscan Sensor Bridge Latency Measurement Tool	https://docs.nvidia.com/holoscan/	Sub-millisecond camera-to-display timing
+C096	L6	Dev environment management CLI	NVIDIA	isaac-ros-cli	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	Replaced run_dev.sh Docker workflow
+C097	L6	Multi-GEM composition examples	NVIDIA	isaac_ros_examples	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all
+C098	L6	ROS 2 graph performance benchmarking	NVIDIA	ros2_benchmark	https://github.com/orgs/NVIDIA-ISAAC-ROS/repositories?type=all	isaac_ros_benchmark adds Isaac-specific plugins
+C099	L6	Cloud deployment of simulation workstations	NVIDIA	IsaacAutomator	https://github.com/isaac-sim/IsaacAutomator	AWS, GCP, Azure, Alibaba; isaac-launchable covers Brev
+C100	L0	Real-time OS for MCU-class compute	OSS	Zephyr	https://github.com/zephyrproject-rtos/zephyr	Found via https://github.com/topics/rtos; used by micro-ROS and ros-controls zephyr-zenoh-integration
+C101	L0	Real-time OS for flight/motor control	OSS	Apache NuttX	https://github.com/apache/nuttx	Default RTOS under PX4-Autopilot
+C102	L0	Deterministic scheduling in Linux kernel	OSS	PREEMPT_RT	https://wiki.linuxfoundation.org/realtime/start	Mainlined into Linux kernel; basis for RT ROS 2 control loops
+C103	L0	Hard real-time Linux co-kernel	OSS	Xenomai	https://xenomai.org/	Used where PREEMPT_RT latency is insufficient
+C104	L0	EtherCAT fieldbus master stack	OSS	IgH EtherCAT Master	https://gitlab.com/etherlab.org/ethercat	De-facto open EtherCAT master for industrial servo drives
+C105	L0	Lightweight EtherCAT master library	OSS	SOEM	https://github.com/OpenEtherCATsociety/SOEM	Simple Open EtherCAT Master; embeddable alternative to IgH
+C106	L0	Hardware interface and controller execution	OSS	ros2_control	https://github.com/orgs/ros-controls/repositories	Real-time controller manager loop for ROS 2
+C107	L0	Stock joint and mobile base controllers	OSS	ros2_controllers	https://github.com/orgs/ros-controls/repositories
+C108	L0	Real-time safe threading primitives	OSS	realtime_tools	https://github.com/orgs/ros-controls/repositories	Lock-free buffers, RT thread setup
+C109	L0	Open-hardware low-cost manipulator arm	HuggingFace	SO-101	https://github.com/huggingface/lerobot	Reference arm for LeRobot data collection; SO-100 predecessor
+C110	L1	ROS 2 C++ client library	OSS	rclcpp	https://github.com/orgs/ros2/repositories	Core node/executor API
+C111	L1	ROS 2 Python client library	OSS	rclpy	https://github.com/orgs/ros2/repositories
+C112	L1	Middleware abstraction layer for ROS 2	OSS	rmw	https://github.com/orgs/ros2/repositories	Vendor-swap interface; rmw_implementation selects at runtime
+C113	L1	DDS transport implementation for ROS 2	eProsima	Fast DDS	https://github.com/eProsima/Fast-DDS	Default rmw for most ROS 2 distros via rmw_fastrtps
+C114	L1	DDS transport implementation for ROS 2	Eclipse Foundation	Cyclone DDS	https://github.com/eclipse-cyclonedds/cyclonedds	rmw_cyclonedds_cpp; alternate default in some distros
+C115	L1	Zenoh-based ROS 2 middleware layer	OSS	rmw_zenoh	https://github.com/orgs/ros2/repositories	Official ROS 2 rmw removing DDS discovery cost
+C116	L1	Pub/sub and query protocol across edge	Eclipse Foundation	Zenoh	https://github.com/eclipse-zenoh/zenoh	Found via https://github.com/topics/ros2
+C117	L1	True zero-copy inter-process transport	Eclipse Foundation	iceoryx2	https://github.com/eclipse-iceoryx/iceoryx	Shared-memory IPC; iceoryx v1 in maintenance, iceoryx2 is Rust rewrite
+C118	L1	ROS 2 client stack for microcontrollers	OSS	micro-ROS	https://micro.ros.org/	Runs on Zephyr/FreeRTOS/NuttX over XRCE-DDS
+C119	L1	Coordinate frame transform tracking	OSS	tf2	https://github.com/ros2/geometry2	Ships as geometry2 repo
+C120	L1	Camera rectification and stereo processing	OSS	image_pipeline	https://github.com/ros-perception/image_pipeline
+C121	L1	Point cloud message and filter integration	OSS	perception_pcl	https://github.com/ros-perception/perception_pcl	PCL bindings for ROS 2
+C122	L1	Cross-hardware neural network inference	Microsoft	ONNX Runtime	https://github.com/microsoft/onnxruntime	Execution-provider model for CPU/GPU/NPU backends
+C123	L1	Deep learning compiler and autotuner	Apache	Apache TVM	https://github.com/apache/tvm
+C124	L1	On-device LLM/VLM compilation and serving	OSS	MLC-LLM	https://github.com/mlc-ai/mlc-llm	Built on TVM Unity
+C125	L1	Quantized model inference on CPU/GPU	OSS	llama.cpp	https://github.com/ggml-org/llama.cpp	ggml tensor library underneath
+C126	L1	Edge CPU/iGPU/NPU inference toolkit	Intel	OpenVINO	https://github.com/openvinotoolkit/openvino	Found via awesome-robotic-tooling ML section
+C127	L1	MLIR ahead-of-time compiler and runtime	OSS	IREE	https://github.com/iree-org/iree	Targets embedded and heterogeneous deployment
+C128	L1	High-throughput LLM/VLM serving engine	OSS	vLLM	https://github.com/vllm-project/vllm	Used to serve VLA backbones
+C129	L1	Tensor framework with graph capture	Meta / PyTorch Foundation	PyTorch (torch.compile)	https://github.com/pytorch/pytorch	TorchInductor is the codegen path most policies rely on
+C130	L1	Visual-inertial SLAM front and back end	OSS	ORB-SLAM3	https://github.com/UZ-SLAMLab/ORB_SLAM3	Research-grade; sparse maintenance
+C131	L1	RGB-D graph SLAM and appearance mapping	OSS	RTAB-Map	https://github.com/introlab/rtabmap	Found via https://github.com/topics/ros2
+C132	L1	Tightly-coupled lidar-inertial odometry	OSS	FAST-LIO2	https://github.com/hku-mars/FAST_LIO
+C133	L1	Point cloud filtering and segmentation	OSS	PCL	https://pointclouds.org/
+C134	L1	Classical and DNN computer vision ops	OSS	OpenCV	https://github.com/opencv/opencv
+C136	L1	Full autonomous driving reference stack	Autoware Foundation	Autoware	https://github.com/autowarefoundation/autoware	Found via https://github.com/topics/ros2
+C137	L2	Contact-rich rigid body physics simulation	Google DeepMind	MuJoCo	https://github.com/google-deepmind/mujoco	Found via https://github.com/topics/robotics
+C138	L2	Batched GPU physics for RL rollouts	Google DeepMind	MJX	https://github.com/google-deepmind/mujoco	MuJoCo XLA; JAX-based, runs on non-CUDA backends
+C139	L2	Curated validated robot model assets	Google DeepMind	MuJoCo Menagerie	https://github.com/google-deepmind/mujoco_menagerie
+C140	L2	General robot simulation with ROS 2 bridge	Open Robotics	Gazebo (gz-sim)	https://gazebosim.org/	Gazebo Classic is deprecated/EOL
+C141	L2	Unified differentiable robotics simulation	Genesis-Embodied-AI	Genesis	https://github.com/Genesis-Embodied-AI/Genesis
+C142	L2	Rigid body dynamics and collision detection	OSS	Bullet / PyBullet	https://github.com/bulletphysics/bullet3	Found via https://github.com/topics/robotics
+C143	L2	Model-based design and multibody dynamics	Toyota Research Institute	Drake	https://drake.mit.edu/
+C144	L2	Simulation with realistic sensor rendering	Hillbot / UCSD	SAPIEN	https://sapien.ucsd.edu
+C145	L2	GPU manipulation benchmark environments	Hillbot / UCSD	ManiSkill	https://github.com/haosulab/ManiSkill	Built on SAPIEN
+C146	L2	Massively parallel differentiable physics	Google	Brax	https://github.com/google/brax	JAX-based; backend-portable
+C151	L2	Manipulation motion planning framework	PickNik / OSS	MoveIt 2	https://moveit.ai/	Plugin architecture over multiple planners
+C152	L2	Sampling-based motion planning algorithms	Kavraki Lab	OMPL	https://ompl.kavrakilab.org/	Default MoveIt 2 planner set
+C153	L2	Stochastic trajectory optimization planner	OSS	STOMP	https://moveit.ai/documentation/planners/	MoveIt 2 plugin; partial support
+C154	L2	Deterministic industrial LIN/PTP/CIRC motion	Pilz / OSS	Pilz Industrial Motion Planner	https://moveit.ai/documentation/planners/	Blended deterministic segments for industrial arms
+C155	L2	Rigid body kinematics and dynamics algorithms	Stack-of-Tasks	Pinocchio	https://stack-of-tasks.github.io/pinocchio/	Analytical derivatives for whole-body control
+C156	L2	Mobile robot navigation and behavior trees	Open Navigation	Nav2	https://nav2.org/	Found via https://github.com/topics/ros2
+C157	L3	Open vision-language-action policy model	Stanford / OSS	OpenVLA	https://github.com/openvla/openvla	7B; Prismatic VLM backbone
+C158	L3	Generalist transformer robot policy	Octo Model Team	Octo	https://github.com/octo-models/octo	JAX; trained on Open X-Embodiment
+C159	L3	Flow-matching VLA model and training code	Physical Intelligence	openpi	https://github.com/Physical-Intelligence/openpi	pi0 and pi05 open weights; also mirrored on HF lerobot org
+C160	L3	Compact VLA for low-cost hardware	HuggingFace	SmolVLA	https://huggingface.co/lerobot	450M params; ships inside lerobot
+C161	L3	Transformer imitation policy for bimanual tasks	Stanford	ACT	https://github.com/tonyzhaozh/act	Action Chunking Transformer; ALOHA baseline
+C162	L3	Denoising diffusion visuomotor policy	Columbia / Stanford	Diffusion Policy	https://github.com/real-stanford/diffusion_policy
+C163	L3	Diffusion foundation policy for bimanual manipulation	OSS	RDT-1B	https://github.com/thu-ml/RoboticsDiffusionTransformer
+C165	L3	Cross-embodiment transformer control models	Google DeepMind	RT-1-X / RT-2-X	https://robotics-transformer-x.github.io/	RT-1-X checkpoints open; RT-2-X not released
+C166	L3	Aggregated cross-embodiment demonstration corpus	Open X-Embodiment Collaboration	Open X-Embodiment	https://robotics-transformer-x.github.io/	1M+ trajectories, 60 datasets, 22 embodiments
+C167	L3	Standard episodic robot dataset format	Google Research	RLDS	https://github.com/google-research/rlds	Format underlying Open X-Embodiment
+C168	L3	Large in-the-wild manipulation dataset	DROID Collaboration	DROID	https://droid-dataset.github.io/	76k trajectories, Franka platform
+C169	L3	Large-scale real-robot manipulation dataset	OpenDriveLab / AgiBot	AgiBot World	https://github.com/OpenDriveLab/AgiBot-World	Found via https://github.com/topics/vision-language-action-model
+C170	L3	Robot dataset format training and eval library	HuggingFace	LeRobot	https://github.com/huggingface/lerobot	LeRobotDataset format plus policy training/eval harness
+C172	L4	Multi-fleet task allocation and traffic control	Open Robotics	Open-RMF	https://github.com/orgs/open-rmf/repositories	Heterogeneous fleet interoperability
+C173	L4	Basic fleet manager for ROS robots	Open-RMF	free_fleet	https://github.com/orgs/open-rmf/repositories
+C174	L4	Time-series recording and replay of ROS topics	OSS	rosbag2	https://github.com/orgs/ros2/repositories
+C175	L4	Serialization-agnostic multimodal log container	Foxglove	MCAP	https://github.com/foxglove/mcap	Default rosbag2 storage plugin
+C176	L4	Robotics data visualization and telemetry	Foxglove	Foxglove SDK	https://github.com/foxglove	Foxglove Studio desktop app was discontinued in favor of SDK/web
+C177	L4	Multimodal time-aware data logging and viewer	Rerun	rerun	https://github.com/rerun-io/rerun	Found via https://github.com/topics/robotics
+C178	L4	Live timeseries plotting and log inspection	OSS	PlotJuggler	https://github.com/facontidavide/PlotJuggler
+C179	L4	Runtime tracing of node and executor latency	OSS	ros2_tracing / CARET	https://github.com/orgs/ros2/repositories	LTTng-based; CARET adds callback-chain analysis
+C180	L5	Safety-certifiable Linux enablement	Linux Foundation	ELISA	https://elisa.tech/	Enabling Linux in Safety Applications; process and evidence work
+C181	L5	Open safety-certified vehicle software platform	Eclipse Foundation	Eclipse S-CORE	https://projects.eclipse.org/projects/automotive.score	Targets ISO 26262 ASIL-B; ROS-adjacent middleware
+C182	L5	Formal safety envelope for motion decisions	Intel / OSS	ad-rss-lib	https://github.com/intel/ad-rss-lib	Responsibility Sensitive Safety model implementation
+C183	L5	Package quality-level declaration process	Open Robotics	REP-2004 Quality Levels	https://ros.org/reps/rep-2004.html	Prerequisite artifact for any ROS 2 safety argument
+C184	L6	Multi-package build and test orchestration	OSS	colcon	https://colcon.readthedocs.io/	Standard ROS 2 build tool
+C185	L6	System dependency resolution across distros	Open Robotics	rosdep	https://github.com/ros-infrastructure/rosdep
+C186	L6	Release automation into binary distributions	Open Robotics	bloom / ros_buildfarm	https://github.com/ros-infrastructure/bloom	Feeds packages.ros.org debian builds
+C187	L6	Conda-based cross-platform ROS distribution	OSS	RoboStack	https://robostack.github.io/	ROS 2 on conda-forge for macOS/Windows/Linux without apt
+C188	L6	Canonical package and API index for ROS 2	Open Robotics	index.ros.org	https://index.ros.org/packages/	Discovery surface for the entire ROS 2 package set
+C189	L6	Model and dataset hosting and distribution	HuggingFace	Hugging Face Hub	https://huggingface.co/lerobot	Primary distribution channel for VLA weights and LeRobot datasets
+C190	L0	Certified microkernel RTOS for robot controllers	BlackBerry QNX	QNX Neutrino RTOS 8.0	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	POSIX microkernel, dominant in automotive/robotics safety
+C191	L0	Hard real-time OS for industrial controllers	Wind River	VxWorks	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Proprietary; aerospace and industrial robot arms
+C193	L0	Minimal kernel for motor and sensor MCUs	Amazon / OSS	FreeRTOS	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	MIT licensed
+C195	L0	Separation-kernel RTOS for certified systems	Green Hills Software	INTEGRITY-178 tuMP	https://en.wikipedia.org/wiki/Comparison_of_real-time_operating_systems	Time/space partitioning
+C198	L0	Deterministic fieldbus for servo drives	EtherCAT Technology Group	EtherCAT	https://www.ethercat.org/en/technology.html	Distributed clocks, cycle times under 100 us
+C201	L0	Time-scheduled deterministic Ethernet	IEEE	TSN 802.1AS / 802.1Qbv / 802.1Qbu	https://en.wikipedia.org/wiki/Time-Sensitive_Networking	Time sync plus traffic shaping
+C202	L0	CAN device profile for drives and motion	CAN in Automation	CANopen CiA 402 drive profile	https://www.can-cia.org/canopen	Standard servo drive state machine
+C203	L0	Isochronous industrial Ethernet for cells	PROFIBUS and PROFINET International	PROFINET IRT	https://www.profibus.com/technology/profinet	Isochronous real-time class
+C205	L0	Real-time component framework for robots	OSS	OROCOS Real-Time Toolkit	https://orocos.org/	Pre-ROS real-time component model
+C206	L0	Real-time CNC motion control on Linux	OSS	LinuxCNC	https://linuxcnc.org/	HAL plus stepgen realtime threads
+C207	L0	FPGA motor control loop IP and kit	AMD	Kria KD240 Drives Starter Kit	https://www.amd.com/en/products/system-on-modules/kria/k24/kd240-drives-starter-kit.html	FOC, PWM, encoder interface in PL
+C208	L0	Lockstep safety co-processor MCU	Infineon	AURIX TC4x	https://www.infineon.com/cms/en/product/microcontroller/32-bit-tricore-microcontroller/	ASIL-D lockstep cores for safety island
+C209	L0	Static partitioning hypervisor for mixed criticality	Siemens / OSS	Jailhouse	https://github.com/siemens/jailhouse	Bare-metal partitioning, no scheduler
+C210	L0	Type-1 hypervisor for mixed-criticality SoCs	Xen Project	Xen on Arm	https://xenproject.org/	Dom0-less real-time configurations
+C211	L0	Safety-certified hypervisor for robot SoCs	BlackBerry QNX	QNX Hypervisor for Safety	https://blackberry.qnx.com/en/products/foundation-software/qnx-hypervisor	Guest isolation with certified host
+C212	L4	Cloud fleet observability and teleoperation	Formant	Formant Platform	https://formant.ai/	Data platform, video, remote intervention
+C213	L4	AMR fleet operations and interoperability	InOrbit	InOrbit RobOps Platform	https://github.com/Airbotics/awesome-cloud-robotics	Focused on autonomous mobile robot fleets
+C214	L4	Robot monitoring and remote control SaaS	Freedom Robotics	Freedom Robotics	https://github.com/Airbotics/awesome-cloud-robotics	Self-serve ROS 1 / ROS 2 agent
+C216	L4	Full-stack robot capability streaming	Transitive Robotics	Transitive	https://transitiverobotics.com/	Open-core video streaming and config management
+C218	L4	Robust OTA update for embedded Linux	Northern.tech	Mender	https://mender.io/	A/B partition updates with server
+C219	L4	Atomic A/B system update framework	Pengutronix / OSS	RAUC	https://rauc.io/	Yocto meta-rauc layer
+C220	L4	Embedded Linux software update agent	OSS	SWUpdate	https://sbabic.github.io/swupdate/	Suricatta backend for update servers
+C221	L4	Container-based device fleet deployment	Balena	balenaCloud / balenaOS	https://www.balena.io/	Docker-based delivery to edge devices
+C222	L4	Commercial Yocto OTA for edge devices	Toradex	Torizon OS / Torizon Cloud	https://www.toradex.com/torizon	Uptane-based secure OTA
+C223	L4	Experiment tracking and model registry	OSS / Databricks	MLflow	https://github.com/topics/mlops	Runs, artifacts, model registry
+C224	L4	Training run tracking and dataset lineage	Weights and Biases	W&B	https://github.com/topics/mlops	Sweeps, artifacts, reports
+C225	L4	MLOps orchestration and experiment manager	ClearML	ClearML	https://github.com/topics/mlops	Agent-based remote execution
+C226	L4	Kubernetes-native ML pipeline orchestration	Kubeflow / CNCF	Kubeflow Pipelines	https://landscape.cncf.io/	Training operators and pipeline DAGs
+C227	L4	LLM and agent trace observability	Langfuse	Langfuse	https://github.com/topics/mlops	Prompt/trace logging for policy stacks
+C228	L4	Vendor-neutral traces metrics and logs	CNCF	OpenTelemetry	https://opentelemetry.io/docs/what-is-opentelemetry/	SDKs plus OTLP collector
+C230	L4	Metrics scraping and dashboarding	CNCF / Grafana Labs	Prometheus + Grafana	https://landscape.cncf.io/	De facto edge telemetry backend
+C231	L4	GPU utilization metrics export to Prometheus	NVIDIA	dcgm-exporter	https://github.com/NVIDIA/dcgm-exporter	Per-GPU SM, memory, power counters
+C232	L4	AMD GPU metrics export to Prometheus	AMD	ROCm device-metrics-exporter	https://github.com/ROCm/device-metrics-exporter	amd-smi / rocprofiler-backed exporter
+C233	L4	Lightweight Kubernetes for edge robots	SUSE / CNCF	K3s	https://landscape.cncf.io/	Single-binary K8s for on-robot compute
+C234	L4	Cloud-edge orchestration for device fleets	CNCF	KubeEdge	https://kubeedge.io/	Extends K8s control plane to edge nodes
+C235	L4	Managed edge runtime and component deploy	AWS	AWS IoT Greengrass	https://aws.amazon.com/greengrass/	Component model, local Lambda/containers
+C236	L5	Generic functional safety lifecycle and SIL	IEC	IEC 61508	https://en.wikipedia.org/wiki/IEC_61508	Parent standard for SIL 1-4
+C237	L5	Road vehicle functional safety and ASIL	ISO	ISO 26262	https://en.wikipedia.org/wiki/ISO_26262	ASIL A-D; basis for AV/robot silicon claims
+C238	L5	Safety requirements for industrial robots	ISO	ISO 10218-1:2025	https://www.iso.org/standard/73933.html	2025 revision shifts to application scope
+C239	L5	Safety for robot systems and integration	ISO	ISO 10218-2:2025	https://www.iso.org/standard/73934.html	Absorbs ISO/TS 15066 contact limits
+C240	L5	Biomechanical limits for collaborative robots	ISO	ISO/TS 15066	https://www.iso.org/standard/62996.html	Power and force limiting thresholds
+C241	L5	Performance level for safety control systems	ISO	ISO 13849-1	https://www.iso.org/standard/73481.html	PL a-e for safety-related control parts
+C242	L5	Industrial automation and control system security	IEC	IEC 62443	https://webstore.iec.ch/publication/7029	Security levels for OT and robot cells
+C243	L5	Safety for dynamically stable walking robots	ISO	ISO 25785-1 (Working Draft)	https://theresarobotforthat.com/blog/humanoid-robot-safety-standards-2026/	Fall zone and balance recovery; publication 2026-2027
+C244	L5	Safety standard for service and personal robots	UL Solutions	UL 3300	https://www.ul.com/services/ul-3300-safety-standard-service-communication-and-personal-care-robots	Covers cleaning, delivery, personal care robots
+C245	L5	US national industrial robot safety standard	A3 (Association for Advancing Automation)	ANSI/A3 R15.06-2025	https://www.automate.org/robot-safety	US adoption track of ISO 10218
+C246	L5	EU market access for machinery incl. robots	European Union	Machinery Regulation (EU) 2023/1230	https://eur-lex.europa.eu/eli/reg/2023/1230/oj	Applies from Jan 2027; covers AI-enabled safety functions
+C247	L5	Risk-tier obligations for AI in machinery	European Union	AI Act (EU) 2024/1689	https://eur-lex.europa.eu/eli/reg/2024/1689/oj	High-risk classification via machinery Annex I
+C248	L5	Airborne software certification objectives	RTCA / EUROCAE	DO-178C	https://en.wikipedia.org/wiki/DO-178C	DAL A-E; drone and aerial robotics
+C249	L5	Third-party functional safety assessment	TUV SUD	Functional Safety Certification Service	https://www.tuvsud.com/en/services/functional-safety	Assesses SIL/ASIL claims for tools and products
+C250	L5	Product safety testing and certification lab	UL Solutions	UL Solutions certification services	https://www.ul.com/	Issues UL 3300 marks
+C251	L5	Vendor safety inspection lab for physical AI	NVIDIA	Halos AI Systems Inspection Lab	https://developer.nvidia.com/blog/inside-nvidia-halos-for-robotics-a-full-stack-functional-safety-system-for-physical-ai/	Full-stack functional safety program for robotics
+C252	L5	Safety-qualified C/C++ compiler toolchain	Green Hills Software	MULTI compiler with TCL-3 kit	https://wrocpp.github.io/toolset/qualified-compilers/	ASIL D / SIL 4 / DO-178C Level A
+C253	L5	Qualification kit for open-source compiler	Validas + OSS GCC	GCC + Validas Compiler Test Suite	https://wrocpp.github.io/toolset/qualified-compilers/	Brings GCC to ASIL B/D, SIL 2/3
+C254	L5	Certified RTOS variant for safety products	BlackBerry QNX	QNX OS for Safety	https://blackberry.qnx.com/en/products/safety-certified	IEC 61508 SIL 3 / ISO 26262 ASIL D
+C255	L5	Certified RTOS and hypervisor in one	SYSGO	PikeOS	https://www.sysgo.com/pikeos	DO-178C, IEC 61508, ISO 26262 evidence packages
+C256	L5	Safety certification path for open RTOS	Linux Foundation	Zephyr Safety Certification (IEC 61508 SIL 3)	https://docs.zephyrproject.org/latest/safety/safety_overview.html	Auditable subset of the Zephyr kernel
+C258	L6	Binary apt distribution of ROS packages	ros-infrastructure	packages.ros.org apt repositories	https://index.ros.org/	Debian/Ubuntu binary channel per distro
+C259	L6	Continuous build and release farm for ROS	Open Robotics / OSS	ROS 2 build farm (build.ros2.org)	https://build.ros2.org/	Devel, source, binary and doc jobs
+C261	L6	Official prebuilt container images for ROS	Docker Inc / OSRF	Docker Hub official ros images	https://hub.docker.com/_/ros	Per-distro base images
+C262	L6	Curated accelerated container and model catalog	NVIDIA	NGC Catalog	https://catalog.ngc.nvidia.com/	Containers, pretrained models, Helm charts
+C263	L6	Prebuilt accelerator runtime wheels on PyPI	AMD	ROCm PyTorch wheels index	https://rocm.docs.amd.com/projects/install-on-linux/en/latest/install/3rd-party/pytorch-install.html	pip-installable rocm builds
+C264	L6	Hosted ARM and GPU CI runners	GitHub	GitHub-hosted larger runners	https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners	arm64 and GPU classes for robotics CI
+C267	L6	Dynamixel-based leader-follower teaching arm	OSS (Jess Moss)	Koch v1.1 arm	https://github.com/jess-moss/koch-v1-1	More robust servo ecosystem than SO-ARM
+C268	L6	Low-cost mobile manipulation reference platform	SIGRobotics UIUC / OSS	LeKiwi	https://github.com/SIGRobotics-UIUC/LeKiwi	SO-ARM on holonomic mobile base
+C269	L6	Standard reference mobile robot for ROS 2	Clearpath Robotics / OSRF	TurtleBot 4	https://turtlebot.github.io/turtlebot4-user-manual/	Canonical ROS 2 teaching platform
+C270	L6	Vendor SDK for legged and humanoid robots	Unitree Robotics	unitree_sdk2 / unitree_ros2	https://github.com/unitreerobotics/unitree_sdk2	High/low-level joint control API
+C271	L6	Research-grade open bimanual arm platform	Enactic / WowRobo	OpenArm 2	https://openelab.io/blogs/learn/lerobot-hardware-buying-guide-so-arm101-vs-koch-v1-1-vs-openarm-vs-lekiwi-vs-xlerobot	7-DoF backdrivable QDD joints, CAN-FD
+C272	L6	Annual developer conference for the ecosystem	Open Robotics / OSRA	ROSCon	https://roscon.ros.org/	Talks archived as ecosystem reference material
+C273	L6	Primary developer forum and announcements	Open Robotics / OSS	ROS Discourse	https://discourse.ros.org/	Release announcements, working groups
+C274	L6	Open-source deployment platform listing	Airbotics / OSS	awesome-cloud-robotics curated list	https://github.com/Airbotics/awesome-cloud-robotics	Community census of RobOps tooling
+C290	L4	VLA-specific model registry + safety-gated rollout	NONE	(whitespace) VLA lifecycle/MLOps platform	derived:grid-sweep	derived — L3 ships policies, L4 has no policy-aware lifecycle tool
+C291	L4	robot fleet inference observability (Hz, per-joint latency, action drift)	NONE	(whitespace) robot inference observability layer	derived:grid-sweep	derived — L1 emits runtime telemetry, L4 has no consumer for it
+C292	L4	fleet-scale demonstration data curation (dedup, quality scoring, active learning)	NONE	(whitespace) data-intelligence / fleet curation layer	derived:grid-sweep	derived — L3 datasets exist at scale, no curation tooling above them
+C293	L4	accelerator profiler exported into ROS 2 tracing	NONE	(whitespace) RocProfiler/DCGM-to-ROS 2 exporter	derived:grid-sweep	derived — profilers exist (L0/L1), ROS tracing exists, nothing bridges them
+C294	L3	published VLA inference Hz benchmark on non-NVIDIA silicon	NONE	(whitespace) vendor-neutral VLA Hz benchmark suite	derived:grid-sweep	derived — benchmark methodology exists for LLMs, not for robot policies
+C295	L2	integrated authoring + physics + rendering simulation platform (non-NVIDIA)	NONE	(whitespace) integrated open sim platform	derived:grid-sweep	derived — Genesis/MuJoCo/Gazebo each cover a slice, none bundles all three
+C296	L2	differentiable physics usable for policy gradient training	NONE	(whitespace) production differentiable physics	derived:grid-sweep	derived — incomplete on every backend incl. CUDA, not just ROCm
+C297	L1	robotics inference SDK combining ROS 2 + INT8 + VLA + low latency	NONE	(whitespace) vendor-neutral robotics inference SDK	derived:grid-sweep	derived — Kenning and vla.cpp each miss 2+ criteria
+C298	L1	single recommended inference execution path per accelerator vendor	NONE	(whitespace) inference-path decision tree	derived:grid-sweep	derived — fragmentation across EPs is a documentation/governance gap
+C299	L0	open ML compiler targeting embedded NPU/AI-engine tiles	NONE	(whitespace) open compiler path to embedded NPU	derived:grid-sweep	derived — TVM/MLC target GPUs, vendor NPU toolchains are closed
+C300	L0	reference robotics SDK stack shipped with edge AI hardware at launch	NONE	(whitespace) day-one edge robotics SDK bundle	derived:grid-sweep	derived — hardware ships before its SDK layer exists
+C301	L0	FPGA real-time control loop callable from ROS 2/Python	NONE	(whitespace) FPGA control-loop high-level API	derived:grid-sweep	derived — building blocks exist, last-mile packaging does not
+C302	L5	functional-safety certification covering AI-inference tiles (not just fabric)	NONE	(whitespace) certified AI-inference safety envelope	derived:grid-sweep	derived — existing certs stop at deterministic fabric
+C303	L5	accredited third-party AI-robotics systems inspection lab	NONE	(whitespace) independent AI systems inspection lab	derived:grid-sweep	derived — only one vendor-run instance exists industry-wide
+C304	L5	safety standard for dynamically-balanced humanoids	NONE	(whitespace) humanoid safety standard participation	derived:grid-sweep	derived — standard is at committee-draft stage, participation window open
+C305	L6	accelerator-vendor presence on the model hub developers actually use	NONE	(whitespace) vendor model cards at the callsite	derived:grid-sweep	derived — working code exists but is invisible where developers look
+C306	L6	CI publishing prebuilt robot-policy wheels per accelerator target	NONE	(whitespace) VLA policy CI/wheel pipeline	derived:grid-sweep	derived — CI playbook exists for LLM serving, not for robot policies
+C307	L6	end-to-end validated synthetic-data pipeline reference (non-NVIDIA)	NONE	(whitespace) synthetic data pipeline reference	derived:grid-sweep	derived — components are ROCm-capable, orchestration is unowned
+C308	L4	robot fleet edge data center / GPU module fleet compute	NONE	(whitespace) robot fleet edge datacenter category	derived:grid-sweep	derived — uncontested emerging category, no incumbent
+C309	L6	industrial IPC / PLC vendor certification for AI accelerators	NONE	(whitespace) industrial automation platform certification	derived:grid-sweep	derived — technical barrier closed, commercial certification unclaimed
+C310	L3	open teleop data-collection path not tied to one vendor's stack	NONE	(whitespace) vendor-neutral teleop data collection	derived:grid-sweep	derived — dataset format is neutral, collection tooling is not
+C311	L3	published foundation-model training case study on non-NVIDIA cluster	NONE	(whitespace) non-NVIDIA VLA training case study	derived:grid-sweep	derived — memory-bound regime suits alternatives, unmeasured publicly
+C312	L2	GPU-accelerated collision-free motion planning (non-NVIDIA)	NONE	(whitespace) open GPU motion planning library	derived:grid-sweep	derived — cuRobo has no portable equivalent
+C313	L1	zero-copy sensor transport for ROS 2 on non-NVIDIA accelerators	NONE	(whitespace) portable zero-copy ROS 2 transport	derived:grid-sweep	derived — check whether this is already closed before scoring
+C314	L0	safety co-processor / functional safety island for AI compute	NONE	(whitespace) safety island alongside AI accelerator	derived:grid-sweep	derived — architectural pattern shipped by one vendor only
+C315	L6	robotics developer forum / docs portal for a non-NVIDIA accelerator	NONE	(whitespace) accelerator robotics developer portal	derived:grid-sweep	derived — distribution and community surface, not engineering
