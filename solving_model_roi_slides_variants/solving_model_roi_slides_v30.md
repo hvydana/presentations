@@ -1,0 +1,921 @@
+---
+marp: true
+paginate: true
+footer: '![h:50](./themes/pavs-logo.png)'
+style: |
+  @import url('status-styles.css');
+
+  /* Dark theme with auto-scaling */
+  section {
+    font-family: 'Helvetica', 'Arial', sans-serif;
+    padding: 40px 50px 70px 50px;
+    overflow: hidden;
+    background-color: #1a1a1a;
+    color: #ffffff;
+  }
+
+  /* Ensure footer doesn't overlap content */
+  section::after {
+    content: '';
+    display: block;
+    height: 40px;
+  }
+
+  /* Auto-scale content to fit - use these classes on dense slides */
+  section.small {
+    font-size: 21px;
+  }
+
+  section.smaller {
+    font-size: 19px;
+  }
+
+  section.smallest {
+    font-size: 17px;
+    padding: 25px 50px 70px 50px;
+  }
+
+  section.smallest li {
+    margin-bottom: 0.05em;
+  }
+
+  section.smallest h2 {
+    font-size: 1.35em;
+    margin-bottom: 0.3em;
+    margin-top: 0;
+  }
+
+  section.smallest h3 {
+    font-size: 1.08em;
+    margin-top: 0.2em;
+    margin-bottom: 0.25em;
+  }
+
+  section.smallest pre {
+    font-size: 0.68em;
+    padding: 8px;
+    margin: 0.25em 0;
+  }
+
+  section.smallest ul, section.smallest ol {
+    margin: 0.2em 0;
+  }
+
+  section.tiny {
+    font-size: 14px;
+    padding: 30px 50px 70px 50px;
+  }
+
+  section.tiny li {
+    margin-bottom: 0.05em;
+  }
+
+  section.tiny h2 {
+    font-size: 28px;
+    margin-bottom: 0.3em;
+  }
+
+  section.tiny h3 {
+    font-size: 1.05em;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+  }
+
+  section.tiny pre {
+    font-size: 0.65em;
+    padding: 8px;
+    margin: 0.3em 0;
+  }
+
+  /* Optimized size - maximum readability without clipping */
+  section.optimized {
+    font-size: 15.5px;
+    padding: 22px 50px 70px 50px;
+  }
+
+  section.optimized li {
+    margin-bottom: 0.03em;
+    line-height: 1.3;
+  }
+
+  section.optimized h2 {
+    font-size: 1.32em;
+    margin-bottom: 0.25em;
+    margin-top: 0;
+    line-height: 1.2;
+  }
+
+  section.optimized h3 {
+    font-size: 1.06em;
+    margin-top: 0.15em;
+    margin-bottom: 0.2em;
+    line-height: 1.2;
+  }
+
+  section.optimized pre {
+    font-size: 0.67em;
+    padding: 7px;
+    margin: 0.2em 0;
+    line-height: 1.3;
+  }
+
+  section.optimized ul, section.optimized ol {
+    margin: 0.15em 0;
+  }
+
+  section.optimized strong {
+    line-height: 1.3;
+  }
+
+  section.compact {
+    font-size: 18px;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #ffffff;
+  }
+
+  h1 {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #4caf50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 0.2em;
+    margin-bottom: 0.5em;
+  }
+
+  h2 {
+    font-size: 1.4em;
+    color: #4caf50;
+    margin-top: 0;
+  }
+
+  h3 {
+    font-size: 1.1em;
+    color: #aaaaaa;
+    margin-top: 0;
+  }
+
+  /* Tables - compact */
+  table {
+    font-size: 0.85em;
+    width: 100%;
+    background-color: #1a1a1a;
+  }
+
+  th, td {
+    padding: 6px 10px;
+  }
+
+  thead {
+    background-color: #3498db !important;
+  }
+
+  thead th {
+    color: white !important;
+    background-color: #3498db !important;
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: #2a2a2a;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #1a1a1a;
+  }
+
+  td, th {
+    color: #ffffff;
+  }
+
+  /* Lists - tighter spacing */
+  ul, ol {
+    margin: 0.3em 0;
+  }
+
+  li {
+    margin-bottom: 0.3em;
+  }
+
+  /* Code blocks - compact, dark text, light background */
+  pre {
+    font-size: 0.7em;
+    padding: 10px;
+    background-color: #e8e8e8;
+    border-radius: 5px;
+    color: #000000 !important;
+  }
+
+  pre code {
+    color: #000000 !important;
+    background-color: transparent;
+  }
+
+  code {
+    background-color: #2a2a2a;
+    color: #00bcd4;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
+
+  .code-large pre {
+    font-size: 1.1em;
+  }
+
+  /* Links */
+  a {
+    color: #00bcd4;
+  }
+
+  /* Strong/bold text */
+  strong {
+    color: #3498db;
+  }
+
+  /* Footer - logo on right */
+  footer {
+    position: absolute;
+    bottom: 20px;
+    left: auto;
+    right: 40px;
+    width: auto;
+  }
+
+  footer img {
+    height: 50px;
+  }
+
+  /* Success/warning colors */
+  .success {
+    color: #4caf50;
+    font-weight: bold;
+  }
+
+  .warning {
+    color: #ff9800;
+    font-weight: bold;
+  }
+
+  .violet {
+    color: #9b59b6 !important;
+  }
+
+  /* Grid layout helper */
+  .columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5em;
+  }
+
+  .columns-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1em;
+  }
+
+  .columns-wide {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
+  }
+
+  /* Lead slide styling */
+  section.lead {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  section.lead h1 {
+    border-bottom: none;
+    font-size: 2.2em;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background-color: #2a2a2a;
+    border-left: 4px solid #3498db;
+    padding: 15px;
+    margin: 10px 0;
+  }
+
+  .metric-large {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #4caf50;
+  }
+
+  .metric-label {
+    font-size: 0.9em;
+    color: #888888;
+  }
+
+---
+
+<!-- _class: lead -->
+
+# <span style="color:#4caf50;">Solving the Model Gap</span>
+
+## Why does cheaper, better silicon not win by itself?
+
+**AMD-Sourcing the Engineering Cycles to Close NVIDIA's Physical-AI Lead -- A proposal**
+
+---
+
+<!-- _class: small -->
+
+## 1 · The Paradox We Keep Hitting in Sales
+
+### We Win the Spec Sheet and Lose the Deal
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">The customer never disputes the economics — he refuses because the decision was made above the silicon.</div>
+
+<div class="columns">
+<div>
+
+**AMD hardware wins on economics**
+
+- **~50% lower capex** and **~30% lower opex** vs the incumbent (on the right criteria)
+- Competitive silicon: MI300X **5.3 TB/s** HBM3, Ryzen AI edge, Kria deterministic control
+
+<div class="highlight-box" style="border-left-color:#4caf50;">
+On price-performance, we may have/reach a real, quantifiable advantage.
+</div>
+
+</div>
+<div>
+
+**…yet the application developer still says "no"**
+
+- His product is already built **around NVIDIA's models and pipelines**
+- Switching means **re-engineering the whole stack** — a cost *he* has to pay
+- The better chip **never gets a fair evaluation**
+
+<div class="highlight-box" style="border-left-color:#e05555;">
+We lose the deal <strong>before</strong> hardware economics enter the conversation.
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.2em; font-weight:bold; color:#4aa3ff;">The barrier is not the silicon — it's the <span style="color:#4caf50;">ecosystem the customer has already built on top of NVIDIA.</span></span>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 2 · NVIDIA's Moat Is Software, Not the Chip
+
+### A Decade of Models Turned Into a Vertically Integrated Stack
+
+
+<div class="columns" style="grid-template-columns: 1.4fr 1fr; align-items:center;">
+<div>
+
+![w:560](./model_zoo/Nvidia-model-zoo.png)
+
+<div style="font-size:0.8em; color:#888; text-align:center;">NGC Catalog — years of curated, prepackaged, ready-to-run models</div>
+
+</div>
+<div>
+
+**The lock-in is measurable**
+
+- **~80% ecosystem, ~20% hardware** — NVIDIA's own default status
+- **2M+ robotics developers**, **4M CUDA developers**, **7+ year** head start
+- **Isaac Sim** leads robotics job postings — **50% more** than the closest competitor
+- **1,228 VLA papers** at ICLR 2026 → **zero** mention ROCm
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">Models → TensorRT → Isaac ROS → cuRobo → Isaac Sim → Cosmos — <span style="color:#4caf50;"> where each layer locks in the next — and locks AMD out.</span></span>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 3 · The Switching Cost Is the Real Barrier
+
+### The Customer Would Take Cheaper Hardware — but He Pays the Switching Bill
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Every engineering cycle spent re-hosting on AMD is capex the customer must justify before he saves a cent.</div>
+
+<div class="columns">
+<div>
+
+**Why the customer stays put**
+
+- Years of infra, pipelines, and applications built on NVIDIA models
+- Rebuilding fleet/deployment infra: **6–18 engineer-months per deployment**
+- **5–7 deployment artifacts per model** to re-target hardware
+- Even hardware-competitive rivals face a **12–24 month** software catch-up
+
+</div>
+<div>
+
+**The burden lands hardest where we want to win**
+
+<div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">
+  <div style="background:#3a1e1e; border:1px solid #e05555; border-radius:6px; padding:8px 12px;"><strong style="color:#ff8a8a;">Small / mid-size robotics companies</strong><br><span style="font-size:0.88em; color:#ccc;">every engineering cycle is capex they cannot spare</span></div>
+  <div style="color:#e05555; text-align:center; font-size:1.2em;">&#8595;</div>
+  <div style="background:#333; border:1px dashed #888; border-radius:6px; padding:8px 12px; color:#ccc;">They keep buying the more expensive chip — because <strong style="color:#fff;">switching costs more than it saves</strong></div>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">This is the <span style="color:#4caf50;">soft-power gap</span> — AMD is absent from every on-ramp above the compute layer, and it shows up directly in <span style="color:#4caf50;">sales.</span></span>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 4 · The Internal Problem: ROI Can't Be Justified Overnight
+
+### The Gap Is Known and Winnable — But ROI can not be defended
+
+<!--<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">A multi-year, iterative gap cannot be booked as near-term ROI — so every business unit is rational to pass.</div>-->
+
+<div class="columns">
+<div>
+
+**How AMD is structured**
+
+- Many business units — each funded by its **own sales / engineering output**
+- Every unit must **defend the returns** on what it takes on
+
+**Why no single unit picks this up**
+
+- Model training is **iterative and continual** — not a one-shot deliverable
+- A **multi-year ecosystem gap** cannot be closed overnight
+- ROI in a fixed window is **hard to measure and harder to justify**
+
+</div>
+<div>
+
+<div style="border:2px solid #ff9800; border-radius:8px; padding:14px; background:#202020;">
+  <div style="text-align:center; font-weight:bold; color:#ff9800; margin-bottom:10px;">The Deadlock</div>
+  <div style="display:flex; flex-direction:column; gap:8px; font-size:0.9em;">
+    <div style="background:#2a2a2a; border-radius:5px; padding:8px 10px;">Gap is <strong style="color:#fff;">large</strong> &amp; the payoff is <strong style="color:#fff;">long-horizon</strong></div>
+    <div style="text-align:center; color:#ff9800;">&#8595;</div>
+    <div style="background:#2a2a2a; border-radius:5px; padding:8px 10px;">No BU can <strong style="color:#fff;">book near-term ROI</strong></div>
+    <div style="text-align:center; color:#ff9800;">&#8595;</div>
+    <div style="background:#2a2a2a; border-radius:5px; padding:8px 10px;">So <strong style="color:#fff;">nobody starts</strong> — and the gap widens</div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">A multi-year, iterative gap cannot be booked as near-term ROI — so every business unit is rational to pass.</span>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 5 · The Insight: The Target Is Already Known
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">When the models and target numbers are published, closing the gap becomes bounded, measurable work.</div>
+
+<div class="columns">
+<div>
+
+**Unlike open-ended research, we are not searching**
+
+- The **models are named** and mostly **open** (NGC is a public map)
+- The **target performance is published** — we know exactly what "done" looks like
+- This is a **replication problem**, not an invention problem
+- The **replication problem**, can be solved at scale
+
+<div class="highlight-box" style="border-left-color:#4caf50;">
+Producing a replica of a known target is <strong>bounded, measurable work</strong> — the ROI objection shrinks.
+</div>
+
+</div>
+<div>
+
+**Only two pieces are missing**
+
+<div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 12px;"><strong style="color:#4caf50;">Compute — we already have it</strong><br><span style="font-size:0.88em; color:#ccc;">AMD-wide clusters (ALOLA &amp; others)</span></div>
+  <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">synthetic generation</strong> · <strong style="color:#fff;">pooled + curated open data</strong> · <strong style="color:#fff;">semi-supervised for the task</strong> · <strong style="color:#fff;">pseudo-labels from large OSS models</strong> · &amp; more</span></div>
+</div>
+
+<div class="highlight-box">
+Known target + available compute → the task collapses to <strong>solving the data problem at scale</strong>.
+</div>
+
+</div>
+</div>
+
+
+---
+
+<!-- _class: small -->
+
+## 6 · The Proposal: An AMD-Wide Model Training Challenge
+
+<div style="display:flex; align-items:stretch; justify-content:center; gap:8px; margin:10px 0;">
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Pick a target model</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
+  <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Train on AMD compute</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
+  <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
+  <div style="display:flex; align-items:center; color:#4caf50; font-weight:bold;">&#8594;</div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
+</div>
+
+<div class="columns">
+<div>
+
+**The mechanics**
+
+- A **leaderboard per model** 
+- A **webpage** tracking the top teams and models
+- Each **new Update notifies every participant** — winner + solution shared — keeping the field competitive
+- **Top 3–4 teams** get to **publish their work**
+
+</div>
+<div>
+
+**Why a challenge, not a hire**
+
+- Taps **latent enthusiast engineering** across all of AMD
+- Converts a **multi-year gap** into **many parallel short sprints**
+- No single BU carries the bill — the org **contributes cycles**
+
+</div>
+</div>
+
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## 7 · Challenges Have Closed Big Capability Gaps Before
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">We're not guessing this works — a scored, public target has repeatedly closed gaps no single roadmap could.</div>
+
+<div class="columns-3">
+<div>
+
+<div style="background:#2a2a2a; border:1px solid #3498db; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#5dade2; font-weight:bold; font-size:1.1em;">ImageNet Challenge</div>
+
+- A **public leaderboard** on a known target
+- Sparked **AlexNet** and the deep-learning era
+- A benchmark did what no single lab's roadmap could
+
+</div>
+
+</div>
+<div>
+
+
+<div style="background:#2a2a2a; border:1px solid #4caf50; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#4caf50; font-weight:bold; font-size:1.1em;">DARPA Grand Challenge</div>
+
+- A **prize + leaderboard** for autonomous driving
+- Year 1: nobody finished. Year 2: **multiple teams did**
+- Seeded the entire self-driving industry
+
+</div>
+
+</div>
+<div>
+
+<div style="background:#2a2a2a; border:1px solid #9b59b6; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#b07cc6; font-weight:bold; font-size:1.1em;">Kaggle / Netflix Prize</div>
+
+- **Crowdsourced** solutions to a fixed, scored target
+- Outperformed in-house teams at a **fraction of the cost**
+- Recognition — not salary — drove the effort
+
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.1em; font-weight:bold; color:#ffffff;">"The right <em>challenge challenges</em> the right engineer — and produces great engineering."</span>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## 8 · The Target Set Is Open — and Achievable
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.3em;">One AMD alternative per NGC model — the 30 models a customer has running today and can't move off NVIDIA for.</div>
+
+<div class="columns" style="grid-template-columns: 2.6fr 1fr; gap:14px; align-items:start;">
+<div>
+
+**Tier 1 + 2 — the real "can't move it" set (30 models)**
+
+| Tier | Function | Models |
+|---|---|---|
+| **Tier 1**<br>perception | Detection | TrafficCamNet, PeopleNet / PeopleNet-AMR |
+| | Recognition/Re-ID | LPRNet + LPDNet, VehicleMakeNet / VehicleTypeNet, ReIdentificationNet |
+| | Segmentation | PeopleSemSegNet / AMR |
+| | Retail | Object Detection, Object Recognition |
+| | Behavior/Pose | Action Recognition Net, BodyPoseNet / PoseClassificationNet |
+| | OCR | OCDNet / OCRNet |
+| **Tier 2**<br>robotics | Stereo/3D | Bi3D, ESS, PointPillarNet, Transfusion |
+| | Pose | FoundationPose |
+| | Segmentation | CitySemSegFormer |
+| | Backbones | TAO Pretrained (Classification, DetectNet V2, EfficientDet, Instance Seg, Semantic Seg) |
+
+</div>
+<div>
+
+<div class="highlight-box" style="border-left-color:#4caf50; padding:8px;">
+full 4-tier, 48-model table with rationale is presented in <strong>Appendix A</strong>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">The pieces already exist — what's missing is <span style="color:#4caf50;">organized, incentivized effort pointed at AMD silicon.</span></span>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## 9 · Incentive Design — Everyone Wins
+
+### A Challenge Only Works if Every Party Wins by Playing — Here, Three Do
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">The engineer, PAVS, and AMD each get something they want — which is why the mechanism sustains itself.</div>
+
+<div class="columns-3">
+<div>
+
+<div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#4caf50; font-weight:bold; font-size:1.15em; margin-bottom:6px;">Participant (Engineer)</div>
+
+- **Recognition** — publish work, top-team webpage
+- A **countable contribution to AMD** for their record
+- An **extra purpose &amp; goal** alongside the day job
+- Enthusiast hours become **productive output**
+
+</div>
+
+</div>
+<div>
+
+<div style="background:#1e3a5f; border:1px solid #3498db; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#5dade2; font-weight:bold; font-size:1.15em; margin-bottom:6px;">Organizer (PAVS)</div>
+
+- Becomes the **customer gateway** to physical AI across AMD
+- Reproducing models **builds working ties** across many teams
+- A **niche — but the lead player** in that niche
+- **Bridges the islands** of physical AI at AMD
+
+</div>
+
+</div>
+<div>
+
+<div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:8px; padding:12px; height:100%;">
+<div style="color:#ff9800; font-weight:bold; font-size:1.15em; margin-bottom:6px;">AMD (Org)</div>
+
+- The **ecosystem gap closes fast** — target is known
+- A growing **pool of curated datasets** — one team's data &amp; models **catalyze the next**
+- **Idle compute** (ALOLA &amp; others) gets **popularized**
+- A pipeline of **market-ready, AMD-native models**
+- Engagement without a **single-BU budget line**
+
+</div>
+
+</div>
+</div>
+
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 10 · PAVS as the Customer Gateway to Physical AI
+
+### Organizing the Challenge Isn't Overhead — It's How PAVS Earns Its Position
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Reproducing and routing every winning model is exactly what makes PAVS the gateway physical AI flows through.</div>
+
+<div class="columns">
+<div>
+
+**What PAVS commits to**
+
+- Send an **org-wide call** for the right technical solutions
+- The right solution that reaches us → **we help take it to market**
+- **Reproduce, evaluate, and certify** each model + its performance
+- Curate the leaderboard and the **model webpage**
+
+</div>
+<div>
+
+**What that makes PAVS**
+
+<div style="display:flex; flex-direction:column; align-items:center; gap:6px; margin-top:4px;">
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:8px 14px; width:92%; text-align:center;"><strong style="color:#4caf50;">The gateway</strong> — every physical-AI solution enters through PAVS</div>
+  <div style="color:#3498db; font-size:1.2em;">&#8595;</div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:8px 14px; width:92%; text-align:center;"><strong style="color:#5dade2;">The bridge</strong> — connecting the islands of physical AI across AMD</div>
+  <div style="color:#3498db; font-size:1.2em;">&#8595;</div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:8px 14px; width:92%; text-align:center; color:#fff;"><strong style="color:#4caf50;">The lead player</strong> in a well-defined niche</div>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">The organizing work is not overhead — it's how PAVS <span style="color:#4caf50;">earns the relationships and the position to route physical AI to market on AMD.</span></span>
+</div>
+
+---
+
+<!-- _class: small -->
+
+## 11 · An Enormous Market — The Prize Is Worth the Effort
+
+<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">A drop-in AMD replica per NGC model turns a costly migration into a seamless switch — and unlocks the customers already locked in.</div>
+
+<div class="columns-3">
+<div>
+
+<div style="text-align:center;">
+<div class="metric-large">$200B</div>
+<div class="metric-label">AMD's own projection for the physical-AI silicon market by 2035</div>
+</div>
+
+</div>
+<div>
+
+<div style="text-align:center;">
+<div class="metric-large">$22.2B</div>
+<div class="metric-label">robotics startup funding in 2025 — up 69% YoY; the buyers of tomorrow are forming now</div>
+</div>
+
+</div>
+<div>
+
+<div style="text-align:center;">
+<div class="metric-large">0</div>
+<div class="metric-label">of 1,228 VLA papers at ICLR 2026 mention ROCm — the on-ramp is wide open to claim</div>
+</div>
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">Make the transfer seamless and AMD's price-performance is finally evaluated — <span style="color:#4caf50;">the cheaper stack wins the deals it loses today.</span></span>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+# The Ask
+
+### The plan is already staffed — we only need the mandate to start
+
+<div class="columns" style="grid-template-columns: 1fr 1.15fr; align-items:start;">
+<div>
+
+**What we need from leadership**
+
+<div class="highlight-box" style="border-left-color:#4caf50;">
+An <strong>org-wide email</strong> endorsing the challenge — the signal that gives the effort <strong>good traction</strong>.
+</div>
+
+![w:260](./contibutors/Upperlevel_management.png)
+
+<div style="font-size:0.82em; color:#888;">The push </div>
+
+</div>
+<div>
+
+**Already staffed &amp; committed — <span style="color:#4caf50;">execution is ready</span>**
+
+<div style="font-size:0.92em; color:#5dade2; font-weight:bold; margin-bottom:2px;">Compute — grants cluster access (ALOLA &amp; AMD-wide)</div>
+
+![w:320](./contibutors/mathew.png)
+
+<div style="font-size:0.92em; color:#5dade2; font-weight:bold; margin:5px 0 2px;">Per-model GitHub — creates the per-model repos</div>
+
+![w:320](./contibutors/Bharat.png)
+
+<div style="font-size:0.92em; color:#5dade2; font-weight:bold; margin:5px 0 2px;">Team to drive the work </div>
+
+![w:270](./contibutors/Team_participation.png)
+
+</div>
+</div>
+
+<div class="highlight-box" style="text-align:center; margin-top:6px;">
+<span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">Known target · staffed team · available compute — <span style="color:#4caf50;">all that's missing is the go-ahead.</span></span>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A1 · Tier 1 — Production Perception Stack (NVIDIA Metropolis/DeepStream)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Highest priority — most commonly deployed NGC models a customer runs today and cannot carry over to AMD.</div>
+
+| NVIDIA model | Function | Why it matters |
+|---|---|---|
+| TrafficCamNet | Vehicle detection (traffic cameras) | Core Metropolis/smart-city SKU |
+| PeopleNet / PeopleNet-AMR | Person detection | Most widely deployed DeepStream model |
+| License Plate Recognition (LPRNet) + LPDNet | Plate detection + recognition pair | Sold as a pair, tolling/parking/security |
+| VehicleMakeNet / VehicleTypeNet | Vehicle attribute classification | Paired with TrafficCamNet in the same pipelines |
+| ReIdentificationNet (+ Transformer variant) | Person re-identification across cameras | Retail/security analytics |
+| PeopleSemSegNet / PeopleSemSegNet AMR | Person segmentation | Privacy-masking, robotics safety zones |
+| Retail Object Detection / Retail Object Recognition | Shelf/product detection | Retail analytics vertical |
+| Action Recognition Net | Action/behavior classification | Security, workplace safety |
+| BodyPoseNet / PoseClassificationNet | Human pose estimation | Robotics, ergonomics, fitness |
+| Optical Character Detection/Recognition (OCDNet/OCRNet) | Scene text OCR | Logistics, document/label reading |
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A2 · Tier 2 — Robotics/Perception Building Blocks (Physical AI)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">The models Isaac ROS perception pipelines are built on — closest to AMD-ROS/AARTS.</div>
+
+| NVIDIA model | Function |
+|---|---|
+| Bi3D Proximity Segmentation | Stereo-based obstacle proximity |
+| ESS DNN Stereo Disparity | Stereo depth |
+| FoundationPose | 6-DoF object pose estimation/tracking |
+| PointPillarNet | LiDAR 3D object detection |
+| Transfusion for 3D Object Detection | Camera+LiDAR fusion detection |
+| CitySemSegFormer | Semantic segmentation (autonomy/city-scale) |
+| TAO Pretrained Classification/DetectNet V2/EfficientDet/Instance Seg/Semantic Seg | Generic backbones customers fine-tune on top of — AMD needs *some* pretrained backbone family here or customers can't even start a TAO-style workflow on AMD |
+
+<div class="highlight-box" style="border-left-color:#4caf50; text-align:center;">
+Tier 1 + Tier 2 = <strong>30 models</strong> — the real "customer has this running on NVIDIA today and can't move it" set.
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A3 · Tier 3 — Biometric / Human-Sensing (Smaller but Sticky Niche)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Matters mainly if AMD is also chasing the biometric/kiosk vertical.</div>
+
+| NVIDIA model | Function |
+|---|---|
+| FaceNet | Face detection |
+| FaceDetectIR | Face detection (infrared) |
+| GazeNet (Gaze Estimation) | Gaze tracking |
+| EmotionNet | Emotion classification |
+| GestureNet | Hand/body gesture recognition |
+| HeartRateNet | Remote heart-rate estimation |
+| Facial Landmark Estimator (FPENet) | Facial landmark detection |
+| Pre-trained Deformable DETR NvImageNet Weights | Detection backbone |
+| Pre-trained FAN based NVImageNet Classification Weights | Classification backbone |
+| Pre-trained GCViT NVImageNet Classification Weights | Classification backbone |
+| Visual ChangeNet Classification | Change detection classification |
+| NVIDIA Optical Inspection Model | Industrial visual inspection |
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A4 · Tier 4 — Enterprise Vision & HPC/Climate (Lowest Priority)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Matters mainly if AMD is also chasing the enterprise-vision or HPC-climate vertical.</div>
+
+| NVIDIA model | Function | Why lower priority |
+|---|---|---|
+| PCB Defect Classification Model | Industrial inspection | NVIDIA AI Enterprise EULA; small footprint |
+| PeopleSemSegFormer Model Card | Person segmentation | NVIDIA AI Enterprise EULA; small footprint |
+| Pre-trained DINO NvImageNet Weights | Classification backbone | NVIDIA AI Enterprise EULA; small footprint |
+| PhysicsNeMo Checkpoints: AFNO_DX_FI-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_SR-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_TP-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_WG-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: DLESyM-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.05em; font-weight:bold; color:#4aa3ff;">48 models across 4 tiers, out of 125 scanned on NGC — the other 77 are either already portable (49) or unresolved catalog entries.</span>
+</div>

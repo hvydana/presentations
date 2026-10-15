@@ -508,7 +508,7 @@ Producing a replica of a known target is <strong>bounded, measurable work</stron
 **Only two pieces are missing**
 
 <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
-  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 12px;"><strong style="color:#4caf50;">Compute — we already have it</strong><br><span style="font-size:0.88em; color:#ccc;">AMD-wide clusters (ALOLA &amp; others); PAVS can broker access</span></div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 12px;"><strong style="color:#4caf50;">Compute — we already have it</strong><br><span style="font-size:0.88em; color:#ccc;">AMD-wide clusters (ALOLA &amp; others)</span></div>
   <div style="background:#3a2f1e; border:1px solid #ff9800; border-radius:6px; padding:10px 12px;"><strong style="color:#ff9800;">Data — the real problem to solve</strong><br><span style="font-size:0.88em; color:#ccc;">synthetic generation</strong> · <strong style="color:#fff;">pooled + curated open data</strong> · <strong style="color:#fff;">semi-supervised for the task</strong> · <strong style="color:#fff;">pseudo-labels from large OSS models</strong> · &amp; more</span></div>
 </div>
 
@@ -526,16 +526,14 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 ## 6 · The Proposal: An AMD-Wide Model Training Challenge
 
-<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Convert one multi-year bill into a cohort of motivated engineers, pointed at a scored target.</div>
-
 <div style="display:flex; align-items:stretch; justify-content:center; gap:8px; margin:10px 0;">
-  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Pick a target model</strong><br><span style="font-size:0.82em; color:#ccc;">from the known NGC-parallel set</span></div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Pick a target model</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Train on AMD compute</strong><br><span style="font-size:0.82em; color:#ccc;">clusters PAVS brokers</span></div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Train on AMD compute</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
   <div style="display:flex; align-items:center; color:#3498db; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;">per-model webpage</span></div>
+  <div style="background:#1e3a5f; border:1px solid #3498db; border-radius:6px; padding:10px 14px; text-align:center; width:150px;"><strong style="color:#5dade2;">Climb the leaderboard</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
   <div style="display:flex; align-items:center; color:#4caf50; font-weight:bold;">&#8594;</div>
-  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;">top 3–4 teams per model</span></div>
+  <div style="background:#1e3a2a; border:1px solid #4caf50; border-radius:6px; padding:10px 14px; text-align:center; width:160px; color:#fff;"><strong style="color:#4caf50;">PAVS validates &amp; publishes</strong><br><span style="font-size:0.82em; color:#ccc;"></span></div>
 </div>
 
 <div class="columns">
@@ -543,11 +541,10 @@ Known target + available compute → the task collapses to <strong>solving the d
 
 **The mechanics**
 
-- A **leaderboard per model** (grouped: perception · manipulation · VLA · SLAM …)
-- A **webpage** tracking the top teams and their models
-- Each **new #1 notifies every participant** — winner + solution shared — keeping the field competitive
-- **Top 3–4 teams** get to **publish their work** under AMD
-- PAVS **reproduces and certifies** the model + performance
+- A **leaderboard per model** 
+- A **webpage** tracking the top teams and models
+- Each **new Update notifies every participant** — winner + solution shared — keeping the field competitive
+- **Top 3–4 teams** get to **publish their work**
 
 </div>
 <div>
@@ -612,57 +609,47 @@ Known target + available compute → the task collapses to <strong>solving the d
 </div>
 
 <div class="highlight-box" style="text-align:center;">
-<span style="font-size:1.1em; font-weight:bold; color:#ffffff;"><em>"The right challenge stimulates the right engineer."</em> — a scored, public target <span style="color:#4caf50;">closes gaps faster than any single funded roadmap.</span></span>
+<span style="font-size:1.1em; font-weight:bold; color:#ffffff;">"The right <em>challenge challenges</em> the right engineer — and produces great engineering."</span>
 </div>
 
 ---
 
-<!-- _class: small -->
+<!-- _class: smallest -->
 
 ## 8 · The Target Set Is Open — and Achievable
 
-### The Models Are Open, the Datasets Exist, the Data Scales Cheaply
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.3em;">One AMD alternative per NGC model — the 30 models a customer has running today and can't move off NVIDIA for.</div>
 
-<div style="font-size:0.95em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">One AMD alternative per NGC model — the perception + manipulation set Isaac ROS consumes — each with an open replica to train.</div>
-
-<div class="columns">
+<div class="columns" style="grid-template-columns: 2.6fr 1fr; gap:14px; align-items:start;">
 <div>
 
-**One replica per NGC / Isaac ROS model**
+**Tier 1 + 2 — the real "can't move it" set (30 models)**
 
-| Isaac ROS model (NGC) | Open replica to train on AMD |
-|---|---|
-| Detection — PeopleNet / DetectNet | **YOLOv12 · RT-DETR** |
-| Segmentation — PeopleSemSegNet | **SegFormer · U-Net** |
-| Stereo depth — ESS | **RAFT-Stereo · HITNet** |
-| 6-DoF pose — FoundationPose / DOPE | **FoundationPose · MegaPose** |
-| Visual SLAM — cuVSLAM | **ORB-SLAM3** |
-| Manipulation / VLA — GR00T / pi0 | **OpenVLA · SmolVLA** |
-
-<div class="highlight-box" style="border-left-color:#4caf50;">
-Each replica drops into **AMD-ROS / AARTS** — our Isaac ROS-equivalent consumption layer.
-</div>
+| Tier | Function | Models |
+|---|---|---|
+| **Tier 1**<br>perception | Detection | TrafficCamNet, PeopleNet / PeopleNet-AMR |
+| | Recognition/Re-ID | LPRNet + LPDNet, VehicleMakeNet / VehicleTypeNet, ReIdentificationNet |
+| | Segmentation | PeopleSemSegNet / AMR |
+| | Retail | Object Detection, Object Recognition |
+| | Behavior/Pose | Action Recognition Net, BodyPoseNet / PoseClassificationNet |
+| | OCR | OCDNet / OCRNet |
+| **Tier 2**<br>robotics | Stereo/3D | Bi3D, ESS, PointPillarNet, Transfusion |
+| | Pose | FoundationPose |
+| | Segmentation | CitySemSegFormer |
+| | Backbones | TAO Pretrained (Classification, DetectNet V2, EfficientDet, Instance Seg, Semantic Seg) |
 
 </div>
 <div>
 
-**The models are reachable, the data exists**
-
-- **OpenVLA** fine-tunes on **1× A100 in <24h**; **SmolVLA** needs **50× less** compute
-- **Perception** — COCO · KITTI · nuScenes public benchmarks
-- **Manipulation** — Open X-Embodiment (1.4M episodes) · LeRobot (58k datasets)
-- Synthetic data is **50–70× cheaper** than real-world capture
-- The challenge lets **many teams attack the data problem in parallel**
-
-<div class="highlight-box" style="border-left-color:#4caf50;">
-Each NGC model has a <strong>concrete, scored finish line</strong> — replicate it, hit the target on AMD.
+<div class="highlight-box" style="border-left-color:#4caf50; padding:8px;">
+full 4-tier, 48-model table with rationale is presented in <strong>Appendix A</strong>
 </div>
 
 </div>
 </div>
 
 <div class="highlight-box" style="text-align:center;">
-<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">The pieces already exist — what's missing is <span style="color:#4caf50;">organized, incentivized effort pointed at AMD silicon.</span></span>
+<span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">The pieces already exist — what's missing is <span style="color:#4caf50;">organized, incentivized effort pointed at AMD silicon.</span></span>
 </div>
 
 ---
@@ -718,8 +705,6 @@ Each NGC model has a <strong>concrete, scored finish line</strong> — replicate
 </div>
 </div>
 
-<div class="highlight-box" style="text-align:center;">
-<span style="font-size:1.15em; font-weight:bold; color:#4aa3ff;">One mechanism, three winners — which is why a crowdsourced challenge is <span style="color:#4caf50;">self-sustaining, not a one-off spend.</span></span>
 </div>
 
 ---
@@ -815,7 +800,7 @@ Each NGC model has a <strong>concrete, scored finish line</strong> — replicate
 **What we need from leadership**
 
 <div class="highlight-box" style="border-left-color:#4caf50;">
-An <strong>org-wide email</strong> endorsing the challenge — the signal that gives the effort <strong>traction</strong>.
+An <strong>org-wide email</strong> endorsing the challenge — the signal that gives the effort <strong>good traction</strong>.
 </div>
 
 ![w:260](./contibutors/Upperlevel_management.png)
@@ -844,4 +829,93 @@ An <strong>org-wide email</strong> endorsing the challenge — the signal that g
 
 <div class="highlight-box" style="text-align:center; margin-top:6px;">
 <span style="font-size:1.1em; font-weight:bold; color:#4aa3ff;">Known target · staffed team · available compute — <span style="color:#4caf50;">all that's missing is the go-ahead.</span></span>
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A1 · Tier 1 — Production Perception Stack (NVIDIA Metropolis/DeepStream)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Highest priority — most commonly deployed NGC models a customer runs today and cannot carry over to AMD.</div>
+
+| NVIDIA model | Function | Why it matters |
+|---|---|---|
+| TrafficCamNet | Vehicle detection (traffic cameras) | Core Metropolis/smart-city SKU |
+| PeopleNet / PeopleNet-AMR | Person detection | Most widely deployed DeepStream model |
+| License Plate Recognition (LPRNet) + LPDNet | Plate detection + recognition pair | Sold as a pair, tolling/parking/security |
+| VehicleMakeNet / VehicleTypeNet | Vehicle attribute classification | Paired with TrafficCamNet in the same pipelines |
+| ReIdentificationNet (+ Transformer variant) | Person re-identification across cameras | Retail/security analytics |
+| PeopleSemSegNet / PeopleSemSegNet AMR | Person segmentation | Privacy-masking, robotics safety zones |
+| Retail Object Detection / Retail Object Recognition | Shelf/product detection | Retail analytics vertical |
+| Action Recognition Net | Action/behavior classification | Security, workplace safety |
+| BodyPoseNet / PoseClassificationNet | Human pose estimation | Robotics, ergonomics, fitness |
+| Optical Character Detection/Recognition (OCDNet/OCRNet) | Scene text OCR | Logistics, document/label reading |
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A2 · Tier 2 — Robotics/Perception Building Blocks (Physical AI)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">The models Isaac ROS perception pipelines are built on — closest to AMD-ROS/AARTS.</div>
+
+| NVIDIA model | Function |
+|---|---|
+| Bi3D Proximity Segmentation | Stereo-based obstacle proximity |
+| ESS DNN Stereo Disparity | Stereo depth |
+| FoundationPose | 6-DoF object pose estimation/tracking |
+| PointPillarNet | LiDAR 3D object detection |
+| Transfusion for 3D Object Detection | Camera+LiDAR fusion detection |
+| CitySemSegFormer | Semantic segmentation (autonomy/city-scale) |
+| TAO Pretrained Classification/DetectNet V2/EfficientDet/Instance Seg/Semantic Seg | Generic backbones customers fine-tune on top of — AMD needs *some* pretrained backbone family here or customers can't even start a TAO-style workflow on AMD |
+
+<div class="highlight-box" style="border-left-color:#4caf50; text-align:center;">
+Tier 1 + Tier 2 = <strong>30 models</strong> — the real "customer has this running on NVIDIA today and can't move it" set.
+</div>
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A3 · Tier 3 — Biometric / Human-Sensing (Smaller but Sticky Niche)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Matters mainly if AMD is also chasing the biometric/kiosk vertical.</div>
+
+| NVIDIA model | Function |
+|---|---|
+| FaceNet | Face detection |
+| FaceDetectIR | Face detection (infrared) |
+| GazeNet (Gaze Estimation) | Gaze tracking |
+| EmotionNet | Emotion classification |
+| GestureNet | Hand/body gesture recognition |
+| HeartRateNet | Remote heart-rate estimation |
+| Facial Landmark Estimator (FPENet) | Facial landmark detection |
+| Pre-trained Deformable DETR NvImageNet Weights | Detection backbone |
+| Pre-trained FAN based NVImageNet Classification Weights | Classification backbone |
+| Pre-trained GCViT NVImageNet Classification Weights | Classification backbone |
+| Visual ChangeNet Classification | Change detection classification |
+| NVIDIA Optical Inspection Model | Industrial visual inspection |
+
+---
+
+<!-- _class: smallest -->
+
+## Appendix A4 · Tier 4 — Enterprise Vision & HPC/Climate (Lowest Priority)
+
+<div style="font-size:0.9em; color:#00bcd4; font-style:italic; margin:-0.2em 0 0.5em;">Matters mainly if AMD is also chasing the enterprise-vision or HPC-climate vertical.</div>
+
+| NVIDIA model | Function | Why lower priority |
+|---|---|---|
+| PCB Defect Classification Model | Industrial inspection | NVIDIA AI Enterprise EULA; small footprint |
+| PeopleSemSegFormer Model Card | Person segmentation | NVIDIA AI Enterprise EULA; small footprint |
+| Pre-trained DINO NvImageNet Weights | Classification backbone | NVIDIA AI Enterprise EULA; small footprint |
+| PhysicsNeMo Checkpoints: AFNO_DX_FI-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_SR-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_TP-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: AFNO_DX_WG-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+| PhysicsNeMo Checkpoints: DLESyM-V1-ERA5 | Weather forecasting | NVIDIA Community Model License; HPC/climate-only relevance |
+
+<div class="highlight-box" style="text-align:center;">
+<span style="font-size:1.05em; font-weight:bold; color:#4aa3ff;">48 models across 4 tiers, out of 125 scanned on NGC — the other 77 are either already portable (49) or unresolved catalog entries.</span>
 </div>
